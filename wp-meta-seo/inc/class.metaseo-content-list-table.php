@@ -460,6 +460,11 @@ class MetaSeoContentListTable extends WP_List_Table
             $newstates[$state] = esc_sql($state);
         }
 
+        //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- No action, no need verification
+        if (!in_array('inherit', $newstates) && isset($_REQUEST['wpms_post_visibility']) && $_REQUEST['wpms_post_visibility'] === 'all') {
+            $newstates['inherit'] = esc_sql('inherit');
+        }
+
         $all_states = implode("', '", $newstates);
         $where      = array();
         $where[]    = 'post_type IN (\'' . $post_type . '\')';

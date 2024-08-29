@@ -9,7 +9,7 @@ $heading = '';
 $loader_image  = "<span class='display_none'><img width='20' height='20' src=" . AYS_PB_ADMIN_URL . "/images/loaders/loading.gif></span>";
 $ays_pb_page_url = sprintf('?page=%s', 'ays-pb');
 
-$pb_acardion_svg_html = '
+$pb_acordion_svg_html = '
 <div class="ays-pb-accordion-arrow-box">
     <svg class="ays-pb-accordion-arrow ays-pb-accordion-arrow-active" version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 24 24" width="32" height="32">
         <g>
@@ -1001,6 +1001,86 @@ if (isset($options['bg_image_mobile'])) {
     $bg_image_mobile = $bg_image;
 }
 
+// Background image position
+$pb_bg_image_position = (isset($options['pb_bg_image_position']) && $options['pb_bg_image_position'] != '') ? stripslashes( esc_attr($options['pb_bg_image_position']) ) : 'center-center';
+
+// Enable different background image position mobile
+$enable_pb_bg_image_position_mobile = isset($options['enable_pb_bg_image_position_mobile']) && $options['enable_pb_bg_image_position_mobile'] == 'on' ? true : false;
+
+// Background image position mobile
+if (isset($options['pb_bg_image_position_mobile'])) {
+    $pb_bg_image_position_mobile = $options['pb_bg_image_position_mobile'] !== '' ? stripslashes( esc_attr($options['pb_bg_image_position_mobile']) ) : 'center-center';
+} else {
+    $pb_bg_image_position_mobile = $pb_bg_image_position;
+}
+
+// Background image sizing
+$pb_bg_image_sizing = (isset($options['pb_bg_image_sizing']) && $options['pb_bg_image_sizing'] != '') ? stripslashes( esc_attr($options['pb_bg_image_sizing']) ) : 'cover';
+
+// Enable different background image sizing mobile
+$enable_pb_bg_image_sizing_mobile = (isset($options['enable_pb_bg_image_sizing_mobile']) && $options['enable_pb_bg_image_sizing_mobile'] == 'on') ? true : false;
+
+// Background image sizing mobile
+$pb_bg_image_sizing_mobile = (isset($options['pb_bg_image_sizing_mobile']) && $options['pb_bg_image_sizing_mobile'] !== '') ? stripslashes( esc_attr($options['pb_bg_image_sizing_mobile']) ) : 'cover';
+
+// Background gradient | On PC
+$options['enable_background_gradient'] = (isset($options['enable_background_gradient']) && $options['enable_background_gradient'] != '') ? stripslashes( esc_attr($options['enable_background_gradient']) ) : 'off';
+$enable_background_gradient = (isset($options['enable_background_gradient']) && $options['enable_background_gradient'] == 'on') ? true : false;
+
+// Background gradient | On PC | Color 1
+$background_gradient_color_1 = (isset($options['background_gradient_color_1']) && $options['background_gradient_color_1'] != '') ? esc_attr( stripslashes($options['background_gradient_color_1']) ) : '#000';
+
+// Background gradient | On PC | Color 2
+$background_gradient_color_2 = (isset($options['background_gradient_color_2']) && $options['background_gradient_color_2'] != '') ? esc_attr( stripslashes($options['background_gradient_color_2']) ) : '#fff';
+
+// Background gradient | On PC | Gradient direction
+$pb_gradient_direction = (isset($options['pb_gradient_direction']) && $options['pb_gradient_direction'] != '') ? esc_attr( stripslashes($options['pb_gradient_direction']) ) : 'vertical';
+
+// Background gradient | On mobile
+if (isset($options['enable_background_gradient_mobile'])) {
+    $options['enable_background_gradient_mobile'] = $options['enable_background_gradient_mobile'] != '' ? stripslashes( esc_attr($options['enable_background_gradient_mobile']) ) : 'off';
+} else {
+    $options['enable_background_gradient_mobile'] = $options['enable_background_gradient'];
+}
+$enable_background_gradient_mobile = (isset($options['enable_background_gradient_mobile']) && $options['enable_background_gradient_mobile'] == 'on') ? true : false;
+
+// Background gradient | On mobile | Color 1
+if (isset($options['background_gradient_color_1_mobile'])) {
+    $background_gradient_color_1_mobile = $options['background_gradient_color_1_mobile'] != '' ? esc_attr( stripslashes($options['background_gradient_color_1_mobile']) ) : '#000';
+} else {
+    $background_gradient_color_1_mobile = $background_gradient_color_1;
+}
+
+// Background gradient | On mobile | Color 2
+if (isset($options['background_gradient_color_2_mobile'])) {
+    $background_gradient_color_2_mobile = $options['background_gradient_color_2_mobile'] != '' ? esc_attr( stripslashes($options['background_gradient_color_2_mobile'] )) : '#fff';
+} else {
+    $background_gradient_color_2_mobile = $background_gradient_color_2;
+}
+
+// Background gradient | On mobile | Gradient direction
+if (isset($options['pb_gradient_direction_mobile'])) {
+    $pb_gradient_direction_mobile = $options['pb_gradient_direction_mobile'] != '' ? esc_attr( stripslashes($options['pb_gradient_direction_mobile']) ) : 'vertical';
+} else {
+    $pb_gradient_direction_mobile = $pb_gradient_direction;
+}
+
+// Header background color
+$header_bgcolor = (isset($popupbox['header_bgcolor']) && $popupbox['header_bgcolor'] != '') ? esc_attr( stripslashes($popupbox['header_bgcolor']) ) : '#ffffff';
+
+// Overlay color
+$overlay_color = (isset($options['overlay_color']) && $options['overlay_color'] != '') ? esc_attr( stripslashes($options['overlay_color']) ) : '#000';
+
+// Enable different overlay color mobile
+$enable_overlay_color_mobile = (isset($options['enable_overlay_color_mobile']) && $options['enable_overlay_color_mobile'] == 'on') ? true : false;
+
+// Overlay color mobile
+if (isset($options['overlay_color_mobile'])) {
+    $overlay_color_mobile = $options['overlay_color_mobile'] !== '' ? esc_attr( stripslashes($options['overlay_color_mobile']) ) : '#000';
+} else {
+    $overlay_color_mobile = $overlay_color;
+}
+
 // Custom class for quiz container
 $custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != "") ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
 $users_role   = (isset($popupbox['users_role']) && $popupbox['users_role'] != "") ? json_decode($popupbox['users_role'], true) : array();
@@ -1014,48 +1094,6 @@ if(isset($_POST["ays_apply"]) || isset($_POST["ays_apply_top"])){
     $_POST["id"] = $id;
     $_POST["submit_type"] = 'apply';
     $this->popupbox_obj->add_or_edit_popupbox($_POST);
-}
-
-// Enable background gradient
-$options['enable_background_gradient'] = (!isset($options['enable_background_gradient'])) ? 'off' : $options['enable_background_gradient'];
-$enable_background_gradient = (isset($options['enable_background_gradient']) && $options['enable_background_gradient'] == 'on') ? true : false;
-
-// Background gradient color 1
-$background_gradient_color_1 = (isset($options['background_gradient_color_1']) && $options['background_gradient_color_1'] != '') ? esc_attr( stripslashes( $options['background_gradient_color_1'] )) : '#000';
-
-// Background gradient color 2
-$background_gradient_color_2 = (isset($options['background_gradient_color_2']) && $options['background_gradient_color_2'] != '') ? esc_attr( stripslashes( $options['background_gradient_color_2'] )) : '#fff';
-
-// Background gradient direction
-$pb_gradient_direction = (isset($options['pb_gradient_direction']) && $options['pb_gradient_direction'] != '') ? esc_attr( stripslashes($options['pb_gradient_direction']) ) : 'vertical';
-
-// Enable Background gradient mobile
-if ( isset($options['enable_background_gradient_mobile']) ) {
-    $options['enable_background_gradient_mobile'] = $options['enable_background_gradient_mobile'] != '' ? $options['enable_background_gradient_mobile'] : 'off';
-} else {
-    $options['enable_background_gradient_mobile'] = $options['enable_background_gradient'];
-}
-$enable_background_gradient_mobile = (isset($options['enable_background_gradient_mobile']) && $options['enable_background_gradient_mobile'] == 'on') ? true : false;
-
-// Background gradient color 1 mobile
-if ( isset($options['background_gradient_color_1_mobile']) ) {
-    $background_gradient_color_1_mobile = $options['background_gradient_color_1_mobile'] != '' ? esc_attr( stripslashes( $options['background_gradient_color_1_mobile'] )) : '#000';
-} else {
-    $background_gradient_color_1_mobile = $background_gradient_color_1;
-}
-
-// Background gradient color 2 mobile
-if ( isset($options['background_gradient_color_2_mobile']) ) {
-    $background_gradient_color_2_mobile = $options['background_gradient_color_2_mobile'] != '' ? esc_attr( stripslashes( $options['background_gradient_color_2_mobile'] )) : '#fff';
-} else {
-    $background_gradient_color_2_mobile = $background_gradient_color_2;
-}
-
-// Background gradient direction mobile
-if ( isset($options['pb_gradient_direction_mobile']) ) {
-    $pb_gradient_direction_mobile = $options['pb_gradient_direction_mobile'] != '' ? esc_attr( stripslashes($options['pb_gradient_direction_mobile']) ) : 'vertical';
-} else {
-    $pb_gradient_direction_mobile = $pb_gradient_direction;
 }
 
 $log_user          = (isset($popupbox["log_user"]) && $popupbox["log_user"] != "") ? $popupbox["log_user"] : "off";
@@ -1083,26 +1121,6 @@ if (isset($options['bordersize_mobile'])) {
     $border_size_mobile = $border_size;
 }
 
-// Box header background color
-$header_bgcolor = (isset($popupbox['header_bgcolor']) && $popupbox['header_bgcolor'] != '') ? esc_attr( stripslashes( $popupbox['header_bgcolor'] )) : '#ffffff';
-
-//Overlay Color
-$overlay_color = (isset($options['overlay_color']) && $options['overlay_color'] != '') ? esc_attr( stripslashes( $options['overlay_color'] )) : '#000';
-
-//Enable Different Overlay Color Mobile
-if (isset( $options['enable_overlay_color_mobile'])) {
-    $enable_overlay_color_mobile = $options['enable_overlay_color_mobile'] == 'on' ? true : false;
-} else {
-    $enable_overlay_color_mobile = false;
-}
-
-//Overlay Color Mobile
-if (isset($options['overlay_color_mobile'])) {
-    $overlay_color_mobile = $options['overlay_color_mobile'] !== '' ? esc_attr( stripslashes($options['overlay_color_mobile']) ) : '#000';
-} else {
-    $overlay_color_mobile = $overlay_color;
-}
-
 //Hide popupbox on mobile
 $ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? esc_attr($options['pb_mobile']) : 'off';
 
@@ -1113,28 +1131,6 @@ $show_only_once = (isset($options['show_only_once']) && $options['show_only_once
 $ays_close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? esc_attr( abs($options['close_button_size']) ) : '1';
 
 $cookie             = (isset($popupbox['cookie']) && $popupbox['cookie'] != "") ? esc_attr( abs($popupbox['cookie']) ) : "";
-
-// Background Image Position
-$pb_bg_image_position = (isset($options['pb_bg_image_position']) && $options['pb_bg_image_position'] != '') ? stripslashes( esc_attr($options['pb_bg_image_position']) ) : "center-center";
-
-// Enable Different Background Image Position Mobile
-$enable_pb_bg_image_position_mobile = isset($options['enable_pb_bg_image_position_mobile']) && $options['enable_pb_bg_image_position_mobile'] == 'on' ? true : false;
-
-// Background Image Position Mobile
-if ( isset($options['pb_bg_image_position_mobile']) ) {
-    $pb_bg_image_position_mobile = $options['pb_bg_image_position_mobile'] !== '' ? stripslashes( esc_attr($options['pb_bg_image_position_mobile']) ) : 'center-center';
-} else {
-    $pb_bg_image_position_mobile = $pb_bg_image_position;
-}
-
-// Background Image Sizing
-$pb_bg_image_sizing = (isset($options['pb_bg_image_sizing']) && $options['pb_bg_image_sizing'] != '') ? stripslashes( esc_attr($options['pb_bg_image_sizing']) ) : "cover";
-
-// Enable Different Background Image Sizing Mobile
-$enable_pb_bg_image_sizing_mobile = isset($options['enable_pb_bg_image_sizing_mobile']) && $options['enable_pb_bg_image_sizing_mobile'] == 'on' ? true : false;
-
-// Background Image Sizing Mobile
-$pb_bg_image_sizing_mobile = isset($options['pb_bg_image_sizing_mobile']) && $options['pb_bg_image_sizing_mobile'] !== '' ? stripslashes( esc_attr($options['pb_bg_image_sizing_mobile']) ) : 'cover';
 
 $custom_css = (isset($popupbox['custom_css']) && $popupbox['custom_css'] != "") ? stripslashes ( esc_attr($popupbox['custom_css'] ) ) : "";
 
@@ -1831,269 +1827,286 @@ $ays_users_roles = $wp_roles->roles;
                             ?>
                         </div>
                         <div class="ays_pb_component_option" style="display: none;" data-window="button_1">
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_text">
-                                        <?php  echo __('Button text', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the notification button text. Default value is 'Click!'", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('General', "ays-popup-box") ?></p>
                                 </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_text" class="ays-text-input" name="ays_pb_notification_button_1_text" value="<?php echo $notification_button_1_text ?>" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_redirect_url">
-                                        <?php  echo __('Redirect URL', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "The URL for redirecting after the user clicks on the button.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_redirect_url" class="ays-text-input" name="ays_pb_notification_button_1_redirect_url" value="<?php echo $notification_button_1_redirect_url ?>" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_redirect_to_new_tab">
-                                        <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="checkbox" id="ays_pb_notification_button_1_redirect_to_new_tab" name="ays_pb_notification_button_1_redirect_to_new_tab" <?php echo $notification_button_1_redirect_to_new_tab ? 'checked' : ''; ?>>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_bg_color">
-                                        <?php  echo __('Background color', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the background color of the button.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_bg_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_color" value="<?php echo $notification_button_1_bg_color ?>" data-default-color="#F66123" data-alpha="true" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_bg_hover_color">
-                                        <?php  echo __('Background hover color', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the background color of the button on hover.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_bg_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_hover_color" value="<?php echo $notification_button_1_bg_hover_color ?>" data-default-color="#F66123" data-alpha="true" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_text_color">
-                                        <?php  echo __('Text color', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the text color of the button.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_text_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_text_color" value="<?php echo $notification_button_1_text_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_text_hover_color">
-                                        <?php  echo __('Text hover color', "ays-popup-box") ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the text color of the button on hover.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_text_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_text_hover_color" value="<?php echo $notification_button_1_text_hover_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_letter_spacing">
-                                        <?php  echo __('Letter spacing', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the space between the letters of the button in pixels.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input id="ays_pb_notification_button_1_letter_spacing" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_letter_spacing" type="number" value="<?php echo $notification_button_1_letter_spacing; ?>">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_font_size">
-                                        <?php  echo __('Font size (px)', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the font size of the button text in pixels.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input id="ays_pb_notification_button_1_font_size" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_font_size" type="number" value="<?php echo $notification_button_1_font_size; ?>">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_border_radius">
-                                        <?php  echo __('Border radius', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the radius of the border. Allows adding rounded corners to the button.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input id="ays_pb_notification_button_1_border_radius" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_border_radius" type="number" value="<?php echo $notification_button_1_border_radius; ?>">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_border_width">
-                                        <?php  echo __('Border width', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the border size of the button in pixels.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input id="ays_pb_notification_button_1_border_width" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_border_width" type="number" value="<?php echo $notification_button_1_border_width; ?>">
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_border_color">
-                                        <?php  echo __('Border color', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the border color of the button.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" id="ays_pb_notification_button_1_border_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_border_color" value="<?php echo $notification_button_1_border_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_border_style">
-                                        <span>
-                                            <?php echo  __('Border style',"ays-popup-box") ?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Choose your preferred style of the border.", "ays-popup-box"); ?>">
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <select name="ays_pb_notification_button_1_border_style" id="ays_pb_notification_button_1_border_style" class="ays_pb_aysDropdown">
-                                        <?php
-                                            $selected = "";
-                                            foreach ($border_styles as $key => $border_style) {
-                                                $selected = "";
-                                                if ($key == $notification_button_1_border_style) {
-                                                    $selected = "selected";
-                                                }
-                                        ?>
-                                        <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
-                                            <?php echo $border_style; ?>
-                                        </option>
-                                        <?php
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_padding_left_right">
-                                        <span>
-                                            <?php echo  __('Padding',"ays-popup-box") ?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Padding of button.", "ays-popup-box"); ?>">
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9 ays_pb_notification_button_paddings_container">
-                                    <div class="col-sm-4">
-                                        <span class="ays-pb-small-hint-text"><?php echo  __('Left / Right',"ays-popup-box") ?></span>
-                                        <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_left_right" name="ays_pb_notification_button_1_padding_left_right" style="width: 100px;" value="<?php echo $notification_button_1_padding_left_right; ?>">
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_text">
+                                                <?php  echo __('Button text', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the notification button text. Default value is 'Click!'", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_text" class="ays-text-input" name="ays_pb_notification_button_1_text" value="<?php echo $notification_button_1_text ?>" />
+                                        </div>
                                     </div>
-                                    <div class="col-sm-4 ays_divider_left">
-                                        <span class="ays-pb-small-hint-text"><?php echo  __('Top / Bottom',"ays-popup-box") ?></span>
-                                        <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_top_bottom" name="ays_pb_notification_button_1_padding_top_bottom" style="width: 100px;" value="<?php echo $notification_button_1_padding_top_bottom; ?>">
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_redirect_url">
+                                                <?php  echo __('Redirect URL', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "The URL for redirecting after the user clicks on the button.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_redirect_url" class="ays-text-input" name="ays_pb_notification_button_1_redirect_url" value="<?php echo $notification_button_1_redirect_url ?>" />
+                                        </div>
                                     </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_redirect_to_new_tab">
+                                                <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="checkbox" id="ays_pb_notification_button_1_redirect_to_new_tab" name="ays_pb_notification_button_1_redirect_to_new_tab" <?php echo $notification_button_1_redirect_to_new_tab ? 'checked' : ''; ?>>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_button_1_enable_box_shadow">
-                                        <span>
-                                            <?php echo __('Box shadow',"ays-popup-box"); ?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Allow button box shadow.',"ays-popup-box")?>">
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </span>
-                                    </label>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('Styles', "ays-popup-box") ?></p>
                                 </div>
-                                <div class="col-sm-9">
-                                    <div class="form-group row ays_toggle_parent">
-                                        <input type="checkbox" class="ays_toggle ays_toggle_slide" id="ays_pb_notification_button_1_enable_box_shadow" name="ays_pb_notification_button_1_enable_box_shadow" <?php echo $notification_button_1_enable_box_shadow ? 'checked' : ''; ?>>
-                                        <label for="ays_pb_notification_button_1_enable_box_shadow" class="ays_switch_toggle">Toggle</label>
-                                        <div class="col-sm-12 ays_toggle_target ays_divider_top" style="margin-top: 10px; padding: 10px 0 0 0; <?php echo $notification_button_1_enable_box_shadow ? '' : 'display: none'; ?>">
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <label for="ays_pb_notification_button_1_box_shadow_color">
-                                                        <?php echo __('Box shadow color',"ays-popup-box")?>
-                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The color of the shadow of the button',"ays-popup-box" ); ?>">
-                                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                                        </a>
-                                                    </label>
-                                                    <input type="text" class="ays_pb_color_input" id='ays_pb_notification_button_1_box_shadow_color' name='ays_pb_notification_button_1_box_shadow_color' data-alpha="true" data-default-color="#000000" value="<?php echo $notification_button_1_box_shadow_color; ?>"/>
-                                                </div>
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_bg_color">
+                                                <?php  echo __('Background color', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the background color of the button.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_bg_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_color" value="<?php echo $notification_button_1_bg_color ?>" data-default-color="#F66123" data-alpha="true" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_bg_hover_color">
+                                                <?php  echo __('Background hover color', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Specify the background color of the button on hover.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_bg_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_bg_hover_color" value="<?php echo $notification_button_1_bg_hover_color ?>" data-default-color="#F66123" data-alpha="true" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_text_color">
+                                                <?php  echo __('Text color', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the text color of the button.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_text_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_text_color" value="<?php echo $notification_button_1_text_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_text_hover_color">
+                                                <?php  echo __('Text hover color', "ays-popup-box") ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the text color of the button on hover.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_text_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_text_hover_color" value="<?php echo $notification_button_1_text_hover_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_letter_spacing">
+                                                <?php  echo __('Letter spacing', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the space between the letters of the button in pixels.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input id="ays_pb_notification_button_1_letter_spacing" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_letter_spacing" type="number" value="<?php echo $notification_button_1_letter_spacing; ?>">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_font_size">
+                                                <?php  echo __('Font size (px)', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Define the font size of the button text in pixels.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input id="ays_pb_notification_button_1_font_size" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_font_size" type="number" value="<?php echo $notification_button_1_font_size; ?>">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_border_radius">
+                                                <?php  echo __('Border radius', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the radius of the border. Allows adding rounded corners to the button.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input id="ays_pb_notification_button_1_border_radius" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_border_radius" type="number" value="<?php echo $notification_button_1_border_radius; ?>">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_border_width">
+                                                <?php  echo __('Border width', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the border size of the button in pixels.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input id="ays_pb_notification_button_1_border_width" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_border_width" type="number" value="<?php echo $notification_button_1_border_width; ?>">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_border_color">
+                                                <?php  echo __('Border color', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the border color of the button.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_border_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_border_color" value="<?php echo $notification_button_1_border_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_border_style">
+                                                <span>
+                                                    <?php echo  __('Border style',"ays-popup-box") ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Choose your preferred style of the border.", "ays-popup-box"); ?>">
+                                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select name="ays_pb_notification_button_1_border_style" id="ays_pb_notification_button_1_border_style" class="ays_pb_aysDropdown">
+                                                <?php
+                                                    $selected = "";
+                                                    foreach ($border_styles as $key => $border_style) {
+                                                        $selected = "";
+                                                        if ($key == $notification_button_1_border_style) {
+                                                            $selected = "selected";
+                                                        }
+                                                ?>
+                                                <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
+                                                    <?php echo $border_style; ?>
+                                                </option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_padding_left_right">
+                                                <span>
+                                                    <?php echo  __('Padding',"ays-popup-box") ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __("Padding of button.", "ays-popup-box"); ?>">
+                                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9 ays_pb_notification_button_paddings_container">
+                                            <div class="col-sm-4">
+                                                <span class="ays-pb-small-hint-text"><?php echo  __('Left / Right',"ays-popup-box") ?></span>
+                                                <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_left_right" name="ays_pb_notification_button_1_padding_left_right" style="width: 100px;" value="<?php echo $notification_button_1_padding_left_right; ?>">
                                             </div>
-                                            <hr>
-                                            <div class="form-group row">
-                                                <div class="col-sm-4 ays_pb_notification_button_offset_container">
-                                                    <span class="ays_pb_small_hint_text"><?php echo __('X', "ays-popup-box"); ?></span>
-                                                    <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_x_offset' name='ays_pb_notification_button_1_box_shadow_x_offset' value="<?php echo $notification_button_1_box_shadow_x_offset; ?>" />
-                                                </div>
-                                                <div class="col-sm-4 ays_divider_left ays_pb_notification_button_offset_container">
-                                                    <span class="ays_pb_small_hint_text"><?php echo __('Y', "ays-popup-box"); ?></span>
-                                                    <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_y_offset' name='ays_pb_notification_button_1_box_shadow_y_offset' value="<?php echo $notification_button_1_box_shadow_y_offset; ?>" />
-                                                </div>
-                                                <div class="col-sm-4 ays_divider_left ays_pb_notification_button_offset_container">
-                                                    <span class="ays_pb_small_hint_text"><?php echo __('Z', "ays-popup-box"); ?></span>
-                                                    <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_z_offset' name='ays_pb_notification_button_1_box_shadow_z_offset' value="<?php echo $notification_button_1_box_shadow_z_offset; ?>" />
+                                            <div class="col-sm-4 ays_divider_left">
+                                                <span class="ays-pb-small-hint-text"><?php echo  __('Top / Bottom',"ays-popup-box") ?></span>
+                                                <input type="number" class="ays-pb-text-input ays-pb-text-input-short" id="ays_pb_notification_button_1_padding_top_bottom" name="ays_pb_notification_button_1_padding_top_bottom" style="width: 100px;" value="<?php echo $notification_button_1_padding_top_bottom; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_enable_box_shadow">
+                                                <span>
+                                                    <?php echo __('Box shadow',"ays-popup-box"); ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Allow button box shadow.',"ays-popup-box")?>">
+                                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div class="form-group row ays_toggle_parent">
+                                                <input type="checkbox" class="ays_toggle ays_toggle_slide" id="ays_pb_notification_button_1_enable_box_shadow" name="ays_pb_notification_button_1_enable_box_shadow" <?php echo $notification_button_1_enable_box_shadow ? 'checked' : ''; ?>>
+                                                <label for="ays_pb_notification_button_1_enable_box_shadow" class="ays_switch_toggle">Toggle</label>
+                                                <div class="col-sm-12 ays_toggle_target ays_divider_top" style="margin-top: 10px; padding: 10px 0 0 0; <?php echo $notification_button_1_enable_box_shadow ? '' : 'display: none'; ?>">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                            <label for="ays_pb_notification_button_1_box_shadow_color">
+                                                                <?php echo __('Box shadow color',"ays-popup-box")?>
+                                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The color of the shadow of the button',"ays-popup-box" ); ?>">
+                                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                                </a>
+                                                            </label>
+                                                            <input type="text" class="ays_pb_color_input" id='ays_pb_notification_button_1_box_shadow_color' name='ays_pb_notification_button_1_box_shadow_color' data-alpha="true" data-default-color="#000000" value="<?php echo $notification_button_1_box_shadow_color; ?>"/>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-4 ays_pb_notification_button_offset_container">
+                                                            <span class="ays_pb_small_hint_text"><?php echo __('X', "ays-popup-box"); ?></span>
+                                                            <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_x_offset' name='ays_pb_notification_button_1_box_shadow_x_offset' value="<?php echo $notification_button_1_box_shadow_x_offset; ?>" />
+                                                        </div>
+                                                        <div class="col-sm-4 ays_divider_left ays_pb_notification_button_offset_container">
+                                                            <span class="ays_pb_small_hint_text"><?php echo __('Y', "ays-popup-box"); ?></span>
+                                                            <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_y_offset' name='ays_pb_notification_button_1_box_shadow_y_offset' value="<?php echo $notification_button_1_box_shadow_y_offset; ?>" />
+                                                        </div>
+                                                        <div class="col-sm-4 ays_divider_left ays_pb_notification_button_offset_container">
+                                                            <span class="ays_pb_small_hint_text"><?php echo __('Z', "ays-popup-box"); ?></span>
+                                                            <input type="number" class="ays-text-input ays-text-input-90-width" id='ays_pb_notification_button_1_box_shadow_z_offset' name='ays_pb_notification_button_1_box_shadow_z_offset' value="<?php echo $notification_button_1_box_shadow_z_offset; ?>" />
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2427,7 +2440,7 @@ $ays_users_roles = $wp_roles->roles;
             <div id="tab2" class="ays-pb-tab-content  <?php echo ($ays_pb_tab == 'tab2') ? 'ays-pb-tab-content-active' : ''; ?>">
                 <div class="ays-pb-accordion-options-main-container">
                     <div class="ays-pb-accordion-header ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                        <?php echo $pb_acardion_svg_html; ?>
+                        <?php echo $pb_acordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo  __('Popup opening', "ays-popup-box") ?></p>
                     </div>
                     <hr class="ays-pb-bolder-hr ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
@@ -2546,7 +2559,7 @@ $ays_users_roles = $wp_roles->roles;
                 </div>
                 <div class="ays-pb-accordion-options-main-container">
                     <div class="ays-pb-accordion-header">
-                        <?php echo $pb_acardion_svg_html; ?>
+                        <?php echo $pb_acordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo  __('Popup Closing', "ays-popup-box") ?></p>
                     </div>
                     <hr class="ays-pb-bolder-hr"/>
@@ -2992,7 +3005,7 @@ $ays_users_roles = $wp_roles->roles;
                 </div>
                 <div class="ays-pb-accordion-options-main-container">
                     <div class="ays-pb-accordion-header">
-                        <?php echo $pb_acardion_svg_html; ?>
+                        <?php echo $pb_acordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo  __('Advanced Settings', "ays-popup-box") ?></p>
                     </div>
                     <hr class="ays-pb-bolder-hr"/>
@@ -3738,7 +3751,7 @@ $ays_users_roles = $wp_roles->roles;
                 <div class="ays_pb_themes ays_pb_hide_for_video_type ays_pb_hide_for_image_type ays_pb_hide_for_facebook_type ays_pb_hide_for_notification_type <?php echo ($modal_content == 'video_type' || $modal_content == 'image_type' || $modal_content == 'facebook_type' || $modal_content == 'notification_type') ? 'display_none' : ''; ?>">
                     <div class="ays-pb-accordion-options-main-container">
                         <div class="ays-pb-accordion-header">
-                            <?php echo $pb_acardion_svg_html; ?>
+                            <?php echo $pb_acordion_svg_html; ?>
                             <p class="ays-subtitle"><?php echo  __('Template', "ays-popup-box") ?></p>
                         </div>
                         <hr class="ays-pb-bolder-hr"/>
@@ -4167,7 +4180,7 @@ $ays_users_roles = $wp_roles->roles;
                     <div class="col-sm-12 <?php echo $modal_content == 'facebook_type' || $modal_content == 'notification_type' ? 'col-md-12' : 'col-md-6'; ?> ays_pb_styles_tab_options">
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Popup Dimensions', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
@@ -4502,7 +4515,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Text style', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
@@ -4900,7 +4913,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Opening and Closing effects', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr ays_pb_hide_for_notification_type <?php echo ($modal_content == 'notification_type') ? 'display_none' : ''; ?>"/>
@@ -5205,7 +5218,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Background style', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
@@ -5552,7 +5565,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Border style', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
@@ -5731,7 +5744,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Button Style', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
@@ -5983,7 +5996,7 @@ $ays_users_roles = $wp_roles->roles;
                         </div>
                         <div class="ays-pb-accordion-options-main-container">
                             <div class="ays-pb-accordion-header">
-                                <?php echo $pb_acardion_svg_html; ?>
+                                <?php echo $pb_acordion_svg_html; ?>
                                 <p class="ays-subtitle"><?php echo  __('Advanced style', "ays-popup-box") ?></p>
                             </div>
                             <hr class="ays-pb-bolder-hr"/>
@@ -6410,7 +6423,7 @@ $ays_users_roles = $wp_roles->roles;
             <div id="tab4" class="ays-pb-tab-content  <?php echo ($ays_pb_tab == 'tab4') ? 'ays-pb-tab-content-active' : ''; ?>">
                 <div class="ays-pb-accordion-options-main-container">
                     <div class="ays-pb-accordion-header">
-                        <?php echo $pb_acardion_svg_html; ?>
+                        <?php echo $pb_acordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Limitation of Users', "ays-popup-box") ?></p>
                     </div>
                     <hr class="ays-pb-bolder-hr"/>
@@ -6804,7 +6817,7 @@ $ays_users_roles = $wp_roles->roles;
             <div id="tab5" class="ays-pb-tab-content  <?php echo ($ays_pb_tab == 'tab5') ? 'ays-pb-tab-content-active' : ''; ?>">
                 <div class="ays-pb-accordion-options-main-container">
                     <div class="ays-pb-accordion-header">
-                        <?php echo $pb_acardion_svg_html; ?>
+                        <?php echo $pb_acordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo  __('Integrations', "ays-popup-box") ?></p>
                     </div>
                     <hr class="ays-pb-bolder-hr"/>

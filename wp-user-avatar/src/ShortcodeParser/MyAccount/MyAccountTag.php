@@ -104,7 +104,7 @@ class MyAccountTag extends FormProcessor
                     'icon'     => 'vpn_key',
                     'callback' => [$classInstance, 'change_password_callback']
                 ],
-                'delete-account'    => [
+                'delete-account'     => [
                     'title'    => esc_html__('Delete Account', 'wp-user-avatar'),
                     'endpoint' => apply_filters('ppress_my_account_dashboard_delete_account_endpoint', 'delete-account'),
                     'priority' => 60,
@@ -138,6 +138,15 @@ class MyAccountTag extends FormProcessor
                     'icon'     => 'settings',
                     'callback' => [$classInstance, 'account_settings_callback']
                 ];
+            }
+
+            if ( ! is_admin()) {
+                $disabled_tabs = ppress_settings_by_key('myac_account_disabled_tabs', [], true);
+                foreach ($tabs as $tab_id => $tab) {
+                    if (in_array($tab_id, $disabled_tabs)) {
+                        unset($tabs[$tab_id]);
+                    }
+                }
             }
 
             $tabs = apply_filters('ppress_myaccount_tabs', $tabs);
@@ -667,7 +676,7 @@ class MyAccountTag extends FormProcessor
         echo ppress_minify_js(ob_get_clean());
     }
 
-    public static function get_instance() : self
+    public static function get_instance(): self
     {
         static $instance = false;
 

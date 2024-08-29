@@ -36,6 +36,10 @@ class Heartbeat extends Abstract_Class {
             wp_send_json_error( __( 'You do not have permission to manage product feed.', 'woo-product-feed-pro' ) );
         }
 
+        if ( ! isset( $_POST['project_hashes'] ) || ! is_array( $_POST['project_hashes'] ) ) {
+            wp_send_json_error( __( 'Invalid request.', 'woo-product-feed-pro' ) );
+        }
+
         $project_hashes = array_map( 'sanitize_text_field', $_POST['project_hashes'] );
         $response       = array();
 
@@ -54,17 +58,22 @@ class Heartbeat extends Abstract_Class {
             } elseif ( 'processing' === $feed->status ) {
                 $proc_perc = $feed->get_processing_percentage();
 
-                // If the feed is processing and the percentage is not 100 and there is no cron job scheduled for woosae_update_project_stats, schedule it.
-                if ( 100 !== $proc_perc && ! wp_next_scheduled( 'woosea_create_batch_event', array( $feed->id ) ) ) {
-                    // Schedule the cron job to update the project stats.
-                    wp_schedule_single_event( time(), 'woosea_create_batch_event', array( $feed->id ) );
-                    spawn_cron( time() );
+                // If the feed is processing and the percentage is less than 100,
+                // and there is no cron job scheduled for woosae_update_project_stats, schedule it.
+                if ( 100 > $proc_perc ) {
+                    $feed->run_batch_event();
+                } else {
+                    // If the feed is processing and the percentage more than 100, set it to 100.
+                    $proc_perc    = 100;
+                    $feed->status = 'ready';
                 }
+            } elseif ( 'stopped' === $feed->status ) {
+                $proc_perc = 999;
             }
 
             $response[] = array(
                 'hash'      => $project_hash,
-                'running'   => $feed->status,
+                'status'    => $feed->status,
                 'proc_perc' => $proc_perc,
             );
         }

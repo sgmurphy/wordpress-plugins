@@ -1211,6 +1211,7 @@ div.ivole-summaryBox.cr-summaryBar-updating,
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
+	z-index: 10;
 }
 .cr-all-reviews-shortcode ol li.review .comment_container .meta,
 #reviews.cr-reviews-ajax-reviews #comments.cr-reviews-ajax-comments .cr-ajax-reviews-list .comment_container .meta {

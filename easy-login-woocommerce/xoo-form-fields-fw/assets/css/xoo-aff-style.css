@@ -250,6 +250,11 @@ span.xoo-aff-pwtog-hide {
     min-width: 140px;
 }
 
+.select2-container {
+    z-index: 99999999999!important;
+}
+
+
 /* RTL */
 body.rtl .xoo-aff-input-group .xoo-aff-input-icon {
     border-bottom-right-radius: 4px;

@@ -61,7 +61,7 @@
 							bk_number = bk_number.substring(v.length);
 							min -= w;
 
-							output += '<div class="uh_phone" style="min-width:calc( ( 100% - '+cw+'px ) / '+max+' * '+w+');">'+
+							output += '<div class="uh_phone" style="width:calc( ( 100% - '+cw+'px ) / '+max+' * '+w+');">'+
 
 							'<input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required && n) ? ' required ' : '')+'" size="'+w+'" maxlength="'+w+'" minlength="'+n+'" '+(me.readonly?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" value="'+cff_esc_attr(v)+'" '+
 							(placeholder ? 'placeholder="'+cff_esc_attr( predefined.substring(0,w))+'" ' : '')
@@ -136,7 +136,7 @@
 					{
 						let l = tmp[i].length;
 
-						str += '<div class="uh_phone" style="min-width:calc( ( 100% - '+cw+'px ) / '+Math.max(1, nc)+' * '+Math.max(1, l)+');"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+l+'" '+attr+'="'+tmpv.substring(0,l)+'" maxlength="'+l+'" minlength="'+l+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+tmp[i]+'</div></div>';
+						str += '<div class="uh_phone" style="width:calc( ( 100% - '+cw+'px ) / '+Math.max(1, nc)+' * '+Math.max(1, l)+');"><input aria-label="'+cff_esc_attr(me.title)+'" type="text" id="'+me.name+'_'+c+'" name="'+me.name+'_'+c+'" class="field '+((i==0 && !me.countryComponent) ? ' phone ' : ' digits ')+((me.required) ? ' required ' : '')+'" size="'+l+'" '+attr+'="'+tmpv.substring(0,l)+'" maxlength="'+l+'" minlength="'+l+'" '+((me.readonly)?'readonly':'')+' style="'+cff_esc_attr(me.getCSSComponent('phone'))+'" /><div class="l" style="'+cff_esc_attr(me.getCSSComponent('format'))+'">'+tmp[i]+'</div></div>';
 
 						tmpv = tmpv.substring(l);
 						c++;

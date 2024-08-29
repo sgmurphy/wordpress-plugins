@@ -1,4 +1,7 @@
 <?php
+
+use LearnPress\Models\CourseModel;
+
 if ( ! class_exists( 'LP_REST_Courses_Reviews_Controller' ) ) {
 	class LP_REST_Courses_Reviews_Controller extends LP_Abstract_REST_Controller {
 		/**
@@ -109,8 +112,7 @@ if ( ! class_exists( 'LP_REST_Courses_Reviews_Controller' ) ) {
 					throw new Exception( esc_html__( 'No Course ID param.', 'learnpress-course-review' ) );
 				}
 
-				$course = learn_press_get_course( $course_id );
-
+				$course = CourseModel::find( $course_id, true );
 				if ( ! $course ) {
 					throw new Exception( esc_html__( 'Course not found.', 'learnpress-course-review' ) );
 				}

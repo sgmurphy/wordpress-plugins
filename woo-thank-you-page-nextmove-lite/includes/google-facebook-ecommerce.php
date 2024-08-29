@@ -84,7 +84,7 @@ if ( ! empty( $google_analytics_id ) && ! $ga4_tracking_fired ) {
             shipping: <?php echo $shipping; ?>,
             currency: '<?php echo $currency; ?>',
             coupon: '<?php echo $coupon_codes; ?>',
-            items: <?php echo json_encode( $items ); ?>,
+            items: <?php echo wp_json_encode( $items ); ?>,
         });
     </script>
 	<?php

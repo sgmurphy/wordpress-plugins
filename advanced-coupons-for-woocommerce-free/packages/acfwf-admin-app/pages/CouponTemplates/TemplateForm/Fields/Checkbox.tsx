@@ -17,6 +17,9 @@ import { IFieldComponentProps } from '../../../../types/couponTemplates';
 const CheckboxField = (props: IFieldComponentProps) => {
   const { defaultValue, editable, fixtures, onChange } = props;
   const [checked, setChecked] = useState(defaultValue === 'yes');
+  const checkedValue = fixtures?.options?.enabled ?? 'yes';
+  const uncheckedValue = fixtures?.options?.disabled ?? '';
+
   return (
     <div>
       <Checkbox
@@ -24,7 +27,7 @@ const CheckboxField = (props: IFieldComponentProps) => {
         disabled={!editable}
         onChange={(e: any) => {
           setChecked(e.target.checked);
-          onChange(e.target.checked ? 'yes' : 'no');
+          onChange(e.target.checked ? checkedValue : uncheckedValue);
         }}
       />
       <span>{fixtures.description}</span>

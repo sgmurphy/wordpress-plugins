@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
 
         var nonce = xlo_optin_vars.nonce;
         $.ajax({
-            url: ajaxurl,
+            url: xlo_optin_vars.ajaxUrl,
             method: 'POST',
             data: {
                 action: 'xlo_optin_call',

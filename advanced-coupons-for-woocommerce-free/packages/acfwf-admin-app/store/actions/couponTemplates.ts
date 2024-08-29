@@ -90,6 +90,12 @@ export interface ISetCreatedCouponResponseDataPayload {
   data: ICreateCouponFromTemplateResponse | null;
 }
 
+export interface ISetCartConditionItemDataPayload {
+  groupKey: number;
+  fieldKey: number | null;
+  data: any;
+}
+
 export interface ITogglePremiumModalPayload {
   show: boolean;
 }
@@ -112,7 +118,9 @@ export enum ECouponTemplatesActionTypes {
   SET_COUPON_TEMPLATES_LOADING = 'SET_COUPON_TEMPLATES_LOADING',
   SET_EDIT_COUPON_TEMPLATE = 'SET_EDIT_COUPON_TEMPLATE',
   SET_EDIT_COUPON_TEMPLATE_FIELD_VALUE = 'SET_EDIT_COUPON_TEMPLATE_FIELD_VALUE',
+  SET_CART_CONDITION_ITEM_DATA = 'SET_CART_CONDITION_ITEM_DATA',
   VALIDATE_EDIT_COUPON_TEMPLATE_DATA = 'VALIDATE_EDIT_COUPON_TEMPLATE_DATA',
+  VALIDATE_CART_CONDITIONS_DATA = 'VALIDATE_CART_CONDITIONS_DATA',
   SET_COUPON_CREATED_RESPONSE_DATA = 'SET_COUPON_CREATED_RESPONSE_DATA',
   CLEAR_COUPON_CREATED_RESPONSE_DATA = 'CLEAR_COUPON_CREATED_RESPONSE_DATA',
   TOGGLE_PREMIUM_MODAL = 'TOGGLE_PREMIUM_MODAL',
@@ -178,8 +186,15 @@ export const CouponTemplatesActions = {
   validateEditCouponTemplateData: () => ({
     type: ECouponTemplatesActionTypes.VALIDATE_EDIT_COUPON_TEMPLATE_DATA,
   }),
+  validateCartConditionsData: () => ({
+    type: ECouponTemplatesActionTypes.VALIDATE_CART_CONDITIONS_DATA,
+  }),
   setCreatedCouponResponseData: (payload: ISetCreatedCouponResponseDataPayload) => ({
     type: ECouponTemplatesActionTypes.SET_COUPON_CREATED_RESPONSE_DATA,
+    payload,
+  }),
+  setCartConditionItemData: (payload: ISetCartConditionItemDataPayload) => ({
+    type: ECouponTemplatesActionTypes.SET_CART_CONDITION_ITEM_DATA,
     payload,
   }),
   clearCreatedCouponResponseData: () => ({

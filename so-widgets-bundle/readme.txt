@@ -3,13 +3,13 @@ Tags: widgets, blocks, contact form, blog, slider
 Requires at least: 4.2
 Tested up to: 6.6
 Requires PHP: 7.0.0
-Stable tag: 1.63.0
-Build time: 2024-08-11T21:13:32+02:00
+Stable tag: 1.63.1
+Build time: 2024-08-28T21:58:46+01:00
 License: GPLv3 or later
 Contributors: gpriday, braam-genis, alexgso
 Donate link: https://siteorigin.com/downloads/premium/
 
-The SiteOrigin Widgets Bundle gives you all the elements you need to build modern, responsive, and engaging website pages. Using the Widgets Bundle, you can quickly and effortlessly add buttons, sliders, heroes, maps, images, carousels, features, icons, and so much more.
+Essential elements for modern websites. Add buttons, sliders, heroes, maps, images, carousels, features, icons, more. Create dynamic pages easily.
 
 == Description ==
 
@@ -108,6 +108,14 @@ SiteOrigin Premium includes access to our professional email support service, pe
 The Widgets Bundle global interface is available at Plugins > SiteOrigin Widgets. Widgets can be enabled or disabled as needed. If a widget offers global settings, you can access those via the Settings button next to each applicable widget.
 
 == Changelog ==
+
+= 1.63.1 - 28 August 2024 =
+* Blog: Resolved a potential Portfolio filtering issue.
+* Post Carousel: Resolved a backtracking issue and added preloading.
+* Social Media Buttons: Added Bluesky.
+* SiteOrigin Widget Block: Added missing author description for Editor and Social Media Buttons.
+* Updated Google Fonts.
+* Updated Font Awesome from 6.5.2 to 6.6.0.
 
 = 1.63.0 - 11 August 2024 =
 * Button Grid: Update to ensure the Grid Widget doesn't override the settings of unrelated Button Widgets.

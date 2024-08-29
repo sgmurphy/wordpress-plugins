@@ -374,7 +374,8 @@ jQuery(document).ready(function($){
 		var settings 	= _userFields[ this.id ]['settings'],
 		title 			= settings.label ? settings.label : ( settings.placeholder ? settings.placeholder : this.id );
 
-		field_display_data.type_data.title = title;
+
+		//field_display_data.type_data.title = title;
 
 		var displayFieldHTML = this.display_template( field_display_data );
 

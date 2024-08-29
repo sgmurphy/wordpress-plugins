@@ -9,7 +9,7 @@
  * Text Domain: woo-order-export-lite
  * Domain Path: /i18n/languages/
  * WC requires at least: 4.0.0
- * WC tested up to: 8.9
+ * WC tested up to: 9.2
  *
  * Copyright: (c) 2015 AlgolPlus LLC. (algol.plus@gmail.com)
  *

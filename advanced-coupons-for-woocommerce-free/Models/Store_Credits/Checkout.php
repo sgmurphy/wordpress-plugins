@@ -189,7 +189,7 @@ class Checkout extends Base_Model implements Model_Interface, Initializable_Inte
             );
         }
 
-        $amount = min( $amount, $cart_total );
+        $amount = apply_filters( 'acfw_store_credits_redeem_amount', min( $amount, $cart_total ), $cart_total );
 
         // minimum order total allowed after store credit deduction.
         $min_order_total_allowed = get_option( Plugin_Constants::STORE_CREDIT_MIN_ORDER_TOTAL_ALLOWED, 0 );

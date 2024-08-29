@@ -368,10 +368,11 @@ class XLWCTY_Dynamic_Merge_Tags {
 		if ( ! $order instanceof WC_Order ) {
 			return __return_empty_string();
 		}
+		$country_slug = XLWCTY_Compatibility::get_billing_country_from_order( $order );
 
-		return WC()->countries->get_formatted_address( array(
-			'country' => XLWCTY_Compatibility::get_billing_country_from_order( $order ),
-		) );
+		$countries = WC()->countries->get_countries();
+
+		return isset( $countries[ $country_slug ] ) ? $countries[ $country_slug ] : $country_slug;
 	}
 
 	public static function order_shipping_country() {
@@ -380,10 +381,10 @@ class XLWCTY_Dynamic_Merge_Tags {
 		if ( ! $order instanceof WC_Order ) {
 			return __return_empty_string();
 		}
+		$country_slug = XLWCTY_Compatibility::get_shipping_country_from_order( $order );
+		$countries    = WC()->countries->get_countries();
 
-		return WC()->countries->get_formatted_address( array(
-			'country' => XLWCTY_Compatibility::get_shipping_country_from_order( $order ),
-		) );
+		return isset( $countries[ $country_slug ] ) ? $countries[ $country_slug ] : $country_slug;
 	}
 
 	public static function order_billing_address() {
@@ -451,6 +452,49 @@ class XLWCTY_Dynamic_Merge_Tags {
 		}
 
 		return XLWCTY_Compatibility::get_order_data( $order, 'billing_phone' );
+	}
+
+	public static function coupon_expiry_date() {
+		$order = XLWCTY_Core()->data->get_order();
+		if ( ! $order instanceof WC_Order ) {
+			return __return_empty_string();
+		}
+		$coupons = $order->get_coupon_codes();
+		if ( ! is_array( $coupons ) || count( $coupons ) === 0 ) {
+			return __return_empty_string();
+		}
+		$coupons = $order->get_coupon_codes();
+		$coupons = self::get_coupon_expiry_dates_from_order( $coupons );
+
+		return $coupons;
+	}
+
+	public static function get_coupon_expiry_dates_from_order( $coupons ) {
+		$coupon_expiry_dates = array();
+
+		foreach ( $coupons as $coupon_code ) {
+			$coupon                = new WC_Coupon( $coupon_code );
+			$expiry_date           = $coupon->get_date_expires();
+			$coupon_expiry_dates[] = $coupon_code . ' = ' . ( $expiry_date ? $expiry_date->date( 'Y-m-d' ) : 'No expiry date' );
+		}
+
+		return implode( ', ', $coupon_expiry_dates );
+
+	}
+
+	public static function coupon_value() {
+		$order = XLWCTY_Core()->data->get_order();
+		if ( ! $order instanceof WC_Order ) {
+			return __return_empty_string();
+		}
+		$coupons = $order->get_coupon_codes();
+		if ( ! is_array( $coupons ) || count( $coupons ) === 0 ) {
+			return __return_empty_string();
+		}
+		$coupons = $order->get_coupon_codes();
+		$coupons = implode( ',', $coupons );
+
+		return $coupons;
 	}
 
 	public static function subscription_id() {

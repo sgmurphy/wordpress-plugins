@@ -20,8 +20,12 @@ import { ICouponTemplate } from '../../../types/couponTemplates';
 
 // #region [Variables] =================================================================================================
 
-const { validateEditCouponTemplateData, createCouponFromTemplate, setCreatedCouponResponseData } =
-  CouponTemplatesActions;
+const {
+  validateEditCouponTemplateData,
+  validateCartConditionsData,
+  createCouponFromTemplate,
+  setCreatedCouponResponseData,
+} = CouponTemplatesActions;
 
 // #endregion [Variables]
 
@@ -29,6 +33,7 @@ const { validateEditCouponTemplateData, createCouponFromTemplate, setCreatedCoup
 
 interface IActions {
   validateEditCouponTemplateData: typeof validateEditCouponTemplateData;
+  validateCartConditionsData: typeof validateCartConditionsData;
   createCouponFromTemplate: typeof createCouponFromTemplate;
   setCreatedCouponResponseData: typeof setCreatedCouponResponseData;
 }
@@ -37,6 +42,7 @@ interface IProps {
   template: ICouponTemplate | null;
   text: string;
   size: SizeType;
+  disabled: boolean;
   actions: IActions;
 }
 
@@ -45,11 +51,12 @@ interface IProps {
 // #region [Component] =================================================================================================
 
 const CreateCouponButton = (props: IProps) => {
-  const { template, text, size, actions } = props;
+  const { template, text, size, disabled, actions } = props;
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCreateCoupon = () => {
     actions.validateEditCouponTemplateData();
+    actions.validateCartConditionsData();
 
     // Don't proceed when there are fields with errors.
     const errors = template?.fields?.filter((field) => field.error);
@@ -64,6 +71,7 @@ const CreateCouponButton = (props: IProps) => {
         value: field.value,
         type: field.fixtures.type,
       })),
+      cart_conditions: template.cart_conditions ?? [],
     };
 
     setIsLoading(true);
@@ -77,7 +85,7 @@ const CreateCouponButton = (props: IProps) => {
   };
 
   return (
-    <Button loading={isLoading} type="primary" onClick={handleCreateCoupon} size={size}>
+    <Button loading={isLoading} type="primary" onClick={handleCreateCoupon} size={size} disabled={disabled}>
       {text}
     </Button>
   );
@@ -92,6 +100,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   actions: bindActionCreators(
     {
       validateEditCouponTemplateData,
+      validateCartConditionsData,
       createCouponFromTemplate,
       setCreatedCouponResponseData,
     },

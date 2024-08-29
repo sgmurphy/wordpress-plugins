@@ -3,8 +3,8 @@ Contributors: aguidrevitch
 Donate link: 
 Tags: pagespeed, performance, optimization, caching
 Requires at least: 4.5
-Tested up to: 6.4.1
-Stable tag: 3.4.3
+Tested up to: 6.6
+Stable tag: 3.4.5
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -114,6 +114,7 @@ Use the `wpmeteor-frontend-adjust-wpmeteor` filter in the following way:
 
 == Changelog ==
 
+3.4.5 - [Bug](https://wordpress.org/support/topic/is-there-a-way-to-roll-back-to-3-4-0/) fixed
 3.4.4 - Security fix
 3.4.3 - Major improvement, script unblocking rewritten using inplace modifications. Hopefully, addresses [Bug](https://wordpress.org/support/topic/elementor-forms-and-popup-were-stopped-working/)
 3.4.2 - Minor, updating links to [FastPixel Website Accelerator](https://wordpress.org/plugins/fastpixel-website-accelerator/) as it is now live in Wordpress Plugin directory

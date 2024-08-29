@@ -1897,50 +1897,6 @@ function woosea_channel() {
 add_action( 'wp_ajax_woosea_channel', 'woosea_channel' );
 
 /**
- * Add or remove custom attributes to the feed configuration drop-downs.
- */
-function woosea_add_attributes() {
-    check_ajax_referer( 'woosea_ajax_nonce', 'security' );
-
-    $user          = wp_get_current_user();
-    $allowed_roles = array( 'administrator' );
-
-    if ( array_intersect( $allowed_roles, $user->roles ) ) {
-        $attribute_name  = sanitize_text_field( $_POST['attribute_name'] );
-        $attribute_value = sanitize_text_field( $_POST['attribute_value'] );
-        $active          = sanitize_text_field( $_POST['active'] );
-
-        if ( ! get_option( 'woosea_extra_attributes' ) ) {
-            if ( $active == 'true' ) {
-                $extra_attributes = array(
-                    $attribute_value => $attribute_name,
-                );
-                update_option( 'woosea_extra_attributes', $extra_attributes, false );
-            }
-        } else {
-            $extra_attributes = get_option( 'woosea_extra_attributes' );
-
-            if ( ! in_array( $attribute_name, $extra_attributes, true ) ) {
-                if ( $active == 'true' ) {
-                    $add_attribute    = array(
-                        $attribute_value => $attribute_name,
-                    );
-                    $extra_attributes = array_merge( $extra_attributes, $add_attribute );
-                    update_option( 'woosea_extra_attributes', $extra_attributes, false );
-                }
-            } elseif ( $active == 'false' ) {
-                    // remove from extra attributes array.
-                    $extra_attributes = array_diff( $extra_attributes, array( $attribute_value => $attribute_name ) );
-                    update_option( 'woosea_extra_attributes', $extra_attributes, false );
-            }
-        }
-
-        $extra_attributes = get_option( 'woosea_extra_attributes' );
-    }
-}
-add_action( 'wp_ajax_woosea_add_attributes', 'woosea_add_attributes' );
-
-/**
  * Register interaction with the review request notification.
  * We do not want to keep bothering our users with the notification.
  */
@@ -3890,13 +3846,9 @@ function woosea_generate_pages() {
             load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-statistics-feed.php' );
             break;
         case 100:
-            load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-manage-feed.php' );
-            break;
         case 101:
-            load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-manage-feed.php' );
-            break;
         default:
-            load_template( plugin_dir_path( __FILE__ ) . '/pages/admin/woosea-manage-feed.php' );
+            wp_safe_redirect( admin_url( 'admin.php?page=woosea_manage_feed' ) );
             break;
     }
 }
@@ -3909,6 +3861,17 @@ function woosea_generate_pages() {
 function woosea_continue_batch( $feed_id ) {
     $feed = new Product_Feed( $feed_id );
     if ( $feed->id ) {
+        /**
+         * Check if the feed is stopped.
+         * 
+         * If in the middle of processing a feed and the feed is stopped by the user.
+         * This is to avoid the feed from continuing to process when the user has stopped it.
+         */
+        if ( 'stopped' == $feed->status ) {
+            return;
+        }
+
+        $feed->status   = 'processing';
         $line           = new WooSEA_Get_Products();
         $final_creation = $line->woosea_get_products( $feed );
 

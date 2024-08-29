@@ -76,30 +76,6 @@ if ( ! function_exists( 'learn_press_user_wishlist_has_course' ) ) {
 	}
 }
 
-add_action( 'learn_press_after_take_course', 'learn_press_update_wish_list', 10, 2 );
-if ( ! function_exists( 'learn_press_update_wish_list' ) ) {
-	/**
-	 * Update user's wishlist.
-	 *
-	 * @param $user_id
-	 * @param $course_id
-	 */
-	function learn_press_update_wish_list( $user_id, $course_id ) {
-		if ( ! $user_id || ! $course_id ) {
-			return;
-		}
-		$wish_list = get_user_meta( $user_id, '_lpr_wish_list', true );
-		if ( ! $wish_list ) {
-			$wish_list = array();
-		}
-		$key = array_search( $course_id, $wish_list );
-		if ( $key !== false ) {
-			unset( $wish_list[ $key ] );
-		}
-		update_user_meta( $user_id, '_lpr_wish_list', $wish_list );
-	}
-}
-
 if ( ! function_exists( 'learn_press_buddypress_is_active' ) ) {
 	/**
 	 * Check BuddyPress active.

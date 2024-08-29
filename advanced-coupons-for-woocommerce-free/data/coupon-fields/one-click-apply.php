@@ -13,7 +13,7 @@ $category = __( 'One Click Apply', 'advanced-coupons-for-woocommerce-free' );
 return array(
     '_acfw_enable_apply_notification'   => array(
         'label'       => __( 'Enable one click apply', 'advanced-coupons-for-woocommerce-free' ),
-        'description' => __( 'Enable one click apply', 'advanced-coupons-for-woocommerce-free' ),
+        'description' => '',
         'type'        => 'checkbox',
         'tooltip'     => __( 'When checked, this will enable one click apply notifications for this coupon which will then show a notification for customers in the cart when the coupon can be applied.', 'advanced-coupons-for-woocommerce-free' ),
         'category'    => $category,

@@ -717,6 +717,8 @@ function xlwcty_manage_radio_active($) {
                 return false;
             }
         });
+
+        var nonce = cmb2_vars.nonce;
         $(".xlwcty_cmb2_chosen select").xlChosen({});
         if ($(".xlwcty_cmb2_coupon select").length > 0) {
             $(".xlwcty_cmb2_coupon select").xlAjaxChosen({
@@ -724,7 +726,8 @@ function xlwcty_manage_radio_active($) {
                 minTermLength: 3,
                 afterTypeDelay: 500,
                 data: {
-                    'action': 'get_coupons_cmb2'
+                    'action': 'get_coupons_cmb2',
+                    cmb2_nonce: nonce,
                 },
                 url: ajaxurl,
                 dataType: 'json'

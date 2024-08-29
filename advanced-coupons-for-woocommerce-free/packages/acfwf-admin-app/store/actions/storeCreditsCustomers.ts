@@ -6,7 +6,7 @@ import {
   IStoreCreditSources,
   IStoreCreditStatus,
   IStoreCreditCustomersQueryParams,
-} from "../../types/storeCredits";
+} from '../../types/storeCredits';
 
 // #endregion [Imports]
 
@@ -38,6 +38,7 @@ export interface IAdjustCustomerStoreCreditsPayload {
   id: number;
   type: string;
   amount: number | string;
+  note?: string;
   processingCB?: () => void;
   successCB?: (arg: any) => void;
   failCB?: (arg: any) => void;
@@ -64,13 +65,13 @@ export interface ISetStoreCreditsCustomerBalancePayload {
 // #region [Action Types] ==============================================================================================
 
 export enum EStoreCreditsCustomersActionTypes {
-  READ_STORE_CREDITS_CUSTOMERS = "READ_STORE_CREDITS_CUSTOMERS",
-  READ_STORE_CREDITS_CUSTOMER_STATUS = "READ_STORE_CREDITS_CUSTOMER_STATUS",
-  READ_STORE_CREDITS_CUSTOMER_ENTRIES = "READ_STORE_CREDITS_CUSTOMER_ENTRIES",
-  ADJUST_CUSTOMER_STORE_CREDITS = "ADJUST_CUSTOMER_STORE_CREDITS",
-  SET_STORE_CREDITS_CUSTOMERS = "SET_STORE_CREDITS_CUSTOMERS",
-  SET_STORE_CREDITS_CUSTOMER_STATUS = "SET_STORE_CREDITS_CUSTOMER_STATUS",
-  SET_STORE_CREDITS_CUSTOMER_BALANCE = "SET_STORE_CREDITS_CUSTOMER_BALANCE",
+  READ_STORE_CREDITS_CUSTOMERS = 'READ_STORE_CREDITS_CUSTOMERS',
+  READ_STORE_CREDITS_CUSTOMER_STATUS = 'READ_STORE_CREDITS_CUSTOMER_STATUS',
+  READ_STORE_CREDITS_CUSTOMER_ENTRIES = 'READ_STORE_CREDITS_CUSTOMER_ENTRIES',
+  ADJUST_CUSTOMER_STORE_CREDITS = 'ADJUST_CUSTOMER_STORE_CREDITS',
+  SET_STORE_CREDITS_CUSTOMERS = 'SET_STORE_CREDITS_CUSTOMERS',
+  SET_STORE_CREDITS_CUSTOMER_STATUS = 'SET_STORE_CREDITS_CUSTOMER_STATUS',
+  SET_STORE_CREDITS_CUSTOMER_BALANCE = 'SET_STORE_CREDITS_CUSTOMER_BALANCE',
 }
 
 // #endregion [Action Types]
@@ -82,21 +83,15 @@ export const StoreCreditsCustomersActions = {
     type: EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMERS,
     payload,
   }),
-  readStoreCreditsCustomerStatus: (
-    payload: IReadStoreCreditsCustomerStatusPayload
-  ) => ({
+  readStoreCreditsCustomerStatus: (payload: IReadStoreCreditsCustomerStatusPayload) => ({
     type: EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMER_STATUS,
     payload,
   }),
-  readStoreCreditsCustomerEntries: (
-    payload: IReadStoreCreditsCustomerEntriesPayload
-  ) => ({
+  readStoreCreditsCustomerEntries: (payload: IReadStoreCreditsCustomerEntriesPayload) => ({
     type: EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMER_ENTRIES,
     payload,
   }),
-  adjustCustomerStoreCredits: (
-    payload: IAdjustCustomerStoreCreditsPayload
-  ) => ({
+  adjustCustomerStoreCredits: (payload: IAdjustCustomerStoreCreditsPayload) => ({
     type: EStoreCreditsCustomersActionTypes.ADJUST_CUSTOMER_STORE_CREDITS,
     payload,
   }),
@@ -104,15 +99,11 @@ export const StoreCreditsCustomersActions = {
     type: EStoreCreditsCustomersActionTypes.SET_STORE_CREDITS_CUSTOMERS,
     payload,
   }),
-  setStoreCreditsCustomerStatus: (
-    payload: ISetStoreCreditsCustomerStatusPayload
-  ) => ({
+  setStoreCreditsCustomerStatus: (payload: ISetStoreCreditsCustomerStatusPayload) => ({
     type: EStoreCreditsCustomersActionTypes.SET_STORE_CREDITS_CUSTOMER_STATUS,
     payload,
   }),
-  setStoreCreditsCustomerBalance: (
-    payload: ISetStoreCreditsCustomerBalancePayload
-  ) => ({
+  setStoreCreditsCustomerBalance: (payload: ISetStoreCreditsCustomerBalancePayload) => ({
     type: EStoreCreditsCustomersActionTypes.SET_STORE_CREDITS_CUSTOMER_BALANCE,
     payload,
   }),

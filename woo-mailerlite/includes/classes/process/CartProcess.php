@@ -127,6 +127,11 @@ class CartProcess extends Singleton
                     'items'        => []
                 ];
 
+                if (empty($cart_data['line_items'])) {
+                    $mailerliteClient->deleteOrder($shop, $cart_data['id']);
+                    return false;
+                }
+
                 foreach ($cart_data['line_items'] as $item) {
 
                     $product = wc_get_product($item['product_id']);

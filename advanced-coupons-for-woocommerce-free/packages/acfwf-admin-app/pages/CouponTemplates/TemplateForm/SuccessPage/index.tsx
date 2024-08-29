@@ -67,6 +67,9 @@ const SuccessPage = (props: IProps) => {
                   )}
                 </Descriptions.Item>
               ))}
+              {!!formResponse.cart_conditions && (
+                <Descriptions.Item label={labels.cart_conditions}>{formResponse.cart_conditions}</Descriptions.Item>
+              )}
             </Descriptions>
           </div>
           <div className="actions-box">

@@ -127,6 +127,12 @@ class Coupon_Templates extends Base_Model implements Model_Interface {
                 'view_templates_list'     => __( 'View Templates List', 'advanced-coupons-for-woocommerce-free' ),
                 'template_not_found'      => __( 'The selected template doesn’t exist.', 'advanced-coupons-for-woocommerce-free' ),
                 'no_templates_found'      => __( 'No templates found.', 'advanced-coupons-for-woocommerce-free' ),
+                'coupon_details'          => __( 'Coupon Details', 'advanced-coupons-for-woocommerce-free' ),
+                'cart_conditions'         => __( 'Cart Conditions', 'advanced-coupons-for-woocommerce-free' ),
+                'product'                 => __( 'Product', 'advanced-coupons-for-woocommerce-free' ),
+                'condition'               => __( 'Condition', 'advanced-coupons-for-woocommerce-free' ),
+                'quantity'                => __( 'Quantity', 'advanced-coupons-for-woocommerce-free' ),
+                'search_product'          => __( 'Search Product', 'advanced-coupons-for-woocommerce-free' ),
             ),
             'enable_review_tab' => ( defined( 'ACFW_COUPON_TEMPLATES_REVIEWER' ) && ACFW_COUPON_TEMPLATES_REVIEWER ) || 'yes' === get_option( self::ENABLE_COUPON_TEMPLATES_REVIEWER ),
         );

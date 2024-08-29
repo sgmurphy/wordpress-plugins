@@ -30,7 +30,7 @@
 
 					settings_fields( $option_name ); // Display Settings
 
-					do_settings_sections( 'xoo-el-fields' ); // Display Sections
+					do_settings_sections( $admin_page_slug ); // Display Sections
 
 					submit_button( 'Save Settings' );	// Display Save Button
 				?>			

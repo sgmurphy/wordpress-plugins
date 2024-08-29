@@ -43,11 +43,20 @@ class Abstract_Coupons_Report_Widget extends Abstract_Report_Widget {
             $currency_settings  = array( 'user_currency' => $order->get_currency() );
             $order_coupons_data = array_map(
                 function ( $item ) use ( $order, $currency_settings ) {
-                    $discount     = apply_filters( 'acfw_filter_amount', $item->get_discount(), $currency_settings );
-                    $discount_tax = apply_filters( 'acfw_filter_amount', $item->get_discount_tax(), $currency_settings );
+                    $discount        = apply_filters( 'acfw_filter_amount', $item->get_discount(), $currency_settings );
+                    $discount_tax    = apply_filters( 'acfw_filter_amount', $item->get_discount_tax(), $currency_settings );
+                    $coupon_info     = json_decode( $item->get_meta( 'coupon_info' ) ?? '[]' );
+                    list($coupon_id) = $coupon_info;
+
+                    // Backwards compatibility for old coupon data.
+                    if ( ! $coupon_id ) {
+                        $coupon_data = $item->get_meta( 'coupon_data' );
+                        $coupon_id   = $coupon_data['id'] ?? 0;
+                    }
+
                     return array(
                         'order_item_id'  => $item->get_id(),
-                        'ID'             => $item->get_id(),
+                        'ID'             => $coupon_id ?? 0,
                         'code'           => $item->get_code(),
                         'discount'       => apply_filters( 'acfw_query_report_get_discount', $discount, $item, $order ),
                         'discount_tax'   => apply_filters( 'acfw_query_report_get_discount_tax', $discount_tax, $item, $order ),

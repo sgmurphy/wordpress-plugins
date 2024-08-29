@@ -2,8 +2,8 @@
 Contributors: jkohlbach, RymeraWebCo, Rymera01, smub
 Tags: woocommerce coupons, bogo coupons, store credit, url coupons, bogo
 Requires at least: 5.2
-Tested up to: 6.5.5
-Stable tag: 4.6.2
+Tested up to: 6.6
+Stable tag: 4.6.3
 Requires PHP: 5.6
 License: GNU General Public License v2.0 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -367,6 +367,22 @@ Thanks,
 Josh Kohlbach (CEO of Rymera Web Co)
 
 == Changelog ==
+
+= 4.6.3 =
+- Bug Fix: Cart & Checkout Block: The cart condition non-qualifying message won't show up when the coupon is auto-applied
+- Bug Fix: Coupon Template: Disable the "Allow Free Shipping" when the setting is set to disabled
+- Bug Fix: Coupon Template: Disable the "Date Range Schedules" when it disabled from server
+- Bug Fix: Coupon Template: Disable the "Enable Coupon URL " when it disabled from server and from the plugin
+- Bug Fix: Coupon Template: Hide option to select how many coupons to display on archive pages
+- Bug Fix: Coupon Template: debug log found for PHP Warning Undefined variable $type 
+- Bug Fix: Coupon Template: the coupon start and expiry date shows invalid date for filled by the user template
+- Bug Fix: Coupon Template: usage restrictions for "individual use only" and "exclude sale items" do not generate valid data when disabled from the coupon template
+- Bug Fix: Dashboard: Wrong Uses Count and URL
+- Bug Fix: Refund to Store Credit: Line Items Data Are Not Attached Properly to The Refund Request in JS
+- Bug Fix: Remove unnecessary <label> element in store credit button component
+- Feature: Ability to add notes/comments on Store Credit popup to track why adjustment was made
+- Feature: Coupon Templates cart condition feature support
+- Improvement: Coupon Template: Make the coupon template generated data more readable 
 
 = 4.6.2 =
 - Bug Fix: Always use regular price doesn't work for BOGO coupon 

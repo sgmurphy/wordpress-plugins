@@ -1,21 +1,3 @@
-var wpbc_tour_i18n = {};
-wpbc_tour_i18n.plugins_page={};
-wpbc_tour_i18n.plugins_page.title = 'Welcome to WP Booking Calendar';
-wpbc_tour_i18n.plugins_page.text = 'This quick product tour will show you how <strong>WP Booking Calendar</strong> help you to manage bookings.';
-wpbc_tour_i18n.plugins_page.button = {};
-wpbc_tour_i18n.plugins_page.button.text = 'Let\'s go';
-wpbc_tour_i18n.plugins_page.button.url = 'admin.php?page=wpbc-setup';
-
-wpbc_tour_i18n.setup_page = {}
-wpbc_tour_i18n.setup_page.title = 'Step 1 / 10';
-wpbc_tour_i18n.setup_page.text = 'To make a simple backup to your server, press this button. Or to setup regular backups and remote storage, go to <strong>settings</strong> ';
-
-wpbc_tour_i18n.button_end_tour = {}
-wpbc_tour_i18n.button_end_tour.text = 'End Tour';
-
-wpbc_tour_i18n.button_next = {}
-wpbc_tour_i18n.button_next.text = 'Next';
-
 (function ($) {
 
 	$(function() {
@@ -127,7 +109,6 @@ wpbc_tour_i18n.button_next.text = 'Next';
 	});
 
 })(jQuery);
-
 
 jQuery(document).ready(function(){
 

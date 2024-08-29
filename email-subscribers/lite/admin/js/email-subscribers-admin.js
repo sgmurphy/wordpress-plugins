@@ -4229,3 +4229,61 @@ jQuery.fn.extend({
 //   });
   
 //app.js code ended
+
+jQuery(document).ready(function(){
+
+	jQuery(".es-export-report").click(function(){
+		var reports_id = '';
+		var reportIdAttr = jQuery(this).attr('data-report-id');
+
+		if (reportIdAttr && reportIdAttr.trim() !== "") {
+			reports_id = reportIdAttr;
+		} else {
+			jQuery('table.reports th input[type=checkbox]').each(function(){
+				if(jQuery(this).val().trim().length !== 0){
+					reports_id += jQuery(this).val() + ",";
+				}
+			});
+		}
+
+		let reports_export_data = {
+			action: 'ig_es_reports_export',
+			security: ig_es_js_data.security,
+			all_reports_id: reports_id,
+		};
+
+		jQuery.ajax({
+			method: 'POST',
+			url: ajaxurl,
+			data: reports_export_data,
+			xhrFields: {
+				responseType: 'blob' // Ensure the response is treated as binary data
+			},
+			success: function(response, status, xhr) {
+				var disposition = xhr.getResponseHeader('Content-Disposition');
+				var filename = '';
+
+				if (disposition && disposition.indexOf('attachment') !== -1) {
+					var matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+					if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
+				}
+
+				var blob = new Blob([response], { type: 'text/csv' });
+				var url = window.URL.createObjectURL(blob);
+				var a = document.createElement('a');
+				a.href = url;
+				a.download = filename || 'export.csv';
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				window.URL.revokeObjectURL(url);
+			},
+			error: function(xhr, status, error) {
+				alert('An error occurred during the CSV export.');
+				console.error('Error:', error);
+				console.error('Status:', status);
+				console.error('XHR:', xhr);
+			}
+		});
+	});
+});

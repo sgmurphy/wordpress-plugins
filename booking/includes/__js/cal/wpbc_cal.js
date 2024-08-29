@@ -446,6 +446,7 @@ function wpbc_calendar_show( resource_id ){
 		if (
 			   ( location.href.indexOf( 'page=wpbc' ) == -1 )
 			|| ( location.href.indexOf( 'page=wpbc-new' ) > 0 )
+			|| ( location.href.indexOf( 'page=wpbc-setup' ) > 0 )
 			|| ( location.href.indexOf( 'page=wpbc-availability' ) > 0 )
 			|| (  ( location.href.indexOf( 'page=wpbc-settings' ) > 0 )  &&
 				  ( location.href.indexOf( '&tab=form' ) > 0 )
@@ -1985,6 +1986,10 @@ function wpbc_auto_fill_booking_fields( auto_fill_str ){																//FixIn:
  *
  */
 function wpbc_calendar__auto_update_months_number__on_resize( resource_id ){
+
+	if ( true === _wpbc.get_other_param( 'is_allow_several_months_on_mobile' ) ) {
+		return false;
+	}
 
 	var local__number_of_months = parseInt( _wpbc.calendar__get_param_value( resource_id, 'calendar_number_of_months' ) );
 

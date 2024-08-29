@@ -46,7 +46,7 @@ class WPBC_JS extends WPBC_JS_CSS {
         wpbc_js_load_libs(  $where_to_load );
         wpbc_js_load_files( $where_to_load );
 
-	    if ( wpbc_is_new_booking_page() || wpbc_is_settings_form_page()) {
+	    if ( wpbc_is_new_booking_page() || wpbc_is_settings_form_page() || wpbc_is_setup_wizard_page() ) {
 		    $where_to_load = 'both';
 	    }
 
@@ -199,7 +199,7 @@ function wpbc_js_load_files( $where_to_load ) {
 		wp_enqueue_script( 'wpbc-datepick-localize', $calendar_localization_url,                            array( 'wpbc-datepick' ),   WP_BK_VERSION_NUM );                 //FixIn: 9.8.1
 	}
 
-    if (  ( $where_to_load == 'client' ) || ( wpbc_is_new_booking_page()  ) || ( wpbc_is_settings_form_page()  )   ) {
+    if (  ( $where_to_load == 'client' ) || ( wpbc_is_new_booking_page()  ) || ( wpbc_is_settings_form_page() || wpbc_is_setup_wizard_page()  )   ) {
 
 	    wp_enqueue_script( 'wpbc-main-client',  wpbc_plugin_url( '/js/client.js' ),                                  array( 'wpbc-datepick' ), WP_BK_VERSION_NUM );             // Client
 	    wp_enqueue_script( 'wpbc_capacity',     wpbc_plugin_url( '/includes/_capacity/_out/create_booking.js' ),     array( 'wpbc-main-client' ), WP_BK_VERSION_NUM );          // Add new bookings   //FixIn: 9.8.0.3

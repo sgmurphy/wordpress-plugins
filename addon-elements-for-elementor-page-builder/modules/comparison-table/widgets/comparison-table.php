@@ -2074,7 +2074,7 @@ class ComparisonTable extends EAE_Widget_Base {
 					if($settings['hide_table_'.$i] != 'yes') {
 						
 						if ( $settings[ 'table_ribbon_' . $i ] === 'yes') {
-							$this->add_render_attribute( 'eae-ct-heading', 'class', ['eae-ct-heading, eae-table-' . $i , ' eae-ct-ribbons-yes', 'eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ]]);
+							$this->add_render_attribute( 'eae-ct-heading', 'class', ['eae-ct-heading eae-table-' . $i , ' eae-ct-ribbons-yes', 'eae-ct-ribbons-h-' . $settings[ 'ribbons_position_' . $i ]]);
 							?>
 							<li <?php echo $this->get_render_attribute_string('eae-ct-heading')?>>
 							<?php

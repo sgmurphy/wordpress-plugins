@@ -530,8 +530,8 @@ class MetaSeoSitemap
             )
         ));
 
-        if (empty($this->settings_sitemap['wpms_html_sitemap_page']) && !empty($sitemap_page)) {
-            $this->settings_sitemap['wpms_html_sitemap_page'] = $sitemap_page->ID;
+        if (empty($this->settings_sitemap['wpms_html_sitemap_page'])) {
+            $this->settings_sitemap['wpms_html_sitemap_page'] = 0;
         }
         ?>
         <select id="wpms_html_sitemap_page" name="_metaseo_settings_sitemap[wpms_html_sitemap_page]"
@@ -1887,8 +1887,8 @@ ORDER BY p.post_date DESC', array('publish', $post_type, $taxo, $cat->slug)));
             )
         ));
 
-        if (empty($this->settings_sitemap['wpms_html_sitemap_page']) && !empty($sitemap_page)) {
-            $this->settings_sitemap['wpms_html_sitemap_page'] = $sitemap_page->ID;
+        if (empty($this->settings_sitemap['wpms_html_sitemap_page'])) {
+            $this->settings_sitemap['wpms_html_sitemap_page'] = 0;
         }
 
         if (!empty($this->settings_sitemap['wpms_html_sitemap_page'])

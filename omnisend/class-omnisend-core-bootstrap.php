@@ -4,7 +4,7 @@
  *
  * Plugin Name: Omnisend Email Marketing
  * Description: Omnisend main plugin that enables integration with Omnisend.
- * Version: 1.5.1
+ * Version: 1.5.2
  * Author: Omnisend
  * Author URI: https://www.omnisend.com
  * Developer: Omnisend
@@ -23,7 +23,7 @@ use Omnisend\Internal\Connection;
 
 defined( 'ABSPATH' ) || die( 'no direct access' );
 
-const OMNISEND_CORE_PLUGIN_VERSION = '1.5.1';
+const OMNISEND_CORE_PLUGIN_VERSION = '1.5.2';
 const OMNISEND_CORE_SETTINGS_PAGE  = 'omnisend';
 const OMNISEND_CORE_PLUGIN_NAME    = 'Email Marketing by Omnisend';
 const OMNISEND_MENU_TITLE          = 'Omnisend Email Marketing';
@@ -50,8 +50,8 @@ add_action( 'plugins_loaded', 'Omnisend_Core_Bootstrap::load' );
 class Omnisend_Core_Bootstrap {
 	public static function load(): void {
 		self::load_react();
-		// phpcs:ignore because linter could not detect internal, but it is fine
-		add_filter('cron_schedules', 'Omnisend_Core_Bootstrap::cron_schedules'); // phpcs:ignore
+		// Cron every minute only for short period of time (after connection) to sync WP users to Omnisend. After sync cron is disabled.
+		add_filter( 'cron_schedules', array( 'Omnisend_Core_Bootstrap', 'cron_schedules' ) ); //phpcs:ignore WordPress.WP.CronInterval.CronSchedulesInterval
 		add_action( 'rest_api_init', 'Omnisend_Core_Bootstrap::omnisend_register_connection_routes' );
 		add_action( 'in_admin_header', 'Omnisend_Core_Bootstrap::hide_notices' );
 

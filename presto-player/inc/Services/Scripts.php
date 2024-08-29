@@ -1,18 +1,26 @@
 <?php
+/**
+ * Scripts Service for Presto Player.
+ *
+ * This file contains the Scripts class which handles registration and enqueuing of scripts and styles.
+ *
+ * @package PrestoPlayer
+ * @subpackage Services
+ */
 
 namespace PrestoPlayer\Services;
 
-use Error;
 use PrestoPlayer\Plugin;
 use PrestoPlayer\Models\Block;
 use PrestoPlayer\Models\Setting;
-use PrestoPlayer\WPackio\Enqueue;
 
-
+/**
+ * Scripts class for handling script and style registration and enqueuing.
+ */
 class Scripts {
 
 	/**
-	 * Register scripts used throughout the plugin
+	 * Register scripts used throughout the plugin.
 	 *
 	 * @return void
 	 */
@@ -28,17 +36,17 @@ class Scripts {
 		// learndash.
 		add_action( 'admin_enqueue_scripts', array( $this, 'learndashAdminScripts' ) );
 
-		// elementor editor scripts
+		// elementor editor scripts.
 		add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'elementorPreviewScripts' ) );
 		add_action( 'elementor/frontend/before_enqueue_scripts', array( $this, 'blockAssets' ) );
 
-		// admin pages
+		// admin pages.
 		add_action( 'admin_print_scripts-presto-player_page_presto_license', array( $this, 'licenseScripts' ) );
 		add_action( 'presto_player_pro_register_license_page', array( $this, 'licenseScripts' ) );
 
 		add_action( 'after_setup_theme', array( $this, 'addAppearanceToolsSupport' ), 99999 );
 
-		// custom template styles
+		// custom template styles.
 		add_action( 'wp_enqueue_scripts', array( $this, 'presto_player_custom_template_styles' ) );
 	}
 
@@ -52,15 +60,21 @@ class Scripts {
 		add_theme_support( 'border' );
 	}
 
+	/**
+	 * Enqueue LearnDash admin scripts.
+	 *
+	 * @param string $hook_suffix The current admin page.
+	 * @return void
+	 */
 	public function learndashAdminScripts( $hook_suffix ) {
 		global $post_type;
 
-		// must be on learndash page
+		// must be on learndash page.
 		if ( ! in_array( $post_type, array( 'sfwd-lessons', 'sfwd-topic' ) ) ) {
 			return;
 		}
 
-		// must be on new post page
+		// must be on new post page.
 		if ( ! in_array( $hook_suffix, array( 'post.php', 'post-new.php' ) ) ) {
 			return;
 		}
@@ -76,42 +90,16 @@ class Scripts {
 	}
 
 	/**
-	 * Preload components to increase performance
-	 */
-	public function preloadComponents() {
-		/**
-		 * Get base file needed for components
-		 */
-		$file_contents = file_get_contents( PRESTO_PLAYER_PLUGIN_DIR . 'dist/components/web-components/web-components.esm.js' );
-		preg_match( '/\.\\/p\-(.*)\.js/', $file_contents, $matches );
-
-		// get entry file
-		if ( ! empty( $matches[0] ) ) {
-			$file = str_replace( './', '', $matches[0] );
-			echo "<link rel='modulepreload' href='" . esc_url_raw( PRESTO_PLAYER_PLUGIN_URL . 'dist/components/web-components/' . $file ) . "' as='script' />\n"; // base
-		}
-
-		/**
-		 * Get entry files
-		 */
-		$files = scandir( PRESTO_PLAYER_PLUGIN_DIR . 'dist/components/web-components/' );
-		foreach ( $files as $file ) {
-			if ( strpos( $file, '.entry.js' ) !== false ) {
-				echo "<link rel='modulepreload' href='" . esc_url_raw( PRESTO_PLAYER_PLUGIN_URL . 'dist/components/web-components/' . $file ) . "' as='script' />\n"; // list
-			}
-		}
-
-		/**
-		 * Web components loader
-		 */
-		echo "<link rel='modulepreload' href='" . esc_url_raw( PRESTO_PLAYER_PLUGIN_URL . 'dist/components/web-components/web-components.esm.js' ) . '?ver=' . filemtime( PRESTO_PLAYER_PLUGIN_DIR . 'dist/components/web-components/web-components.esm.js' ) . "' as='script' />";
-	}
-
-	/**
-	 * Add a type="module" to our components tag to lazy load them
+	 * Add a type="module" to our components tag to lazy load them.
+	 *
+	 * @param string $tag    The <script> tag for the enqueued script.
+	 * @param string $handle The script's registered handle.
+	 * @param string $source The script's source URL.
+	 * @return string The modified script tag.
 	 */
 	public function prestoComponentsTag( $tag, $handle, $source ) {
 		if ( 'presto-components' === $handle ) {
+            // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 			$tag = '<script src="' . $source . '" type="module" defer></script>';
 		}
 
@@ -119,7 +107,9 @@ class Scripts {
 	}
 
 	/**
-	 * Register our components
+	 * Register our components.
+	 *
+	 * @return void
 	 */
 	public function registerPrestoComponents() {
 
@@ -191,7 +181,9 @@ class Scripts {
 	}
 
 	/**
-	 * Elementor scripts (needed speifically on preview pages)
+	 * Elementor scripts (needed speifically on preview pages).
+	 *
+	 * @return void
 	 */
 	public function elementorPreviewScripts() {
 		if ( ! isset( $_GET['elementor-preview'] ) ) {
@@ -222,7 +214,7 @@ class Scripts {
 	}
 
 	/**
-	 * Block Editor Assets
+	 * Block Editor Assets.
 	 *
 	 * @return void
 	 */
@@ -301,16 +293,21 @@ class Scripts {
 	}
 
 	/**
-	 * Does the page have a player?
+	 * Checks if the current page contains a Presto Player.
+	 *
+	 * Examines various conditions including global variables, block presence,
+	 * shortcodes, and page builder environments to determine if a player exists.
+	 *
+	 * @return bool True if a player is detected, false otherwise.
 	 */
 	public function hasPlayer() {
-		// global is the most reliable between page builders
+		// global is the most reliable between page builders.
 		global $load_presto_js;
 		if ( $load_presto_js ) {
 			return true;
 		}
 
-		// must be a singular page
+		// must be a singular page.
 		if ( ! is_singular() ) {
 			return false;
 		}
@@ -318,7 +315,7 @@ class Scripts {
 		$id            = get_the_ID();
 		$widget_blocks = get_option( 'widget_block' );
 
-		// change to see if we have one of our blocks
+		// change to see if we have one of our blocks.
 		$types = Block::getBlockTypes();
 		foreach ( $types as $type ) {
 			if ( has_block( $type, $id ) ) {
@@ -335,7 +332,7 @@ class Scripts {
 			}
 		}
 
-		// check for data-presto-config (player rendered)
+		// check for data-presto-config (player rendered).
 		$wp_post = get_post( $id );
 		if ( $wp_post instanceof \WP_Post ) {
 			$post = $wp_post->post_content;
@@ -345,12 +342,12 @@ class Scripts {
 			return true;
 		}
 
-		// check that we have a shortcode
+		// check that we have a shortcode.
 		if ( has_shortcode( $post, 'presto_player' ) ) {
 			return true;
 		}
 
-		// enable on Elementor
+		// enable on Elementor.
 		if ( ! empty( $_GET['action'] ) && 'elementor' === $_GET['action'] ) {
 			return true;
 		}
@@ -358,12 +355,12 @@ class Scripts {
 			return true;
 		}
 
-		// load for beaver builder
+		// load for beaver builder.
 		if ( isset( $_GET['fl_builder'] ) ) {
 			return true;
 		}
 
-		// tutor LMS
+		// tutor LMS.
 		global $post;
 		if ( ! empty( $post->post_type ) && $post->post_type ) {
 			if ( defined( 'TUTOR_VERSION' ) && 'lesson' === $post->post_type ) {
@@ -371,12 +368,12 @@ class Scripts {
 			}
 		}
 
-		// load for Divi builder
+		// load for Divi builder.
 		if ( isset( $_GET['et_fb'] ) ) {
 			return true;
 		}
 
-		// do we have the player
+		// do we have the player.
 		return $has_player;
 	}
 
@@ -393,35 +390,33 @@ class Scripts {
 		<?php
 	}
 
+	/**
+	 * Load JavaScript for the plugin.
+	 *
+	 * @return void
+	 */
 	public function loadJavascript() {
-		// global styles
+		// global styles.
 		if ( ! wp_doing_ajax() && ! defined( 'REST_REQUEST' ) && ! defined( 'PRESTO_TESTSUITE' ) ) {
 			$this->globalStyles();
 		}
-
-		// direct load
-		if ( Setting::get( 'performance', 'module_enabled' ) || ! is_admin() ) {
-			// preload components
-			add_action( 'wp_head', array( $this, 'preloadComponents' ) );
-		}
-
 		wp_enqueue_script( 'presto-components' );
 	}
 
 	/**
-	 * Block frontend assets
+	 * Block frontend assets.
 	 *
 	 * @return void
 	 */
 	public function blockAssets() {
-		// don't output if it doesn't have our block
+		// don't output if it doesn't have our block.
 		if ( ! apply_filters( 'presto_player_load_js', $this->hasPlayer() ) ) {
 			return;
 		}
 
 		$this->loadJavascript();
 
-		// fallback styles and script to load iframes
+		// fallback styles and script to load iframes.
 		add_action(
 			'wp_footer',
 			function () {
@@ -436,6 +431,12 @@ class Scripts {
 		);
 	}
 
+	/**
+	 * Enqueue scripts for the license page.
+	 *
+	 * @param string $hook The current admin page.
+	 * @return void
+	 */
 	public function licenseScripts( $hook ) {
 		add_action(
 			"admin_print_scripts-{$hook}",
@@ -453,9 +454,14 @@ class Scripts {
 		);
 	}
 
+	/**
+	 * Print fallback scripts and styles.
+	 *
+	 * @return void
+	 */
 	public function printFallbackScriptsAndStyles() {
 		/*
-		* This CSS is duplicated in 'packages/components/src/components/core/player/presto-player/presto-player.scss'
+		* This CSS is duplicated in 'packages/components/src/components/core/player/presto-player/presto-player.scss'.
 		*/
 		echo '<style>.presto-iframe-fallback-container{position:relative;padding-bottom:56.25%;padding-top:30px;height:0;overflow:hidden}.presto-iframe-fallback-container embed,.presto-iframe-fallback-container iframe,.presto-iframe-fallback-container object{position:absolute;top:0;left:0;width:100%;height:100%}</style>';
 		echo '<script defer>
@@ -471,6 +477,11 @@ class Scripts {
             </script>';
 	}
 
+	/**
+	 * Enqueue custom template styles for single video pages.
+	 *
+	 * @return void
+	 */
 	public function presto_player_custom_template_styles() {
 		if ( is_singular( 'pp_video_block' ) ) {
 			$assets = include trailingslashit( PRESTO_PLAYER_PLUGIN_DIR ) . 'dist/media-page.asset.php';

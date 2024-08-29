@@ -91,6 +91,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 				'learn-press/core-api/controllers',
 				function ( $controller ) {
 					$controller[] = 'LP_REST_Courses_Reviews_Controller';
+
 					return $controller;
 				}
 			);
@@ -120,7 +121,10 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 					$lp_course_reviews_cache->clean_rating( $post_id );
 				}
 			);
-			add_filter( 'learnPress/prepare_struct_courses_response/courseObjPrepare', [ $this, 'rest_api_courses' ], 10, 2 );
+			add_filter( 'learnPress/prepare_struct_courses_response/courseObjPrepare', [
+				$this,
+				'rest_api_courses'
+			], 10, 2 );
 
 			$this->init_comment_table();
 			$this->calculate_rating_average_courses();
@@ -170,7 +174,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 				[],
 				$v,
 				[
-					'strategy'  => 'defer',
+					'strategy' => 'defer',
 				]
 			);
 
@@ -309,7 +313,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 		public function add_comment_post_type_filter() {
 			?>
 			<label class="screen-reader-text"
-				for="filter-by-comment-post-type"><?php _e( 'Filter by post type' ); ?></label>
+				   for="filter-by-comment-post-type"><?php _e( 'Filter by post type' ); ?></label>
 			<select id="filter-by-comment-post-type" name="post_type">
 				<?php
 				$comment_post_types = apply_filters(
@@ -353,7 +357,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 			);
 
 			$course_id = $setting['course_id'];
-			$course    = learn_press_get_course( $course_id );
+			$course    = CourseModel::find( $course_id, true );
 			if ( ! $course ) {
 				$message_data = [
 					'status'  => 'warning',
@@ -361,6 +365,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 				];
 				ob_start();
 				Template::instance()->get_frontend_template( 'global/lp-message.php', compact( 'message_data' ) );
+
 				return ob_get_clean();
 			}
 
@@ -401,9 +406,9 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 		}
 
 		public function add_course_tab_reviews_callback() {
-			// $user      = learn_press_get_current_user();
-			$course_id = learn_press_get_course_id();
-			if ( empty( $course_id ) ) {
+			$course_id = get_the_ID();
+			$course    = CourseModel::find( $course_id, true );
+			if ( empty( $course ) ) {
 				return;
 			}
 			?>
@@ -426,9 +431,9 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 		 *
 		 * @param int $course_id
 		 *
-		 * @version 1.0.0
-		 * @since 4.0.6
 		 * @return array
+		 * @since 4.0.6
+		 * @version 1.0.0
 		 */
 		public function get_rating_of_course( int $course_id = 0 ): array {
 			$lp_course_review_cache = new LP_Course_Review_Cache( true );
@@ -484,7 +489,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 
 				$rating['total'] = (int) $rating_rs->total;
 				$total_rating    = 0;
-				for ( $star = 1; $star <= 5; $star++ ) {
+				for ( $star = 1; $star <= 5; $star ++ ) {
 					$key = '';
 					switch ( $star ) {
 						case 1:
@@ -510,12 +515,12 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 					$rating['items'][ $star ]['percent'] = (int) ( $rating_rs->total ? $rating_rs->{$key} * 100 / $rating_rs->total : 0 );
 
 					// Sum rating.
-					$count_star    = $rating_rs->{$key};
+					$count_star   = $rating_rs->{$key};
 					$total_rating += $count_star * $star;
 				}
 
 				// Calculate average rating.
-				$rating_average  = $rating_rs->total ? $total_rating / $rating_rs->total : 0;
+				$rating_average = $rating_rs->total ? $total_rating / $rating_rs->total : 0;
 				if ( is_float( $rating_average ) ) {
 					$rating_average = (float) number_format( $rating_average, 1 );
 				}
@@ -570,7 +575,7 @@ if ( ! class_exists( 'LP_Addon_Course_Review' ) ) {
 
 		public static function get_svg_star() {
 			//return wp_remote_fopen( LP_Addon_Course_Review_Preload::$addon->get_plugin_url( 'assets/images/svg-star.svg' ) );
-			return file_get_contents( LP_ADDON_COURSE_REVIEW_PATH. '/assets/images/svg-star.svg' );
+			return file_get_contents( LP_ADDON_COURSE_REVIEW_PATH . '/assets/images/svg-star.svg' );
 		}
 
 		/**

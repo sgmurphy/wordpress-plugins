@@ -99,6 +99,7 @@ $field_settings = array(
 		'label',
 		'cols',
 		'icon',
+		'use_select2',
 		'placeholder',
 		'select_list',
 		'unique_id',
@@ -123,6 +124,7 @@ $field_settings = array(
 		'label',
 		'cols',
 		'icon',
+		'use_select2',
 		'placeholder',
 		'country_list',
 		'country_choose',
@@ -141,6 +143,7 @@ $field_settings = array(
 		'label',
 		'cols',
 		'icon',
+		'use_select2',
 		'placeholder',
 		'for_country_id',
 		'unique_id',
@@ -155,6 +158,9 @@ $field_settings = array(
 		'label',
 		'cols',
 		'icon',
+		'use_select2' => array(
+			'value' => 'yes'
+		),
 		'placeholder',
 		'country_list',
 		'country_choose',

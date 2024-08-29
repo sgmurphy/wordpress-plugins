@@ -246,10 +246,7 @@ class XL_optIn_Manager {
 		$_POST['ip']     = $_SERVER['REMOTE_ADDR'];
 		XL_API::post_optin_data( $_POST );
 
-		/** scheduling track call when success */
-		if ( isset( $_POST['status'] ) && 'yes' == $_POST['status'] ) {
-			wp_schedule_single_event( time() + 2, 'xl_optin_success_track_scheduled' );
-		}
+		self::Allow_optin();
 
 		wp_send_json( array(
 			'status' => 'success',

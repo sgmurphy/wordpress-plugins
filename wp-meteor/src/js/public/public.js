@@ -284,10 +284,11 @@ dispatcher.on(EVENT_IMAGES_LOADED, () => {
     InteractionEvents.capture();
   }
 })();
-let scriptsToLoad = 1;
-const scriptLoaded = () => {
-  process.env.DEBUG && c(delta(), "scriptLoaded", scriptsToLoad - 1);
-  if (!--scriptsToLoad) {
+let scriptsToLoad = [-1];
+const scriptLoaded = (event) => {
+  process.env.DEBUG && c(delta(), "scriptLoaded", event.target, scriptsToLoad.length);
+  scriptsToLoad = scriptsToLoad.filter((script) => script !== event.target);
+  if (!scriptsToLoad.length) {
     nextTick(dispatcher.emit.bind(dispatcher, EVENT_THE_END));
   }
 };
@@ -300,7 +301,9 @@ const iterate = () => {
     if (element[getAttribute](prefix + "src")) {
       if (element[hasAttribute]("async")) {
         process.env.DEBUG && c(delta(), "async", scriptsToLoad, element);
-        scriptsToLoad++;
+        if (element.isConnected) {
+          scriptsToLoad.push(element);
+        }
         unblock(element, scriptLoaded);
         nextTick(iterate);
       } else {
@@ -328,8 +331,8 @@ const iterate = () => {
       if (hasUnfiredListeners([L, M])) {
         fireQueuedEvents([L, M]);
         nextTick(iterate);
-      } else if (scriptsToLoad > 1) {
-        process.env.DEBUG && c(delta(), "waiting for", scriptsToLoad - 1, "more scripts to load", reorder);
+      } else if (scriptsToLoad.length > 1) {
+        process.env.DEBUG && c(delta(), "waiting for", scriptsToLoad.length, "more scripts to load", scriptsToLoad);
         rIC(iterate);
       } else if (async.length) {
         while (async.length) {
@@ -350,7 +353,7 @@ const iterate = () => {
         jQuery.unmock();
         iterating = false;
         DONE = true;
-        w[_setTimeout](scriptLoaded);
+        w[_setTimeout](() => scriptLoaded({ target: -1 }));
       }
     } else {
       iterating = false;
@@ -389,15 +392,15 @@ const unblock = (el, callback) => {
   if (src) {
     process.env.DEBUG && c(delta(), "unblocking src", src);
     const addEventListener2 = origAddEventListener.bind(el);
-    if (callback) {
+    if (el.isConnected && callback) {
       addEventListener2(L, callback);
       addEventListener2(E, callback);
     }
     el.origtype = el[getAttribute](prefix + "type") || "text/javascript";
     el.origsrc = src;
     process.env.DEBUG && c(delta(), "unblocked src", src, el);
-    if ((el[hasAttribute]("nomodule") || el.type && !isJavascriptRegexp.test(el.type)) && callback) {
-      callback();
+    if ((!el.isConnected || el[hasAttribute]("nomodule") || el.type && !isJavascriptRegexp.test(el.type)) && callback) {
+      callback(new Event(L, { target: el }));
     }
   } else if (el.origtype === javascriptBlocked) {
     process.env.DEBUG && c(delta(), "unblocking inline", el);
@@ -408,7 +411,7 @@ const unblock = (el, callback) => {
   } else {
     process.env.DEBUG && ce(delta(), "already unblocked", el);
     if (callback) {
-      callback();
+      callback(new Event(L, { target: el }));
     }
   }
 };

@@ -482,7 +482,7 @@ class xlwcty_Admin {
 
 	public static function xlwcty_select_custom_thank_you_page() {
 		?>
-        <p><strong><?php echo __( 'Redirect to Custom Page', 'woo-thank-you-page-nextmove-lite' ); ?></strong></p>
+        <p><strong><?php echo esc_html__( 'Redirect to Custom Page', 'woo-thank-you-page-nextmove-lite' ); ?></strong></p>
         <select name="xlwcty_custom_thank_you_page" id="xlwcty_custom_thank_you_page">
             <option value=""><?php echo esc_attr( __( 'Use current page', 'woo-thank-you-page-nextmove-lite' ) ); ?></option>
 
@@ -497,11 +497,11 @@ class xlwcty_Admin {
 				$option   .= $page->post_title;
 				$option   .= '</option>';
 
-				echo $option;
+				echo esc_attr( $option );
 			}
 			?>
         </select>
-        <p><?php echo __( 'Choose a page above if you want to redirect buyer to a custom thank you page. This page will show once rules are validated.', 'woo-thank-you-page-nextmove-lite' ); ?></p>
+        <p><?php echo esc_html__( 'Choose a page above if you want to redirect buyer to a custom thank you page. This page will show once rules are validated.', 'woo-thank-you-page-nextmove-lite' ); ?></p>
         <script>
             jQuery(document).ready(function ($) {
                 $('#xlwcty_custom_thank_you_page').select2();
@@ -521,15 +521,15 @@ class xlwcty_Admin {
 		echo '<table class="table widefat xlwcty_available_shortcodes">';
 		echo '<thead>';
 		echo '<tr>';
-		echo '<th><strong>' . __( 'Component', 'woo-thank-you-page-nextmove-lite' ) . '</strong></th>';
-		echo '<th><strong>' . __( 'Shortcode', 'woo-thank-you-page-nextmove-lite' ) . '</strong></th>';
+		echo '<th><strong>' . esc_html__( 'Component', 'woo-thank-you-page-nextmove-lite' ) . '</strong></th>';
+		echo '<th><strong>' . esc_html__( 'Shortcode', 'woo-thank-you-page-nextmove-lite' ) . '</strong></th>';
 		echo '</tr>';
 		echo '</thead>';
 
 		echo '<tbody>';
 		echo '<tr>';
-		echo '<td>' . __( 'All Components', 'woo-thank-you-page-nextmove-lite' ) . '</td>';
-		echo '<td><input type="text" style="width: 75%;" onClick="this.select()" readonly value="[xlwcty_load]"><br> <span class="desc">' . __( 'This shortcode is used to display the whole thank you page layout according to the selected template', 'woo-thank-you-page-nextmove-lite' ) . '</span></td>';
+		echo '<td>' . esc_html__( 'All Components', 'woo-thank-you-page-nextmove-lite' ) . '</td>';
+		echo '<td><input type="text" style="width: 75%;" onClick="this.select()" readonly value="[xlwcty_load]"><br> <span class="desc">' . esc_html__( 'This shortcode is used to display the whole thank you page layout according to the selected template', 'woo-thank-you-page-nextmove-lite' ) . '</span></td>';
 		echo '</tr>';
 		if ( isset( $data['builder_template'] ) && '' !== $data['builder_template'] ) {
 			$builder_layout = ( isset( $data['builder_layout'] ) ) ? $data['builder_layout'] : false;
@@ -547,8 +547,8 @@ class xlwcty_Admin {
 
 								$slug = substr( $component['slug'], 1 );
 								echo '<tr>';
-								echo '<td>' . $component['name'] . '</td>';
-								echo '<td><input type="text" style="width: 75%;" onClick="this.select()" readonly value="[' . $slug . ']"></td>';
+								echo '<td>' . esc_attr( $component['name'] ) . '</td>';
+								echo '<td><input type="text" style="width: 75%;" onClick="this.select()" readonly value="' . esc_html( '[' . $slug . ']' ) . '"></td>';
 								echo '</tr>';
 							}
 						}
@@ -564,25 +564,25 @@ class xlwcty_Admin {
 	public static function new_post_metabox() {
 		ob_start();
 		?>
-        <h3><?php _e( "Congrats! You're on your way to creating a new Thank You Page. Follow these 4 simple steps:", 'woo-thank-you-page-nextmove-lite' ); ?></h3>
+        <h3><?php esc_html__( "Congrats! You're on your way to creating a new Thank You Page. Follow these 4 simple steps:", 'woo-thank-you-page-nextmove-lite' ); ?></h3>
         <ul>
             <li>
-                <strong><?php _e( 'Step 1', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php _e( 'Enter the page title above to name your Thank you page.', 'woo-thank-you-page-nextmove-lite' ); ?>
+                <strong><?php esc_html__( 'Step 1', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php esc_html__( 'Enter the page title above to name your Thank you page.', 'woo-thank-you-page-nextmove-lite' ); ?>
             </li>
             <li>
-                <strong><?php _e( 'Step 2', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php _e( 'Select the Rules below. The page will open when set rules were matched.', 'woo-thank-you-page-nextmove-lite' ); ?>
+                <strong><?php esc_html__( 'Step 2', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php esc_html__( 'Select the Rules below. The page will open when set rules were matched.', 'woo-thank-you-page-nextmove-lite' ); ?>
             </li>
             <li>
-                <strong><?php _e( 'Step 3', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php _e( 'Input the page priority on the right sidebar.', 'woo-thank-you-page-nextmove-lite' ); ?>
+                <strong><?php esc_html__( 'Step 3', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php esc_html__( 'Input the page priority on the right sidebar.', 'woo-thank-you-page-nextmove-lite' ); ?>
             </li>
             <li>
-                <strong><?php _e( 'Step 4', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php _e( 'Press the Publish button on the top right sidebar. You will be automatically redirected to a components UI.', 'woo-thank-you-page-nextmove-lite' ); ?>
+                <strong><?php esc_html__( 'Step 4', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php esc_html__( 'Press the Publish button on the top right sidebar. You will be automatically redirected to a components UI.', 'woo-thank-you-page-nextmove-lite' ); ?>
             </li>
             <li>
-                <strong><?php _e( 'Step 5', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php _e( "Choose the components you'd like to display, edit and arrange them in order.", 'woo-thank-you-page-nextmove-lite' ); ?>
+                <strong><?php esc_html__( 'Step 5', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php esc_html__( "Choose the components you'd like to display, edit and arrange them in order.", 'woo-thank-you-page-nextmove-lite' ); ?>
             </li>
             <li>
-                <strong><?php _e( 'Step 6', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php _e( "Hit Preview and you're all set to go live!", 'woo-thank-you-page-nextmove-lite' ); ?>
+                <strong><?php esc_html__( 'Step 6', 'woo-thank-you-page-nextmove-lite' ); ?></strong>: <?php esc_html__( "Hit Preview and you're all set to go live!", 'woo-thank-you-page-nextmove-lite' ); ?>
             </li>
         </ul>
 		<?php
@@ -933,6 +933,10 @@ class xlwcty_Admin {
 				}
 			}
 		}
+		$cmb2_nonce = wp_create_nonce( 'cmb2_nonce' );
+		wp_localize_script( 'xlwcty_admin-js', 'cmb2_vars', array(
+			'nonce' => $cmb2_nonce,
+		) );
 
 		$page = filter_input( INPUT_GET, 'page' );
 		if ( empty( $page ) ) {
@@ -953,7 +957,8 @@ class xlwcty_Admin {
 			wp_enqueue_script( 'xlo-optin-js', $this->get_admin_url() . '/assets/js/xlo-optin.js', XLWCTY_VERSION );
 			$xlo_optin_nonce = wp_create_nonce( 'xlo_optin_nonce' );
 			wp_localize_script( 'xlo-optin-js', 'xlo_optin_vars', array(
-				'nonce' => $xlo_optin_nonce,
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => $xlo_optin_nonce,
 			) );
 
 			echo "<style>#xlo-wrap .xlo-actions .xlo_loader { background: url('" . admin_url( 'images/spinner.gif' ) . "') no-repeat rgba(238, 238, 238, 0.5); }</style>";
@@ -1190,7 +1195,7 @@ class xlwcty_Admin {
 		if ( $post->post_date ) {
 			$date_format  = get_option( 'date_format' );
 			$date_format  = $date_format ? $date_format : 'M d, Y';
-			$publich_date = date( $date_format, strtotime( $post->post_date ) );
+			$publich_date = gmdate( $date_format, strtotime( $post->post_date ) );
 		}
 		if ( $post->post_status !== 'auto-draft' ) {
 			?>
@@ -1374,8 +1379,8 @@ class xlwcty_Admin {
 		if ( XLWCTY_Common::is_load_admin_assets( 'listing' ) ) {
 			?>
             <style>
-                .wrap.woocommerce p.submit, p.submit {
-                    display: none
+                .wrap.woocommerce p.submit, p.submit, .woocommerce-layout__header-tasks-reminder-bar {
+                    display: none !important;
                 }
 
                 #xlwcty_MB_ajaxContent ol {
@@ -1551,7 +1556,7 @@ class xlwcty_Admin {
                                     </div>
                                 </div>
 								<?php
-								update_option( 'xlwcty_scroll_components', date( 'Y-m-d H:i:s' ), false );
+								update_option( 'xlwcty_scroll_components', gmdate( 'Y-m-d H:i:s' ), false );
 							}
 							?>
                             <div class="inside">

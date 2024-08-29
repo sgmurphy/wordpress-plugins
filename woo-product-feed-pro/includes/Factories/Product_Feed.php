@@ -592,14 +592,33 @@ class Product_Feed {
         // Filter the amount of history products in the system report.
         $max_history_products = apply_filters( 'adt_product_feed_max_history_products', 10 );
 
-        $count_timestamp = gmdate( 'd M Y H:i' );
+        $count_timestamp = gmdate( 'd M Y H:i:s' );
 
-        $this->data['history_products'][ $count_timestamp ] = $products_count;
+        $this->data['history_products'][][ $count_timestamp ] = $products_count;
 
         // Remove old history products.
         if ( count( $this->data['history_products'] ) > $max_history_products ) {
             // trim the array to the max history products but preserve the last updated key.
             $this->data['history_products'] = array_slice( $this->data['history_products'], - $max_history_products, null, true );
+        }
+    }
+
+    /**
+     * Execute product feed batch event.
+     *
+     * @since 13.3.5.4
+     * @access public
+     */
+    public function run_batch_event() {
+        // Set the next scheduled event.
+        if ( ! wp_next_scheduled( 'woosea_create_batch_event', array( $this->id ) ) ) {
+            if ( wp_schedule_single_event( time(), 'woosea_create_batch_event', array( $this->id ) ) ) {
+                spawn_cron( time() );
+            } else {
+                // Something went wrong with scheduling the cron, try again in case it was an intermittent failure.
+                wp_schedule_single_event( time(), 'woosea_create_batch_event', array( $this->id ) );
+                spawn_cron( time() );
+            }
         }
     }
 

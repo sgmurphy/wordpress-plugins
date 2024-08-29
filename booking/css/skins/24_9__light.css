@@ -377,7 +377,7 @@ div.wpbc_ajx_availability_container .datepick-inline .datepick-unselectable,
     border: var(--wpbc_cal-day-cell-border-width) solid var(--wpbc_cal-available-day-color);
 }
 .block_hints .block_free {
-    background: var(--wpbc_cal-main-background-color);
+    /*background: var(--wpbc_cal-main-background-color);*/
 }
 .datepick-inline .datepick-unselectable .wpbc-cell-box,
 .block_hints .datepick-unselectable .wpbc-cell-box{

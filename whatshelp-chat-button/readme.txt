@@ -1,9 +1,9 @@
-=== Chat Button by GetButton.io ===
+=== Chat Button & Custom ChatGPT-Powered Bot by GetButton.io ===
 Contributors: GetButton
 Donate link: https://getbutton.io/
-Tags: facebook messenger, viber, whatsapp, chat, chat free, telegram, snapchat, button, getbutton, chat button, chat plugin, chat widget
+Tags: whatsapp, chat button, chatgpt, live chat, chat gpt
 Requires at least: 2.7
-Tested up to: 6.5.4
+Tested up to: 6.6.1
 Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,44 +12,55 @@ Floating button for chatting with your visitors via WhatsApp, Messenger, Contact
 
 == Description ==
 
-The Chat button by GetButton takes website visitor directly to the messaging app such as Facebook Messenger or WhatsApp and allows them to initiate a conversation with you. After that, both you and your customers can follow up the conversation anytime and anywhere!
+The Chat Button by GetButton instantly connects website visitors to your preferred messaging apps like Facebook Messenger or WhatsApp, allowing them to initiate conversations with you directly. You can continue these conversations anytime, anywhere, ensuring seamless communication with your customers.
+
+Now, with the **Custom ChatGPT-Powered Sales & Support Bot**—included FREE with the basic GetButton subscription—you can supercharge your customer interactions. Why hire more sales or support staff when the ChatGPT bot, trained on your website's content, can handle inquiries, guide visitors, and even close sales for you? It’s a cost-effective, smart solution that works around the clock.
+
 
 
 = Why should I use Chat button?  =
 
 **Key Benefits**
 
-* Keep the conversations going even if visitors leave your website.
-* View customers’ profiles, get closer to and engage with them to increase sales.
-* Support customers anywhere, anytime, even on your mobile phone.
+* **Uninterrupted Conversations:** Keep the dialogue going even after visitors leave your website.
+* **24/7 AI-Powered Support:** Provide intelligent, round-the-clock support with the ChatGPT 4 bot trained on your website content.
+* **Cost Efficiency:** Save on hiring additional staff by leveraging the power of AI.
 
 
-= Amazing features =
 
-* **Plugs Right In:** Installs in less than 60 seconds, and can be custom configured to match your personal style.
-* **Works everywhere:** Works on desktops, tablets and mobile devices.
-* **Messaging Apps:** Supports Facebook Messenger, WhatsApp, Viber, Snapchat, Line, WeChat, Telegram.
-* **Contact form:** Add a floating contact form to drive more leads and sales.
-* **One or Several Channels:** Set up the only one messaging app or add several channels.
-* **Greeting message:** Proactive greeting message increases chats up to 10X.
-* **Multilingual:** Supports multilingual sites and multisite networks.
-* **Super fast and lightweight:** Buttons' SVG icons are super-lightweight and pixel-perfect at any display resolution.
+= Amazing Features =
+
+* **Quick Installation:** Get started in under 60 seconds with full customization options.
+* **Cross-Device Compatibility:** Works perfectly on desktops, tablets, and mobile devices.
+* **Multi-Messaging App Support:** Connect with customers on Facebook Messenger, WhatsApp, Viber, Snapchat, Line, WeChat, Telegram or even a custom contact form!
+* **ChatGPT Livechat Support:** The ChatGPT bot handles visitor inquiries, offers support, and assists in making sales based on your website’s content.
+* **Lead Generation:** Add a floating contact form to capture more leads and drive sales.
+* **Multi-Channel Setup:** Use one messaging app or several, depending on your needs.
+* **Proactive Engagement:** A greeting message can increase chats by up to 10X.
+* **Multilingual Support:** Compatible with multilingual sites and multisite networks.
+* **Lightweight & Fast:** The SVG icons are super-lightweight and pixel-perfect on any display resolution.
 
 
-= Get more chats and sales with EXCLUSIVE features: =
 
-* Enable the Greeting Message.
-* Add up to ten buttons to the widget.
-* Choose any custom color for the button.
-* Add your company logo to the Greeting Message.
-* Place the widget anywhere on your site, adjusting the position vertically and horizontally.
-* Choose where to use the widget: on mobile, on desktop, or everywhere.
-* Track clicks in Google Analytics.
+= Get More Chats and Sales with EXCLUSIVE Features: =
+
+* **AI-Powered Bot Assistance:** Automate customer engagement and support with the ChatGPT bot trained on your business knowledge.
+* **Activate Greeting Message** to better engage website visitors.
+* **Add Up to Ten Buttons:** Customize your widget with multiple buttons.
+* **Customizable Button Appearance:** Color, Size, Animation, Shadow, Custom Icon and much more.
+* **Branding:** Add your company logo to the Greeting Message.
+* **Flexible Widget Placement:** Position the widget anywhere on your site.
+* **Where to show feature:** Choose All website pages or selected ones.
+* **Google Analytics Tracking:** Monitor click-through rates with ease.
+
 
 
 = Support =
 
-GetButton offers 24x7 support, send us an email at customer-success@getbutton.io.
+GetButton offers 24×7 support. Send us an email at customer-success@getbutton.io for assistance.
+You can also connect with us on <a href="https://www.linkedin.com/company/getbutton/" target="_blank">LinkedIn</a>.
+
+Visit <a href="https://getbutton.io/" target="_blank">https://getbutton.io/</a> for more information.
 
 
 == Installation ==

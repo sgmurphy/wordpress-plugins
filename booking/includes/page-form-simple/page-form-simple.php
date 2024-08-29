@@ -479,7 +479,7 @@ class WPBC_Page_SettingsFormFieldsFree extends WPBC_Page_Structure {
 						jQuery( '#ui_btn_cstm__set_time_picker_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
 					} else {
 						jQuery( '.wpbc_center_preview,.wpbc_container.wpbc_container_booking_form' ).removeClass( 'wpbc_theme_dark_1' );
-						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/skins/24_9__light.css';
+						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/skins/24_9__light_square_1.css';
 						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option' ).prop( 'selected', false );
 						jQuery( '#ui_btn_cstm__set_calendar_skin' ).find( 'option[value="' + wpbc_cal_dark_skin_path + '"]' ).prop( 'selected', true ).trigger( 'change' );
 						wpbc_cal_dark_skin_path = '<?php echo WPBC_PLUGIN_URL; ?>/css/time_picker_skins/light__24_8.css';

@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.31
+Stable tag: 5.2.32
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.32 =
+
+* Modifies the container fields to avoid Hidden, Hidden DS,  and RecordSet DS controls affecting the columns' format.
+* Modifies the Phone controls to adjust its width.
+* Modifies the IRR operation by implementing more robust convergence methods (Developer and Platinum plugin versions)
+* Implements new PayPal Checkout add-on improvements (Platinum plugin distribution).
+* Modifies the Verification Code add-on to allow verifying both email addresses and phone numbers (Platinum plugin version).
+
 = 5.2.31 =
 
 * Fixes some issues in the Phone control.
@@ -485,9 +493,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 * Modifies the left and right-aligned labels.
 * Modifies the ACTIVATEFIELD, IGNOREFIELD, SHOWFIELD, and HIDEFIELD operations to avoid ambiguities when multiple forms are inserted on the page.
-
-= 5.2.26 =
-
-* Fixes a minor issue with Dropdown choices with large text when the Select2 component is enabled.
-* Includes minor modifications in the form builder.
-* Adds new predefined templates.

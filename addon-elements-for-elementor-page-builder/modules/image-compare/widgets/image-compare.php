@@ -532,9 +532,9 @@ class ImageCompare extends EAE_Widget_Base {
 		<# } #>
 		<div class="eae-img-comp-slider">
 		<# if ( iconHTML.rendered && ( ! settings.slider_icon || migrated ) ) { #>
-			{{{iconHTML.value}}}
+			{{{elementor.helpers.sanitize(iconHTML.value)}}}
 		<# } else { #>
-			<i class="{{ settings.slider_icon }}" aria-hidden="true"></i>
+			<i class="{{ _.escape(settings.slider_icon) }}" aria-hidden="true"></i>
 		<# } #>
 		</div>
 

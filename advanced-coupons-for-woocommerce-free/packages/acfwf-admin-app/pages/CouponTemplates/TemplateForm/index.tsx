@@ -3,13 +3,14 @@
 // Libraries
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Row, Col, Skeleton, Spin } from 'antd';
+import { Row, Col, Skeleton, Spin, Steps, Button } from 'antd';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // Components
 import Field from './Field';
 import GoBackButton from './GoBackButton';
+import CartConditions from './CartConditions';
 import CreateCouponButton from './CreateCouponButton';
 import SuccessPage from './SuccessPage';
 
@@ -57,12 +58,49 @@ interface IProps {
 const TemplateForm = (props: IProps) => {
   const { template, formResponse, actions } = props;
   const [loading, setLoading] = useState(true);
+  const [currentStep, setCurrentStep] = useState(0);
   const { labels } = acfwAdminApp.coupon_templates_page;
   const urlParams = new URLSearchParams(useLocation().search);
   const editId = urlParams.get('id') ?? '0';
   const isReview = urlParams.get('is_review') ?? false;
   const paragraphProps = { rows: 2, width: 100 } as SkeletonParagraphProps;
+  const stepItems = [{ title: labels.coupon_details }];
 
+  if (!!template?.cart_conditions && template.cart_conditions.length > 0) {
+    stepItems.push({ title: labels.cart_conditions });
+  }
+
+  /**
+   * Handle updating the current step.
+   *
+   * @param {'prev'|'next'} type - The type of step change.
+   */
+  const handleStepChange = (type: 'prev' | 'next') => {
+    if (type === 'prev') {
+      setCurrentStep(currentStep - 1);
+      return;
+    }
+
+    let errors: any = [];
+
+    switch (currentStep) {
+      case 0:
+        actions.validateEditCouponTemplateData();
+        errors = template?.fields?.filter((field) => field.error);
+        break;
+      // NOTE: the last don't need to be verified
+    }
+
+    if (errors.length) {
+      return;
+    }
+
+    setCurrentStep(currentStep + 1);
+  };
+
+  /**
+   * Load the template data on mount.
+   */
   useEffect(() => {
     if (template && template?.fields) {
       return;
@@ -79,6 +117,9 @@ const TemplateForm = (props: IProps) => {
     });
   }, []);
 
+  /**
+   * Fallback render when the template is not found.
+   */
   if (!template?.fields) {
     return (
       <div className="acfw-coupon-template-form">
@@ -102,6 +143,9 @@ const TemplateForm = (props: IProps) => {
     );
   }
 
+  /**
+   * Render the success response after creating the coupon.
+   */
   if (formResponse) {
     return <SuccessPage />;
   }
@@ -125,16 +169,45 @@ const TemplateForm = (props: IProps) => {
               <Skeleton active paragraph={paragraphProps} />
             )}
 
-            <div className="template-fields">
-              {template.fields.map((field, index) => (
-                <Field key={`${field.field}-${field?.error ?? ''}`} templateField={field} />
-              ))}
-            </div>
+            {stepItems.length > 1 ? (
+              <div className="template-steps">
+                <Steps current={currentStep} items={stepItems} />
+              </div>
+            ) : null}
+
+            {currentStep === 0 ? (
+              <div className="template-fields">
+                {template.fields.map((field, index) => (
+                  <Field key={`${field.field}-${field?.error ?? ''}`} templateField={field} />
+                ))}
+              </div>
+            ) : null}
+
+            {currentStep === 1 ? <CartConditions /> : null}
           </div>
+
+          {stepItems.length > 1 ? (
+            <div className="template-step-actions">
+              <Button type="default" disabled={currentStep === 0} onClick={() => handleStepChange('prev')}>
+                Previous
+              </Button>
+              <Button
+                type="primary"
+                disabled={currentStep === stepItems.length - 1}
+                onClick={() => handleStepChange('next')}
+              >
+                Next
+              </Button>
+            </div>
+          ) : null}
         </Col>
         <Col span={6}>
           <div className="template-actions">
-            <CreateCouponButton text={labels.create_coupon} size="large" />
+            <CreateCouponButton
+              text={labels.create_coupon}
+              size="large"
+              disabled={currentStep !== stepItems.length - 1}
+            />
             <GoBackButton
               text={labels.cancel}
               onClick={() => actions.setEditCouponTemplate({ data: null })}

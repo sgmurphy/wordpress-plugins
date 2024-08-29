@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'course/player',
-        'pretty_version' => 'v3.0.4',
-        'version' => '3.0.4.0',
-        'reference' => 'b11d39dea5901a48165ef2b68b89399b541a5e3b',
+        'pretty_version' => 'v3.0.5',
+        'version' => '3.0.5.0',
+        'reference' => '8950d85bc7b53012be579b8a12b7dd4bd453a344',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'course/player' => array(
-            'pretty_version' => 'v3.0.4',
-            'version' => '3.0.4.0',
-            'reference' => 'b11d39dea5901a48165ef2b68b89399b541a5e3b',
+            'pretty_version' => 'v3.0.5',
+            'version' => '3.0.5.0',
+            'reference' => '8950d85bc7b53012be579b8a12b7dd4bd453a344',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

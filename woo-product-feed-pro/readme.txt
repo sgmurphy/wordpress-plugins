@@ -5,7 +5,7 @@ License URI: http://www.gnu.org/licenses/gpl.html
 Tags: Google Shopping Feed, Meta feed, Facebook catalog feed, WooCommerce Product Feed, Product Feed
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: trunk
+Stable tag: 13.3.6
 
 Most popular WooCommerce product feed plugin supporting Google shopping feed, meta/facebook feed, bing product feed & more.
 
@@ -380,6 +380,12 @@ Questions left or unanswered? Please do not hesitate to contact us at support@ad
 8. Set the basic configurations for your product feed
 
 === Changelog ===
+
+= 13.3.6 (2024-08-29) =
+* Bug Fix: Google Analytics UTM is missing in the product link
+* Bug Fix: After creating new product feed the percentage status not being updated until refresh the page
+* Bug Fix: Product Feed Generation processing percentage is not working properly
+* Improvement: Handle Character/text encoding properly
 
 = 13.3.5.3 (2024-08-24) =
 * Bug Fix: Product feed processing stuck when the feed being processed with batching

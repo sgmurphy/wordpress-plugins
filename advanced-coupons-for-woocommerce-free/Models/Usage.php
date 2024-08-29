@@ -390,22 +390,40 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
      * @access public
      */
     public function schedule_send() {
-        if ( ! wp_next_scheduled( Plugin_Constants::USAGE_CRON_ACTION ) ) {
-            $tracking = array();
-            // phpcs:disable
-            $tracking['day']      = rand( 0, 6 );
-            $tracking['hour']     = rand( 0, 23 );
-            $tracking['minute']   = rand( 0, 59 );
-            $tracking['second']   = rand( 0, 59 );
-            // phpcs:enable
-            $tracking['offset']   = ( $tracking['day'] * DAY_IN_SECONDS ) +
-                ( $tracking['hour'] * HOUR_IN_SECONDS ) +
-                ( $tracking['minute'] * MINUTE_IN_SECONDS ) +
-                $tracking['second'];
-            $tracking['initsend'] = strtotime( 'next sunday' ) + $tracking['offset'];
+        $main_usage_tracking_scheduled             = wp_next_scheduled( Plugin_Constants::USAGE_CRON_ACTION );
+        $coupon_templates_usage_tracking_scheduled = wp_next_scheduled( Plugin_Constants::USAGE_CRON_COUPON_TEMPLATES );
 
+        // Return if both schedules are already set.
+        if ( $main_usage_tracking_scheduled && $coupon_templates_usage_tracking_scheduled ) {
+            return;
+        }
+
+        $tracking = array();
+        // phpcs:disable
+        $tracking['day']      = rand( 0, 6 );
+        $tracking['hour']     = rand( 0, 23 );
+        $tracking['minute']   = rand( 0, 59 );
+        $tracking['second']   = rand( 0, 59 );
+        // phpcs:enable
+        $tracking['offset']   = ( $tracking['day'] * DAY_IN_SECONDS ) +
+            ( $tracking['hour'] * HOUR_IN_SECONDS ) +
+            ( $tracking['minute'] * MINUTE_IN_SECONDS ) +
+            $tracking['second'];
+        $tracking['initsend'] = strtotime( 'next sunday' ) + $tracking['offset'];
+
+        if ( ! $main_usage_tracking_scheduled ) {
+            // Schedule the main usage tracking event.
             wp_schedule_event( $tracking['initsend'], 'weekly', Plugin_Constants::USAGE_CRON_ACTION );
             update_option( Plugin_Constants::USAGE_CRON_CONFIG, $tracking );
+        } else {
+            // Use the existing scheduled time.
+            $tracking['initsend'] = $main_usage_tracking_scheduled;
+        }
+
+        if ( ! $coupon_templates_usage_tracking_scheduled ) {
+            // Schedule the coupon templates event to run 1 hour before the main event.
+            $coupon_templates_time = $tracking['initsend'] - ( HOUR_IN_SECONDS );
+            wp_schedule_event( $coupon_templates_time, 'weekly', Plugin_Constants::USAGE_CRON_COUPON_TEMPLATES );
         }
     }
 
@@ -468,6 +486,50 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
 
         // If we have completed successfully, recheck in 1 week.
         update_option( Plugin_Constants::USAGE_LAST_CHECKIN, time() );
+        return true;
+    }
+
+    /**
+     * Track the number of coupons created via the Coupon Templates feature.
+     *
+     * @since 4.6.3
+     * @access public
+     * @param bool $override            Flag to override if tracking is allowed or not.
+     */
+    public function usage_tracking_coupon_templates( $override = false ) {
+        global $wpdb;
+
+        // Check if tracking is allowed on this site.
+        if ( ! $this->_is_tracking_allowed() && ! $override ) {
+            return false;
+        }
+
+        // Retrieve the total number of coupons created via coupon templates.
+        $total_coupons_created_from_templates = $wpdb->get_var(
+            "
+            SELECT COUNT(*)
+            FROM {$wpdb->postmeta}
+            WHERE meta_key = '_acfw_coupon_from_template_ID'
+        "
+        );
+
+        // Retrieve the most popular coupon templates.
+        $most_popular_templates = $wpdb->get_results(
+            "
+            SELECT meta_value AS template, COUNT(*) AS count
+            FROM {$wpdb->postmeta}
+            WHERE meta_key = '_acfw_coupon_from_template_ID'
+            GROUP BY meta_value
+            ORDER BY count DESC
+            LIMIT 3
+        "
+        );
+        $most_popular_templates = wp_list_pluck( $most_popular_templates, 'template' );
+
+        // Update the wp_options table with the tracking data.
+        update_option( Plugin_Constants::TOTAL_CREATED_WITH_COUPON_TEMPLATES, $total_coupons_created_from_templates );
+        update_option( Plugin_Constants::MOST_POPULAR_TEMPLATES, $most_popular_templates );
+
         return true;
     }
 
@@ -649,5 +711,6 @@ class Usage implements Model_Interface, Initializable_Interface, Activatable_Int
 
         add_filter( 'cron_schedules', array( $this, 'add_schedules' ) );
         add_action( Plugin_Constants::USAGE_CRON_ACTION, array( $this, 'send_checkin' ) );
+        add_action( Plugin_Constants::USAGE_CRON_COUPON_TEMPLATES, array( $this, 'usage_tracking_coupon_templates' ) );
     }
 }

@@ -159,6 +159,31 @@ const InputSwitch = (props: IProps) => {
     );
   }
 
+  if ('multiselect' === type) {
+    let { options } = field;
+    let select_options: any = options ? options : [];
+    select_options = select_options.map((option: any) => {
+      return option.label.label ? option.label : { value: option.key, label: option.label };
+    });
+    return (
+      <Select
+        mode="multiple"
+        key={id}
+        defaultValue={value}
+        style={{ width: `100%` }}
+        placeholder={placeholder}
+        options={select_options}
+        onChange={(inputvalue: any) => {
+          // To prevent empty value.
+          if (!inputvalue.length) {
+            inputvalue = value;
+          }
+          handleValueChange(inputvalue);
+        }}
+      />
+    );
+  }
+
   if ('timepicker' === type) {
     let defaultFormat = format ? format : 'HH:mm:ss'; // Use format if exists or use default format.
     let defaultValue = value ? value : field.default; // Use value if exists or use default value.
@@ -190,7 +215,6 @@ const InputSwitch = (props: IProps) => {
   }
 
   if ('number' === type) {
-    console.log(min, max);
     return (
       <InputNumber
         key={id}

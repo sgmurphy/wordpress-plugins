@@ -26,8 +26,6 @@ class LearnPress_Course_Review_Widget extends WP_Widget {
 				'learnpress_reviews_search_course',
 			)
 		);
-
-		add_action( 'admin_footer', array( $this, 'footer_js' ) );
 	}
 
 	/**
@@ -101,11 +99,11 @@ class LearnPress_Course_Review_Widget extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$title          = isset( $instance['title'] ) ? $instance['title'] : __( 'New title', 'wpb_widget_domain' );
-		$course_id      = isset( $instance['course_id'] ) ? $instance['course_id'] : '';
-		$show_rate      = isset( $instance['show_rate'] ) ? $instance['show_rate'] : 'no';
-		$show_review    = isset( $instance['show_review'] ) ? $instance['show_review'] : 'no';
-		$display_amount = isset( $instance['display_amount'] ) ? $instance['display_amount'] : 5;
+		$title          = $instance['title'] ?? __( 'New title', 'wpb_widget_domain' );
+		$course_id      = $instance['course_id'] ?? '';
+		$show_rate      = $instance['show_rate'] ?? 'no';
+		$show_review    = $instance['show_review'] ?? 'no';
+		$display_amount = $instance['display_amount'] ?? 5;
 		if ( $course_id ) {
 			$checked      = "selected='selected'";
 			$review_title = get_the_title( $course_id );
@@ -115,7 +113,25 @@ class LearnPress_Course_Review_Widget extends WP_Widget {
 		}
 		// Reset Post Data
 		wp_reset_postdata();
-		wp_enqueue_script( 'select2' );
+		// wp_enqueue_script( 'select2' );
+
+		$data_struct_course = [
+			'urlApi'      => get_rest_url( null, 'lp/v1/admin/tools/search-course' ),
+			'dataType'    => 'courses',
+			'keyGetValue' => [
+				'value'      => 'ID',
+				'text'       => '{{post_title}} (#{{ID}})',
+				'key_render' => [
+					'post_title' => 'post_title',
+					'ID'         => 'ID',
+				],
+			],
+			'setting'     => [
+				'placeholder' => esc_html__( 'Pick up 1 course', 'learnpress-course-review' ),
+				'items'       => array( $course_id ?? '' ),
+				'plugins'	  => [],
+			],
+		];
 
 		?>
 		<p>
@@ -126,10 +142,7 @@ class LearnPress_Course_Review_Widget extends WP_Widget {
 		</p>
 		<div class="rwmb-input">
 			<label for="<?php echo $this->get_field_id( 'course_id' ); ?>"><?php _e( 'Course Id:', 'learnpress-course-review' ); ?></label>
-			<select class="rwmb-select " name="<?php echo $this->get_field_name( 'course_id' ); ?>"
-					id="<?php echo $this->get_field_id( 'course_id' ); ?>">
-				<?php echo $option; ?>
-			</select>
+			<input type="text" class="" name="<?php echo $this->get_field_name( 'course_id' ); ?>" value="<?php echo $course_id ?>" />
 		</div>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_rate' ); ?>"><?php _e( 'Show Rate:', 'learnpress-course-review' ); ?></label>
@@ -163,62 +176,5 @@ class LearnPress_Course_Review_Widget extends WP_Widget {
 		$instance['display_amount'] = ( ! empty( $new_instance['display_amount'] ) ) ? strip_tags( $new_instance['display_amount'] ) : 5;
 
 		return $instance;
-	}
-
-	public function footer_js() {
-		?>
-		<script>
-			jQuery(function ($) {
-				function initWidget(widget) {
-					$(widget).find('select[id*="course_id"]').select2({
-						placeholder: '<?php esc_attr_e( 'Select a course', 'learnpress-course-review' ); ?>',
-						minimumInputLength: 3,
-						ajax: {
-							url: ajaxurl,
-							dataType: 'json',
-							quietMillis: 250,
-							data: function (params) {
-								return {
-									q: params.term, // search term
-									action: 'learnpress_reviews_search_course'
-								};
-							},
-							processResults: function (data) {
-								var options = [];
-								if (data) {
-
-									// data is the array of arrays, and each of them contains ID and the Label of the option
-									$.each(data, function (index, text) { // do not forget that "index" is just auto incremented value
-										options.push({id: text[0], text: text[1]});
-									});
-
-								}
-								return {
-									results: options
-								};
-							},
-							cache: true
-						},
-						language: {
-							noResults: function (params) {
-								return '<?php esc_attr_e( 'There is no course to select.', 'learnpress-course-review' ); ?>';
-							}
-						}
-					});
-				}
-
-				// Init select2 on widgets are existed
-				$('#widgets-right').find('[id*="_lpr_course_review"]').each(function () {
-					initWidget(this);
-				})
-
-				// Init select2 on new widget after added to sidebar
-				// Or after press Save button
-				$(document).on('widget-updated widget-added', function (e, el) {
-					initWidget(el);
-				});
-			});
-		</script>
-		<?php
 	}
 }

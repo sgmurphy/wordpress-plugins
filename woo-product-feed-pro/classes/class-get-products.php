@@ -33,30 +33,27 @@ class WooSEA_Get_Products {
     }
 
     /**
+     * Function to sanitize HTML strings.
+     * This function will remove all HTML tags from the string.
+     *
+     * @access public
+     * @since 13.3.5.4
+     *
+     * @param string $string The string to sanitize.
+     * @return string The sanitized string.
+     */
+    public function woosea_sanitize_html( $string ) {
+        if ( ! empty( $string ) ) {
+            $string = htmlentities( wp_kses( $string, array() ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_XML1, 'UTF-8' );
+        }
+        return $string;
+    }
+
+    /**
      * Check if a plugin is active
      */
     public function woosea_is_plugin_active( $plugin ) {
         return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
-    }
-
-    /**
-     * An improved function for the strip_tags
-     * Removing tags but replacing them with spaces instead of just removing them
-     */
-    public function rip_tags( $string ) {
-        // ----- remove HTML TAGs -----
-        $string = preg_replace( '/<[^>]*>/', ' ', $string );
-
-        // ----- remove control characters -----
-        $string = str_replace( "\r", '', $string );    // --- replace with empty space
-        $string = str_replace( "\n", ' ', $string );   // --- replace with space
-        $string = str_replace( "\t", ' ', $string );   // --- replace with space
-        $string = str_replace( '%', '%25', $string );   // --- replace with space
-
-        // ----- remove multiple spaces -----
-        $string = trim( preg_replace( '/ {2,}/', ' ', $string ) );
-
-        return $string;
     }
 
     /**
@@ -131,8 +128,7 @@ class WooSEA_Get_Products {
                 $author = ucfirst( $author );
 
                 // Remove strange charachters from reviewer name
-                $review['reviewer_name'] = $this->rip_tags( trim( ucfirst( $author ) ) );
-                $review['reviewer_name'] = html_entity_decode( ( str_replace( "\r", '', $review['reviewer_name'] ) ), ENT_QUOTES | ENT_XML1, 'UTF-8' );
+                $review['reviewer_name'] = $this->woosea_sanitize_html( $review['reviewer_name'] );
                 $review['reviewer_name'] = preg_replace( '/\[(.*?)\]/', ' ', $review['reviewer_name'] );
                 $review['reviewer_name'] = str_replace( '&#xa0;', '', $review['reviewer_name'] );
                 $review['reviewer_name'] = str_replace( ':', '', $review['reviewer_name'] );
@@ -143,16 +139,14 @@ class WooSEA_Get_Products {
 
                 // Remove strange characters from review title
                 $review['title'] = empty( $product_data['title'] ) ? '' : $product_data['title'];
-                $review['title'] = $this->rip_tags( $review['title'] );
-                $review['title'] = html_entity_decode( ( str_replace( "\r", '', $review['title'] ) ), ENT_QUOTES | ENT_XML1, 'UTF-8' );
+                $review['title'] = $this->woosea_sanitize_html( $review['title'] );
                 $review['title'] = preg_replace( '/\[(.*?)\]/', ' ', $review['title'] );
                 $review['title'] = str_replace( '&#xa0;', '', $review['title'] );
                 $review['title'] = $this->woosea_utf8_for_xml( $review['title'] );
 
                 // Remove strange charchters from review content
                 $review['content'] = $review_raw->comment_content;
-                $review['content'] = $this->rip_tags( $review['content'] );
-                $review['content'] = html_entity_decode( ( str_replace( "\r", '', $review['content'] ) ), ENT_QUOTES | ENT_XML1, 'UTF-8' );
+                $review['content'] = $this->woosea_sanitize_html( $review['content'] );
                 $review['content'] = preg_replace( '/\[(.*?)\]/', ' ', $review['content'] );
                 $review['content'] = str_replace( '&#xa0;', '', $review['content'] );
                 $review['content'] = $this->woosea_utf8_for_xml( $review['content'] );
@@ -185,7 +179,7 @@ class WooSEA_Get_Products {
 
         // GA tracking is disabled, so remove from array
         if ( $feed->utm_enabled ) {
-            $channel_field = $feed->get_channel( 'field' );
+            $channel_field = $feed->get_channel( 'fields' );
             if ( empty( $channel_field ) ) {
                 return '';
             }
@@ -2529,12 +2523,11 @@ class WooSEA_Get_Products {
                     continue;
                 }
             }
-            $product_data['title']                 = $product->get_title();
+            $product_data['title']                 = $this->woosea_sanitize_html( $product->get_title() );
             $product_data['title']                 = $this->woosea_utf8_for_xml( $product_data['title'] );
-            $product_data['title_slug']            = $product->get_slug();
-            $product_data['mother_title']          = $product->get_title();
-            $product_data['mother_title']          = $this->woosea_utf8_for_xml( $product_data['mother_title'] );
+            $product_data['mother_title']          = $product_data['title'];
             $product_data['title_hyphen']          = $product_data['title'];
+            $product_data['title_slug']            = $product->get_slug();
             $product_data['sku']                   = $product->get_sku();
             $product_data['sku_id']                = $product_data['id'];
             $product_data['wc_post_id_product_id'] = 'wc_post_id_' . $product_data['id'];
@@ -2769,12 +2762,8 @@ class WooSEA_Get_Products {
             // Raw descriptions, unfiltered
             $product_data['raw_description']       = do_shortcode( wpautop( $post->post_content ) );
             $product_data['raw_short_description'] = do_shortcode( wpautop( $post->post_excerpt ) );
-            $product_data['description']           = html_entity_decode( ( str_replace( "\r", '', $post->post_content ) ), ENT_QUOTES | ENT_XML1, 'UTF-8' );
-            $product_data['short_description']     = html_entity_decode( ( str_replace( "\r", '', $post->post_excerpt ) ), ENT_QUOTES | ENT_XML1, 'UTF-8' );
-
-            // Strip HTML from (short) description
-            $product_data['description']       = $this->rip_tags( $product_data['description'] );
-            $product_data['short_description'] = $this->rip_tags( $product_data['short_description'] );
+            $product_data['description']           = $this->woosea_sanitize_html( $post->post_content );
+            $product_data['short_description']     = $this->woosea_sanitize_html( $post->post_excerpt );
 
             // Strip out Visual Composer short codes, including the Visual Composer Raw HTML
             $product_data['description']       = preg_replace( '/\[vc_raw_html.*\[\/vc_raw_html\]/', '', $product_data['description'] );
@@ -3865,12 +3854,8 @@ class WooSEA_Get_Products {
                  * When there is a specific description for a variation product than override the description of the mother product
                  */
                 if ( ! empty( $variable_description ) ) {
-                    $product_data['description'] = html_entity_decode( ( str_replace( "\r", '', $variable_description ) ), ENT_QUOTES | ENT_XML1, 'UTF-8' );
+                    $product_data['description'] = $this->woosea_sanitize_html( $variable_description );
                     // $product_data['short_description'] = html_entity_decode((str_replace("\r", "", $variable_description)), ENT_QUOTES | ENT_XML1, 'UTF-8');
-
-                    // Strip HTML from (short) description
-                    $product_data['description'] = $this->rip_tags( $product_data['description'] );
-                    // $product_data['short_description'] = $this->rip_tags($product_data['short_description']);
 
                     // Strip out Visual Composer short codes
                     $product_data['description'] = preg_replace( '/\[(.*?)\]/', ' ', $product_data['description'] );
@@ -4973,7 +4958,7 @@ class WooSEA_Get_Products {
     public function woosea_calculate_value( $feed, $xml_product ) {
         $feed_channel    = $feed->channel;
         $feed_attributes = $feed->attributes;
-        if ( empty ( $feed_channel ) || empty( $feed_attributes ) ) {
+        if ( empty( $feed_channel ) || empty( $feed_attributes ) ) {
             return $xml_product;
         }
 

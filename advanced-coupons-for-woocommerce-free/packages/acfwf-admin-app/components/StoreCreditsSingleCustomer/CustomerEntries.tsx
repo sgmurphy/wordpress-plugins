@@ -2,7 +2,8 @@
 
 // Libraries
 import { useEffect, useState } from 'react';
-import { Card, Table, Pagination } from 'antd';
+import { Card, Table, Pagination, Popover } from 'antd';
+import { FileTextOutlined } from '@ant-design/icons';
 import { getStoreCreditEntryPrefix } from '../../helpers/utils';
 
 // Types
@@ -46,6 +47,16 @@ const CustomerEntries = (props: IProps) => {
       title: labels.activity,
       dataIndex: 'activity',
       key: 'activity',
+      render: (text: string, record: IStoreCreditEntry) => {
+        return [
+          text,
+          record.note ? (
+            <Popover placement="top" content={record.note} trigger="click" overlayClassName="entry-note-popover">
+              <FileTextOutlined style={{ paddingLeft: '5px' }} />
+            </Popover>
+          ) : null,
+        ];
+      },
     },
     {
       title: labels.amount,

@@ -1,8 +1,8 @@
 // #region [Imports] ===================================================================================================
 
 // Libraries
-import "cross-fetch/polyfill";
-import { put, call, takeEvery } from "redux-saga/effects";
+import 'cross-fetch/polyfill';
+import { put, call, takeEvery } from 'redux-saga/effects';
 
 // Actions
 import {
@@ -12,10 +12,10 @@ import {
   EStoreCreditsCustomersActionTypes,
   StoreCreditsCustomersActions,
   IAdjustCustomerStoreCreditsPayload,
-} from "../actions/storeCreditsCustomers";
+} from '../actions/storeCreditsCustomers';
 
 // Helpers
-import axiosInstance, { getCancelToken } from "../../helpers/axios";
+import axiosInstance, { getCancelToken } from '../../helpers/axios';
 
 // #endregion [Imports]
 
@@ -28,12 +28,12 @@ export function* readStoreCreditsCustomersSaga(action: {
   const { params, processingCB, successCB, failCB } = action.payload;
 
   try {
-    if (typeof processingCB === "function") processingCB();
+    if (typeof processingCB === 'function') processingCB();
 
     const response = yield call(() =>
       axiosInstance.get(`store-credits/v1/customers`, {
         params,
-        cancelToken: getCancelToken("customer_search"),
+        cancelToken: getCancelToken('customer_search'),
       })
     );
 
@@ -44,10 +44,10 @@ export function* readStoreCreditsCustomersSaga(action: {
         })
       );
 
-      if (typeof successCB === "function") successCB(response);
+      if (typeof successCB === 'function') successCB(response);
     }
   } catch (error) {
-    if (typeof failCB === "function") failCB({ error });
+    if (typeof failCB === 'function') failCB({ error });
   }
 }
 
@@ -58,13 +58,11 @@ export function* readStoreCreditsCustomerStatusSaga(action: {
   const { id, processingCB, successCB, failCB } = action.payload;
 
   try {
-    if (typeof processingCB === "function") processingCB();
+    if (typeof processingCB === 'function') processingCB();
 
     if (!id) throw new Error("Can't fetch data. No customer ID was provided.");
 
-    const response = yield call(() =>
-      axiosInstance.get(`store-credits/v1/customers/${id}`)
-    );
+    const response = yield call(() => axiosInstance.get(`store-credits/v1/customers/${id}`));
 
     if (response && response.data) {
       yield put(
@@ -75,10 +73,10 @@ export function* readStoreCreditsCustomerStatusSaga(action: {
         })
       );
 
-      if (typeof successCB === "function") successCB(response);
+      if (typeof successCB === 'function') successCB(response);
     }
   } catch (error) {
-    if (typeof failCB === "function") failCB({ error });
+    if (typeof failCB === 'function') failCB({ error });
   }
 }
 
@@ -89,7 +87,7 @@ export function* readStoreCreditsCustomerEntriesSaga(action: {
   const { id, page, processingCB, successCB, failCB } = action.payload;
 
   try {
-    if (typeof processingCB === "function") processingCB();
+    if (typeof processingCB === 'function') processingCB();
 
     if (!id) throw new Error("Can't fetch data. No customer ID was provided.");
 
@@ -104,10 +102,10 @@ export function* readStoreCreditsCustomerEntriesSaga(action: {
     );
 
     if (response && response.data) {
-      if (typeof successCB === "function") successCB(response);
+      if (typeof successCB === 'function') successCB(response);
     }
   } catch (error) {
-    if (typeof failCB === "function") failCB({ error });
+    if (typeof failCB === 'function') failCB({ error });
   }
 }
 
@@ -115,30 +113,28 @@ export function* adjustCustomerStoreCreditsSaga(action: {
   type: string;
   payload: IAdjustCustomerStoreCreditsPayload;
 }): any {
-  const { id, type, amount, processingCB, successCB, failCB } = action.payload;
+  const { id, type, amount, note, processingCB, successCB, failCB } = action.payload;
 
   try {
-    if (typeof processingCB === "function") processingCB();
+    if (typeof processingCB === 'function') processingCB();
 
-    if (!id)
-      throw new Error(
-        "Can't adjust store credits. No customer ID was provided."
-      );
+    if (!id) throw new Error("Can't adjust store credits. No customer ID was provided.");
 
     const response = yield call(() =>
       axiosInstance.post(`store-credits/v1/entries`, {
         user_id: id,
         type,
         amount,
+        note: note ?? '',
         action: `admin_${type}`,
       })
     );
 
     if (response && response.data) {
-      if (typeof successCB === "function") successCB(response);
+      if (typeof successCB === 'function') successCB(response);
     }
   } catch (error) {
-    if (typeof failCB === "function") failCB({ error });
+    if (typeof failCB === 'function') failCB({ error });
   }
 }
 
@@ -147,22 +143,10 @@ export function* adjustCustomerStoreCreditsSaga(action: {
 // #region [Action Listeners] ==========================================================================================
 
 export const actionListener = [
-  takeEvery(
-    EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMERS,
-    readStoreCreditsCustomersSaga
-  ),
-  takeEvery(
-    EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMER_STATUS,
-    readStoreCreditsCustomerStatusSaga
-  ),
-  takeEvery(
-    EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMER_ENTRIES,
-    readStoreCreditsCustomerEntriesSaga
-  ),
-  takeEvery(
-    EStoreCreditsCustomersActionTypes.ADJUST_CUSTOMER_STORE_CREDITS,
-    adjustCustomerStoreCreditsSaga
-  ),
+  takeEvery(EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMERS, readStoreCreditsCustomersSaga),
+  takeEvery(EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMER_STATUS, readStoreCreditsCustomerStatusSaga),
+  takeEvery(EStoreCreditsCustomersActionTypes.READ_STORE_CREDITS_CUSTOMER_ENTRIES, readStoreCreditsCustomerEntriesSaga),
+  takeEvery(EStoreCreditsCustomersActionTypes.ADJUST_CUSTOMER_STORE_CREDITS, adjustCustomerStoreCreditsSaga),
 ];
 
 // #endregion [Action Listeners]

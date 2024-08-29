@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Bold Builder
  * Description: WordPress page builder.
- * Version: 5.1.0
+ * Version: 5.1.1
  * Author: BoldThemes
  * Author URI: https://www.bold-themes.com
  * Text Domain: bold-builder
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // VERSION --------------------------------------------------------- \\
-define( 'BT_BB_VERSION', '5.1.0' );
+define( 'BT_BB_VERSION', '5.1.1' );
 // VERSION --------------------------------------------------------- \\
  
 define( 'BT_BB_FEATURE_ADD_ELEMENTS', true );
@@ -32,15 +32,15 @@ if ( file_exists( get_template_directory() . '/bt_bb_config.php' ) ) {
 add_filter( 'the_content', 'bt_bb_parse_content', 20 );
 function bt_bb_parse_content( $content ) {
 	
+	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
+		return $content;
+	}
+	
 	global $wp_query;
 	global $post;
 	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) { // latest posts fix (The Loop & bt_bb_active_for_post_type_fe())
 		return $content;
 	}
-	
-	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
-		return $content;
-	}	
 	
 	if ( BT_BB_Root::$fe_wrap_count > 1 ) {
 		return $content;
@@ -143,13 +143,13 @@ add_filter( 'use_block_editor_for_post_type', 'bt_bb_disable_gutenberg', 10, 2 )
 
 function bt_bb_parse_content_admin( $content ) {
 	
-	global $wp_query;
-	global $post;
-	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) { // latest posts fix
+	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
 		return $content;
 	}
 	
-	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
+	global $wp_query;
+	global $post;
+	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) { // latest posts fix
 		return $content;
 	}
 	
@@ -1268,15 +1268,16 @@ class BT_BB_Remove_Params_Proxy {
  */
 function bt_bb_wpautop( $content ) {
 	
+	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
+		return $content;
+	}
+	
 	global $wp_query;
 	global $post;
 	if ( $post && $wp_query && $wp_query->queried_object && $post->ID != $wp_query->queried_object->ID ) {
 		return $content;
 	}	
 	
-	if ( ! ( is_singular() && in_the_loop() && is_main_query() ) ) {
-		return $content;
-	}	
 	if ( BT_BB_Root::$init_wpautop === null ) {
 		BT_BB_Root::$init_wpautop = has_filter( 'the_content', 'wpautop' );
 	}

@@ -3,7 +3,7 @@
  * Plugin Name: NextMove Lite - Thank You Page for WooCommerce
  * Plugin URI: https://xlplugins.com/woocommerce-thank-you-page-nextmove/
  * Description: The only plugin in WooCommerce that empowers you to build profit-pulling Thank You Pages with plug & play components. It's for store owners who want to get repeat orders on autopilot.
- * Version: 2.18.3
+ * Version: 2.19.0
  * Author: XLPlugins
  * Author URI: https://www.xlplugins.com
  * License: GPLv3 or later
@@ -13,10 +13,10 @@
  * XL: True
  * XLTOOLS: True
  * Requires at least: 5.0
- * Tested up to: 6.4.3
+ * Tested up to: 6.6.1
  * Requires PHP: 7.3
  * WC requires at least: 4.4
- * WC tested up to: 8.6.1
+ * WC tested up to: 9.2.3
  *
  * NextMove Lite - Thank You Page for WooCommerce is free software.
  * You can redistribute it and/or modify it under the terms of the GNU General Public License as published by
@@ -160,7 +160,7 @@ if ( ! class_exists( 'XLWCTY_Core' ) ) :
 
 		public function define_plugin_properties() {
 			/** Defining Constants */
-			define( 'XLWCTY_VERSION', '2.18.3' );
+			define( 'XLWCTY_VERSION', '2.19.0' );
 			define( 'XLWCTY_MIN_WC_VERSION', '4.4' );
 			define( 'XLWCTY_NAME', 'NextMove Lite' );
 			define( 'XLWCTY_FULL_NAME', 'NextMove Lite - Thank You Page for WooCommerce' );
@@ -349,7 +349,7 @@ if ( ! class_exists( 'XLWCTY_Core' ) ) :
                 <p>
 					<?php
 					/* translators: %1$s: Min required woocommerce version */
-					printf( __( 'NextMove requires WooCommerce version %1$s or greater. Kindly update the WooCommerce plugin.', XLWCTY_FULL_NAME ), XLWCTY_MIN_WC_VERSION );
+					printf( esc_html( 'NextMove requires WooCommerce version %1$s or greater. Kindly update the WooCommerce plugin.', 'woo-thank-you-page-nextmove-lite' ) );
 					?>
                 </p>
             </div>
@@ -361,7 +361,7 @@ if ( ! class_exists( 'XLWCTY_Core' ) ) :
             <div class="error">
                 <p>
 					<?php
-					echo __( 'WooCommerce is not installed or activated. NextMove is a WooCommerce Extension and would only work if WooCommerce is activated. Please install the WooCommerce Plugin first.', XLWCTY_FULL_NAME );
+					echo esc_html( 'WooCommerce is not installed or activated. NextMove is a WooCommerce Extension and would only work if WooCommerce is activated. Please install the WooCommerce Plugin first.', 'woo-thank-you-page-nextmove-lite' );
 					?>
                 </p>
             </div>

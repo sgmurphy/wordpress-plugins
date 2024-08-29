@@ -2,54 +2,54 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Product Feed PRO for WooCommerce 13.3.5\n"
+"Project-Id-Version: Product Feed PRO for WooCommerce 13.3.5.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-product-feed-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-15T05:04:51+00:00\n"
+"POT-Creation-Date: 2024-08-29T05:44:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: woo-product-feed-pro\n"
 
 #. Plugin Name of the plugin
-#: C:\Users\digid\Local Sites\adtribes\app\public\wp-content\plugins\woo-product-feed-pro\woocommerce-sea.php
+#: woocommerce-sea.php
 msgid "Product Feed PRO for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: C:\Users\digid\Local Sites\adtribes\app\public\wp-content\plugins\woo-product-feed-pro\woocommerce-sea.php
+#: woocommerce-sea.php
 msgid "https://www.adtribes.io/support/?utm_source=wpadmin&utm_medium=plugin&utm_campaign=woosea_product_feed_pro"
 msgstr ""
 
 #. Description of the plugin
-#: C:\Users\digid\Local Sites\adtribes\app\public\wp-content\plugins\woo-product-feed-pro\woocommerce-sea.php
+#: woocommerce-sea.php
 msgid "Configure and maintain your WooCommerce product feeds for Google Shopping, Catalog managers, Remarketing, Bing, Skroutz, Yandex, Comparison shopping websites and over a 100 channels more."
 msgstr ""
 
 #. Author of the plugin
-#: C:\Users\digid\Local Sites\adtribes\app\public\wp-content\plugins\woo-product-feed-pro\woocommerce-sea.php
+#: woocommerce-sea.php
 msgid "AdTribes.io"
 msgstr ""
 
 #. Author URI of the plugin
-#: C:\Users\digid\Local Sites\adtribes\app\public\wp-content\plugins\woo-product-feed-pro\woocommerce-sea.php
+#: woocommerce-sea.php
 msgid "https://www.adtribes.io"
 msgstr ""
 
 #: bootstrap-old.php:743
 #: bootstrap-old.php:766
 #: includes/Classes/Heartbeat.php:32
-#: includes/Classes/Heartbeat.php:73
 #: includes/Classes/Product_Feed_Admin.php:41
 #: includes/Classes/Product_Feed_Admin.php:109
-#: includes/Classes/Product_Feed_Admin.php:258
-#: includes/Classes/Product_Feed_Admin.php:308
-#: includes/Classes/Product_Feed_Admin.php:394
-#: includes/Classes/Product_Feed_Admin.php:434
-#: includes/Classes/Product_Feed_Admin.php:470
+#: includes/Classes/Product_Feed_Admin.php:262
+#: includes/Classes/Product_Feed_Admin.php:311
+#: includes/Classes/Product_Feed_Admin.php:397
+#: includes/Classes/Product_Feed_Admin.php:446
+#: includes/Classes/Product_Feed_Admin.php:485
+#: includes/Classes/WP_Admin.php:179
 msgid "Invalid security token"
 msgstr ""
 
@@ -94,620 +94,620 @@ msgstr ""
 msgid "Nonce verification failed"
 msgstr ""
 
-#: bootstrap-old.php:2210
+#: bootstrap-old.php:2166
 msgid "Brand"
 msgstr ""
 
-#: bootstrap-old.php:2213
-#: bootstrap-old.php:2823
+#: bootstrap-old.php:2169
+#: bootstrap-old.php:2779
 msgid "Enter the product Brand here."
 msgstr ""
 
-#: bootstrap-old.php:2226
+#: bootstrap-old.php:2182
 msgid "GTIN"
 msgstr ""
 
-#: bootstrap-old.php:2228
+#: bootstrap-old.php:2184
 msgid "Enter the product Global Trade Item Number (GTIN) here."
 msgstr ""
 
-#: bootstrap-old.php:2238
+#: bootstrap-old.php:2194
 msgid "MPN"
 msgstr ""
 
-#: bootstrap-old.php:2240
+#: bootstrap-old.php:2196
 msgid "Enter the manufacturer product number"
 msgstr ""
 
-#: bootstrap-old.php:2250
+#: bootstrap-old.php:2206
 msgid "UPC"
 msgstr ""
 
-#: bootstrap-old.php:2252
+#: bootstrap-old.php:2208
 msgid "Enter the Universal Product Code (UPC) here."
 msgstr ""
 
-#: bootstrap-old.php:2262
+#: bootstrap-old.php:2218
 msgid "EAN"
 msgstr ""
 
-#: bootstrap-old.php:2264
+#: bootstrap-old.php:2220
 msgid "Enter the International Article Number (EAN) here."
 msgstr ""
 
-#: bootstrap-old.php:2274
+#: bootstrap-old.php:2230
 msgid "Optimized title"
 msgstr ""
 
-#: bootstrap-old.php:2276
+#: bootstrap-old.php:2232
 msgid "Enter a optimized product title."
 msgstr ""
 
-#: bootstrap-old.php:2286
-#: bootstrap-old.php:3051
+#: bootstrap-old.php:2242
+#: bootstrap-old.php:3007
 msgid "Product condition"
 msgstr ""
 
-#: bootstrap-old.php:2288
-#: bootstrap-old.php:3054
+#: bootstrap-old.php:2244
+#: bootstrap-old.php:3010
 msgid "Select the product condition."
 msgstr ""
 
-#: bootstrap-old.php:2291
-#: bootstrap-old.php:3059
+#: bootstrap-old.php:2247
+#: bootstrap-old.php:3015
 msgid "new"
 msgstr ""
 
-#: bootstrap-old.php:2292
-#: bootstrap-old.php:3060
+#: bootstrap-old.php:2248
+#: bootstrap-old.php:3016
 msgid "refurbished"
 msgstr ""
 
-#: bootstrap-old.php:2293
-#: bootstrap-old.php:3061
+#: bootstrap-old.php:2249
+#: bootstrap-old.php:3017
 msgid "used"
 msgstr ""
 
-#: bootstrap-old.php:2294
-#: bootstrap-old.php:3062
+#: bootstrap-old.php:2250
+#: bootstrap-old.php:3018
 msgid "damaged"
 msgstr ""
 
-#: bootstrap-old.php:2305
+#: bootstrap-old.php:2261
 msgid "Color"
 msgstr ""
 
-#: bootstrap-old.php:2307
+#: bootstrap-old.php:2263
 msgid "Insert a color."
 msgstr ""
 
-#: bootstrap-old.php:2317
+#: bootstrap-old.php:2273
 msgid "Size"
 msgstr ""
 
-#: bootstrap-old.php:2319
+#: bootstrap-old.php:2275
 msgid "Insert a size."
 msgstr ""
 
-#: bootstrap-old.php:2329
-#: bootstrap-old.php:2925
+#: bootstrap-old.php:2285
+#: bootstrap-old.php:2881
 msgid "Gender"
 msgstr ""
 
-#: bootstrap-old.php:2331
+#: bootstrap-old.php:2287
 msgid "Select gender."
 msgstr ""
 
-#: bootstrap-old.php:2334
-#: bootstrap-old.php:2933
+#: bootstrap-old.php:2290
+#: bootstrap-old.php:2889
 msgid "female"
 msgstr ""
 
-#: bootstrap-old.php:2335
-#: bootstrap-old.php:2934
+#: bootstrap-old.php:2291
+#: bootstrap-old.php:2890
 msgid "male"
 msgstr ""
 
-#: bootstrap-old.php:2336
-#: bootstrap-old.php:2935
+#: bootstrap-old.php:2292
+#: bootstrap-old.php:2891
 msgid "unisex"
 msgstr ""
 
-#: bootstrap-old.php:2347
+#: bootstrap-old.php:2303
 msgid "Material"
 msgstr ""
 
-#: bootstrap-old.php:2349
+#: bootstrap-old.php:2305
 msgid "Enter a material."
 msgstr ""
 
-#: bootstrap-old.php:2359
+#: bootstrap-old.php:2315
 msgid "Pattern"
 msgstr ""
 
-#: bootstrap-old.php:2361
+#: bootstrap-old.php:2317
 msgid "Enter a pattern."
 msgstr ""
 
-#: bootstrap-old.php:2371
+#: bootstrap-old.php:2327
 msgid "Age group"
 msgstr ""
 
-#: bootstrap-old.php:2373
-#: bootstrap-old.php:3076
+#: bootstrap-old.php:2329
+#: bootstrap-old.php:3032
 msgid "Select the product age group."
 msgstr ""
 
-#: bootstrap-old.php:2376
-#: bootstrap-old.php:3081
+#: bootstrap-old.php:2332
+#: bootstrap-old.php:3037
 msgid "newborn"
 msgstr ""
 
-#: bootstrap-old.php:2377
-#: bootstrap-old.php:3082
+#: bootstrap-old.php:2333
+#: bootstrap-old.php:3038
 msgid "infant"
 msgstr ""
 
-#: bootstrap-old.php:2378
-#: bootstrap-old.php:3083
+#: bootstrap-old.php:2334
+#: bootstrap-old.php:3039
 msgid "toddler"
 msgstr ""
 
-#: bootstrap-old.php:2379
-#: bootstrap-old.php:3084
+#: bootstrap-old.php:2335
+#: bootstrap-old.php:3040
 msgid "kids"
 msgstr ""
 
-#: bootstrap-old.php:2380
-#: bootstrap-old.php:3085
+#: bootstrap-old.php:2336
+#: bootstrap-old.php:3041
 msgid "adult"
 msgstr ""
 
-#: bootstrap-old.php:2391
+#: bootstrap-old.php:2347
 msgid "Unit pricing measure"
 msgstr ""
 
-#: bootstrap-old.php:2393
+#: bootstrap-old.php:2349
 msgid "Enter an unit pricing measure."
 msgstr ""
 
-#: bootstrap-old.php:2403
+#: bootstrap-old.php:2359
 msgid "Unit pricing base measure"
 msgstr ""
 
-#: bootstrap-old.php:2405
+#: bootstrap-old.php:2361
 msgid "Enter an unit pricing base measure."
 msgstr ""
 
-#: bootstrap-old.php:2415
+#: bootstrap-old.php:2371
 msgid "Installment months"
 msgstr ""
 
-#: bootstrap-old.php:2417
+#: bootstrap-old.php:2373
 msgid "Enter the number of monthly installments the buyer has to pay."
 msgstr ""
 
-#: bootstrap-old.php:2427
+#: bootstrap-old.php:2383
 msgid "Installment amount"
 msgstr ""
 
-#: bootstrap-old.php:2429
+#: bootstrap-old.php:2385
 msgid "Enter the amount the bbuyer has to pay per month."
 msgstr ""
 
-#: bootstrap-old.php:2439
+#: bootstrap-old.php:2395
 msgid "Cost of goods sold"
 msgstr ""
 
-#: bootstrap-old.php:2441
+#: bootstrap-old.php:2397
 msgid "Enter the cost of good you are selling."
 msgstr ""
 
-#: bootstrap-old.php:2451
+#: bootstrap-old.php:2407
 msgid "Multipack"
 msgstr ""
 
-#: bootstrap-old.php:2453
+#: bootstrap-old.php:2409
 msgid "Enter the multipack amount."
 msgstr ""
 
-#: bootstrap-old.php:2463
-#: bootstrap-old.php:3126
+#: bootstrap-old.php:2419
+#: bootstrap-old.php:3082
 msgid "Is bundle"
 msgstr ""
 
-#: bootstrap-old.php:2465
-#: bootstrap-old.php:3129
+#: bootstrap-old.php:2421
+#: bootstrap-old.php:3085
 msgid "Select the is bundle value."
 msgstr ""
 
-#: bootstrap-old.php:2468
+#: bootstrap-old.php:2424
 msgid "yes"
 msgstr ""
 
-#: bootstrap-old.php:2469
+#: bootstrap-old.php:2425
 msgid "no"
 msgstr ""
 
-#: bootstrap-old.php:2480
-#: bootstrap-old.php:3146
+#: bootstrap-old.php:2436
+#: bootstrap-old.php:3102
 msgid "Energy efficiency class"
 msgstr ""
 
-#: bootstrap-old.php:2482
+#: bootstrap-old.php:2438
 msgid "Select the product energy efficiency class."
 msgstr ""
 
-#: bootstrap-old.php:2485
-#: bootstrap-old.php:2510
-#: bootstrap-old.php:2535
-#: bootstrap-old.php:3154
-#: bootstrap-old.php:3182
-#: bootstrap-old.php:3210
+#: bootstrap-old.php:2441
+#: bootstrap-old.php:2466
+#: bootstrap-old.php:2491
+#: bootstrap-old.php:3110
+#: bootstrap-old.php:3138
+#: bootstrap-old.php:3166
 msgid "A+++"
 msgstr ""
 
-#: bootstrap-old.php:2486
-#: bootstrap-old.php:2511
-#: bootstrap-old.php:2536
-#: bootstrap-old.php:3155
-#: bootstrap-old.php:3183
-#: bootstrap-old.php:3211
+#: bootstrap-old.php:2442
+#: bootstrap-old.php:2467
+#: bootstrap-old.php:2492
+#: bootstrap-old.php:3111
+#: bootstrap-old.php:3139
+#: bootstrap-old.php:3167
 msgid "A++"
 msgstr ""
 
-#: bootstrap-old.php:2487
-#: bootstrap-old.php:2512
-#: bootstrap-old.php:2537
-#: bootstrap-old.php:3156
-#: bootstrap-old.php:3184
-#: bootstrap-old.php:3212
+#: bootstrap-old.php:2443
+#: bootstrap-old.php:2468
+#: bootstrap-old.php:2493
+#: bootstrap-old.php:3112
+#: bootstrap-old.php:3140
+#: bootstrap-old.php:3168
 msgid "A+"
 msgstr ""
 
-#: bootstrap-old.php:2488
-#: bootstrap-old.php:2513
-#: bootstrap-old.php:2538
-#: bootstrap-old.php:3157
-#: bootstrap-old.php:3185
-#: bootstrap-old.php:3213
+#: bootstrap-old.php:2444
+#: bootstrap-old.php:2469
+#: bootstrap-old.php:2494
+#: bootstrap-old.php:3113
+#: bootstrap-old.php:3141
+#: bootstrap-old.php:3169
 msgid "A"
 msgstr ""
 
-#: bootstrap-old.php:2489
-#: bootstrap-old.php:2514
-#: bootstrap-old.php:2539
-#: bootstrap-old.php:3158
-#: bootstrap-old.php:3186
-#: bootstrap-old.php:3214
+#: bootstrap-old.php:2445
+#: bootstrap-old.php:2470
+#: bootstrap-old.php:2495
+#: bootstrap-old.php:3114
+#: bootstrap-old.php:3142
+#: bootstrap-old.php:3170
 msgid "B"
 msgstr ""
 
-#: bootstrap-old.php:2490
-#: bootstrap-old.php:2515
-#: bootstrap-old.php:2540
-#: bootstrap-old.php:3159
-#: bootstrap-old.php:3187
-#: bootstrap-old.php:3215
+#: bootstrap-old.php:2446
+#: bootstrap-old.php:2471
+#: bootstrap-old.php:2496
+#: bootstrap-old.php:3115
+#: bootstrap-old.php:3143
+#: bootstrap-old.php:3171
 msgid "C"
 msgstr ""
 
-#: bootstrap-old.php:2491
-#: bootstrap-old.php:2516
-#: bootstrap-old.php:2541
-#: bootstrap-old.php:3160
-#: bootstrap-old.php:3188
-#: bootstrap-old.php:3216
+#: bootstrap-old.php:2447
+#: bootstrap-old.php:2472
+#: bootstrap-old.php:2497
+#: bootstrap-old.php:3116
+#: bootstrap-old.php:3144
+#: bootstrap-old.php:3172
 msgid "D"
 msgstr ""
 
-#: bootstrap-old.php:2492
-#: bootstrap-old.php:2517
-#: bootstrap-old.php:2542
-#: bootstrap-old.php:3161
-#: bootstrap-old.php:3189
-#: bootstrap-old.php:3217
+#: bootstrap-old.php:2448
+#: bootstrap-old.php:2473
+#: bootstrap-old.php:2498
+#: bootstrap-old.php:3117
+#: bootstrap-old.php:3145
+#: bootstrap-old.php:3173
 msgid "E"
 msgstr ""
 
-#: bootstrap-old.php:2493
-#: bootstrap-old.php:2518
-#: bootstrap-old.php:2543
-#: bootstrap-old.php:3162
-#: bootstrap-old.php:3190
-#: bootstrap-old.php:3218
+#: bootstrap-old.php:2449
+#: bootstrap-old.php:2474
+#: bootstrap-old.php:2499
+#: bootstrap-old.php:3118
+#: bootstrap-old.php:3146
+#: bootstrap-old.php:3174
 msgid "F"
 msgstr ""
 
-#: bootstrap-old.php:2494
-#: bootstrap-old.php:2519
-#: bootstrap-old.php:2544
-#: bootstrap-old.php:3163
-#: bootstrap-old.php:3191
-#: bootstrap-old.php:3219
+#: bootstrap-old.php:2450
+#: bootstrap-old.php:2475
+#: bootstrap-old.php:2500
+#: bootstrap-old.php:3119
+#: bootstrap-old.php:3147
+#: bootstrap-old.php:3175
 msgid "G"
 msgstr ""
 
-#: bootstrap-old.php:2505
-#: bootstrap-old.php:3174
+#: bootstrap-old.php:2461
+#: bootstrap-old.php:3130
 msgid "Minimum energy efficiency class"
 msgstr ""
 
-#: bootstrap-old.php:2507
+#: bootstrap-old.php:2463
 msgid "Select the minimum product energy efficiency class."
 msgstr ""
 
-#: bootstrap-old.php:2530
-#: bootstrap-old.php:3202
+#: bootstrap-old.php:2486
+#: bootstrap-old.php:3158
 msgid "Maximum energy efficiency class"
 msgstr ""
 
-#: bootstrap-old.php:2532
+#: bootstrap-old.php:2488
 msgid "Select the maximum product energy efficiency class."
 msgstr ""
 
-#: bootstrap-old.php:2555
+#: bootstrap-old.php:2511
 msgid "Is promotion"
 msgstr ""
 
-#: bootstrap-old.php:2557
+#: bootstrap-old.php:2513
 msgid "Enter your promotion ID."
 msgstr ""
 
-#: bootstrap-old.php:2567
+#: bootstrap-old.php:2523
 msgid "Custom field 0"
 msgstr ""
 
-#: bootstrap-old.php:2569
-#: bootstrap-old.php:3248
+#: bootstrap-old.php:2525
+#: bootstrap-old.php:3204
 msgid "Enter your custom field 0"
 msgstr ""
 
-#: bootstrap-old.php:2579
+#: bootstrap-old.php:2535
 msgid "Custom field 1"
 msgstr ""
 
-#: bootstrap-old.php:2581
-#: bootstrap-old.php:3263
+#: bootstrap-old.php:2537
+#: bootstrap-old.php:3219
 msgid "Enter your custom field 1"
 msgstr ""
 
-#: bootstrap-old.php:2591
+#: bootstrap-old.php:2547
 msgid "Custom field 2"
 msgstr ""
 
-#: bootstrap-old.php:2593
-#: bootstrap-old.php:3278
+#: bootstrap-old.php:2549
+#: bootstrap-old.php:3234
 msgid "Enter your custom field 2"
 msgstr ""
 
-#: bootstrap-old.php:2603
+#: bootstrap-old.php:2559
 msgid "Custom field 3"
 msgstr ""
 
-#: bootstrap-old.php:2605
-#: bootstrap-old.php:3293
+#: bootstrap-old.php:2561
+#: bootstrap-old.php:3249
 msgid "Enter your custom field 3"
 msgstr ""
 
-#: bootstrap-old.php:2615
+#: bootstrap-old.php:2571
 msgid "Custom field 4"
 msgstr ""
 
-#: bootstrap-old.php:2617
+#: bootstrap-old.php:2573
 msgid "Enter your custom field 4"
 msgstr ""
 
-#: bootstrap-old.php:2626
+#: bootstrap-old.php:2582
 msgid "Exclude from feeds"
 msgstr ""
 
-#: bootstrap-old.php:2628
-#: bootstrap-old.php:3322
+#: bootstrap-old.php:2584
+#: bootstrap-old.php:3278
 msgid "Check this box if you want this product to be excluded from product feeds."
 msgstr ""
 
-#: bootstrap-old.php:2820
+#: bootstrap-old.php:2776
 msgid "<br>Brand"
 msgstr ""
 
-#: bootstrap-old.php:2835
+#: bootstrap-old.php:2791
 msgid "<br>GTIN"
 msgstr ""
 
-#: bootstrap-old.php:2838
+#: bootstrap-old.php:2794
 msgid "Enter the product GTIN here."
 msgstr ""
 
-#: bootstrap-old.php:2850
+#: bootstrap-old.php:2806
 msgid "<br>MPN"
 msgstr ""
 
-#: bootstrap-old.php:2853
+#: bootstrap-old.php:2809
 msgid "Enter the MPN here."
 msgstr ""
 
-#: bootstrap-old.php:2865
+#: bootstrap-old.php:2821
 msgid "<br>UPC"
 msgstr ""
 
-#: bootstrap-old.php:2868
+#: bootstrap-old.php:2824
 msgid "Enter the product UPC here."
 msgstr ""
 
-#: bootstrap-old.php:2880
+#: bootstrap-old.php:2836
 msgid "<br>EAN"
 msgstr ""
 
-#: bootstrap-old.php:2883
+#: bootstrap-old.php:2839
 msgid "Enter the product EAN here."
 msgstr ""
 
-#: bootstrap-old.php:2895
+#: bootstrap-old.php:2851
 msgid "<br>Color"
 msgstr ""
 
-#: bootstrap-old.php:2898
+#: bootstrap-old.php:2854
 msgid "Enter the product Color here."
 msgstr ""
 
-#: bootstrap-old.php:2910
+#: bootstrap-old.php:2866
 msgid "<br>Size"
 msgstr ""
 
-#: bootstrap-old.php:2913
+#: bootstrap-old.php:2869
 msgid "Enter the product Size here."
 msgstr ""
 
-#: bootstrap-old.php:2928
+#: bootstrap-old.php:2884
 msgid "Select the gender."
 msgstr ""
 
-#: bootstrap-old.php:2946
+#: bootstrap-old.php:2902
 msgid "<br>Material"
 msgstr ""
 
-#: bootstrap-old.php:2949
+#: bootstrap-old.php:2905
 msgid "Enter the product Material here."
 msgstr ""
 
-#: bootstrap-old.php:2961
+#: bootstrap-old.php:2917
 msgid "<br>Pattern"
 msgstr ""
 
-#: bootstrap-old.php:2964
+#: bootstrap-old.php:2920
 msgid "Enter the product Pattern here."
 msgstr ""
 
-#: bootstrap-old.php:2976
+#: bootstrap-old.php:2932
 msgid "<br>Unit pricing measure"
 msgstr ""
 
-#: bootstrap-old.php:2979
+#: bootstrap-old.php:2935
 msgid "Enter the product Unit pricing measure here."
 msgstr ""
 
-#: bootstrap-old.php:2991
+#: bootstrap-old.php:2947
 msgid "<br>Unit pricing base measure"
 msgstr ""
 
-#: bootstrap-old.php:2994
+#: bootstrap-old.php:2950
 msgid "Enter the product Unit pricing base measure here."
 msgstr ""
 
-#: bootstrap-old.php:3006
+#: bootstrap-old.php:2962
 msgid "<br>Optimized title"
 msgstr ""
 
-#: bootstrap-old.php:3009
+#: bootstrap-old.php:2965
 msgid "Enter a optimized product title here."
 msgstr ""
 
-#: bootstrap-old.php:3021
+#: bootstrap-old.php:2977
 msgid "<br>Installment months"
 msgstr ""
 
-#: bootstrap-old.php:3024
+#: bootstrap-old.php:2980
 msgid "Enter the number of montly installments for the buyer here."
 msgstr ""
 
-#: bootstrap-old.php:3036
+#: bootstrap-old.php:2992
 msgid "<br>Installment amount"
 msgstr ""
 
-#: bootstrap-old.php:3039
+#: bootstrap-old.php:2995
 msgid "Enter the installment amount here."
 msgstr ""
 
-#: bootstrap-old.php:3073
+#: bootstrap-old.php:3029
 msgid "Product age group"
 msgstr ""
 
-#: bootstrap-old.php:3096
+#: bootstrap-old.php:3052
 msgid "<br>Cost of good sold"
 msgstr ""
 
-#: bootstrap-old.php:3099
+#: bootstrap-old.php:3055
 msgid "Enter the cost of good sold."
 msgstr ""
 
-#: bootstrap-old.php:3111
+#: bootstrap-old.php:3067
 msgid "<br>Multipack"
 msgstr ""
 
-#: bootstrap-old.php:3114
+#: bootstrap-old.php:3070
 msgid "Enter the multipack amount here."
 msgstr ""
 
-#: bootstrap-old.php:3149
+#: bootstrap-old.php:3105
 msgid "Select the energy efficiency class."
 msgstr ""
 
-#: bootstrap-old.php:3177
+#: bootstrap-old.php:3133
 msgid "Select the minimum energy efficiency class."
 msgstr ""
 
-#: bootstrap-old.php:3205
+#: bootstrap-old.php:3161
 msgid "Select the maximum energy efficiency class."
 msgstr ""
 
-#: bootstrap-old.php:3230
+#: bootstrap-old.php:3186
 msgid "<br>Is promotion"
 msgstr ""
 
-#: bootstrap-old.php:3233
+#: bootstrap-old.php:3189
 msgid "Enter your promotion ID"
 msgstr ""
 
-#: bootstrap-old.php:3245
+#: bootstrap-old.php:3201
 msgid "<br>Custom field 0"
 msgstr ""
 
-#: bootstrap-old.php:3260
+#: bootstrap-old.php:3216
 msgid "<br>Custom field 1"
 msgstr ""
 
-#: bootstrap-old.php:3275
+#: bootstrap-old.php:3231
 msgid "<br>Custom field 2"
 msgstr ""
 
-#: bootstrap-old.php:3290
+#: bootstrap-old.php:3246
 msgid "<br>Custom field 3"
 msgstr ""
 
-#: bootstrap-old.php:3319
+#: bootstrap-old.php:3275
 msgid "&nbsp;Exclude from feeds"
 msgstr ""
 
 #. translators: %1$s = opening <a> tag; %2$s = closing </a> tag
-#: bootstrap/app.php:130
+#: bootstrap/app.php:154
 msgid "%1$sClick here to activate %3$s plugin &rarr;%2$s"
 msgstr ""
 
-#: bootstrap/app.php:142
+#: bootstrap/app.php:166
 msgid "Activate this plugin"
 msgstr ""
 
 #. translators: %1$s = opening <p> tag; %2$s = closing </p> tag; %3$s = Product Feed PRO for WooCommerce
-#: bootstrap/app.php:152
+#: bootstrap/app.php:176
 msgid "%1$sUnable to activate %3$s plugin. Please install and activate WooCoomerce plugin first.%2$s"
 msgstr ""
 
 #. translators: %1$s = opening <a> tag; %2$s = closing </a> tag
-#: bootstrap/app.php:163
+#: bootstrap/app.php:187
 msgid "%1$sClick here to install %3$s plugin &rarr;%2$s"
 msgstr ""
 
-#: bootstrap/app.php:175
+#: bootstrap/app.php:199
 msgid "Install this plugin"
 msgstr ""
 
 #. translators: %1$s = opening <strong> tag; %2$s = closing </strong> tag; %3$s = opening <p> tag; %4$s = closing </p> tag
-#: bootstrap/app.php:188
+#: bootstrap/app.php:212
 msgid "%3$s%1$sProduct Feed PRO for WooCommerce%2$s plugin is missing dependency:%4$s"
 msgstr ""
 
-#: bootstrap/app.php:226
+#: bootstrap/app.php:250
 msgid "The class does not have a run method. Please make sure to extend the Abstract_Class class."
 msgstr ""
 
@@ -781,24 +781,22 @@ msgid "Please contact support if this issue persists."
 msgstr ""
 
 #: includes/Classes/Heartbeat.php:36
-#: includes/Classes/Heartbeat.php:77
 #: includes/Classes/Product_Feed_Admin.php:45
 #: includes/Classes/Product_Feed_Admin.php:113
-#: includes/Classes/Product_Feed_Admin.php:262
-#: includes/Classes/Product_Feed_Admin.php:312
-#: includes/Classes/Product_Feed_Admin.php:398
-#: includes/Classes/Product_Feed_Admin.php:438
-#: includes/Classes/Product_Feed_Admin.php:474
+#: includes/Classes/Product_Feed_Admin.php:266
+#: includes/Classes/Product_Feed_Admin.php:315
+#: includes/Classes/Product_Feed_Admin.php:401
+#: includes/Classes/Product_Feed_Admin.php:450
+#: includes/Classes/Product_Feed_Admin.php:489
 msgid "You do not have permission to manage product feed."
 msgstr ""
 
-#: includes/Classes/Heartbeat.php:42
-#: includes/Classes/Product_Feed_Admin.php:270
-#: includes/Classes/Product_Feed_Admin.php:317
-#: includes/Classes/Product_Feed_Admin.php:405
-#: includes/Classes/Product_Feed_Admin.php:445
-#: includes/Classes/Product_Feed_Admin.php:481
-msgid "Product feed not found."
+#: includes/Classes/Heartbeat.php:40
+msgid "Invalid request."
+msgstr ""
+
+#: includes/Classes/Heartbeat.php:82
+msgid "Product feed(s) not found."
 msgstr ""
 
 #: includes/Classes/Marketing.php:39
@@ -806,47 +804,63 @@ msgstr ""
 msgid "Advanced Coupons"
 msgstr ""
 
-#: includes/Classes/Product_Feed_Admin.php:423
+#: includes/Classes/Product_Feed_Admin.php:274
+#: includes/Classes/Product_Feed_Admin.php:320
+#: includes/Classes/Product_Feed_Admin.php:408
+#: includes/Classes/Product_Feed_Admin.php:457
+#: includes/Classes/Product_Feed_Admin.php:496
+msgid "Product feed not found."
+msgstr ""
+
+#: includes/Classes/Product_Feed_Admin.php:435
 msgid "Product feed process has been cancelled."
 msgstr ""
 
-#: includes/Classes/Product_Feed_Admin.php:457
+#: includes/Classes/Product_Feed_Admin.php:472
 msgid "Product feed has been refreshed."
 msgstr ""
 
-#: includes/Classes/Product_Feed_Admin.php:490
+#: includes/Classes/Product_Feed_Admin.php:505
 msgid "Product feed has been deleted."
 msgstr ""
 
-#: includes/Classes/WP_Admin.php:60
-#: includes/Classes/WP_Admin.php:61
+#: includes/Classes/WP_Admin.php:62
+#: includes/Classes/WP_Admin.php:63
 msgid "Help"
 msgstr ""
 
-#: includes/Classes/WP_Admin.php:70
-#: includes/Classes/WP_Admin.php:71
+#: includes/Classes/WP_Admin.php:72
+#: includes/Classes/WP_Admin.php:73
 msgid "About"
 msgstr ""
 
-#: includes/Classes/WP_Admin.php:80
-#: includes/Classes/WP_Admin.php:81
+#: includes/Classes/WP_Admin.php:82
+#: includes/Classes/WP_Admin.php:83
 #: pages/admin/woosea-generate-feed-step-0.php:117
 #: pages/admin/woosea-manage-feed.php:83
 #: views/view-sidebar.php:18
 msgid "Upgrade To Elite"
 msgstr ""
 
-#: includes/Classes/WP_Admin.php:121
+#: includes/Classes/WP_Admin.php:123
 msgid "About Page"
 msgstr ""
 
-#: includes/Classes/WP_Admin.php:129
+#: includes/Classes/WP_Admin.php:131
 msgid "Help Page"
 msgstr ""
 
 #. translators: %1$s and %2$s are placeholders for html tags.
-#: includes/Classes/WP_Admin.php:150
+#: includes/Classes/WP_Admin.php:152
 msgid "You're using Product Feed Pro FREE VERSION. To unlock more features consider %1$supgrading to Elite%2$s."
+msgstr ""
+
+#: includes/Classes/WP_Admin.php:175
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: includes/Classes/WP_Admin.php:185
+msgid "Migration successful."
 msgstr ""
 
 #: includes/Post_Types/Product_Feed_Post_Type.php:29
@@ -908,7 +922,7 @@ msgstr ""
 #: pages/admin/woosea-generate-feed-step-5.php:14
 #: pages/admin/woosea-generate-feed-step-7.php:14
 #: pages/admin/woosea-manage-feed.php:23
-#: pages/admin/woosea-manage-settings.php:69
+#: pages/admin/woosea-manage-settings.php:70
 msgid "If you like our %1$s plugin please leave us a %2$s rating. Thanks in advance!"
 msgstr ""
 
@@ -981,14 +995,14 @@ msgstr ""
 #: pages/admin/woosea-generate-feed-step-7.php:128
 #: pages/admin/woosea-key.php:9
 #: pages/admin/woosea-manage-feed.php:125
-#: pages/admin/woosea-manage-settings.php:105
+#: pages/admin/woosea-manage-settings.php:106
 #: views/view-about-page.php:13
 #: views/view-help-page.php:11
 msgid "AdTribes"
 msgstr ""
 
 #: pages/admin/woosea-generate-feed-step-0.php:126
-#: views/manage-feed/view-manage-feed-table.php:109
+#: views/manage-feed/view-manage-feed-table.php:116
 msgid "General feed settings"
 msgstr ""
 
@@ -1029,7 +1043,7 @@ msgid "Delimiter"
 msgstr ""
 
 #: pages/admin/woosea-generate-feed-step-0.php:317
-#: views/manage-feed/view-manage-feed-table.php:24
+#: views/manage-feed/view-manage-feed-table.php:28
 msgid "Refresh interval"
 msgstr ""
 
@@ -1042,7 +1056,7 @@ msgid "Create a preview of the feed"
 msgstr ""
 
 #: pages/admin/woosea-generate-feed-step-1.php:191
-#: views/manage-feed/view-manage-feed-table.php:129
+#: views/manage-feed/view-manage-feed-table.php:136
 msgid "Category mapping"
 msgstr ""
 
@@ -1059,7 +1073,7 @@ msgid "category"
 msgstr ""
 
 #: pages/admin/woosea-generate-feed-step-4.php:107
-#: views/manage-feed/view-manage-feed-table.php:135
+#: views/manage-feed/view-manage-feed-table.php:142
 msgid "Feed filters and rules"
 msgstr ""
 
@@ -1125,7 +1139,7 @@ msgid "Rule"
 msgstr ""
 
 #: pages/admin/woosea-generate-feed-step-5.php:110
-#: views/manage-feed/view-manage-feed-table.php:140
+#: views/manage-feed/view-manage-feed-table.php:147
 msgid "Conversion & Google Analytics settings"
 msgstr ""
 
@@ -1162,7 +1176,7 @@ msgid "Remove products that did not have sales in the last days"
 msgstr ""
 
 #: pages/admin/woosea-generate-feed-step-7.php:130
-#: views/manage-feed/view-manage-feed-table.php:121
+#: views/manage-feed/view-manage-feed-table.php:128
 msgid "Field mapping"
 msgstr ""
 
@@ -1223,124 +1237,128 @@ msgid "Product Feed Elite"
 msgstr ""
 
 #: pages/admin/woosea-manage-feed.php:93
-#: pages/admin/woosea-manage-settings.php:115
+#: pages/admin/woosea-manage-settings.php:116
 msgid "WARNING: Your WP-Cron is disabled"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:84
-#: pages/admin/woosea-manage-settings.php:88
-#: pages/admin/woosea-manage-settings.php:150
+#: pages/admin/woosea-manage-settings.php:85
+#: pages/admin/woosea-manage-settings.php:89
+#: pages/admin/woosea-manage-settings.php:146
 msgid "Plugin settings"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:91
-#: pages/admin/woosea-manage-settings.php:157
+#: pages/admin/woosea-manage-settings.php:92
+#: pages/admin/woosea-manage-settings.php:149
 msgid "Plugin systems check"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:94
+#: pages/admin/woosea-manage-settings.php:95
 msgid "Attribute settings"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:168
+#: pages/admin/woosea-manage-settings.php:161
 msgid "Plugin setting"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:169
+#: pages/admin/woosea-manage-settings.php:162
 msgid "Off / On"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:177
+#: pages/admin/woosea-manage-settings.php:170
 msgid "Use parent variable product image for variations"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:195
+#: pages/admin/woosea-manage-settings.php:188
 msgid "Add shipping costs for all countries to your feed (Google Shopping / Facebook only)"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:213
+#: pages/admin/woosea-manage-settings.php:206
 msgid "Remove all other shipping classes when free shipping criteria are met (Google Shopping / Facebook only)"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:231
+#: pages/admin/woosea-manage-settings.php:224
 msgid "Remove the free shipping zone from your feed (Google Shopping / Facebook only)"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:249
+#: pages/admin/woosea-manage-settings.php:242
 msgid "Remove the local pickup shipping zone from your feed (Google Shopping / Facebook only)"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:267
+#: pages/admin/woosea-manage-settings.php:260
 msgid "Show only basis attributes in field mapping and filter/rule drop-downs"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:285
+#: pages/admin/woosea-manage-settings.php:278
 msgid "Enable logging"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:303
+#: pages/admin/woosea-manage-settings.php:296
 msgid "Add Facebook Pixel"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:303
-#: pages/admin/woosea-manage-settings.php:375
+#: pages/admin/woosea-manage-settings.php:296
+#: pages/admin/woosea-manage-settings.php:368
 msgid "Read more about this"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:333
+#: pages/admin/woosea-manage-settings.php:326
 msgid "Content IDS variable products Facebook Pixel"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:349
+#: pages/admin/woosea-manage-settings.php:342
 msgid "Add Google Dynamic Remarketing Pixel:"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:375
+#: pages/admin/woosea-manage-settings.php:368
 msgid "Change products per batch number"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:524
+#: pages/admin/woosea-manage-settings.php:392
+msgid "Migrate to Custom Post Type"
+msgstr ""
+
+#: pages/admin/woosea-manage-settings.php:522
 msgid "System Report"
 msgstr ""
 
-#: pages/admin/woosea-manage-settings.php:529
+#: pages/admin/woosea-manage-settings.php:527
 msgid "Copy the below text and paste to the support team when requested to help us debug any systems issues with your feeds."
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:21
+#: views/manage-feed/view-manage-feed-table.php:25
 msgid "Active"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:22
+#: views/manage-feed/view-manage-feed-table.php:26
 msgid "Project name and channel"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:23
+#: views/manage-feed/view-manage-feed-table.php:27
 msgid "Format"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:25
+#: views/manage-feed/view-manage-feed-table.php:29
 msgid "Status"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:105
+#: views/manage-feed/view-manage-feed-table.php:112
 msgid "Change settings"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:115
+#: views/manage-feed/view-manage-feed-table.php:122
 msgid "Attribute selection"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:148
+#: views/manage-feed/view-manage-feed-table.php:155
 msgid "Feed URL"
 msgstr ""
 
-#: views/manage-feed/view-manage-feed-table.php:156
+#: views/manage-feed/view-manage-feed-table.php:163
 msgid "Whoops, there is no active product feed for this project as the project has been disabled or did not run yet."
 msgstr ""
 
 #. translators: %s: close <a> tag.
-#: views/manage-feed/view-manage-feed-table.php:175
+#: views/manage-feed/view-manage-feed-table.php:182
 msgid "You haven't configured a product feed yet, %1$splease create one first%3$s or read our tutorial on %2$show to set up your very first Google Shopping product feed%3$s."
 msgstr ""
 

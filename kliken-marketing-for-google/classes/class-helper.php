@@ -421,7 +421,7 @@ class Helper {
 			$state['active']     = true;
 			$state['option_key'] = KK_FB_WC_SETTINGS_OPTION_KEY;
 		} else {
-			$state['active']     = self::is_plugin_active( 'meta-pixel-ads-for-woo/meta-pixel-ads-for-woo.php' );
+			$state['active']     = self::is_plugin_active( 'kliken-ads-pixel-for-meta/kliken-ads-pixel-for-meta.php' );
 			$state['option_key'] = 'kk_fb_wc_settings';
 		}
 

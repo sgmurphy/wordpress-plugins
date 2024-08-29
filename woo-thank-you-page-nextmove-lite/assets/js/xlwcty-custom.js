@@ -246,7 +246,7 @@
             }
         }
     });
-    $(window).load(function () {
+    $(window).on('load', function () {
         if ($('.xlwcty_products li').length > 0) {
             equalheight('.xlwcty_products li');
         }

@@ -180,6 +180,7 @@ class SQ_Classes_Helpers_Tools
             //Live Assistant
             'sq_sla' => 1,
             'sq_sla_frontend' => 0,
+            'sq_sla_otherkeywords' => 1,
             'sq_sla_type' => 'auto',
             'sq_sla_exclude_post_types' => array(),
             'sq_keyword_help' => 1,

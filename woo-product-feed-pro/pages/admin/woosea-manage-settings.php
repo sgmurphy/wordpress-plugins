@@ -140,22 +140,14 @@ if ( isset( $_GET['tab'] ) ) {
             ?>
 
             <!-- WordPress provides the styling for tabs. -->
-            <h2 class="nav-tab-wrapper">
+            <h2 class="nav-tab-wrapper woo-product-feed-pro-nav-tab-wrapper">
                 <!-- when tab buttons are clicked we jump back to the same page but with a new parameter that represents the clicked tab. accordingly we make it active -->
-                <a href="?page=woosea_manage_settings&tab=woosea_manage_settings" class="nav-tab 
-                        <?php
-                        if ( $active_tab == 'woosea_manage_settings' ) {
-                            echo 'nav-tab-active';
-                        }
-                        ?>
-"><?php _e( 'Plugin settings', 'woo-product-feed-pro' ); ?></a>
-                <a href="?page=woosea_manage_settings&tab=woosea_system_check" class="nav-tab 
-                        <?php
-                        if ( $active_tab == 'woosea_system_check' ) {
-                            echo 'nav-tab-active';
-                        }
-                        ?>
-"><?php _e( 'Plugin systems check', 'woo-product-feed-pro' ); ?></a>
+                <a href="?page=woosea_manage_settings&tab=woosea_manage_settings" data-tab="general" class="nav-tab <?php echo $active_tab == 'woosea_manage_settings' ? esc_attr( 'nav-tab-active' ) : '';?>">
+                    <?php _e( 'Plugin settings', 'woo-product-feed-pro' ); ?>
+                </a>
+                <a href="?page=woosea_manage_settings&tab=woosea_system_check" data-tab="system_check" class="nav-tab <?php echo $active_tab == 'woosea_system_check' ? esc_attr( 'nav-tab-active' ) : ''; ?>">
+                    <?php _e( 'Plugin systems check', 'woo-product-feed-pro' ); ?>
+                </a>
             </h2>
 
             <div class="woo-product-feed-pro-table-wrapper">
@@ -164,7 +156,7 @@ if ( isset( $_GET['tab'] ) ) {
                     if ( $active_tab == 'woosea_manage_settings' ) {
                     ?>
 
-                        <table class="woo-product-feed-pro-table">
+                        <table class="woo-product-feed-pro-table" data-pagename="manage_settings">
                             <tr>
                                 <td><strong><?php _e( 'Plugin setting', 'woo-product-feed-pro' ); ?></strong></td>
                                 <td><strong><?php _e( 'Off / On', 'woo-product-feed-pro' ); ?></strong></td>

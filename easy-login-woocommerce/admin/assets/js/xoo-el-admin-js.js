@@ -23,6 +23,11 @@ jQuery(document).ready(function($){
 			$setting.find('option[value="links"]').prop( 'selected', true );
 			$setting.trigger('change');
 		}
+
+		if( $(this).val() === 'separate' ){
+			$setting.find('option[value="tabs"]').prop( 'selected', true );
+			$setting.trigger('change');
+		}
 	})
 
 
@@ -38,6 +43,36 @@ jQuery(document).ready(function($){
 		}
 		
 	} ).trigger('change');
+
+
+	$('input[name="xoo-el-gl-options[m-en-myaccount]"]').on( 'change', function(){
+
+		var $setting = $('textarea[name="xoo-el-gl-options[m-myacc-sc]"]').closest('.xoo-as-setting');
+
+
+		if( $(this).is(':checked') ){
+			$setting.show();
+		}
+		else{
+			$setting.hide();
+		}
+	})
+
+
+	$('input[name="xoo-el-gl-options[m-en-chkout]"]').on( 'change', function(){
+
+		var $setting = $('textarea[name="xoo-el-gl-options[m-chkout-sc]"]').closest('.xoo-as-setting');
+
+
+		if( $(this).is(':checked') ){
+			$setting.show();
+		}
+		else{
+			$setting.hide();
+		}
+	})
+
+
 
 
 });

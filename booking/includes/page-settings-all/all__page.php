@@ -22,7 +22,6 @@ class WPBC_Page_Settings_All extends WPBC_Page_Structure {
 
         parent::__construct();
 
-		//add_action( 'wpbc_toolbar_top_tabs_after',  array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
 		//add_action( 'wpbc_toolbar_top_tabs_insert', array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
 	    add_action( 'wpbc_page_show_left_navigation_custom', array( $this, 'left_navigation_custom__settings_all' ) );
     }
@@ -141,7 +140,9 @@ class WPBC_Page_Settings_All extends WPBC_Page_Structure {
 				}
 
 				$current_step_page = explode( '_', $selected_tab );		// 'calendar_skin', 'calendar_size', 'calendar_dates_selection', 'calendar_weekdays_availability', 'calendar_additional',   'form_structure', ...
-wpbc_bs_toolbar_tabs_html_container_start();
+
+				wpbc_bs_toolbar_tabs_html_container_start();
+
 				wpbc_bs_display_tab(   array(
 													  'title'       => '1. '. __( 'Calendar', 'booking' )
 													, 'hint' 	    => array( 'title' => __('Setup' ,'booking') , 'position' => 'top' )
@@ -238,8 +239,8 @@ wpbc_bs_toolbar_tabs_html_container_start();
 													//, 'position' 	=> 'right'
 													, 'css_classes' => 'wpbc_setup_plugin_support_tabs'
 									) );
-wpbc_bs_toolbar_tabs_html_container_end();
 
+				wpbc_bs_toolbar_tabs_html_container_end();
 			}
 		}
 

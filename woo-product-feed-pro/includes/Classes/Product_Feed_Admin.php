@@ -91,7 +91,7 @@ class Product_Feed_Admin extends Abstract_Class {
          * Run the product feed batch processing.
          * This is the legacy code base processing logic.
          */
-        woosea_continue_batch( $product_feed->id );
+        $product_feed->run_batch_event();
     }
 
     /**
@@ -172,7 +172,7 @@ class Product_Feed_Admin extends Abstract_Class {
      */
     public function update_product_feed( $feed_id, $batch_size ) {
         $feed = new Product_Feed( $feed_id );
-        if ( ! $feed->id ) {
+        if ( ! Product_Feed_Helper::is_a_product_feed( $feed ) && ! $feed->id ) {
             return false;
         }
 
@@ -193,8 +193,8 @@ class Product_Feed_Admin extends Abstract_Class {
         $published_products = apply_filters( 'adt_product_feed_total_published_products', $published_products, $feed );
 
         // Update the feed with the total number of products.
-        $feed->products_count     = intval( $published_products );
-        $total_products_processed = $feed->total_products_processed;
+        $feed->products_count           = intval( $published_products );
+        $feed->total_products_processed = min( $feed->total_products_processed + $batch_size, $feed->products_count );
 
         /**
          * Batch processing.
@@ -203,7 +203,7 @@ class Product_Feed_Admin extends Abstract_Class {
          * The batching logic is from the legacy code base as it's has the batch size.
          * We need to refactor this logic so it's not stupid.
          */
-        if ( $total_products_processed >= $published_products || $batch_size >= $published_products ) { // End of processing.
+        if ( $feed->total_products_processed >= $published_products || $batch_size >= $published_products ) { // End of processing.
             $upload_dir = wp_upload_dir();
             $base       = $upload_dir['basedir'];
             $path       = $base . '/woo-product-feed-pro/' . $feed->file_format;
@@ -222,10 +222,13 @@ class Product_Feed_Admin extends Abstract_Class {
             $feed->total_products_processed = 0;
 
             // Set last updated date and time.
-            $feed->last_updated = gmdate( 'd M Y H:i' );
+            $feed->last_updated = gmdate( 'd M Y H:i:s' );
+        }
 
-            $feed->save();
+        // Save feed changes.
+        $feed->save();
 
+        if ( 'ready' === $feed->status ) {
             // In 2 minutes from now check the amount of products in the feed and update the history count.
             if ( wp_schedule_single_event( time(), 'woosea_update_project_stats', array( $feed->id ) ) ) {
                 spawn_cron( time() );
@@ -234,23 +237,9 @@ class Product_Feed_Admin extends Abstract_Class {
                 wp_schedule_single_event( time(), 'woosea_update_project_stats', array( $feed->id ) );
                 spawn_cron( time() );
             }
-        } else { // Continue processing.
-            $feed->status = 'processing';
-            // Update current processing status and numbers.
-            $feed->total_products_processed = $total_products_processed + $batch_size;
-
-            $feed->save();
-
+        } else {
             // Set the next scheduled event.
-            if ( ! wp_next_scheduled( 'woosea_create_batch_event', array( $feed->id ) ) ) {
-                if ( wp_schedule_single_event( time(), 'woosea_create_batch_event', array( $feed->id ) ) ) {
-                    spawn_cron( time() );
-                } else {
-                    // Something went wrong with scheduling the cron, try again in case it was an intermittent failure.
-                    wp_schedule_single_event( time(), 'woosea_create_batch_event', array( $feed->id ) );
-                    spawn_cron( time() );
-                }
-            }
+            $feed->run_batch_event();
         }
     }
 
@@ -294,9 +283,8 @@ class Product_Feed_Admin extends Abstract_Class {
 
             /**
              * Run the product feed batch processing.
-             * This is the legacy code base processing logic.
              */
-            woosea_continue_batch( $feed->id );
+            $feed->run_batch_event();
         }
 
         $feed->post_status = 'true' === $is_publish ? 'publish' : 'draft';
@@ -422,9 +410,12 @@ class Product_Feed_Admin extends Abstract_Class {
 
         do_action( 'adt_before_cancel_product_feed', $feed );
 
+        // Remove the scheduled event.
+        wp_clear_scheduled_hook( 'woosea_create_batch_event', array( $feed->id ) );
+
         $feed->total_products_processed = 0;
         $feed->status                   = 'stopped';
-        $feed->last_updated             = gmdate( 'd M Y H:i' );
+        $feed->last_updated             = gmdate( 'd M Y H:i:s' );
         $feed->save();
 
         /**
@@ -466,14 +457,17 @@ class Product_Feed_Admin extends Abstract_Class {
             wp_send_json_error( __( 'Product feed not found.', 'woo-product-feed-pro' ) );
         }
 
+        // Set status to processing.
+        $feed->status                   = 'processing';
+        $feed->total_products_processed = 0;
+        $feed->save();
         // Remove cache.
         Product_Feed_Helper::disable_cache();
 
         /**
          * Run the product feed batch processing.
-         * This is the legacy code base processing logic.
          */
-        woosea_continue_batch( $feed->id );
+        $feed->run_batch_event();
 
         wp_send_json_success( __( 'Product feed has been refreshed.', 'woo-product-feed-pro' ) );
     }

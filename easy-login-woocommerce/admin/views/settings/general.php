@@ -113,8 +113,24 @@ if( class_exists( 'woocommerce' ) ){
 	);
 
 	$settings[] = array(
+		'callback' 		=> 'textarea',
+		'title' 		=> 'My account page form shortcode',
+		'id' 			=> 'm-myacc-sc',
+		'section_id' 	=> 'gl_wc',
+		'default' 		=> '[xoo_el_inline_form active="login"]',
+		'desc' 			=> 'My account page form shortcode. See info tab for shortcode details',
+		'args' 			=> array(
+			'rows' => 2,
+			'cols' => 60,
+			'custom_attributes' => array(
+				'spellcheck' => 'false',
+			)
+		)
+	);
+
+	$settings[] = array(
 		'callback' 		=> 'checkbox',
-		'title' 		=> 'Replace checkout login form',
+		'title' 		=> 'Checkout page form shortcode',
 		'id' 			=> 'm-en-chkout',
 		'section_id' 	=> 'gl_wc',
 		'default' 		=> 'yes',
@@ -123,11 +139,11 @@ if( class_exists( 'woocommerce' ) ){
 
 	$settings[] = array(
 		'callback' 		=> 'textarea',
-		'title' 		=> 'Replace form shortcode',
-		'id' 			=> 'm-myacc-sc',
+		'title' 		=> 'Checkout page form shortcode',
+		'id' 			=> 'm-chkout-sc',
 		'section_id' 	=> 'gl_wc',
 		'default' 		=> '[xoo_el_inline_form active="login"]',
-		'desc' 			=> 'Above two forms will be replaced with this shortcode. See info tab for shortcode details',
+		'desc' 			=> 'Checkout page form shortcode. See info tab for shortcode details',
 		'args' 			=> array(
 			'rows' => 2,
 			'cols' => 60,

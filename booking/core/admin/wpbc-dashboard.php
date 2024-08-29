@@ -425,8 +425,13 @@ function wpbc_dashboard_section_support() {
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center;" class="bk_spec_font"><a target="_blank" href="https://wpbookingcalendar.com/help/"><?php _e('Help Info' ,'booking');?></a></td>
+                <td style="text-align:center;" class="bk_spec_font"><a target="_blank" href="https://wpbookingcalendar.com/wn/"><?php _e('What\'s New' ,'booking');?></a></td>
             </tr>
+			<?php if ( class_exists('wpdev_bk_personal') ){ ?>
+            <tr>
+                <td style="text-align:center;" class="bk_spec_font"><a target="_blank" href="https://wpbookingcalendar.com/request-update/"><?php _e('Request Update' ,'booking');?></a></td>
+            </tr>
+			<?php } ?>
             <tr>
                 <td style="text-align:center;" class="bk_spec_font"><a target="_blank" href="https://wpbookingcalendar.com/faq/"><?php _e('FAQ' ,'booking');?></a></td>
             </tr>

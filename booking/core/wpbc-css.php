@@ -112,6 +112,7 @@ class WPBC_CSS extends WPBC_JS_CSS{
         if (
 				   ( $where_to_load != 'admin' )
 				|| ( wpbc_is_new_booking_page() )
+			    || ( wpbc_is_setup_wizard_page() )
 				|| ( wpbc_is_settings_form_page() )
 				// || ( wpbc_is_availability_page() )                                                                      //FixIn: 10.0.0.5  Error at  -> WP Booking Calendar > Availability > Season Availability page
 	            || ( ( wpbc_is_settings_page() ) && ( strpos( $_SERVER['REQUEST_URI'], 'tab=payment' ) !== false ) )
@@ -145,6 +146,7 @@ class WPBC_CSS extends WPBC_JS_CSS{
         if (
         	     wpbc_is_bookings_page()
         	  || wpbc_is_new_booking_page()
+              || wpbc_is_setup_wizard_page()
         	  || wpbc_is_settings_form_page()
         	  || wpbc_is_resources_page()
         	  || wpbc_is_settings_page()

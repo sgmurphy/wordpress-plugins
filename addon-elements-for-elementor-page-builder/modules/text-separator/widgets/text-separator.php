@@ -540,15 +540,15 @@ class TextSeparator extends EAE_Widget_Base {
 		view.addRenderAttribute( 'separator_wrapper','class','wts-eae-textseparator' );
 		view.addRenderAttribute('separator_wrapper','class','sep-align-'+settings.align);
 		if(settings.icon_new){
-		view.addRenderAttribute('separator_wrapper','class','icon-yes');
-		view.addRenderAttribute('separator_wrapper','class','icon-'+settings.icon_position);
+			view.addRenderAttribute('separator_wrapper','class','icon-yes');
+			view.addRenderAttribute('separator_wrapper','class','icon-'+settings.icon_position);
 		}
 
 		iconHTML = elementor.helpers.renderIcon( view, settings.icon_new, { 'aria-hidden': true }, 'i' , 'object' ),
 		migrated = elementor.helpers.isIconMigrated( settings, 'icon_new' );
 
 		if((settings.title)){
-		view.addRenderAttribute('separator_wrapper','class','title-yes');
+			view.addRenderAttribute('separator_wrapper','class','title-yes');
 		}
 
 		view.addRenderAttribute( 'title', 'class', 'eae-separator-title' );
@@ -565,9 +565,9 @@ class TextSeparator extends EAE_Widget_Base {
 		<div class="eae-separator-icon-wrapper">
 			<div class="eae-separator-icon-inner">
 				<# if ( iconHTML.rendered && ( ! settings.icon || migrated ) ) { #>
-				{{{ iconHTML.value }}}
+				{{{ elementor.helpers.sanitize(iconHTML.value) }}}
 				<# } else { #>
-				<i class="{{ settings.icon }}" aria-hidden="true"></i>
+				<i class="{{ _.escape(settings.icon) }}" aria-hidden="true"></i>
 				<# } #>
 			</div>
 		</div>
@@ -577,9 +577,9 @@ class TextSeparator extends EAE_Widget_Base {
 		<div class="eae-separator-icon-wrapper">
 			<div class="eae-separator-icon-inner">
 				<# if ( iconHTML.rendered && ( ! settings.icon || migrated ) ) { #>
-				{{{ iconHTML.value }}}
+				{{{ elementor.helpers.sanitize(iconHTML.value) }}}
 				<# } else { #>
-				<i class="{{ settings.icon }}" aria-hidden="true"></i>
+				<i class="{{ _.escape( settings.icon ) }}" aria-hidden="true"></i>
 				<# } #>
 			</div>
 		</div>
@@ -591,6 +591,7 @@ class TextSeparator extends EAE_Widget_Base {
 		</div>
 		<?php
 	}
+
 	public function on_import( $element ) {
 		return Icons_Manager::on_import_migration( $element, 'icon', 'icon_new', true );
 	}

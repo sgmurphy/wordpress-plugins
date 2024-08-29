@@ -123,7 +123,7 @@ export default function () {
               />
             </p>
             <p className="form-row form-row-last acfw-col-left-half acfw_coupon_btn_wrap">
-              <label className="acfw-form-control-label">&nbsp;</label>
+              <label className="acfw-form-control-label"></label>
               <button
                 type="button"
                 className="button alt"

@@ -61,11 +61,15 @@ class Xoo_Aff{
 
 		$fields = $this->fields->get_fields_data();
 
-		$has_date = $has_meter = $has_phonecode = false;
+		$has_date = $has_meter = $has_phonecode = $has_select2 = false;
 
 		if( !empty( $fields ) ){
 
 			foreach ( $fields as $field_id => $field_data) {
+
+				if( isset( $field_data['settings']['use_select2'] ) && $field_data['settings']['use_select2'] === 'yes' ){
+					$has_select2 = true;
+				}
 
 				if( !isset( $field_data['input_type'] ) ) continue;
 
@@ -103,13 +107,16 @@ class Xoo_Aff{
 		}
 
 
+		if( $has_select2 ){
 
-		if( !wp_style_is( 'select2' ) ){
-			wp_enqueue_style( 'select2', XOO_AFF_URL.'/lib/select2/select2.css');
-		}
+			if( !wp_style_is( 'select2' ) ){
+				wp_enqueue_style( 'select2', XOO_AFF_URL.'/lib/select2/select2.css');
+			}
 
-		if( !wp_script_is( 'select2' ) ){
-			wp_enqueue_script( 'select2', XOO_AFF_URL.'/lib/select2/select2.js', array('jquery'), XOO_AFF_VERSION, $strategy ); // Main JS
+			if( !wp_script_is( 'select2' ) ){
+				wp_enqueue_script( 'select2', XOO_AFF_URL.'/lib/select2/select2.js', array('jquery'), XOO_AFF_VERSION, $strategy ); // Main JS
+			}
+
 		}
 
 		wp_enqueue_script( 'xoo-aff-js', XOO_AFF_URL.'/assets/js/xoo-aff-js.js', array( 'jquery' ), XOO_AFF_VERSION, $strategy );
@@ -155,6 +162,26 @@ class Xoo_Aff{
 	public function on_install(){
 
 		$db_version = get_option( 'xoo_aff_'.$this->plugin_slug.'_version' );
+
+		if( $db_version && version_compare( $db_version, '1.7' , '<' ) ){
+
+			$fields = $this->fields->get_fields_data();
+
+			if( !empty( $fields ) ){
+
+				$inputTypeWithSelect = array( 'phone_code', 'country' ,'states' );
+
+				foreach ( $fields as $field_id => $field_data) {
+
+					if( in_array( $field_data['input_type'] , $inputTypeWithSelect ) ||  ( isset( $field_data['settings']['select_list'] ) && count($field_data['settings']['select_list']) > 5 ) ){
+						$fields[$field_id]['settings']['use_select2'] = 'yes';
+					}
+				}
+
+				$this->fields->update_db_fields( $fields );
+
+			}
+		}
 		
 		if( version_compare( $db_version, XOO_AFF_VERSION , '<' ) ){
 			$this->fields->set_defaults();

@@ -1,16 +1,16 @@
 === WC Hide Shipping Methods ===
 
 Contributors: rynald0s, riaanknoetze
-Tags: woocommerce, free shipping, local pickup, hide, hide shipping methods, hide shipping rates, force free shipping, hide other shipping methods, disable other shipping, keep local pickup
+Tags: woocommerce free shipping, hide shipping methods, hide shipping rates, force free shipping, hide other shipping methods
 Requires at least: 6.5.0
 Tested up to: 6.5
-Stable tag: 1.8
+Stable tag: 1.8.1
 WC requires at least: 3.9.4
 WC tested up to: 8.1
 License: GPLv3 or later License
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin automatically hides all other shipping methods when "Free Shipping" is available. You can also choose to keep "Local Pickup" available alongside "Free Shipping".
+This plugin hides all other shipping methods when "Free Shipping" is available, but you can keep "Local Pickup" alongside it.
 
 
 == Description ==
@@ -48,6 +48,11 @@ A: You can submit issues or feature requests on the [Public GitHub Repository](h
 2. Checkout showing only "Free Shipping".
 
 == Changelog ==
+
+= 1.8.1 =
+* Updated banner and screenshots.
+* Fixed SVN and stable tag issues.
+* Revised the readme.txt file.
 
 = 1.8 =
 * New - Refactor code to use classes [#2](https://github.com/RiaanKnoetze/wc-hide-shipping-methods/issues/2)

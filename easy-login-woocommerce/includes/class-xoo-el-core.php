@@ -39,7 +39,7 @@ class Xoo_El_Core{
 		define( "XOO_EL_PATH", plugin_dir_path( XOO_EL_PLUGIN_FILE ) ); // Plugin path
 		define( "XOO_EL_URL", untrailingslashit( plugins_url( '/', XOO_EL_PLUGIN_FILE ) ) ); // plugin url
 		define( "XOO_EL_PLUGIN_BASENAME", plugin_basename( XOO_EL_PLUGIN_FILE ) );
-		define( "XOO_EL_VERSION", "2.7.3" ); //Plugin version
+		define( "XOO_EL_VERSION", "2.7.4" ); //Plugin version
 
 	}
 
@@ -169,10 +169,24 @@ class Xoo_El_Core{
 				update_option( 'xoo-el-av-options', $glOptions );
 			}
 
+			if( version_compare( $db_version, '2.7.4', '<') ){
+				$glOptions = (array) xoo_el_helper()->get_general_option();
+
+				if( isset( $glOptions['m-myacc-sc'] ) ){
+					$glOptions['m-chkout-sc'] = $glOptions['m-myacc-sc'];
+				}
+				update_option( 'xoo-el-gl-options', $glOptions );
+			}
+
 		}
 		
 
 		if( version_compare( $db_version, XOO_EL_VERSION, '<') ){
+
+			/* Including OTP Login fields file - Fix this later*/
+			if( defined('XOO_ML_PATH') ){
+				require_once XOO_ML_PATH.'admin/class-xoo-ml-el-fields.php';
+			}
 
 			xoo_el()->aff->fields->set_defaults();
 

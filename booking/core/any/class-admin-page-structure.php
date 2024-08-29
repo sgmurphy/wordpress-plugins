@@ -194,20 +194,26 @@ abstract class WPBC_Page_Structure {
 
 		$this->maybe_update();
 
-
         $active_page_tab = $active_page_subtab = '';
-        if (  ( isset( $this->current_page_params['tab'] ) ) && ( ! empty( $this->current_page_params['tab']['tag'] ) )  )
-            $active_page_tab = $this->current_page_params['tab']['tag'];
-        if (  ( isset( $this->current_page_params['subtab'] ) ) && ( ! empty( $this->current_page_params['subtab']['tag'] ) )  )
-            $active_page_subtab = $this->current_page_params['subtab']['tag'];
-        
-        $is_show_this_page = apply_filters( 'wpbc_before_showing_settings_page_is_show_page', true, $page_tag, $active_page_tab, $active_page_subtab  );      // Fires Before showing settings Content page
-        
-        if ( $is_show_this_page === false ) return  false;   
-        
-        do_action( 'wpbc_before_settings_content', $page_tag, $active_page_tab, $active_page_subtab  );                 // Fires Before showing settings Content page
-if ( 1 ) {
-		//FixIn: 9.8.15.2
+
+	    if ( ( isset( $this->current_page_params['tab'] ) ) && ( ! empty( $this->current_page_params['tab']['tag'] ) ) ) {
+		    $active_page_tab = $this->current_page_params['tab']['tag'];
+	    }
+	    if ( ( isset( $this->current_page_params['subtab'] ) ) && ( ! empty( $this->current_page_params['subtab']['tag'] ) ) ) {
+		    $active_page_subtab = $this->current_page_params['subtab']['tag'];
+	    }
+
+		// Fires Before showing settings Content page
+        $is_show_this_page = apply_filters( 'wpbc_before_showing_settings_page_is_show_page', true, $page_tag, $active_page_tab, $active_page_subtab  );
+
+	    if ( $is_show_this_page === false ) {
+		    return false;
+	    }
+
+		// Fires Before showing settings Content page
+        do_action( 'wpbc_before_settings_content', $page_tag, $active_page_tab, $active_page_subtab  );
+
+
 		?><div class="wpbc_page_top__header_tabs"><?php
 			?><div    id="<?php echo $page_tag; ?>-admin-page-top"
 				   class="wrap wpbc_page_top <?php
@@ -230,37 +236,32 @@ if ( 1 ) {
 
 		do_action( 'wpbc_after_wpbc_page_top__header_tabs', $page_tag, $active_page_tab, $active_page_subtab  );                 // Fires Before showing settings Content page
 
-} else {
-	    ?><div id="<?php echo $page_tag; ?>-admin-page-top"
-			   class="wrap wpbc_page_top wpbc_page_tab__<?php echo esc_attr( $active_page_tab ); ?> wpbc_page_subtab__<?php echo esc_attr( $active_page_subtab ); ?>" >
-			<h1 class="wpbc_header"><div class="wpbc_header_icon"><i class="menu_icon icon-1x <?php echo $this->get_page_header_h1_font_icon(); ?>"></i></div><div class="wpbc_header_text"><?php echo $this->get_page_header_h1(); ?></div><?php make_bk_action( 'wpbc_h1_header_content_end', $page_tag, $active_page_tab, $active_page_subtab ); ?></h1>
-		</div><?php
-}
+
 	  ?><div id="<?php echo $page_tag; ?>-admin-page"
 			   class="wrap wpbc_page wpbc_page_tab__<?php echo esc_attr( $active_page_tab ); ?> wpbc_page_subtab__<?php echo esc_attr( $active_page_subtab ); ?>" >
             <div class="wpbc_admin_message"></div>
             <div class="wpbc_admin_page">
                 <div id="ajax_working"></div>
                 <div class="clear wpbc_header_margin"></div>
-                <div id="ajax_respond" class="ajax_respond" style="display:none;"></div>                
-                <?php
-if ( $this->is_use_left_navigation ) {
-?>
-<div class="clear" style="margin-bottom:10px;"></div>
-<div class="wpbc_settings_flex_container">
-	<div class="wpbc_settings_flex_container_left">
-		<div class="wpbc_settings_navigation_column">
-<?php
-}
-                // T A B S 
-                $this->show_tabs_structure( $page_tag );
-if ( $this->is_use_left_navigation ) {
- ?>
- 		</div>
-	</div>
-	<div class="wpbc_settings_flex_container_right">
-<?php
-}
+                <div id="ajax_respond" class="ajax_respond" style="display:none;"></div><?php
+
+				if ( $this->is_use_left_navigation ) {
+
+					?><div class="clear" style="margin-bottom:10px;"></div>
+					<div class="wpbc_settings_flex_container">
+						<div class="wpbc_settings_flex_container_left">
+							<div class="wpbc_settings_navigation_column"><?php
+
+								$this->show_tabs_structure( $page_tag );
+
+							?></div>
+						</div>
+						<div class="wpbc_settings_flex_container_right">
+				<?php
+				} else {
+					$this->show_tabs_structure( $page_tag );			 // T A B S
+				}
+
                 wp_nonce_field('wpbc_ajax_admin_nonce',  "wpbc_admin_panel_nonce" ,  true , true ); 
                
                 // C o n t e n t
@@ -276,15 +277,14 @@ if ( $this->is_use_left_navigation ) {
                 }
            
                 do_action('wpbc_show_settings_content' , $page_tag, $active_page_tab, $active_page_subtab );
-if ( $this->is_use_left_navigation ) {
-?>
-	</div>
-</div>
-<?php
-}
 
-            ?></div>
-        </div><?php    
+				if ( $this->is_use_left_navigation ) { ?>
+						</div><!-- wpbc_settings_flex_container_right -->
+					</div><!-- wpbc_settings_flex_container --><?php
+				}
+
+            ?></div><!-- wpbc_admin_page -->
+        </div><!-- ...-admin-page --><?php
         
         do_action( 'wpbc_after_settings_content', $page_tag, $active_page_tab, $active_page_subtab );                  // Fires After showing settings Content page
     }
@@ -399,54 +399,9 @@ if ( $this->is_use_left_navigation ) {
 	    if ( ( ! empty( $this_subtab ) ) && ( ! empty( $this_subtab['is_use_navigation_path'] ) ) ) {
 		    $this->is_use_navigation_path = $this_subtab['is_use_navigation_path'];
 	    }
-
-
     }
         
     
-    /**
-	 * Get Header Title (H1) of this selected page
-     * Firstly  check in subtabs,  otherwise get from  tabs and if not exist  then 
-     * 
-     * @return string
-     */
-    private function get_page_header_h1() {
-        
-        if ( ! empty( $this->current_page_params ) ) {
-            
-            if ( isset( $this->current_page_params['subtab']['page_title'] ) )
-                return $this->current_page_params['subtab']['page_title'];
-            
-            if ( isset( $this->current_page_params['tab']['page_title'] ) )
-                return $this->current_page_params['tab']['page_title'];
-        }
-        
-        return '';            
-    }
-
-	/**
-	 * Get icon for header at top  of the page
-	 *
-	 * @return mixed|string
-	 */
-	private function get_page_header_h1_font_icon() {                                                                   //FixIn: 9.5.5.3
-
-		if ( ! empty( $this->current_page_params ) ) {
-			if ( isset( $this->current_page_params['tab']['header_font_icon'] ) ) {
-				return $this->current_page_params['tab']['header_font_icon'];
-			}
-			if ( isset( $this->current_page_params['subtab']['header_font_icon'] ) ) {
-				return $this->current_page_params['subtab']['header_font_icon'];
-			}
-			if ( isset( $this->current_page_params['tab']['font_icon'] ) ) {
-				return $this->current_page_params['tab']['font_icon'];
-			}
-			if ( isset( $this->current_page_params['subtab']['font_icon'] ) ) {
-				return $this->current_page_params['subtab']['font_icon'];
-			}
-		}
-		return '';
-	}
 
     /**
 	 * Get all SubTabs of current opened page Tab
@@ -609,13 +564,8 @@ if ( $this->is_use_left_navigation ) {
 			}
 
 		}
-
-//	    if ( $this->is_page_activated() ) {
-//
-//	    }
-//
-//		$tabs = $this->tabs();
     }
+
     
     /**
 	 * Get array  of visible TABs
@@ -650,9 +600,12 @@ if ( $this->is_use_left_navigation ) {
     public function show_tabs_structure( $menu_in_page_tag ) {
         
         // Exit if no Tabs in this page.
-        if ( empty( self::$nav_tabs[ $menu_in_page_tag ] ) )
-            return false;
+	    if ( empty( self::$nav_tabs[ $menu_in_page_tag ] ) ) {
+		    return false;
+	    }
 
+
+		// If custom Left Nav.
 	    if ( $this->is_use_left_navigation_custom ) {
 
 			do_action( 'wpbc_page_show_left_navigation_custom', $menu_in_page_tag );
@@ -661,31 +614,20 @@ if ( $this->is_use_left_navigation ) {
 	    }
 
 
-        // Exit if tabs hidded or disbaled
-        $visible_tabs = $this->get_visible_tabs( $menu_in_page_tag );        
-        if ( empty(  $visible_tabs ) ) 
-            return false; 
-if ( ! $this->is_use_left_navigation ) {
-        ?><span class="wpdevelop wpdvlp-nav-tabs-container">
-        <div class="clear"></div><?php
-}
+        // Exit if tabs hided or disabled
+        $visible_tabs = $this->get_visible_tabs( $menu_in_page_tag );
+	    if ( empty( $visible_tabs ) ) {
+		    return false;
+	    }
+
+	    if ( ! $this->is_use_left_navigation ) {
+		    ?><span class="wpdevelop wpdvlp-nav-tabs-container">
+			<div class="clear"></div><?php
+	    }
+
 	    //FixIn: 9.8.15.2
-		if ( 1 ) {
+		do_action( 'wpbc_toolbar_top_tabs_insert', $menu_in_page_tag );
 
-			do_action( 'wpbc_toolbar_top_tabs_insert', $menu_in_page_tag );
-
-		} else {
-			wpbc_bs_toolbar_tabs_html_container_start();
-
-			do_action( 'wpbc_toolbar_top_tabs_before' , $menu_in_page_tag );
-
-			$this->show_tabs_line( $menu_in_page_tag );                     // T O P    T A B S
-
-			do_action( 'wpbc_toolbar_top_tabs_after' , $menu_in_page_tag );
-
-			wpbc_bs_toolbar_tabs_html_container_end();
-		}
-        
         $bottom_tabs = $this->get_all_sub_tabs_of_selected_tab( $menu_in_page_tag );
 
         if ( ! empty( $bottom_tabs ) ) {                                        // S U B    T A B S
@@ -700,9 +642,11 @@ if ( ! $this->is_use_left_navigation ) {
             }
 
         } // Bottom Tabs
-if ( ! $this->is_use_left_navigation ) {
-        ?></span><?php
-}
+
+	    if ( ! $this->is_use_left_navigation ) {
+		    ?></span><?php
+	    }
+
         return true;
     }
 

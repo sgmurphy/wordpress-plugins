@@ -1,9 +1,9 @@
 === NextMove Lite - Thank You Page for WooCommerce ===
 Contributors: xlplugins, amans2k
-Tags: WooCommerce, WooCommerce Thank You, WooCommerce Thank You Page, Thank You Page, Custom Thank You Page, Woo Thank You Page, XLPlugins
+Tags: WooCommerce, WooCommerce Thank You, WooCommerce Thank You Page, Custom Thank You Page, Woo Thank You Page
 Requires at least: 5.0
-Tested up to: 6.4.3
-Stable tag: 2.18.3
+Tested up to: 6.6.1
+Stable tag: 2.19.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -229,6 +229,12 @@ Yes, you can easily create Thank You Pages in your language. We are also compati
 
 
 == Changelog ==
+
+= 2.19.0 (2024-08-29) =
+* Compatible upto WordPress 6.6.1
+* Compatible upto WooCommerce 9.2.3
+* Optin wizard, js error resolved. (fix/127)
+
 
 = 2.18.3 (2024-03-11) =
 * Fixed: PHP warning coming on the admin thank you page, fixed.

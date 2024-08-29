@@ -1,4 +1,9 @@
 <?php
+/**
+ * Block support for Presto Player.
+ *
+ * @package PrestoPlayer
+ */
 
 namespace PrestoPlayer\Support;
 
@@ -9,6 +14,7 @@ use PrestoPlayer\Models\AudioPreset;
 use PrestoPlayer\Models\Setting;
 use PrestoPlayer\Support\DynamicData;
 use PrestoPlayer\Integrations\LearnDash\LearnDash;
+use PrestoPlayer\Services\PreloadService;
 
 /**
  * Base block class
@@ -103,6 +109,8 @@ class Block {
 
 	/**
 	 * Attributes to pass to web component
+	 *
+	 * @var array
 	 */
 	protected $component_attributes = array(
 		'preset',
@@ -132,7 +140,13 @@ class Block {
 		'playsInline' => true,
 	);
 
-	public function __construct( bool $isPremium = false, $version = 1 ) {
+	/**
+	 * Constructor.
+	 *
+	 * @param bool $is_premium Whether the plugin is premium.
+	 * @param int  $version Plugin version.
+	 */
+	public function __construct( bool $is_premium = false, $version = 1 ) {
 		do_action( 'presto_player_before_block_output', array( $this, 'middleware' ) );
 	}
 
@@ -145,12 +159,17 @@ class Block {
 		$this->registerBlockType();
 	}
 
+	/**
+	 * Get additional attributes for the block.
+	 *
+	 * @return array
+	 */
 	public function additionalAttributes() {
 		return array();
 	}
 
 	/**
-	 * Register dynamic block type
+	 * Register dynamic block type.
 	 *
 	 * @return void
 	 */
@@ -165,33 +184,31 @@ class Block {
 	}
 
 	/**
-	 * Middleware to run before outputting template
-	 * Should the block load?
+	 * Middleware to run before outputting template.
 	 *
-	 * @param  array  $attributes
-	 * @param  string $content
-	 * @return boolean
+	 * @param array  $attributes Block attributes.
+	 * @param string $content    Block content.
+	 * @return boolean           Whether the block should load.
 	 */
 	public function middleware( $attributes, $content ) {
 		return true;
 	}
 
 	/**
-	 * Sanitize attributes function
-	 * Let's a parent class sanitize attributes before displaying
+	 * Sanitize attributes function.
 	 *
-	 * @param  array $attributes
-	 * @param  array $default_config
-	 * @return array
+	 * @param array $attributes     Block attributes.
+	 * @param array $default_config Default configuration.
+	 * @return array                Sanitized attributes.
 	 */
 	public function sanitizeAttributes( $attributes, $default_config ) {
 		return array();
 	}
 
 	/**
-	 * Allow overriding attributes
+	 * Allow overriding attributes.
 	 *
-	 * @param  array $attributes
+	 * @param  array $attributes Block attributes.
 	 * @return array
 	 */
 	public function overrideAttributes( $attributes ) {
@@ -199,20 +216,20 @@ class Block {
 	}
 
 	/**
-	 * Must sanitize attributes
+	 * Must sanitize attributes.
 	 *
-	 * @param  array $attributes
-	 * @return array
+	 * @param array $attributes Block attributes.
+	 * @return array            Sanitized attributes.
 	 */
 	private function _sanitizeAttibutes( $attributes ) {
 
-		// attribute overrides
+		// attribute overrides.
 		$attributes = $this->overrideAttributes( $attributes );
 
 		// Apply default attributes if not set.
-		$attributes = $this->appyAttributeDefaults( $attributes );
+		$attributes = $this->applyAttributeDefaults( $attributes );
 
-		// video id
+		// video id.
 		$id = ! empty( $attributes['id'] ) ? $attributes['id'] : 0;
 
 		if ( 'audio' === $this->name ) {
@@ -221,12 +238,12 @@ class Block {
 		} else {
 			$preset = $this->getPreset( ! empty( $attributes['preset'] ) ? $attributes['preset'] : 0 );
 		}
-		$branding    = $this->getBranding( $preset );
-		$class       = $this->getClasses( $attributes );
-		$playerClass = $this->getPlayerClasses( $id, $preset );
-		$styles      = $this->getPlayerStyles( $preset, $branding );
-		$css         = $this->getCSS( $id );
-		$src         = ! empty( $attributes['src'] ) ? $attributes['src'] : '';
+		$branding     = $this->getBranding( $preset );
+		$class        = $this->getClasses( $attributes );
+		$player_class = $this->getPlayerClasses( $id, $preset );
+		$styles       = $this->getPlayerStyles( $preset, $branding );
+		$css          = $this->getCSS( $id );
+		$src          = ! empty( $attributes['src'] ) ? $attributes['src'] : '';
 
 		// use title or source.
 		if ( empty( $attributes['title'] ) ) {
@@ -234,7 +251,7 @@ class Block {
 			$attributes['title'] = $video ? $video->title : $src;
 		}
 
-		// Default config
+		// Default config.
 		$default_config = apply_filters(
 			'presto_player/block/default_attributes',
 			array(
@@ -245,7 +262,7 @@ class Block {
 				'is_hls'          => $this->isHls( $src ),
 				'styles'          => $styles,
 				'skin'            => $preset->skin,
-				'playerClass'     => $playerClass,
+				'playerClass'     => $player_class,
 				'id'              => $id,
 				'src'             => $src,
 				'autoplay'        => ! empty( $attributes['autoplay'] ),
@@ -278,10 +295,10 @@ class Block {
 	}
 
 	/**
-	 * Get CSS from settings
-	 * Is it an HLS playlist
+	 * Get CSS from settings.
+	 * Is it an HLS playlist.
 	 *
-	 * @param  string $src
+	 * @param  string $src src parameter.
 	 * @return boolean
 	 */
 	public function isHls( $src ) {
@@ -290,10 +307,10 @@ class Block {
 	}
 
 	/**
-	 * Get CSS from settings
-	 * Validates before output
+	 * Get CSS from settings.
+	 * Validates before output.
 	 *
-	 * @param  integer $id
+	 * @param  integer $id the video id.
 	 * @return string
 	 */
 	public function getCSS( $id ) {
@@ -307,9 +324,9 @@ class Block {
 	}
 
 	/**
-	 * Gets the preset
+	 * Gets the preset.
 	 *
-	 * @param  integer $id Preset ID
+	 * @param  integer $id Preset ID.
 	 * @return \PrestoPlayer\Models\Preset
 	 */
 	public function getPreset( $id ) {
@@ -333,9 +350,9 @@ class Block {
 	}
 
 	/**
-	 * Gets the audio preset
+	 * Gets the audio preset.
 	 *
-	 * @param  integer $id Preset ID
+	 * @param  integer $id Preset ID.
 	 * @return \PrestoPlayer\Models\AudioPreset
 	 */
 	public function getAudioPreset( $id ) {
@@ -350,15 +367,15 @@ class Block {
 	}
 
 	/**
-	 * Get player branding
+	 * Get player branding.
 	 *
-	 * @param  \PrestoPlayer\Models\Preset $preset
+	 * @param  \PrestoPlayer\Models\Preset $preset the preset.
 	 * @return array
 	 */
 	public function getBranding( $preset ) {
 		$branding = Player::getBranding();
 
-		// sanitize with sensible defaults
+		// sanitize with sensible defaults.
 		$branding['color']      = ! empty( $branding['color'] ) ? sanitize_hex_color( $branding['color'] ) : 'rgba(43,51,63,.7)';
 		$branding['logo_width'] = ! empty( $branding['logo_width'] ) ? $branding['logo_width'] : 150;
 		if ( isset( $branding['logo'] ) ) {
@@ -369,9 +386,9 @@ class Block {
 	}
 
 	/**
-	 * Get block classes
+	 * Get block classes.
 	 *
-	 * @param  array $attributes
+	 * @param  array $attributes the block attributes.
 	 * @return string
 	 */
 	public function getClasses( $attributes ) {
@@ -380,38 +397,38 @@ class Block {
 	}
 
 	/**
-	 * Get player classes
+	 * Get player classes.
 	 *
-	 * @param  integer                     $id
-	 * @param  \PrestoPlayer\Models\Preset $preset
+	 * @param  integer                     $id the video id.
+	 * @param  \PrestoPlayer\Models\Preset $preset the preset.
 	 * @return string
 	 */
 	public function getPlayerClasses( $id, $preset ) {
-		$skin         = $preset->skin;
-		$playerClass  = 'presto-video-id-' . (int) $id;
-		$playerClass .= ' presto-preset-id-' . (int) $preset->id;
+		$skin          = $preset->skin;
+		$player_class  = 'presto-video-id-' . (int) $id;
+		$player_class .= ' presto-preset-id-' . (int) $preset->id;
 
 		if ( ! empty( $skin ) ) {
-			$playerClass .= ' skin-' . sanitize_text_field( $skin );
+			$player_class .= ' skin-' . sanitize_text_field( $skin );
 		}
 
 		$caption_style = $preset->caption_style;
 		if ( ! empty( $caption_style ) ) {
-			$playerClass .= ' caption-style-' . sanitize_html_class( $caption_style );
+			$player_class .= ' caption-style-' . sanitize_html_class( $caption_style );
 		}
 
 		if ( ! empty( $attributes['className'] ) ) {
-			$playerClass .= ' ' . (string) $attributes['className'];
+			$player_class .= ' ' . (string) $attributes['className'];
 		}
 
-		return $playerClass;
+		return $player_class;
 	}
 
 	/**
-	 * Get player styles
+	 * Get player styles.
 	 *
-	 * @param  \PrestoPlayer\Models\Preset $preset
-	 * @param  array                       $branding
+	 * @param  \PrestoPlayer\Models\Preset $preset   the preset.
+	 * @param  array                       $branding the branding object.
 	 * @return string
 	 */
 	public function getPlayerStyles( $preset, $branding ) {
@@ -420,7 +437,7 @@ class Block {
 		$background_color = ( ! empty( $preset->background_color ) ? sanitize_hex_color( $preset->background_color ) : 'var(--presto-player-highlight-color, ' . sanitize_hex_color( $branding['color'] ) . ')' );
 		$styles           = '--plyr-color-main: ' . $background_color . '; ';
 
-		// video
+		// video.
 		if ( $preset->caption_background ) {
 			$styles .= '--plyr-captions-background: ' . sanitize_hex_color( $preset->caption_background ) . '; ';
 		}
@@ -435,8 +452,8 @@ class Block {
 			$styles .= '--presto-player-email-border-radius: ' . (int) $preset->email_collection['border_radius'] . 'px; ';
 		}
 
-		// audio
-		if ( $preset->type === 'audio' ) {
+		// audio.
+		if ( 'audio' === $preset->type ) {
 			if ( $preset->background_color ) {
 				$styles .= '--plyr-audio-controls-background: ' . sanitize_hex_color( $preset->background_color ) . ';';
 			} else {
@@ -461,9 +478,9 @@ class Block {
 	}
 
 	/**
-	 * Get block attributes
+	 * Get block attributes.
 	 *
-	 * @param  array $attributes
+	 * @param  array $attributes the block attributes.
 	 * @return array
 	 */
 	public function getAttributes( $attributes ) {
@@ -471,20 +488,20 @@ class Block {
 	}
 
 	/**
-	 * Dynamic block output
+	 * Dynamic block output.
 	 *
-	 * @param  array  $attributes
-	 * @param  string $content
-	 * @return void
+	 * @param  array  $attributes the block attributes.
+	 * @param  string $content    the post content.
+	 * @return string
 	 */
 	public function html( $attributes, $content ) {
 		global $presto_player_instance;
-		if ( $presto_player_instance === null ) {
+		if ( null === $presto_player_instance ) {
 			$presto_player_instance = 0;
 		}
 		++$presto_player_instance;
 
-		// html middleware
+		// html middleware.
 		$load = $this->middleware( $attributes, $content );
 
 		if ( is_feed() ) {
@@ -497,24 +514,49 @@ class Block {
 			}
 		}
 
-		// let integrations filter loading capabilities
+		// let integrations filter loading capabilities.
 		if ( ! apply_filters( 'presto_player_load_video', $load, $attributes, $content, $this->name ) ) {
-			// allow a custom fallback
-			if ( $fallback = apply_filters( 'presto_player_load_video_fallback', false, $attributes, $content, $this ) ) {
+			// allow a custom fallback.
+			$fallback = apply_filters( 'presto_player_load_video_fallback', false, $attributes, $content, $this );
+			if ( $fallback ) {
 				return wp_kses_post( $fallback );
 			}
 			return $this->getFallbackHTMLForUnauthorizeAccess();
 		}
 
-		// get template data
+		// get template data.
 		$data = apply_filters( 'presto_player_block_data', $this->getAttributes( $attributes ), $this );
 
-		// need and id and src
+		// need and id and src.
 		if ( empty( $data['id'] ) && empty( $data['src'] ) ) {
 			return false;
 		}
 
-		// TODO: child template system
+		// Preload component resources.
+		$preload_service = new PreloadService();
+		$preload_service->add( array( 'presto-player' ) );
+		switch ( $this->name ) {
+			case 'bunny':
+				$preload_service->add( array( 'presto-bunny' ) );
+				break;
+			case 'youtube':
+				$preload_service->add( array( 'presto-youtube' ) );
+				break;
+			case 'self-hosted':
+				$preload_service->add( array( 'presto-video' ) );
+				break;
+			case 'vimeo':
+				$preload_service->add( array( 'presto-vimeo' ) );
+				break;
+			case 'audio':
+				$preload_service->add( array( 'presto-audio' ) );
+				break;
+			default:
+				break;
+		}
+		$preload_service->bootstrap();
+
+		// TODO: child template system.
 		ob_start();
 
 		if ( ! empty( $data['id'] ) ) {
@@ -528,7 +570,7 @@ class Block {
 		$this->initComponentScript( $data['id'], $data, $presto_player_instance );
 		$this->iframeFallback( $data );
 
-		// output schema markup for optimized seo
+		// output schema markup for optimized seo.
 		$this->outputVideoSchemaMarkup( $this->getSchema( $data ) );
 
 		$template = ob_get_contents();
@@ -539,9 +581,9 @@ class Block {
 
 	/**
 	 * Get json data for video schema.
-	 * https://developers.google.com/search/docs/appearance/structured-data/video#video-object
+	 * https://developers.google.com/search/docs/appearance/structured-data/video#video-object.
 	 *
-	 * @param array $data the block data
+	 * @param array $data the block data.
 	 *
 	 * @return array|bool
 	 */
@@ -573,13 +615,13 @@ class Block {
 		$video = new Video( (int) $data['id'] );
 
 		return array(
-			// required:
+			// required.
 			'@context'     => 'https://schema.org',
 			'@type'        => 'VideoObject',
 			'name'         => wp_kses_post( $title ),
 			'thumbnailUrl' => esc_url( $poster ),
 			'uploadDate'   => wp_date( 'c', strtotime( $video->getCreatedAt() ) ),
-			// recommended:
+			// recommended.
 			'contentUrl'   => esc_url( $data['src'] ?? '' ),
 		);
 	}
@@ -587,7 +629,7 @@ class Block {
 	/**
 	 * Output video schema markup.
 	 *
-	 * @param array $data the block data
+	 * @param array $data the block data.
 	 *
 	 * @return void|bool
 	 */
@@ -607,8 +649,16 @@ class Block {
 	}
 
 	/**
-	 * Dynamically initialize component via script tag
-	 * We have to do this because we cannot send arrays or object in plain html
+	 * Dynamically initialize component via script tag.
+	 *
+	 * We have to do this because we cannot send arrays or objects in plain HTML.
+	 * This function generates a script tag that sets up the player attributes.
+	 *
+	 * @param int   $id       The video ID. Default is 0.
+	 * @param array $data     An array of data to be passed to the component. Default is an empty array.
+	 * @param int   $instance The instance number of the player on the page. Default is 1.
+	 *
+	 * @return void This function outputs HTML directly and doesn't return a value.
 	 */
 	public function initComponentScript( $id = 0, $data = array(), $instance = 1 ) {
 		if ( ! $id ) {
@@ -623,7 +673,7 @@ class Block {
 			foreach ( $attributes as $attribute ) {
 				?>
 				<?php if ( isset( $data[ $attribute ] ) ) { ?>
-					player.<?php echo sanitize_text_field( $attribute ); ?> = <?php echo wp_json_encode( $data[ $attribute ] ); ?>;
+					player.<?php echo esc_js( sanitize_text_field( $attribute ) ); ?> = <?php echo wp_json_encode( $data[ $attribute ] ); ?>;
 				<?php } ?>
 			<?php } ?>
 		</script>
@@ -631,12 +681,18 @@ class Block {
 	}
 
 	/**
-	 * Adds an iframe fallback script to the page in case js loading fails
+	 * Adds an iframe fallback script to the page in case js loading fails.
 	 *
-	 * @return void
+	 * This function checks if the video provider is YouTube or Vimeo and adds
+	 * a filter to load an iframe fallback script if necessary. This ensures
+	 * that the video can still be displayed even if JavaScript fails to load.
+	 *
+	 * @param array $data An array containing video data, including the 'provider' key.
+	 *
+	 * @return void This function doesn't return a value, but may add a filter.
 	 */
 	public function iframeFallback( $data ) {
-		// must be vimeo or youtube
+		// must be vimeo or youtube.
 		if ( in_array( $data['provider'], array( 'youtube', 'vimeo' ) ) ) {
 			add_filter( 'presto_player/scripts/load_iframe_fallback', '__return_true' );
 		}
@@ -645,7 +701,7 @@ class Block {
 	/**
 	 * This function return HTML for unauthorized access or curtain.
 	 *
-	 * @return void
+	 * @return string.
 	 */
 	public function getFallbackHTMLForUnauthorizeAccess() {
 		// Get the branding CSS variable.
@@ -682,11 +738,11 @@ class Block {
 			<?php } ?>
 
 			<?php if ( 'youtube' === $this->name && ! empty( $atts['video_id'] ) ) { ?>
-				<?php echo wp_oembed_get( 'https://www.youtube.com/watch?v=' . $atts['video_id'] ); ?>
+				<?php echo wp_kses_post( wp_oembed_get( 'https://www.youtube.com/watch?v=' . esc_attr( $atts['video_id'] ) ) ); ?>
 			<?php } ?>
 
 			<?php if ( 'vimeo' === $this->name && ! empty( $atts['video_id'] ) ) { ?>
-				<?php echo wp_oembed_get( 'https://vimeo.com/' . $atts['video_id'] ); ?>
+				<?php echo wp_kses_post( wp_oembed_get( 'https://vimeo.com/' . esc_attr( $atts['video_id'] ) ) ); ?>
 			<?php } ?>
 
 			<?php
@@ -700,7 +756,7 @@ class Block {
 	 * @param  array $attributes array of attributes.
 	 * @return array The merged attributes after applying defaults.
 	 */
-	public function appyAttributeDefaults( $attributes ) {
+	public function applyAttributeDefaults( $attributes ) {
 		return wp_parse_args( $attributes, $this->default_attributes );
 	}
 }

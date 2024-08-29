@@ -290,6 +290,7 @@ class ComposerStaticInitf0d4df1d358f3bff79b6ed90bd0bf6af
         'PrestoPlayer\\Services\\Menu' => __DIR__ . '/../..' . '/inc/Services/Menu.php',
         'PrestoPlayer\\Services\\Migrations' => __DIR__ . '/../..' . '/inc/Services/Migrations.php',
         'PrestoPlayer\\Services\\Player' => __DIR__ . '/../..' . '/inc/Services/Player.php',
+        'PrestoPlayer\\Services\\PreloadService' => __DIR__ . '/../..' . '/inc/Services/PreloadService.php',
         'PrestoPlayer\\Services\\ProCompatibility' => __DIR__ . '/../..' . '/inc/Services/ProCompatibility.php',
         'PrestoPlayer\\Services\\ReusableVideos' => __DIR__ . '/../..' . '/inc/Services/ReusableVideos.php',
         'PrestoPlayer\\Services\\RewriteRulesManager' => __DIR__ . '/../..' . '/inc/Services/RewriteRulesManager.php',

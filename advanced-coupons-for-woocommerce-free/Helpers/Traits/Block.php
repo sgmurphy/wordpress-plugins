@@ -34,12 +34,8 @@ trait Block {
         }
 
         // check if page using cart or checkout block.
-        $blocks = parse_blocks( $post->post_content );
-        foreach ( $blocks as $block ) {
-            $cart_checkout_block = array( 'woocommerce/cart', 'woocommerce/checkout' );
-            if ( in_array( $block['blockName'], $cart_checkout_block, true ) ) {
-                return true;
-            }
+        if ( has_block( 'woocommerce/checkout' ) || has_block( 'woocommerce/cart' ) ) {
+            return true;
         }
 
         return false;

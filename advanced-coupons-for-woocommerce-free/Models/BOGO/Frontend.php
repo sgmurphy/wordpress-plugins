@@ -103,6 +103,8 @@ class Frontend extends Base_Model implements Model_Interface {
             if ( ! in_array( $coupon->get_code(), $calculation->get_bogo_coupon_codes(), true ) && get_option( ACFWF()->Plugin_Constants->ALLOWED_BOGO_COUPONS_COUNT, 1 ) <= count( $calculation->get_bogo_coupon_codes() ) ) {
                 // Translators: %s is the coupon code.
                 $message = __( 'Sorry, coupon "%s" cannot be used in conjunction with the other coupons already applied.', 'advanced-coupons-for-woocommerce-free' );
+                do_action( 'acfw_restrict_allowed_bogo_coupons_error_message', $message, 100, $coupon );
+
                 throw new \Exception( esc_html( sprintf( $message, $coupon->get_code() ) ) );
             }
         }

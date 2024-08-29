@@ -995,6 +995,15 @@ if (! class_exists('CR_All_Reviews')) :
 				$clauses['where'] .= " AND ( " . $where_clause . " )";
 			}
 
+			$join = "JOIN $wpdb->posts ON $wpdb->posts.ID = $wpdb->comments.comment_post_ID";
+			if ( isset( $clauses['join'] ) ) {
+				if ( false === strstr( $clauses['join'], "$wpdb->posts" ) ) {
+					$clauses['join'] = $join . ' ' . $clauses['join'];
+				}
+			} else {
+				$clauses['join'] = $join;
+			}
+
 			return $clauses;
 		}
 

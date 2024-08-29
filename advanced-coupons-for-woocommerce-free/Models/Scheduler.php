@@ -280,7 +280,8 @@ class Scheduler extends Base_Model implements Model_Interface {
     public function is_date_range_enabled( $coupon ) {
         $is_enabled = $coupon->get_advanced_prop( 'enable_date_range_schedule' );
 
-        if ( '' === $is_enabled && ( $coupon->get_advanced_prop( 'schedule_start' ) || $coupon->get_advanced_prop( 'schedule_end' ) ) ) {
+        if ( apply_filters( 'acfwf_enable_scheduler_when_schedule_values_are_set', false ) &&
+            '' === $is_enabled && ( $coupon->get_advanced_prop( 'schedule_start' ) || $coupon->get_advanced_prop( 'schedule_end' ) ) ) {
             $is_enabled = 'yes';
         }
 

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-30T20:38:14+00:00\n"
+"POT-Creation-Date: 2024-08-28T20:41:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -3612,26 +3612,26 @@ msgstr ""
 msgid "Bunny"
 msgstr ""
 
-#: Support/Utility.php:34
+#: Support/Utility.php:63
 msgid "0 seconds"
 msgstr ""
 
 #. translators: %s: Time duration in hour or hours.
-#: Support/Utility.php:75
+#: Support/Utility.php:104
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: Time duration in minute or minutes.
-#: Support/Utility.php:81
+#: Support/Utility.php:110
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: Time duration in second or seconds.
-#: Support/Utility.php:87
+#: Support/Utility.php:116
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] ""

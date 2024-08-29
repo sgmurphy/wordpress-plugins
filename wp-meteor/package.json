@@ -22,6 +22,9 @@
         "autoprefixer": "^10.4.13",
         "postcss": "^8.4.21"
     },
+    "engines" : { 
+        "node" : ">=22.4.0"
+    },
     "dependencies": {
         "@aguidrevitch/fpo-javascript-rewrite": "^1.0",
         "core-js": "^3.8.1",

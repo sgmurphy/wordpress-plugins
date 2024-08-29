@@ -3,7 +3,7 @@
  * Woocommerce login form is replaced by this template
  *
  * This template can be overridden by copying it to yourtheme/templates/xoo-el-wc-form-login.php.
- * @version 7.0.1
+ * @version 9.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

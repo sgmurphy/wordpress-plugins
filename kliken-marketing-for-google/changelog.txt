@@ -1,5 +1,8 @@
 *** AI Powered Marketing Changelog ***
 
+2024-08-28 - version 1.5.1
+* Make plugin works better with our newer plugin.
+
 2024-07-30 - version 1.5.0
 * Minor bug fixes.
 * Make plugin works better with our newer plugin.

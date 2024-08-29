@@ -295,7 +295,15 @@ class XLWCTY_Common {
 	}
 
 	public static function get_coupons_cmb2() {
-		//        check_ajax_referer();
+		$nonce = isset( $_POST['cmb2_nonce'] ) ? $_POST['cmb2_nonce'] : '';
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'cmb2_nonce' ) ) {
+			wp_send_json( array(
+				'status'  => 'error',
+				'message' => 'Invalid nonce',
+			) );
+			exit;
+		}
+
 		$array = array();
 		if ( isset( $_POST['term'] ) && $_POST['term'] !== '' ) {
 			$args               = array(
@@ -396,9 +404,14 @@ class XLWCTY_Common {
 		global $wpdb;
 		$array = array();
 		if ( isset( $_POST['term'] ) && $_POST['term'] !== '' ) {
-			$order_stasuses = XLWCTY_Core()->data->get_option( 'allowed_order_statuses' );
-			$query          = "SELECT *  FROM $wpdb->posts WHERE `ID` LIKE '%" . $_POST['term'] . "%' AND `post_status` IN ('" . implode( '\',\'', $order_stasuses ) . "') LIMIT 0,10";
-			$posts          = $wpdb->get_results( $query );
+			$order_statuses = XLWCTY_Core()->data->get_option( 'allowed_order_statuses' );
+			$term           = sanitize_text_field( $_POST['term'] ); // Make sure to sanitize user input
+
+			$query = $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE `ID` LIKE %s AND `post_status` IN (" . implode( ',', array_fill( 0, count( $order_statuses ), '%s' ) ) . ") LIMIT 0,10", '%' . $wpdb->esc_like( $term ) . '%', ...$order_statuses );
+
+			$posts = $wpdb->get_results( $query );
+
+
 			if ( $posts && is_array( $posts ) && count( $posts ) > 0 ) {
 				foreach ( $posts as $post ) :
 					setup_postdata( $post );
@@ -1076,7 +1089,7 @@ class XLWCTY_Common {
 		$timezone = timezone_name_from_abbr( '', $utc_offset, 0 );
 		// last try, guess timezone string manually
 		if ( false === $timezone ) {
-			$is_dst = date( 'I' );
+			$is_dst = gmdate( 'I' );
 			foreach ( timezone_abbreviations_list() as $abbr ) {
 				foreach ( $abbr as $city ) {
 					if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
@@ -1533,10 +1546,10 @@ class XLWCTY_Common {
 							$timestamp_gmt = intval( $timestamp_gmt - $offset );
 						}
 					}
-					$duplicate['post_date']         = date( 'Y-m-d H:i:s', $timestamp );
-					$duplicate['post_date_gmt']     = date( 'Y-m-d H:i:s', $timestamp_gmt );
-					$duplicate['post_modified']     = date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) );
-					$duplicate['post_modified_gmt'] = date( 'Y-m-d H:i:s', current_time( 'timestamp', 1 ) );
+					$duplicate['post_date']         = gmdate( 'Y-m-d H:i:s', $timestamp );
+					$duplicate['post_date_gmt']     = gmdate( 'Y-m-d H:i:s', $timestamp_gmt );
+					$duplicate['post_modified']     = gmdate( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) );
+					$duplicate['post_modified_gmt'] = gmdate( 'Y-m-d H:i:s', current_time( 'timestamp', 1 ) );
 
 					// Remove some of the keys
 					unset( $duplicate['ID'] );

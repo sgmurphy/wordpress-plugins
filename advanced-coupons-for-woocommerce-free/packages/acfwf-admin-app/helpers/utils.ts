@@ -2,6 +2,7 @@
 
 import moment from 'moment';
 import { IStoreCreditEntry } from '../types/storeCredits';
+import { IFieldOption } from '../types/fields';
 
 // #endregion [Imports]
 
@@ -9,6 +10,7 @@ import { IStoreCreditEntry } from '../types/storeCredits';
 
 declare var acfwAdminApp: any;
 declare var location: any;
+declare var ajaxurl: any;
 
 // #endregion [Variables]
 
@@ -74,6 +76,50 @@ export const getDateRangeMomentValues = (value: string) => {
 };
 
 /**
+ * Search category options.
+ *
+ * @param value
+ * @param exclude
+ * @returns {IFieldOption[]}
+ */
+export async function searchCategoryOptions(value: string, exclude: number[]) {
+  const response = await jQuery.ajax({
+    url: ajaxurl,
+    type: 'GET',
+    data: {
+      action: 'woocommerce_json_search_taxonomy_terms',
+      term: value,
+      taxonomy: 'product_cat',
+      security: acfwAdminApp.nonces.search_taxonomy_terms,
+      exclude: exclude,
+    },
+  });
+
+  return Object.keys(response).map((key) => ({
+    label: response[key].name,
+    value: response[key].term_id,
+  }));
+}
+
+export async function searchProductOptions(value: string, exclude: number[]) {
+  const response = await jQuery.ajax({
+    url: ajaxurl,
+    type: 'GET',
+    data: {
+      action: 'woocommerce_json_search_products',
+      term: value,
+      security: acfwAdminApp.nonces.search_products,
+      exclude: exclude,
+    },
+  });
+
+  return Object.keys(response).map((key) => ({
+    label: response[key],
+    value: key,
+  }));
+}
+
+/**
  * Get the prefix (+/-) for store credit entry.
  *
  * @param {IStoreCreditEntry} record
@@ -81,6 +127,58 @@ export const getDateRangeMomentValues = (value: string) => {
  */
 export function getStoreCreditEntryPrefix(record: IStoreCreditEntry) {
   return 'increase' === record.type ? '+' : '-';
+}
+
+/**
+ * Get condition select field options.
+ *
+ * @returns {Array<{ value: string; label: string }>}
+ */
+export function getConditionOptions(type = 'default') {
+  if (type === 'atleast') {
+    return [
+      {
+        value: 'atleast',
+        label: acfwAdminApp.condition_options.atleast,
+      },
+      {
+        value: 'all',
+        label: acfwAdminApp.condition_options.all,
+      },
+    ];
+  }
+
+  if (type === 'period') {
+    return [
+      {
+        value: 'within-a-period',
+        label: acfwAdminApp.condition_options.withinaperiod,
+      },
+      {
+        value: 'number-of-orders',
+        label: acfwAdminApp.condition_options.numberoforders,
+      },
+    ];
+  }
+
+  return [
+    {
+      value: '=',
+      label: acfwAdminApp.condition_options.exactly,
+    },
+    {
+      value: '!=',
+      label: acfwAdminApp.condition_options.anyexcept,
+    },
+    {
+      value: '>',
+      label: acfwAdminApp.condition_options.morethan,
+    },
+    {
+      value: '<',
+      label: acfwAdminApp.condition_options.lessthan,
+    },
+  ];
 }
 
 // #endregion [Functions]

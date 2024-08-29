@@ -44,7 +44,7 @@ class Plugin_Constants {
     // Plugin configuration constants.
     const TOKEN               = 'acfwf';
     const INSTALLED_VERSION   = 'acfwf_installed_version';
-    const VERSION             = '4.6.2';
+    const VERSION             = '4.6.3';
     const TEXT_DOMAIN         = 'advanced-coupons-for-woocommerce-free';
     const THEME_TEMPLATE_PATH = 'advanced-coupons-for-woocommerce-free';
     const META_PREFIX         = '_acfw_';
@@ -185,11 +185,16 @@ class Plugin_Constants {
     const CLEAN_UP_PLUGIN_OPTIONS = 'acfw_clean_up_plugin_options';
 
     // Reports.
-    const ACFW_REPORTS_TAB   = 'acfw_reports';
-    const USAGE_ALLOW        = 'acfw_anonymous_data';
-    const USAGE_CRON_ACTION  = 'acfw_usage_tracking_cron';
-    const USAGE_CRON_CONFIG  = 'acfw_usage_tracking_config';
-    const USAGE_LAST_CHECKIN = 'acfw_usage_tracking_last_checkin';
+    const ACFW_REPORTS_TAB            = 'acfw_reports';
+    const USAGE_ALLOW                 = 'acfw_anonymous_data';
+    const USAGE_CRON_ACTION           = 'acfw_usage_tracking_cron';
+    const USAGE_CRON_CONFIG           = 'acfw_usage_tracking_config';
+    const USAGE_LAST_CHECKIN          = 'acfw_usage_tracking_last_checkin';
+    const USAGE_CRON_COUPON_TEMPLATES = 'acfw_usage_tracking_cron_coupon_templates';
+
+    // Coupon Templates.
+    const TOTAL_CREATED_WITH_COUPON_TEMPLATES = 'acfw_total_coupons_created_with_coupon_templates';
+    const MOST_POPULAR_TEMPLATES              = 'acfw_most_popular_templates';
 
     // Emails.
     const SEND_COUPON_ACTION_SCHEDULE = 'acfwf_send_coupon_action_schedule';

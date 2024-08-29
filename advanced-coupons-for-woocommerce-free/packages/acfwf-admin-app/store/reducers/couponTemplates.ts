@@ -1,7 +1,13 @@
 // #region [Imports] ===================================================================================================
 
 // Types
-import { ICouponTemplate, ICouponTemplatesStore, ICouponTemplateCategory } from '../../types/couponTemplates';
+import {
+  ICouponTemplate,
+  ICouponTemplatesStore,
+  ICouponTemplateCategory,
+  ICartConditionGroup,
+  ICartConditionGroupLogic,
+} from '../../types/couponTemplates';
 import {
   ECouponTemplatesActionTypes,
   ISetCouponTemplatesCategoriesPayload,
@@ -9,6 +15,10 @@ import {
   IUnsetRecentCouponTemplatePayload,
   ITogglePremiumModalPayload,
 } from '../actions/couponTemplates';
+
+import { cloneDeep } from 'lodash';
+
+import { validateConditionField } from '../../pages/CouponTemplates/TemplateForm/CartConditions/ConditionField';
 
 // #endregion [Imports]
 
@@ -97,9 +107,60 @@ const reducer = (
       return { ...state, edit: { ...edit, fields } };
     }
 
+    case ECouponTemplatesActionTypes.VALIDATE_CART_CONDITIONS_DATA: {
+      const edit = { ...state.edit } as ICouponTemplate;
+
+      if (!edit || !edit.cart_conditions || !edit.cart_conditions.length) return state;
+
+      let cartConditions = cloneDeep(edit.cart_conditions);
+
+      cartConditions = cartConditions.map((group) => {
+        if ('group_logic' === group.type) return group;
+
+        // @ts-ignore
+        let fields = group.fields as ICartConditionGroup['fields'];
+
+        fields = fields.map((field) => {
+          if ('logic' === field.type) return field;
+
+          field.errors = validateConditionField(field.type, field.data);
+
+          return field;
+        });
+
+        return { ...group, fields };
+      });
+
+      return { ...state, edit: { ...edit, cart_conditions: cartConditions } };
+    }
+
     case ECouponTemplatesActionTypes.SET_COUPON_CREATED_RESPONSE_DATA: {
       const { data } = action.payload;
       return { ...state, formResponse: data };
+    }
+
+    case ECouponTemplatesActionTypes.SET_CART_CONDITION_ITEM_DATA: {
+      const { groupKey, fieldKey, data } = action.payload;
+      const edit = { ...state.edit } as ICouponTemplate;
+
+      if (!edit || !edit.cart_conditions) return state;
+
+      const cartConditions = cloneDeep(edit.cart_conditions);
+
+      const groupLogic =
+        cartConditions[groupKey].type === 'group_logic' ? (cartConditions[groupKey] as ICartConditionGroupLogic) : null;
+      const group =
+        cartConditions[groupKey].type === 'group' ? (cartConditions[groupKey] as ICartConditionGroup) : null;
+
+      if (fieldKey === null && groupLogic !== null) {
+        groupLogic.value = data as string;
+        cartConditions[groupKey] = groupLogic;
+      } else if (fieldKey !== null && group?.type === 'group') {
+        group.fields[fieldKey].data = data;
+        cartConditions[groupKey] = group;
+      }
+
+      return { ...state, edit: { ...edit, cart_conditions: cartConditions } };
     }
 
     case ECouponTemplatesActionTypes.CLEAR_COUPON_CREATED_RESPONSE_DATA: {

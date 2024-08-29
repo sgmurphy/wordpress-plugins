@@ -48,7 +48,7 @@ return array(
     '_acfw_force_apply_url_coupon'  => array(
         'label'       => __( 'Force Apply URL Coupon', 'advanced-coupons-for-woocommerce-free' ),
         'description' => '',
-        'type'        => 'checkbox',
+        'type'        => 'select',
         'options'     => array(
             'disable' => __( 'Disable', 'advanced-coupons-for-woocommerce-free' ),
             'yes'     => __( 'When applied via URL only', 'advanced-coupons-for-woocommerce-free' ),

@@ -110,7 +110,10 @@ jQuery(document).ready(function($){
 							Handler.$selectStateCont.find( 'option[value='+defaultValue+']' ).prop( 'selected', 'selected' );
 						}
 
-						$selectState.select2();
+						if( $selectState.attr('select2') === 'yes' ){
+							$selectState.select2();
+						}
+						
 					}
 
 					
@@ -254,7 +257,7 @@ jQuery(document).ready(function($){
 	password_strength_meter.init();
 
 	if( $.fn.select2 ){
-		$('select.xoo-aff-select_list , select.xoo-aff-country').each(function( key, el ){
+		$('select.xoo-aff-select_list[select2="yes"] , select.xoo-aff-country[select2="yes"]').each(function( key, el ){
 			$(el).select2();
 		});
 	}
@@ -279,7 +282,7 @@ jQuery(document).ready(function($){
 
 		
 
-		$('select.xoo-aff-phone_code').each(function( key, el ){
+		$('select.xoo-aff-phone_code[select2="yes"]').each(function( key, el ){
 			$(el).select2({ templateResult: formatState, templateSelection: formatState, dropdownCssClass: "xoo-aff-select2-dropdown" });
 		});
 	}

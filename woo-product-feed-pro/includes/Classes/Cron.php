@@ -59,14 +59,15 @@ class Cron extends Abstract_Class {
 
                 $interval = $product_feed->refresh_interval;
 
-                if ( ( $interval == 'daily' ) && ( $hour == 07 ) ||
-                    ( $interval == 'twicedaily' ) && ( $hour == 19 || $hour == 07 ) ||
-                    ( $interval == 'twicedaily' || $interval == 'daily' ) && ( $product_feed->status == 'processing' ) || // Re-start daily and twicedaily projects that are hanging. (not sure what this means, but we keep it here)
-                    ( $interval == 'hourly' )
+                if ( ( 'daily' === $interval && '07' === $hour ) ||
+                    ( 'twicedaily' === $interval && ( '19' === $hour || '07' === $hour ) ) ||
+                    // Re-start daily and twicedaily projects that are hanging. (not sure what this means, but we keep it here).
+                    ( ( 'twicedaily' === $interval || 'daily' === $interval ) && 'processing' === $product_feed->status ) ||
+                    ( 'hourly' === $interval )
                 ) {
-                    woosea_continue_batch( $product_feed->id );
-                } elseif ( ( $interval == 'no refresh' ) && ( $hour == 26 ) ) {
-                    // It is never hour 26, so this project will never refresh. (Seriusly?!!)
+                    $product_feed->run_batch_event();
+                } elseif ( 'no refresh' === $interval && '26' === $hour ) { // phpcs:ignore
+                    // It is never hour 26, so this project will never refresh. (Seriusly?!!).
                 }
             }
         }
@@ -75,7 +76,10 @@ class Cron extends Abstract_Class {
     /**
      * Set project history: amount of products in the feed.
      *
-     * @param string $project_hash The project hash.
+     * @since 13.3.5
+     * @access public
+     *
+     * @param int $id The project ID.
      **/
     public function update_project_history( $id ) {
         $feed = new Product_Feed( $id );
@@ -112,9 +116,9 @@ class Cron extends Abstract_Class {
                 $xml          = simplexml_load_file( $file, 'SimpleXMLElement', LIBXML_NOCDATA );
                 $feed_channel = $feed->get_channel();
 
-                if ( $feed_channel['name'] == 'Yandex' ) {
+                if ( 'Yandex' === $feed_channel['name'] ) {
                     $products_count = isset( $xml->offers->offer ) ? count( $xml->offers->offer ) : 0;
-                } elseif ( $feed_channel['taxonomy'] == 'none' ) {
+                } elseif ( 'none' === $feed_channel['taxonomy'] ) {
                     $products_count = is_countable( $xml->product ) ? count( $xml->product ) : 0;
                 } else {
                     $products_count = count( $xml->channel->item );

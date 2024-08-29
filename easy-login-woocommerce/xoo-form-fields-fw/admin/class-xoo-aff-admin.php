@@ -67,7 +67,7 @@ class Xoo_Aff_Admin{
 
 
 	public function templates(){
-		include XOO_AFF_DIR.'/admin/templates/xoo-aff-template-scripts.php';
+		xoo_aff_get_template( 'xoo-aff-template-scripts.php',  XOO_AFF_DIR.'/admin/templates/' );
 	}
 
 	//Called by main plugin to display settings
@@ -120,7 +120,7 @@ class Xoo_Aff_Admin{
 			'admin_page_slug' 	=> $this->aff->admin_page_slug,
 			'aff' 				=> $this->aff
 		);
-		xoo_el_helper()->get_template( "xoo-aff-page-display.php", $args, XOO_AFF_DIR.'/admin/templates/' );
+		xoo_aff_get_template( "xoo-aff-page-display.php", XOO_AFF_DIR.'/admin/templates/', $args );
 	}
 
 }

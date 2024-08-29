@@ -305,29 +305,24 @@ function xoo_el_get_form( $args = array() ){
 	return xoo_el_helper()->get_template( 'xoo-el-form.php', array( 'args' => $args ), '', $args['return'] );
 }
 
-//Override woocommerce form login template
-function xoo_el_override_myaccount_login_form( $located, $template_name, $args, $template_path, $default_path ){
-
-	if( $template_name === 'myaccount/form-login.php' && xoo_el_helper()->get_general_option( 'm-en-myaccount' ) === "yes" ){
-		$located = xoo_el_helper()->locate_template( 'xoo-el-wc-form-login.php', XOO_EL_PATH.'/templates/' );
-	}
-	return $located;
-}
-add_filter( 'wc_get_template', 'xoo_el_override_myaccount_login_form', 99999, 5 );
-
 
 
 //Override woocommerce form login template
 function xoo_el_override_wc_login_form( $located, $template_name, $args, $template_path, $default_path ){
 
 	$glSettings 	  	= xoo_el_helper()->get_general_option();
-	$enable_myaccount 	= $glSettings['m-en-myaccount'];
-	$enable_checkout 	= $glSettings['m-en-chkout'];
 
-	if( ( $template_name === 'myaccount/form-login.php' && $enable_myaccount === "yes" ) || ( $template_name === 'global/form-login.php' && $enable_checkout === "yes" ) ){
+	if( $template_name === 'myaccount/form-login.php' && $glSettings['m-en-myaccount'] === "yes" ){
 		$located = xoo_el_helper()->locate_template( 'xoo-el-wc-form-login.php', XOO_EL_PATH.'/templates/' );
 	}
+
+	if( $template_name === 'global/form-login.php' && $glSettings['m-en-chkout'] === "yes" ){
+		$located = xoo_el_helper()->locate_template( 'xoo-el-wc-checkout-form-login.php', XOO_EL_PATH.'/templates/' );
+	}
+
 	return $located;
+
+	
 }
 add_filter( 'wc_get_template', 'xoo_el_override_wc_login_form', 99999, 5 );
 

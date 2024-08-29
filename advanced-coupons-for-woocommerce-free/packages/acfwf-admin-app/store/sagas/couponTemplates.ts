@@ -19,6 +19,7 @@ import {
 
 // Helpers
 import axiosInstance, { getCancelToken } from '../../helpers/axios';
+import { ICartConditionField, ICartConditionGroup } from '../../types/couponTemplates';
 
 // #endregion [Imports]
 
@@ -175,8 +176,24 @@ export function* createCouponFromTemplateSaga(action: {
   try {
     if (typeof processingCB === 'function') processingCB();
 
+    // Filter cart condition fields data to exclude i18n and error data.
+    const filteredData: any = { ...data };
+    filteredData.cart_conditions = data.cart_conditions.map((group) => {
+      if ('group_logic' === group.type) {
+        return group;
+      }
+
+      // @ts-ignore
+      const fields = group.fields as ICartConditionField<unknown>[];
+
+      return {
+        type: group.type,
+        fields: fields.map(({ type, data }) => ({ type, data })),
+      };
+    });
+
     const response = yield call(() =>
-      axiosInstance.post(`coupons/v1/templates`, data, {
+      axiosInstance.post(`coupons/v1/templates`, filteredData, {
         cancelToken: getCancelToken('coupon_template_create'),
       })
     );

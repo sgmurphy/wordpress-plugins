@@ -17,7 +17,7 @@ import { IFieldComponentProps } from '../../../../types/couponTemplates';
 const DateTimeField = (props: IFieldComponentProps) => {
   const { defaultValue, editable, onChange } = props;
 
-  const dateValue = moment(defaultValue ?? '');
+  const dateValue = defaultValue ? moment(defaultValue) : undefined;
 
   const handleDateChange = (date: Moment | null) => {
     onChange(date?.format('YYYY-MM-DD HH:mm:ss') ?? '');

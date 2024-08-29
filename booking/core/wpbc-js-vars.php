@@ -73,6 +73,7 @@ function wpbc_localize_js_vars( $where_to_load = 'both' ){                      
 
 	// Defined in  BS
 	$script .= "_wpbc.set_other_param( 'is_enabled_booking_recurrent_time',  " . ( ( get_bk_option( 'booking_recurrent_time' ) !== 'On' ) ? 'false' : 'true' ) . " ); ";
+	$script .= "_wpbc.set_other_param( 'is_allow_several_months_on_mobile',  " . ( ( get_bk_option( 'booking_calendar_allow_several_months_on_mobile' ) !== 'On' ) ? 'false' : 'true' ) . " ); ";
 	$script .= "_wpbc.set_other_param( 'is_enabled_change_over',  "            . (
 																						(
 																							( function_exists( 'wpbc_is_booking_used_check_in_out_time' ) )

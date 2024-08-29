@@ -81,6 +81,15 @@ function doRefund() {
     }
   });
 
+  $('.refund input.refund_line_total').each(function (index, item) {
+    if ($(item).closest('tr').data('order_item_id')) {
+      line_item_totals[$(item).closest('tr').data('order_item_id')] = accounting.unformat(
+        $(item).val(),
+        woocommerce_admin.mon_decimal_point
+      );
+    }
+  });
+
   $('.refund input.refund_line_tax').each(function (index, item) {
     if ($(item).closest('tr').data('order_item_id')) {
       var tax_id = $(item).data('tax_id');

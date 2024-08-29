@@ -115,8 +115,9 @@ const courseReviewSkeleton = () => {
     }).catch(error => {
       console.log(error);
       ele.insertAdjacentHTML('beforeend', `<div class="lp-ajax-message error" style="display:block">${error || 'Error: Query lp/v1/lazy-load/course-review'}</div>`);
-    }).finally(() => {});
-    skeleton && skeleton.remove();
+    }).finally(() => {
+      skeleton && skeleton.remove();
+    });
 
     //popup write review
 

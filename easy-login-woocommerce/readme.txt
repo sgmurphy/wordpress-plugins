@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/xootix
 Tags: social login, login customizer, registration, popup, custom registration fields
 Requires at least: 3.0.1
 Tested up to: 6.6
-Stable tag: 2.7.3
+Stable tag: 2.7.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,11 @@ theme/templates/easy-login-woocommerce/globals/ For more info, check template he
 10. Shortcodes
 
 == Changelog ==
+
+= 2.7.4 =
+* New - Added separate shortcode option for woocommerce checkout page
+* Fix - Removed select2 library when not needed
+* Fix - woocommerce outdated template version notice
 
 = 2.7.3 =
 * Fix - Security issue

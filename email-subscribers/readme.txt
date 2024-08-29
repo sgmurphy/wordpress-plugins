@@ -6,7 +6,7 @@ Tags: email marketing, email subscribers, newsletters, autoresponders, email aut
 Requires at least: 3.9
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 5.7.31
+Stable tag: 5.7.32
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,12 +438,17 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.31 =
+= 5.7.32 =
 
-* Fix: Missing image block in Drag-n-Drop editor
-* Update: Added a confirmation popup to the campaign scheduling/sending flow
+* New: Added option to export campaign reports in CSV [MAX]
+* Fix: Welcome/confirmation emails were not getting sent for subscribers added through REST API
 
 == Changelog ==
+
+**5.7.32 (29.08.2024)**
+
+* New: Added option to export campaign reports in CSV [MAX]
+* Fix: Welcome/confirmation emails were not getting sent for subscribers added through REST API
 
 **5.7.31 (21.08.2024)**
 

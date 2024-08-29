@@ -418,9 +418,9 @@ class XLWCTY_XL_Support {
 			), 'https://xlplugins.com/exclusive-offers/' );
 			$bfcm_offer           = false;
 			$christmas_offer      = false;
-			if ( date( 'Ymd' ) > 20191121 && date( 'Ymd' ) < 20191206 ) {
+			if ( gmdate( 'Ymd' ) > 20191121 && gmdate( 'Ymd' ) < 20191206 ) {
 				$bfcm_offer = true;
-			} elseif ( date( 'Ymd' ) > 20191219 && date( 'Ymd' ) < 20200103 ) {
+			} elseif ( gmdate( 'Ymd' ) > 20191219 && gmdate( 'Ymd' ) < 20200103 ) {
 				$christmas_offer = true;
 			}
 			if ( true === $bfcm_offer ) {
@@ -693,7 +693,7 @@ class XLWCTY_XL_Support {
 				}
 				if ( is_array( $system_info ) && count( $system_info ) > 0 ) {
 					$xl_support_file_path = $xl_support . '/thankyou-lite-support.json';
-					$success              = file_put_contents( $xl_support_file_path, json_encode( $system_info ) );
+					$success              = file_put_contents( $xl_support_file_path, wp_json_encode( $system_info ) );
 					if ( $success ) {
 						$xl_support_url .= '/thankyou-lite-support.json';
 					}

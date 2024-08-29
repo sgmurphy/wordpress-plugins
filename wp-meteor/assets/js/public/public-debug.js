@@ -594,10 +594,11 @@
       browser_default.capture();
     }
   })();
-  var scriptsToLoad = 1;
-  var scriptLoaded = () => {
-    c(delta_default(), "scriptLoaded", scriptsToLoad - 1);
-    if (!--scriptsToLoad) {
+  var scriptsToLoad = [-1];
+  var scriptLoaded = (event) => {
+    c(delta_default(), "scriptLoaded", event.target, scriptsToLoad.length);
+    scriptsToLoad = scriptsToLoad.filter((script) => script !== event.target);
+    if (!scriptsToLoad.length) {
       nextTick(dispatcher_default.emit.bind(dispatcher_default, EVENT_THE_END));
     }
   };
@@ -610,7 +611,9 @@
       if (element[getAttribute](prefix2 + "src")) {
         if (element[hasAttribute]("async")) {
           c(delta_default(), "async", scriptsToLoad, element);
-          scriptsToLoad++;
+          if (element.isConnected) {
+            scriptsToLoad.push(element);
+          }
           unblock(element, scriptLoaded);
           nextTick(iterate);
         } else {
@@ -638,8 +641,8 @@
         if (hasUnfiredListeners([L, M])) {
           fireQueuedEvents([L, M]);
           nextTick(iterate);
-        } else if (scriptsToLoad > 1) {
-          c(delta_default(), "waiting for", scriptsToLoad - 1, "more scripts to load", reorder);
+        } else if (scriptsToLoad.length > 1) {
+          c(delta_default(), "waiting for", scriptsToLoad.length, "more scripts to load", scriptsToLoad);
           rIC(iterate);
         } else if (async.length) {
           while (async.length) {
@@ -660,7 +663,7 @@
           jQuery.unmock();
           iterating = false;
           DONE = true;
-          w[_setTimeout](scriptLoaded);
+          w[_setTimeout](() => scriptLoaded({ target: -1 }));
         }
       } else {
         iterating = false;
@@ -699,15 +702,15 @@
     if (src) {
       c(delta_default(), "unblocking src", src);
       const addEventListener2 = origAddEventListener.bind(el);
-      if (callback) {
+      if (el.isConnected && callback) {
         addEventListener2(L, callback);
         addEventListener2(E, callback);
       }
       el.origtype = el[getAttribute](prefix2 + "type") || "text/javascript";
       el.origsrc = src;
       c(delta_default(), "unblocked src", src, el);
-      if ((el[hasAttribute]("nomodule") || el.type && !isJavascriptRegexp.test(el.type)) && callback) {
-        callback();
+      if ((!el.isConnected || el[hasAttribute]("nomodule") || el.type && !isJavascriptRegexp.test(el.type)) && callback) {
+        callback(new Event(L, { target: el }));
       }
     } else if (el.origtype === javascriptBlocked) {
       c(delta_default(), "unblocking inline", el);
@@ -718,7 +721,7 @@
     } else {
       ce(delta_default(), "already unblocked", el);
       if (callback) {
-        callback();
+        callback(new Event(L, { target: el }));
       }
     }
   };
@@ -1264,5 +1267,5 @@
     }
   })();
 })();
-//1.0.26
+//1.0.27
 //# sourceMappingURL=public-debug.js.map

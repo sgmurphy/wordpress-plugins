@@ -20,6 +20,7 @@ export interface ICouponTemplateListItem {
 
 export interface ICouponTemplate extends ICouponTemplateListItem {
   fields: ICouponTemplateField[];
+  cart_conditions: (ICartConditionGroup | ICartConditionGroupLogic)[];
 }
 
 export interface ICouponTemplateCategory {
@@ -61,6 +62,7 @@ export interface IFieldComponentProps {
 export interface ICouponTemplateFormData {
   id: number;
   fields: ICouponTemplateFieldData[];
+  cart_conditions: (ICartConditionGroup | ICartConditionGroupLogic)[];
 }
 
 export interface ICouponTemplateFieldData {
@@ -79,6 +81,39 @@ export interface ICreateCouponFromTemplateResponse {
   status: string;
   message: string;
   fields: ICouponTemplateFieldResponseData[];
+  cart_conditions: string;
   coupon_id: number;
   coupon_edit_url: string;
+}
+
+export interface ICartConditionGroup {
+  type: 'group';
+  fields: ICartConditionField<unknown>[];
+}
+
+export interface ICartConditionGroupLogic {
+  type: string;
+  value: string;
+}
+
+export interface ICartConditionFieldOption {
+  key: string;
+  group: string;
+  premium: boolean;
+  title: string;
+  desc: string;
+  defaultValue: any;
+  validateState: (value: any) => boolean;
+}
+
+export interface ICartConditionField<T> {
+  type: string;
+  data: T;
+  i18n: any;
+  errors?: string[];
+}
+
+export interface ICartConditionError {
+  groupKey: number;
+  fieldKey: number | null;
 }

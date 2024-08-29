@@ -36,10 +36,7 @@ final class Booking_Calendar {
 public static function init() {
     
     if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Booking_Calendar ) ) {
-            
-		global $wpbc_settings;
-		$wpbc_settings = array();
-        
+
         self::$instance = new Booking_Calendar;
         self::$instance->includes();
         self::$instance->define_version();
@@ -47,8 +44,6 @@ public static function init() {
         if ( class_exists( 'WPBC_BookingInstall' ) ) {                                 									// Check if we need to run Install / Uninstal process.
             new WPBC_BookingInstall();
         }
-
-
 
 	    /**
 	     *   Make Ajax, Response,  in this case    				$is_continue_at_frontend = false

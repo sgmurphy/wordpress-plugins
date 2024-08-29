@@ -157,6 +157,16 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 
 	    $this->fields = apply_filters( 'wpbc_settings_calendar_check_in_out_times',   $this->fields, $default_options_values );      // Check In/Out Times
 
+	    $this->fields['booking_calendar_allow_several_months_on_mobile'] = array(
+	                            'type'          => 'checkbox'
+	                            , 'default'     => $default_options_values['booking_calendar_allow_several_months_on_mobile']   //'Off'
+	                            , 'title'       => __('Allow multiple months to be shown on mobile' ,'booking')  //__('Use time selections as recurrent time slots' ,'booking')
+	                            , 'label'       => __('Enable this option to allow multiple months to be shown in the calendar on mobile devices. By default, the calendar only shows one month on mobile devices for easy scrolling.' ,'booking')
+	                            //, 'description' => ''
+	                            , 'group'       => 'calendar'
+	                            , 'tr_class'    => 'wpbc_recurrent_check_in_out_time_slots'
+	        );
+
         // </editor-fold>
 
 
@@ -2144,7 +2154,7 @@ class  WPBC_Settings_API_General extends WPBC_Settings_API {
 								jQuery( '#set_gen_booking_skin' ).find( 'option' ).prop( 'selected', false );								
 								jQuery( '#set_gen_booking_skin' ).find( 'option[value=\"'+ wpbc_cal_dark_skin_path  +'\"]' ).prop( 'selected', true ).trigger('change');																
                             }
-                            var wpbc_cal_light_skin_path = '/css/skins/24_9__light.css';		
+                            var wpbc_cal_light_skin_path = '/css/skins/24_9__light_square_1.css';		
                             if ( '' === wpbc_selected_theme ) {
 								jQuery( '#set_gen_booking_skin' ).find( 'option' ).prop( 'selected', false );								
 								jQuery( '#set_gen_booking_skin' ).find( 'option[value=\"'+ wpbc_cal_light_skin_path  +'\"]' ).prop( 'selected', true ).trigger('change');																

@@ -5,7 +5,7 @@ Tags: booking calendar, bookings, booking, appointments, events
 Requires at least: 5.3
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 10.5
+Stable tag: 10.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -289,6 +289,15 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 18. **Time-Slot Appointment Bookings in Legacy Calendar Theme**: Users can select **single day** in the calendar and **time slots** in the booking form.
 
 == Changelog ==
+= 10.5.1 =
+- Changes in **all** versions:
+	* **New** Calendar skin themes - '24_9__light_2', '24_9__light_simple_1', '24_9__dark_2', '24_9__light_traditional_1' based on new '24_9__light' calendar skin  with  rounded day cells.
+	* **New** Option to allow multiple months to be shown in the calendar on mobile devices. By default, the calendar only shows one month on mobile devices for easy scrolling.
+	* **Fix** Vulnerability in timeline_obj parameters relative to Timeline.
+- Changes in **Personal / Business Small / Business Medium / Business Large / MultiUser** versions:
+ 	* **Improvement** During "Activation" of the regular user now system save the the "Booking Form" and "Content of booking fields data" from the "Super booking admin" configuration to Regular User. It can save time for initial configuration of settings for new users. (10.5.1.1) *(MultiUser)*
+ 	* **Improvement** Added Month Titles at  Timeline Header for each  new week in month or 2 months view. It clear show what  exactly  month,  during scrolling the days.
+
 = 10.5 =
 - Changes in **all** versions:
 	* **New** Added a new calendar color skin, '24_9__light', with rounded day cells for an updated aesthetic.

@@ -1064,10 +1064,17 @@ class ModalPopup extends EAE_Widget_Base {
 				$close_button = $settings['close_btn_icon'];
 			endif;
 		}
+		// $close_button = "fas fa-times&quot;&gt;&lt;img src=x onerror=alert(1);&gt;&gt;&quot;";
+		
+		$this->add_render_attribute( 'eae-popup-wrapper', 'class', 'eae-popup-wrapper eae-popup-' . $id );
+		$this->add_render_attribute( 'eae-popup-wrapper', 'data-id', $id );
+		$this->add_render_attribute( 'eae-popup-wrapper', 'data-preview-modal', $settings['preview_modal'] );
+		$this->add_render_attribute( 'eae-popup-wrapper', 'data-close-button-type', $close_button_type );
+		$this->add_render_attribute( 'eae-popup-wrapper', 'data-close-btn', $close_button );
+		$this->add_render_attribute( 'eae-popup-wrapper', 'data-close-in-out', $close_btn );
+		$this->add_render_attribute( 'eae-popup-wrapper', 'data-effect', $effect );		
 		?>
-		<div class="eae-popup-wrapper eae-popup-<?php echo esc_attr($id); ?>" data-id="<?php echo esc_attr($id); ?>"
-			data-preview-modal="<?php echo esc_attr($settings['preview_modal']); ?>" data-close-button-type="<?php echo esc_attr($close_button_type); ?>"
-			data-close-btn="<?php echo $close_button; ?>" data-close-in-out="<?php echo $close_btn; ?>" data-effect =<?php echo esc_attr($effect); ?>>
+		<div <?php echo $this->get_render_attribute_string('eae-popup-wrapper');?>>
 			<a class="eae-popup-link icon-position-<?php echo esc_attr($settings['icon_position']); ?>"
 			data-id="<?php echo esc_attr($id); ?>" data-ctrl-id="<?php echo esc_attr($data['id']); ?>" href="#<?php echo esc_attr($id); ?>">
 				<?php if ( $settings['button_type'] === 'text' ) { ?>

@@ -13509,3 +13509,5 @@ padding: 50px;
 .elementor-form .eae-form-field select[multiple] {
     height: auto;
 }
+
+.wpcf7-spinner:not(:first-of-type) { display: none !important; visibility: hidden !important; }

@@ -13,9 +13,9 @@ $category = __( 'URL Coupons', 'advanced-coupons-for-woocommerce-free' );
 return array(
     '_acfw_enable_coupon_url'      => array(
         'label'       => __( 'Enable coupon URL', 'advanced-coupons-for-woocommerce-free' ),
-        'description' => __( 'When checked, it enables the coupon url functionality for the current coupon.', 'advanced-coupons-for-woocommerce-free' ),
+        'description' => '',
         'type'        => 'checkbox',
-        'tooltip'     => '',
+        'tooltip'     => __( 'When checked, it enables the coupon url functionality for the current coupon.', 'advanced-coupons-for-woocommerce-free' ),
         'category'    => $category,
     ),
     '_acfw_code_url_override'      => array(

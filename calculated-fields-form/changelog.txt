@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.32 =
+
+* Modifies the container fields to avoid Hidden, Hidden DS,  and RecordSet DS controls affecting the columns' format.
+* Modifies the Phone controls to adjust its width.
+* Modifies the IRR operation by implementing more robust convergence methods (Developer and Platinum plugin versions)
+* Implements new PayPal Checkout add-on improvements (Platinum plugin distribution).
+* Modifies the Verification Code add-on to allow verifying both email addresses and phone numbers (Platinum plugin version).
+
 = 5.2.31 =
 
 * Fixes some issues in the Phone control.

@@ -8,6 +8,8 @@
  */
 
 // Prevent loading this file directly
+use LearnPress\Models\CourseModel;
+use LearnPress\Models\UserModel;
 use LP_Addon_Wishlist\Elementor\WishListElementorHandler;
 
 defined( 'ABSPATH' ) || exit;
@@ -78,6 +80,8 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 		protected function _init_hooks() {
 			add_action( 'learn-press/after-course-buttons', array( $this, 'wishlist_button' ), 100 );
 			add_filter( 'learn_press_profile_tab_endpoints', array( $this, 'profile_tab_endpoints' ) );
+			add_filter( 'lean-press/single-course/offline/info-bar', [ $this, 'single_course_offline' ], 10, 3 );
+			add_action( 'lp/template/archive-course/description', [ $this, 'load_js_css_on_archive_course' ] );
 			LP_Request::register_ajax( 'toggle_course_wishlist', array( $this, 'toggle_course_wishlist' ) );
 
 			//$this->rewrite_endpoint();
@@ -94,18 +98,21 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 				$min = '';
 				$ver = uniqid();
 			}
+			$is_rtl = is_rtl() ? '-rtl' : '';
 
-			wp_register_style( 'lp-course-wishlist', LP_Addon_Wishlist_Preload::$addon->get_plugin_url( "/assets/css/wishlist{$min}.css" ), [], $ver );
+			wp_register_style(
+				'lp-course-wishlist',
+				LP_Addon_Wishlist_Preload::$addon->get_plugin_url( "/assets/css/wishlist{$is_rtl}{$min}.css" ),
+				[],
+				$ver
+			);
 			wp_register_script(
 				'lp-course-wishlist',
-				LP_Addon_Wishlist_Preload::$addon->get_plugin_url( "/assets/js/wishlist{$min}.js" ),
+				LP_Addon_Wishlist_Preload::$addon->get_plugin_url( "/assets/js/dist/wishlist{$min}.js" ),
 				[ 'jquery' ],
 				$ver,
-				[ 'strategy'  => 'defer' ]
+				[ 'strategy' => 'async' ]
 			);
-
-			wp_enqueue_style( 'lp-course-wishlist' );
-			wp_enqueue_script( 'lp-course-wishlist' );
 		}
 
 		/**
@@ -137,7 +144,7 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 				return;
 			}
 			$state    = ! empty( $_POST['state'] ) ? $_POST['state'] : false;
-			$wishlist = (array) get_user_meta( $user_id, '_lpr_wish_list', true );
+			$wishlist = LP_Addon_Wishlist::get_courses_wishlist( $user_id );
 			if ( $state === false ) {
 				$state = in_array( $course_id, $wishlist ) ? 'off' : 'on';
 			}
@@ -213,8 +220,16 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 				return;
 			}
 
+			$user = UserModel::find( $user_id, true );
+			if ( ! $user ) {
+				return;
+			}
+
+			wp_enqueue_style( 'lp-course-wishlist' );
+			wp_enqueue_script( 'lp-course-wishlist' );
+
 			$classes = array( 'course-wishlist' );
-			$state   = learn_press_user_wishlist_has_course( $course_id, $user_id ) ? 'on' : 'off';
+			$state   = $this->has_in_wishlist( $course_id, $user ) ? 'on' : 'off';
 
 			if ( $state == 'on' ) {
 				$classes[] = 'on';
@@ -270,11 +285,14 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 		}
 
 		public function get_wishlist_courses( $user_id ) {
-			$pid = (array) get_user_meta( $user_id, '_lpr_wish_list', true );
+			$course_ids_wishlist = self::get_courses_wishlist( $user_id );
+			if ( ! $course_ids_wishlist ) {
+				return array();
+			}
 
 			$args     = array(
 				'post_type'           => 'lp_course',
-				'post__in'            => $pid,
+				'post__in'            => $course_ids_wishlist,
 				'post_status'         => 'publish',
 				'ignore_sticky_posts' => true,
 				'posts_per_page'      => - 1,
@@ -291,6 +309,108 @@ if ( ! class_exists( 'LP_Addon_Wishlist' ) ) {
 			wp_reset_postdata();
 
 			return $wishlist;
+		}
+
+		/**
+		 * Get course ids wishlist
+		 *
+		 * @param int $user_id
+		 *
+		 * @return array
+		 * @since 4.0.8
+		 * @version 1.0.0
+		 */
+		public static function get_courses_wishlist( int $user_id ): array {
+			if ( ! $user_id ) {
+				return [];
+			}
+
+			$user = UserModel::find( $user_id, true );
+			if ( empty( $user ) ) {
+				return [];
+			}
+
+			$wish_list = $user->get_meta_value_by_key( '_lpr_wish_list', [] );
+
+			return $wish_list;
+		}
+
+		/**
+		 * Check course has in wishlist
+		 *
+		 * @param int $course_id
+		 * @param UserModel $user
+		 *
+		 * @return bool
+		 * @since 4.0.8
+		 * @version 1.0.0
+		 */
+		public function has_in_wishlist( int $course_id, UserModel $user ): bool {
+			$wish_list = self::get_courses_wishlist( $user->get_id() );
+
+			return in_array( $course_id, $wish_list );
+		}
+
+		/**
+		 * Template button ico wishlist
+		 *
+		 * @param int $course_id
+		 * @param UserModel|false $user
+		 *
+		 * @return string
+		 * @since 4.0.8
+		 * @version 1.0.0
+		 */
+		public function html_btn_ico_wishlist( int $course_id, $user ): string {
+			if ( empty( $user ) ) {
+				return '';
+			}
+
+			wp_enqueue_style( 'lp-course-wishlist' );
+			wp_enqueue_script( 'lp-course-wishlist' );
+
+			$is_in_wishlist = $this->has_in_wishlist( $course_id, $user );
+
+			$class = '';
+			if ( $is_in_wishlist ) {
+				$class = 'active';
+			}
+
+			return sprintf( '<span class="lp-item-wishlist %s" data-item-id="%d"></span>', $class, $course_id );
+		}
+
+		/**
+		 * @param array $section
+		 * @param CourseModel $course
+		 * @param false|UserModel $user
+		 *
+		 * @return array
+		 * @since 4.0.8
+		 * @version 1.0.0
+		 */
+		public function single_course_offline( array $section, CourseModel $course, $user ): array {
+			$section_new = [];
+			if ( empty( $user ) ) {
+				return $section;
+			}
+
+			foreach ( $section as $key => $value ) {
+				if ( $key === 'wrapper_end' ) {
+					$section_new['wishlist'] = sprintf( '<div class="item-meta">%s</div>', $this->html_btn_ico_wishlist( $course->get_id(), $user ) );
+				}
+				$section_new[ $key ] = $value;
+			}
+
+
+			return $section_new;
+		}
+
+		/**
+		 * Load js and css on archive course
+		 */
+		public function load_js_css_on_archive_course() {
+			wp_enqueue_style( 'lp-course-wishlist' );
+			wp_enqueue_script( 'lp-course-wishlist' );
 		}
 	}
 }

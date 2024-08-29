@@ -226,10 +226,17 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
         $id        = absint( $request->get_param( 'id' ) );
         $is_review = $request->get_param( 'is_review' ) ?? false;
         $fields    = $this->_sanitize_coupon_template_fields_data( $request->get_param( 'fields' ) );
-        $coupon    = $this->_create_coupon_from_template( $fields );
+        $coupon    = $this->_create_coupon_from_template( $fields, $id );
 
         if ( is_wp_error( $coupon ) ) {
             return $coupon;
+        }
+
+        // Save cart conditions data.
+        $cart_conditions = $request->get_param( 'cart_conditions' );
+        if ( ! empty( $cart_conditions ) ) {
+            $cart_conditions = \ACFWF()->Cart_Conditions->sanitize_cart_conditions( $cart_conditions );
+            \ACFWF()->Cart_Conditions->save_cart_conditions( $coupon, $cart_conditions );
         }
 
         $fields_response = array();
@@ -239,7 +246,7 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
             $fields_response[] = array(
                 'key'   => $field['key'],
                 'label' => $fixture['label'] ?? $field['key'],
-                'value' => $this->_format_field_response_value( $field['display_value'] ?? $field['value'] ),
+                'value' => $this->_format_field_response_value( $field['key'], $field['display_value'] ?? $field['value'] ),
             );
 
             if ( 'coupon_code' === $field['key'] &&
@@ -262,6 +269,7 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
                 'status'          => 'success',
                 'message'         => __( 'Coupon was created successfully!', 'advanced-coupons-for-woocommerce-free' ),
                 'fields'          => $fields_response,
+                'cart_conditions' => ! empty( $cart_conditions ) ? __( 'Can only be applied once the conditions match', 'advanced-coupons-for-woocommerce-free' ) : '',
                 'coupon_id'       => $coupon->get_id(),
                 'coupon_edit_url' => admin_url( 'post.php?post=' . $coupon->get_id() . '&action=edit' ),
             )
@@ -307,6 +315,10 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
         foreach ( $template['template_data'] as $row ) {
             $row['fixtures']      = $this->_get_field_fixture_data( $row['field'] );
             $template['fields'][] = $row;
+        }
+
+        if ( ! empty( $template['cart_conditions'] ) ) {
+            $template['cart_conditions'] = $this->_prepare_template_cart_condition_data( $template['cart_conditions'] );
         }
 
         unset( $template['template_data'] );
@@ -565,6 +577,7 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
                     case 'customers':
                         $value              = array_column( $f['value'], 'value' );
                         $f['display_value'] = $f['value'];
+                        $type               = 'arrayint';
                         break;
 
                     case 'user_role':
@@ -593,21 +606,28 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
      * @since 4.6.0
      * @access private
      *
-     * @param mixed $value Field value.
+     * @param string $key Field key.
+     * @param mixed  $value Field value.
      * @return string Formatted field value.
      */
-    private function _format_field_response_value( $value ) {
-        if ( ! is_array( $value ) ) {
-            return $value;
+    private function _format_field_response_value( $key, $value ) {
+        if ( is_array( $value ) ) {
+            $labels = array_column( $value, 'label' );
+
+            if ( ! empty( $labels ) ) {
+                return implode( ', ', $labels );
+            }
+
+            return implode( ', ', $value );
         }
 
-        $labels = array_column( $value, 'label' );
-
-        if ( ! empty( $labels ) ) {
-            return implode( ', ', $labels );
+        // Format discount type value to readable string.
+        if ( 'discount_type' === $key ) {
+            $discount_types = wc_get_coupon_types();
+            return $discount_types[ $value ] ?? $value;
         }
 
-        return implode( ', ', $value );
+        return $value;
     }
 
     /**
@@ -617,18 +637,21 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
      * @access private
      *
      * @param array $fields Coupon template fields.
+     * @param int   $template_id Coupon template ID.
      * @return Advanced_Coupon|\WP_Error Advanced Coupon object or WP_Error object.
      */
-    private function _create_coupon_from_template( $fields ) {
+    private function _create_coupon_from_template( $fields, $template_id ) {
         $coupon               = new \WC_Coupon();
         $global_cache_options = array();
 
         foreach ( $fields as $field ) {
             $key = $field['key'];
-            if ( 'coupon_code' === $field['key'] ) {
+            if ( 'coupon_code' === $key ) {
                 $coupon->set_code( $field['value'] );
-            } elseif ( 'coupon_amount' === $field['key'] ) {
+            } elseif ( 'coupon_amount' === $key ) {
                 $coupon->set_amount( $field['value'] );
+            } elseif ( '_acfw_enable_coupon_url' === $key ) {
+                $this->_add_coupon_meta_data( $coupon, Plugin_Constants::META_PREFIX . 'disable_url_coupon', 'yes' === $field['value'] ? '' : 'yes' );
             } elseif ( is_callable( array( $coupon, 'set_' . $key ) ) ) {
                 $coupon->{"set_{$key}"}( $field['value'] );
             } elseif ( in_array( $field['key'], array( '_acfw_auto_apply_coupon', '_acfw_enable_apply_notification' ), true ) ) {
@@ -643,6 +666,9 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
         if ( ! $check ) {
             return new \WP_Error( 'failed_to_create_coupon', __( 'Failed to create coupon.', 'advanced-coupons-for-woocommerce-free' ), array( 'status' => 500 ) );
         }
+
+        // Save a meta key that points back to the coupon template ID whenever a coupon is created via a template.
+        $coupon->add_meta_data( '_acfw_coupon_from_template_ID', $template_id, true );
 
         $coupon->save_meta_data();
 
@@ -743,6 +769,52 @@ class API_Coupon_Templates extends Base_Model implements Model_Interface {
             $this->_constants->RECENT_COUPON_TEMPLATES,
             $this->_helper_functions->array_unique_multidimensional( $recent_templates )
         );
+    }
+
+    /**
+     * Prepare the cart condition data for the template.
+     *
+     * @since 4.6.3
+     * @access private
+     *
+     * @param array $cart_conditions Cart conditions data.
+     * @return array Prepared cart conditions data.
+     */
+    private function _prepare_template_cart_condition_data( $cart_conditions ) {
+        $prepared    = array();
+        $fields_i18n = \ACFWF()->Cart_Conditions->condition_fields_localized_data( array() );
+
+        foreach ( $cart_conditions as $group ) {
+            if ( 'group_logic' === $group['type'] ) {
+                $prepared[] = $group;
+                continue;
+            }
+
+            // Append the i18n data to the fields.
+            $group['fields'] = array_map(
+                function ( $field ) use ( $fields_i18n ) {
+                    if ( 'logic' === $field['type'] ) {
+                        return $field;
+                    }
+
+                    // append the translatable strings data to the condition fields.
+                    $field_type    = str_replace( '-', '_', $field['type'] );
+                    $field['i18n'] = $fields_i18n['cart_condition_fields'][ $field_type ] ?? array();
+
+                    // Append user role options to the role related cart condition fields.
+                    if ( strpos( $field['type'], 'customer-user-role' ) !== false ) {
+                        $field['i18n']['options'] = $this->_helper_functions->get_default_allowed_user_roles();
+                    }
+
+                    return $field;
+                },
+                $group['fields']
+            );
+
+            $prepared[] = $group;
+        }
+
+        return $prepared;
     }
 
     /*

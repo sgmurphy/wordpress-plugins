@@ -13,9 +13,9 @@ $category = __( 'Scheduler', 'advanced-coupons-for-woocommerce-free' );
 return array(
     '_acfw_enable_date_range_schedule' => array(
         'label'       => __( 'Enable Scheduler', 'advanced-coupons-for-woocommerce-free' ),
-        'description' => __( 'When checked, this will enable scheduler for this coupon which will then show a notification for customers in the cart when the coupon can be applied.', 'advanced-coupons-for-woocommerce-free' ),
+        'description' => '',
         'type'        => 'checkbox',
-        'tooltip'     => '',
+        'tooltip'     => __( 'When checked, this will enable scheduler for this coupon which will then show a notification for customers in the cart when the coupon can be applied.', 'advanced-coupons-for-woocommerce-free' ),
         'category'    => $category,
     ),
     '_acfw_schedule_start'             => array(

@@ -85,12 +85,13 @@ class Cart_Conditions extends Base_Model implements Model_Interface, Initializab
      * Sanitize cart conditions.
      *
      * @since 1.0
-     * @access private
+     * @since 4.6.3 Made the method public.
+     * @access public
      *
      * @param array $cart_conditions Advanced coupon cart conditions.
      * @return array Sanitized advanced coupon cart conditions.
      */
-    private function _sanitize_cart_conditions( $cart_conditions ) {
+    public function sanitize_cart_conditions( $cart_conditions ) {
         $sanitized = array();
 
         foreach ( $cart_conditions as $condition_group ) {
@@ -203,13 +204,14 @@ class Cart_Conditions extends Base_Model implements Model_Interface, Initializab
      * Save cart conditions.
      *
      * @since 1.0
-     * @access private
+     * @since 4.6.3 Made the method public.
+     * @access public
      *
      * @param int   $coupon_id       Coupon ID.
      * @param array $cart_conditions Advanced coupon cart conditions.
      * @return int|\WP_Error WP_Error on failure, otherwise the advance coupon id (int).
      */
-    private function _save_cart_conditions( $coupon_id, $cart_conditions ) {
+    public function save_cart_conditions( $coupon_id, $cart_conditions ) {
         $coupon = new Advanced_Coupon( $coupon_id );
 
         $coupon->set_advanced_prop( 'cart_conditions', $cart_conditions );
@@ -220,14 +222,15 @@ class Cart_Conditions extends Base_Model implements Model_Interface, Initializab
      * Save cart condition notice settings.
      *
      * @sinc 1.0
-     * @access private
+     * @since 4.6.3 Made the method public.
+     * @access public
      *
      * @param int    $coupon_id          Coupon ID.
      * @param array  $notice_settings    Cart conditions notice settings.
      * @param string $auto_apply_display Auto apply display check value.
      * @return mixed WP_Error on failure, otherwise the advance coupon id (int).
      */
-    private function _save_cart_condition_notice_settings( $coupon_id, $notice_settings, $auto_apply_display = '' ) {
+    public function save_cart_condition_notice_settings( $coupon_id, $notice_settings, $auto_apply_display = '' ) {
         $coupon = new Advanced_Coupon( $coupon_id );
 
         $coupon->set_advanced_prop( 'cart_condition_display_notice_auto_apply', $auto_apply_display );
@@ -553,10 +556,10 @@ class Cart_Conditions extends Base_Model implements Model_Interface, Initializab
         if (
             $coupon->get_advanced_prop( 'cart_condition_display_notice_auto_apply' ) !== 'yes'
             || in_array( $coupon->get_code(), $this->_notice_display, true )
-            // only display notice on either cart or checkout pages.
-            || ( ! is_cart() && ! is_checkout() )
+            // only display notice on either classic cart & checkout pages or cart & checkout block pages.
+            || ( ! is_cart() && ! is_checkout() && ! $this->_helper_functions->is_current_page_using_cart_checkout_block() )
             // only display notice on checkout when it's loaded via AJAX.
-            || ( is_checkout() && ! isset( $_GET['wc-ajax'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            || ( ( is_checkout() && ! isset( $_GET['wc-ajax'] ) ) && ! $this->_helper_functions->is_current_page_using_cart_checkout_block() ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         ) {
             return;
         }
@@ -606,11 +609,11 @@ class Cart_Conditions extends Base_Model implements Model_Interface, Initializab
         } else {
 
             $coupon_id          = intval( $_POST['coupon_id'] );
-            $cart_conditions    = isset( $_POST['cart_conditions'] ) && ! empty( $_POST['cart_conditions'] ) ? $this->_sanitize_cart_conditions( $_POST['cart_conditions'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+            $cart_conditions    = isset( $_POST['cart_conditions'] ) && ! empty( $_POST['cart_conditions'] ) ? $this->sanitize_cart_conditions( $_POST['cart_conditions'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
             $notice_settings    = isset( $_POST['notice_settings'] ) && is_array( $_POST['notice_settings'] ) ? array_map( 'sanitize_text_field', $_POST['notice_settings'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
             $auto_apply_display = isset( $_POST['auto_apply_display'] ) && 'yes' === $_POST['auto_apply_display'] ? 'yes' : '';
-            $save_check         = $this->_save_cart_conditions( $coupon_id, $cart_conditions );
-            $notice_save        = $this->_save_cart_condition_notice_settings( $coupon_id, $notice_settings, $auto_apply_display );
+            $save_check         = $this->save_cart_conditions( $coupon_id, $cart_conditions );
+            $notice_save        = $this->save_cart_condition_notice_settings( $coupon_id, $notice_settings, $auto_apply_display );
 
             if ( $save_check || $notice_save ) {
                 $response = array(

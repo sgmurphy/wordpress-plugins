@@ -893,6 +893,10 @@ class Xoo_Aff_Fields{
 		// Custom attribute handling.
 		$custom_attributes   = array();
 
+		if( isset( $args['use_select2'] ) && $args['use_select2'] === 'yes' ){
+			$args['custom_attributes']['select2'] = 'yes';
+		}
+
 		if ( $args['maxlength'] ) {
 			$args['custom_attributes']['maxlength'] = absint( $args['maxlength'] );
 		}
@@ -1216,7 +1220,7 @@ class Xoo_Aff_Fields{
 		if( class_exists( 'SitePress' ) ){
 			do_action(
 				'wpml_register_single_string',
-				'easy-login-woocommerce',
+				$this->plugin_slug,
 				$string_name,
 				$string
 			);
@@ -1224,7 +1228,7 @@ class Xoo_Aff_Fields{
 
 		//Polylang
 		if( function_exists('pll_register_string') ){
-			pll_register_string( $string_name, $string, 'easy-login-woocommerce-fields' );
+			pll_register_string( $string_name, $string, $this->plugin_slug.'-fields' );
 		}
 	}
 
@@ -1235,7 +1239,7 @@ class Xoo_Aff_Fields{
 			return apply_filters(
 				'wpml_translate_single_string',
 				$string,
-				'easy-login-woocommerce',
+				$this->plugin_slug,
 				$string_name
 			);
 		}
@@ -1276,15 +1280,15 @@ class Xoo_Aff_Fields{
 			$label 		= isset( $settings['label'] ) && trim( $settings['label'] ) ? trim( $settings['label'] ) : trim( $settings['placeholder'] );
 
 			//If required and value is empty
-			if( $settings['required'] === "yes" &&  !$userVal ){
+			if( isset($settings['required']) && $settings['required'] === "yes" &&  !$userVal ){
 
 				switch ( $field_data['input_type'] ) {
 					case 'checkbox_single':
-						$errors->add( 'not-checked', sprintf( esc_attr__( 'Please check %s.', 'easy-login-woocommerce' ), $label ), $field_id );
+						$errors->add( 'not-checked', sprintf( esc_attr__( 'Please check %s.', $this->plugin_slug ), $label ), $field_id );
 						break;
 					
 					default:
-						$errors->add( 'empty', sprintf( esc_attr__( '%s cannot be empty.', 'easy-login-woocommerce' ), $label ), $field_id );
+						$errors->add( 'empty', sprintf( esc_attr__( '%s cannot be empty.', $this->plugin_slug ), $label ), $field_id );
 						break;
 				}	
 
@@ -1292,27 +1296,27 @@ class Xoo_Aff_Fields{
 
 			//Check min characters
 			if( isset( $settings['minlength'] ) && !empty( $settings['minlength'] ) && strlen( $userVal ) < (int) $settings['minlength']  ){
-				$errors->add( 'minlen', sprintf( esc_attr__( '%s needs to be minimum %s characters.', 'easy-login-woocommerce' ), $label, $settings['minlength'] ), $field_id );
+				$errors->add( 'minlen', sprintf( esc_attr__( '%s needs to be minimum %s characters.', $this->plugin_slug ), $label, $settings['minlength'] ), $field_id );
 			}
 
 			//Check max characters
 			if( isset( $settings['maxlength'] ) && !empty( $settings['maxlength'] ) && strlen( $userVal ) > (int) $settings['maxlength']  ){
-				$errors->add( 'maxlen', sprintf( esc_attr__( '%s cannot exceed %s characters.', 'easy-login-woocommerce' ), $label, $settings['maxlength'] ), $field_id );
+				$errors->add( 'maxlen', sprintf( esc_attr__( '%s cannot exceed %s characters.', $this->plugin_slug ), $label, $settings['maxlength'] ), $field_id );
 			}
 
 			//Check min value
 			if( isset( $settings['min'] ) && !empty( $settings['min'] ) && ( float ) $userVal < (float) $settings['min']  ){
-				$errors->add( 'min', sprintf( esc_attr__( '%s should be minimum %s.', 'easy-login-woocommerce' ), $label, $settings['min'] ), $field_id );
+				$errors->add( 'min', sprintf( esc_attr__( '%s should be minimum %s.', $this->plugin_slug ), $label, $settings['min'] ), $field_id );
 			}
 
 			//Check max value
 			if( isset( $settings['max'] ) && !empty( $settings['max'] ) && ( float ) $userVal > (float) $settings['max']  ){
-				$errors->add( 'max', sprintf( esc_attr__( '%s cannot be more than %s.', 'easy-login-woocommerce' ), $label, $settings['max'] ), $field_id );
+				$errors->add( 'max', sprintf( esc_attr__( '%s cannot be more than %s.', $this->plugin_slug ), $label, $settings['max'] ), $field_id );
 			}
 
 			//Check Step
 			if( isset( $settings['step'] ) && $settings['step'] !== 'any' && ( (float) $userVal % (float) $settings['step'] ) !== 0 ){
-				$errors->add( 'step', sprintf( esc_attr__( '%s should be in multiple of %s.', 'easy-login-woocommerce' ), $label, $settings['step'] ), $field_id );
+				$errors->add( 'step', sprintf( esc_attr__( '%s should be in multiple of %s.', $this->plugin_slug ), $label, $settings['step'] ), $field_id );
 			}
 
 			$errors = apply_filters( 'xoo_aff_'.$this->plugin_slug.'_validate_field', $errors, $field_id, $userVal );

@@ -2,7 +2,7 @@
 Contributors: asadkn
 Tags: speed, performance, uncss, optimize
 Requires at least: 5.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.1
 Stable tag: 1.2.8
 License: GPLv2
@@ -32,7 +32,6 @@ WARNING: It's a powerful speed optimization plugin that's meant for power users 
 * Built-in cache for processing.
 * Compatible with cache plugins (disable their JS and CSS optimizations).
 * API and hooks for theme & plugin authors.
-
 
 == Installation ==
 

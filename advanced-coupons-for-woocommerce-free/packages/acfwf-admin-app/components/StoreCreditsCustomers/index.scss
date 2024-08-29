@@ -41,6 +41,15 @@
     }
   }
 
+  .entry-note-wrap {
+    width: 100%;
+    margin: 0.5em 0;
+
+    textarea {
+      width: 100%;
+    }
+  }
+
   .make-adjustment-btn {
     padding: 6.4px 30px;
     background: #333333;

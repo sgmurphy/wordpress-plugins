@@ -711,7 +711,7 @@ class Edit_Coupon extends Base_Model implements Model_Interface, Initializable_I
         $title        = __( 'Scheduler', 'advanced-coupons-for-woocommerce-free' );
         $descriptions = array( __( 'The scheduler gives you fine grained control over when this coupon is valid. Choose the start date & time, along with the end date & time. Optionally, show a WooCommerce notification message when the coupon is attempted to be applied outside of the allowed schedule.', 'advanced-coupons-for-woocommerce-free' ) );
         $help_slug    = 'scheduler';
-        $is_enabled   = $coupon->get_advanced_prop( 'enable_date_range_schedule' );
+        $is_enabled   = \ACFWF()->Scheduler->is_date_range_enabled( $coupon );
         $fields       = apply_filters(
             'acfw_scheduler_admin_data_panel_fields',
             array(
@@ -767,15 +767,6 @@ class Edit_Coupon extends Base_Model implements Model_Interface, Initializable_I
                 ),
             )
         );
-
-        /**
-         * Backwards compatibility: set toggle as enabled for coupons that already have scheduler data in them.
-         *
-         * @since 4.5
-         */
-        if ( '' === $is_enabled && ( $coupon->get_advanced_prop( 'schedule_start' ) || $coupon->get_advanced_prop( 'schedule_end' ) ) ) {
-            $is_enabled = 'yes';
-        }
 
         include $this->_constants->VIEWS_ROOT_PATH . 'coupons' . DIRECTORY_SEPARATOR . 'view-scheduler-data-panel.php';
     }

@@ -145,19 +145,22 @@ class Module {
 		ob_start();
 		?>
 		<#
+			function sanitizeColor(color) {
+				return _.escape(color);
+			}
+
 			color_list = settings.gradient_color_list;
 			angle = settings.gradient_background_angle.size;
-			var color = [];
+			var colors = [];
 			var i = 0;
-			_.each(color_list , function(color_list){
-					if(!_.isEmpty(color_list.eae_animated_gradient_color)){
-						color[i] = color_list.eae_animated_gradient_color;
-						i = i+1;
-					}	
+			_.each(color_list, function(color_item) {
+				if (color_item.eae_animated_gradient_color) {
+					colors.push(sanitizeColor(color_item.eae_animated_gradient_color));
+				}
 			});
-			view.addRenderAttribute('_wrapper', 'data-color', color);
+			view.addRenderAttribute('_wrapper', 'data-color', colors);
 		#>
-			<div class="animated-gradient" data-angle="{{{ angle }}}deg" data-color="{{{ color }}}"></div>
+		<div class="animated-gradient" data-angle="{{{ angle }}}deg" data-color="{{{ colors.join(',') }}}"></div>
 		<?php
 		$slider_content = ob_get_contents();
 		ob_end_clean();

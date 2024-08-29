@@ -13,12 +13,14 @@ $product_feeds_query = new Product_Feed_Query(
     array(
         'post_status'    => array( 'draft', 'publish' ),
         'posts_per_page' => -1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
     ),
     'edit'
 );
 
 ?>
-<table id="woosea_main_table" class="woo-product-feed-pro-table">
+<table id="woosea_main_table" class="woo-product-feed-pro-table" data-pagename="manage_feed">
     <tr>
         <td><strong><?php esc_html_e( 'Active', 'woo-product-feed-pro' ); ?></strong></td>
         <td><strong><?php esc_html_e( 'Project name and channel', 'woo-product-feed-pro' ); ?></strong></td>
@@ -33,7 +35,10 @@ foreach ( $product_feeds_query->get_posts() as $product_feed ) :
 ?>
     <form action="" method="post">
         <?php wp_nonce_field( 'woosea_ajax_nonce' ); ?>
-        <tr class="<?php echo 'processing' === $product_feed->status ? 'processing' : ''; ?>">
+        <tr 
+            class="woo-product-feed-pro-table-row <?php echo 'processing' === $product_feed->status ? 'processing' : ''; ?>" 
+            data-project_hash="<?php echo esc_attr( $product_feed->legacy_project_hash ); ?>"
+        >
             <td>
                 <label class="woo-product-feed-pro-switch">
                     <input type="hidden" name="manage_record" value="<?php echo esc_attr( $product_feed->legacy_project_hash ); ?>">
@@ -47,7 +52,7 @@ foreach ( $product_feeds_query->get_posts() as $product_feed ) :
             </td>
             <td><span><?php echo esc_html( $product_feed->file_format ); ?></span></td>
             <td><span><?php echo esc_html( $product_feed->refresh_interval ); ?></span></td>
-            <td>
+            <td class="woo-product-feed-pro-feed-status">
                 <?php if ( 'processing' === $product_feed->status ) : ?>
                     <span class="woo-product-feed-pro-blink_me" id="woosea_proc_<?php echo esc_attr( $product_feed->legacy_project_hash ); ?>">
                         <?php echo esc_html( $product_feed->status . ' (' . $product_feed->get_processing_percentage() . '%)' ); ?>

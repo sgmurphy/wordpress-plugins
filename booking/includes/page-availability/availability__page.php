@@ -25,7 +25,6 @@ class WPBC_Page_AJX_Availability extends WPBC_Page_Structure {
 
         parent::__construct();
 
-		add_action( 'wpbc_toolbar_top_tabs_after',  array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
 		add_action( 'wpbc_toolbar_top_tabs_insert', array( $this, 'wpbc_toolbar_toolbar_tabs' ) );
     }
 

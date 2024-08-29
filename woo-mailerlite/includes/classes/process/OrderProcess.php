@@ -766,11 +766,14 @@ class OrderProcess extends Singleton
                     return false;
                 }
 
-                $subscribe = $this->orderCustomerSubscribe($order_data['order']['id']);
-
+                $subscribe = $this->orderCustomerSubscribe($order_data['order']['id']) || (MailerLiteSettings::getInstance()->getMlOption('checkout_hide') === 'yes');
+                if ($subscribe) {
+                    $this->setOrderCustomerSubscribe($order_data['order']['id']);
+                }
                 $cart_details = CartProcess::getInstance()->getCartDetails($order_data['order']['id']);
 
                 $customer_data = $this->getCustomerDataFromOrder($order_data['order']['id']);
+
                 $subscriber_fields = MailerLiteSettings::getInstance()->getSubscriberFieldsFromCustomerData($customer_data);
 
                 //rename zip key for API

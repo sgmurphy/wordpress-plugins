@@ -61,6 +61,7 @@ const TemplatesList = (props: IProps) => {
           total={templates.length}
           onChange={(value) => setPage(value)}
           hideOnSinglePage
+          showSizeChanger={false}
         />
       </div>
     </>

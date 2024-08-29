@@ -1021,10 +1021,10 @@ class DualButton extends EAE_Widget_Base {
 								<# if ( settings['button1_icon_new'] !=='' ) { #>
 									<div class="eae-db-icon-wrapper">
 										<# if ( iconHTML.rendered && ( !settings.button1_icon || migrated ) ) { #>
-											{{{ iconHTML.value }}}
-											<# } else { #>
-												<i class="{{ settings.button1_icon }}" aria-hidden="true"></i>
-												<# } #>
+											{{{ elementor.helpers.sanitize(iconHTML.value) }}}
+										<# } else { #>
+												<i class="{{ _.escape(settings.button1_icon) }}" aria-hidden="true"></i>
+										<# } #>
 									</div>
 									<# } #>
 										<div class="eae-button-text">{{{ settings['button1_text'] }}}</div>
@@ -1037,9 +1037,9 @@ class DualButton extends EAE_Widget_Base {
 									<span>
 										<# if ( settings['separator_icon_new'] !=='' ) { #>
 											<# if ( separator_iconHTML.rendered && ( ! settings.separator_icon || migrated ) ) { #>
-												{{{ separator_iconHTML.value }}}
+												{{{ elementor.helpers.sanitize(separator_iconHTML.value) }}}
 											<# } else { #>
-												<i class="{{ settings.separator_icon }}" aria-hidden="true"></i>
+												<i class="{{  _.escape(settings.separator_icon) }}" aria-hidden="true"></i>
 											<# } #>
 										<# } if ( settings['separator_text'] !=='' ) { #>
 												{{{ settings['separator_text'] }}}
@@ -1056,9 +1056,9 @@ class DualButton extends EAE_Widget_Base {
 									<span>
 										<# if ( settings['separator_icon_new'] !=='' ) { #>
 											<# if ( separator_iconHTML.rendered && ( ! settings.separator_icon || migrated ) ) { #>
-												{{{ separator_iconHTML.value }}}
+												{{{ elementor.helpers.sanitize(separator_iconHTML.value) }}}
 												<# } else { #>
-													<i class="{{ settings.separator_icon }}" aria-hidden="true"></i>
+													<i class="{{ _.escape(settings.separator_icon) }}" aria-hidden="true"></i>
 													<# } #>
 														<# } if ( settings['separator_text'] !=='' ) { #>
 															{{{ settings['separator_text'] }}}
@@ -1072,9 +1072,9 @@ class DualButton extends EAE_Widget_Base {
 										<# if ( settings['button2_icon_new'] !=='' ) { #>
 											<div class="eae-db-icon-wrapper">
 												<# if ( button2_iconHTML.rendered && ( ! settings.button2_icon || migrated ) ) { #>
-													{{{ button2_iconHTML.value }}}
+													{{{ elementor.helpers.sanitize(button2_iconHTML.value) }}}
 													<# } else { #>
-														<i class="{{ settings.button2_icon }}" aria-hidden="true"></i>
+														<i class="{{ _.escape(settings.button2_icon) }}" aria-hidden="true"></i>
 														<# } #>
 											</div>
 											<# } #>

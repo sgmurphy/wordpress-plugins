@@ -1333,6 +1333,9 @@ if ( WPBC_customize_plugin ){
         $default_options['booking_recurrent_time'] =  ( class_exists( 'wpdev_bk_personal' ) ) ? 'Off' : 'On';
      $mu_option4delete[]='booking_recurrent_time';
 
+        $default_options['booking_calendar_allow_several_months_on_mobile'] =  'Off';
+     $mu_option4delete[]='booking_calendar_allow_several_months_on_mobile';
+
     ////////////////////////////////////////////////////////////////////////////
     // BS
     ////////////////////////////////////////////////////////////////////////////

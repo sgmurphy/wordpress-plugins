@@ -5,11 +5,11 @@ jQuery(document).ready(function (){
             
 		var widget_type = model.attributes.widgetType;
 		if (widget_type === 'eae-instagram-feed') {
-
 			var wid = model.attributes.id;
 			var post_count = model.attributes.settings.attributes.post_count;
 			var cache_timeout = model.attributes.settings.attributes.cache_timeout;
 			var insta_caption_size = model.attributes.settings.attributes.insta_caption_size;
+			var postId = model.attributes.settings.attributes.post_id;
 			var transient_key = 'eae_insta_fetched_data_' + 
 				wid + '_' +
 				post_count + '_' +
@@ -25,7 +25,8 @@ jQuery(document).ready(function (){
 					data: {
 						action: 'eae_refresh_insta_cache',
 						transient_key: transient_key,
-                        nonce: eaeEditor.nonce
+                        nonce: eaeEditor.nonce,
+						post_id : postId
 					},
 					success: function (res) {
                         if(res.success == false){

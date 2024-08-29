@@ -61,7 +61,8 @@ $field_settings = array(
 		'section' 		=> 'basic',
 		'title' 		=> 'Input Icon',
 		'width'			=> 'half',
-		'placeholder' 	=> 'Click here'
+		'placeholder' 	=> 'Click here',
+		'info' 			=> 'Icons can be disabled/enabled from the settings page'
 	),
 
 	'placeholder' => array(
@@ -359,6 +360,16 @@ $field_settings = array(
 		'title' 	=> 'Columns',
 		'width'		=> 'half',
 		'value'		=> '40',
+	),
+
+	'use_select2' 	=> array(
+		'type' 		=> 'checkbox',
+		'id'		=> 'use_select2',
+		'section' 	=> 'basic',	
+		'title' 	=> 'Select2 UI',
+		'width'		=> 'half',
+		'value'		=> 'no',
+		'info' 		=> 'UI for searching select options'
 	),
 
 

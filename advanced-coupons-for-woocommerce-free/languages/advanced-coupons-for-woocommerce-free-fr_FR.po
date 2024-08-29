@@ -24,7 +24,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-4: tests\n"
 
 #. Translators: %s: Coupon usage total value
-#: Abstracts/Abstract_Coupons_Report_Widget.php:133
+#: Abstracts/Abstract_Coupons_Report_Widget.php:142
 msgid "%s use"
 msgid_plural "%s uses"
 msgstr[0] "%s utilisation"
@@ -156,7 +156,7 @@ msgstr "Activer ce plugin"
 msgid "Active"
 msgstr "Activé"
 
-#: Models/Admin_App.php:533
+#: Models/Admin_App.php:535
 #: Models/Script_Loader.php:477
 msgid "Activity"
 msgstr "Activité"
@@ -182,11 +182,11 @@ msgstr "Ajouter une catégorie"
 msgid "Add New"
 msgstr "Ajouter un nouveau"
 
-#: Models/Edit_Coupon.php:1026
+#: Models/Edit_Coupon.php:1017
 msgid "Add New Category"
 msgstr "Ajouter une catégorie"
 
-#: Models/Edit_Coupon.php:1031
+#: Models/Edit_Coupon.php:1022
 msgid "Add or remove categories"
 msgstr "Ajouter ou supprimer des catégories"
 
@@ -219,7 +219,7 @@ msgstr "Paramètres supplémentaires"
 msgid "Adds a store credit account to your customer’s profile that you can credit for them to use toward purchases. Store credits can be used during checkout towards payment."
 msgstr "Ajoute au profil de votre client un compte crédit boutique que vous pourrez créditer pour leurs futurs achats. Les crédits boutique peuvent être utilisés lors de la commande et du paiement."
 
-#: Models/Admin_App.php:530
+#: Models/Admin_App.php:532
 msgid "Adjust"
 msgstr "Ajuster"
 
@@ -250,7 +250,7 @@ msgstr "Ajustement par admin (augmentation)"
 msgid "Admin: %s"
 msgstr "Administrateur: %s"
 
-#: Models/Cart_Conditions.php:753
+#: Models/Cart_Conditions.php:756
 #: Models/Objects/ACFW_Settings.php:99
 #: Models/Objects/ACFW_Settings.php:730
 #: Models/REST_API/API_Settings.php:508
@@ -348,11 +348,11 @@ msgstr "Advanced Gift Cards"
 msgid "Advanced Usage Limits"
 msgstr "Limites d’utilisation avancées"
 
-#: Models/Cart_Conditions.php:712
+#: Models/Cart_Conditions.php:715
 msgid "After any price modifications or discounts"
 msgstr "Après d'éventuelles modifications de prix ou des réductions"
 
-#: Models/Edit_Coupon.php:1022
+#: Models/Edit_Coupon.php:1013
 msgid "All Categories"
 msgstr "Toutes les catégories"
 
@@ -362,11 +362,11 @@ msgstr "Toutes les catégories"
 msgid "All Coupons"
 msgstr "Tous les codes promo"
 
-#: Models/Usage.php:569
+#: Models/Usage.php:631
 msgid "Allow tracking"
 msgstr "Permettre le suivi"
 
-#: Models/Usage.php:505
+#: Models/Usage.php:567
 msgid "Allow usage tracking"
 msgstr "Permettre le suivi d’utilisation"
 
@@ -379,7 +379,7 @@ msgstr "Permettez à vos clients d’appliquer ce code promo en visitant une URL
 msgid "Allowed"
 msgstr "Autorisation"
 
-#: Models/Cart_Conditions.php:692
+#: Models/Cart_Conditions.php:695
 msgid "Allowed Customer User Role"
 msgstr "Le client a un rôle autorisé"
 
@@ -393,7 +393,7 @@ msgstr "Toujours utiliser le prix de base"
 
 #. Translators: %s: store currency symbol.
 #. Translators: %s: Currency symbol
-#: Models/Admin_App.php:523
+#: Models/Admin_App.php:525
 #: Models/Script_Loader.php:475
 #, php-format
 msgid "Amount (%s)"
@@ -430,6 +430,7 @@ msgstr "N’importe quel produit (Premium)"
 msgid "Any products trigger type based on each product's quantity can only work with <em>Same Products</em> apply type."
 msgstr "Le déclencheur n’importe quel produit en fonction de la quantité de chaque produit ne fonctionne qu’avec l’offre <em>Même produits</em>."
 
+#: Models/Admin_App.php:541
 #: Models/Script_Loader.php:323
 msgid "ANYTHING EXCEPT"
 msgstr "TOUT SAUF"
@@ -553,7 +554,7 @@ msgid "Buy X Get X Deal (BOGO)"
 msgstr "Offre Achetez X, Obtenez Y (BOGO)"
 
 #. Translators: %s: Link to allow usage documentation.
-#: Models/Usage.php:509
+#: Models/Usage.php:571
 msgid "By allowing us to track usage data we can better help you because we know with which WordPress configurations, themes and plugins we should test. Complete documentation on usage tracking is available <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr "En nous permettant de suivre vos données d’utilisation nous pourrons mieux vous aider car nous saurons avec quelles configurations WordPress, thèmes et extensions nous devons faire des tests. La documentation complète sur le suivi d’utilisation est disponibel <a href=\"%s\" target=\"_blank\">ici</a>."
 
@@ -563,13 +564,14 @@ msgstr "En nous permettant de suivre vos données d’utilisation nous pourrons 
 msgid "Cancel"
 msgstr "Annuler"
 
+#: Models/Coupon_Templates.php:131
 #: Models/Edit_Coupon.php:548
 #: Models/Objects/ACFW_Settings.php:230
 #: views/coupons/view-cart-conditions-data-panel.php:28
 msgid "Cart Conditions"
 msgstr "Conditions de panier"
 
-#: Models/Cart_Conditions.php:618
+#: Models/Cart_Conditions.php:621
 msgid "Cart conditions has been saved successfully!"
 msgstr "Les conditions de panier ont été enregistrées avec succès!"
 
@@ -585,36 +587,36 @@ msgstr "Conditions panier: URL du bouton de non admissibilité"
 msgid "Cart Conditions: Non-qualifying message"
 msgstr "Conditions panier: Message de non admissibilité"
 
-#: Models/Cart_Conditions.php:737
+#: Models/Cart_Conditions.php:740
 msgid "Cart Items"
 msgstr "Éléments du panier"
 
-#: Models/Cart_Conditions.php:704
-#: Models/Cart_Conditions.php:706
+#: Models/Cart_Conditions.php:707
+#: Models/Cart_Conditions.php:709
 msgid "Cart Quantity"
 msgstr "La quantité de produits dans le panier est"
 
-#: Models/Cart_Conditions.php:711
+#: Models/Cart_Conditions.php:714
 msgid "Cart Subtotal"
 msgstr "Le sous-total du panier est"
 
 #. Translators: %s: Currency symbol.
-#: Models/Cart_Conditions.php:714
+#: Models/Cart_Conditions.php:717
 #, php-format
 msgid "Cart Subtotal (%s)"
 msgstr "Sous-total du panier (%s)"
 
-#: Models/Cart_Conditions.php:678
+#: Models/Cart_Conditions.php:681
 #: Models/Coupon_Templates.php:112
-#: Models/Edit_Coupon.php:1204
+#: Models/Edit_Coupon.php:1195
 msgid "Categories"
 msgstr "Catégories"
 
-#: Models/Edit_Coupon.php:1037
+#: Models/Edit_Coupon.php:1028
 msgid "Categories list"
 msgstr "Liste des catégories"
 
-#: Models/Edit_Coupon.php:1038
+#: Models/Edit_Coupon.php:1029
 msgid "Categories list navigation"
 msgstr "Navigation de la liste des catégories"
 
@@ -630,7 +632,7 @@ msgstr "Contrôle la présence du ou des produits et leurs quantités afin de d�
 msgid "Check if a customer has ordered something before letting them apply a coupon."
 msgstr "Contrôle si le client a déjà passé une commande afin de permettre l'application du code promo."
 
-#: Models/Edit_Coupon.php:1032
+#: Models/Edit_Coupon.php:1023
 msgid "Choose from the most used"
 msgstr "Choisissez parmi les plus utilisés"
 
@@ -676,11 +678,11 @@ msgstr "Cliquez ici pour lire la suite et passer Premium →"
 msgid "Click here to see pricing & features  →"
 msgstr "Cliquez ici pour voir les prix et fonctionnalités  &rarr;"
 
-#: Models/Edit_Coupon.php:1386
+#: Models/Edit_Coupon.php:1377
 msgid "Clone"
 msgstr "Cloner"
 
-#: Models/Edit_Coupon.php:1354
+#: Models/Edit_Coupon.php:1345
 msgid "Clone Coupon"
 msgstr "Cloner ce code promo"
 
@@ -694,6 +696,7 @@ msgstr "Redéfinir le code dans l'URL"
 msgid "Combination of Products (%s) – good when dealing with variable products or multiple products"
 msgstr "Combinaison de produits (%s) – à utiliser lorsque vous utilisez des produits avec variations ou des multiples produits"
 
+#: Models/Coupon_Templates.php:133
 #: Models/Script_Loader.php:277
 msgid "Condition"
 msgstr "Condition"
@@ -741,7 +744,7 @@ msgstr "Code promo appliqué avec succès"
 #: Models/Admin_App.php:259
 #: Models/Edit_Coupon.php:206
 #: Models/Edit_Coupon.php:207
-#: Models/Edit_Coupon.php:1021
+#: Models/Edit_Coupon.php:1012
 #: Models/Script_Loader.php:522
 msgid "Coupon Categories"
 msgstr "Catégories des codes"
@@ -767,7 +770,7 @@ msgid "Coupon start error message"
 msgstr "Message d’erreur de démarrage du code promo"
 
 #: Models/Edit_Coupon.php:335
-#: Models/REST_API/API_Coupon_Templates.php:251
+#: Models/REST_API/API_Coupon_Templates.php:258
 msgid "Coupon URL"
 msgstr "URL de codes promo"
 
@@ -875,20 +878,20 @@ msgstr "Le client obtient :"
 msgid "Customer Has Ordered Products Before (Premium)"
 msgstr "Le client a déjà commandé ces produits (Premium)"
 
-#: Models/Cart_Conditions.php:683
+#: Models/Cart_Conditions.php:686
 msgid "Customer Logged In Status"
 msgstr "Le statut de connexion du client est"
 
-#: Models/Admin_App.php:526
+#: Models/Admin_App.php:528
 msgid "Customer Name"
 msgstr "Nom client"
 
 #: Models/Admin_App.php:461
-#: Models/Cart_Conditions.php:749
+#: Models/Cart_Conditions.php:752
 msgid "Customers"
 msgstr "Clients"
 
-#: Models/Admin_App.php:524
+#: Models/Admin_App.php:526
 msgid "Customers List"
 msgstr "Liste de clients"
 
@@ -905,12 +908,12 @@ msgstr "Personnaliser le code promo via son l'URL. Laisser vide pour désactiver
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: Models/Admin_App.php:532
+#: Models/Admin_App.php:534
 #: Models/Script_Loader.php:476
 msgid "Date"
 msgstr "Date"
 
-#: views/coupons/view-scheduler-data-panel.php:19
+#: views/coupons/view-scheduler-data-panel.php:20
 msgid "Date Range Schedules"
 msgstr "Planification d’une période"
 
@@ -953,7 +956,7 @@ msgstr "Le saviez-vous ?"
 msgid "Disallowed"
 msgstr "Interdiction"
 
-#: Models/Cart_Conditions.php:698
+#: Models/Cart_Conditions.php:701
 msgid "Disallowed Customer User Role"
 msgstr "Le client n'a pas un rôle interdit"
 
@@ -1032,7 +1035,7 @@ msgstr "Type(s) à afficher"
 msgid "Display usage limit"
 msgstr "Afficher la limite d’usage"
 
-#: Models/Usage.php:575
+#: Models/Usage.php:637
 msgid "Do not allow"
 msgstr "Ne pas autoriser"
 
@@ -1052,7 +1055,7 @@ msgstr "Date d’expiration croissante"
 msgid "Edit"
 msgstr "Modifier"
 
-#: Models/Edit_Coupon.php:1027
+#: Models/Edit_Coupon.php:1018
 msgid "Edit Category"
 msgstr "Modifier la catégorie"
 
@@ -1060,7 +1063,7 @@ msgstr "Modifier la catégorie"
 msgid "Edit_Coupon::add_coupons_list_in_order_preview_popup method is now deprecated. Please use Order_Details::add_coupons_list_in_order_preview_popup method instead."
 msgstr "La méthode Edit_Coupon::add_coupons_list_in_order_preview_popup est maintenant obsolète. Veuillez utiliser à la méthode Order_Details::add_coupons_list_in_order_preview_popup à la place."
 
-#: Models/Admin_App.php:527
+#: Models/Admin_App.php:529
 #: Models/Emails.php:154
 msgid "Email"
 msgstr "Courriel"
@@ -1131,6 +1134,7 @@ msgstr "Chaque année (premium)"
 msgid "Everytime the condition is met, apply the coupon repeatedly."
 msgstr "Appliquer le code promo de façon répétée, autant de fois que la condition est satisfaite."
 
+#: Models/Admin_App.php:540
 #: Models/Script_Loader.php:322
 msgid "EXACTLY"
 msgstr "EXACTEMENT"
@@ -1283,7 +1287,7 @@ msgid "Great for developers, test any extra user metadata on customer user recor
 msgstr "Pratique pour les développeurs, testez n’importe quelle valeur meta du client avant d’appliquer un code promo."
 
 #: Helpers/Helper_Functions.php:338
-#: Models/Cart_Conditions.php:686
+#: Models/Cart_Conditions.php:689
 msgid "Guest"
 msgstr "Invité"
 
@@ -1511,10 +1515,10 @@ msgstr "Installer Wholesale Prices (PLUGIN GRATUIT)"
 msgid "Installed"
 msgstr "Installé"
 
-#: Models/Admin_App.php:706
+#: Models/Admin_App.php:718
 #: Models/BOGO/Admin.php:295
 #: Models/BOGO/Admin.php:357
-#: Models/Cart_Conditions.php:594
+#: Models/Cart_Conditions.php:597
 #: Models/Emails.php:298
 #: Models/Store_Credits/Checkout.php:916
 msgid "Invalid AJAX call"
@@ -1598,6 +1602,7 @@ msgstr "En savoir plus →"
 msgid "Learn More ⟶"
 msgstr "En savoir plus ⟶"
 
+#: Models/Admin_App.php:543
 #: Models/Script_Loader.php:325
 msgid "LESS THAN"
 msgstr "MOINS DE"
@@ -1638,7 +1643,7 @@ msgstr "Chargement du contenu de l’aide…"
 msgid "Loading videos…"
 msgstr "Chargement des vidéos…"
 
-#: Models/Cart_Conditions.php:685
+#: Models/Cart_Conditions.php:688
 msgid "Logged In"
 msgstr "Connecté"
 
@@ -1678,7 +1683,7 @@ msgstr "Message qui sera affiché lorsqu'un code promo a été appliquée avec s
 
 #: Models/BOGO/Admin.php:305
 #: Models/BOGO/Admin.php:367
-#: Models/Cart_Conditions.php:604
+#: Models/Cart_Conditions.php:607
 #: Models/Store_Credits/Checkout.php:929
 msgid "Missing required post data"
 msgstr "Manque des données post"
@@ -1702,6 +1707,7 @@ msgstr "Mois courant"
 msgid "More Cart Conditions (Premium)"
 msgstr "Plus de conditions de panier (Premium)"
 
+#: Models/Admin_App.php:542
 #: Models/Script_Loader.php:324
 msgid "MORE THAN"
 msgstr "PLUS DE"
@@ -1726,7 +1732,7 @@ msgstr "Nouveau solde : {balance}"
 msgid "New BOGO Coupon"
 msgstr "Code promo BOGO"
 
-#: Models/Edit_Coupon.php:1025
+#: Models/Edit_Coupon.php:1016
 msgid "New Category Name"
 msgstr "Nouveau nom de catégorie"
 
@@ -1738,7 +1744,7 @@ msgstr "Code promo valeur fixe"
 msgid "Newest to oldest"
 msgstr "Plus récent au plus ancien"
 
-#: Models/Edit_Coupon.php:1036
+#: Models/Edit_Coupon.php:1027
 msgid "No categories"
 msgstr "Pas de catégories"
 
@@ -1835,7 +1841,7 @@ msgstr "Non, peut-être plus tard"
 msgid "Not available"
 msgstr "Non disponible"
 
-#: Models/Edit_Coupon.php:1035
+#: Models/Edit_Coupon.php:1026
 msgid "Not Found"
 msgstr "Non trouvé"
 
@@ -1879,7 +1885,7 @@ msgstr "Ajoutez automatiquement certains produits au panier après avoir appliqu
 msgid "Once the deal is triggered, apply the following products to the cart."
 msgstr "Quand l’offre est déclenchée, ajoute les produits suivants au panier."
 
-#: Models/Usage.php:423
+#: Models/Usage.php:441
 msgid "Once Weekly"
 msgstr "Une fois par semaine"
 
@@ -1970,7 +1976,7 @@ msgstr "Total de le commande"
 msgid "Orders Discounted"
 msgstr "Commandes avec réduction"
 
-#: Models/Cart_Conditions.php:757
+#: Models/Cart_Conditions.php:760
 msgid "Others"
 msgstr "Autres"
 
@@ -2006,11 +2012,11 @@ msgstr "Payé via Crédit Boutique"
 msgid "Paid with Store Credits"
 msgstr "Payé avec du Crédit Boutique"
 
-#: Models/Edit_Coupon.php:1023
+#: Models/Edit_Coupon.php:1014
 msgid "Parent Category"
 msgstr "Catégorie parente"
 
-#: Models/Edit_Coupon.php:1024
+#: Models/Edit_Coupon.php:1015
 msgid "Parent Category:"
 msgstr "Catégorie parente:"
 
@@ -2045,7 +2051,7 @@ msgstr "Pourcentage de remise"
 msgid "Plan"
 msgstr "Plan"
 
-#: Models/Admin_App.php:782
+#: Models/Admin_App.php:794
 msgid "Please check your email to get the download link."
 msgstr "Veuillez consulter votre courriel pour obtenir le lien de téléchargement."
 
@@ -2088,7 +2094,7 @@ msgstr "Veuillez mettre à jour votre copie de l’extension premium d’Advance
 msgid "Plugin detected"
 msgstr "Plugin détecté"
 
-#: Models/Edit_Coupon.php:1033
+#: Models/Edit_Coupon.php:1024
 msgid "Popular Categories"
 msgstr "Catégories populaires"
 
@@ -2121,11 +2127,12 @@ msgstr "Module Premium"
 msgid "Price/Discount"
 msgstr "Prix/Remise"
 
+#: Models/Coupon_Templates.php:132
 #: Models/Script_Loader.php:314
 msgid "Product"
 msgstr "Produit"
 
-#: Models/Cart_Conditions.php:745
+#: Models/Cart_Conditions.php:748
 #: Models/Script_Loader.php:316
 msgid "Product Categories"
 msgstr "Catégories de produit"
@@ -2140,7 +2147,7 @@ msgstr "Les catégories de produits (%s) – bon lorsque vous souhaitez déclenc
 msgid "Product Categories (Premium)"
 msgstr "Les catégories de produits (Premium)"
 
-#: Models/Cart_Conditions.php:675
+#: Models/Cart_Conditions.php:678
 msgid "Product Categories Exists In Cart"
 msgstr "Les catégories de produits existent dans le panier"
 
@@ -2173,7 +2180,7 @@ msgid "Product selected have already been added."
 msgstr "Les produits sélectionnés ont déjà été ajoutés."
 
 #: data/coupon-fields/usage-restrictions.php:48
-#: Models/Cart_Conditions.php:741
+#: Models/Cart_Conditions.php:744
 #: Models/Script_Loader.php:315
 msgid "Products"
 msgstr "Produits"
@@ -2186,6 +2193,7 @@ msgstr "Acheter & installer Loyalty Program pour WooCommerce"
 msgid "Purchased gift cards"
 msgstr "Cartes cadeaux achetées"
 
+#: Models/Coupon_Templates.php:134
 #: Models/Script_Loader.php:312
 msgid "Quantity"
 msgstr "Quantité"
@@ -2262,7 +2270,7 @@ msgstr "Rembourser la commande"
 msgid "Refunded to Store Credits"
 msgstr "Remboursé en Crédit Boutique"
 
-#: Models/Admin_App.php:534
+#: Models/Admin_App.php:536
 #: Models/Script_Loader.php:478
 msgid "Related"
 msgstr "Lié"
@@ -2429,11 +2437,11 @@ msgstr "Rechercher et sélectionner un code promo"
 msgid "Search and select customers that are eligible to only use this coupon."
 msgstr "Rechercher et choisir des clients qui seront seuls éligibles à ce code promo."
 
-#: Models/Admin_App.php:525
+#: Models/Admin_App.php:527
 msgid "Search by name or email"
 msgstr "Chercher par nom ou courriel"
 
-#: Models/Edit_Coupon.php:1034
+#: Models/Edit_Coupon.php:1025
 msgid "Search Categories"
 msgstr "Rechercher dans les catégories "
 
@@ -2477,7 +2485,7 @@ msgstr "Voir la liste complète des fonctionnalités &rarr;"
 msgid "See the full feature list →"
 msgstr "Voir la liste complète des fonctionnalités →"
 
-#: Models/Edit_Coupon.php:1266
+#: Models/Edit_Coupon.php:1257
 #: Models/Objects/ACFW_Settings.php:387
 msgid "Select a category"
 msgstr "Sélectionnez une catégorie"
@@ -2490,12 +2498,12 @@ msgstr "Sélectionnez au moins une catégorie pour afficher ses codes promo."
 msgid "Select categories"
 msgstr "Sélectionnez des catégories"
 
-#: Models/Cart_Conditions.php:676
+#: Models/Cart_Conditions.php:679
 msgid "Select product categories"
 msgstr "Sélectionnez les catégories de produits"
 
-#: Models/Cart_Conditions.php:693
-#: Models/Cart_Conditions.php:699
+#: Models/Cart_Conditions.php:696
+#: Models/Cart_Conditions.php:702
 msgid "Select user roles"
 msgstr "Sélectionnez les rôles d'utilisateur"
 
@@ -2508,7 +2516,7 @@ msgstr "La zone de livraison sélectionnée est déjà ajoutée."
 msgid "Sell Gift Cards"
 msgstr "Vendez des cartes cadeau"
 
-#: Models/Edit_Coupon.php:1030
+#: Models/Edit_Coupon.php:1021
 msgid "Separate categories with commas"
 msgstr "Catégories séparées par des virgules"
 
@@ -2611,7 +2619,7 @@ msgstr "Désolé, vous n'êtes pas autorisé à modifier les paramètres des opt
 msgid "Sort Coupons in Cart"
 msgstr "Trier les coupons dans le panier"
 
-#: Models/Admin_App.php:521
+#: Models/Admin_App.php:523
 msgid "Source"
 msgstr "Source"
 
@@ -2629,7 +2637,7 @@ msgstr "Commencer le paramétrage"
 msgid "Status"
 msgstr "Statut"
 
-#: Models/Admin_App.php:528
+#: Models/Admin_App.php:530
 msgid "Store Credit Balance"
 msgstr "Solde de crédit boutique"
 
@@ -2649,7 +2657,7 @@ msgstr "La réduction en crédit boutique a été appliquée avec succès."
 msgid "Store credit entry doesn't exist."
 msgstr "L’entrée de crédit boutique n’existe pas."
 
-#: Models/Admin_App.php:531
+#: Models/Admin_App.php:533
 msgid "Store Credit History"
 msgstr "Historique de crédit boutique"
 
@@ -2677,15 +2685,15 @@ msgstr "Crédits boutique ajoutés"
 msgid "Store Credits Dashboard"
 msgstr "Tableau de bord des crédits boutique"
 
-#: Models/Admin_App.php:520
+#: Models/Admin_App.php:522
 msgid "Store Credits Sources"
 msgstr "Sources des crédits boutique"
 
-#: Models/Admin_App.php:519
+#: Models/Admin_App.php:521
 msgid "Store Credits Statistics"
 msgstr "Statistiques des crédits boutique"
 
-#: Models/Admin_App.php:518
+#: Models/Admin_App.php:520
 msgid "Store Credits Status"
 msgstr "État des crédits boutique"
 
@@ -2721,12 +2729,12 @@ msgstr "Entrée de crédit boutique mise à jour avec succès."
 msgid "Sunday"
 msgstr "Dimanche"
 
-#: Models/Edit_Coupon.php:1019
+#: Models/Edit_Coupon.php:1010
 msgctxt "Taxonomy General Name"
 msgid "Coupon Categories"
 msgstr "Catégorie de code promo"
 
-#: Models/Edit_Coupon.php:1020
+#: Models/Edit_Coupon.php:1011
 msgctxt "Taxonomy Singular Name"
 msgid "Coupon Category"
 msgstr "Catégorie de code promo"
@@ -2844,7 +2852,7 @@ msgid "There was an error trying to load the content."
 msgstr "Une erreur est survenue au chargement du contenu."
 
 #: Models/Admin_App.php:407
-#: Models/Admin_App.php:798
+#: Models/Admin_App.php:810
 msgid "There was an error trying to process your request. Please refresh the page and try again."
 msgstr "Une erreur est survenue lors du traitement de votre requête. Veuillez rafraîchir la page et réessayer."
 
@@ -2938,7 +2946,7 @@ msgstr "Total des crédits"
 msgid "Total Customer Spend (Premium)"
 msgstr "Le total des dépenses du client est (Premium)"
 
-#: Models/Cart_Conditions.php:705
+#: Models/Cart_Conditions.php:708
 msgid "Total number of cart items"
 msgstr "Nombre total de produits dans le panier"
 
@@ -2971,8 +2979,8 @@ msgstr "Entrez votre recherche"
 msgid "Unable to save store credit entry due to missing or invalid required parameters."
 msgstr "Impossible de sauvegarder une entrée de crédit boutique du fait de paramètres requis absents ou invalides."
 
-#: Models/Edit_Coupon.php:1111
-#: Models/Edit_Coupon.php:1292
+#: Models/Edit_Coupon.php:1102
+#: Models/Edit_Coupon.php:1283
 msgid "Uncategorized"
 msgstr "Non classé"
 
@@ -3002,7 +3010,7 @@ msgstr "Débloquez plus de fonctionnalités pour vos codes promo avec Advanced C
 msgid "Unlock the full power of Cart Conditions with <a href=\"%s\" target=\"_blank\" rel=\"norefer noopener\">Advanced Coupons Premium</a>. Restrict your coupons using these premium cart conditions."
 msgstr "Débloquez la pleine puissance des Conditions de Panier avec <a href=\"%s\" target=\"_blank\" rel=\"norefer noopener\">Advanced Coupons Premium</a>. Restreignez les code promo grâce à ces conditions de panier premium."
 
-#: Models/Edit_Coupon.php:1028
+#: Models/Edit_Coupon.php:1019
 msgid "Update Category"
 msgstr "Mettre à jour la catégorie"
 
@@ -3098,7 +3106,7 @@ msgstr "URL Coupons: Redirection d'URL si un code promo invalide est visité"
 msgid "URL prefix"
 msgstr "Préfixe d'URL"
 
-#: Models/Usage.php:556
+#: Models/Usage.php:618
 msgid "USAGE TRACKING PERMISSION"
 msgstr "PERMISSION DE SUIVI D’UTILISATION"
 
@@ -3141,12 +3149,12 @@ msgstr "Version"
 msgid "View all"
 msgstr "Tout voir"
 
-#: Models/Edit_Coupon.php:1029
+#: Models/Edit_Coupon.php:1020
 msgid "View Category"
 msgstr "Voir la catégorie"
 
 #: Models/BOGO/Admin.php:244
-#: Models/BOGO/Frontend.php:359
+#: Models/BOGO/Frontend.php:361
 #: Models/Edit_Coupon.php:650
 #: Models/Objects/ACFW_Settings.php:317
 msgid "View Deals"
@@ -3167,7 +3175,7 @@ msgstr "Voir les licences →"
 msgid "View Order"
 msgstr "Voir la commande"
 
-#: Models/Admin_App.php:529
+#: Models/Admin_App.php:531
 msgid "View Stats"
 msgstr "Afficher les statistiques"
 
@@ -3229,7 +3237,7 @@ msgstr "Nous sommes ravis que vous utilisiez notre outil et vous invitons à ess
 msgid "When all of the following products and quantities are matched, trigger the deal."
 msgstr "Lorsque toutes les conditions de produits et de quantités sont satisfaites, l'offre est déclenchée."
 
-#: data/coupon-fields/url-coupons.php:16
+#: data/coupon-fields/url-coupons.php:18
 #: Models/Edit_Coupon.php:326
 msgid "When checked, it enables the coupon url functionality for the current coupon."
 msgstr "Lorsque cette option est cochée, elle active la fonctionnalité d'URL pour le code promo actuel."
@@ -3275,10 +3283,10 @@ msgstr "Vous utilisez actuellement Advanced Coupons pour WooCommerce (version gr
 msgid "You are currently using Advanced Coupons for WooCommerce Free on a GPL license. The free version includes a heap of great extra features for your WooCommerce coupons. The only requirement for the free version is that you have WooCommerce installed."
 msgstr "Vous utilisez actuellement Advanced Coupons for WooCommerce Free sous licence GPL. La version gratuite inclut un tas de fonctionnalités supplémentaires pour vos codes promo WooCommerce. La seule exigence pour la version gratuite est que vous ayez installé WooCommerce."
 
-#: Models/Admin_App.php:711
+#: Models/Admin_App.php:723
 #: Models/BOGO/Admin.php:300
 #: Models/BOGO/Admin.php:362
-#: Models/Cart_Conditions.php:599
+#: Models/Cart_Conditions.php:602
 #: Models/Emails.php:300
 msgid "You are not allowed to do this"
 msgstr "Vous n'êtes pas autorisé à le faire"
@@ -3344,7 +3352,7 @@ msgstr "Vous avez enregistré les données sur un inédit de code promo. Pour vo
 msgid "You're using Advanced Coupons for WooCommerce Free - no license needed. Enjoy! 🙂"
 msgstr "Vous utilisez Advanced Coupons for WooCommerce Free - aucune licence n’est nécessaire. Profitez bien! 🙂"
 
-#: Models/Cart_Conditions.php:530
+#: Models/Cart_Conditions.php:533
 #: Models/Edit_Coupon.php:574
 msgid "Your current cart hasn't met the conditions set for this coupon."
 msgstr "Votre panier actuel ne satisfait pas les conditions fixées pour ce code promo."
@@ -3355,7 +3363,7 @@ msgstr "Votre panier actuel ne satisfait pas les conditions fixées pour ce code
 msgid "Your current cart is eligible to redeem deals"
 msgstr "Votre panier est éligible à des offres promotionnelles"
 
-#: Models/BOGO/Frontend.php:355
+#: Models/BOGO/Frontend.php:357
 msgid "Your current cart is eligible to redeem deals."
 msgstr "Votre panier est éligible à des offres promotionnelles."
 
@@ -3718,7 +3726,7 @@ msgstr ""
 msgid "Store Credit Used"
 msgstr ""
 
-#: Models/Cart_Conditions.php:715
+#: Models/Cart_Conditions.php:718
 msgid "Include Tax?"
 msgstr ""
 
@@ -4172,7 +4180,6 @@ msgid "One Click Apply"
 msgstr ""
 
 #: data/coupon-fields/one-click-apply.php:15
-#: data/coupon-fields/one-click-apply.php:16
 msgid "Enable one click apply"
 msgstr ""
 
@@ -4212,7 +4219,7 @@ msgstr ""
 msgid "Enable Scheduler"
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:16
+#: data/coupon-fields/scheduler.php:18
 msgid "When checked, this will enable scheduler for this coupon which will then show a notification for customers in the cart when the coupon can be applied."
 msgstr ""
 
@@ -4484,23 +4491,23 @@ msgstr ""
 msgid "No templates found."
 msgstr ""
 
-#: Models/REST_API/API_Coupon_Templates.php:263
+#: Models/REST_API/API_Coupon_Templates.php:270
 msgid "Coupon was created successfully!"
 msgstr ""
 
-#: Models/REST_API/API_Coupon_Templates.php:357
+#: Models/REST_API/API_Coupon_Templates.php:369
 msgid "Coupon template is invalid."
 msgstr ""
 
-#: Models/REST_API/API_Coupon_Templates.php:414
+#: Models/REST_API/API_Coupon_Templates.php:426
 msgid "Coupon template category doesn’t exist."
 msgstr ""
 
-#: Models/REST_API/API_Coupon_Templates.php:492
+#: Models/REST_API/API_Coupon_Templates.php:504
 msgid "Coupon template doesn’t exist."
 msgstr ""
 
-#: Models/REST_API/API_Coupon_Templates.php:644
+#: Models/REST_API/API_Coupon_Templates.php:667
 msgid "Failed to create coupon."
 msgstr ""
 
@@ -4637,10 +4644,46 @@ msgid "We hope you’ve been enjoying the free version of Advanced Coupons. Did 
 msgstr ""
 
 #. Translators: %s: Link to allow usage documentation.
-#: Models/Usage.php:560
+#: Models/Usage.php:622
 msgid "Allow Advanced Coupon to track plugin usage? Opt-in to let us track usage data so we know with which WordPress configurations, themes and plugins we should test with. Complete documentation on usage tracking is available <a href=\"%s\">here</a>."
 msgstr ""
 
 #: templates/acfw-store-credits/checkout-discount.php:32
 msgid "[Remove]"
+msgstr ""
+
+#: Models/Admin_App.php:516
+msgid "Add Note"
+msgstr ""
+
+#: Models/Admin_App.php:517
+msgid "Enter a note for this adjustment"
+msgstr ""
+
+#: Models/Admin_App.php:544
+msgid "AT LEAST"
+msgstr ""
+
+#: Models/Admin_App.php:545
+msgid "ALL"
+msgstr ""
+
+#: Models/Admin_App.php:546
+msgid "Within a period"
+msgstr ""
+
+#: Models/Admin_App.php:547
+msgid "Number of orders"
+msgstr ""
+
+#: Models/Coupon_Templates.php:130
+msgid "Coupon Details"
+msgstr ""
+
+#: Models/Coupon_Templates.php:135
+msgid "Search Product"
+msgstr ""
+
+#: Models/REST_API/API_Coupon_Templates.php:272
+msgid "Can only be applied once the conditions match"
 msgstr ""

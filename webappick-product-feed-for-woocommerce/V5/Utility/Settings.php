@@ -25,7 +25,7 @@ class Settings {
 	public static function get( $key = 'all', $default = false ) {
 		$defaults = [
 			'per_batch'                       => 200,
-			'cron_job_new_cron_system_enabled' => Helper::is_pro() ? true : false,
+			'cron_job_new_cron_system_enabled' => Helper::is_pro() ? false : false,
 			'cron_job__per_batch__safe_limit' => 1000,
 			'product_query_type'              => 'wc',
 			'variation_query_type'            => 'individual',

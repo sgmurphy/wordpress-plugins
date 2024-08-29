@@ -1416,14 +1416,24 @@ if(1)
 				$ww = wpbc_datetime__no_wp_timezone( "N", $real_date );    //7
 				$day_week = $dwa[$ww];          	   //Su
 
-				if ( ( $previous_month != $mm ) || ( 1 == $dd ) ) {
+				$month_title = '';
+				$month_class = '';
+
+
+				if ( ($view_days_num == 30) || ($view_days_num == 60) ) {
+					if (( (intval($ww)-1) === intval(get_bk_option( 'booking_start_day_weeek' )) )){
+						$month_class = ' new_month ';
+					}
+				} else {
+					if(( $previous_month != $mm ) || ( 1 == $dd )){
+						$month_class = ' new_month ';
+					}
+				}
+				if ($month_class == ' new_month '){
 					$previous_month = $mm;
 					$month_title = wpbc_datetime__no_wp_timezone( "F", $real_date );    //09
-					$month_class = ' new_month ';
-				} else {
-					$month_title = '';
-					$month_class = '';
 				}
+
 				?>
 				<div class="<?php  echo implode(' ', array(
 									'flex_tl_day_cell',
@@ -3190,10 +3200,14 @@ function wpbc_ajax_flex_timeline() {
                     [scroll_month] => 0
                 )
      */
-    
+
+	//FixIn: 10.5.0.2
+	foreach ( $_POST['timeline_obj'] as $tl_key => $tl_value ) {
+		$_POST['timeline_obj'][ $tl_key ] = wpbc_clean_text_value( $tl_value );
+	}
 
     $attr = $_POST['timeline_obj'];
-    $attr['nav_step'] = $_POST['nav_step'];
+    $attr['nav_step'] = wpbc_clean_text_value( $_POST['nav_step'] );
 
 
 	//FixIn: 9.9.0.18
