@@ -185,9 +185,10 @@ function maspik_insert_to_table() {
     // Rows to be inserted if they don't exist
     $rows = [
         //Add rows here
-        [$setting_label => 'MaspikHoneypot', $setting_value => ''], //Honeypot ver 2.1
-        [$setting_label => 'maspik_support_jetforms', $setting_value => 'yes'], //Honeypot ver 2.1
-        [$setting_label => 'maspik_support_everestforms', $setting_value => 'yes'], //Honeypot ver 2.1
+        [$setting_label => 'MaspikHoneypot', $setting_value => ''], //Honeypot ver 2.1.2
+        [$setting_label => 'maspik_support_jetforms', $setting_value => 'yes'], //Honeypot ver 2.1.2
+        [$setting_label => 'maspik_support_everestforms', $setting_value => 'yes'], //Honeypot ver 2.1.2
+        [$setting_label => 'maspikDbCheck', $setting_value => ''], //maspikDbCheck ver 2.1.6
 
     ];
 
@@ -719,7 +720,7 @@ function efas_add_to_log($type = '', $input = '', $post = null, $source = "Eleme
             sanitize_text_field($date),
             sanitize_text_field($source),
             sanitize_text_field($spamsrc_name),
-            sanitize_text_field($spamsrc_val),
+            sanitize_text_field($spamsrc_val)
         );
 
         if ($result !== "success") {
@@ -1799,6 +1800,7 @@ function Maspik_export_settings() {
 
     // Get Maspik settings
     $maspik_settings = array(
+        'version' => MASPIK_VERSION,
         'text_blacklist' => maspik_get_settings('text_blacklist'),
         'text_limit_toggle' => maspik_get_settings('text_limit_toggle'),
         'text_custom_message_toggle' => maspik_get_settings('text_custom_message_toggle'),
@@ -2062,4 +2064,54 @@ function Maspik_spamlog_download_csv() {
 
     fclose($output);
     exit();
+}
+
+//
+function check_ip_in_api($ip) {
+    static $cache = array();
+
+    if (isset($cache[$ip])) {
+        return $cache[$ip];
+    }
+
+    // URL -API
+    $url = 'https://woebpkjltd.execute-api.eu-west-2.amazonaws.com/prod/check_ip';
+    
+    // Prepare the request payload with the IP address
+    $data = json_encode(array("ip" => $ip));
+
+    // Get the referer URL
+    $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Unknown';
+
+    // Initialize cURL
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json',
+        'Referer: ' . $referer
+    ));
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+    // Execute the cURL request
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        curl_close($ch);
+        return false; 
+    }
+
+    curl_close($ch);
+
+    $result = json_decode($response, true);
+
+    $exists = isset($result['exists']) && $result['exists'] === true;
+
+    $cache[$ip] = $exists;
+
+    if (count($cache) > 3) {
+        array_shift($cache); 
+    }
+
+    return $exists;
 }

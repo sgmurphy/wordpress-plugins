@@ -61,7 +61,7 @@ class Burger_Companion_Activator {
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/setto/default-pages/default-post.php';
 			}
 			
-			if ( 'DecorMe' == $theme->name){
+			if ( 'DecorMe' == $theme->name || 'Interio' == $theme->name){
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/decorme/default-pages/upload-media.php';
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/decorme/default-pages/home-page.php';
 				require BURGER_COMPANION_PLUGIN_DIR . 'inc/decorme/default-widgets/default-widget.php';

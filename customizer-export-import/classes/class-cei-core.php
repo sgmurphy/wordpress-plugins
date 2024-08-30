@@ -265,11 +265,20 @@ final class CEI_Core {
 		global $cei_error;
 
 		// Setup internal vars.
-		$cei_error	 = false;
-		$template	 = get_template();
-		$overrides   = array( 'test_form' => false, 'test_type' => false, 'mimes' => array('dat' => 'text/plain') );
+		$cei_error = false;
+		$template  = get_template();
 
-		$file        = wp_handle_upload( $_FILES['cei-import-file'], $overrides );
+		add_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
+		$validate = wp_check_filetype( $_FILES['cei-import-file']['full_path'] );
+		if ( 'application/dat' !== $validate['type'] ) {
+			$cei_error = __( 'File type is not allowed', 'customizer-export-import' );
+			unlink( $_FILES['cei-import-file']['tmp_name'] );
+			return;
+		}
+		remove_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
+
+		$overrides = array( 'test_form' => false, 'test_type' => true, 'mimes' => array('dat' => 'text/plain') );
+		$file      = wp_handle_upload( $_FILES['cei-import-file'], $overrides );
 
 		// Make sure we have an uploaded file.
 		if ( isset( $file['error'] ) ) {

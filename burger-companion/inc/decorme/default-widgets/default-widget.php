@@ -1,5 +1,10 @@
 <?php
-$footer_logo = BURGER_COMPANION_PLUGIN_URL .'inc/decorme/images/logo.png';
+$theme = wp_get_theme(); // gets the current theme
+if( 'Interio' == $theme->name){
+    $footer_logo = BURGER_COMPANION_PLUGIN_URL .'inc/interio/images/logo.png';
+}else{
+    $footer_logo = BURGER_COMPANION_PLUGIN_URL .'inc/decorme/images/logo.png';
+}   
 $activate = array(
         'decorme-sidebar-primary' => array(
             'search-1',

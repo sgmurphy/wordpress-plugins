@@ -44,8 +44,7 @@
             <tr valign="top">
                 <th scope="row">Color all in one:</th>
                 <td>
-                    <input id="pzf_color_all_in_one" class="my-color-field" name="pzf_color_all_in_one" type="text" 
-                           value="<?php echo esc_attr(get_option('pzf_color_all_in_one')); ?>" />
+                    <input id="pzf_color_all_in_one" class="my-color-field" name="pzf_color_all_in_one" type="text" value="<?php echo esc_attr(get_option('pzf_color_all_in_one')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
                 </td>
             </tr> 
             <tr valign="top">

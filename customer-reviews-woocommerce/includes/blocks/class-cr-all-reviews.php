@@ -259,6 +259,7 @@ if (! class_exists('CR_All_Reviews')) :
 					$args['post_status'] = 'publish';
 				}
 
+				$is_filtered_by_rating = false;
 				if ( get_query_var( $this->ivrating ) ) {
 					$rating = intval( get_query_var( $this->ivrating ) );
 					if ( $rating > 0 && $rating <= 5 ) {
@@ -269,11 +270,11 @@ if (! class_exists('CR_All_Reviews')) :
 							'compare' => '=',
 							'type'    => 'numeric'
 						);
+						$is_filtered_by_rating = true;
 					}
 				}
-				// if display of replies is disabled
-				// apply an additional condition to show only comments with rating meta fields only
-				if( ! $this->shortcode_atts['show_replies'] ) {
+
+				if ( ! $is_filtered_by_rating ) {
 					$args['meta_query']['relation'] = 'AND';
 					$args['meta_query']['cr_rating_exists'] = array(
 						'key' => 'rating',
@@ -398,10 +399,7 @@ if (! class_exists('CR_All_Reviews')) :
 				}
 
 				// include review replies after application of filters
-				if (
-					( get_query_var( $this->ivrating ) || $this->search || $this->tags ) &&
-					$this->shortcode_atts['show_replies']
-				) {
+				if ( $this->shortcode_atts['show_replies'] ) {
 					$comments = $this->include_review_replies( $comments );
 				}
 			}
@@ -984,10 +982,12 @@ if (! class_exists('CR_All_Reviews')) :
 			// shop reviews
 			if ( $this->shortcode_atts['shop_reviews'] ) {
 				$shop_pages = CR_Reviews_List_Table::get_shop_page();
-				if ( $where_clause ) {
-					$where_clause = 	$where_clause . " OR {$wpdb->posts}.ID IN (" . implode( ',', $shop_pages ) . ")";
-				} else {
-					$where_clause = "{$wpdb->posts}.ID IN (" . implode( ',', $shop_pages ) . ")";
+				if ( $shop_pages ) {
+					if ( $where_clause ) {
+						$where_clause = 	$where_clause . " OR {$wpdb->posts}.ID IN (" . implode( ',', $shop_pages ) . ")";
+					} else {
+						$where_clause = "{$wpdb->posts}.ID IN (" . implode( ',', $shop_pages ) . ")";
+					}
 				}
 			}
 
@@ -1021,11 +1021,11 @@ if (! class_exists('CR_All_Reviews')) :
 				foreach ( $comment_children as $comment_child ) {
 					$reply_already_exist = false;
 					foreach( $comments as $comment_flat ) {
-						if( $comment_flat->comment_ID === $comment_child->comment_ID ) {
+						if ( $comment_flat->comment_ID === $comment_child->comment_ID ) {
 							$reply_already_exist = true;
 						}
 					}
-					if( !$reply_already_exist ) {
+					if ( ! $reply_already_exist ) {
 						$comments_w_replies[] = $comment_child;
 					}
 				}

@@ -81,7 +81,20 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
             return array('spam' => true, 'reason' => $reason, 'message' => $message, 'value' => $reason);
         }
     }
-        
+    
+    
+    //start check IP in api
+    $do_ip_api_check = maspik_get_settings('maspikDbCheck');
+    if ($do_ip_api_check) {
+        $exists = check_ip_in_api($ip);
+        if($exists){
+            $reason = "Ip: $ip, exists in Maspik blacklist" ;
+            $message = "maspikDbCheck" ;
+            return array('spam' => true, 'reason' => $reason, 'message' => $message, 'value' => 1);
+        }
+    } 
+    //end check IP in api
+      
     $message = 0;
     $opt_value = maspik_get_dbvalue();
     $ip_blacklist = maspik_get_settings('ip_blacklist') ? efas_makeArray(maspik_get_settings('ip_blacklist')) : array();
@@ -410,7 +423,7 @@ function checkTelForSpam($field_value) {
         } 
     }
 
-    return array('valid' => $valid, 'reason' => $reason, 'message' => 'tel_formats', 'label' => 'tel_formats');
+    return array('valid' => false, 'reason' => $reason, 'message' => 'tel_formats', 'label' => 'tel_formats');
 }
 
 

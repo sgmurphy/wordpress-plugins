@@ -5,7 +5,7 @@ Tags: spam, blacklist, anti spam, Honeypot, black list
 Tested up to: 6.6
 Requires at least: 5.0
 Requires PHP: 7.0
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,11 +143,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 2.1.6 - 30/08/2024 =
+* New feature - added option to check if sender's IP address exists in Maspik blacklist database.
+* Bug fix - Fixed PHP syntax error in some environments.
+
 = 2.1.5 - 21/08/2024 =
 * Bug fix - Fixed some toggle buttons in the admin setting page that did not work properly.
 
 = 2.1.4 - 15/08/2024 =
-* Bug fix - fix "parsererror" in honeypot check on Elementor form 
+* Bug fix - fix "parsererror" in honeypot check on Elementor form.
 
 = 2.1.3 - 13/08/2024 =
 * New Feature - Added support for JetFormBuilder.
@@ -163,7 +167,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Bug Fix - Fix css glitch on some casese with new Honeypots
 
 = 2.1.0 - 22/07/2024 =
-* New Feature - Time check (If spent less then 5 secund in site - Spam)
+* New Feature - Time check (If spent less then 2 secund in site - Spam)
 * New Feature - Honeypot field (If not ampty- Spam )
 * New Feature - Advance Honeypot field (If Js Year is diffrent from server year - Spam)
 

@@ -27,8 +27,6 @@
 add_action( 'decorme_hdr_contact_info', 'decorme_hdr_contact_info');
 endif;
 
-
-
 if ( ! function_exists( 'decorme_hdr_social' ) ) :
 	function decorme_hdr_social() {
 	$hs_social_icon =	get_theme_mod('hs_social_icon','1');

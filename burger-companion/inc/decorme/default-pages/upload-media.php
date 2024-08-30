@@ -1,6 +1,13 @@
 <?php
+
+$theme = wp_get_theme(); // gets the current theme
+if( 'Interio' == $theme->name){
+	$file = BURGER_COMPANION_PLUGIN_URL .'inc/interio/images/logo.png';
+	$ImagePath = BURGER_COMPANION_PLUGIN_URL .'inc/interio/images';
+}else{
 	$file 		= BURGER_COMPANION_PLUGIN_URL .'inc/decorme/images/logo.png';
 	$ImagePath  = BURGER_COMPANION_PLUGIN_URL .'inc/decorme/images';
+}
 
 $images = array(
 $ImagePath. '/logo.png',
@@ -15,7 +22,7 @@ if (!$upload_file['error']) {
 		'post_mime_type' => $wp_filetype['type'],
 		'post_parent' => $parent_post_id,
 		'post_title' => preg_replace('/\.[^.]+$/', '', $filename),
-		'post_excerpt' => 'cozipress caption',
+		'post_excerpt' => 'decorme caption',
 		'post_status' => 'inherit'
 	);
 	$ImageId[] = $attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], $parent_post_id );

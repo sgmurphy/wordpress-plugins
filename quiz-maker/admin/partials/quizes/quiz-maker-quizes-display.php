@@ -989,6 +989,21 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </div>
                                     </div>
                                 </div><!-- Question font size -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quick_quiz_question_text_alignment">
+                                            <?php echo __( 'Question text alignment', $this->plugin_name ); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select name="ays_quick_quiz_question_text_alignment" id="ays_quick_quiz_question_text_alignment" class="ays-text-input ays-text-input-short" style="display:block;">
+                                            <option value="left"><?php echo __( "Left", $this->plugin_name ); ?></option>
+                                            <option value="center" selected><?php echo __( "Center", $this->plugin_name ); ?></option>
+                                            <option value="right"><?php echo __( "Right", $this->plugin_name ); ?></option>
+                                        </select>
+                                    </div>
+                                </div><!-- Question text alignment -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

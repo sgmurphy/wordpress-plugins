@@ -1118,7 +1118,7 @@ h3.maspik-protag.maspik-not-pro{
 
 
 .maspik-accordion-item > .active + .maspik-accordion-content {
-    max-height: 1400px!important;
+    max-height: 2200px!important;
     transition: max-height 0.3s ease-in;
   }
 

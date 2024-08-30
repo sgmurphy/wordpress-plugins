@@ -777,9 +777,11 @@ Version 3.3 - Fixed missing checks in backend
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.jpg
-Step 1 - Enter your Cloudflare's API Key and e-mail
-2. This screen shot description corresponds to screenshot-2.jpg
-Step 2 - Select the domain
-3. This screen shot description corresponds to screenshot-3.jpg
-Step 3 - Enable the page Cache
+1. Enable Caching
+2. Cache Settings
+3. Cloudflare (CDN & Edge Caching Settings)
+4. Advanced Settings
+5. Third-Party Plugins Settings
+6. Other Settings
+7. Test Caching and FAQ
+

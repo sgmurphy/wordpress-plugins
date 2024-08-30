@@ -808,29 +808,29 @@ if(split_add_more_button_split=="Add New Cont")
 // DecorMe
 if(split_add_more_button_split=="Add New Soci")
 {
-   if(jQuery('#exist_burger_companion_DecorMe_Social').val()>=4)
+   if(jQuery('#exist_burger_companion_DecorMe_Social,#exist_burger_companion_Interio_Social').val()>=4)
    {
      jQuery(".customizer_DecorMe_social_upgrade_section").show();
      return false;   
  }
- if(jQuery('#exist_burger_companion_DecorMe_Social').val()<4)
+ if(jQuery('#exist_burger_companion_DecorMe_Social,#exist_burger_companion_Interio_Social').val()<4)
  {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Social').val())+1;
-     jQuery('#exist_burger_companion_DecorMe_Social').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Social,#exist_burger_companion_Interio_Social').val())+1;
+     jQuery('#exist_burger_companion_DecorMe_Social,#exist_burger_companion_Interio_Social').val(new_service_add_val);  
  }
 }
 
 if(split_add_more_button_split=="Add New Slid")
 {
-   if(jQuery('#exist_burger_companion_DecorMe_Slider').val()>=3)
+   if(jQuery('#exist_burger_companion_DecorMe_Slider,#exist_burger_companion_Interio_Slider ').val()>=3)
    {
      jQuery(".customizer_DecorMe_slider_upgrade_section").show();
      return false;   
  }
- if(jQuery('#exist_burger_companion_DecorMe_Slider').val()<3)
+ if(jQuery('#exist_burger_companion_DecorMe_Slider,#exist_burger_companion_Interio_Slider').val()<3)
  {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Slider').val())+1;
-     jQuery('#exist_burger_companion_DecorMe_Slider').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Slider,#exist_burger_companion_Interio_Slider').val())+1;
+     jQuery('#exist_burger_companion_DecorMe_Slider,#exist_burger_companion_Interio_Slider').val(new_service_add_val);  
  }
 }
 
@@ -848,31 +848,46 @@ if(split_add_more_button_split=="Add New Info")
  }
 }
 
+// Interio Info
+if(split_add_more_button_split=="Add New Info")
+{
+   if(jQuery('#exist_burger_companion_Interio_Info').val()>=3)
+   {
+     jQuery(".customizer_DecorMe_info_upgrade_section").show();
+     return false;   
+ }
+ if(jQuery('#exist_burger_companion_Interio_Info').val()<3)
+ {
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_Interio_Info').val())+1;
+     jQuery('#exist_burger_companion_Interio_Info').val(new_service_add_val);  
+ }
+}
+
 if(split_add_more_button_split=="Add New Serv")
 {
-   if(jQuery('#exist_burger_companion_DecorMe_Service').val()>=3)
+   if(jQuery('#exist_burger_companion_DecorMe_Service,#exist_burger_companion_Interio_Service').val()>=3)
    {
      jQuery(".customizer_DecorMe_service_upgrade_section").show();
      return false;   
  }
- if(jQuery('#exist_burger_companion_DecorMe_Service').val()<3)
+ if(jQuery('#exist_burger_companion_DecorMe_Service,#exist_burger_companion_Interio_Service').val()<3)
  {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Service').val())+1;
-     jQuery('#exist_burger_companion_DecorMe_Service').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Service,#exist_burger_companion_Interio_Service').val())+1;
+     jQuery('#exist_burger_companion_DecorMe_Service,#exist_burger_companion_Interio_Service').val(new_service_add_val);  
  }
 }
 
 if(split_add_more_button_split=="Add New Paym")
 {
-   if(jQuery('#exist_burger_companion_DecorMe_Payment').val()>=4)
+   if(jQuery('#exist_burger_companion_DecorMe_Payment,#exist_burger_companion_Interio_Payment').val()>=4)
    {
      jQuery(".customizer_DecorMe_payment_icon_upgrade_section").show();
      return false;   
  }
- if(jQuery('#exist_burger_companion_DecorMe_Payment').val()<4)
+ if(jQuery('#exist_burger_companion_DecorMe_Payment,#exist_burger_companion_Interio_Payment').val()<4)
  {
-     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Payment').val())+1;
-     jQuery('#exist_burger_companion_DecorMe_Payment').val(new_service_add_val);  
+     var new_service_add_val=parseInt(jQuery('#exist_burger_companion_DecorMe_Payment,#exist_burger_companion_Interio_Payment').val())+1;
+     jQuery('#exist_burger_companion_DecorMe_Payment,#exist_burger_companion_Interio_Payment').val(new_service_add_val);  
  }
 }
 
@@ -1457,27 +1472,27 @@ if(split_delete_button_split=="Delete Conta")
 				// DecorMe
 if(split_delete_button_split=="Delete Socia")
 {
-    console.log( jQuery('#exist_burger_companion_DecorMe_Social').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Social').val())-1));  
+    console.log( jQuery('#exist_burger_companion_DecorMe_Social,#exist_burger_companion_Interio_Social').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Social,#exist_burger_companion_Interio_Social').val())-1));  
 }
 
 if(split_delete_button_split=="Delete Slide")
 {
-    console.log( jQuery('#exist_burger_companion_DecorMe_Slider').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Slider').val())-1));  
+    console.log( jQuery('#exist_burger_companion_DecorMe_Slider,#exist_burger_companion_Interio_Slider').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Slider,#exist_burger_companion_Interio_Slider').val())-1));  
 }
 
 if(split_delete_button_split=="Delete Infor")
 {
-    console.log( jQuery('#exist_burger_companion_DecorMe_Information').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Information').val())-1));  
+    console.log( jQuery('#exist_burger_companion_DecorMe_Information,#exist_burger_companion_Interio_Info').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Information,#exist_burger_companion_Interio_Info').val())-1));  
 }
 
 if(split_delete_button_split=="Delete Servi")
 {
-    console.log( jQuery('#exist_burger_companion_DecorMe_Service').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Service').val())-1));  
+    console.log( jQuery('#exist_burger_companion_DecorMe_Service,#exist_burger_companion_Interio_Service').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Service,#exist_burger_companion_Interio_Service').val())-1));  
 }
 
 if(split_delete_button_split=="Delete Payme")
 {
-    console.log( jQuery('#exist_burger_companion_DecorMe_Payment').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Payment').val())-1));  
+    console.log( jQuery('#exist_burger_companion_DecorMe_Payment,#exist_burger_companion_Interio_Payment').val(parseInt(jQuery('#exist_burger_companion_DecorMe_Payment,#exist_burger_companion_Interio_Payment').val())-1));  
 }
 
 				// SpaBiz

@@ -1,6 +1,6 @@
 <?php
 function decorme_info_setting( $wp_customize ) {
-$selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' : 'refresh';
+	$selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' : 'refresh';
 	/*=========================================
 	Info  Section
 	=========================================*/
@@ -15,7 +15,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	// Setting head
 	$wp_customize->add_setting(
 		'info_setting_head'
-			,array(
+		,array(
 			'capability'     	=> 'edit_theme_options',
 			'sanitize_callback' => 'decorme_sanitize_text',
 			'priority' => 10,
@@ -23,7 +23,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	);
 
 	$wp_customize->add_control(
-	'info_setting_head',
+		'info_setting_head',
 		array(
 			'type' => 'hidden',
 			'label' => __('Setting','decorme'),
@@ -34,7 +34,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	// Hide / Show
 	$wp_customize->add_setting(
 		'info_hs'
-			,array(
+		,array(
 			'default'     	=> '1',
 			'capability'     	=> 'edit_theme_options',
 			'sanitize_callback' => 'decorme_sanitize_checkbox',
@@ -43,7 +43,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	);
 
 	$wp_customize->add_control(
-	'info_hs',
+		'info_hs',
 		array(
 			'type' => 'checkbox',
 			'label' => __('Hide / Show','decorme'),
@@ -55,7 +55,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	// Info content Section // 	
 	$wp_customize->add_setting(
 		'info2_content_head'
-			,array(
+		,array(
 			'capability'     	=> 'edit_theme_options',
 			'sanitize_callback' => 'decorme_sanitize_text',
 			'priority' => 11,
@@ -63,7 +63,7 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	);
 
 	$wp_customize->add_control(
-	'info2_content_head',
+		'info2_content_head',
 		array(
 			'type' => 'hidden',
 			'label' => __('Info','decorme'),
@@ -77,51 +77,50 @@ $selective_refresh = isset( $wp_customize->selective_refresh ) ? 'postMessage' :
 	if ( class_exists( 'Burger_Companion_Repeater' ) ) {
 		$wp_customize->add_setting( 'info2_contents', 
 			array(
-			 'sanitize_callback' => 'burger_companion_repeater_sanitize',
-			 'transport'         => $selective_refresh,
-			 'priority' => 12,
-			 'default' => decorme_get_info2_default()
+				'sanitize_callback' => 'burger_companion_repeater_sanitize',
+				'transport'         => $selective_refresh,
+				'priority' => 12,
+				'default' => decorme_get_info2_default()
 			)
 		);
 		
 		$wp_customize->add_control( 
 			new Burger_Companion_Repeater( $wp_customize, 
 				'info2_contents', 
-					array(
-						'label'   => esc_html__('Information','decorme'),
-						'section' => 'info_setting',
-						'add_field_label'                   => esc_html__( 'Add New Information', 'decorme' ),
-						'item_name'                         => esc_html__( 'Information', 'decorme' ),
-						'customizer_repeater_image_control' => true,
-						'customizer_repeater_link_control' => true,
-					) 
+				array(
+					'label'   => esc_html__('Information','decorme'),
+					'section' => 'info_setting',
+					'add_field_label'                   => esc_html__( 'Add New Information', 'decorme' ),
+					'item_name'                         => esc_html__( 'Information', 'decorme' ),
+					'customizer_repeater_image_control' => true,
+					'customizer_repeater_link_control' => true,
 				) 
-			);
+			) 
+		);
 	}
-
-	//Pro feature
-		class DecorMe_info_section_upgrade extends WP_Customize_Control {
-			public function render_content() { 
+	   //Pro feature
+	class DecorMe_info_section_upgrade extends WP_Customize_Control {
+		public function render_content() { 
 			?>
-				<a class="customizer_DecorMe_info_upgrade_section up-to-pro" href="https://burgerthemes.com/decorme-pro/" target="_blank" style="display: none;"><?php _e('More Info Available in DecorMe Pro','decorme'); ?></a>
+			<a class="customizer_DecorMe_info_upgrade_section up-to-pro" href="https://burgerthemes.com/decorme-pro/" target="_blank" style="display: none;"><?php _e('More Info Available in DecorMe Pro','decorme'); ?></a>
 			<?php
-			} 
-		}	
+		} 
+	}	
 	
-		$wp_customize->add_setting( 'decorme_info_upgrade_to_pro', array(
-			'capability'			=> 'edit_theme_options',
-			'sanitize_callback'	=> 'wp_filter_nohtml_kses',
-			'priority' => 12,
-		));
-		$wp_customize->add_control(
-			new DecorMe_info_section_upgrade(
+	$wp_customize->add_setting( 'decorme_info_upgrade_to_pro', array(
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'	=> 'wp_filter_nohtml_kses',
+		'priority' => 12,
+	));
+	$wp_customize->add_control(
+		new DecorMe_info_section_upgrade(
 			$wp_customize,
 			'decorme_info_upgrade_to_pro',
-				array(
-					'section'				=> 'info_setting',
-				)
+			array(
+				'section'				=> 'info_setting',
 			)
-		);	
+		)
+	);	
 }
 
 add_action( 'customize_register', 'decorme_info_setting' );
@@ -133,6 +132,6 @@ function decorme_home_info_section_partials( $wp_customize ){
 		'selector'            => '.info-section.info-one .info-wrapper'
 	) );
 	
-	}
+}
 
 add_action( 'customize_register', 'decorme_home_info_section_partials' );

@@ -3,7 +3,7 @@
 Plugin Name: Burger Companion
 Plugin URI:
 Description: The Burger Companion plugin adds sections functionality to the Spintech Theme.
-Version: 7.1
+Version: 7.2
 Author: burgersoftware
 Author URI: https://burgersoftwares.com
 Text Domain: burger-companion
@@ -132,6 +132,10 @@ function burger_companion_activate() {
 		
 		if( 'Maxtech' == $theme->name){
 			require_once('inc/maxtech/maxtech.php');
+		}
+
+		if( 'Interio' == $theme->name){
+			require_once('inc/interio/interio.php');
 		}
 	}
 add_action( 'init', 'burger_companion_activate' );

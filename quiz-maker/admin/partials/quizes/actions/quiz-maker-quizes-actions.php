@@ -671,7 +671,7 @@ with score of %%score%%
 dated
 %%current_date%%';
 
-$quiz_acardion_svg_html = '
+$quiz_accordion_svg_html = '
 <div class="ays-quiz-accordion-arrow-box">
     <svg class="ays-quiz-accordion-arrow ays-quiz-accordion-arrow-down" version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 24 24" width="32" height="32">
         <g>
@@ -1734,7 +1734,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             <div id="tab2" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab2') ? 'ays-quiz-tab-content-active' : ''; ?>">
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Quiz Styles',$this->plugin_name)?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -2521,7 +2521,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 <hr/>
                                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                                     <div class="ays-quiz-accordion-container">
-                                        <?php echo $quiz_acardion_svg_html; ?>
+                                        <?php echo $quiz_accordion_svg_html; ?>
                                         <p class="ays-subtitle"><?php echo __('Question Styles',$this->plugin_name); ?></p>
                                     </div>
                                     <hr class="ays-quiz-bolder-hr"/>
@@ -2690,7 +2690,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 </div>
                                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                                     <div class="ays-quiz-accordion-container">
-                                        <?php echo $quiz_acardion_svg_html; ?>
+                                        <?php echo $quiz_accordion_svg_html; ?>
                                         <p class="ays-subtitle"><?php echo __('Answers Styles',$this->plugin_name); ?></p>
                                     </div>
                                     <div class="ays-quiz-accordion-options-box">
@@ -3050,7 +3050,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div><!-- .ays-quiz-accordion-options-main-container -->
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Buttons Styles',$this->plugin_name); ?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -3205,7 +3205,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle" style="margin-top:0;"><?php echo __('Admin note styles',$this->plugin_name); ?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -3397,7 +3397,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 <!-- <hr/> -->
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle" style="margin-top:0;"><?php echo __('Question explanation styles',$this->plugin_name); ?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -3588,7 +3588,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle" style="margin-top:0;"><?php echo __('Right answer styles',$this->plugin_name); ?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -3779,7 +3779,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle" style="margin-top:0;"><?php echo __('Wrong answer styles',$this->plugin_name); ?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -3988,7 +3988,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             <div id="tab3" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab3') ? 'ays-quiz-tab-content-active' : ''; ?>">
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Primary',$this->plugin_name)?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -5089,7 +5089,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Answer Settings',$this->plugin_name)?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -5200,7 +5200,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Start Page',$this->plugin_name)?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr"/>
@@ -5376,7 +5376,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Button Settings',$this->plugin_name)?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr" />
@@ -5710,7 +5710,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                 </div>
                 <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                     <div class="ays-quiz-accordion-container">
-                        <?php echo $quiz_acardion_svg_html; ?>
+                        <?php echo $quiz_accordion_svg_html; ?>
                         <p class="ays-subtitle"><?php echo __('Advanced Settings',$this->plugin_name)?></p>
                     </div>
                     <hr class="ays-quiz-bolder-hr">
@@ -6035,301 +6035,69 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
             
             <div id="tab4" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab4') ? 'ays-quiz-tab-content-active' : ''; ?>">
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('Primary',$this->plugin_name); ?></p>
-                </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
-                            <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                                <a href="https://www.youtube.com/watch?v=DHolVT3O0Zk" target="_blank">
-                                    <?php echo __("How to create scored quiz - video", $this->plugin_name); ?>
-                                </a>
-                            </div>
-                        </div>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('Primary',$this->plugin_name); ?></p>
                     </div>
-                    <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:15px;">
-                        <div class="pro_features pro_features_popup" style="align-items: flex-end;justify-content: flex-end;">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Calculate the score option", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/2OYoqJtsjoc">
-                                    <p>
-                                        <?php echo sprintf( __("The option gives you the possibility to choose the most appropriate calculation system for your quiz. You can set the calculation method either %s by Correctness or by Weight/Points. %s", $this->plugin_name),
-                                            '<strong>',
-                                            '</strong>'
-                                        ); ; ?>
-                                    </p>
-                                    <p>
-                                        <?php echo __("You just need to configure the calculation system depending on the type of quiz you want to create.", $this->plugin_name); ?>
-                                    </p>
-                                    <div>
-                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
-                                    </div>
-                                </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-calculate-score">
-                                    <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_calculate_score">
-                                    <?php echo __('Calculate the score',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Calculate the score of results by the selected method.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <label class="ays_quiz_loader">
-                                    <input type="radio" class="ays-enable-timer1" value="by_correctness" tabindex="-1" checked/>
-                                    <span><?php echo __( "By correctness", $this->plugin_name ); ?></span>
-                                </label>
-                                <label class="ays_quiz_loader">
-                                    <input type="radio" class="ays-enable-timer1" tabindex="-1" value="by_points"/>
-                                    <span><?php echo __( "By weight / points", $this->plugin_name ); ?></span>
-                                </label>
-                            </div>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-calculate-score" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-                    </div>
-                </div><!-- Calculate the score option -->
-                <hr/>
-                <div class="form-group row ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-4">
-                        <label for="ays_result_text">
-                            <?php echo __('Result message',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The message will be displayed after submitting the quiz. You can use Variables (General Settings) to insert user data here. If you want to show results with points or with the number of correct answers, you need to use correspondent variables and enable the “Hide score” option.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                        <p class="ays_quiz_small_hint_text_for_message_variables">
-                            <span><?php echo __( "To see all Message Variables " , $this->plugin_name ); ?></span>
-                            <a href="?page=quiz-maker-settings&ays_quiz_tab=tab4" target="_blank"><?php echo __( "click here" , $this->plugin_name ); ?></a>
-                        </p>
-                    </div>
-                    <div class="col-sm-8">
-                        <?php
-                        echo $quiz_message_vars_html;
-                        $content = wpautop(stripslashes((isset($options['result_text'])) ? $options['result_text'] : ''));
-                        $editor_id = 'ays_result_text';
-                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_result_text', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                        wp_editor($content, $editor_id, $settings);
-                        ?>
-                    </div>
-                </div><!-- Result message -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label class="form-check-label" for="ays-pass-score">
-                            <?php echo __("Pass Score (%)", $this->plugin_name) ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Set the minimum score to pass the quiz in percentage. Please note to give a value to it above 0, otherwise, the Quiz pass message and Quiz fail message options will not work.',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="form-group row" style="margin:0px;">
-                            <div class="col-sm-12 only_pro" style="padding:10px 0 0 10px;">
-                                <div class="pro_features" style="justify-content:flex-end;">
-
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio" class="ays-enable-timer1" checked/>
-                                            <span><?php echo __( "Percentage", $this->plugin_name ); ?></span>
-                                        </label>
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio" class="ays-enable-timer1" />
-                                            <span><?php echo __( "Points", $this->plugin_name ); ?></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-new-upgrade-button-box">
-                                        <div>
-                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                        </div>
-                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <hr>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                 <input type="number" class="ays-text-input" id='ays-pass-score' name='ays_pass_score' value="<?php echo $pass_score; ?>"/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row ays-quiz-result-message-vars-parent">
-                            <div class="col-sm-4">
-                                <label class="form-check-label" for="ays_pass_score_message">
-                                    <?php echo __("Quiz pass message", $this->plugin_name) ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The message in the case of the user passes the quiz',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                                <p class="ays_quiz_small_hint_text_for_message_variables">
-                                    <span><?php echo __( "To see all Message Variables " , $this->plugin_name ); ?></span>
-                                    <a href="?page=quiz-maker-settings&ays_quiz_tab=tab4" target="_blank"><?php echo __( "click here" , $this->plugin_name ); ?></a>
-                                </p>
-                            </div>
-                            <div class="col-sm-8">
-                                <?php echo $quiz_message_vars_html; ?>
-                                <div class="editor">
-                                    <?php
-                                    $editor_id = 'ays_pass_score_message';
-                                    $settings  = array(
-                                        'editor_height'  => $quiz_wp_editor_height,
-                                        'textarea_name'  => 'ays_pass_score_message',
-                                        'editor_class'   => 'ays-textarea',
-                                        'media_elements' => false
-                                    );
-                                    wp_editor($pass_score_message, $editor_id, $settings);
-                                    ?>
+                                <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
+                                    <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                        <a href="https://www.youtube.com/watch?v=DHolVT3O0Zk" target="_blank">
+                                            <?php echo __("How to create scored quiz - video", $this->plugin_name); ?>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row ays-quiz-result-message-vars-parent">
-                            <div class="col-sm-4">
-                                <label class="form-check-label" for="ays_fail_score_message">
-                                    <?php echo __("Quiz fail message", $this->plugin_name) ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The message in the case of the user fails the quiz',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                                <br>
-                                <p class="ays_quiz_small_hint_text_for_message_variables">
-                                    <span><?php echo __( "To see all Message Variables " , $this->plugin_name ); ?></span>
-                                    <a href="?page=quiz-maker-settings&ays_quiz_tab=tab4" target="_blank"><?php echo __( "click here" , $this->plugin_name ); ?></a>
-                                </p>
-                            </div>
-                            <div class="col-sm-8">
-                                <?php echo $quiz_message_vars_html; ?>
-                                <div class="editor">
-                                    <?php
-                                    $editor_id = 'ays_fail_score_message';
-                                    $settings  = array(
-                                        'editor_height'  => $quiz_wp_editor_height,
-                                        'textarea_name'  => 'ays_fail_score_message',
-                                        'editor_class'   => 'ays-textarea',
-                                        'media_elements' => false
-                                    );
-                                    wp_editor($fail_score_message, $editor_id, $settings);
-                                    ?>
+                            <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:15px;">
+                                <div class="pro_features pro_features_popup" style="align-items: flex-end;justify-content: flex-end;">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Calculate the score option", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/2OYoqJtsjoc">
+                                            <p>
+                                                <?php echo sprintf( __("The option gives you the possibility to choose the most appropriate calculation system for your quiz. You can set the calculation method either %s by Correctness or by Weight/Points. %s", $this->plugin_name),
+                                                    '<strong>',
+                                                    '</strong>'
+                                                ); ; ?>
+                                            </p>
+                                            <p>
+                                                <?php echo __("You just need to configure the calculation system depending on the type of quiz you want to create.", $this->plugin_name); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-calculate-score">
+                                            <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Pass Score (%) -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label>
-                            <?php echo __('Display score',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('How to display score of result',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <label class="ays_quiz_loader">
-                            <input type="radio" class="ays-enable-timer1" name="ays_display_score" value="by_percantage" <?php echo ($display_score == 'by_percantage') ? 'checked' : '' ?>/>
-                            <span><?php echo __( "By percentage", $this->plugin_name ); ?></span>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input type="radio" class="ays-enable-timer1" name="ays_display_score" value="by_correctness" <?php echo ($display_score == 'by_correctness') ? 'checked' : '' ?>/>
-                            <span><?php echo __( "By correct answers count", $this->plugin_name ); ?></span>
-                        </label>
-                    </div>
-                </div><!-- Display score -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_hide_score">
-                            <?php echo __('Hide score',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Disable to show the user score with percentage on the finish page. If you want to show points or correct answers count, you need to tick this option and use Variables (General Settings) in the “Text for showing after quiz completion” option.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_hide_score"
-                               name="ays_hide_score"
-                               value="on" <?php echo (isset($options['hide_score']) && $options['hide_score'] == 'on') ? 'checked' : '' ?>/>
-                    </div>
-                </div><!-- Hide score -->
-                <hr/>
-                <div class="form-group row ays_toggle_parent">
-                    <div class="col-sm-4">
-                        <label for="ays_redirect_after_submit">
-                            <?php echo __('Redirect after submission',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Redirect to custom URL after user submit the form.',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_redirect_after_submit"
-                               name="ays_redirect_after_submit"
-                               value="on" <?php echo $redirect_after_submit ? 'checked' : '' ?>/>
-                    </div>
-                    <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $redirect_after_submit ? '' : 'display_none'; ?>">                                
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_submit_redirect_url">
-                                    <?php echo __('Redirect URL',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The URL for redirecting after the user submits the form.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_submit_redirect_url"
-                                    name="ays_submit_redirect_url"
-                                    value="<?php echo $submit_redirect_url; ?>"/>
-                            </div>
-                        </div>
-                        <div class="form-group row" style="margin:0px;">
-                            <div class="col-sm-12 only_pro" style="padding:10px 0 0 10px;">
-                                <div class="pro_features" style="justify-content:flex-end;">
-
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_calculate_score">
+                                            <?php echo __('Calculate the score',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Calculate the score of results by the selected method.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <label class="ays_quiz_loader">
+                                            <input type="radio" class="ays-enable-timer1" value="by_correctness" tabindex="-1" checked/>
+                                            <span><?php echo __( "By correctness", $this->plugin_name ); ?></span>
+                                        </label>
+                                        <label class="ays_quiz_loader">
+                                            <input type="radio" class="ays-enable-timer1" tabindex="-1" value="by_points"/>
+                                            <span><?php echo __( "By weight / points", $this->plugin_name ); ?></span>
+                                        </label>
+                                    </div>
                                 </div>
-                                <span style="display:block; pointer-events: none;" class="ays_quiz_small_hint_text">
-                                    <?php echo 
-                                        sprintf( __("Add '%s' phrase at the end of the url.%s Use %s line in your code, by replacing the 'if_false' with a value that will be returned in case something goes wrong.", $this->plugin_name),
-                                        "<strong class='ays_help'>[uniquecode]</strong>",
-                                        "<br>",
-                                        "<strong class='ays_help'>apply_filters('ays_quiz_get_submission_results', 'if_false')</strong>"
-                                        ); 
-                                    ?>
-                                </span>
-                                <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-calculate-score" target="_blank" class="ays-quiz-new-upgrade-button-link">
                                     <div class="ays-quiz-new-upgrade-button-box">
                                         <div>
                                             <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
@@ -6338,1034 +6106,1266 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                         <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
                                     </div>
                                 </a>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_submit_redirect_delay">
-                                    <?php echo __('Redirect delay (sec)', $this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The redirection delay in seconds after the user submits the form. Value should be greater than 0.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="number" class="ays-text-input" id="ays_submit_redirect_delay"
-                                    name="ays_submit_redirect_delay"
-                                    value="<?php echo $submit_redirect_delay; ?>"/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_message_before_redirect_timer">
-                                    <?php echo __('Message before redirect timer',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr( __('Write a message to display before the timer. For example, "You will be redirected in 00:30".',$this->plugin_name) ); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_quiz_message_before_redirect_timer" name="ays_quiz_message_before_redirect_timer" value="<?php echo $quiz_message_before_redirect_timer; ?>"/>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Redirect after submission -->
-                <hr/>
-               </div>
-              </div>
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('Completion Actions',$this->plugin_name); ?></p>
-                </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label>
-                            <?php echo __('Quiz loader icon',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Choose the design of the loader on the finish page after submitting. It will inherit the Quiz Text color from the Styles tab.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8 ays_toggle_loader_parent">
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="default" <?php echo ($quiz_loader == 'default') ? 'checked' : ''; ?>>
-                            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="circle" <?php echo ($quiz_loader == 'circle') ? 'checked' : ''; ?>>
-                            <div class="lds-circle"></div>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="dual_ring" <?php echo ($quiz_loader == 'dual_ring') ? 'checked' : ''; ?>>
-                            <div class="lds-dual-ring"></div>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="facebook" <?php echo ($quiz_loader == 'facebook') ? 'checked' : ''; ?>>
-                            <div class="lds-facebook"><div></div><div></div><div></div></div>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="hourglass" <?php echo ($quiz_loader == 'hourglass') ? 'checked' : ''; ?>>
-                            <div class="lds-hourglass"></div>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="ripple" <?php echo ($quiz_loader == 'ripple') ? 'checked' : ''; ?>>
-                            <div class="lds-ripple"><div></div><div></div></div>
-                        </label>
-                        <hr/>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="true" data-type="text" type="radio" value="text" <?php echo ($quiz_loader == 'text') ? 'checked' : ''; ?>>
-                            <div class="ays_quiz_loader_text">
-                                <?php echo __( "Text" , $this->plugin_name ); ?>
-                            </div>
-                            <div class="ays_toggle_loader_target <?php echo ($quiz_loader == 'text') ? '' : 'display_none' ?>" data-type="text">
-                                <input type="text" class="ays-text-input" data-type="text" id="ays_quiz_loader_text_value" name="ays_quiz_loader_text_value" value="<?php echo $quiz_loader_text_value; ?>">
-                            </div>
-                        </label>
-                        <label class="ays_quiz_loader">
-                            <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="true" data-type="gif" type="radio" value="custom_gif" <?php echo ($quiz_loader == 'custom_gif') ? 'checked' : ''; ?>>
-                            <div class="ays_quiz_loader_custom_gif">
-                                <?php echo __( "Gif" , $this->plugin_name ); ?>
-                            </div>
-                            <div class="ays_toggle_loader_target ays-image-wrap <?php echo ($quiz_loader == 'custom_gif') ? '' : 'display_none' ?>" data-type="gif">
-                                <a href="javascript:void(0)" style="<?php echo ($quiz_loader_custom_gif == '') ? 'display:inline-block' : 'display:none'; ?>" class="ays-add-image add_quiz_loader_custom_gif"><?php echo __('Add Gif', $this->plugin_name); ?></a>
-                                <input type="hidden" class="ays-image-path" id="ays_quiz_loader_custom_gif" name="ays_quiz_loader_custom_gif" value="<?php echo $quiz_loader_custom_gif; ?>"/>
-                                <div class="ays-image-container" style="<?php echo ($quiz_loader_custom_gif == '') ? 'display:none' : 'display:block'; ?>">
-                                    <span class="ays-edit-img ays-edit-quiz-loader-custom-gif">
-                                        <i class="ays_fa ays_fa_pencil_square_o"></i>
-                                    </span>
-                                    <span class="add_quiz_loader_custom_gif ays-remove-quiz-loader-custom-gif"></span>
-                                    <img  src="<?php echo $quiz_loader_custom_gif; ?>" class="img_quiz_loader_custom_gif"/>
-                                </div>
-                            </div>
-                            <div class="ays_toggle_loader_target ays_gif_loader_width_container <?php echo ($quiz_loader == 'custom_gif') ? 'display_flex' : 'display_none'; ?>" data-type="gif" style="margin: 10px;">
-                                <div>
-                                    <label for='ays_quiz_loader_custom_gif_width'>
-                                        <?php echo __('Width (px)', $this->plugin_name); ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Custom Gif width in pixels. It accepts only numeric values.',$this->plugin_name); ?>">
-                                            <i class="ays_fa ays_fa_info_circle"></i>
-                                        </a>
-                                    </label>
-                                </div>
-                                <div style="margin-left: 5px;">
-                                    <input type="number" class="ays-text-input" id='ays_quiz_loader_custom_gif_width' name='ays_quiz_loader_custom_gif_width' value="<?php echo ( $quiz_loader_custom_gif_width ); ?>"/>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                </div><!-- Quiz loader icon -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_enable_restart_button">
-                            <?php echo __('Enable restart button',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the restart button at the end of the quiz for restarting the quiz and pass it again.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_enable_restart_button"
-                               name="ays_enable_restart_button"
-                               value="on" <?php echo ($enable_restart_button) ? 'checked' : '' ?>/>
-                    </div>
-                </div><!-- Enable restart button -->
-                <hr/>
-                <div class="form-group row ays_toggle_parent">
-                    <div class="col-sm-4">
-                        <label for="ays_questions_result_option">
-                            <?php echo __('Show question results on the results page',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show all questions with right and wrong answers after quiz',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_questions_result_option" name="ays_enable_questions_result" value="on" <?php echo ($enable_questions_result) ? 'checked' : '' ?>/>
-                    </div>
-                    <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_questions_result ? '' : 'display_none'; ?>">                                
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_hide_correct_answers">
-                                    <?php echo __('Hide correct answers',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('After enabling this option, the user whose chosen answer to the question is wrong will not see the right one.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_hide_correct_answers" name="ays_hide_correct_answers" value="on" <?php echo ($hide_correct_answers) ? 'checked' : '' ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_show_wrong_answers_first">
-                                    <?php echo __('Show wrong answers first',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick the checkbox if you want to show the wrongly answered questions by the particular user in the first place on the result page.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_show_wrong_answers_first" name="ays_quiz_show_wrong_answers_first" value="on" <?php echo ($quiz_show_wrong_answers_first) ? 'checked' : ''; ?> />
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_show_only_wrong_answers">
-                                    <?php echo __('Show only wrong answers',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick this option if you want to see only the wrong answers on the quiz results page.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_show_only_wrong_answers" name="ays_quiz_show_only_wrong_answers" value="on" <?php echo ($quiz_show_only_wrong_answers) ? 'checked' : ''; ?> />
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_results_toggle">
-                                    <?php echo __('Enable the Show/Hide toggle',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('If you enable this option, a toggle will be displayed by which you can show/hide the results of the quiz questions on the Front-end.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_results_toggle" name="ays_quiz_enable_results_toggle" value="on" <?php echo ($quiz_enable_results_toggle) ? 'checked' : ''; ?> />
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Show question results on the results page -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_enable_bar_option">
-                            <?php echo __('Enable progress bar',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show score via progressbar',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_enable_bar_option"
-                               name="ays_enable_progress_bar"
-                               value="on" <?php echo (isset($options['enable_progress_bar']) && $options['enable_progress_bar'] == 'on') ? 'checked' : '' ?>/>
-                    </div>
-                </div><!-- Enable progress bar -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4" style="padding-right: 0px;">
-                        <label for="ays_enable_quiz_rate">
-                            <?php echo __('Enable quiz assessment',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Comment and rate the quiz with up to 5 stars at the end of the quiz.',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" id="ays_enable_quiz_rate"
-                               name="ays_enable_quiz_rate"
-                               value="on" <?php echo ($enable_quiz_rate == 'on') ? 'checked' : ''; ?>/>
-                    </div>
-                    <div class="col-sm-7 ays_hidden" style="border-left: 1px solid #ededed; <?php echo ($enable_quiz_rate == 'on') ? '' : 'display:none;' ?>">
-                        <div class="form-group row">
-                            <div class="col-sm-4" style="padding-right: 0px;">
-                                <label for="ays_enable_rate_comments">
-                                    <?php echo __('Show the last 5 reviews',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the last 5 reviews after rating the quiz.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" id="ays_enable_rate_comments"
-                                       name="ays_enable_rate_comments"
-                                       value="on" <?php echo ($enable_rate_comments == 'on') ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_make_responses_anonymous">
-                                    <?php echo __('Make responses anonymous',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Collect anonymous responses no matter the quiz taker is a logged-in user or guest.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="ays_quiz_make_responses_anonymous" id="ays_quiz_make_responses_anonymous"
-                                       <?php echo ($quiz_make_responses_anonymous) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_user_cհoosing_anonymous_assessment">
-                                    <?php echo __("Enable users' anonymous assessment",$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('By ticking this option, the users can choose to leave a rating anonymously.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="ays_quiz_enable_user_cհoosing_anonymous_assessment" id="ays_quiz_enable_user_cհoosing_anonymous_assessment"
-                                       <?php echo ($quiz_enable_user_cհoosing_anonymous_assessment) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_make_all_review_link">
-                                    <?php echo __('Display all reviews button',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick the option, and the quiz taker will have the opportunity to see all feedbacks written by others.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="ays_quiz_make_all_review_link" id="ays_quiz_make_all_review_link" <?php echo ($quiz_make_all_review_link) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_review_enable_comment_field">
-                                    <?php echo __('Enable Comment Field',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('By disabling this option, the comment field will be hidden and you can only rate with stars. This option is enabled by default.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="ays_quiz_review_enable_comment_field" id="ays_quiz_review_enable_comment_field" <?php echo ($quiz_review_enable_comment_field) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_make_review_required">
-                                    <?php echo __('Make the review field required',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr( __("If this option is enabled, the users can't send a feedback without writing a review.",$this->plugin_name) ); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="ays_quiz_make_review_required" id="ays_quiz_make_review_required" <?php echo ($quiz_make_review_required) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_review_placeholder_text">
-                                    <?php echo __('Placeholder text',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr( __('Write your custom placeholder for the Rating form.',$this->plugin_name) ); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_quiz_review_placeholder_text" name="ays_quiz_review_placeholder_text" value="<?php echo $quiz_review_placeholder_text; ?>"/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row ays-quiz-result-message-vars-parent">
-                            <div class="col-sm-4" style="padding-right: 0px;">
-                                <label for="ays_rate_form_title">
-                                    <?php echo __('Rating form title',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Text which will notify user that he can submit a feedback',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <?php
-                                echo $quiz_message_vars_rating_form_title_html;
-                                $content = stripslashes(wpautop($rate_form_title));
-                                $editor_id = 'ays_rate_form_title';
-                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_rate_form_title', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                wp_editor($content, $editor_id, $settings);
-                                ?>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row ays-quiz-result-message-vars-parent">
-                            <div class="col-sm-4" style="padding-right: 0px;">
-                                <label for="ays_quiz_review_thank_you_message">
-                                    <?php echo __('Thank you message',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('By enabling this option, the text written in the editor is displayed when the user writes a review for the quiz.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <?php
-                                echo $quiz_message_vars_review_thank_you_message_html;
-                                $content = $quiz_review_thank_you_message;
-                                $editor_id = 'ays_quiz_review_thank_you_message';
-                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_review_thank_you_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                wp_editor($content, $editor_id, $settings);
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Enable quiz assessment -->
-                <hr/>
-               </div>
-              </div>
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('Advanced',$this->plugin_name); ?></p>
-                </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <div class="form-group row ays_toggle_parent">
-                    <div class="col-sm-4">
-                        <label for="ays_enable_exit_button">
-                            <?php echo __('Enable Exit button',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Exit button will be displayed in the finish page and must redirect the user to a custom URL.',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_exit_button"
-                               name="ays_enable_exit_button"
-                               value="on" <?php echo $enable_exit_button ? 'checked' : '' ?>/>
-                    </div>
-                    <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_exit_button ? '' : 'display_none'; ?>">                                
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_exit_redirect_url">
-                                    <?php echo __('Redirect URL',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The custom URL address for EXIT button in finish page.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_exit_redirect_url"
-                                    name="ays_exit_redirect_url"
-                                    value="<?php echo $exit_redirect_url; ?>"/>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Enable Exit button -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_average_statistical_option">
-                            <?php echo __('Show the statistical average',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show average score according to all results of the quiz',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_average_statistical_option"
-                               name="ays_enable_average_statistical"
-                               value="on" <?php echo (isset($options['enable_average_statistical']) && $options['enable_average_statistical'] == 'on') ? 'checked' : '' ?>/>
-                    </div>
-                </div><!-- Show the statistical average -->
-                <hr/>
-                <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-4">
-                        <label for="ays_social_buttons">
-                            <?php echo __('Show the Social buttons',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social buttons for sharing quiz page URL. LinkedIn, Facebook, Twitter, VKontakte',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_social_buttons" name="ays_social_buttons" value="on" <?php echo ( $enable_social_buttons ) ? 'checked' : '' ?>/>
-                    </div>
-                    <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_social_buttons ? '' : 'display_none'; ?>">
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label>
-                                    <?php echo __('Heading for share buttons',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Text that will be displayed over share buttons.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <?php echo $quiz_message_vars_html; ?>
-                                <?php
-                                    $content = $social_buttons_heading;
-                                    $editor_id = 'ays_social_buttons_heading';
-                                    $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_social_buttons_heading', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                    wp_editor($content, $editor_id, $settings);
-                                ?>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_linkedin_share_button">
-                                    <i class="ays_fa ays_fa_linkedin_square"></i>
-                                    <?php echo __('Enable LinkedIn button',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display LinkedIn social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_linkedin_share_button" name="ays_quiz_enable_linkedin_share_button" value="on" <?php echo ( $quiz_enable_linkedin_share_button ) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_facebook_share_button">
-                                    <i class="ays_fa ays_fa_facebook_square"></i>
-                                    <?php echo __('Enable Facebook button',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display Facebook social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_facebook_share_button" name="ays_quiz_enable_facebook_share_button" value="on" <?php echo ( $quiz_enable_facebook_share_button ) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_twitter_share_button">
-                                    <i class="ays_fa ays_fa_twitter_square"></i>
-                                    <?php echo __('Enable Twitter button',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display Twitter social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_twitter_share_button" name="ays_quiz_enable_twitter_share_button" value="on" <?php echo ( $quiz_enable_twitter_share_button ) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_vkontakte_share_button">
-                                    <i class="ays_fa ays_fa_vk"></i>
-                                    <?php echo __('Enable VKontakte button',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display VKontakte social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_vkontakte_share_button" name="ays_quiz_enable_vkontakte_share_button" value="on" <?php echo ( $quiz_enable_vkontakte_share_button ) ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Show the Social buttons -->
-                <hr/>
-                <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-4">
-                        <label for="ays_enable_social_links">
-                            <?php echo __('Enable Social Media links',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social media links at the end of the quiz to allow users to visit your pages in the Social media.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_social_links"
-                               name="ays_enable_social_links"
-                               value="on" <?php echo $enable_social_links ? 'checked' : '' ?>/>
-                    </div>
-                    <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_social_links ? '' : 'display_none' ?>">
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label>
-                                    <?php echo __('Heading for social media links',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Text that will be displayed over social media links.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <?php
-                                    echo $quiz_message_vars_html;   
-                                    $content = $social_links_heading;
-                                    $editor_id = 'ays_social_links_heading';
-                                    $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_social_links_heading', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                    wp_editor($content, $editor_id, $settings);
-                                ?>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_linkedin_link">
-                                    <i class="ays_fa ays_fa_linkedin_square"></i>
-                                    <?php echo __('LinkedIn link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('LinkedIn profile or page link for showing after quiz finish.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_linkedin_link" name="ays_social_links[ays_linkedin_link]"
-                                    value="<?php echo $linkedin_link; ?>" />
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_facebook_link">
-                                    <i class="ays_fa ays_fa_facebook_square"></i>
-                                    <?php echo __('Facebook link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Facebook profile or page link for showing after quiz finish.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_facebook_link" name="ays_social_links[ays_facebook_link]"
-                                    value="<?php echo $facebook_link; ?>" />
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_twitter_link">
-                                    <i class="ays_fa ays_fa_twitter_square"></i>
-                                    <?php echo __('Twitter link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Twitter profile or page link for showing after quiz finish.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_twitter_link" name="ays_social_links[ays_twitter_link]"
-                                    value="<?php echo $twitter_link; ?>" />
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_vkontakte_link">
-                                    <i class="ays_fa ays_fa_vk"></i>
-                                    <?php echo __('VKontakte link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('VKontakte profile or page link for showing after quiz finish.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="ays_vkontakte_link" name="ays_social_links[ays_vkontakte_link]"
-                                    value="<?php echo $vkontakte_link; ?>" />
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="instagram_link">
-                                    <i class="ays_fa ays_fa_instagram_square"></i>
-                                    <?php echo __('Instagram link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Instagram profile or page link for showing after quiz finish.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="instagram_link" name="ays_social_links[ays_instagram_link]"
-                                    value="<?php echo $instagram_link; ?>" />
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="youtube_link">
-                                    <i class="ays_fa ays_fa_youtube_play"></i>
-                                    <?php echo __('YouTube link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('YouTube profile or page link for showing after quiz finish.',$this->plugin_name);?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="youtube_link" name="ays_social_links[ays_youtube_link]"
-                                    value="<?php echo $youtube_link; ?>" />
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="behance_link">
-                                    <i class="ays_fa ays_fa_behance"></i>
-                                    <?php echo __('Behance link',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Behance profile or page link for showing after quiz finish.',$this->plugin_name);?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input" id="behance_link" name="ays_social_links[ays_behance_link]"
-                                    value="<?php echo $behance_link; ?>" />
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Enable Social Media links -->
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_disable_store_data">
-                            <?php echo __('Disable data storing in database',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Disable data storing in the database, and results will not be displayed on the \'Results\' page (not recommended).',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                        <p class="ays_quiz_small_hint_text_for_not_recommended">
-                            <span><?php echo __( "Not recommended" , $this->plugin_name ); ?></span>
-                        </p>
-                    </div>
-                    <div class="col-sm-8">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_disable_store_data" name="ays_disable_store_data" value="on" <?php echo $disable_store_data ? 'checked' : '' ?>/>
-                    </div>
-                </div><!-- Disable data storing in database -->
-                <hr/>
-                <div class="ays-quiz-heading-box ays-quiz-unset-float">
-                    <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                        <a href="https://www.youtube.com/watch?v=PQSOjFUG1Fg" target="_blank">
-                            <?php echo __("How intervals feature works - video", $this->plugin_name); ?>
-                        </a>
-                    </div>
-                </div>
-                <div class="form-group row" style="margin-bottom: 0;">
-                    <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:15px;">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Intervals feature", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/W_H69qg3LFA">
-                                    <p>
-                                        <?php echo __("With the help of the Intervals feature you can display different specified results based on the Interval the user appeared in. Then, attach an image to each Interval.", $this->plugin_name); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("You can choose either %s By percentage, By Points, or By Keywords %s as a method of calculation for the Intervals.", $this->plugin_name),
-                                            '<strong>',
-                                            '</strong>'
-                                        ); ; ?>
-                                    </p>
-                                    <p>
-                                        <?php echo __("One of the best examples of the use case of the Intervals feature is a personality quiz, where you can show different personality types to the users.", $this->plugin_name); ?>
-                                    </p>
+                                <div class="ays-quiz-new-watch-video-button-box">
                                     <div>
-                                        <a href="https://quiz-plugin.com/personality-quiz-for-wp/" target="_blank"><?php echo __("See Demo", $this->plugin_name); ?></a>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                </div>
+                            </div>
+                        </div><!-- Calculate the score option -->
+                        <hr/>
+                        <div class="form-group row ays-quiz-result-message-vars-parent">
+                            <div class="col-sm-4">
+                                <label for="ays_result_text">
+                                    <?php echo __('Result message',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The message will be displayed after submitting the quiz. You can use Variables (General Settings) to insert user data here. If you want to show results with points or with the number of correct answers, you need to use correspondent variables and enable the “Hide score” option.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                                <p class="ays_quiz_small_hint_text_for_message_variables">
+                                    <span><?php echo __( "To see all Message Variables " , $this->plugin_name ); ?></span>
+                                    <a href="?page=quiz-maker-settings&ays_quiz_tab=tab4" target="_blank"><?php echo __( "click here" , $this->plugin_name ); ?></a>
+                                </p>
+                            </div>
+                            <div class="col-sm-8">
+                                <?php
+                                echo $quiz_message_vars_html;
+                                $content = wpautop(stripslashes((isset($options['result_text'])) ? $options['result_text'] : ''));
+                                $editor_id = 'ays_result_text';
+                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_result_text', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                wp_editor($content, $editor_id, $settings);
+                                ?>
+                            </div>
+                        </div><!-- Result message -->
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label class="form-check-label" for="ays-pass-score">
+                                    <?php echo __("Pass Score (%)", $this->plugin_name) ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Set the minimum score to pass the quiz in percentage. Please note to give a value to it above 0, otherwise, the Quiz pass message and Quiz fail message options will not work.',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group row" style="margin:0px;">
+                                    <div class="col-sm-12 only_pro" style="padding:10px 0 0 10px;">
+                                        <div class="pro_features" style="justify-content:flex-end;">
+
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio" class="ays-enable-timer1" checked/>
+                                                    <span><?php echo __( "Percentage", $this->plugin_name ); ?></span>
+                                                </label>
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio" class="ays-enable-timer1" />
+                                                    <span><?php echo __( "Points", $this->plugin_name ); ?></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-new-upgrade-button-box">
+                                                <div>
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                                </div>
+                                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-intervals-table">
-                                    <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                         <input type="number" class="ays-text-input" id='ays-pass-score' name='ays_pass_score' value="<?php echo $pass_score; ?>"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row ays-quiz-result-message-vars-parent">
+                                    <div class="col-sm-4">
+                                        <label class="form-check-label" for="ays_pass_score_message">
+                                            <?php echo __("Quiz pass message", $this->plugin_name) ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The message in the case of the user passes the quiz',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                        <p class="ays_quiz_small_hint_text_for_message_variables">
+                                            <span><?php echo __( "To see all Message Variables " , $this->plugin_name ); ?></span>
+                                            <a href="?page=quiz-maker-settings&ays_quiz_tab=tab4" target="_blank"><?php echo __( "click here" , $this->plugin_name ); ?></a>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <?php echo $quiz_message_vars_html; ?>
+                                        <div class="editor">
+                                            <?php
+                                            $editor_id = 'ays_pass_score_message';
+                                            $settings  = array(
+                                                'editor_height'  => $quiz_wp_editor_height,
+                                                'textarea_name'  => 'ays_pass_score_message',
+                                                'editor_class'   => 'ays-textarea',
+                                                'media_elements' => false
+                                            );
+                                            wp_editor($pass_score_message, $editor_id, $settings);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row ays-quiz-result-message-vars-parent">
+                                    <div class="col-sm-4">
+                                        <label class="form-check-label" for="ays_fail_score_message">
+                                            <?php echo __("Quiz fail message", $this->plugin_name) ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The message in the case of the user fails the quiz',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                        <br>
+                                        <p class="ays_quiz_small_hint_text_for_message_variables">
+                                            <span><?php echo __( "To see all Message Variables " , $this->plugin_name ); ?></span>
+                                            <a href="?page=quiz-maker-settings&ays_quiz_tab=tab4" target="_blank"><?php echo __( "click here" , $this->plugin_name ); ?></a>
+                                        </p>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <?php echo $quiz_message_vars_html; ?>
+                                        <div class="editor">
+                                            <?php
+                                            $editor_id = 'ays_fail_score_message';
+                                            $settings  = array(
+                                                'editor_height'  => $quiz_wp_editor_height,
+                                                'textarea_name'  => 'ays_fail_score_message',
+                                                'editor_class'   => 'ays-textarea',
+                                                'media_elements' => false
+                                            );
+                                            wp_editor($fail_score_message, $editor_id, $settings);
+                                            ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class='form-group row ays-field-dashboard'>
+                        </div><!-- Pass Score (%) -->
+                        <hr/>
+                        <div class="form-group row">
                             <div class="col-sm-4">
-                                <label for="ays-answers-table"><?php echo __('Intervals', $this->plugin_name); ?>
-                                    <a href="javascript:void(0)" class="ays-add-interval" tabindex="-1">
-                                        <i class="ays_fa ays_fa_plus_square" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="ays_help" style="font-size:15px;" data-toggle="tooltip" title="<?php echo __('Set different messages based on the user\'s score. The message will be displayed on the result page of the quiz.',$this->plugin_name); ?>">
+                                <label>
+                                    <?php echo __('Display score',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('How to display score of result',$this->plugin_name)?>">
                                         <i class="ays_fa ays_fa_info_circle"></i>
                                     </a>
                                 </label>
                             </div>
                             <div class="col-sm-8">
                                 <label class="ays_quiz_loader">
-                                    <input type="radio" class="ays-enable-timer1 ays_table_by ays_intervals_display_by" tabindex="-1" checked>
+                                    <input type="radio" class="ays-enable-timer1" name="ays_display_score" value="by_percantage" <?php echo ($display_score == 'by_percantage') ? 'checked' : '' ?>/>
                                     <span><?php echo __( "By percentage", $this->plugin_name ); ?></span>
                                 </label>
                                 <label class="ays_quiz_loader">
-                                    <input type="radio" class="ays-enable-timer1 ays_table_by ays_intervals_display_by" tabindex="-1">
-                                    <span><?php echo __( "By points", $this->plugin_name ); ?></span>
+                                    <input type="radio" class="ays-enable-timer1" name="ays_display_score" value="by_correctness" <?php echo ($display_score == 'by_correctness') ? 'checked' : '' ?>/>
+                                    <span><?php echo __( "By correct answers count", $this->plugin_name ); ?></span>
                                 </label>
-                                <label class="ays_quiz_loader">
-                                    <input type="radio" class="ays-enable-timer1 ays_table_by ays_intervals_display_by" tabindex="-1">
-                                    <span><?php echo __( "By keywords", $this->plugin_name ); ?></span>
-                                </label>
-                                <a class="ays_help" style="font-size:15px;" data-toggle="tooltip" data-html="true"
-                                    title="<?php
-                                        echo __('Choose your preferred method of calculation.',$this->plugin_name) .
-                                        "<ul style='list-style-type: circle;padding-left: 20px;'>".
-                                            "<li>". __('By percentage - If this option is enabled, you need to assign values to Min and Max fields by percentage and write a correspondent message and attach an image for each interval separately. You need to cover the 0-100 range with as many intervals as you want.',$this->plugin_name) ."</li>".
-                                            "<li>". __('By points - If this option is enabled, you need to assign values to Min and Max fields by points and write a correspondent message and attach an image for each interval separately. There is no limitation to that.',$this->plugin_name) ."</li>".
-                                            "<li>". __('By keywords - If this option is enabled, you need to select the keywords, which you have already assigned to your answers and write a correspondent message and attach an image for each interval separately. It will be calculated based on the majority of the selected answers of the user.',$this->plugin_name) ."</li>".
-                                        "</ul>";
-                                    ?>">
-                                    <i class="ays_fa ays_fa_info_circle"></i>
-                                </a>
                             </div>
-                        </div>
-
-                        <div class='ays-field-dashboard ays-table-wrap'>
-                            <table class="ays-intervals-table">
-                                <thead>
-                                <tr class="ui-state-default">
-                                    <th><?php echo __('Ordering', $this->plugin_name); ?></th>
-                                    <th class="ays_interval_min_row"><?php echo __('Min', $this->plugin_name); ?></th>
-                                    <th class="ays_interval_max_row"><?php echo __('Max', $this->plugin_name); ?></th>
-                                    <th><?php echo __('Text', $this->plugin_name); ?></th>
-                                    <th><?php echo __('Image', $this->plugin_name); ?></th>
-                                    <th><?php echo __('Delete', $this->plugin_name); ?></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    foreach ($quiz_intervals_default as $key => $quiz_interval) {
-                                        $className = "";
-                                        if (($key + 1) % 2 == 0) {
-                                            $className = "even";
-                                        }
-                                        $quiz_interval_text = 'Add';
-
-                                        ?>
-                                        <tr class="ays-interval-row ui-state-default <?php echo $className; ?>">
-                                            <td class="ays-sort">
-                                                <i class="ays_fa ays_fa_arrows" aria-hidden="true"></i>
-                                            </td>
-                                            <td class="ays_interval_min_row">
-                                                <input type="number" tabindex="-1" value="<?php echo $quiz_interval['interval_min'] ?>" class="interval_min">
-                                            </td>
-                                            <td class="ays_interval_max_row">
-                                                <input type="number" tabindex="-1" value="<?php echo $quiz_interval['interval_max'] ?>" class="interval_max">
-                                            </td>
-                                            <td>
-                                                <textarea type="text" class="interval__text" tabindex="-1"></textarea>
-                                            </td>
-                                            <td class="ays-interval-image-td">
-                                                <label class='ays-label' for='ays-answer'>
-                                                    <a href="javascript:void(0)" class="add-answer-image add-interval-image" style="display:block;" tabindex="-1">
-                                                        <?php echo $quiz_interval_text; ?>
-                                                    </a>
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0)" class="ays-delete-interval" tabindex="-1" data-id="<?php echo $key; ?>">
-                                                    <i class="ays_fa ays_fa_minus_square" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    }
-                                ?>
-                                </tbody>
-                            </table>
-                        </div> <!-- Intervals -->
-
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-intervals-table" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-
-                        <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
-                            <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
-                                <div class="ays-quiz-center-new-watch-video-demo-button">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                                    <?php echo __("Watch Video", "quiz-maker"); ?>
-                                </div>
-                            </div>
-                            <div class="ays-quiz-center-big-upgrade-button-box">
-                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-intervals-table" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-center-new-big-upgrade-button">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
-                                        <?php echo __("Upgrade", "quiz-maker"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
-                    <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                        <a href="https://www.youtube.com/watch?v=lUbLHe9mEZ0" target="_blank">
-                            <?php echo __("How to create personality quiz - video", $this->plugin_name); ?>
-                        </a>
-                    </div>
-                </div>
-                <?php
-                if( in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins'))) ) {
-                ?>
-                <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
-                    <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                        <a href="https://www.youtube.com/watch?v=BeYNME9TZsQ" target="_blank">
-                            <?php echo __("How to create WooCommerce quiz - video", $this->plugin_name); ?>
-                        </a>
-                    </div>
-                </div>
-                <?php
-                }
-                ?>
-                <!-- Intervals -->
-                <hr/>
-                <!-- Top Keywords -->
-                <div class="form-group row">
-                    <div class="col-sm-12 only_pro" style="padding:15px;">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Top Keywords", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/o-GB91dfsLo">
-                                    <p>
-                                        <?php echo __("Are you interested in showing the question results based on chosen keywords? If yes, then, you can use the Top Keywords functionality.", $this->plugin_name); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("One of the %s best use cases %s of the feature is the %s Personality Trait quiz. %s", $this->plugin_name),
-                                            '<strong>',
-                                            '</strong>',
-                                            '<strong>',
-                                            '</strong>'
-                                        ); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("You need to configure the %s Keyword texts %s accordingly. Note: The %s Apply points to keywords %s option appears and works only in case you chose the %s By Keywords %s method of calculation.", $this->plugin_name),
-                                            '<strong>',
-                                            '</strong>',
-                                            '<strong>',
-                                            '</strong>',
-                                            '<strong>',
-                                            '</strong>'
-                                        ); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo __("By using this feature, you can display what percentage of which personality traits the particular user has.", $this->plugin_name); ?>
-                                    </p>
-                                    <div>
-                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
-                                    </div>
-                                </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-top-keywords">
-                                    <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_top_keywords">
-                                        <?php echo __('Assign message to each keyword',$this->plugin_name); ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the question results based on keywords on the resultes page with specified texts for each keyword.',$this->plugin_name); ?>">
-                                            <i class="ays_fa ays_fa_info_circle"></i>
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="checkbox" class="ays-enable-timer1" value="on" tabindex="-1"/>
-                                </div>
-                            </div>
-                        </div> <!-- Show all questions result in finish page -->
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-top-keywords" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-                    </div>
-                </div><!-- Top Keywords -->
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-12 only_pro" style="padding:15px;">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Quiz Coupon", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/EfdYE1o2ALk">
-                                    <p>
-                                        <?php echo sprintf( __("Quiz Coupons can become a great motivation for your new audience. Give them a reason to try your product. Provide Quiz Coupons on the Results Page and %s increase sells in your website. %s Every time the users will receive unique codes that you will import into the plugin.", $this->plugin_name),
-                                            '<strong>',
-                                            '</strong>'
-                                        ); ?>
-                                    </p>
-                                    <div>
-                                        <a href="https://quiz-plugin.com/coupon-quiz/" target="_blank"><?php echo __("See Demo", $this->plugin_name); ?></a>
-                                    </div>
-                                </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-quiz-coupon">
-                                    <?php echo __("Upgrade and Create", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
+                        </div><!-- Display score -->
+                        <hr/>
                         <div class="form-group row">
                             <div class="col-sm-4">
-                                <label for="ays_quiz_enable_coupon">
-                                    <?php echo __('Enable quiz coupons',$this->plugin_name); ?>
-                                    <a class="ays_help" data-html="true" data-toggle="tooltip" title="<?php echo __("Enable coupon receiving after finishing the quiz. For showing the coupons, you have to use the %%quiz_coupon%% message variable from General Settings>Message variables.",$this->plugin_name); ?>">
+                                <label for="ays_hide_score">
+                                    <?php echo __('Hide score',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Disable to show the user score with percentage on the finish page. If you want to show points or correct answers count, you need to tick this option and use Variables (General Settings) in the “Text for showing after quiz completion” option.',$this->plugin_name)?>">
                                         <i class="ays_fa ays_fa_info_circle"></i>
                                     </a>
                                 </label>
                             </div>
                             <div class="col-sm-8">
-                                <input type="checkbox" class="ays-enable-timer1" value="on" tabindex="-1" />
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_hide_score"
+                                       name="ays_hide_score"
+                                       value="on" <?php echo (isset($options['hide_score']) && $options['hide_score'] == 'on') ? 'checked' : '' ?>/>
                             </div>
-                        </div> <!-- Show all questions result in finish page -->
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-quiz-coupon" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                        </div><!-- Hide score -->
+                        <hr/>
+                        <div class="form-group row ays_toggle_parent">
+                            <div class="col-sm-4">
+                                <label for="ays_redirect_after_submit">
+                                    <?php echo __('Redirect after submission',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Redirect to custom URL after user submit the form.',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_redirect_after_submit"
+                                       name="ays_redirect_after_submit"
+                                       value="on" <?php echo $redirect_after_submit ? 'checked' : '' ?>/>
+                            </div>
+                            <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $redirect_after_submit ? '' : 'display_none'; ?>">                                
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_submit_redirect_url">
+                                            <?php echo __('Redirect URL',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The URL for redirecting after the user submits the form.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_submit_redirect_url"
+                                            name="ays_submit_redirect_url"
+                                            value="<?php echo $submit_redirect_url; ?>"/>
+                                    </div>
                                 </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                <div class="form-group row" style="margin:0px;">
+                                    <div class="col-sm-12 only_pro" style="padding:10px 0 0 10px;">
+                                        <div class="pro_features" style="justify-content:flex-end;">
+
+                                        </div>
+                                        <span style="display:block; pointer-events: none;" class="ays_quiz_small_hint_text">
+                                            <?php echo 
+                                                sprintf( __("Add '%s' phrase at the end of the url.%s Use %s line in your code, by replacing the 'if_false' with a value that will be returned in case something goes wrong.", $this->plugin_name),
+                                                "<strong class='ays_help'>[uniquecode]</strong>",
+                                                "<br>",
+                                                "<strong class='ays_help'>apply_filters('ays_quiz_get_submission_results', 'if_false')</strong>"
+                                                ); 
+                                            ?>
+                                        </span>
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-new-upgrade-button-box">
+                                                <div>
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                                </div>
+                                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_submit_redirect_delay">
+                                            <?php echo __('Redirect delay (sec)', $this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The redirection delay in seconds after the user submits the form. Value should be greater than 0.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="number" class="ays-text-input" id="ays_submit_redirect_delay"
+                                            name="ays_submit_redirect_delay"
+                                            value="<?php echo $submit_redirect_delay; ?>"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_message_before_redirect_timer">
+                                            <?php echo __('Message before redirect timer',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr( __('Write a message to display before the timer. For example, "You will be redirected in 00:30".',$this->plugin_name) ); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_quiz_message_before_redirect_timer" name="ays_quiz_message_before_redirect_timer" value="<?php echo $quiz_message_before_redirect_timer; ?>"/>
+                                    </div>
+                                </div>
                             </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
+                        </div><!-- Redirect after submission -->
+                        <hr/>
                     </div>
-                </div><!-- Quiz Coupon -->
-               </div>
-              </div>
+                </div>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('Completion Actions',$this->plugin_name); ?></p>
+                    </div>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label>
+                                    <?php echo __('Quiz loader icon',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Choose the design of the loader on the finish page after submitting. It will inherit the Quiz Text color from the Styles tab.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8 ays_toggle_loader_parent">
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="default" <?php echo ($quiz_loader == 'default') ? 'checked' : ''; ?>>
+                                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                </label>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="circle" <?php echo ($quiz_loader == 'circle') ? 'checked' : ''; ?>>
+                                    <div class="lds-circle"></div>
+                                </label>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="dual_ring" <?php echo ($quiz_loader == 'dual_ring') ? 'checked' : ''; ?>>
+                                    <div class="lds-dual-ring"></div>
+                                </label>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="facebook" <?php echo ($quiz_loader == 'facebook') ? 'checked' : ''; ?>>
+                                    <div class="lds-facebook"><div></div><div></div><div></div></div>
+                                </label>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="hourglass" <?php echo ($quiz_loader == 'hourglass') ? 'checked' : ''; ?>>
+                                    <div class="lds-hourglass"></div>
+                                </label>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="false" data-type="loader" type="radio" value="ripple" <?php echo ($quiz_loader == 'ripple') ? 'checked' : ''; ?>>
+                                    <div class="lds-ripple"><div></div><div></div></div>
+                                </label>
+                                <hr/>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="true" data-type="text" type="radio" value="text" <?php echo ($quiz_loader == 'text') ? 'checked' : ''; ?>>
+                                    <div class="ays_quiz_loader_text">
+                                        <?php echo __( "Text" , $this->plugin_name ); ?>
+                                    </div>
+                                    <div class="ays_toggle_loader_target <?php echo ($quiz_loader == 'text') ? '' : 'display_none' ?>" data-type="text">
+                                        <input type="text" class="ays-text-input" data-type="text" id="ays_quiz_loader_text_value" name="ays_quiz_loader_text_value" value="<?php echo $quiz_loader_text_value; ?>">
+                                    </div>
+                                </label>
+                                <label class="ays_quiz_loader">
+                                    <input name="ays_quiz_loader" class="ays_toggle_loader_radio" data-flag="true" data-type="gif" type="radio" value="custom_gif" <?php echo ($quiz_loader == 'custom_gif') ? 'checked' : ''; ?>>
+                                    <div class="ays_quiz_loader_custom_gif">
+                                        <?php echo __( "Gif" , $this->plugin_name ); ?>
+                                    </div>
+                                    <div class="ays_toggle_loader_target ays-image-wrap <?php echo ($quiz_loader == 'custom_gif') ? '' : 'display_none' ?>" data-type="gif">
+                                        <a href="javascript:void(0)" style="<?php echo ($quiz_loader_custom_gif == '') ? 'display:inline-block' : 'display:none'; ?>" class="ays-add-image add_quiz_loader_custom_gif"><?php echo __('Add Gif', $this->plugin_name); ?></a>
+                                        <input type="hidden" class="ays-image-path" id="ays_quiz_loader_custom_gif" name="ays_quiz_loader_custom_gif" value="<?php echo $quiz_loader_custom_gif; ?>"/>
+                                        <div class="ays-image-container" style="<?php echo ($quiz_loader_custom_gif == '') ? 'display:none' : 'display:block'; ?>">
+                                            <span class="ays-edit-img ays-edit-quiz-loader-custom-gif">
+                                                <i class="ays_fa ays_fa_pencil_square_o"></i>
+                                            </span>
+                                            <span class="add_quiz_loader_custom_gif ays-remove-quiz-loader-custom-gif"></span>
+                                            <img  src="<?php echo $quiz_loader_custom_gif; ?>" class="img_quiz_loader_custom_gif"/>
+                                        </div>
+                                    </div>
+                                    <div class="ays_toggle_loader_target ays_gif_loader_width_container <?php echo ($quiz_loader == 'custom_gif') ? 'display_flex' : 'display_none'; ?>" data-type="gif" style="margin: 10px;">
+                                        <div>
+                                            <label for='ays_quiz_loader_custom_gif_width'>
+                                                <?php echo __('Width (px)', $this->plugin_name); ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Custom Gif width in pixels. It accepts only numeric values.',$this->plugin_name); ?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div style="margin-left: 5px;">
+                                            <input type="number" class="ays-text-input" id='ays_quiz_loader_custom_gif_width' name='ays_quiz_loader_custom_gif_width' value="<?php echo ( $quiz_loader_custom_gif_width ); ?>"/>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div><!-- Quiz loader icon -->
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_enable_restart_button">
+                                    <?php echo __('Enable restart button',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the restart button at the end of the quiz for restarting the quiz and pass it again.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_enable_restart_button"
+                                       name="ays_enable_restart_button"
+                                       value="on" <?php echo ($enable_restart_button) ? 'checked' : '' ?>/>
+                            </div>
+                        </div><!-- Enable restart button -->
+                        <hr/>
+                        <div class="form-group row ays_toggle_parent">
+                            <div class="col-sm-4">
+                                <label for="ays_questions_result_option">
+                                    <?php echo __('Show question results on the results page',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show all questions with right and wrong answers after quiz',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_questions_result_option" name="ays_enable_questions_result" value="on" <?php echo ($enable_questions_result) ? 'checked' : '' ?>/>
+                            </div>
+                            <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_questions_result ? '' : 'display_none'; ?>">                                
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_hide_correct_answers">
+                                            <?php echo __('Hide correct answers',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('After enabling this option, the user whose chosen answer to the question is wrong will not see the right one.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_hide_correct_answers" name="ays_hide_correct_answers" value="on" <?php echo ($hide_correct_answers) ? 'checked' : '' ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_show_wrong_answers_first">
+                                            <?php echo __('Show wrong answers first',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick the checkbox if you want to show the wrongly answered questions by the particular user in the first place on the result page.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_show_wrong_answers_first" name="ays_quiz_show_wrong_answers_first" value="on" <?php echo ($quiz_show_wrong_answers_first) ? 'checked' : ''; ?> />
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_show_only_wrong_answers">
+                                            <?php echo __('Show only wrong answers',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick this option if you want to see only the wrong answers on the quiz results page.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_show_only_wrong_answers" name="ays_quiz_show_only_wrong_answers" value="on" <?php echo ($quiz_show_only_wrong_answers) ? 'checked' : ''; ?> />
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_results_toggle">
+                                            <?php echo __('Enable the Show/Hide toggle',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('If you enable this option, a toggle will be displayed by which you can show/hide the results of the quiz questions on the Front-end.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_results_toggle" name="ays_quiz_enable_results_toggle" value="on" <?php echo ($quiz_enable_results_toggle) ? 'checked' : ''; ?> />
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Show question results on the results page -->
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_enable_bar_option">
+                                    <?php echo __('Enable progress bar',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show score via progressbar',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_enable_bar_option"
+                                       name="ays_enable_progress_bar"
+                                       value="on" <?php echo (isset($options['enable_progress_bar']) && $options['enable_progress_bar'] == 'on') ? 'checked' : '' ?>/>
+                            </div>
+                        </div><!-- Enable progress bar -->
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4" style="padding-right: 0px;">
+                                <label for="ays_enable_quiz_rate">
+                                    <?php echo __('Enable quiz assessment',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Comment and rate the quiz with up to 5 stars at the end of the quiz.',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" id="ays_enable_quiz_rate"
+                                       name="ays_enable_quiz_rate"
+                                       value="on" <?php echo ($enable_quiz_rate == 'on') ? 'checked' : ''; ?>/>
+                            </div>
+                            <div class="col-sm-7 ays_hidden" style="border-left: 1px solid #ededed; <?php echo ($enable_quiz_rate == 'on') ? '' : 'display:none;' ?>">
+                                <div class="form-group row">
+                                    <div class="col-sm-4" style="padding-right: 0px;">
+                                        <label for="ays_enable_rate_comments">
+                                            <?php echo __('Show the last 5 reviews',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the last 5 reviews after rating the quiz.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" id="ays_enable_rate_comments"
+                                               name="ays_enable_rate_comments"
+                                               value="on" <?php echo ($enable_rate_comments == 'on') ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_make_responses_anonymous">
+                                            <?php echo __('Make responses anonymous',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Collect anonymous responses no matter the quiz taker is a logged-in user or guest.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" name="ays_quiz_make_responses_anonymous" id="ays_quiz_make_responses_anonymous"
+                                               <?php echo ($quiz_make_responses_anonymous) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_user_cհoosing_anonymous_assessment">
+                                            <?php echo __("Enable users' anonymous assessment",$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('By ticking this option, the users can choose to leave a rating anonymously.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" name="ays_quiz_enable_user_cհoosing_anonymous_assessment" id="ays_quiz_enable_user_cհoosing_anonymous_assessment"
+                                               <?php echo ($quiz_enable_user_cհoosing_anonymous_assessment) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_make_all_review_link">
+                                            <?php echo __('Display all reviews button',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick the option, and the quiz taker will have the opportunity to see all feedbacks written by others.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" name="ays_quiz_make_all_review_link" id="ays_quiz_make_all_review_link" <?php echo ($quiz_make_all_review_link) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_review_enable_comment_field">
+                                            <?php echo __('Enable Comment Field',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('By disabling this option, the comment field will be hidden and you can only rate with stars. This option is enabled by default.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" name="ays_quiz_review_enable_comment_field" id="ays_quiz_review_enable_comment_field" <?php echo ($quiz_review_enable_comment_field) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_make_review_required">
+                                            <?php echo __('Make the review field required',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr( __("If this option is enabled, the users can't send a feedback without writing a review.",$this->plugin_name) ); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" name="ays_quiz_make_review_required" id="ays_quiz_make_review_required" <?php echo ($quiz_make_review_required) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_review_placeholder_text">
+                                            <?php echo __('Placeholder text',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr( __('Write your custom placeholder for the Rating form.',$this->plugin_name) ); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_quiz_review_placeholder_text" name="ays_quiz_review_placeholder_text" value="<?php echo $quiz_review_placeholder_text; ?>"/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row ays-quiz-result-message-vars-parent">
+                                    <div class="col-sm-4" style="padding-right: 0px;">
+                                        <label for="ays_rate_form_title">
+                                            <?php echo __('Rating form title',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Text which will notify user that he can submit a feedback',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <?php
+                                        echo $quiz_message_vars_rating_form_title_html;
+                                        $content = stripslashes(wpautop($rate_form_title));
+                                        $editor_id = 'ays_rate_form_title';
+                                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_rate_form_title', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                        wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row ays-quiz-result-message-vars-parent">
+                                    <div class="col-sm-4" style="padding-right: 0px;">
+                                        <label for="ays_quiz_review_thank_you_message">
+                                            <?php echo __('Thank you message',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('By enabling this option, the text written in the editor is displayed when the user writes a review for the quiz.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <?php
+                                        echo $quiz_message_vars_review_thank_you_message_html;
+                                        $content = $quiz_review_thank_you_message;
+                                        $editor_id = 'ays_quiz_review_thank_you_message';
+                                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_review_thank_you_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                        wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Enable quiz assessment -->
+                        <hr/>
+                    </div>
+                </div>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('Advanced',$this->plugin_name); ?></p>
+                    </div>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
+                        <div class="form-group row ays_toggle_parent">
+                            <div class="col-sm-4">
+                                <label for="ays_enable_exit_button">
+                                    <?php echo __('Enable Exit button',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Exit button will be displayed in the finish page and must redirect the user to a custom URL.',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_exit_button"
+                                       name="ays_enable_exit_button"
+                                       value="on" <?php echo $enable_exit_button ? 'checked' : '' ?>/>
+                            </div>
+                            <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_exit_button ? '' : 'display_none'; ?>">                                
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_exit_redirect_url">
+                                            <?php echo __('Redirect URL',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The custom URL address for EXIT button in finish page.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_exit_redirect_url"
+                                            name="ays_exit_redirect_url"
+                                            value="<?php echo $exit_redirect_url; ?>"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Enable Exit button -->
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_average_statistical_option">
+                                    <?php echo __('Show the statistical average',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show average score according to all results of the quiz',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_average_statistical_option"
+                                       name="ays_enable_average_statistical"
+                                       value="on" <?php echo (isset($options['enable_average_statistical']) && $options['enable_average_statistical'] == 'on') ? 'checked' : '' ?>/>
+                            </div>
+                        </div><!-- Show the statistical average -->
+                        <hr/>
+                        <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
+                            <div class="col-sm-4">
+                                <label for="ays_social_buttons">
+                                    <?php echo __('Show the Social buttons',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social buttons for sharing quiz page URL. LinkedIn, Facebook, Twitter, VKontakte',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_social_buttons" name="ays_social_buttons" value="on" <?php echo ( $enable_social_buttons ) ? 'checked' : '' ?>/>
+                            </div>
+                            <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_social_buttons ? '' : 'display_none'; ?>">
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label>
+                                            <?php echo __('Heading for share buttons',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Text that will be displayed over share buttons.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <?php echo $quiz_message_vars_html; ?>
+                                        <?php
+                                            $content = $social_buttons_heading;
+                                            $editor_id = 'ays_social_buttons_heading';
+                                            $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_social_buttons_heading', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                            wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_linkedin_share_button">
+                                            <i class="ays_fa ays_fa_linkedin_square"></i>
+                                            <?php echo __('Enable LinkedIn button',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display LinkedIn social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_linkedin_share_button" name="ays_quiz_enable_linkedin_share_button" value="on" <?php echo ( $quiz_enable_linkedin_share_button ) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_facebook_share_button">
+                                            <i class="ays_fa ays_fa_facebook_square"></i>
+                                            <?php echo __('Enable Facebook button',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display Facebook social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_facebook_share_button" name="ays_quiz_enable_facebook_share_button" value="on" <?php echo ( $quiz_enable_facebook_share_button ) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_twitter_share_button">
+                                            <i class="ays_fa ays_fa_twitter_square"></i>
+                                            <?php echo __('Enable Twitter button',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display Twitter social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_twitter_share_button" name="ays_quiz_enable_twitter_share_button" value="on" <?php echo ( $quiz_enable_twitter_share_button ) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_vkontakte_share_button">
+                                            <i class="ays_fa ays_fa_vk"></i>
+                                            <?php echo __('Enable VKontakte button',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display VKontakte social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_vkontakte_share_button" name="ays_quiz_enable_vkontakte_share_button" value="on" <?php echo ( $quiz_enable_vkontakte_share_button ) ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Show the Social buttons -->
+                        <hr/>
+                        <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
+                            <div class="col-sm-4">
+                                <label for="ays_enable_social_links">
+                                    <?php echo __('Enable Social Media links',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social media links at the end of the quiz to allow users to visit your pages in the Social media.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_social_links"
+                                       name="ays_enable_social_links"
+                                       value="on" <?php echo $enable_social_links ? 'checked' : '' ?>/>
+                            </div>
+                            <div class="col-sm-7 ays_toggle_target ays_divider_left <?php echo $enable_social_links ? '' : 'display_none' ?>">
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label>
+                                            <?php echo __('Heading for social media links',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Text that will be displayed over social media links.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <?php
+                                            echo $quiz_message_vars_html;   
+                                            $content = $social_links_heading;
+                                            $editor_id = 'ays_social_links_heading';
+                                            $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_social_links_heading', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                            wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_linkedin_link">
+                                            <i class="ays_fa ays_fa_linkedin_square"></i>
+                                            <?php echo __('LinkedIn link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('LinkedIn profile or page link for showing after quiz finish.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_linkedin_link" name="ays_social_links[ays_linkedin_link]"
+                                            value="<?php echo $linkedin_link; ?>" />
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_facebook_link">
+                                            <i class="ays_fa ays_fa_facebook_square"></i>
+                                            <?php echo __('Facebook link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Facebook profile or page link for showing after quiz finish.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_facebook_link" name="ays_social_links[ays_facebook_link]"
+                                            value="<?php echo $facebook_link; ?>" />
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_twitter_link">
+                                            <i class="ays_fa ays_fa_twitter_square"></i>
+                                            <?php echo __('Twitter link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Twitter profile or page link for showing after quiz finish.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_twitter_link" name="ays_social_links[ays_twitter_link]"
+                                            value="<?php echo $twitter_link; ?>" />
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_vkontakte_link">
+                                            <i class="ays_fa ays_fa_vk"></i>
+                                            <?php echo __('VKontakte link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('VKontakte profile or page link for showing after quiz finish.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="ays_vkontakte_link" name="ays_social_links[ays_vkontakte_link]"
+                                            value="<?php echo $vkontakte_link; ?>" />
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="instagram_link">
+                                            <i class="ays_fa ays_fa_instagram_square"></i>
+                                            <?php echo __('Instagram link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Instagram profile or page link for showing after quiz finish.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="instagram_link" name="ays_social_links[ays_instagram_link]"
+                                            value="<?php echo $instagram_link; ?>" />
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="youtube_link">
+                                            <i class="ays_fa ays_fa_youtube_play"></i>
+                                            <?php echo __('YouTube link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('YouTube profile or page link for showing after quiz finish.',$this->plugin_name);?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="youtube_link" name="ays_social_links[ays_youtube_link]"
+                                            value="<?php echo $youtube_link; ?>" />
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="behance_link">
+                                            <i class="ays_fa ays_fa_behance"></i>
+                                            <?php echo __('Behance link',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Behance profile or page link for showing after quiz finish.',$this->plugin_name);?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input" id="behance_link" name="ays_social_links[ays_behance_link]"
+                                            value="<?php echo $behance_link; ?>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Enable Social Media links -->
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_disable_store_data">
+                                    <?php echo __('Disable data storing in database',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Disable data storing in the database, and results will not be displayed on the \'Results\' page (not recommended).',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                                <p class="ays_quiz_small_hint_text_for_not_recommended">
+                                    <span><?php echo __( "Not recommended" , $this->plugin_name ); ?></span>
+                                </p>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_disable_store_data" name="ays_disable_store_data" value="on" <?php echo $disable_store_data ? 'checked' : '' ?>/>
+                            </div>
+                        </div><!-- Disable data storing in database -->
+                        <hr/>
+                        <div class="ays-quiz-heading-box ays-quiz-unset-float">
+                            <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                <a href="https://www.youtube.com/watch?v=PQSOjFUG1Fg" target="_blank">
+                                    <?php echo __("How intervals feature works - video", $this->plugin_name); ?>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom: 0;">
+                            <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:15px;">
+                                <div class="pro_features pro_features_popup">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Intervals feature", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/W_H69qg3LFA">
+                                            <p>
+                                                <?php echo __("With the help of the Intervals feature you can display different specified results based on the Interval the user appeared in. Then, attach an image to each Interval.", $this->plugin_name); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("You can choose either %s By percentage, By Points, or By Keywords %s as a method of calculation for the Intervals.", $this->plugin_name),
+                                                    '<strong>',
+                                                    '</strong>'
+                                                ); ; ?>
+                                            </p>
+                                            <p>
+                                                <?php echo __("One of the best examples of the use case of the Intervals feature is a personality quiz, where you can show different personality types to the users.", $this->plugin_name); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://quiz-plugin.com/personality-quiz-for-wp/" target="_blank"><?php echo __("See Demo", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-intervals-table">
+                                            <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='form-group row ays-field-dashboard'>
+                                    <div class="col-sm-4">
+                                        <label for="ays-answers-table"><?php echo __('Intervals', $this->plugin_name); ?>
+                                            <a href="javascript:void(0)" class="ays-add-interval" tabindex="-1">
+                                                <i class="ays_fa ays_fa_plus_square" aria-hidden="true"></i>
+                                            </a>
+                                            <a class="ays_help" style="font-size:15px;" data-toggle="tooltip" title="<?php echo __('Set different messages based on the user\'s score. The message will be displayed on the result page of the quiz.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <label class="ays_quiz_loader">
+                                            <input type="radio" class="ays-enable-timer1 ays_table_by ays_intervals_display_by" tabindex="-1" checked>
+                                            <span><?php echo __( "By percentage", $this->plugin_name ); ?></span>
+                                        </label>
+                                        <label class="ays_quiz_loader">
+                                            <input type="radio" class="ays-enable-timer1 ays_table_by ays_intervals_display_by" tabindex="-1">
+                                            <span><?php echo __( "By points", $this->plugin_name ); ?></span>
+                                        </label>
+                                        <label class="ays_quiz_loader">
+                                            <input type="radio" class="ays-enable-timer1 ays_table_by ays_intervals_display_by" tabindex="-1">
+                                            <span><?php echo __( "By keywords", $this->plugin_name ); ?></span>
+                                        </label>
+                                        <a class="ays_help" style="font-size:15px;" data-toggle="tooltip" data-html="true"
+                                            title="<?php
+                                                echo __('Choose your preferred method of calculation.',$this->plugin_name) .
+                                                "<ul style='list-style-type: circle;padding-left: 20px;'>".
+                                                    "<li>". __('By percentage - If this option is enabled, you need to assign values to Min and Max fields by percentage and write a correspondent message and attach an image for each interval separately. You need to cover the 0-100 range with as many intervals as you want.',$this->plugin_name) ."</li>".
+                                                    "<li>". __('By points - If this option is enabled, you need to assign values to Min and Max fields by points and write a correspondent message and attach an image for each interval separately. There is no limitation to that.',$this->plugin_name) ."</li>".
+                                                    "<li>". __('By keywords - If this option is enabled, you need to select the keywords, which you have already assigned to your answers and write a correspondent message and attach an image for each interval separately. It will be calculated based on the majority of the selected answers of the user.',$this->plugin_name) ."</li>".
+                                                "</ul>";
+                                            ?>">
+                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class='ays-field-dashboard ays-table-wrap'>
+                                    <table class="ays-intervals-table">
+                                        <thead>
+                                        <tr class="ui-state-default">
+                                            <th><?php echo __('Ordering', $this->plugin_name); ?></th>
+                                            <th class="ays_interval_min_row"><?php echo __('Min', $this->plugin_name); ?></th>
+                                            <th class="ays_interval_max_row"><?php echo __('Max', $this->plugin_name); ?></th>
+                                            <th><?php echo __('Text', $this->plugin_name); ?></th>
+                                            <th><?php echo __('Image', $this->plugin_name); ?></th>
+                                            <th><?php echo __('Delete', $this->plugin_name); ?></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            foreach ($quiz_intervals_default as $key => $quiz_interval) {
+                                                $className = "";
+                                                if (($key + 1) % 2 == 0) {
+                                                    $className = "even";
+                                                }
+                                                $quiz_interval_text = 'Add';
+
+                                                ?>
+                                                <tr class="ays-interval-row ui-state-default <?php echo $className; ?>">
+                                                    <td class="ays-sort">
+                                                        <i class="ays_fa ays_fa_arrows" aria-hidden="true"></i>
+                                                    </td>
+                                                    <td class="ays_interval_min_row">
+                                                        <input type="number" tabindex="-1" value="<?php echo $quiz_interval['interval_min'] ?>" class="interval_min">
+                                                    </td>
+                                                    <td class="ays_interval_max_row">
+                                                        <input type="number" tabindex="-1" value="<?php echo $quiz_interval['interval_max'] ?>" class="interval_max">
+                                                    </td>
+                                                    <td>
+                                                        <textarea type="text" class="interval__text" tabindex="-1"></textarea>
+                                                    </td>
+                                                    <td class="ays-interval-image-td">
+                                                        <label class='ays-label' for='ays-answer'>
+                                                            <a href="javascript:void(0)" class="add-answer-image add-interval-image" style="display:block;" tabindex="-1">
+                                                                <?php echo $quiz_interval_text; ?>
+                                                            </a>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(0)" class="ays-delete-interval" tabindex="-1" data-id="<?php echo $key; ?>">
+                                                            <i class="ays_fa ays_fa_minus_square" aria-hidden="true"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div> <!-- Intervals -->
+
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-intervals-table" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                    </div>
+                                </a>
+                                <div class="ays-quiz-new-watch-video-button-box">
+                                    <div>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                </div>
+
+                                <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
+                                    <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
+                                        <div class="ays-quiz-center-new-watch-video-demo-button">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                            <?php echo __("Watch Video", "quiz-maker"); ?>
+                                        </div>
+                                    </div>
+                                    <div class="ays-quiz-center-big-upgrade-button-box">
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-intervals-table" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-center-new-big-upgrade-button">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
+                                                <?php echo __("Upgrade", "quiz-maker"); ?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
+                            <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                <a href="https://www.youtube.com/watch?v=lUbLHe9mEZ0" target="_blank">
+                                    <?php echo __("How to create personality quiz - video", $this->plugin_name); ?>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                        if( in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins'))) ) {
+                        ?>
+                        <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
+                            <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                <a href="https://www.youtube.com/watch?v=BeYNME9TZsQ" target="_blank">
+                                    <?php echo __("How to create WooCommerce quiz - video", $this->plugin_name); ?>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
+                        }
+                        ?>
+                        <!-- Intervals -->
+                        <hr/>
+                        <!-- Top Keywords -->
+                        <div class="form-group row">
+                            <div class="col-sm-12 only_pro" style="padding:15px;">
+                                <div class="pro_features pro_features_popup">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Top Keywords", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/o-GB91dfsLo">
+                                            <p>
+                                                <?php echo __("Are you interested in showing the question results based on chosen keywords? If yes, then, you can use the Top Keywords functionality.", $this->plugin_name); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("One of the %s best use cases %s of the feature is the %s Personality Trait quiz. %s", $this->plugin_name),
+                                                    '<strong>',
+                                                    '</strong>',
+                                                    '<strong>',
+                                                    '</strong>'
+                                                ); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("You need to configure the %s Keyword texts %s accordingly. Note: The %s Apply points to keywords %s option appears and works only in case you chose the %s By Keywords %s method of calculation.", $this->plugin_name),
+                                                    '<strong>',
+                                                    '</strong>',
+                                                    '<strong>',
+                                                    '</strong>',
+                                                    '<strong>',
+                                                    '</strong>'
+                                                ); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo __("By using this feature, you can display what percentage of which personality traits the particular user has.", $this->plugin_name); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-top-keywords">
+                                            <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_top_keywords">
+                                                <?php echo __('Assign message to each keyword',$this->plugin_name); ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the question results based on keywords on the resultes page with specified texts for each keyword.',$this->plugin_name); ?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="checkbox" class="ays-enable-timer1" value="on" tabindex="-1"/>
+                                        </div>
+                                    </div>
+                                </div> <!-- Show all questions result in finish page -->
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-top-keywords" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                    </div>
+                                </a>
+                                <div class="ays-quiz-new-watch-video-button-box">
+                                    <div>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                </div>
+                            </div>
+                        </div><!-- Top Keywords -->
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-sm-12 only_pro" style="padding:15px;">
+                                <div class="pro_features pro_features_popup">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Quiz Coupon", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/EfdYE1o2ALk">
+                                            <p>
+                                                <?php echo sprintf( __("Quiz Coupons can become a great motivation for your new audience. Give them a reason to try your product. Provide Quiz Coupons on the Results Page and %s increase sells in your website. %s Every time the users will receive unique codes that you will import into the plugin.", $this->plugin_name),
+                                                    '<strong>',
+                                                    '</strong>'
+                                                ); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://quiz-plugin.com/coupon-quiz/" target="_blank"><?php echo __("See Demo", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-quiz-coupon">
+                                            <?php echo __("Upgrade and Create", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_coupon">
+                                            <?php echo __('Enable quiz coupons',$this->plugin_name); ?>
+                                            <a class="ays_help" data-html="true" data-toggle="tooltip" title="<?php echo __("Enable coupon receiving after finishing the quiz. For showing the coupons, you have to use the %%quiz_coupon%% message variable from General Settings>Message variables.",$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="checkbox" class="ays-enable-timer1" value="on" tabindex="-1" />
+                                    </div>
+                                </div> <!-- Show all questions result in finish page -->
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-quiz-coupon" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                    </div>
+                                </a>
+                                <div class="ays-quiz-new-watch-video-button-box">
+                                    <div>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                </div>
+                            </div>
+                        </div><!-- Quiz Coupon -->
+                    </div>
+                </div>
             </div>
             
             <div id="tab5" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab5') ? 'ays-quiz-tab-content-active' : ''; ?>">
               <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                 <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
+                    <?php echo $quiz_accordion_svg_html; ?>
                     <p class="ays-subtitle"><?php echo __('Limitation of Users',$this->plugin_name)?></p>
                 </div>
                 <hr class="ays-quiz-bolder-hr"/>
@@ -8064,7 +8064,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             <div id="tab6" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab6') ? 'ays-quiz-tab-content-active' : ''; ?>">
               <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                 <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
+                    <?php echo $quiz_accordion_svg_html; ?>
                     <p class="ays-subtitle"><?php echo __('User Information',$this->plugin_name)?></p>
                 </div>
                 <hr class="ays-quiz-bolder-hr"/>
@@ -8269,7 +8269,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             <div id="tab7" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab7') ? 'ays-quiz-tab-content-active' : ''; ?>">
               <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                 <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
+                    <?php echo $quiz_accordion_svg_html; ?>
                     <p class="ays-subtitle"><?php echo __('E-mail and Certificate settings',$this->plugin_name)?></p>
                 </div>
                 <hr class="ays-quiz-bolder-hr"/>
@@ -8789,7 +8789,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             <div id="tab8" class="ays-integrations-tab ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab8') ? 'ays-quiz-tab-content-active' : ''; ?>">
               <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
                 <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_acardion_svg_html; ?>
+                    <?php echo $quiz_accordion_svg_html; ?>
                     <p class="ays-subtitle"><?php echo __('Integrations settings',$this->plugin_name)?></p>
                 </div>
                 <hr class="ays-quiz-bolder-hr"/>

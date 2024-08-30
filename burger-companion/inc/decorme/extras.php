@@ -31,9 +31,6 @@ function decorme_get_social_icon_default() {
 		)
 	);
 }
-
-
-
 /*
  *
  * Slider 5 Default
@@ -79,7 +76,45 @@ function decorme_get_social_icon_default() {
 		)
 	);
 }
-
+/*
+ *
+ * Slider 2 Default
+ */
+ function decorme_get_slider2_default() {
+	return apply_filters(
+		'decorme_get_slider2_default', json_encode(
+				 array(
+				array(
+					'image_url'       => BURGER_COMPANION_PLUGIN_URL . 'inc/interio/images/slider_two/img01.jpg',
+					'title'           => esc_html__( 'We Are The Best Choice For Your', 'decorme' ),
+					'subtitle'         => esc_html__( 'Innovative <span class="text-stroke">Modern</span> Design & Working', 'decorme' ),
+					'text'            => esc_html__( 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.', 'decorme' ),
+					'text2'	  =>  esc_html__( 'Get Started', 'decorme' ),
+					'link'	  =>  esc_html__( '#', 'decorme' ),
+					'id'              => 'customizer_repeater_slider2_001',
+				),
+				array(
+					'image_url'       => BURGER_COMPANION_PLUGIN_URL . 'inc/interio/images/slider_two/img02.jpg',
+					'title'           => esc_html__( 'We Are The Best Choice For Your', 'decorme' ),
+					'subtitle'         => esc_html__( 'Innovative <span class="text-stroke">Modern</span> Design & Working', 'decorme' ),
+					'text'            => esc_html__( 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.', 'decorme' ),
+					'text2'	  =>  esc_html__( 'Get Started', 'decorme' ),
+					'link'	  =>  esc_html__( '#', 'decorme' ),
+					'id'              => 'customizer_repeater_slider2_002',
+				),
+				array(
+					'image_url'       => BURGER_COMPANION_PLUGIN_URL . 'inc/interio/images/slider_two/img03.jpg',
+					'title'           => esc_html__( 'We Are The Best Choice For Your', 'decorme' ),
+					'subtitle'         => esc_html__( 'Innovative <span class="text-stroke">Modern</span> Design & Working', 'decorme' ),
+					'text'            => esc_html__( 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.', 'decorme' ),
+					'text2'	  =>  esc_html__( 'Get Started', 'decorme' ),
+					'link'	  =>  esc_html__( '#', 'decorme' ),
+					'id'              => 'customizer_repeater_slider2_003',
+				)
+			)
+		)
+	);
+}
 /*
  *
  * Info 2 Default
@@ -116,8 +151,37 @@ function decorme_get_social_icon_default() {
 		)
 	);
 }
-
-
+/*
+ *
+ * Info Default
+ */
+ function decorme_get_info_default() {
+	return apply_filters(
+		'decorme_get_info_default', json_encode(
+				 array(
+				array(
+					'icon_value'       => 'fa-hard-of-hearing',
+					'title'           => esc_html__( 'Smart Planing', 'decorme' ),
+					'text'            => esc_html__( 'There are many variations of passages of Lorem Ipsum available, the majority have suffered alteration.', 'decorme' ),
+					'id'              => 'customizer_repeater_info_001',
+				),
+				array(
+					'icon_value'       => ' fa-lightbulb-o',
+					'title'           => esc_html__( 'Creative Ideas', 'decorme' ),
+					'text'            => esc_html__( 'There are many variations of passages of Lorem Ipsum available, the majority have suffered alteration.', 'decorme' ),
+					'id'              => 'customizer_repeater_info_002',
+				),
+				array(
+					'icon_value'       => 'fa-heart',
+					'title'           => esc_html__( 'Smart Living', 'decorme' ),
+					'text'            => esc_html__( 'There are many variations of passages of Lorem Ipsum available, the majority have suffered alteration.', 'decorme' ),
+					'id'              => 'customizer_repeater_info_003',
+			
+				),
+			)
+		)
+	);
+}
 /*
  *
  * Service Default
@@ -157,7 +221,6 @@ function decorme_get_social_icon_default() {
 		)
 	);
 }
-
 
 /*
  *

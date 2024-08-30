@@ -22,7 +22,8 @@
                 <th scope="row">Hotline</th>
                 <td><input placeholder="0123 456 789" type="text" name="pzf_phone" value="<?php echo get_option('pzf_phone'); ?>" pattern="[0-9]{10,12}" title="Valid phone number from 10 to 12 digits" />
                     <label for="pzf_color_phone">
-                        <input id="pzf_color_phone" class="my-color-field" name="pzf_color_phone" type="text" value="<?php echo get_option('pzf_color_phone'); ?>" />
+                        <input id="pzf_color_phone" class="my-color-field" name="pzf_color_phone" type="text" value="<?php echo esc_attr(get_option('pzf_color_phone')); ?>" 
+       pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
                     </label>
                 </td>
             </tr>
@@ -30,7 +31,7 @@
                 <th scope="row">Hotline 2</th>
                 <td><input placeholder="0123 456 789" type="text" name="pzf_phone2" value="<?php echo get_option('pzf_phone2'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" />
                     <label for="pzf_color_phone2">
-                        <input id="pzf_color_phone2" class="my-color-field" name="pzf_color_phone2" type="text" value="<?php echo get_option('pzf_color_phone2'); ?>" />
+                        <input id="pzf_color_phone2" class="my-color-field" name="pzf_color_phone2" type="text" value="<?php echo esc_attr(get_option('pzf_color_phone2')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
                     </label>
                 </td>
             </tr>
@@ -39,7 +40,7 @@
                 <td>
                     <input placeholder="0123 456 789" type="text" name="pzf_phone3" value="<?php echo get_option('pzf_phone3'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" />
                     <label for="pzf_color_phone3">
-                        <input id="pzf_color_phone3" class="my-color-field" name="pzf_color_phone3" type="text" value="<?php echo get_option('pzf_color_phone3'); ?>" />
+                        <input id="pzf_color_phone3" class="my-color-field" name="pzf_color_phone3" type="text" value="<?php echo esc_attr(get_option('pzf_color_phone3')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7"/>
                     </label>
                 </td>
             </tr>
@@ -53,13 +54,7 @@
             </tr>
             <tr valign="top">
                 <th scope="row">Zalo</th>
-                <td>
-                    <input placeholder="0123 456 789" type="text" name="pzf_zalo" 
-                           value="<?php echo esc_attr(get_option('pzf_zalo')); ?>" 
-                           pattern="\d{9,30}" 
-                           title="Valid phone number from 9 to 30 digits" />
-                </td>
-
+                <td><input placeholder="0123 456 789" type="text" name="pzf_zalo" value="<?php echo get_option('pzf_zalo'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" /></td>
             </tr>
             <tr valign="top">
                 <th scope="row">Telegram</th>
@@ -98,7 +93,7 @@
                 <td>
                     <input placeholder="Link google map" type="url" name="pzf_linkggmap" value="<?php echo get_option('pzf_linkggmap'); ?>" title="URL hợp lệ" />
                     <label for="pzf_color_linkggmap">
-                        <input id="pzf_color_linkggmap" class="my-color-field" name="pzf_color_linkggmap" type="text" value="<?php echo get_option('pzf_color_linkggmap'); ?>" />
+                        <input id="pzf_color_linkggmap" class="my-color-field" name="pzf_color_linkggmap" type="text" value="<?php echo esc_attr(get_option('pzf_color_linkggmap')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
                     </label>
                 </td>
             </tr>
@@ -107,7 +102,7 @@
                 <td>
                     <input placeholder="/lien-he/" type="url" name="pzf_contact_link" value="<?php echo get_option('pzf_contact_link'); ?>" title="URL hợp lệ" />
                     <label for="pzf_color_contact">
-                        <input id="pzf_color_contact" class="my-color-field" name="pzf_color_contact" type="text" value="<?php echo get_option('pzf_color_contact'); ?>" />
+                        <input id="pzf_color_contact" class="my-color-field" name="pzf_color_contact" type="text" value="<?php echo esc_attr(get_option('pzf_color_contact')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
                     </label>
                 </td>
             </tr>

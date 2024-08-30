@@ -298,6 +298,10 @@ $spamcounter = maspik_spam_count();
             //MASPIK API field END --
 
             //General field
+                if( maspik_save_settings( 'maspikDbCheck' , sanitize_text_field(isset( $_POST['maspikDbCheck'] )) ? 1 : 0) != "success" ){ 
+                    $error_message .= $result_check . " ";
+                } //maspikDbCheck
+
                 if( maspik_save_settings( 'maspikHoneypot' , sanitize_text_field(isset( $_POST['maspikHoneypot'] )) ? 1 : 0) != "success" ){ 
                     $error_message .= $result_check . " ";
                 } //honeypot
@@ -1166,6 +1170,23 @@ $spamcounter = maspik_spam_count();
                     
                 <div class="maspik-accordion-content">
                     <div class="maspik-accordion-content-wrap hide-form-title">
+
+                        <div class="maspik-txt-custom-msg-head togglewrap maspik-db-check--wrap">
+                            <?php echo maspik_toggle_button('maspikDbCheck', 'maspikDbCheck', 'maspikDbCheck', 'maspik-DbCheck togglebutton',"",""); ?>
+                                <div>
+                                    <h4> <?php _e('IP Verification', 'contact-forms-anti-spam'); ?>
+                                        <span class="new"><?php _e('New', 'contact-forms-anti-spam'); ?></span> 
+                                    </h4>
+                                    <span><?php _e('Verify if the sender’s IP address is flagged as spam in the Maspik blacklist database.', 'contact-forms-anti-spam'); ?></span>
+                                    <br><span><?php _e('Maspik blacklist database is updated daily.', 'contact-forms-anti-spam'); ?></span>
+                            </div>  
+                        </div><!-- end of maspik-db-check--wrap -->
+                        
+                        <!---- db-check section divider S---------->
+                        <div class = 'maspik-simple-divider'></div>
+                        <!---- db-check section divider E---------->
+
+
 <?php
 echo '<p>' . __("Important: These three new features are operational on <strong>both client-side (browser) and server-side</strong>. However, we may not have identified all potential <strong>cache-related issues</strong> yet. If you choose to implement these features, we recommend <strong>testing them by submitting a form in incognito mode</strong> and <strong>reviewing your spam log</strong> to ensure proper functionality.", 'your-text-domain') . '</p>';
 ?>
@@ -1194,7 +1215,7 @@ echo '<p>' . __("Important: These three new features are operational on <strong>
                                         <span class="new"><?php _e('New', 'contact-forms-anti-spam'); ?></span> 
                                     </h4>
 
-                                    <span><?php _e('Comper the local and server year', 'contact-forms-anti-spam'); ?></span>
+                                    <span><?php _e('JavaScript check', 'contact-forms-anti-spam'); ?></span>
                             </div>  
                         </div><!-- end of maspik-maspikYearCheck -->
 
@@ -1489,20 +1510,21 @@ echo '<p>' . __("Important: These three new features are operational on <strong>
                                 echo create_maspik_numbox("spam_log_limit", "spam_log_limit", "spam_log_limit" , "Entry limit", "2000");
                             ?>
                         </div> <!-- end of spam log toggle box -->
-                            
-                        <div class="maspik-add-country-switch-wrap togglewrap maspik-more-options-switch-wrap">
+                             <?php 
 
-                            <?php 
-                            
+                            /* // Remove add_country_to_emails
+
+                        <!-- <div class="maspik-add-country-switch-wrap togglewrap maspik-more-options-switch-wrap">
+
+                           
                                 echo maspik_toggle_button('add_country_to_emails', 'add_country_to_emails', 'add_country_to_emails', 'maspik-more-options-switch togglebutton', 'other_options' );
                                 
                                 echo "<h4>". __("Add country name to the bottom of email content", "contact-forms-anti-spam"). "</h4>";
                                     
                                 maspik_tooltip(esc_html("To identify countries that send spam, and block them"));
-                                    
+                        </div> --> <!-- end of mmaspik-add-country-switch-wrap -->
+                                */   
                              ?>
-                        </div><!-- end of mmaspik-add-country-switch-wrap -->
-
                         <div class="maspik-disable-comment-switch-wrap togglewrap maspik-more-options-switch-wrap">
 
                             <?php 

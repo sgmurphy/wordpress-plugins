@@ -4,7 +4,7 @@ Tags: woocommerce, review plugin, review reminder, customer reviews, review for 
 Requires at least: 4.5
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 5.59.2
+Stable tag: 5.59.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl.html
 
@@ -232,6 +232,9 @@ If you would like to change how reviews are sorted on product pages, it is possi
 
 == Changelog ==
 
+= 5.59.3 =
+* Bug fix: [cusrev_all_reviews] shortcode did not display reviews when a shop page was not configured in WooCommerce settings (WooCommerce > Settings > Products > Shop page)
+* Bug fix: [cusrev_all_reviews] shortcode did not display replies to reviews correctly in some scenarios
 = 5.59.2 =
 * Bug fix: inactive_products parameter of the [cusrev_all_reviews] shortcode did not work correctly
 = 5.59.1 =

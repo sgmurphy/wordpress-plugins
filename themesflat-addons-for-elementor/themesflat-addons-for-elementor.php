@@ -4,7 +4,7 @@ Plugin Name: Themesflat Addons For Elementor
 Description: The theme's components
 Author: Themesflat
 Author URI: http://themesflat-addons.com/
-Version: 2.1.9
+Version: 2.2.0
 Text Domain: themesflat-addons-for-elementor
 Domain Path: /languages
 
@@ -87,6 +87,18 @@ final class ThemesFlat_Addon_For_Elementor_Free {
         }*/
 
        
+        require_once( __DIR__ . '/shortcode.php' );
+
+        require_once plugin_dir_path( __FILE__ ).'pagination.php';
+        require_once plugin_dir_path( __FILE__ ).'tf-function.php';
+        require_once plugin_dir_path( __FILE__ ).'addon-elementor-icon-manager.php';
+        // require_once plugin_dir_path( __FILE__ ).'tf-post-format.php';
+
+
+        
+        
+        require_once plugin_dir_path( __FILE__ ).'tf-plugin-option.php';
+        // require_once plugin_dir_path( __FILE__ ).'tf-plugin-setup.php';
 
 
         add_action( 'elementor/widgets/register', [ $this, 'init_widgets' ] );
@@ -116,18 +128,6 @@ final class ThemesFlat_Addon_For_Elementor_Free {
             ));
         },5);
 
-        require_once( __DIR__ . '/shortcode.php' );
-
-        require_once plugin_dir_path( __FILE__ ).'pagination.php';
-        require_once plugin_dir_path( __FILE__ ).'tf-function.php';
-        require_once plugin_dir_path( __FILE__ ).'addon-elementor-icon-manager.php';
-        // require_once plugin_dir_path( __FILE__ ).'tf-post-format.php';
-
-
-        
-        
-        require_once plugin_dir_path( __FILE__ ).'tf-plugin-option.php';
-        // require_once plugin_dir_path( __FILE__ ).'tf-plugin-setup.php';
         
 
         add_action( 'init', [ $this, 'tf_header_footer_post_type' ] );
@@ -293,206 +293,288 @@ final class ThemesFlat_Addon_For_Elementor_Free {
 
     public function init_widgets() {
 
-        if(tf_opt_get_option('wd_image_box')) {
+        if(tf_opt_get_option('wd_image_box') === false || tf_opt_get_option('wd_image_box') === 'on') {
             require_once( __DIR__ . '/widgets/widget-imagebox.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFImageBox_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_image_box') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_carousel')) {
+        } 
+
+        if(tf_opt_get_option('wd_carousel') === false || tf_opt_get_option('wd_carousel') === 'on') {
             require_once( __DIR__ . '/widgets/widget-carousel.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFCarousel_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_carousel') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_navmenu')) {
+        } 
+
+        if(tf_opt_get_option('wd_navmenu') === false || tf_opt_get_option('wd_navmenu') === 'on') {
             require_once( __DIR__ . '/widgets/widget-navmenu.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFNavMenu_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_navmenu') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_search')) {
+        } 
+
+        if(tf_opt_get_option('wd_search') === false || tf_opt_get_option('wd_search') === 'on') {
             require_once( __DIR__ . '/widgets/widget-search.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFSearch_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_search') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_posts')) {
+        } 
+
+
+        if(tf_opt_get_option('wd_posts') === false || tf_opt_get_option('wd_posts') === 'on') {
             require_once( __DIR__ . '/widgets/widget-posts.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPosts_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_posts') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_tabs')) {
+        } 
+
+        if(tf_opt_get_option('wd_tabs') === false || tf_opt_get_option('wd_tabs') === 'on') {
             require_once( __DIR__ . '/widgets/widget-tabs.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFTabs_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_tabs') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_simple_slider')) {
+        } 
+
+
+        if(tf_opt_get_option('wd_simple_slider') === false || tf_opt_get_option('wd_simple_slider') === 'on') {
             require_once( __DIR__ . '/widgets/widget-simple-slide.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFSlide_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_simple_slider') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_e_slider')) {
+        } 
+
+        if(tf_opt_get_option('wd_e_slider') === false || tf_opt_get_option('wd_e_slider') === 'on') {
             require_once( __DIR__ . '/widgets/widget-flex-slide.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFFlex_Slide_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_e_slider') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_scroll_top')) {
+        } 
+
+        if(tf_opt_get_option('wd_scroll_top') === false || tf_opt_get_option('wd_scroll_top') === 'on') {
             require_once( __DIR__ . '/widgets/widget-scroll-top.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFScrollTop_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_scroll_top') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_preload')) {
+        } 
+
+        if(tf_opt_get_option('wd_preload') === false || tf_opt_get_option('wd_preload') === 'on') {
             require_once( __DIR__ . '/widgets/widget-preload.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPreload_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_preload') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_post_image')) {
+        } 
+
+        if(tf_opt_get_option('wd_post_image') === false || tf_opt_get_option('wd_post_image') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-image.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostImage_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_post_image') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_post_title')) {
+        } 
+
+        
+        if(tf_opt_get_option('wd_post_title') === false || tf_opt_get_option('wd_post_title') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-title.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostTitle_Widget_Free() );  
-        }
-        
-        if(tf_opt_get_option('wd_post_excerpt')) {
+        } elseif (tf_opt_get_option('wd_post_title') !== 'on' ) {
+
+        } 
+
+        if(tf_opt_get_option('wd_post_excerpt') === false || tf_opt_get_option('wd_post_excerpt') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-excerpt.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostExcerpt_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_post_excerpt') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_post_content')) {
+        } 
+
+        if(tf_opt_get_option('wd_post_content') === false || tf_opt_get_option('wd_post_content') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-content.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostContent_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_post_content') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_author_box')) {
+        } 
+
+        if(tf_opt_get_option('wd_author_box') === false || tf_opt_get_option('wd_author_box') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-author-box.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostAuthorBox_Widget_Free() );
-        } 
+        } elseif (tf_opt_get_option('wd_author_box') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_post_comment')) {      
+        }
+
+        if(tf_opt_get_option('wd_post_comment') === false || tf_opt_get_option('wd_post_comment') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-comment.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostComment_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_post_comment') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_post_info')) {
+        if(tf_opt_get_option('wd_post_info') === false || tf_opt_get_option('wd_post_info') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-info.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostInfo_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_post_info') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_post_navigation')) {
+        if(tf_opt_get_option('wd_post_navigation') === false || tf_opt_get_option('wd_post_navigation') === 'on') {
             require_once( __DIR__ . '/widgets/widget-post-navigation.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPostNavigation_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_post_navigation') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_slider_swiper')) {
+        if(tf_opt_get_option('wd_slider_swiper') === false || tf_opt_get_option('wd_slider_swiper') === 'on') {
             require_once( __DIR__ . '/widgets/widget-slide-swiper.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFSlideSwiper_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_slider_swiper') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_animated_headline')) {
+        if(tf_opt_get_option('wd_animated_headline') === false || tf_opt_get_option('wd_animated_headline') === 'on') {
             require_once( __DIR__ . '/widgets/widget-animated-headline.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFAnimated_Headline_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_animated_headline') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_team')) {
+        if(tf_opt_get_option('wd_team') === false || tf_opt_get_option('wd_team') === 'on') {
             require_once( __DIR__ . '/widgets/widget-team.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFTeam_Widget_Free() ); 
+        } elseif (tf_opt_get_option('wd_team') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_icon_box')) {   
+        if(tf_opt_get_option('wd_icon_box') === false || tf_opt_get_option('wd_icon_box') === 'on') {
             require_once( __DIR__ . '/widgets/widget-iconbox.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFIconBox_Widget_Free() );
-        } 
-        if(tf_opt_get_option('wd_testimonial_carousel')) { 
+        } elseif (tf_opt_get_option('wd_icon_box') !== 'on' ) {
+
+        }
+
+        if(tf_opt_get_option('wd_testimonial_carousel') === false || tf_opt_get_option('wd_testimonial_carousel') === 'on') {
             require_once( __DIR__ . '/widgets/widget-testimonial-carousel.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFTestimonialCarousel_Widget_Free() );
-        } 
-        
+        } elseif (tf_opt_get_option('wd_testimonial_carousel') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_counter')) {
+        }
+
+        if(tf_opt_get_option('wd_counter') === false || tf_opt_get_option('wd_counter') === 'on') {
             require_once( __DIR__ . '/widgets/widget-counter.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFCounter_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_counter') !== 'on' ) {
+
         }
-        
-        if(tf_opt_get_option('wd_slider_before_after')) {
+
+        if(tf_opt_get_option('wd_slider_before_after') === false || tf_opt_get_option('wd_slider_before_after') === 'on') {
             require_once( __DIR__ . '/widgets/widget-sliderbeforeafter.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFSliderBeforeAfter_Widget_Free() );
-        }  
+        } elseif (tf_opt_get_option('wd_slider_before_after') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_clipping_mask')) {
-             require_once( __DIR__ . '/widgets/widget-clipping-mask.php' );
+        }
+
+        if(tf_opt_get_option('wd_clipping_mask') === false || tf_opt_get_option('wd_clipping_mask') === 'on') {
+            require_once( __DIR__ . '/widgets/widget-clipping-mask.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFClipping_Mask_Widget_Free() );
-        } 
+        } elseif (tf_opt_get_option('wd_clipping_mask') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_price_table')) {   
+        }
+        
+        if(tf_opt_get_option('wd_price_table') === false || tf_opt_get_option('wd_price_table') === 'on') {
             require_once( __DIR__ . '/widgets/widget-pricetable.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPriceTable_Widget_Free() );
-        }
+        } elseif (tf_opt_get_option('wd_price_table') !== 'on' ) {
 
-        if(tf_opt_get_option('wd_accordion')) {
+        }
+       
+        if(tf_opt_get_option('wd_accordion') === false || tf_opt_get_option('wd_accordion') === 'on') {
             require_once( __DIR__ . '/widgets/widget-accordion.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFAccordion_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_accordion') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_progress_bar')) {
+        if(tf_opt_get_option('wd_progress_bar') === false || tf_opt_get_option('wd_progress_bar') === 'on') {
             require_once( __DIR__ . '/widgets/widget-progress-bar.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFProgressBars_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_progress_bar') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_countdown')) {
+        if(tf_opt_get_option('wd_countdown') === false || tf_opt_get_option('wd_countdown') === 'on') {
             require_once( __DIR__ . '/widgets/widget-countdown.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFCountdown_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_countdown') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_pie_chart')) {
+        if(tf_opt_get_option('wd_pie_chart') === false || tf_opt_get_option('wd_pie_chart') === 'on') {
             require_once( __DIR__ . '/widgets/widget-piechart.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFPieChart_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_pie_chart') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_google_maps')) {
+
+        if(tf_opt_get_option('wd_google_maps') === false || tf_opt_get_option('wd_google_maps') === 'on') {
             require_once( __DIR__ . '/widgets/widget-google-maps.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TF_Google_Maps_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_google_maps') !== 'on' ) {
+
         }
        
-        // Update 9/8/2023
-        if(tf_opt_get_option('wd_group_images')) {
+        
+        if(tf_opt_get_option('wd_group_images') === false || tf_opt_get_option('wd_group_images') === 'on') {
             require_once( __DIR__ . '/widgets/widget-tfgroupimage.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TF_Group_Image_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_group_images') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_animation_item')) {
+        if(tf_opt_get_option('wd_animation_item') === false || tf_opt_get_option('wd_animation_item') === 'on') {
             require_once( __DIR__ . '/widgets/widget-animation-item.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFAnimationitem_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_animation_item') !== 'on' ) {
+
         }
 
-        if(tf_opt_get_option('wd_partner')) {
+        if(tf_opt_get_option('wd_partner') === false || tf_opt_get_option('wd_partner') === 'on') {
             require_once( __DIR__ . '/widgets/widget-list-image.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TFListImage_Widget_Free() ); 
-        }
-       
+        } elseif (tf_opt_get_option('wd_partner') !== 'on' ) {
 
-        // Update 9/8/2023
-        if(tf_opt_get_option('wd_video')) { 
+        }
+
+        if(tf_opt_get_option('wd_video') === false || tf_opt_get_option('wd_video') === 'on') {
             require_once( __DIR__ . '/widgets/widget-video.php' );
             \Elementor\Plugin::instance()->widgets_manager->register( new \TF_Addon_Video_Widget_Free() );
+        } elseif (tf_opt_get_option('wd_video') !== 'on' ) {
+
         }
        
 
         
         if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-            if(tf_opt_get_option('wd_woo_product_grid')) {
+            if(tf_opt_get_option('wd_woo_product_grid') === false || tf_opt_get_option('wd_woo_product_grid') === 'on') {
                 require_once( __DIR__ . '/widgets/widget-woo-product-grid.php' );
                 \Elementor\Plugin::instance()->widgets_manager->register( new \TFWooProductGrid_Widget_Free() );
+            } elseif (tf_opt_get_option('wd_woo_product_grid') !== 'on' ) {
+    
             }
-            if(tf_opt_get_option('wd_woo_mini_cart')) {
+            
+            if(tf_opt_get_option('wd_woo_mini_cart') === false || tf_opt_get_option('wd_woo_mini_cart') === 'on') {
                 require_once( __DIR__ . '/widgets/widget-mini-cart.php' );
                 \Elementor\Plugin::instance()->widgets_manager->register( new \TFMiniCart_Widget_Free() );
+            } elseif (tf_opt_get_option('wd_woo_mini_cart') !== 'on' ) {
+    
             }
            
         }
         if ( class_exists( 'YITH_WCWL' ) ) {
-            if(tf_opt_get_option('wd_woo_wishlist_count')) {
+
+            if(tf_opt_get_option('wd_woo_wishlist_count') === false || tf_opt_get_option('wd_woo_wishlist_count') === 'on') {
                 require_once( __DIR__ . '/widgets/widget-wishlist-count.php' );
                 \Elementor\Plugin::instance()->widgets_manager->register( new \TFWishlistCount_Widget_Free() );
+            } elseif (tf_opt_get_option('wd_woo_wishlist_count') !== 'on' ) {
+    
             }
             
         }

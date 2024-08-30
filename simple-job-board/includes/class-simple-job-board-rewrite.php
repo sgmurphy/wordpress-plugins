@@ -132,6 +132,19 @@ class Simple_Job_Board_Rewrite {
                 fclose($file_handle);
             }
         }
+        
+        $subfolders = glob($file['basedir'] . '/*', GLOB_ONLYDIR);
+
+        foreach ($subfolders as $subfolder) {
+            $index_file_path = trailingslashit($subfolder) . 'index.php';
+
+            if (!file_exists($index_file_path)) {
+                if ($file_handle = @fopen($index_file_path, 'w')) {
+                    fwrite($file_handle, "<?php\n// Silence is golden.\n");
+                    fclose($file_handle);
+                }
+            }
+        }
     }
     
 

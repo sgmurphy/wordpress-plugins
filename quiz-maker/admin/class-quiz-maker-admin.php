@@ -1121,6 +1121,7 @@ class Quiz_Maker_Admin
         $quick_quiz_quest_animation                         = "shake";
         $quick_quiz_question_font_size                      = 16;
         $quick_quiz_question_mobile_font_size               = 16;
+        $quick_quiz_question_text_alignment                 = "center";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1239,6 +1240,9 @@ class Quiz_Maker_Admin
 
             // Question Font Size | mobile
             $quick_quiz_question_mobile_font_size = (isset($_REQUEST['ays_quick_quiz_question_mobile_font_size']) && $_REQUEST['ays_quick_quiz_question_mobile_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_question_mobile_font_size'] ) ) : 16;
+
+            // Question text alignment
+            $quick_quiz_question_text_alignment = (isset($_REQUEST['ays_quick_quiz_question_text_alignment']) && $_REQUEST['ays_quick_quiz_question_text_alignment'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_question_text_alignment'] ) ) : 'center';
 
         }
         
@@ -1429,7 +1433,7 @@ class Quiz_Maker_Admin
             'quiz_box_shadow_x_offset'                      => 0,
             'quiz_box_shadow_y_offset'                      => 0,
             'quiz_box_shadow_z_offset'                      => 15,
-            'quiz_question_text_alignment'                  => 'center',
+            'quiz_question_text_alignment'                  => $quick_quiz_question_text_alignment,
             'quiz_arrow_type'                               => 'default',
             'quiz_show_wrong_answers_first'                 => 'off',
             'quiz_display_all_questions'                    => $quick_quiz_display_all_questions,
