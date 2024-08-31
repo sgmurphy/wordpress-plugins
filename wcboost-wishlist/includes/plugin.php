@@ -235,7 +235,7 @@ final class Plugin {
 	public function wishlist_page_id() {
 		$page_id = get_option( 'wcboost_wishlist_page_id' );
 
-		return $page_id;
+		return absint( $page_id );
 	}
 
 	/**

@@ -563,9 +563,6 @@ const createElement = function(...args) {
       }
     });
   });
-  scriptElt[addEventListener] = function(event, handler) {
-    eventListeners.push([event, handler]);
-  };
   scriptElt[setAttribute] = function(property, value) {
     if (capturedAttributes.includes(property)) {
       process.env.DEBUG && c(delta(), "setting attribute", property, value);

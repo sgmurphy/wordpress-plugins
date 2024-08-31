@@ -1,0 +1,124 @@
+@font-face {
+	font-family: "qlwapp-whatsapp";
+	src: url(data:application/x-font-woff;charset=utf-8;base64,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)
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.qlwapp__button {
+	display: inline-flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	white-space: nowrap;
+	pointer-events: all;
+	padding: var(--qlwapp--padding-xs) var(--qlwapp--padding-md);
+	margin-top: 24px;
+	margin-bottom: 24px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 40px;
+	color: var(--qlwapp-scheme-text, #ffffff);
+	background-color: var(--qlwapp-scheme-brand, #25d366);
+	box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.06),
+		0 2px 32px 0 rgba(0, 0, 0, 0.16);
+	cursor: pointer;
+
+	&,
+	&:active,
+	&:focus,
+	&:hover {
+		outline: none;
+		text-decoration: none;
+	}
+
+	// .qlwapp-days,
+	.qlwapp__label,
+	.qlwapp__time {
+		position: absolute;
+		bottom: -2em;
+		color: initial;
+		font-size: 10px;
+		display: inline-block;
+		top: auto;
+		width: 120px;
+	}
+	.qlwapp__close {
+		font-size: var(--qlwapp-scheme-icon-font-size, 30px);
+	}
+	.qlwapp__icon {
+		display: flex;
+		align-items: baseline;
+		// width: 20px;
+		// height: 20px;
+		margin: 0 12px 0 0;
+		// &::before {
+		// 	fill: var(--qlwapp-scheme-text, #ffffff) !important;
+		font-size: var(--qlwapp-scheme-icon-font-size, 30px);
+		// 	overflow: visible !important;
+		// 	width: inherit !important;
+		// 	height: inherit !important;
+		// }
+	}
+
+	&--bubble {
+		right: auto;
+		// left: 60px;
+		width: var(--qlwapp-scheme-icon-size, 60px);
+		height: var(--qlwapp-scheme-icon-size, 60px);
+
+		.qlwapp__icon {
+			margin: 0;
+		}
+
+		.qlwapp__text {
+			position: absolute;
+			right: var(--qlwapp-scheme-icon-size, 60px);
+			height: var(--qlwapp-scheme-icon-size, 60px);
+			margin: 0 24px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			font-weight: bold;
+			white-space: pre;
+			color: #303030;
+		}
+	}
+	&--disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+}
+
+.qlwapp__icon {
+	font-family: "qlwapp-whatsapp" !important;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	&:before {
+		content: "\e900";
+	}
+}
+
+.qlwapp__previous,
+.qlwapp__close {
+	font-family: "Source Serif Pro";
+	display: block;
+	opacity: 0.8;
+	font-style: unset;
+	font-size: 24px;
+	font-weight: bold;
+	width: 1em;
+	height: 1em;
+	cursor: pointer;
+	text-align: center;
+	line-height: 1em;
+	z-index: 1;
+	fill: var(--qlwapp-scheme-text, #ffffff);
+}

@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
             simpleBannerClosedCookie: `simplebannerclosed${banner_id}`,
         }
 
-        const isSimpleBannerTextSet = simple_banner_text !== undefined && simple_banner_text !== "";
+        const isSimpleBannerTextSet = simple_banner_text && simple_banner_text !== undefined && simple_banner_text !== "";
         const isDisabledByPagePath = simple_banner_disabled_page_paths ? simple_banner_disabled_page_paths.split(',')
             .filter(Boolean)
             .some(path => {

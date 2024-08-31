@@ -68,27 +68,6 @@ class Entity_Visibility {
 			return $show;
 		}
 
-		// Post types archives and taxonomies.
-		if ( is_archive() && isset( $wp_query->get_queried_object()->taxonomy ) ) {
-
-			if ( isset( $display['taxonomies'][ $wp_query->get_queried_object()->taxonomy ]['ids'] ) && count( $display['taxonomies'][ $wp_query->get_queried_object()->taxonomy ]['ids'] ) ) {
-
-				$show = ! $display['taxonomies'][ $wp_query->get_queried_object()->taxonomy ]['include'];
-				if ( in_array( 'all', $display['taxonomies'][ $wp_query->get_queried_object()->taxonomy ]['ids'] ) ) {
-					return ! $show;
-				}
-
-				if ( in_array( $wp_query->get_queried_object()->term_id, $display['taxonomies'][ $wp_query->get_queried_object()->taxonomy ]['ids'] ) ) {
-					$show = ! $show;
-				}
-				// backward compatibility for $term->name
-				if ( in_array( $wp_query->get_queried_object()->slug, $display['taxonomies'][ $wp_query->get_queried_object()->taxonomy ]['ids'] ) ) {
-					$show = ! $show;
-				}
-			}
-			return $show;
-		}
-
 		return $show;
 	}
 

@@ -47,43 +47,6 @@ final class PZF {
 		}?>
 		<div id="button-contact-vr" class="<?php echo $class_active_allinone;?>">
 			<div id="gom-all-in-one"><!-- v3 -->
-				
-				<?php
-				if(get_option('pzf_enable_contact_form')){
-				?>
-				<!-- contact form -->
-				<div id="contact-form-vr" class="button-contact">
-					<div class="phone-vr">
-						<div class="phone-vr-circle-fill"></div>
-						<div class="phone-vr-img-circle">			
-							<img alt="Phone" src="<?php echo PZF_URL.'img/icon'.get_option('pzf_icon_contact_form').'.png'; ?>" />
-						</div>
-					</div>	
-				</div>					
-				<!-- end contact form -->
-				<?php }; ?>
-				
-				<?php
-				if(get_option('pzf_enable_showroom')){
-				?>
-				<!-- showroom -->
-				<div id="contact-showroom" class="button-contact <?php echo get_option('pzf_content_showroom')?'no-event':''; ?>">
-					<div class="phone-vr">
-						<div class="phone-vr-circle-fill"></div>
-						<div class="phone-vr-img-circle">
-							<?php if(get_option('pzf_link_showroom')){ ?>
-								<a href="<?php echo get_option('pzf_link_showroom'); ?>" <?php echo get_option('pzf_link_newtab_showroom')?'target="_blank"':''; ?>>	
-									<img alt="Showroom" src="<?php echo PZF_URL.'img/showroom'.get_option('pzf_icon_showroom').'.png'; ?>" />
-								</a>
-							<?php }else{ ?>
-								<img alt="showroom" src="<?php echo PZF_URL.'img/icon'.get_option('pzf_icon_showroom').'.png'; ?>" />
-							<?php }; ?>
-						</div>
-					</div>	
-				</div>	
-				<!-- end showroom -->
-				<?php }; ?>
-
 				<?php
 				if(get_option('pzf_linkggmap')){
 				?>
@@ -92,7 +55,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_linkggmap'); ?>">				
+							<a target="_blank" href="<?php echo esc_html(get_option('pzf_linkggmap')); ?>">				
 								<img alt="google map" src="<?php echo PZF_URL.'img/showroom4.png'; ?>" />
 							</a>
 						</div>
@@ -109,7 +72,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="<?php echo get_option('pzf_contact_link'); ?>">				
+							<a href="<?php echo esc_html(get_option('pzf_contact_link')); ?>">				
 								<img alt="Liên hệ" src="<?php echo PZF_URL.'img/contact.png'; ?>" />
 							</a>
 						</div>
@@ -126,7 +89,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="viber://add?number=<?php echo preg_replace( '/\D/', '',get_option('pzf_viber')); ?>">				
+							<a target="_blank" href="viber://add?number=<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_viber'))); ?>">				
 								<img alt="Viber" src="<?php echo PZF_URL.'img/viber.png'; ?>" />
 							</a>
 						</div>
@@ -143,7 +106,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_linkfanpage'); ?>">				
+							<a target="_blank" href="<?php echo esc_url(get_option('pzf_linkfanpage')); ?>">				
 								<img alt="Fanpage" src="<?php echo PZF_URL.'img/Facebook.png'; ?>" />
 							</a>
 						</div>
@@ -161,7 +124,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_linkmessenger'); ?>">				
+							<a target="_blank" href="<?php echo esc_url(get_option('pzf_linkmessenger')); ?>">				
 								<img alt="messenger" src="<?php echo PZF_URL.'img/messenger.png'; ?>" />
 							</a>
 						</div>
@@ -178,7 +141,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_tiktok'); ?>">				
+							<a target="_blank" href="<?php echo esc_url(get_option('pzf_tiktok')); ?>">				
 								<img alt="tiktok" src="<?php echo PZF_URL.'img/tiktok.png'; ?>" />
 							</a>
 						</div>
@@ -195,7 +158,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_telegram'); ?>">				
+							<a target="_blank" href="<?php echo esc_url(get_option('pzf_telegram')); ?>">				
 								<img alt="telegram" src="<?php echo PZF_URL.'img/telegram.png'; ?>" />
 							</a>
 						</div>
@@ -212,7 +175,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_instagram'); ?>">				
+							<a target="_blank" href="<?php echo esc_url(get_option('pzf_instagram')); ?>">				
 								<img  alt="Instagram" src="<?php echo PZF_URL.'img/instagram.png'; ?>" />
 							</a>
 						</div>
@@ -229,7 +192,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="<?php echo get_option('pzf_youtube'); ?>">				
+							<a target="_blank" href="<?php echo esc_url(get_option('pzf_youtube')); ?>">				
 								<img alt="youtube" src="<?php echo PZF_URL.'img/youtube.png'; ?>" />
 							</a>
 						</div>
@@ -246,7 +209,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href="https://zalo.me/<?php echo preg_replace( '/\D/', '',get_option('pzf_zalo')); ?>">				
+							<a target="_blank" href="https://zalo.me/<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_zalo'))); ?>">				
 								<img alt="Zalo" src="<?php echo PZF_URL.'img/zalo.png'; ?>" />
 							</a>
 						</div>
@@ -263,7 +226,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a target="_blank" href=" https://wa.me/<?php echo preg_replace( '/\D/', '',get_option('pzf_whatsapp')); ?>">				
+							<a target="_blank" href=" https://wa.me/<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_whatsapp'))); ?>">				
 								<img alt="Whatsapp" src="<?php echo PZF_URL.'img/whatsapp.png'; ?>" />
 							</a>
 						</div>
@@ -280,7 +243,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone')); ?>">				
+							<a href="tel:<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone'))); ?>">				
 								<img alt="Phone" src="<?php echo PZF_URL.'img/phone.png'; ?>" />
 							</a>
 						</div>
@@ -290,7 +253,8 @@ final class PZF {
 						if(get_option('pzf_phone_bar') == '1'){ ?>
 						<div class="phone-bar phone-bar-n">
 							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone')); ?>">
-								<span class="text-phone"><?php echo get_option('pzf_phone'); ?></span>
+								<span class="text-phone"><?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone'))); ?>
+</span>
 							</a>
 						</div>
 					<?php };?>
@@ -305,7 +269,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone2')); ?>">				
+							<a href="tel:<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone2'))); ?>">				
 								<img  alt="phone" src="<?php echo PZF_URL.'img/phone.png'; ?>" />
 							</a>
 						</div>
@@ -314,8 +278,8 @@ final class PZF {
 					<?php 
 						if(get_option('pzf_phone_bar') == '1'){ ?>
 						<div class="phone-bar phone-bar2 phone-bar-n">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone2')); ?>">
-								<span class="text-phone"><?php echo get_option('pzf_phone2'); ?></span>
+							<a href="tel:<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone2'))); ?>">
+								<span class="text-phone"><?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone2'))); ?></span>
 							</a>
 						</div>
 					<?php };?>
@@ -330,7 +294,7 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">
-							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone3')); ?>">				
+							<a href="tel:<?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone3'))); ?>">				
 								<img alt="Phone" src="<?php echo PZF_URL.'img/phone.png'; ?>" />
 							</a>
 						</div>
@@ -340,7 +304,7 @@ final class PZF {
 						if(get_option('pzf_phone_bar') == '1'){ ?>
 						<div class="phone-bar phone-bar3 phone-bar-n">
 							<a href="tel:<?php echo preg_replace( '/\D/', '',get_option('pzf_phone3')); ?>">
-								<span class="text-phone"><?php echo get_option('pzf_phone3'); ?></span>
+								<span class="text-phone"><?php echo esc_html(preg_replace('/\D/', '', get_option('pzf_phone3'))); ?></span>
 							</a>
 						</div>
 					<?php };?>
@@ -355,13 +319,13 @@ final class PZF {
 					<div class="phone-vr">
 						<div class="phone-vr-circle-fill"></div>
 						<div class="phone-vr-img-circle">			
-							<img alt="All in one" src="<?php echo PZF_URL.'img/icon'.get_option('pzf_icon_all_in_one').'.png'; ?>" />
+							<img alt="All in one" src="<?php echo PZF_URL.'img/icon'.esc_html(get_option('pzf_icon_all_in_one')).'.png'; ?>" />
 						</div>
 					</div>					
 					<?php 
 						if(get_option('pzf_note_bar_all_in_one') == '1'){ ?>
-					<div class="phone-bar" style="background-color: <?php echo get_option('pzf_color_all_in_one'); ?>;">
-						<span class="text-phone"><?php echo get_option('pzf_note_all_in_one'); ?></span>
+					<div class="phone-bar" style="background-color: <?php echo esc_html(get_option('pzf_color_all_in_one')); ?>;">
+						<span class="text-phone"><?php echo esc_html(get_option('pzf_note_all_in_one')); ?></span>
 					</div>
 					<?php };?>
 				</div>				
@@ -369,77 +333,9 @@ final class PZF {
 			<?php };?>
 
 		</div>
-<!-- popup form -->
-<div id="popup-form-contact-vr">
-	<div class="bg-popup-vr"></div>
-<?php
-	if(get_option('pzf_max_w_contact_form')){
-		$pzf_max_w_contact_form = 'max-width:'.get_option('pzf_max_w_contact_form').'px;';
-	}else{
-		$pzf_max_w_contact_form = '';
-	}	
-	if(get_option('pzf_bg_contact_form')){
-		$pzf_bg_contact_form = 'background:'.get_option('pzf_bg_contact_form').';';
-	}else{
-		$pzf_bg_contact_form = '';
-	}
-?>
-	<div class="content-popup-vr" id="loco-<?php echo get_option('pzf_loco_img_contact_form'); ?>" style=" <?php echo $pzf_max_w_contact_form;echo $pzf_bg_contact_form; ?>">
-		<?php if(get_option('pzf_img_contact_form') and (get_option('pzf_loco_img_contact_form')=='left' or get_option('pzf_loco_img_contact_form')=='top') ){ ?>
-			<div class="content-popup-img-vr" id="loco<?php echo get_option('pzf_loco_img_contact_form'); ?>">
-				<img src="<?php echo get_option('pzf_img_contact_form'); ?>">					
-			</div>
-		<?php } ?>
-
-		<div class="content-popup-div-vr">
-			<?php echo get_option('pzf_title_contact_form'); ?>
-			<?php echo do_shortcode(get_option('pzf_content_contact_form')); ?>			
-		</div>	
-
-		<?php if(get_option('pzf_img_contact_form') and (get_option('pzf_loco_img_contact_form')=='right' or get_option('pzf_loco_img_contact_form')=='bottom') ){ ?>
-			<div class="content-popup-img-vr" id="loco<?php echo get_option('pzf_loco_img_contact_form'); ?>">
-				<img src="<?php echo get_option('pzf_img_contact_form'); ?>">					
-			</div>
-		<?php } ?>
-
-		<div class="close-popup-vr">x</div>
-	</div>
-</div>
 
 <!-- Add custom css and js -->
-	<style type="text/css">
-		<?php //echo get_option('pzf_add_css'); ?>
-	</style>
 	<?php //echo get_option('pzf_add_js'); ?>
-<!-- end Add custom css and js -->
-<!-- popup showroom -->
-<div id="popup-showroom-vr">
-	<div class="bg-popup-vr"></div>
-<?php
-	if(get_option('pzf_max_w_showroom')){
-		$pzf_max_w_showroom = 'max-width:'.get_option('pzf_max_w_showroom').'px;';
-	}else{
-		$pzf_max_w_showroom = '';
-	}	
-	if(get_option('pzf_bg_showroom')){
-		$pzf_bg_showroom = 'background:'.get_option('pzf_bg_showroom').';';
-	}else{
-		$pzf_bg_showroom = '';
-	}
-?>
-	<div class="content-popup-vr" id="loco-<?php echo get_option('pzf_loco_img_contact_form'); ?>" style=" <?php echo $pzf_max_w_showroom;echo $pzf_bg_showroom; ?>">
-		<?php if(get_option('pzf_img_contact_form') and (get_option('pzf_loco_img_contact_form')=='left' or get_option('pzf_loco_img_contact_form')=='top') ){ ?>
-			<div class="content-popup-img-vr" id="loco<?php echo get_option('pzf_loco_img_contact_form'); ?>">
-				<img src="<?php echo get_option('pzf_img_contact_form'); ?>">					
-			</div>
-		<?php } ?>
-
-		<div class="content-popup-div-vr">
-			<?php echo do_shortcode(get_option('pzf_content_showroom')); ?>			
-		</div>	
-		<div class="close-popup-vr">x</div>
-	</div>
-</div>
 
 <script type="text/javascript">
 	jQuery(document).ready(function($){
@@ -460,61 +356,30 @@ final class PZF {
 		})
 	});
 </script>
-<!-- end popup form -->
 
-			<!-- Facebook Messenger -->
-			<?php
-			if(get_option('pzf_id_fanpage')){
-			?>
-				<!-- Load Facebook SDK for JavaScript -->
-				<div id="fb-root"></div>
-				<script>
-				  window.fbAsyncInit = function() {
-				    FB.init({
-				      xfbml            : true,
-				      version          : 'v3.3'
-				    });
-				  };
-
-				  (function(d, s, id) {
-				  var js, fjs = d.getElementsByTagName(s)[0];
-				  if (d.getElementById(id)) return;
-				  js = d.createElement(s); js.id = id;
-				  js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-				  fjs.parentNode.insertBefore(js, fjs);
-				}(document, 'script', 'facebook-jssdk'));</script>
-
-		<!-- Your customer chat code -->
-		<div class="fb-customerchat"
-		  attribution=setup_tool
-		  page_id="<?php echo get_option('pzf_id_fanpage'); ?>"
-		  theme_color="<?php echo get_option('pzf_color_fb') ? get_option("pzf_color_fb") : '#0084ff' ?>"
-		  logged_in_greeting="<?php echo get_option('logged_in_greeting') ? get_option("logged_in_greeting") : 'Xin chào! Chúng tôi có thể giúp gì cho bạn?' ?>"
-		  logged_out_greeting="<?php echo get_option('logged_in_greeting') ? get_option("logged_in_greeting") : 'Xin chào! Chúng tôi có thể giúp gì cho bạn?' ?>">
-		</div>
-			<?php }; ?>
+<!-- end Add custom css and js -->
 
 		
 			<?php if(get_option('pzf_color_phone')){ ?>
 				<!-- color phone -->
 				<style>
 					.phone-bar a,#phone-vr .phone-vr-circle-fill,#phone-vr .phone-vr-img-circle,#phone-vr .phone-bar a {
-					    background-color: <?php echo get_option('pzf_color_phone'); ?>;
+					    background-color: <?php echo esc_html(get_option('pzf_color_phone')); ?>;
 					}
 					#phone-vr .phone-vr-circle-fill {
-					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_phone'); ?>;
+					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_phone')); ?>;
 					}
 					.phone-bar2 a,#phone-vr2 .phone-vr-circle-fill,#phone-vr2 .phone-vr-img-circle,#phone-vr2 .phone-bar a {
-					    background-color: <?php echo get_option('pzf_color_phone2'); ?>;
+					    background-color: <?php echo esc_html(get_option('pzf_color_phone2')); ?>;
 					}
 					#phone-vr2 .phone-vr-circle-fill {
-					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_phone2'); ?>;
+					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_phone2')); ?>;
 					}
 					.phone-bar3 a,#phone-vr3 .phone-vr-circle-fill,#phone-vr3 .phone-vr-img-circle,#phone-vr3 .phone-bar a {
-					    background-color: <?php echo get_option('pzf_color_phone3'); ?>;
+					    background-color: <?php echo esc_html(get_option('pzf_color_phone3')); ?>;
 					}
 					#phone-vr3 .phone-vr-circle-fill {
-					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_phone3'); ?>;
+					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_phone3')); ?>;
 					}
 				</style>
 				<!-- color phone -->
@@ -524,10 +389,10 @@ final class PZF {
 				<!-- color contact form -->
 				<style>
 					.phone-bar a,#contact-form-vr .phone-vr-circle-fill,#contact-form-vr .phone-vr-img-circle,#contact-form-vr .phone-bar a {
-					    background-color: <?php echo get_option('pzf_color_contact_form'); ?>;
+					    background-color: <?php echo esc_html(get_option('pzf_color_contact_form')); ?>;
 					}
 					#contact-form-vr .phone-vr-circle-fill {
-					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_contact_form'); ?>;
+					    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_contact_form')); ?>;
 					}
 				</style>
 				<!-- color contact form -->
@@ -536,55 +401,55 @@ final class PZF {
 		<?php if(get_option('pzf_color_contact')){ ?>
 		<style>
 			#contact-vr .phone-vr-circle-fill,#contact-vr .phone-vr-img-circle {
-			    background-color: <?php echo get_option('pzf_color_contact'); ?>;
+			    background-color: <?php echo esc_html(get_option('pzf_color_contact')); ?>;
 			}
 			#contact-vr .phone-vr-circle-fill {
-			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_contact'); ?>;
+			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_contact')); ?>;
 			}
 		</style>
 			<?php };?>
 
-		<?php if(get_option('pzf_color_linkggmap')){ ?>
+		<?php if(esc_html(get_option('pzf_color_linkggmap'))){ ?>
 		<style>
 			#map-vr .phone-vr-circle-fill,#map-vr .phone-vr-img-circle {
-			    background-color: <?php echo get_option('pzf_color_linkggmap'); ?>;
+			    background-color: <?php echo esc_html(get_option('pzf_color_linkggmap')); ?>;
 			}
 			#map-vr .phone-vr-circle-fill {
-			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_linkggmap'); ?>;
+			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_linkggmap')); ?>;
 			}
 		</style>
 			<?php };?>
 
-		<?php if(get_option('pzf_color_showroom')){ ?>
+		<?php if(esc_html(get_option('pzf_color_showroom'))){ ?>
 		<!-- color showroom -->
 		<style>
 			#contact-showroom .phone-vr-circle-fill,#contact-showroom .phone-vr-img-circle {
-			    background-color: <?php echo get_option('pzf_color_showroom'); ?>;
+			    background-color: <?php echo esc_html(get_option('pzf_color_showroom')); ?>;
 			}
 			#contact-showroom .phone-vr-circle-fill {
-			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_showroom'); ?>;
+			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_showroom')); ?>;
 			}
 		</style>
 			<?php };?>
-		<?php if(get_option('pzf_color_all_in_one')){ ?>
+		<?php if(esc_html(get_option('pzf_color_all_in_one'))){ ?>
 		<!-- color all in one -->
 		<style>
 			#all-in-one-vr .phone-vr-circle-fill,#all-in-one-vr .phone-vr-img-circle {
-			    background-color: <?php echo get_option('pzf_color_all_in_one'); ?>;
+			    background-color:<?php echo esc_html(get_option('pzf_color_all_in_one')); ?>;
 			}
 			#all-in-one-vr .phone-vr-circle-fill {
-			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo get_option('pzf_color_all_in_one'); ?>;
+			    opacity: 0.7;box-shadow: 0 0 0 0 <?php echo esc_html(get_option('pzf_color_all_in_one')); ?>;
 			}
 		</style>
 			<?php };?>
 
-		<?php if(get_option('setting_size')){?>
+		<?php if(esc_html(get_option('setting_size'))){?>
 		<!-- size scale -->
 		<style>
-			#button-contact-vr {transform: scale(<?php echo get_option('setting_size'); ?>);}
+			#button-contact-vr {transform: scale(<?php echo esc_html(get_option('setting_size')); ?>);}
 		</style>
 		<?php 
-			if(get_option('setting_size') < 0.9){ ?>
+			if(esc_html(get_option('setting_size')) < 0.9){ ?>
 			<style>
 				#button-contact-vr {margin: -10px;}
 			</style>
@@ -608,7 +473,7 @@ final class PZF {
 		<?php if(get_option('pzf_location_bottom')){ ?>
 		<!-- location bottom -->
 		<style>
-			#button-contact-vr {bottom: <?php echo get_option('pzf_location_bottom'); ?>%;}
+			#button-contact-vr {bottom: <?php echo esc_html(get_option('pzf_location_bottom')); ?>%;}
 		</style>
 			<?php };?>
 

@@ -1,0 +1,42 @@
+.qlwapp__contact-list {
+	height: 100%;
+	overflow: auto;
+}
+
+.qlwapp__contact {
+	display: flex;
+	align-items: center;
+	gap: var(--qlwapp--padding-sm);
+	padding: var(--qlwapp--padding-sm) var(--qlwapp--padding-lg);
+	color: inherit;
+	position: relative;
+	cursor: pointer;
+	width: 100%;
+	text-decoration: none;
+	height: auto;
+	&:nth-child(1):nth-last-child(2),
+	&:nth-child(2):nth-last-child(1) {
+		height: 50%;
+	}
+
+	&:only-child {
+		height: 100%;
+		text-align: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+	&:not(:first-child) {
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
+	}
+	&--disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+}
+
+.qlwapp__contact-list__empty {
+	display: flex;
+	height: 134px;
+	justify-content: center;
+	align-items: center;
+}

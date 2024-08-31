@@ -86,17 +86,6 @@ class Frontend {
 			<?php
 	}
 
-	public function box_display1( $show ) {
-		global $wp_query;
-		$models_display = Models_Display::instance();
-		$display        = $models_display->get();
-		if ( is_customize_preview() ) {
-			return true;
-		}
-		$entity_visibility = Entity_Visibility::instance();
-		return $entity_visibility->is_show_view( $display );
-	}
-
 	public function do_shortcode( $atts, $content = null ) {
 		$models_button = Models_Button::instance();
 		$button        = $models_button->get();
@@ -107,17 +96,17 @@ class Frontend {
 		?>
 			<div style="width: auto;" id="qlwapp" class="qlwapp qlwapp-js-ready <?php printf( 'qlwapp-%s qlwapp-%s', esc_attr( $atts['layout'] ), esc_attr( $atts['rounded'] === 'yes' ? 'rounded' : 'square' ) ); ?>">
 				<a class="qlwapp-toggle" data-action="open" data-phone="<?php echo esc_attr( $atts['phone'] ); ?>" data-message="<?php echo esc_html( $atts['message'] ); ?>" href="#" target="_blank">
-				<?php if ( $atts['icon'] ) : ?>
+					<?php if ( $atts['icon'] ) : ?>
 						<i class="qlwapp-icon <?php echo esc_attr( $atts['icon'] ); ?>"></i>
 					<?php endif; ?>
-					<i class="qlwapp-close" data-action="close">&times;</i>
-				<?php if ( $atts['text'] ) : ?>
+						<i class="qlwapp-close" data-action="close">&times;</i>
+					<?php if ( $atts['text'] ) : ?>
 						<span class="qlwapp-text"><?php echo esc_html( $content ); ?></span>
 					<?php endif; ?>
 				</a>
 			</div>
-			<?php
-			return ob_get_clean();
+		<?php
+		return ob_get_clean();
 	}
 
 	public function display() {

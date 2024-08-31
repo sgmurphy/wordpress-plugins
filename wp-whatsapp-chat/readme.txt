@@ -5,7 +5,7 @@ Tags: whatsapp, whatsapp business, chat, whatsapp chat, woocommerce whatsapp
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.6
-Stable tag: 7.4.4
+Stable tag: 7.4.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,9 @@ Don't use: +001-(555)1234567
 * Brazilian Portuguese (thanks to [Dionizio Bach](@djio))
 
 == Changelog ==
+
+= 7.4.5 =
+* Admin panel improvements
 
 = 7.4.4 =
 * WordPress compatibility

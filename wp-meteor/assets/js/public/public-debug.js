@@ -873,9 +873,6 @@
         }
       });
     });
-    scriptElt[addEventListener] = function(event, handler) {
-      eventListeners.push([event, handler]);
-    };
     scriptElt[setAttribute] = function(property, value) {
       if (capturedAttributes.includes(property)) {
         c(delta_default(), "setting attribute", property, value);
@@ -1267,5 +1264,5 @@
     }
   })();
 })();
-//1.0.27
+//1.0.31
 //# sourceMappingURL=public-debug.js.map

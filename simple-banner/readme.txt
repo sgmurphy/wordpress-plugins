@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/rpetersenDev
 Tags: banner, bar, announcement, notification, notice
 Requires at least: 3.0.1
 Tested up to: 6.6.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,6 +98,9 @@ Try setting the "Prepend element" setting to <code>header</code>. If that doesn'
 4. This is the fifth screen shot.
 
 == Changelog ==
+
+= 3.0.2 =
+* False text bug fix
 
 = 3.0.1 =
 * Bug fix, check for undefined
@@ -347,6 +350,9 @@ Try setting the "Prepend element" setting to <code>header</code>. If that doesn'
 * First Version.
 
 == Upgrade Notice ==
+
+= 3.0.2 =
+* False text bug fix
 
 = 3.0.1 =
 * Bug fix, check for undefined

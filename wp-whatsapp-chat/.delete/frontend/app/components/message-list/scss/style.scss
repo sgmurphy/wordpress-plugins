@@ -1,0 +1,65 @@
+.qlwapp__message-list {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: var(--qlwapp--padding-sm);
+	padding: var(--qlwapp--padding-sm) var(--qlwapp--padding-lg);
+	overflow: auto;
+	height: 100%;
+}
+
+.qlwapp__message {
+	padding: var(--qlwapp--padding-sm) var(--qlwapp--padding-md);
+	position: relative;
+	align-self: flex-start;
+	word-wrap: break-word;
+	max-width: calc(100% - var(--qlwapp--padding-sm) * 2);
+	background-color: #eee;
+	word-break: break-word;
+
+	&:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		width: 20px;
+		height: 20px;
+		right: auto;
+		left: 0;
+		transform: matrix(1, 0, 1, 1, -2, 0);
+	}
+
+	// &--error {
+	// 	background-color: #ffbfbf !important;
+	// 	color: #750000 !important;
+	// 	&:before {
+	// 		background-color: #ffbfbf !important;
+	// 	}
+	// }
+
+	// &--spinner {
+	// 	> svg {
+	// 		width: 2em;
+	// 		opacity: 0.5;
+	// 	}
+	// }
+
+	&--user {
+		width: auto;
+		align-self: end;
+		justify-self: flex-end;
+		margin-top: 0;
+		&:before {
+			right: 0;
+			left: auto;
+			transform: matrix(1, 0, 1, -1, 2, 0);
+		}
+	}
+
+	&--user:first-child {
+		&:before {
+			top: -6px;
+			right: 10%;
+			transform: rotate(45deg);
+		}
+	}
+}

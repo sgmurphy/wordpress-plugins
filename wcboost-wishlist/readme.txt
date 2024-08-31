@@ -2,11 +2,11 @@
 Contributors: wcboost
 Tags: woocommerce wishlist, wishlist, products, e-commerce, woocommerce
 Tested up to: 6.6
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 Requires PHP: 7.0
 Requires at least: 4.5
 WC requires at least: 3.0.0
-WC tested up to: 9.1
+WC tested up to: 9.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,9 @@ Following the standards of WordPress and WooCommerce, you can find all the setti
 6. Visual options can be found in the Customizer
 
 == Changelog ==
+
+= 1.1.3 =
+- Fix - Resolved compatibility issues with WPML.
 
 = 1.1.2 =
 - Fix - Fix issues with guest wishlists.

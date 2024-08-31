@@ -15,7 +15,6 @@ class Helpers {
 	public function register_scripts() {
 		$helpers          = include QLWAPP_PLUGIN_DIR . 'build/helpers/js/index.asset.php';
 		$timezone_options = qlwapp_get_timezone_options();
-
 		/**
 		 * Register helpers assets
 		 */

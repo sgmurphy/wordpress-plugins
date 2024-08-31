@@ -1,0 +1,89 @@
+.qlwapp__header {
+	background-color: var(--qlwapp-scheme-brand, #25d366);
+	color: var(--qlwapp-scheme-text, #ffffff);
+	position: relative;
+	overflow: hidden;
+	height: auto;
+	max-height: 150px;
+	&:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: linear-gradient(315deg, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
+	}
+
+	.qlwapp__close {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+
+		@media (min-width: 430px) {
+			position: absolute;
+			top: 7px;
+			right: 7px;
+			font-size: 18px;
+		}
+	}
+
+	.qlwapp__header-description {
+		align-items: center;
+		p,
+		h3 {
+			color: inherit;
+			font-family: inherit;
+			margin: 0;
+		}
+
+		h3 {
+			margin: 0 0 0.25em 0;
+		}
+		img {
+			max-width: 100px;
+		}
+
+		* {
+			color: var(--qlwapp-scheme-text, #ffffff) !important;
+		}
+	}
+
+	.qlwapp__header-description,
+	.qlwapp__header-contact {
+		padding: calc(var(--qlwapp--padding-xs) + 2px) var(--qlwapp--padding-lg);
+		height: 100%;
+	}
+
+	.qlwapp__header-contact {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: var(--qlwapp--padding-sm);
+
+		.qlwapp__previous {
+			margin-right: auto;
+			> i {
+				line-height: 36px;
+			}
+		}
+
+		.qlwapp__info {
+			text-align: right;
+		}
+
+		.qlwapp__avatar {
+			// svg {
+			// 	fill: var(--ai-copilot--icon-color);
+			// }
+			width: 42px;
+			height: 42px;
+		}
+
+		// .qlwapp-description,
+		.qlwapp__name {
+			color: var(--qlwapp-scheme-contact-name-color, #141414);
+			color: inherit;
+		}
+	}
+}

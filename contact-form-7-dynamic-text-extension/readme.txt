@@ -2,7 +2,7 @@
 Contributors: sevenspark, tessawatkinsllc
 Donate link: https://just1voice.com/donate/
 Tags: Contact Form 7, autofill, prepopulate, dynamic form, form field
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 4.4.2
 
 Extends Contact Form 7 by adding dynamic form fields that accepts shortcodes to prepopulate form fields with default values and dynamic placeholders.

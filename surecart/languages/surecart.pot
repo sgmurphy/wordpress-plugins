@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-15T17:42:31+00:00\n"
+"POT-Creation-Date: 2024-08-30T20:38:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -1764,7 +1764,7 @@ msgstr ""
 #: customers/modules/Subscriptions.js:51
 #: settings/export/ExportSettings.js:43
 #: settings/subscription/SubscriptionSettings.js:64
-#: subscriptions/show/ShowSubscription.js:370
+#: subscriptions/show/ShowSubscription.js:369
 #: sc-subscriptions-list.js:140
 msgid "Subscriptions"
 msgstr ""
@@ -7153,7 +7153,7 @@ msgstr ""
 #: affiliation-referrals/EditAffiliationReferral.js:248
 #: affiliation-requests/EditAffiliationRequest.js:240
 #: orders/Order.js:267
-#: subscriptions/show/ShowSubscription.js:418
+#: subscriptions/show/ShowSubscription.js:417
 msgid "Actions"
 msgstr ""
 
@@ -8386,7 +8386,7 @@ msgstr ""
 #: components/subscriptions/Cancel.js:86
 #: subscriptions/show/modules/modals/CancelSubscriptionModal.js:115
 #: subscriptions/show/modules/modals/ForceCancelModal.js:93
-#: subscriptions/show/ShowSubscription.js:206
+#: subscriptions/show/ShowSubscription.js:198
 msgid "Cancel Subscription"
 msgstr ""
 
@@ -8407,7 +8407,7 @@ msgstr ""
 #: components/data-tables/subscriptions-data-table/subscription-item.js:117
 #: components/data-tables/subscriptions-data-table/UnCancel.js:58
 #: components/subscriptions/Cancel.js:92
-#: subscriptions/show/ShowSubscription.js:196
+#: subscriptions/show/ShowSubscription.js:187
 msgid "Don't Cancel"
 msgstr ""
 
@@ -14032,7 +14032,7 @@ msgstr ""
 
 #: subscriptions/edit/EditSubscription.js:240
 #: subscriptions/show/modules/SubscriptionItems.js:50
-#: subscriptions/show/ShowSubscription.js:374
+#: subscriptions/show/ShowSubscription.js:373
 msgid "Subscription Details"
 msgstr ""
 
@@ -14045,7 +14045,7 @@ msgstr ""
 #: subscriptions/edit/modules/Modals/UpdateRecentPrice.js:331
 #: subscriptions/show/modules/modals/RenewSubscriptionAtModal.js:120
 #: subscriptions/show/modules/modals/RestoreSubscriptionAtModal.js:164
-#: subscriptions/show/ShowSubscription.js:251
+#: subscriptions/show/ShowSubscription.js:243
 msgid "Update Subscription"
 msgstr ""
 
@@ -14250,7 +14250,7 @@ msgid "Are you sure you want to complete this payment plan? This will eliminate 
 msgstr ""
 
 #: subscriptions/show/modules/modals/CompleteSubscriptionModal.js:63
-#: subscriptions/show/ShowSubscription.js:222
+#: subscriptions/show/ShowSubscription.js:214
 msgid "Complete Subscription"
 msgstr ""
 
@@ -14313,7 +14313,7 @@ msgid "Subscription paused."
 msgstr ""
 
 #: subscriptions/show/modules/modals/PauseSubscriptionUntilModal.js:101
-#: subscriptions/show/ShowSubscription.js:279
+#: subscriptions/show/ShowSubscription.js:278
 msgid "Pause Subscription"
 msgstr ""
 
@@ -14322,12 +14322,12 @@ msgid "This will automatically pause the subscription on %s. Please choose a res
 msgstr ""
 
 #: subscriptions/show/modules/modals/PauseSubscriptionUntilModal.js:146
-#: subscriptions/show/ShowSubscription.js:188
+#: subscriptions/show/ShowSubscription.js:262
 msgid "Don't Pause"
 msgstr ""
 
 #: subscriptions/show/modules/modals/PauseSubscriptionUntilModal.js:155
-#: subscriptions/show/ShowSubscription.js:278
+#: subscriptions/show/ShowSubscription.js:277
 msgid "Pause"
 msgstr ""
 
@@ -14428,39 +14428,39 @@ msgstr ""
 msgid "Payment method updated."
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:199
+#: subscriptions/show/ShowSubscription.js:190
 msgid "Cancel Now"
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:231
+#: subscriptions/show/ShowSubscription.js:223
 msgid "Restore Now"
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:300
+#: subscriptions/show/ShowSubscription.js:299
 msgid "Pay Off"
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:301
+#: subscriptions/show/ShowSubscription.js:300
 msgid "Pay Off Subscription"
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:319
+#: subscriptions/show/ShowSubscription.js:318
 msgid "Restore At..."
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:337
+#: subscriptions/show/ShowSubscription.js:336
 msgid "Change Renewal Date"
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:396
+#: subscriptions/show/ShowSubscription.js:395
 msgid "Affiliate commissions updated."
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:400
+#: subscriptions/show/ShowSubscription.js:399
 msgid "Commission On This Subscription"
 msgstr ""
 
-#: subscriptions/show/ShowSubscription.js:426
+#: subscriptions/show/ShowSubscription.js:425
 msgid "Cancel Pending Update"
 msgstr ""
 

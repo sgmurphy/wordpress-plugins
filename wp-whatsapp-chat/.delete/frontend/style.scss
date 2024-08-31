@@ -1,0 +1,10 @@
+:root {
+	--qlwapp--padding-xs: 8px;
+	--qlwapp--padding-sm: 16px;
+	--qlwapp--padding-md: 24px;
+	--qlwapp--padding-lg: 32px;
+	--qlwapp--padding-xl: 40px;
+}
+
+@import "./app/**/style.scss";
+@import "./animation.scss";
