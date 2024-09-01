@@ -270,7 +270,7 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 
 == Screenshots ==
 1. **Time-Slot Appointment Bookings**: This screenshot displays the front-end booking form, configured in a 2-column layout with light theme. It allows users to select **single day** in the calendar and **time slots** in the booking form.
-2. **Full-Day Bookings**: In this screenshot, you can see the front-end booking form, configured in a centered layout with a dark theme. It enables users to select and **book multiple days in the calendar**.
+2. **Full-Day Bookings**: In this screenshot, you can see the front-end booking form. It enables users to select and **book multiple days in the calendar**.
 3. **Calendar Availability**: Super easily set available or unavailable dates in the calendar with just 3 mouse clicks.
 4. **Calendar Availability**: Select dates, choose the available/unavailable status, and apply it. It's that simple to set dates as unavailable.
 5. **Calendar Overview**: Get a clear overview of all your bookings.
@@ -287,6 +287,7 @@ Please see [Video Guides](https://wpbookingcalendar.com/help/).
 16. **Publish Booking Form into a page**. Alternatively you can easily publish a booking form or availability calendar from the WP Booking Calendar > Publish menu page into existing or new pages.
 17. **Customize Calendar Look**: Choose  a style of your booking calendar to match your website's theme design.
 18. **Time-Slot Appointment Bookings in Legacy Calendar Theme**: Users can select **single day** in the calendar and **time slots** in the booking form.
+19. **Full-Day Bookings in Legacy Calendar Theme**: In this screenshot, you can see the front-end booking form, configured in a centered layout with a dark theme. It enables users to select and **book multiple days in the calendar**.
 
 == Changelog ==
 = 10.5.1 =

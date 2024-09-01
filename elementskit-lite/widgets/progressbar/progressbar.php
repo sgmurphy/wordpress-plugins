@@ -13,7 +13,6 @@ class ElementsKit_Widget_Progressbar extends Widget_Base {
     
     public function __construct( $data = [], $args = null ) {
 		parent::__construct( $data, $args );
-		$this->add_script_depends('elementor-waypoints');
 	}
 
     public function get_name() {

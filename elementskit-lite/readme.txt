@@ -4,7 +4,7 @@ Tags: Elementor addons, mega menu builder,  header footer builder, elementor add
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 3.2.6
+Stable tag: 3.2.7
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -440,6 +440,12 @@ Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of W
 
 
 == Changelog ==
+ElementsKit Elementor Addons Version: 3.2.7 (2024-09-01)
+Added: Schema tag for faq, accordion, tab widget
+Added: Compatibility for `waypoints.js` using `IntersectionObserver()`
+Fixed: Display different logo on hover not working in testimonial widget
+Fixed: Undifined array key warning in pie chart widget
+
 ElementsKit Elementor Addons Version: 3.2.6 (2024-08-22)
 Improved: Data migration conditions
 Removed: Edit with EmailKit button from WooCommerce email settings

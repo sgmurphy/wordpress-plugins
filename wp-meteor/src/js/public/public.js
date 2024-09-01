@@ -300,8 +300,8 @@ const iterate = () => {
   if (element) {
     if (element[getAttribute](prefix + "src")) {
       if (element[hasAttribute]("async")) {
-        process.env.DEBUG && c(delta(), "async", scriptsToLoad, element);
         if (element.isConnected) {
+          process.env.DEBUG && c(delta(), "pushed to scriptsToLoad", scriptsToLoad);
           scriptsToLoad.push(element);
         }
         unblock(element, scriptLoaded);
@@ -320,7 +320,7 @@ const iterate = () => {
     if (defer.length) {
       while (defer.length) {
         reorder.push(defer.shift());
-        process.env.DEBUG && c(delta(), "adding deferred script", reorder.slice(-1)[0]);
+        process.env.DEBUG && c(delta(), "adding deferred script from defer queue to reorder", reorder.slice(-1)[0]?.cloneNode(true));
       }
       nextTick(iterate);
     } else if (hasUnfiredListeners([DCL, RSC, M])) {
@@ -332,12 +332,12 @@ const iterate = () => {
         fireQueuedEvents([L, M]);
         nextTick(iterate);
       } else if (scriptsToLoad.length > 1) {
-        process.env.DEBUG && c(delta(), "waiting for", scriptsToLoad.length, "more scripts to load", scriptsToLoad);
+        process.env.DEBUG && c(delta(), `waiting for ${scriptsToLoad.length - 1} more scripts to load`, scriptsToLoad);
         rIC(iterate);
       } else if (async.length) {
         while (async.length) {
           reorder.push(async.shift());
-          process.env.DEBUG && c(delta(), "adding async script", reorder.slice(-1)[0]);
+          process.env.DEBUG && c(delta(), "adding async script from async queue to reorder", reorder.slice(-1)[0].cloneNode(true));
         }
         nextTick(iterate);
       } else {
@@ -476,9 +476,7 @@ const preconnect = (src) => {
   if (!src)
     return;
   try {
-    if (src.match(/^\/\/\w+/))
-      src = d.location.protocol + src;
-    const url = new URL(src);
+    const url = new URL(src, d.location.href);
     const href = url.origin;
     if (href && !preconnects[href] && d.location.host !== url.host) {
       const s = dOrigCreateElement("link");
@@ -492,7 +490,7 @@ const preconnect = (src) => {
       }
     }
   } catch (e) {
-    process.env.DEBUG && ce(delta(), "failed to parse src for preconnect", src);
+    process.env.DEBUG && ce(delta(), "failed to parse src for preconnect", src, e);
   }
 };
 const preloads = {};
@@ -504,6 +502,10 @@ const preloadAsScript = (src, isModule, crossorigin, integrity) => {
     s[setAttribute]("crossorigin", crossorigin);
   if (integrity)
     s[setAttribute]("integrity", integrity);
+  try {
+    src = new URL(src, d.location.href).href;
+  } catch {
+  }
   s.href = src;
   preloadsAndPreconnectsFragment[appendChild](s);
   preloads[src] = true;
@@ -522,10 +524,6 @@ const createElement = function(...args) {
   const originalGetAttribute = scriptElt[getAttribute].bind(scriptElt);
   const originalHasAttribute = scriptElt[hasAttribute].bind(scriptElt);
   const originalAttributes = scriptElt[__lookupGetter__]("attributes").bind(scriptElt);
-  const eventListeners = [];
-  scriptElt.getEventListeners = () => {
-    return eventListeners;
-  };
   capturedAttributes.forEach((property) => {
     const originalAttributeGetter = scriptElt[__lookupGetter__](property).bind(scriptElt);
     const originalAttributeSetter = scriptElt[__lookupSetter__](property).bind(scriptElt);
@@ -638,11 +636,11 @@ const observer = new MutationObserver((mutations) => {
         if (S === node[tagName]) {
           if ("origtype" in node) {
             if (node.origtype !== javascriptBlocked) {
-              process.env.DEBUG && c(delta(), "mutationobserver captured non-blocked script", node);
+              process.env.DEBUG && c(delta(), "mutationobserver captured non-blocked script", node.cloneNode(true));
               return;
             }
           } else if (node[getAttribute]("type") !== javascriptBlocked) {
-            process.env.DEBUG && c(delta(), "mutationobserver captured non-blocked script", node);
+            process.env.DEBUG && c(delta(), "mutationobserver captured non-blocked script", node.cloneNode(true));
             return;
           }
           if (!("origtype" in node)) {
@@ -660,7 +658,7 @@ const observer = new MutationObserver((mutations) => {
               });
             });
           } else {
-            process.env.DEBUG && c(delta(), "mutationobserver captured new script", node);
+            process.env.DEBUG && c(delta(), "mutationobserver captured new script", node.cloneNode(true));
           }
           const src = node[getAttribute](prefix + "src");
           if (seenScripts.has(node)) {
@@ -674,7 +672,7 @@ const observer = new MutationObserver((mutations) => {
               preconnect(src);
             } else if (node[hasAttribute]("async")) {
               process.env.DEBUG && c(delta(), "delaying async", node[getAttribute](prefix + "src"));
-              async.unshift(node);
+              async.push(node);
               preconnect(src);
             } else if (node[hasAttribute]("defer")) {
               process.env.DEBUG && c(delta(), "delaying defer", node[getAttribute](prefix + "src"));

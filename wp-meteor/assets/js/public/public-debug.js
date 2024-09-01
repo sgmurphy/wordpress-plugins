@@ -610,8 +610,8 @@
     if (element) {
       if (element[getAttribute](prefix2 + "src")) {
         if (element[hasAttribute]("async")) {
-          c(delta_default(), "async", scriptsToLoad, element);
           if (element.isConnected) {
+            c(delta_default(), "pushed to scriptsToLoad", scriptsToLoad);
             scriptsToLoad.push(element);
           }
           unblock(element, scriptLoaded);
@@ -630,7 +630,7 @@
       if (defer.length) {
         while (defer.length) {
           reorder.push(defer.shift());
-          c(delta_default(), "adding deferred script", reorder.slice(-1)[0]);
+          c(delta_default(), "adding deferred script from defer queue to reorder", reorder.slice(-1)[0]?.cloneNode(true));
         }
         nextTick(iterate);
       } else if (hasUnfiredListeners([DCL, RSC, M])) {
@@ -642,12 +642,12 @@
           fireQueuedEvents([L, M]);
           nextTick(iterate);
         } else if (scriptsToLoad.length > 1) {
-          c(delta_default(), "waiting for", scriptsToLoad.length, "more scripts to load", scriptsToLoad);
+          c(delta_default(), `waiting for ${scriptsToLoad.length - 1} more scripts to load`, scriptsToLoad);
           rIC(iterate);
         } else if (async.length) {
           while (async.length) {
             reorder.push(async.shift());
-            c(delta_default(), "adding async script", reorder.slice(-1)[0]);
+            c(delta_default(), "adding async script from async queue to reorder", reorder.slice(-1)[0].cloneNode(true));
           }
           nextTick(iterate);
         } else {
@@ -786,9 +786,7 @@
     if (!src)
       return;
     try {
-      if (src.match(/^\/\/\w+/))
-        src = d.location.protocol + src;
-      const url = new URL(src);
+      const url = new URL(src, d.location.href);
       const href = url.origin;
       if (href && !preconnects[href] && d.location.host !== url.host) {
         const s = dOrigCreateElement("link");
@@ -802,7 +800,7 @@
         }
       }
     } catch (e) {
-      ce(delta_default(), "failed to parse src for preconnect", src);
+      ce(delta_default(), "failed to parse src for preconnect", src, e);
     }
   };
   var preloads = {};
@@ -814,6 +812,10 @@
       s[setAttribute]("crossorigin", crossorigin);
     if (integrity)
       s[setAttribute]("integrity", integrity);
+    try {
+      src = new URL(src, d.location.href).href;
+    } catch {
+    }
     s.href = src;
     preloadsAndPreconnectsFragment[appendChild](s);
     preloads[src] = true;
@@ -832,10 +834,6 @@
     const originalGetAttribute = scriptElt[getAttribute].bind(scriptElt);
     const originalHasAttribute = scriptElt[hasAttribute].bind(scriptElt);
     const originalAttributes = scriptElt[__lookupGetter__]("attributes").bind(scriptElt);
-    const eventListeners = [];
-    scriptElt.getEventListeners = () => {
-      return eventListeners;
-    };
     capturedAttributes.forEach((property) => {
       const originalAttributeGetter = scriptElt[__lookupGetter__](property).bind(scriptElt);
       const originalAttributeSetter = scriptElt[__lookupSetter__](property).bind(scriptElt);
@@ -948,11 +946,11 @@
           if (S === node[tagName]) {
             if ("origtype" in node) {
               if (node.origtype !== javascriptBlocked) {
-                c(delta_default(), "mutationobserver captured non-blocked script", node);
+                c(delta_default(), "mutationobserver captured non-blocked script", node.cloneNode(true));
                 return;
               }
             } else if (node[getAttribute]("type") !== javascriptBlocked) {
-              c(delta_default(), "mutationobserver captured non-blocked script", node);
+              c(delta_default(), "mutationobserver captured non-blocked script", node.cloneNode(true));
               return;
             }
             if (!("origtype" in node)) {
@@ -970,7 +968,7 @@
                 });
               });
             } else {
-              c(delta_default(), "mutationobserver captured new script", node);
+              c(delta_default(), "mutationobserver captured new script", node.cloneNode(true));
             }
             const src = node[getAttribute](prefix2 + "src");
             if (seenScripts.has(node)) {
@@ -984,7 +982,7 @@
                 preconnect(src);
               } else if (node[hasAttribute]("async")) {
                 c(delta_default(), "delaying async", node[getAttribute](prefix2 + "src"));
-                async.unshift(node);
+                async.push(node);
                 preconnect(src);
               } else if (node[hasAttribute]("defer")) {
                 c(delta_default(), "delaying defer", node[getAttribute](prefix2 + "src"));
@@ -1264,5 +1262,5 @@
     }
   })();
 })();
-//1.0.31
+//1.0.34
 //# sourceMappingURL=public-debug.js.map

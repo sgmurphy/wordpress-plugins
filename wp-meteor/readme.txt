@@ -4,7 +4,7 @@ Donate link:
 Tags: pagespeed, performance, optimization, caching
 Requires at least: 4.5
 Tested up to: 6.6
-Stable tag: 3.4.6
+Stable tag: 3.4.7
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -114,7 +114,8 @@ Use the `wpmeteor-frontend-adjust-wpmeteor` filter in the following way:
 
 == Changelog ==
 
-3.4.6 - [Bug](https://wordpress.org/support/topic/woocommerce-paypal-checkout-4/) fixed
+3.4.7 - [Bug](https://wordpress.org/support/topic/woocommerce-paypal-checkout-4/) further improvement - async script load preserved
+3.4.6 - [Bug](https://wordpress.org/support/topic/woocommerce-paypal-checkout-4/) improvement
 3.4.5 - [Bug](https://wordpress.org/support/topic/is-there-a-way-to-roll-back-to-3-4-0/) fixed
 3.4.4 - Security fix
 3.4.3 - Major improvement, script unblocking rewritten using inplace modifications. Hopefully, addresses [Bug](https://wordpress.org/support/topic/elementor-forms-and-popup-were-stopped-working/)

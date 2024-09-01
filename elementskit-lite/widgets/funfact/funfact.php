@@ -19,7 +19,7 @@ class ElementsKit_Widget_Funfact extends Widget_Base {
 	}
 
 	public function get_script_depends() {
-		return [ 'elementor-waypoints','odometer'];
+		return ['odometer'];
 	}
 
 	public function get_name() {
