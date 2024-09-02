@@ -70,12 +70,14 @@ class Xoo_El_Frontend{
 			'loginClass' 		=> xoo_el_helper()->get_advanced_option('m-login-class'),
 			'registerClass' 	=> xoo_el_helper()->get_advanced_option('m-register-class'),
 			'errorLog' 			=> xoo_el_helper()->get_advanced_option('m-error-log'),
-			'checkout' 			=> array(
+		);
+
+		if( class_exists('woocommerce') ){
+			$localizeData['checkout'] =  array(
 				'loginEnabled' 		=> $this->glSettings['m-en-chkout'],
 				'loginRedirect' 	=> esc_url( $_SERVER['REQUEST_URI'] )
-			)
-
-		);
+			);
+		}
 
 		$localizeData = apply_filters( 'xoo_el_localize_data', $localizeData );
 

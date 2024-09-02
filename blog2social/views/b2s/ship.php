@@ -48,11 +48,26 @@ if (isset($_GET['postId']) && (int) $_GET['postId'] > 0) {
 }
 $draftIncompleteModal = false;
 
+$assConnected = false;
+$assWordsOpen = 0;
+$assWordsTotal = 0;
+$assOptions = new B2S_Options((int) B2S_PLUGIN_BLOG_USER_ID, 'B2S_PLUGIN_USER_TOOL');
+$assOptionsData = $assOptions->_getOption(1);
+global $wpdb;
+$sql = $wpdb->prepare("SELECT `id`, `access_token` FROM `{$wpdb->prefix}b2s_user_tool` WHERE `blog_user_id` = %d AND `tool_id` = 1", (int) B2S_PLUGIN_BLOG_USER_ID);
+if ($wpdb->get_var($sql)) {
+    $sqlResult = $wpdb->get_row($sql);
+    if (isset($sqlResult->id) && (int) $sqlResult->id > 0 && isset($sqlResult->access_token) && !empty($sqlResult->access_token) && isset($assOptionsData['account']['words_open']) && isset($assOptionsData['account']['words_total'])) {
+        $assConnected = true;
+        $assWordsOpen = (int) $assOptionsData['account']['words_open'];
+        $assWordsTotal = (int) $assOptionsData['account']['words_total'];
+    }
+}
+
 $navbar = new B2S_Ship_Navbar();
 $mandantData = $navbar->getData();
 ?>
 <div class="b2s-container">
-
     <?php
     if ($onboarding == 1 && B2S_PLUGIN_USER_VERSION == 0) {
         $onboardingPaused = $optionsOnboarding->_getOption('onboarding_paused');
@@ -89,7 +104,7 @@ $mandantData = $navbar->getData();
         <div class="col-xs-12 col-md-9 del-padding-left">
             <div class="col-xs-12 del-padding-left hidden-xs">
                 <div class="panel panel-group">
-                    <div class="panel-body b2s-post-details" style="min-height: 200px !important;">
+                    <div class="panel-body b2s-post-details" style="min-height: 260px !important;">
                         <h2>
                             <?php
                             if (!$isVideo) {
@@ -402,6 +417,9 @@ $mandantData = $navbar->getData();
                                             <input type="hidden" id="b2sNotAllowGif" value="<?php echo esc_attr(implode(";", json_decode(B2S_PLUGIN_NETWORK_NOT_ALLOW_GIF, true))); ?>">
                                             <input type="hidden" id="b2sAnimateGif" value='<?php echo esc_attr(B2S_PLUGIN_NETWORK_ANIMATE_GIF); ?>'>
                                             <input type="hidden" id="b2sEmojiTranslation" value='<?php echo esc_attr(json_encode(B2S_Tools::getEmojiTranslationList())); ?>'>
+                                            <input type="hidden" id="b2s-ship-ass-connected" value="<?php echo esc_attr($assConnected); ?>">
+                                            <input type="hidden" id="b2s-ship-ass-words-open" value="<?php echo esc_attr($assWordsOpen); ?>">
+                                            <input type="hidden" id="b2s-ship-ass-words-total" value="<?php echo esc_attr($assWordsTotal); ?>">
                                             
                                             <div class="b2s-reporting-btn-area col-md-9 del-padding-left" style="display: none;">
                                                 <div class="panel panel-group">

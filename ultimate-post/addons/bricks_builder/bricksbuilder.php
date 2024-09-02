@@ -46,6 +46,7 @@ class PostX_Bricks_Integration extends \Bricks\Element {
 		// Render element HTML
 		echo "<div {$this->render_attributes( '_root' )}>"; //phpcs:ignore
 		if ( $id ) {
+			echo ultimate_post()->build_css_for_inline_print($id, true);
 			echo '<div class="ultp-shortcode" data-postid="' . esc_attr( $id ) . '">';
 				$args      = array(
 					'p'         => $id,

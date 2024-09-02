@@ -29,11 +29,11 @@
 }
 
 .b2s-support-link-not-active {
-/*    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
-    color: gray;
-    opacity: 0.5;*/
+    /*    pointer-events: none;
+        cursor: default;
+        text-decoration: none;
+        color: gray;
+        opacity: 0.5;*/
     display: none !important;
 }
 

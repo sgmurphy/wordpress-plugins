@@ -1031,6 +1031,35 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
         }
 
         /**
+         * Check if terms really exists and get their term_id value
+         * @param array $terms Taxonomy terms array
+         * @param string $taxonomy Taxonomy name
+         * @return array $new_terms_arr
+         */
+        static public function check_terms( $terms, $taxonomy ) {
+
+            $new_terms_arr = array();
+            foreach ( $terms as $term_name ) {
+
+                $term_check = term_exists( $term_name, $taxonomy );
+                if ( $term_check && isset( $term_check['term_id'] ) ) {
+                    $new_terms_arr[] = $term_check['term_id'];
+                }
+
+                if ( ! $term_check && strpos( $taxonomy, 'pa_' ) !== 0 ) {
+                    $term_check = term_exists( $term_name, 'pa_' . $taxonomy );
+                    if ( $term_check && isset( $term_check['term_id'] ) ) {
+                        $new_terms_arr[] = $term_check['term_id'];
+                    }
+                }
+
+            }
+
+            return $new_terms_arr;
+
+        }
+
+        /**
          * Filter search page results by taxonomies
          * @param array $product_terms Available product terms
          * @param array $filter_terms Filter terms

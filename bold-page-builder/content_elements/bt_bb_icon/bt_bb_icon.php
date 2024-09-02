@@ -113,9 +113,9 @@ class bt_bb_icon extends BT_BB_Element {
 
 	static function get_html( $icon, $text = '', $url = '', $url_title = '', $target = '' ) {
 
-		$icon_set = substr( $icon, 0, -5 );
+		$icon_set = str_replace( '=', '', substr( $icon, 0, -5 ) );
 		$icon = substr( $icon, -4 );
-		
+
 		require_once( dirname(__FILE__) . '/../../content_elements_misc/misc.php' );
 		$link = bt_bb_get_url( $url );
 

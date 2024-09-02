@@ -1,6 +1,6 @@
 // #region [Imports] ===================================================================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Checkbox } from 'antd';
 import { IFieldComponentProps } from '../../../../types/couponTemplates';
 
@@ -19,6 +19,14 @@ const CheckboxField = (props: IFieldComponentProps) => {
   const [checked, setChecked] = useState(defaultValue === 'yes');
   const checkedValue = fixtures?.options?.enabled ?? 'yes';
   const uncheckedValue = fixtures?.options?.disabled ?? '';
+
+  // Set the checkbox as unchecked if it is not equal to checked or unchecked value on mount.
+  useEffect(() => {
+    if (defaultValue !== checkedValue && defaultValue !== uncheckedValue) {
+      setChecked(false);
+      onChange(uncheckedValue);
+    }
+  }, []);
 
   return (
     <div>

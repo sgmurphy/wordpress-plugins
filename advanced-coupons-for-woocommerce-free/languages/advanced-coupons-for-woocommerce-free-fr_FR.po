@@ -749,22 +749,22 @@ msgstr "Code promo appliqué avec succès"
 msgid "Coupon Categories"
 msgstr "Catégories des codes"
 
-#: data/coupon-fields/scheduler.php:42
+#: data/coupon-fields/scheduler.php:46
 #: Models/Edit_Coupon.php:760
 msgid "Coupon expire error message"
 msgstr "Message d'erreur d’expiration du code promo"
 
-#: data/coupon-fields/scheduler.php:35
+#: data/coupon-fields/scheduler.php:39
 #: Models/Edit_Coupon.php:747
 msgid "Coupon expiry date"
 msgstr "Date d’expiration du code promo"
 
-#: data/coupon-fields/scheduler.php:22
+#: data/coupon-fields/scheduler.php:26
 #: Models/Edit_Coupon.php:722
 msgid "Coupon start date"
 msgstr "Date de démarrage du code promo"
 
-#: data/coupon-fields/scheduler.php:29
+#: data/coupon-fields/scheduler.php:33
 #: Models/Edit_Coupon.php:735
 msgid "Coupon start error message"
 msgstr "Message d’erreur de démarrage du code promo"
@@ -2558,12 +2558,12 @@ msgstr "Redéfinir les frais de ports (Premium)"
 msgid "Shipping Zone And Region (Premium)"
 msgstr "Zone et région de livraison (Premium)"
 
-#: data/coupon-fields/scheduler.php:44
+#: data/coupon-fields/scheduler.php:48
 #: Models/Edit_Coupon.php:761
 msgid "Show a custom error message to customers that try to apply this coupon after it has expired."
 msgstr "Affichez un message d’erreur personnalisé à vos client qui tentent d’utiliser ce code promo après qu’il ait expiré."
 
-#: data/coupon-fields/scheduler.php:31
+#: data/coupon-fields/scheduler.php:35
 #: Models/Edit_Coupon.php:736
 msgid "Show a custom error message to customers that try to apply this coupon before it is available."
 msgstr "Affichez un message d’erreur personnalisé à vos client qui tentent d’utiliser ce code promo avant qu’il soit valide."
@@ -4223,11 +4223,11 @@ msgstr ""
 msgid "When checked, this will enable scheduler for this coupon which will then show a notification for customers in the cart when the coupon can be applied."
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:25
+#: data/coupon-fields/scheduler.php:29
 msgid "The exact date the coupon will be available from. Based on the timezone in this WordPress installation’s settings."
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:38
+#: data/coupon-fields/scheduler.php:42
 msgid "The exact date the coupon will be expired. Based on the timezone in this WordPress installation’s settings."
 msgstr ""
 

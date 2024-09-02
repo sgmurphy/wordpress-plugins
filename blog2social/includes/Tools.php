@@ -16,7 +16,13 @@ class B2S_Tools {
             delete_option('B2S_PLUGIN_PRIVACY_POLICY_USER_ACCEPT_' . B2S_PLUGIN_BLOG_USER_ID);
 
             $currentDate = new DateTime("now", wp_timezone());
-            $version = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, array('action' => 'getUserDetails', 'blog_user_id' => $blog_user_id, 'blog_url' => $blog_url, 'email' => $email, 'current_date' => $currentDate->format('Y-m-d'), 'token' => B2S_PLUGIN_TOKEN, 'version' => B2S_PLUGIN_VERSION), 30));
+            $version = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, array('action' => 'getUserDetails', 
+                'blog_user_id' => $blog_user_id, 
+                'blog_url' => $blog_url, 
+                'email' => $email, 
+                'current_date' => $currentDate->format('Y-m-d'), 
+                'token' => B2S_PLUGIN_TOKEN, 
+                'version' => B2S_PLUGIN_VERSION), 30));
 
             $tokenInfo = array();
             $tokenInfo['B2S_PLUGIN_USER_VERSION'] = (isset($version->version) ? $version->version : 0);
@@ -182,6 +188,10 @@ class B2S_Tools {
             return 'https://www.blog2social.com/' . (($lang == 'en') ? 'en/privacy-policy' : 'de/datenschutz');
         }
 
+        if($type == 'ass_account'){
+            return 'https://app.assistini.com/?screen=Plan';
+        }
+        
         if ($type == 'pinterest_app_tos_spam') {
             return 'https://developers.pinterest.com/docs/reference/spam/';
         }

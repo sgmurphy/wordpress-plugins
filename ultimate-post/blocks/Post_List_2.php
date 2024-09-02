@@ -261,7 +261,7 @@ class Post_List_2{
                 $wraper_before .= '<div class="ultp-block-wrapper">';
 
                     // Loading
-                    $wraper_before .= ultimate_post()->loading();
+                    $wraper_before .= ultimate_post()->postx_loading();
 
                     if ($attr['headingShow'] || $attr['filterShow'] || $attr['paginationShow']) {
                         $wraper_before .= '<div class="ultp-heading-filter">';
@@ -328,7 +328,7 @@ class Post_List_2{
                                                     }
                                                     $post_loop .= '</a>';
                                                     if($post_video){
-                                                        $post_loop .= '<div enableAutoPlay="'.$attr['popupAutoPlay'].'" class="ultp-video-icon">'.ultimate_post()->svg_icon('play_line').'</div>';
+                                                        $post_loop .= '<div enableAutoPlay="'.$attr['popupAutoPlay'].'" class="ultp-video-icon">'.ultimate_post()->get_svg_icon('play_line').'</div>';
                                                     }
                                                 if (($attr['catPosition'] != 'aboveTitle') && $attr['catShow'] ) {
                                                     $post_loop .= '<div class="ultp-category-img-grid">'.$category.'</div>';
@@ -351,7 +351,7 @@ class Post_List_2{
                                                 }
                                                 $post_loop .= '</a>'; 
                                                 if($post_video){
-                                                    $post_loop .= '<div enableAutoPlay="'.$attr['popupAutoPlay'].'" class="ultp-video-icon">'.ultimate_post()->svg_icon('play_line').'</div>';
+                                                    $post_loop .= '<div enableAutoPlay="'.$attr['popupAutoPlay'].'" class="ultp-video-icon">'.ultimate_post()->get_svg_icon('play_line').'</div>';
                                                 }
                                             $post_loop .= '</div>';
                                         }
@@ -406,7 +406,7 @@ class Post_List_2{
 
                                         // Read More
                                         if ($attr['readMore'] && ($idx == 0 || $attr['showSmallBtn'])) {
-                                            $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->svg_icon($attr['readMoreIcon']).'</a></div>';
+                                            $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->get_svg_icon($attr['readMoreIcon']).'</a></div>';
                                         }
                                         
                                         $post_loop .= $dcContent[1];

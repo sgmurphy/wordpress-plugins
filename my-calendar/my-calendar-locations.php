@@ -208,7 +208,7 @@ function mc_get_location_post( $location_id, $type = true ) {
 			break;
 		}
 	}
-	if ( ! $post_id ) {
+	if ( ! $post_id && ( 'true' !== mc_get_option( 'remote' ) ) ) {
 		// Copy location into relationships table.
 		$post_id = false;
 		$query   = $mcdb->prepare( "SELECT post_id FROM $mcdb->postmeta where meta_key ='_mc_location_id' and meta_value = %d", $location_id );
@@ -1468,7 +1468,7 @@ function mc_core_search_locations( $query = '' ) {
 		$search = '';
 	}
 
-	$locations = $wpdb->get_results( 'SELECT SQL_CALC_FOUND_ROWS location_id, location_label FROM ' . my_calendar_locations_table() . " $search ORDER BY location_label ASC" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
+	$locations = $wpdb->get_results( 'SELECT location_id, location_label FROM ' . my_calendar_locations_table() . " $search ORDER BY location_label ASC" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared,WordPress.DB.PreparedSQL.NotPrepared
 
 	return $locations;
 }

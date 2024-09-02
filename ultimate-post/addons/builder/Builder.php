@@ -23,8 +23,8 @@ class Builder {
     public function checkfor_header_footer() {
         $this->theme_name = get_template();
         $this->is_block_theme = wp_is_block_theme();
-        $header_id = ultimate_post()->conditions('header');
-        $footer_id = ultimate_post()->conditions('footer');
+        $header_id = ultimate_post()->builder_check_conditions('header');
+        $footer_id = ultimate_post()->builder_check_conditions('footer');
         global $ULTP_HEADER_ID;
         global $ULTP_FOOTER_ID;
         
@@ -102,7 +102,7 @@ class Builder {
             }
             ?> 
                 <header id="ultp-header-template" class="<?php esc_html_e('ultp-builderid-'.$this->header_id); ?>">
-                    <?php echo ultimate_post()->content($this->header_id);  //phpcs:ignore  ?> 
+                    <?php echo ultimate_post()->get_post_content($this->header_id);  //phpcs:ignore  ?> 
                 </header> 
             <?php
         }
@@ -129,7 +129,7 @@ class Builder {
 
             ?> 
                 <footer id="ultp-footer-template" class="<?php esc_html_e('ultp-builderid-'.$this->footer_id); ?>" role="contentinfo">
-                    <?php echo ultimate_post()->content($this->footer_id) //phpcs:ignore ?>
+                    <?php echo ultimate_post()->get_post_content($this->footer_id) //phpcs:ignore ?>
                 </footer> 
             <?php
         }
@@ -170,7 +170,7 @@ class Builder {
 
 
     public function include_builder_files($template) {
-        $includes = ultimate_post()->conditions('includes');
+        $includes = ultimate_post()->builder_check_conditions('includes');
         return $includes ? $includes : $template;
     }
 

@@ -815,7 +815,7 @@ $className = 'TrustindexPlugin_' . $forcePlatform;
 if (!class_exists($className)) {
 return $this->error_box_for_admins(ucfirst($forcePlatform) . ' plugin is not active or not found!');
 }
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-12.1.1", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-12.1.2", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -963,23 +963,13 @@ public static $widget_templates = array (
  'list' => '33,80',
  'grid' => '16,31,38,48,79',
  'badge' => '11,12,20,22,23,55,56,57,58,97,98,99,100,101,102,103,104',
- 'button' => '24,25,26,27,28,29,30,32,35,59,60,61,62',
+ 'button' => '24,25,26,27,28,29,30,32,35,59,60,61,62,106',
  'floating' => '17,21,52,53',
  'popup' => '23,30,32',
  'top-rated-badge' => '97,98,99,100,101,102,103,104',
  ),
  'templates' => 
  array (
- 4 => 
- array (
- 'name' => 'Slider I.',
- 'type' => 'slider',
- 'is-active' => true,
- 'is-top-rated-badge' => false,
- 'params' => 
- array (
- ),
- ),
  48 => 
  array (
  'name' => 'Grid I. - Big picture',
@@ -1015,6 +1005,16 @@ public static $widget_templates = array (
  'name' => 'Slider I. - Big picture',
  'type' => 'slider',
  'is-active' => false,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 4 => 
+ array (
+ 'name' => 'Slider I.',
+ 'type' => 'slider',
+ 'is-active' => true,
  'is-top-rated-badge' => false,
  'params' => 
  array (
@@ -1082,21 +1082,21 @@ public static $widget_templates = array (
  array (
  ),
  ),
- 19 => 
- array (
- 'name' => 'Slider IV.',
- 'type' => 'slider',
- 'is-active' => false,
- 'is-top-rated-badge' => false,
- 'params' => 
- array (
- ),
- ),
  34 => 
  array (
  'name' => 'Slider IV.',
  'type' => 'slider',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 19 => 
+ array (
+ 'name' => 'Slider IV.',
+ 'type' => 'slider',
+ 'is-active' => false,
  'is-top-rated-badge' => false,
  'params' => 
  array (
@@ -1232,21 +1232,21 @@ public static $widget_templates = array (
  array (
  ),
  ),
- 81 => 
- array (
- 'name' => 'Full sidebar I. - with header',
- 'type' => 'sidebar',
- 'is-active' => false,
- 'is-top-rated-badge' => false,
- 'params' => 
- array (
- ),
- ),
  18 => 
  array (
  'name' => 'Full sidebar I.',
  'type' => 'sidebar',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 81 => 
+ array (
+ 'name' => 'Full sidebar I. - with header',
+ 'type' => 'sidebar',
+ 'is-active' => false,
  'is-top-rated-badge' => false,
  'params' => 
  array (
@@ -1563,6 +1563,16 @@ public static $widget_templates = array (
  'name' => 'Button VII. - with popup',
  'type' => 'button',
  'is-active' => true,
+ 'is-top-rated-badge' => false,
+ 'params' => 
+ array (
+ ),
+ ),
+ 106 => 
+ array (
+ 'name' => 'Button VIII.',
+ 'type' => 'button',
+ 'is-active' => false,
  'is-top-rated-badge' => false,
  'params' => 
  array (
@@ -6049,7 +6059,7 @@ public static $widget_top_rated_titles = array (
  'da' => 'Bedst bedømte <br /> webshop %date%',
  'de' => 'Bestbewerteter <br /> Webshop %date%',
  'el' => 'Κορυφαία βαθμολογία <br /> webshop %date%',
- 'es' => 'Tienda web mejor <br /> valorado %date%',
+ 'es' => 'Tienda web mejor <br /> valorada %date%',
  'et' => 'Kõrgeimalt hinnatud <br /> veebipood %date%',
  'fa' => 'متجر الويب <br />الأعلى تقييمًا لعام %date%',
  'fi' => 'Parhaiksi arvioitu <br /> verkkokauppa %date%',
@@ -6352,10 +6362,10 @@ $this->previewContent = [
 $content = preg_replace('/data-set[_-]id=[\'"][^\'"]*[\'"]/m', 'data-set-id="'. $setId .'"', $content);
 $classAppends = [ 'ti-' . substr($this->getShortName(), 0, 4) ];
 $widgetType = self::$widget_templates[ 'templates' ][ $styleId ]['type'];
-if (!in_array($widgetType, [ 'button', 'badge' ]) && !$showLogos) {
+if (!in_array($widgetType, [ 'button', 'badge', 'top-rated-badge' ]) && !$showLogos) {
 $classAppends []= 'ti-no-logo';
 }
-if (!in_array($widgetType, [ 'button', 'badge' ]) && !$showStars) {
+if (!in_array($widgetType, [ 'button', 'badge', 'top-rated-badge' ]) && !$showStars) {
 $classAppends []= 'ti-no-stars';
 }
 if (!$showReviewersPhoto) {
@@ -6436,7 +6446,7 @@ $verifiedIconTooltipText = str_replace('%platform%', 'PLATFORM_NAME', self::$wid
 $ratingContent .= '<span class="'.$verifiedIconClass.'"><span class="ti-verified-tooltip">'.$verifiedIconTooltipText.'</span></span>';
 }
 if (!$array['show-reviewers-photo']) {
-$matches[1] = str_replace('<div class="ti-profile-img"> <img src="%reviewer_photo%" alt="%reviewer_name%" /> </div>', '', $matches[1]);
+$matches[1] = str_replace('<div class="ti-profile-img"> <img src="%reviewer_photo%" loading="lazy" alt="%reviewer_name%" /> </div>', '', $matches[1]);
 }
 $reviewContent .= str_replace(
 [
@@ -6546,7 +6556,7 @@ $array['content'] = preg_replace('/<div class="ti-rating-text">.*<\/div>/mU', ''
 $array['content'] = preg_replace('/<div class="ti-footer">\s*<\/div>/m', '', $array['content']);
 }
 }
-if ($array['footer-filter-text'] && (!in_array($widgetType, [ 'button', 'badge', 'floating' ]) || in_array($array['style-id'], [ 23, 30, 32, 53 ]))) {
+if ($array['footer-filter-text'] && (!in_array($widgetType, [ 'button', 'badge', 'floating', 'top-rated-badge' ]) || in_array($array['style-id'], [ 23, 30, 32, 53 ]))) {
 $filterText = $this->get_footer_filter_text($array['language']);
 if (!$array['no-rating-text'] && !in_array($array['style-id'], [ 5, 8, 9, 10, 13, 18, 23, 30, 31, 32, 33, 34, 53, 54 ])) {
 $array['content'] = str_replace('</span><!-- FOOTER FILTER TEXT -->', ',</span><span class="nowrap"><!-- FOOTER FILTER TEXT --></span>', $array['content']);
@@ -7119,6 +7129,11 @@ public function is_table_exists($name = "")
 {
 global $wpdb;
 $tableName = $this->get_tablename($name);
+/*
+check both actual name and lowercase name because LIKE is case sensitive in this query (unfortunately)
+and there is a possibility that $wpdb->prefix is something like "JxdFg_"
+(2024-08-23: "jxdfg_trustindex_google_reviews" table existed but this query returned false)
+*/
 return ($wpdb->get_var("SHOW TABLES LIKE '$tableName'") == $tableName) || ($wpdb->get_var("SHOW TABLES LIKE '". strtolower($tableName) ."'") == strtolower($tableName));
 }
 }

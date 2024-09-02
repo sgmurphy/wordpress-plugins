@@ -73,7 +73,7 @@ class Post_Author_Meta {
                 $wrapper_before .= '<div class="ultp-block-wrapper">';
                     $content .= '<span class="ultp-authMeta-count">';
                         if ($attr["authMetaIconShow"] && ($attr["authMetaIconStyle"] != '')) {
-                            $content .= ultimate_post()->svg_icon($attr["authMetaIconStyle"]); 
+                            $content .= ultimate_post()->get_svg_icon($attr["authMetaIconStyle"]); 
                         }
                         if ($attr["authMetAvatar"]) {
                             $content .= '<div class="ultp-authMeta-avatar">';

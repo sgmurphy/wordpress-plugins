@@ -1,32 +1,9 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-add_filter( 'ultp_addons_config', 'ultp_chatgpt_config' );
-/**
- * ChatGPT Addon Config
- *
- * @param array $config Addon Config.
- * @return array
- */
-function ultp_chatgpt_config( $config ) {
-	$configuration          = array(
-		'name'     => __( 'ChatGPT', 'ultimate-post' ),
-		'desc'     => __( 'PostX brings the ChatGPT into the WordPress Dashboard to let you generate content effortlessly. ', 'ultimate-post' ),
-		'img'      => ULTP_URL . 'assets/img/addons/ChatGPT.svg',
-		'docs'     => 'https://wpxpo.com/docs/postx/add-on/chatgpt-addon/',
-		'live'     => 'https://www.wpxpo.com/postx-chatgpt-wordpress-ai-content-generator/live_demo_args',
-		'video'    => 'https://www.youtube.com/watch?v=NE4BPw4OTAA',
-		'is_pro'   => false,
-		'position' => 6
-	);
-	$config['ultp_chatgpt'] = $configuration;
-	return $config;
-}
-
 add_action( 'init', 'ultp_chatgpt_init' );
 function ultp_chatgpt_init() {
-	$settings = isset( $GLOBALS['ultp_settings'] ) ? $GLOBALS['ultp_settings'] : array();
-	if ( isset( $settings['ultp_chatgpt'] ) ) {
+	if ( ultimate_post()->get_setting('ultp_chatgpt') == 'true' ) {
 		add_filter( 'ultp_settings', 'get_chatgpt_settings', 10, 1 );
 	}
 }

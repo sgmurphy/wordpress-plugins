@@ -83,7 +83,7 @@ class Post_Date_Meta {
                         }
                         if ($attr["metaDateIconShow"] && $attr["metaDateIconStyle"]) {
                             $content .= '<span class="ultp-date-meta-icon">';   
-                                $content .= ultimate_post()->svg_icon($attr["metaDateIconStyle"]); 
+                                $content .= ultimate_post()->get_svg_icon($attr["metaDateIconStyle"]); 
                             $content .= '</span>';
                         }
                         if ($attr['metaDateFormat']) {

@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=FDRDNZE6XAKE8
 Tags: woocommerce, search, product search, woocommerce search, live search
 Requires at least: 4.0
 Tested up to: 6.6
-Stable tag: 3.14
+Stable tag: 3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,6 +172,13 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 == Changelog ==
 
 [View full changelog](https://advanced-woo-search.com/guide/free-version/?utm_source=wp-repo&utm_medium=listing&utm_campaign=aws-repo)
+
+= 3.15 ( 2024-09-02 ) =
+* Update - Tested with WC 9.2
+* Update - Add new parameters for orderby
+* Update - Settings page text
+* Fix - Filter by attributes for the search page. Fix filtering by slugs with integers inside
+* Dev - Add additional check for product IDs inside search page
 
 = 3.14 ( 2024-08-12 ) =
 * Update - Integration with Oxygen theme
@@ -385,10 +392,3 @@ Yep. This plugin is always compatible with the latest version of Woocommerce?
 * Update - Support for Google Analytics
 * Fix - Escaping of html entities for admin options
 * Fix - Bug with WPML plugin that indexed child products
-
-= 2.77 ( 2023-04-17 ) =
-* Update - Tested with WC 7.6
-* Update - FacetWP plugin integration
-
-= 2.76 ( 2023-04-03 ) =
-* Add - New option to execute or not shortcodes inside the product content

@@ -295,7 +295,10 @@
 			$calendar_id = 'en.' . implode( '.', $calendar_id_parts );
 		}
 		
-		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events?" . $this->get_params_from_options( $options );
+		// exclude workingLocation events - these are not useful for availability
+		$event_types_query = 'eventTypes=default&eventTypes=outOfOffice&eventTypes=focusTime&eventTypes=fromGmail';
+		
+		$gcal_api_endpoint = "https://www.googleapis.com/calendar/v3/calendars/" . urlencode( $calendar_id ) . "/events?" . $event_types_query . '&' . $this->get_params_from_options( $options );
 
 		try {
 			$response = wp_remote_get(

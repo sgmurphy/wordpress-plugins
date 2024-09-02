@@ -6,7 +6,7 @@ Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 7.4
 Text domain: my-calendar
-Stable tag: 3.5.12
+Stable tag: 3.5.13
 License: GPLv2 or later
 
 Accessible WordPress event calendar plugin. Manage single or recurring events, event venues, and display your calendar anywhere on your site.
@@ -107,6 +107,15 @@ Translating my plugins is always appreciated. Visit <a href="https://translate.w
 4. Visit My Calendar -> Help for assistance with shortcode options or widget configuration.
 
 == Changelog ==
+
+= 3.5.13 =
+
+* Bug fix: Missing remote DB reference for event occurrence lists.
+* Bug fix: Don't attempt to copy location relationships when fetching data remotely.
+* Bug fix: Clear fragment cache when remote DB is acctivated.
+* Feature: Add filter to change remote DB prefix when using remote DB.
+* Feature: Setting to flush fragment cache.
+* Change: Remove usages of deprecated 'SQL_CALC_FOUND_ROWS'.
 
 = 3.5.12 =
 

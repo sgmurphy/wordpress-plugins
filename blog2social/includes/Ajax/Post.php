@@ -73,6 +73,11 @@ class Ajax_Post {
         add_action('wp_ajax_b2s_delete_user_app', array($this, 'deleteUserApp'));
         add_action('wp_ajax_b2s_save_user_onboarding', array($this, 'saveUserOnboarding'));
         add_action('wp_ajax_b2s_save_user_onboarding_paused', array($this, 'saveUserOnboardingPaused'));
+        add_action('wp_ajax_b2s_ass_auth_save', array($this, 'assAuthSave'));
+        add_action('wp_ajax_b2s_ass_generate_text_sm', array($this, 'assGenerateContent'));
+        add_action('wp_ajax_b2s_ass_settings_save', array($this, 'assSettingsSave'));
+        add_action('wp_ajax_b2s_ass_logout', array($this, 'assLogout'));
+        add_action('wp_ajax_b2s_delete_post_notice_all', array($this, 'deletePostNoticeAll'));
     }
 
     public function uploadVideo() {
@@ -81,8 +86,7 @@ class Ajax_Post {
             if (isset($_FILES["file"]["name"]) && !empty($_FILES["file"]["name"]) && isset($_FILES["file"]["tmp_name"]) && !empty($_FILES["file"]["tmp_name"])) {
                 $isVideo = wp_check_filetype_and_ext(sanitize_text_field($_FILES["file"]["tmp_name"]),sanitize_text_field($_FILES["file"]["name"]));
                 if (isset($isVideo['type']) && $isVideo['type'] !== false) {
-                    $allowed_types = array('video/x-msvideo','video/avi','video/mp4','video/mpeg','video/ogg','video/x-flv','video/quicktime','video/x-ms-asf');
-                    if (preg_match('/^video/im', $isVideo['type']) && in_array($isVideo['type'],$allowed_types)) {
+                    if (preg_match('/^video/im', $isVideo['type']) && in_array($isVideo['type'],unserialize(B2S_PLUGIN_ALLOW_VIDEO_MIME_TYPE))) {
                         $upload = wp_upload_bits(sanitize_text_field($_FILES["file"]["name"]), null, file_get_contents(sanitize_text_field($_FILES["file"]["tmp_name"])));
                         $attachment = array(
                             'post_mime_type' => sanitize_mime_type($_FILES['file']['type']),
@@ -3135,4 +3139,208 @@ class Ajax_Post {
         }
     }
 
+    public function assAuthSave() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            global $wpdb;
+            // implement check on entry exists
+            $sql = $wpdb->prepare("SELECT `id` FROM `{$wpdb->prefix}b2s_user_tool` WHERE `blog_user_id` = %d AND `tool_id` = 1", (int) B2S_PLUGIN_BLOG_USER_ID);
+            $entry = $wpdb->get_var($sql);
+            if (isset($entry) && (int) $entry > 0) {
+                $wpdb->update($wpdb->prefix . 'b2s_user_tool', array('access_token' => sanitize_text_field($_POST['ass_access_token'])), array('blog_user_id' => (int) B2S_PLUGIN_BLOG_USER_ID));
+            } else {
+                $wpdb->insert($wpdb->prefix . 'b2s_user_tool', array('create_date' => date('Y-m-d H:i:s'), 'blog_user_id' => (int) B2S_PLUGIN_BLOG_USER_ID, 'tool_id' => 1, 'access_token' => sanitize_text_field($_POST['ass_access_token'])));
+            }
+
+            $options = new B2S_Options((int) B2S_PLUGIN_BLOG_USER_ID, 'B2S_PLUGIN_USER_TOOL');
+            $toolData = array(
+                'account' => array(
+                    'words_open' => (int) $_POST['ass_words_open'],
+                    'words_total' => (int) $_POST['ass_words_total'],
+                ),
+                'settings' => array(
+                    'post_template' => false,
+                    'deactivate_emojis' => false
+                ),
+            );
+            $options->_setOption(1, $toolData);
+            echo json_encode(array('result' => true));
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
+
+
+    public function assGenerateContent() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            global $wpdb;
+            $sql = $wpdb->prepare("SELECT `id`, `access_token` FROM `{$wpdb->prefix}b2s_user_tool` WHERE `blog_user_id` = %d AND `tool_id` = 1", (int) B2S_PLUGIN_BLOG_USER_ID);
+            if ($wpdb->get_var($sql)) {
+                $sqlResult = $wpdb->get_row($sql);
+                if (isset($sqlResult->id) && (int) $sqlResult->id > 0 && isset($sqlResult->access_token) && !empty($sqlResult->access_token) && (int) $_POST['post_id'] > 0) {
+
+                    $postData = get_post((int) $_POST['post_id']);
+                    if (isset($postData->post_content) && !empty($postData->post_content)) {
+                        // $preContent = B2S_Util::prepareContent($this->postId, $this->postData->post_content, $this->postUrl, false, (in_array($data->networkId, $this->allowNoEmoji) ? false : true), $this->userLang);
+                        require_once(B2S_PLUGIN_DIR . 'includes/Options.php');
+                        $options = new B2S_Options((int) B2S_PLUGIN_BLOG_USER_ID, 'B2S_PLUGIN_USER_TOOL');
+                        $optionData = $options->_getOption(1);
+
+                        $allowEmojis = false;
+                        if (isset($optionData['settings']['deactivate_emojis'])) {
+                            $allowEmojis = (!$optionData['settings']['deactivate_emojis'] ? true : false);
+                        }
+
+                        $postData = array(
+                            'action' => 'assGenerateText',
+                            'generate_type' => 'sm',
+                            'access_token' => sanitize_text_field($sqlResult->access_token),
+                            'post_text' => sanitize_text_field(B2S_Util::prepareContent((int) $_POST['post_id'], $postData->post_content, esc_url_raw($_POST['post_url']), false, false, sanitize_text_field($_POST['post_lang']))), // only content
+                            'post_type' => sanitize_text_field($_POST['post_type']),
+                            'post_network_name' => sanitize_text_field($_POST['post_network_name']),
+                            'post_lang' => sanitize_text_field($_POST['post_lang']),
+                            'allow_emojis' => $allowEmojis
+                        );
+    
+                        $result = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, $postData), true);
+                        if (is_array($result) && !empty($result)) {
+                            if (isset($result['ass_text']) && !empty($result['ass_text']) && isset($result['ass_words_open'])) {
+                                $optionData['account']['words_open'] = (int) $result['ass_words_open'];
+                                $options->_setOption(1, $optionData);
+
+                                $assText = sanitize_text_field($result['ass_text']);
+                                $b2sItem = null;
+                                require_once(B2S_PLUGIN_DIR . 'includes/B2S/Ship/Item.php');
+                                if (isset($optionData['settings']['post_template']) && (bool) $optionData['settings']['post_template'] == true) {
+                                    $b2sItem = new B2S_Ship_Item(isset($_POST['post_id']) ? (int) $_POST['post_id'] : 0, isset($_POST['post_lang']) ? sanitize_text_field($_POST['post_lang']) : 'en', '', sanitize_text_field($_POST['b2s_post_type']), isset($_POST['relay_count']) ? (int) $_POST['relay_count'] : 0, (isset($_POST['is_video_mode']) && (int) $_POST['is_video_mode'] == 1 ? true : false));
+                                    $networkData = array(
+                                        'networkId' => isset($_POST['network_id']) ? (int) $_POST['network_id'] : 0,
+                                        'networkType' => isset($_POST['network_type']) ? (int) $_POST['network_type'] : 0,
+                                        'networkKind' => isset($_POST['network_kind']) ? (int) $_POST['network_kind'] : 0,
+                                    );
+                                    $message = $b2sItem->getMessagebyTemplate((object) $networkData, $assText);
+                                    if (isset($message) && !empty($message)) {
+                                        $assText = $message;
+                                    }
+                                } else {
+                                    if (!isset($b2sItem)) {
+                                        $b2sItem = new B2S_Ship_Item((int) $_POST['post_id']);
+                                    }
+                                    $characterLimits = $b2sItem->getCharacterLimits();
+                                    if (isset($_POST['post_id']) && isset($_POST['network_id']) && isset($_POST['network_type']) && isset($characterLimits[(int) $_POST['network_type']][(int) $_POST['network_id']]) && (int) $characterLimits[(int) $_POST['network_type']][(int) $_POST['network_id']] > 0) {
+                                        if (strlen($result['ass_text']) > (int) $characterLimits[(int) $_POST['network_type']][(int) $_POST['network_id']]) {
+                                            $assText = B2S_Util::getExcerpt($assText, 0, (int) $characterLimits[(int) $_POST['network_type']][(int) $_POST['network_id']]);
+                                        }
+                                    }
+                                }
+                                echo json_encode(array('result' => true, 'ass_text' => $assText, 'ass_words_open' => (int) $result['ass_words_open']));
+                                wp_die();
+                            }
+                            if (isset($result['error']) && !empty($result['error'])) {
+                                echo json_encode(array('result' => false, 'error' => (int) $result['error']));
+                                wp_die();
+                            }
+                        }
+                    }
+                }
+            }
+            echo json_encode(array('result' => false));
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
+
+    public function assSettingsSave() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            require_once(B2S_PLUGIN_DIR . 'includes/Options.php');
+            $options = new B2S_Options((int) B2S_PLUGIN_BLOG_USER_ID, 'B2S_PLUGIN_USER_TOOL');
+            $optionData = $options->_getOption(1);
+            $optionData['settings']['post_template'] = (isset($_POST['setting_post_template']) && $_POST['setting_post_template'] == 'true' ? true : false);
+            $optionData['settings']['deactivate_emojis'] = (isset($_POST['setting_deactivate_emojis']) && $_POST['setting_deactivate_emojis'] == 'true' ? true : false);
+            $options->_setOption(1, $optionData);
+
+            echo json_encode(array('result' => true));
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
+
+    public function assLogout() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            global $wpdb;
+            $wpdb->delete($wpdb->prefix . 'b2s_user_tool', array('blog_user_id' => (int) B2S_PLUGIN_BLOG_USER_ID, 'tool_id' => 1), array('%d', '%d'));
+            echo json_encode(array('result' => true));
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
+
+    public function deletePostNoticeAll() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            require_once (B2S_PLUGIN_DIR . '/includes/B2S/Post/Tools.php');
+            echo json_encode(B2S_Post_Tools::deletePostNoticeAll());
+            wp_die();
+        } else {
+            echo json_encode(array('result' => false, 'error' => 'nonce'));
+            wp_die();
+        }
+    }
+
+    public function checkImageSize() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            if (!isset($_POST['image_url']) || empty($_POST['image_url'])) {
+                echo json_encode(array('result' => false));
+                wp_die();
+            }
+            
+            require_once (B2S_PLUGIN_DIR . '/includes/B2S/Ship/Item.php');
+            $minImageDimensions = B2S_Ship_Item::getMinImageDimensions();
+            
+            echo json_encode();
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
+
+    // public function addUserApp() {
+    //     if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+    //         $supportedNetworks = unserialize(B2S_PLUGIN_USER_APP_NETWORKS);
+
+    //         if (isset($_POST['app_name']) && !empty($_POST['app_name']) && isset($_POST['network_id']) && !empty($_POST['network_id']) && isset($_POST['app_key']) && !empty($_POST['app_key']) && isset($_POST['app_secret']) && !empty($_POST['app_secret'])) {
+
+    //             $appName = sanitize_text_field($_POST['app_name']);
+    //             $appNetwork = (int) $_POST['network_id'];
+    //             if (in_array($appNetwork, $supportedNetworks)) {
+    //                 //call API app/add endpoint here
+    //                 $postData = array('action' => 'addUserApp', 'token' => B2S_PLUGIN_TOKEN,
+    //                     "app_name" => $appName,
+    //                     "network_id" => $appNetwork,
+    //                     "app_key" => sanitize_text_field($_POST['app_key']),
+    //                     "app_secret" => sanitize_text_field($_POST['app_secret']),
+    //                     "plugin_version" => B2S_PLUGIN_VERSION
+    //                 );
+
+    //                 $result = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, $postData));
+    //                 if (isset($result->result) && $result->result !== false && isset($result->app_id) && (int) $result->app_id > 0) {
+    //                     $editAppText = esc_html__('Edit app data', 'blog2social');
+    //                     $deleteAppText = esc_html__('Delete app data', 'blog2social');
+    //                     echo json_encode(array("result" => true, "app_id" => $result->app_id, 'app_name' => $appName, 'network_id' => (int) $_POST['network_id'],
+    //                         'deleteAppText' => $deleteAppText, 'editAppText' => $editAppText));
+    //                     wp_die();
+    //                 } else {
+    //                     if (isset($result->error_code) && $result->error_code == "APP_PAID") {
+    //                         echo json_encode(array("result" => false, "error_code" => $result->error_code));
+    //                         wp_die();
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         echo json_encode(array("result" => false, "app_id" => -1));
+    //         wp_die();
+    //     }
+    // }
 }

@@ -5,7 +5,7 @@ Tags: search, woocommerce search, image search, ajax search, file search
 Requires at least: 3.9
 Tested up to: 6.6
 Requires PHP: 5.2.4
-Stable tag: 5.5.6
+Stable tag: 5.5.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,6 +196,12 @@ Yes we do. We try our best to help free users with customisation requests and we
 8. Plugin Settings
 
 == Changelog ==
+
+= 5.5.7 =
+* Fixed - Searching content of password protected posts
+* Fixed - Warning: Undefined variable $replacement
+* Added - Button role to menu search icon to improve accessibility
+* Updated - Freemius SDK 2.7.4
 
 = 5.5.6 =
 * Fixed - Missing Authorization to Authenticated (Subscriber+) Index Creation

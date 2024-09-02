@@ -45,6 +45,8 @@ class Ajax_Get {
         add_action('wp_ajax_b2s_load_insights', array($this, 'loadInsights'));
         add_action('wp_ajax_b2s_get_video_upload_data', array($this, 'getVideoUploadData'));
         add_action('wp_ajax_get_posts_detail_data', array($this, 'getPostsDetailData'));
+        add_action('wp_ajax_b2s_get_ass_details', array($this, 'getAssDetails'));
+        add_action('wp_ajax_b2s_get_ass_settings', array($this, 'getAssSettings'));
     }
 
     public function getBlogPostStatus() {
@@ -305,7 +307,12 @@ class Ajax_Get {
                     }
                 }
 
-                $item = new B2S_Ship_Item((int) $_POST['postId'], $userLang, $selSchedDate, $b2sPostType, $relayCount, $isVideoMode, $canReel);
+                $assConnected = false;
+                if (isset($_POST['assConnected']) && (bool) $_POST['assConnected'] == true) {
+                    $assConnected = true;
+                }
+
+                $item = new B2S_Ship_Item((int) $_POST['postId'], $userLang, $selSchedDate, $b2sPostType, $relayCount, $isVideoMode, $canReel, $assConnected);
                 echo json_encode(array('result' => true, 'networkAuthId' => (int) $_POST['networkAuthId'], 'networkType' => (int) $_POST['networkType'], 'networkId' => (int) $_POST['networkId'], 'content' => $item->getItemHtml((object) $itemData, true, $b2sDraftData), 'draft' => !empty($b2sDraftData), 'draftActions' => $b2sDraftData));
             } else {
                 echo json_encode(array('result' => false));
@@ -974,4 +981,52 @@ class Ajax_Get {
         }
     }
 
+    public function getAssDetails() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            global $wpdb;
+            $sql = $wpdb->prepare("SELECT `id`, `access_token` FROM `{$wpdb->prefix}b2s_user_tool` WHERE `blog_user_id` = %d AND `tool_id` = 1", (int) B2S_PLUGIN_BLOG_USER_ID);
+            if ($wpdb->get_var($sql)) {
+                $sqlResult = $wpdb->get_row($sql);
+                if (isset($sqlResult->id) && (int) $sqlResult->id > 0 && isset($sqlResult->access_token) && !empty($sqlResult->access_token)) {
+
+                    $postData = array(
+                        'action' => 'assGetQuota',
+                        'access_token' => sanitize_text_field($sqlResult->access_token)
+                    );
+                    $result = json_decode(B2S_Api_Post::post(B2S_PLUGIN_API_ENDPOINT, $postData), true);
+                    require_once(B2S_PLUGIN_DIR . 'includes/Options.php');
+                    $options = new B2S_Options((int) B2S_PLUGIN_BLOG_USER_ID, 'B2S_PLUGIN_USER_TOOL');
+                    $optionData = $options->_getOption(1);
+                    
+                    if (isset($result['result']) && $result['result'] == true && isset($result['ass_open_quota']) && isset($result['ass_total_quota'])) {
+                        $wordsOpen = (int) $result['ass_open_quota'];
+                        $wordsTotal = (int) $result['ass_total_quota'];
+                        $optionData['account']['words_open'] = $wordsOpen;
+                        $optionData['account']['words_total'] = $wordsTotal;
+                        $options->_setOption(1, $optionData);
+
+                        echo json_encode(array('result' => true, 'ass_access_token' => $sqlResult->access_token, 'ass_words_open' => $wordsOpen, 'ass_words_total' => $wordsTotal));
+                        wp_die();
+                    }
+                }
+            }
+            echo json_encode(array('result' => false));
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
+
+    public function getAssSettings() {
+        if (current_user_can('read') && isset($_POST['b2s_security_nonce']) && (int) wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['b2s_security_nonce'])), 'b2s_security_nonce') > 0) {
+            require_once(B2S_PLUGIN_DIR . 'includes/Options.php');
+            $options = new B2S_Options((int) B2S_PLUGIN_BLOG_USER_ID, 'B2S_PLUGIN_USER_TOOL');
+            $optionData = $options->_getOption(1);
+
+            echo json_encode(array('result' => true, 'settings' => (isset($optionData['settings']) ? $optionData['settings'] : array())));
+            wp_die();
+        }
+        echo json_encode(array('result' => false, 'error' => 'nonce'));
+        wp_die();
+    }
 }

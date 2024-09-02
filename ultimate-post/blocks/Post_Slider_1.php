@@ -180,7 +180,6 @@ class Post_Slider_1{
         }
 
         $block_name = 'post-slider-1';
-        $page_post_id = ultimate_post()->get_ID();
         $wraper_before = $wraper_after = $post_loop = '';
         $attr['queryNumber'] = ultimate_post()->get_post_number(5, $attr['queryNumber'], $attr['queryNumPosts']);
         $recent_posts = new \WP_Query( ultimate_post()->get_query( $attr ) );
@@ -236,7 +235,7 @@ class Post_Slider_1{
                             $post_loop .= '<'.$attr['contentTag'].' class="ultp-block-item post-id-'.$post_id.'">';
                                 if($attr['preLoader']) {
                                     $post_loop .= '<div class="ultp-post-slider-loader-container">';
-                                        $post_loop .= ultimate_post()->loading();
+                                        $post_loop .= ultimate_post()->postx_loading();
                                     $post_loop .= '</div>';
                                 }
                                 
@@ -294,7 +293,7 @@ class Post_Slider_1{
                                             $post_loop .= $dcContent[2];
 
                                             if ($attr['readMore']) {
-                                                $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->svg_icon($attr['readMoreIcon']).'</a></div>';
+                                                $post_loop .= '<div class="ultp-block-readmore"><a aria-label="'.$title.'" href="'.$titlelink.'" '.($attr['openInTab'] ? 'target="_blank"' : '').'>'.($attr['readMoreText'] ? $attr['readMoreText'] : esc_html__( "Read More", "ultimate-post" )).ultimate_post()->get_svg_icon($attr['readMoreIcon']).'</a></div>';
                                             }
 
                                             $post_loop .= $dcContent[1];
@@ -319,8 +318,8 @@ class Post_Slider_1{
                     if ($attr['arrows']) {
                         $wraper_after .= '<div class="ultp-slick-nav" style="display:none">';
                             $nav = explode('#', $attr['arrowStyle']);
-                            $wraper_after .= '<div class="ultp-slick-prev"><div class="slick-arrow slick-prev">'.ultimate_post()->svg_icon($nav[0]).'</div></div>';
-                            $wraper_after .= '<div class="ultp-slick-next"><div class="slick-arrow slick-next">'.ultimate_post()->svg_icon($nav[1]).'</div></div>';
+                            $wraper_after .= '<div class="ultp-slick-prev"><div class="slick-arrow slick-prev">'.ultimate_post()->get_svg_icon($nav[0]).'</div></div>';
+                            $wraper_after .= '<div class="ultp-slick-next"><div class="slick-arrow slick-next">'.ultimate_post()->get_svg_icon($nav[1]).'</div></div>';
                         $wraper_after .= '</div>';
                     }
 

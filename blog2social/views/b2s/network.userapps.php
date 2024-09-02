@@ -137,12 +137,12 @@ $isPremium = (B2S_PLUGIN_USER_VERSION > 0 && !defined("B2S_PLUGIN_TRAIL_END")) ?
                             <p class="network-app-info" data-network-id="2" class="b2s-padding-bottom-5" style="display:none;">
                                 <?php echo sprintf(__('The App Key and Secret are essentially the username and password for your App. They will be used to authenticate and set up a safe and secure connection to your X (Twitter) account via <a href="%s">OAuth</a>.', 'blog2social'), esc_url('https://developer.twitter.com/en/docs/authentication/oauth-1-0a/api-key-and-secret')); ?>
                                 <br>
-                                <?php echo sprintf(__('For get your App Key and Sercet, you can use the following <a href="%s">guide</a>.', 'blog2social'), esc_url(B2S_Tools::getSupportLink('twitter_faq'))); ?>
+                                <?php echo sprintf(__('To obtain your App Key and Sercet, please refer to the following <a href="%s">guide</a>.', 'blog2social'), esc_url(B2S_Tools::getSupportLink('twitter_faq'))); ?>
                             </p>
                             <p class="network-app-info" data-network-id="6" class="b2s-padding-bottom-5" style="display:none;">
                                 <?php echo sprintf(__('The App-Id and Secret are essentially the username and password for your App. They will be used to authenticate and set up a safe and secure connection to your Pinterest account via <a href="%s">OAuth</a>.', 'blog2social'), esc_url('https://developers.pinterest.com/docs/getting-started/authentication/')); ?>
                                 <br>
-                                <?php echo sprintf(__('For get your App-Id and Sercet, you can use the following <a href="%s">guide</a>.', 'blog2social'), esc_url(B2S_Tools::getSupportLink('pinterest_faq'))); ?>
+                                <?php echo sprintf(__('To obtain your App-Id and Sercet, please refer to the following <a href="%s">guide</a>.', 'blog2social'), esc_url(B2S_Tools::getSupportLink('pinterest_faq'))); ?>
                             </p>
 
 

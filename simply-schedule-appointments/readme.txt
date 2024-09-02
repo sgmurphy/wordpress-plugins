@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.6
-Stable tag:        1.6.7.43
+Stable tag:        1.6.7.45
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,13 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.45 - 2024-08-27 ==
+
+= Fixes =
+
+- SMS reminder revisions marking successful SMS delivery as a failure
+- Prevent JavaScript in the Twig templates
+
 == 1.6.7.43 - 2024-08-13 ==
 
 = Fixes =
@@ -298,13 +305,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 - Display all team members assigned to appointment
 - Fix twig template customer information summary
 - Hide appointment actions until appointment information is ready
-- Google Calendar is blocking timeslots incorrectly
-- Replace fallback IP to country API with a working API
-
-= Features and Improvements =
-
-- Removed standard timezones.
-- Added missing actions to revisions model.
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

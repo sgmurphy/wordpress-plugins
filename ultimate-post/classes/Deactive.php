@@ -4,104 +4,69 @@
  * 
  * @package ULTP\Notice
  * @since v.1.1.0
- */
+*/
 namespace ULTP;
-
-/**
- * Deactive class.
- */
 defined('ABSPATH') || exit;
 
 /**
  * Deactive class.
- */
-class Deactive{
+*/
+class Deactive {
 
 	private $PLUGIN_NAME = 'PostX';
 	private $PLUGIN_SLUG = 'ultimate-post';
 	private $PLUGIN_VERSION = ULTP_VER;
     private $API_ENDPOINT = 'https://inside.wpxpo.com';
     
-
 	/**
-	 * Setup class.
-	 *
+	 * Setup class.s
 	 * @since v.1.1.0
-	 */
+	*/
     public function __construct() {
-        add_action( 'admin_footer', array( $this, 'get_source_data_callback' ) );
+		global $pagenow;
+        if ( $pagenow == 'plugins.php' ) {
+			add_action( 'admin_footer', array( $this, 'get_source_data_callback' ) );
+		}
 		add_action( 'wp_ajax_ultp_deactive_plugin', array( $this, 'send_plugin_data' ) );
 	}
 
-
-	/**
-	 * Check is Local or Not
-	 *
-	 * @since v.1.0.0
-	 * @param NULL
-	 * @return BOOLEAN | Is local or not
-	 */
-	public function is_local() {
-		$seed = isset($_SERVER['REMOTE_ADDR']) ? sanitize_key($_SERVER['REMOTE_ADDR']) : '';
-		return in_array( $seed, array( '127.0.0.1', '::1' ) );
-	}
-
-
-	/**
-	 * Sanitize Array
-	 *
-	 * @since v.2.5.8
-	 * @param ARRAY
-	 * @return ARRAY | Product return data
-	 */
-	public function sanitize_array( &$array ) {
-		foreach ($array as &$value) {
-			if ( !is_array($value) ) {
-				$value = sanitize_text_field( $value );
-			} else {
-				$this->sanitize_array($value);
-			}
-		}
-		return $array;
-	}
-
-	
 	/**
 	 * Get Plugin Data Response
 	 *
 	 * @since v.1.0.0
 	 * @param STRING
 	 * @return ARRAY | Product return data
-	 */
+	*/
 	public function send_plugin_data( $type , $site = '' ) {
-		$data = $this->get_data();
-		$data['site_type'] = $site ? $site : get_option( '__ultp_site_type', '' );
-
-		$data['type'] = $type ? $type : 'deactive';
-		$form_data = isset($_POST) ? $this->sanitize_array($_POST) : array(); //phpcs:Ignore
 		
-		if (current_user_can( 'administrator' ) ) {
-			if (isset( $form_data['action'] )) {
+		if ( current_user_can( 'administrator' ) ) {
+			$data = $this->get_required_data();
+			$data['site_type'] = $site ? $site : get_option( '__ultp_site_type', '' );
+			$data['type'] = $type ? $type : 'deactive';
+			$form_data = isset($_POST) ? ultimate_post()->ultp_rest_sanitize_params($_POST) : array(); //phpcs:Ignore
+			
+			if ( isset( $form_data['action'] ) ) {
 				unset( $form_data['action'] );
 			}
-
-			$response = wp_remote_post( $this->API_ENDPOINT, array(
-				'method'      => 'POST',
-				'timeout'     => 30,
-				'redirection' => 5,
-				'headers'     => array(
-					'user-agent' => 'wpxpo/' . md5( esc_url( home_url() ) ) . ';',
-					'Accept'     => 'application/json',
-				),
-				'blocking'    => true,
-				'httpversion' => '1.0',
-				'body'        => array_merge($data, $form_data),
-			) );
+			$response = wp_remote_post( 
+				$this->API_ENDPOINT,
+				array(
+					'method'      => 'POST',
+					'timeout'     => 30,
+					'redirection' => 5,
+					'headers'     => array(
+						'user-agent' => 'wpxpo/' . md5( esc_url( home_url() ) ) . ';',
+						'Accept'     => 'application/json',
+					),
+					'blocking'    => true,
+					'httpversion' => '1.0',
+					'body'        => array_merge($data, $form_data),
+				)
+			);
 
 			return $response;
-		}		
+		}	
 	}
-	
 
 	/**
 	 * Deactive Form Settings Data
@@ -109,8 +74,8 @@ class Deactive{
 	 * @since v.1.0.0
 	 * @param NULL
 	 * @return ARRAY | Settings Parameters
-	 */
-	public function get_settings() {
+	*/
+	public function get_deactive_settings() {
 		$attr = array(
 			array(
 				'id'          	=> 'no-need',
@@ -149,24 +114,21 @@ class Deactive{
 		return $attr;
 	}
 
-
 	/**
 	 * Deactive HTML View
 	 *
 	 * @since v.1.0.0
 	 * @param NULL
 	 * @return STRING | HTML Data
-	 */
+	*/
     public function get_source_data_callback() {
-		global $pagenow;
-        if ($pagenow == 'plugins.php' ) {
-            $this->deactive_html();
-		}
-		$this->deactive_css();
-		$this->deactive_js();
+		$this->deactive_html_container();
+		$this->deactive_container_css();
+		$this->deactive_container_js();
 	}
 
-	public function deactive_html() { ?>
+	public function deactive_html_container() { 
+		?>
     	<div class="ultp-modal" id="ultp-deactive-modal">
             <div class="ultp-modal-wrap">
 			
@@ -178,7 +140,7 @@ class Deactive{
                 <div class="ultp-modal-body">
                     <h3><?php esc_html_e( "If you have a moment, please let us know why you are deactivating PostX:", "ultimate-post" ); ?></h3>
                     <ul class="ultp-modal-input">
-						<?php foreach ($this->get_settings() as $key => $setting) { ?>
+						<?php foreach ($this->get_deactive_settings() as $key => $setting) { ?>
 							<li>
 								<label>
 									<input type="radio" <?php echo $key == 0 ? 'checked="checked"' : ''; ?> id="<?php echo esc_attr($setting['id']); ?>" name="<?php echo esc_attr($this->PLUGIN_SLUG); ?>" value="<?php echo esc_attr($setting['text']); ?>">
@@ -199,8 +161,8 @@ class Deactive{
 				
             </div>
         </div>
-	<?php }
-
+		<?php 
+	}
 
 	/**
 	 * Deactivation Forms CSS File
@@ -209,7 +171,7 @@ class Deactive{
 	 * @param NULL
 	 * @return STRING | CSS Code
 	 */
-	public function deactive_css() { ?>
+	public function deactive_container_css() { ?>
 		<style type="text/css">
 			.ultp-modal {
                 position: fixed;
@@ -379,7 +341,7 @@ class Deactive{
 	 * @param NULL
 	 * @return STRING | JS Code
 	 */
-	public function deactive_js() { ?>
+	public function deactive_container_js() { ?>
         <script type="text/javascript">
 			jQuery( document ).ready( function( $ ) {
 				'use strict';
@@ -422,7 +384,6 @@ class Deactive{
 						success: function (data) {
 							$( '#ultp-deactive-modal' ).removeClass( 'modal-active' );
 							window.location.href = url;
-							// that.parents('.wc-install').hide("slow", function() { that.parents('.wc-install').remove(); });
 						},
 						error: function(xhr) {
 							console.log( 'Error occured. Please try again' + xhr.statusText + xhr.responseText );
@@ -443,7 +404,7 @@ class Deactive{
 	 * @param NULL
 	 * @return ARRAY | Return Plugin Information
 	 */
-	public function get_plugins() {
+	public function get_installed_plugins() {
 		if (! function_exists( 'get_plugins' ) ) {
             include ABSPATH . '/wp-admin/includes/plugin.php';
         }
@@ -481,8 +442,8 @@ class Deactive{
 	 * @since v.1.0.0
 	 * @param NULL
 	 * @return ARRAY | Return Theme Information
-	 */
-	public function get_themes() {
+	*/
+	public function get_installed_themes() {
 		$theme_data = array();
 		$all_themes = wp_get_themes();	
 
@@ -499,18 +460,16 @@ class Deactive{
 		return $theme_data;
 	}
 
-
 	/**
 	 * Get Current User IP
 	 *
 	 * @since v.1.0.0
 	 * @param NULL
 	 * @return STRING | Return IP
-	 */
+	*/
 	public function get_user_ip() {
 		$response = wp_remote_get( 'https://icanhazip.com/' );
-		
-        if (is_wp_error( $response ) ) {
+        if ( is_wp_error( $response ) ) {
             return '';
         } else {
 			$user_ip = trim( wp_remote_retrieve_body( $response ) );
@@ -518,19 +477,18 @@ class Deactive{
 		}
     }
 
-
 	/**
 	 * Get All the Data Collected
 	 *
 	 * @since v.1.0.0
 	 * @param NULL
 	 * @return ARRAY | All Send Data
-	 */
-	public function get_data() {
+	*/
+	public function get_required_data() {
 		global $wpdb;
 		$user = wp_get_current_user();
 		$user_count = count_users();
-		$plugins_data = $this->get_plugins();
+		$plugins_data = $this->get_installed_plugins();
 
 		$data = array(
 			'name' => get_bloginfo( 'name' ),
@@ -545,7 +503,7 @@ class Deactive{
 			'locale' => get_locale(),
 			'multisite' => is_multisite() ? 'Yes' : 'No',
 
-			'themes' => $this->get_themes(),
+			'themes' => $this->get_installed_themes(),
 			'active_theme' => get_stylesheet(),
 			'users' => isset($user_count['total_users']) ? $user_count['total_users'] : 0,
 			'active_plugins' => $plugins_data['active'],
@@ -567,6 +525,4 @@ class Deactive{
 
 		return $data;
 	}
-
-    
 }

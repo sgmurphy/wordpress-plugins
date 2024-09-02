@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'gravitypdf/gravitypdf',
-        'pretty_version' => '6.11.3',
-        'version' => '6.11.3.0',
-        'reference' => '83e0b022967f7adb8f5b2acef4c6d5648931e7fd',
+        'pretty_version' => '6.11.4',
+        'version' => '6.11.4.0',
+        'reference' => '0bae8195a980a2a3587ca793df85047f8a476431',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -23,9 +23,9 @@
             ),
         ),
         'gravitypdf/gravitypdf' => array(
-            'pretty_version' => '6.11.3',
-            'version' => '6.11.3.0',
-            'reference' => '83e0b022967f7adb8f5b2acef4c6d5648931e7fd',
+            'pretty_version' => '6.11.4',
+            'version' => '6.11.4.0',
+            'reference' => '0bae8195a980a2a3587ca793df85047f8a476431',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

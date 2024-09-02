@@ -1,5 +1,11 @@
 <?php
+/**
+ * The Forminator_Gateway_Stripe class.
+ *
+ * @package Forminator
+ */
 
+// Include class-exception.php.
 require_once __DIR__ . '/class-exception.php';
 
 /**
@@ -67,7 +73,7 @@ class Forminator_Gateway_Stripe {
 	/**
 	 * Forminator_Gateway_Stripe constructor.
 	 *
-	 * @throws Forminator_Gateway_Exception
+	 * @throws Forminator_Gateway_Exception When there is a Gateway error.
 	 */
 	public function __construct() {
 
@@ -123,11 +129,13 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
-	 * @param $key
-	 * @param $secret
-	 * @param $error
+	 * Validate keys
 	 *
-	 * @throws Forminator_Gateway_Exception
+	 * @param string $key Key.
+	 * @param string $secret Secret key.
+	 * @param string $error Error.
+	 *
+	 * @throws Forminator_Gateway_Exception When there is a Gateway error.
 	 */
 	public static function validate_keys( $key, $secret, $error = self::INVALID_TEST_SECRET_EXCEPTION ) {
 		/**
@@ -148,12 +156,17 @@ class Forminator_Gateway_Stripe {
 			forminator_maybe_log( __METHOD__, $e->getMessage() );
 			throw new Forminator_Gateway_Exception(
 				esc_html__( 'Some error has occurred while connecting to your Stripe account. Please resolve the following errors and try to connect again.', 'forminator' ),
-				$error,
-				$e
+				esc_html( $error ),
+				$e // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			);
 		}
 	}
 
+	/**
+	 * Is Available
+	 *
+	 * @return bool
+	 */
 	public static function is_available() {
 		$min_php_version = apply_filters( 'forminator_payments_stripe_min_php_version', '5.6.0' );
 		$loaded          = forminator_payment_lib_stripe_version_loaded();
@@ -166,6 +179,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Get test key
+	 *
 	 * @return string
 	 */
 	public function get_test_key() {
@@ -173,6 +188,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Get test secret
+	 *
 	 * @return string
 	 */
 	public function get_test_secret() {
@@ -180,6 +197,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Get live key
+	 *
 	 * @return string
 	 */
 	public function get_live_key() {
@@ -187,6 +206,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Get live secret
+	 *
 	 * @return string
 	 */
 	public function get_live_secret() {
@@ -194,6 +215,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Get currency
+	 *
 	 * @return string
 	 */
 	public function get_default_currency() {
@@ -201,6 +224,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Is live
+	 *
 	 * @return bool
 	 */
 	public function is_live() {
@@ -210,13 +235,15 @@ class Forminator_Gateway_Stripe {
 	/**
 	 * Store stripe settings
 	 *
-	 * @param $settings
+	 * @param array $settings Settings.
 	 */
 	public static function store_settings( $settings ) {
 		update_option( 'forminator_stripe_configuration', $settings );
 	}
 
 	/**
+	 * Is live ready
+	 *
 	 * @return bool
 	 */
 	public function is_live_ready() {
@@ -224,6 +251,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Is test ready
+	 *
 	 * @return bool
 	 */
 	public function is_test_ready() {
@@ -231,6 +260,8 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
+	 * Is ready
+	 *
 	 * @return bool
 	 */
 	public function is_ready() {
@@ -242,17 +273,20 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
-	 * @param bool $live
+	 * Set live
+	 *
+	 * @param bool $live Live?.
 	 */
 	public function set_live( $live ) {
 		$this->is_live = $live;
 	}
 
 	/**
-	 * @param $data
+	 * Charge
+	 *
+	 * @param mixed $data Data.
 	 *
 	 * @return \Forminator\Stripe\ApiResource
-	 * @throws \Forminator\Stripe\Error\Api
 	 */
 	public function charge( $data ) {
 		$api_key = $this->is_live() ? $this->live_secret : $this->test_secret;
@@ -263,10 +297,11 @@ class Forminator_Gateway_Stripe {
 	}
 
 	/**
-	 * @param $token
+	 * Retrieve ifo from token
+	 *
+	 * @param string $token Token.
 	 *
 	 * @return \Forminator\Stripe\StripeObject
-	 * @throws \Forminator\Stripe\Error\Api
 	 */
 	public function retrieve_info_from_token( $token ) {
 		$api_key = $this->is_live() ? $this->live_secret : $this->test_secret;
@@ -279,7 +314,7 @@ class Forminator_Gateway_Stripe {
 	/**
 	 * Get the exception error and return WP_Error
 	 *
-	 * @param $e
+	 * @param mixed $e Exception.
 	 *
 	 * @since 1.15
 	 *

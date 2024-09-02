@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Advanced Coupons for WooCommerce Free plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Advanced Coupons for WooCommerce Free 4.6.3\n"
+"Project-Id-Version: Advanced Coupons for WooCommerce Free 4.6.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/code\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-22T00:16:01+00:00\n"
+"POT-Creation-Date: 2024-09-02T02:29:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: advanced-coupons-for-woocommerce-free\n"
@@ -305,40 +305,40 @@ msgstr ""
 msgid "When checked, this will enable scheduler for this coupon which will then show a notification for customers in the cart when the coupon can be applied."
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:22
+#: data/coupon-fields/scheduler.php:26
 #: Models/Edit_Coupon.php:722
 msgid "Coupon start date"
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:25
+#: data/coupon-fields/scheduler.php:29
 msgid "The exact date the coupon will be available from. Based on the timezone in this WordPress installation’s settings."
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:29
+#: data/coupon-fields/scheduler.php:33
 #: Models/Edit_Coupon.php:735
 msgid "Coupon start error message"
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:31
+#: data/coupon-fields/scheduler.php:35
 #: Models/Edit_Coupon.php:736
 msgid "Show a custom error message to customers that try to apply this coupon before it is available."
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:35
+#: data/coupon-fields/scheduler.php:39
 #: Models/Edit_Coupon.php:747
 msgid "Coupon expiry date"
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:38
+#: data/coupon-fields/scheduler.php:42
 msgid "The exact date the coupon will be expired. Based on the timezone in this WordPress installation’s settings."
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:42
+#: data/coupon-fields/scheduler.php:46
 #: Models/Edit_Coupon.php:760
 msgid "Coupon expire error message"
 msgstr ""
 
-#: data/coupon-fields/scheduler.php:44
+#: data/coupon-fields/scheduler.php:48
 #: Models/Edit_Coupon.php:761
 msgid "Show a custom error message to customers that try to apply this coupon after it has expired."
 msgstr ""

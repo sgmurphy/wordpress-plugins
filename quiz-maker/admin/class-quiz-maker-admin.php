@@ -1122,6 +1122,8 @@ class Quiz_Maker_Admin
         $quick_quiz_question_font_size                      = 16;
         $quick_quiz_question_mobile_font_size               = 16;
         $quick_quiz_question_text_alignment                 = "center";
+        $quick_quiz_image_width                             = "";
+        $quiz_image_width_by_percentage_px                  = "pixels";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1244,6 +1246,12 @@ class Quiz_Maker_Admin
             // Question text alignment
             $quick_quiz_question_text_alignment = (isset($_REQUEST['ays_quick_quiz_question_text_alignment']) && $_REQUEST['ays_quick_quiz_question_text_alignment'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_question_text_alignment'] ) ) : 'center';
 
+            // Question image Width
+            $quick_quiz_image_width = (isset($_REQUEST['ays_quick_quiz_image_width']) && $_REQUEST['ays_quick_quiz_image_width'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_image_width'] ) ) : "";
+
+            // Quiz image width percentage/px
+            $quick_quiz_image_width_by_percentage_px = (isset($_REQUEST['ays_quick_quiz_image_width_by_percentage_px']) && $_REQUEST['ays_quick_quiz_image_width_by_percentage_px'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_image_width_by_percentage_px'] ) ) : 'pixels';
+
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1302,8 +1310,9 @@ class Quiz_Maker_Admin
             'form_email'                                    => '',
             'form_phone'                                    => '',
             'enable_logged_users'                           => 'off',
-            'image_width'                                   => '',
+            'image_width'                                   => $quick_quiz_image_width,
             'image_height'                                  => '',
+            'quiz_image_width_by_percentage_px'             => $quick_quiz_image_width_by_percentage_px,
             'quiz_image_height'                             => $quick_quiz_image_height,
             'enable_correction'                             => $quick_quiz_enable_correction,
             'enable_questions_counter'                      => $quick_quiz_enable_questions_counter,

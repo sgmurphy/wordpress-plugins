@@ -1,5 +1,12 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.45 - 2024-08-27
+
+### Fixes
+
+- SMS reminder revisions marking successful SMS delivery as a failure
+- Prevent JavaScript in the Twig templates
+
 ## SSA-VERSION-PREFIX.6.7.43 - 2024-08-13
 
 ### Fixes

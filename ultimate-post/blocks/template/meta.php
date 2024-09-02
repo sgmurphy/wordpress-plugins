@@ -29,7 +29,7 @@ if ( $attr['metaShow'] ) {
 
     $authorImg     = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author"><img loading="lazy" class="ultp-meta-author-img" src="'.$avatar.'" alt="'.__("By","ultimate-post").'" />'.$attr['metaAuthorPrefix'].'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name .'</a></span>' : '';
 
-    $authorIcon    = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.ultimate_post()->svg_icon('user').'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
+    $authorIcon    = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.ultimate_post()->get_svg_icon('user').'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
 
     $authorBy      = in_array('metaAuthor', $meta) ? '<span class="ultp-block-author">'.$attr['metaAuthorPrefix'].'<a class="'. (empty($author_link) ? 'ultp-meta-author-no-link' : '') .'" href="'.($attr['authorLink']?$author_link:'javascript:void(0)').'">'.$display_name.'</a></span>' : '';
     
@@ -40,17 +40,17 @@ if ( $attr['metaShow'] ) {
     $authorBy = apply_filters( 'postx_loop_author_by', $authorBy, $user_id, $post_id, isset($attr["className"]) ? $attr["className"] : '');
 
     $date          = in_array('metaDate', $meta) ? '<span class="ultp-block-date">'.$time.'</span>' : '';
-    $dateIcon      = in_array('metaDate', $meta) ? '<span class="ultp-block-date">'.ultimate_post()->svg_icon('calendar').$time.'</span>' : '';
+    $dateIcon      = in_array('metaDate', $meta) ? '<span class="ultp-block-date">'.ultimate_post()->get_svg_icon('calendar').$time.'</span>' : '';
     $dateModified          = in_array('metaDateModified', $meta) ? '<span class="ultp-block-date">'.$timeModified.'</span>' : '';
-    $dateModifiedIcon      = in_array('metaDateModified', $meta) ? '<span class="ultp-block-date">'.ultimate_post()->svg_icon('calendar').$timeModified.'</span>' : '';
+    $dateModifiedIcon      = in_array('metaDateModified', $meta) ? '<span class="ultp-block-date">'.ultimate_post()->get_svg_icon('calendar').$timeModified.'</span>' : '';
     $comments      = in_array('metaComments', $meta) ? '<span class="ultp-post-comment">'.$comment.esc_html__(" comments", "ultimate-post").'</span>' : '';
-    $commentsIcon  = in_array('metaComments', $meta) ? '<span class="ultp-post-comment">'.ultimate_post()->svg_icon('comment').$comment.'</span>' : '';
+    $commentsIcon  = in_array('metaComments', $meta) ? '<span class="ultp-post-comment">'.ultimate_post()->get_svg_icon('comment').$comment.'</span>' : '';
     $views         = in_array('metaView', $meta) ? '<span class="ultp-post-view">'.$view.esc_html__(" views", "ultimate-post").'</span>' : '';
-    $viewIcon      = in_array('metaView', $meta) ? '<span class="ultp-post-view">'.ultimate_post()->svg_icon('eye').$view.'</span>' : '';
+    $viewIcon      = in_array('metaView', $meta) ? '<span class="ultp-post-view">'.ultimate_post()->get_svg_icon('eye').$view.'</span>' : '';
     $postTime      = in_array('metaTime', $meta) ? '<span class="ultp-post-time">'.$post_time.esc_html__(" ago", "ultimate-post").'</span>' : '';
-    $postTimeIcon  = in_array('metaTime', $meta) ? '<span class="ultp-post-time">'.ultimate_post()->svg_icon('clock').$post_time.esc_html__(" ago", "ultimate-post").'</span>' : '';
+    $postTimeIcon  = in_array('metaTime', $meta) ? '<span class="ultp-post-time">'.ultimate_post()->get_svg_icon('clock').$post_time.esc_html__(" ago", "ultimate-post").'</span>' : '';
     $reading       = in_array('metaRead', $meta) ? '<span class="ultp-post-read">'.$reading_time.'</span>' : '';
-    $readingIcon   = in_array('metaRead', $meta) ? '<span class="ultp-post-read">'.ultimate_post()->svg_icon('book').$reading_time.'</span>' : '';
+    $readingIcon   = in_array('metaRead', $meta) ? '<span class="ultp-post-read">'.ultimate_post()->get_svg_icon('book').$reading_time.'</span>' : '';
 
     $post_loop .= '<div class="ultp-block-meta ultp-block-meta-'.$attr['metaSeparator'].' ultp-block-meta-'.$attr['metaStyle'].'">';
         if ($attr['metaStyle'] == 'noIcon') { $post_loop .= $authorBy.$date.$dateModified.$comments.$views.$reading.$postTime; }

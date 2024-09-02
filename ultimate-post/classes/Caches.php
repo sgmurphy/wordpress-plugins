@@ -1,37 +1,30 @@
 <?php
 /**
- * Plugin Cache.
- * 
+ * Cache Designs/Templates/Starter Sites.
  * @package ULTP\Caches
  * @since v.1.0.0
- */
+*/
 
 namespace ULTP;
-
 defined('ABSPATH') || exit;
 
 /*
- * Caches class.
+* Caches class.
 */
 class Caches {
-
-    private $api_endpoint = 'https://ultp.wpxpo.com/wp-json/restapi/v2/';
-
+    
     /*
 	 * Setup class.
 	 * @since v.1.0.0
 	*/
-    public function __construct(){
-        add_action('rest_api_init', array($this, 'get_template_data'));
+    public function __construct() {
+        add_action('rest_api_init', array($this, 'caches_register_rest_route'));
     }
 
     /**
-	 * Get Template or Desingn from the API Action
-     * 
-     * @since v.1.0.0
-	 * @return NULL
-	 */
-	public function get_template_data() {
+	 * GET/UPDATE templates/starter sites based on the API action
+	*/
+	public function caches_register_rest_route() {
         register_rest_route(
 			'ultp/v2', 
 			'/fetch_premade_data/',
@@ -39,7 +32,9 @@ class Caches {
 				array(
 					'methods'  => 'POST', 
 					'callback' => array( $this, 'fetch_premade_data_callback'),
-					'permission_callback' => function () { return current_user_can( 'edit_others_posts' ); },
+					'permission_callback' => function () { 
+                        return current_user_can( 'edit_others_posts' ); 
+                    },
 					'args' => array()
 				)
 			)
@@ -47,11 +42,11 @@ class Caches {
     }
 
     /**
-	 * Starter Lists data
+	 * Fetch Premade Data Callback
      * @since 4.0.0
      * @param ARRAY
-	 * @return ARRAY | Data of the starter_lists
-	 */
+	 * @return ARRAY | Premade Data ( templates/starter sites )
+	*/
     public function fetch_premade_data_callback($request) {
         $post = $request->get_params();
 		$type = isset($post['type']) ? ultimate_post()->ultp_rest_sanitize_params($post['type']) : '';
@@ -61,36 +56,43 @@ class Caches {
             return [ 'success'=> true, 'message'=> __('Data Fetched!!!', 'ultimate-post') ];
         } else {
             try {
-                global $wp_filesystem;
-                if (! $wp_filesystem ) {
-                    require_once( ABSPATH . 'wp-admin/includes/file.php' );
-                }
-                WP_Filesystem();
-
                 $upload_dir_url = wp_upload_dir();
                 $dir 			= trailingslashit($upload_dir_url['basedir']) . 'ultp/';
 
-                // sync after 3 days
-                if ( file_exists(trailingslashit(wp_upload_dir()['basedir']) . 'ultp/starter_lists.json') && time() - filemtime(trailingslashit(wp_upload_dir()['basedir']) . 'ultp/starter_lists.json') >= 2 * DAY_IN_SECONDS ) {
+                /* sync after 3 days */
+                if ( 
+                    file_exists(trailingslashit(wp_upload_dir()['basedir']) . 'ultp/starter_lists.json') &&
+                    time() - filemtime(trailingslashit(wp_upload_dir()['basedir']) . 'ultp/starter_lists.json') >= 2 * DAY_IN_SECONDS 
+                ) {
                     $this->fetch_all_data_callback([]);
                 }
                 
                 if ( $type == 'get_starter_lists_nd_design' ) {
                     return array( 
                         'success' => true,
+                        'success2' => is_admin(),
                         'data' => array(
-                            "starter_lists" => file_exists( $dir . "starter_lists.json" ) ? $wp_filesystem->get_contents($dir . "starter_lists.json") : $this->reset_json_data('starter_lists'),
-                            "design" => file_exists( $dir . "design.json" ) ? $wp_filesystem->get_contents($dir . "design.json") : $this->reset_json_data('design')
+                            "starter_lists" => file_exists( $dir . "starter_lists.json" ) ? 
+                                ultimate_post()->get_path_file_contents($dir . "starter_lists.json") 
+                                : 
+                                $this->reset_premade_json_file('starter_lists'),
+                            "design" => file_exists( $dir . "design.json" ) ? 
+                                ultimate_post()->get_path_file_contents($dir . "design.json") 
+                                : 
+                                $this->reset_premade_json_file('design')
                         )
                     );
                 } else {
                     $_path = $dir . $type . '.json';
                     return array( 
                         'success' => true,
-                        'data' => file_exists( $_path ) ? $wp_filesystem->get_contents($_path) : $this->reset_json_data($type) 
+                        'data' => file_exists( $_path ) ?
+                            ultimate_post()->get_path_file_contents($_path) 
+                            :
+                            $this->reset_premade_json_file($type) 
                     );
                 }
-            } catch ( Exception $e ) {
+            } catch ( \Exception $e ) {
                 return [ 'success'=> false, 'message'=> $e->getMessage() ];
             }
         }
@@ -102,7 +104,7 @@ class Caches {
      * @since v.2.4.4
      * @param ARRAY
 	 * @return ARRAY | Data of the Design
-	 */
+	*/
     public function fetch_all_data_callback($request) {
         $upload = wp_upload_dir();
         $upload_dir = trailingslashit($upload['basedir']) . 'ultp/';
@@ -119,7 +121,7 @@ class Caches {
         if ( file_exists($upload_dir . '/starter_lists.json') ) {
             wp_delete_file($upload_dir . '/starter_lists.json');
         }
-        $this->reset_json_data('all');
+        $this->reset_premade_json_file('all');
         return array('success' => true, 'message' => __('Data Fetched!!!', 'ultimate-post'));
     }
 
@@ -128,8 +130,8 @@ class Caches {
      * @since v.1.0.0 updated from 4.0.0
      * @param STRING | Type (STRING)
 	 * @return ARRAY | Exception Message
-	 */
-    public function reset_json_data( $type = 'all' ) {
+	*/
+    public function reset_premade_json_file( $type = 'all' ) {
         global $wp_filesystem;
         if (! $wp_filesystem ) {
             require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -147,12 +149,11 @@ class Caches {
                         'body' => array(
                             'ultp_ver' => ULTP_VER,
                         )
-
                     )
                 );
             } else {
                 $response = wp_remote_post(
-                    $this->api_endpoint.'design', 
+                    'https://ultp.wpxpo.com/wp-json/restapi/v2/design', 
                     array( 
                         'method' => 'POST', 
                         'timeout' => 120
@@ -160,7 +161,7 @@ class Caches {
                 );
             }
             if ( !is_wp_error( $response ) ) {
-                $path_url = $this->create_directory( $name );
+                $path_url = $this->create_directory_for_premade( $name );
                 $wp_filesystem->put_contents($path_url. $name.'.json', $response['body']);
                 if ( $type != 'all' ) {
                     return $response['body'];
@@ -175,7 +176,7 @@ class Caches {
      * @param File_Name
 	 * @return STRING | Directory Path
 	*/
-    public function create_directory( $type = '' ) {
+    public function create_directory_for_premade( $type = '' ) {
         try {
 			global $wp_filesystem;
 			if ( ! $wp_filesystem ) {
@@ -191,7 +192,7 @@ class Caches {
                 fopen( $dir . $type. '.json', "w" );     //phpcs:ignore
             }
             return $dir;
-        } catch ( Exception $e ) {
+        } catch ( \Exception $e ) {
 			return [ 'success'=> false, 'message'=> $e->getMessage() ];
         }
     }

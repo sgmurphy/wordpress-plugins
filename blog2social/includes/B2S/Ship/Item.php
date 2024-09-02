@@ -32,11 +32,11 @@ class B2S_Ship_Item {
     private $allowImageEditor = array(1, 2, 3, 6, 7, 12, 15, 18, 17, 19, 24, 26, 42, 43); // Cropper
     private $setShortTextProfile = array(1 => 239, 2 => 255, 3 => 239, 6 => 300, 9 => 200, 12 => 240, 16 => 250, 17 => 442, 18 => 800, 19 => 239, 21 => 500, 42 => 1000, 43 => 280);
     private $setShortTextProfileLimit = array(1 => 400, 2 => 254, 3 => 400, 6 => 400, 9 => 200, 12 => 400, 18 => 1000, 21 => 600, 42 => 2000, 43 => 279);
-    private $setShortTextPage = array(1 => 239, 3 => 239, 6 => 300, 17 => 442, 42 => 1000, 19 => 239);
-    private $setShortTextPageLimit = array(1 => 400, 3 => 400, 6 => 400, 42 => 2000, 19 => array(0 => 400, 1 => 2000));
+    private $setShortTextPage = array(1 => 500, 3 => 239, 6 => 300, 17 => 442, 42 => 1000, 19 => 239);
+    private $setShortTextPageLimit = array(1 => 1000, 3 => 400, 6 => 400, 42 => 2000, 19 => array(0 => 400, 1 => 2000));
     private $limitCharacterTitle = array(15 => array(0 => 300), 19 => array(1 => 150), 32 => array(0 => 100), 39 => array(0 => 256));
-    private $setShortTextGroup = array(1 => 239, 17 => 442, 19 => 239);
-    private $setShortTextGroupLimit = array(1 => 400);
+    private $setShortTextGroup = array(17 => 442, 19 => 239);
+    private $setShortTextGroupLimit = array();
     private $allowHashTags = array(1, 2, 3, 6, 12, 17, 21, 37, 43);
     private $limitHashTagCharacter = array(21 => 36);
     private $limitCharacterProfile = array(1 => 500, 2 => 280, 3 => 3000, 6 => 495, 12 => 2000, 18 => 1500, 20 => 495, 21 => 65535, 38 => 500, 39 => 2000, 43 => 300);
@@ -82,8 +82,9 @@ class B2S_Ship_Item {
     private $isVideoMode;
     private $canReel; // NOTE $this->canReel['result'] = true
     private $videoScheduleNetworks = array(1, 2, 3, 6, 12, 32, 35); //NOTE Nur video Netzwerke der Video API
+    private $assConnected;
 
-    public function __construct($postId, $userLang = 'en', $selSchedDate = "", $b2sPostType = "", $relayCount = 0, $isVideoMode = false, $canReel = array()) {
+    public function __construct($postId, $userLang = 'en', $selSchedDate = "", $b2sPostType = "", $relayCount = 0, $isVideoMode = false, $canReel = array(), $assConnected = false) {
         $this->postId = $postId;
         $this->postData = get_post($this->postId);
         $this->postStatus = $this->postData->post_status;
@@ -97,6 +98,7 @@ class B2S_Ship_Item {
         $this->isVideoMode = $isVideoMode;
         $this->canReel = $canReel;
         $this->default_template = (defined('B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT')) ? unserialize(B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT) : false;
+        $this->assConnected = $assConnected;
     }
 
     protected function getPostId() {
@@ -453,7 +455,7 @@ class B2S_Ship_Item {
                 $title_value = ((isset($title) && !empty($title)) ? $title : $this->postData->post_title);
                 $content .= $this->getTitleHtml($data->networkId, $data->networkAuthId, $data->networkKind, $data->networkType, $title_value);
             }
-            $content .= $this->getCustomEditArea($data->networkId, $data->networkAuthId, $data->networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, isset($data->image_url) ? $data->image_url : null, isset($data->multi_images) ? $data->multi_images : array(), isset($data->post_format) ? (int) $data->post_format : 0); //
+            $content .= $this->getCustomEditArea($data->networkId, $data->networkAuthId, $data->networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, isset($data->image_url) ? $data->image_url : null, isset($data->multi_images) ? $data->multi_images : array(), isset($data->post_format) ? (int) $data->post_format : 0, null, isset($data->networkKind) ? (int) $data->networkKind : 0); //
             $content .= (in_array($data->networkId, $this->allowPrivacyStatus)) ? $this->getPrivacyStatusHtml($data->networkAuthId, $data->networkId) : '';
             $content .= (in_array($data->networkId, $this->allowTag) && ($data->networkType == 0 || $data->networkId == 11 || $data->networkId == 42)) ? $this->getTagsHtml($data->networkId, $data->networkAuthId) : '';
 
@@ -478,7 +480,7 @@ class B2S_Ship_Item {
                 }
 //Planning
                 if ($show_time) {
-                    $content .= $this->getShippingTimeHtml($data->networkAuthId, $data->networkType, $data->networkId, $data->networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, isset($data->image_url) ? $data->image_url : null);
+                    $content .= $this->getShippingTimeHtml($data->networkAuthId, $data->networkType, $data->networkId, $data->networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, isset($data->image_url) ? $data->image_url : null, isset($data->networkKind) ? (int) $data->networkKind : 0);
                 }
             }
         } else {
@@ -504,7 +506,7 @@ class B2S_Ship_Item {
         return $content;
     }
 
-    public function getCustomEditArea($networkId, $networkAuthId, $networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, $imageUrl = null, $multi_images = array(), $postFormat = 0, $imageAltText = null) {
+    public function getCustomEditArea($networkId, $networkAuthId, $networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, $imageUrl = null, $multi_images = array(), $postFormat = 0, $imageAltText = null, $networkKind = 0) {
         $meta = array();
         $proBadge = '';
         if (B2S_PLUGIN_USER_VERSION <= 1) {
@@ -543,11 +545,14 @@ class B2S_Ship_Item {
 
             if ($networkId == 1) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control fb-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '' . '</textarea>';
+                $edit .= '<textarea class="form-control fb-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '' . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
 
                 // NOTE Reel Checkbox name = share_as_reel
                 if ($this->isVideoMode === true || $this->isVideoMode === 1) {
@@ -627,11 +632,15 @@ class B2S_Ship_Item {
             if ($networkId == 43) {
 
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control reddit-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control reddit-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '">';
                 $edit .= '<button class="btn btn-primary btn-circle b2s-image-remove-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ($imageUrl ? '' : 'style="display:none"') . '><i class="glyphicon glyphicon-trash"></i></button>';
@@ -667,12 +676,15 @@ class B2S_Ship_Item {
                 $threadChecked = (isset($this->post_template[$networkId][$networkType]['twitterThreads']) && $this->post_template[$networkId][$networkType]['twitterThreads'] !== false ) ? 'checked="checked"' : '';
 
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control tw-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" unique="currency" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control tw-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" unique="currency" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
 
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
 
                 $edit .= '<div class="b2s-twitter-thread-container" data-network-auth-id="' . $networkAuthId . '">';
                 if (B2S_PLUGIN_USER_VERSION >= 2) {
@@ -767,11 +779,15 @@ class B2S_Ship_Item {
 
             if ($networkId == 3) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control linkedin-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control linkedin-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '" >';
 
@@ -843,11 +859,15 @@ class B2S_Ship_Item {
 
             if ($networkId == 4) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control tumblr-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control tumblr-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="b2s-format-area-tumblr-image ' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ((isset($postFormat) && (int) $postFormat == 1) ? '' : 'style="display:none;"') . '>';
                 $edit .= '<button class="btn btn-primary btn-circle b2s-image-remove-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ($imageUrl ? '' : 'style="display:none"') . '><i class="glyphicon glyphicon-trash"></i></button>';
@@ -865,11 +885,15 @@ class B2S_Ship_Item {
 
             if ($networkId == 19) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control xing-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control xing-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '">';
                 $edit .= '<button class="btn btn-primary btn-circle b2s-image-remove-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ($imageUrl ? '' : 'style="display:none"') . '><i class="glyphicon glyphicon-trash"></i></button>';
@@ -902,11 +926,15 @@ class B2S_Ship_Item {
             }
             if (($networkId == 15)) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control reddit-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control reddit-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '">';
                 $edit .= '<button class="btn btn-primary btn-circle b2s-image-remove-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ($imageUrl ? '' : 'style="display:none"') . '><i class="glyphicon glyphicon-trash"></i></button>';
@@ -938,11 +966,15 @@ class B2S_Ship_Item {
             }
             if ($networkId == 17) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control vk-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control vk-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '" >';
                 $edit .= '<button class="btn btn-primary btn-circle b2s-image-remove-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ($imageUrl ? '' : 'style="display:none"') . '><i class="glyphicon glyphicon-trash"></i></button>';
@@ -974,11 +1006,15 @@ class B2S_Ship_Item {
             }
             if ($networkId == 24) {
                 $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea class="form-control telegram-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea class="form-control telegram-textarea-input b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
+
                 $edit .= '<div class="row">';
                 $edit .= '<div class="' . ((isset($this->viewMode) && $this->viewMode == 'modal') ? 'col-xs-12' : 'col-xs-12 col-sm-5 col-lg-3') . '">';
                 $edit .= '<button class="btn btn-primary btn-circle b2s-image-remove-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" ' . ($imageUrl ? '' : 'style="display:none"') . '><i class="glyphicon glyphicon-trash"></i></button>';
@@ -1010,11 +1046,14 @@ class B2S_Ship_Item {
             }
         } else {
             $edit = '<div class="b2s-post-item-details-item-message-area" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-            $edit .= '<textarea class="form-control b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '"  name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' ' . (($networkId == 12) ? 'unique="currency"' : '') . '>' . esc_html($message) . '</textarea>';
+            $edit .= '<textarea class="form-control b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '"  name="b2s[' . esc_attr($networkAuthId) . '][content]" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' ' . (($networkId == 12) ? 'unique="currency"' : '') . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+            $edit .= $this->getTextareaLoaderHtml($networkAuthId);
             if (!in_array($networkId, $this->allowNoEmoji)) {
                 $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="-1" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
             }
             $edit .= '</div>';
+
+            $edit .= $this->getAssBtnHtml($networkAuthId, $networkId);
 
             if ($networkId == 12) {
                 if (($this->isVideoMode === true || $this->isVideoMode === 1)) {
@@ -1087,10 +1126,23 @@ class B2S_Ship_Item {
                 }
             }
         }
+
+        // Assistini check for connection and toggle buttons
+        // if ($this->viewMode != 'modal') {
+        //     $edit .= '<script>';
+        //     $edit .= 'var connected = jQuery("#b2s-ship-ass-connected").val();';
+        //     $edit .= 'if (connected == "true") {';
+        //     $edit .= 'jQuery(".b2s-post-item-ass-auth-btn[data-network-auth-id=\'' . esc_attr($networkAuthId) . '\'][data-network-count=\'-1\']").hide();';
+        //     $edit .= 'jQuery(".b2s-post-item-ass-create-btn[data-network-auth-id=\'' . esc_attr($networkAuthId) . '\'][data-network-count=\'-1\']").removeAttr("style");';
+        //     $edit .= 'jQuery(".b2s-post-item-ass-setting-btn[data-network-auth-id=\'' . esc_attr($networkAuthId) . '\'][data-network-count=\'-1\']").removeAttr("style");';
+        //     $edit .= '}';
+        //     $edit .= '</script>';
+        // }
+
         return $edit;
     }
 
-    public function getCustomEditSchedArea($schedCount = 0, $networkId = 0, $networkAuthId = 0, $networkType = 0, $message = '', $isRequiredTextarea = '', $textareaOnKeyUp = '', $limit = 0, $limitValue = 0, $infoArea = '', $imageUrl = null, $imageAltText = null) {
+    public function getCustomEditSchedArea($schedCount = 0, $networkId = 0, $networkAuthId = 0, $networkType = 0, $message = '', $isRequiredTextarea = '', $textareaOnKeyUp = '', $limit = 0, $limitValue = 0, $infoArea = '', $imageUrl = null, $imageAltText = null, $networkKind = 0) {
         $proBadge = '';
         if (B2S_PLUGIN_USER_VERSION <= 1) {
             $proBadge = ' <span class="label label-success">' . esc_html__("PRO", "blog2social") . '</span>';
@@ -1165,11 +1217,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control fb-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_attr($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control fb-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_attr($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
                 $edit .= '</div>';
 
@@ -1232,12 +1286,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control tw-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" unique="currency" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '></textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control tw-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" unique="currency" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '"></textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
-
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '<div class="b2s-twitter-thread-container-sched" data-network-auth-id="' . $networkAuthId . '">';
 
                 if (B2S_PLUGIN_USER_VERSION >= 2) {
@@ -1319,11 +1374,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control linkedin-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control linkedin-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
                 $edit .= '</div>';
 
@@ -1379,11 +1436,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control xing-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_html__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control xing-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_html__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
                 $edit .= '</div>';
             }
@@ -1407,11 +1466,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control reddit-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_html__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control reddit-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_html__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
                 $edit .= '</div>';
             }
@@ -1435,11 +1496,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control vk-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control vk-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
                 $edit .= '</div>';
             }
@@ -1462,11 +1525,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control b2s-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . '>' . esc_attr($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control b2s-textarea-input b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_attr($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
                 $edit .= '</div>';
             }
@@ -1490,11 +1555,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12 col-sm-7 col-lg-9">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-id="' . esc_attr($networkId) . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '"  name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' ' . (($networkId == 12) ? 'unique="currency"' : '') . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-id="' . esc_attr($networkId) . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '"  name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . ']" ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' ' . (($networkId == 12) ? 'unique="currency"' : '') . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
 
                 if ($networkId == 12) {
                     $edit .= '<div class="b2s-post-item-details-option">';
@@ -1508,11 +1575,13 @@ class B2S_Ship_Item {
                 $edit .= '<div class="col-xs-12">';
                 $edit .= $infoArea;
                 $edit .= '<div class="b2s-post-item-details-item-message-area" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">';
-                $edit .= '<textarea disabled="disabled" class="form-control b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . '] ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' ' . (($networkId == 12) ? 'unique="currency"' : '') . '>' . esc_html($message) . '</textarea>';
+                $edit .= '<textarea disabled="disabled" class="form-control b2s-post-item-sched-customize-text b2s-post-item-details-item-message-input ' . (in_array($networkId, $this->allowHtml) ? 'b2s-post-item-details-item-message-input-allow-html' : '') . '" data-network-count="' . esc_attr($schedCount) . '" data-network-text-limit="' . esc_attr($limitValue) . '" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" placeholder="' . esc_attr__('Write something about your post...', 'blog2social') . '" name="b2s[' . esc_attr($networkAuthId) . '][sched_content][' . esc_attr($schedCount) . '] ' . $isRequiredTextarea . ' ' . $textareaOnKeyUp . ' ' . (($networkId == 12) ? 'unique="currency"' : '') . ' data-post-id="' . esc_attr($this->postId) . '" data-network-type="' . esc_attr($networkType) . '" data-network-kind="' . esc_attr($networkKind) . '">' . esc_html($message) . '</textarea>';
+                $edit .= $this->getTextareaLoaderHtml($networkAuthId, $schedCount);
                 if (!in_array($networkId, $this->allowNoEmoji)) {
                     $edit .= '<button type="button" class="btn btn-sm b2s-post-item-details-item-message-emoji-btn" data-network-count="' . esc_attr($schedCount) . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '"><img src="' . esc_url(plugins_url('/assets/images/b2s-emoji.png', B2S_PLUGIN_FILE)) . '"/></button>';
                 }
                 $edit .= '</div>';
+                $edit .= $this->getAssBtnHtml($networkAuthId, $networkId, $schedCount);
                 $edit .= '</div>';
             }
             $edit .= '</div>';
@@ -1542,6 +1611,19 @@ class B2S_Ship_Item {
                 }
             }
         }
+
+        // Assistini check for connection and toggle sched element buttons
+        // if ($this->viewMode != 'modal') {
+        //     $edit .= '<script>';
+        //     $edit .= 'var connected = jQuery("#b2s-ship-ass-connected").val();';
+        //     $edit .= 'if (connected == "true") {';
+        //     $edit .= 'jQuery(".b2s-post-item-ass-auth-btn[data-network-auth-id=\'' . esc_attr($networkAuthId) . '\'][data-network-count=\'' . esc_attr($schedCount) . '\']").hide();';
+        //     $edit .= 'jQuery(".b2s-post-item-ass-create-btn[data-network-auth-id=\'' . esc_attr($networkAuthId) . '\'][data-network-count=\'' . esc_attr($schedCount) . '\']").show();';
+        //     $edit .= 'jQuery(".b2s-post-item-ass-setting-btn[data-network-auth-id=\'' . esc_attr($networkAuthId) . '\'][data-network-count=\'' . esc_attr($schedCount) . '\']").show();';
+        //     $edit .= '}';
+        //     $edit .= '</script>';
+        // }
+
         return $edit;
     }
 
@@ -1783,7 +1865,7 @@ class B2S_Ship_Item {
         return $relay;
     }
 
-    private function getShippingTimeHtml($networkAuthId, $networkTyp, $networkId, $networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, $imageUrl = null) {
+    private function getShippingTimeHtml($networkAuthId, $networkTyp, $networkId, $networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, $imageUrl = null, $networkKind = 0) {
 
         $isSelectedSched = (B2S_PLUGIN_USER_VERSION > 0 && (trim(strtolower($this->postStatus)) == 'future' || !empty($this->selSchedDate))) ? 'selected="selected"' : '';
         $isSelectedNow = (empty($isSelectedSched)) ? 'selected="selected"' : '';
@@ -1944,7 +2026,7 @@ class B2S_Ship_Item {
                     $edit .= $textareaLimitInfo . '</div>';
                     $shipping .= '<div class="form-group b2s-post-item-details-release-customize-sched-area-details-row" data-network-count="' . esc_attr($schedcount) . '"  data-network-auth-id="' . esc_attr($networkAuthId) . '" style="display:none;">';
                     $shipping .= '<div class="clearfix"></div>';
-                    $shipping .= $this->getCustomEditSchedArea($schedcount, $networkId, $networkAuthId, $networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, $edit, $imageUrl);
+                    $shipping .= $this->getCustomEditSchedArea($schedcount, $networkId, $networkAuthId, $networkType, $message, $isRequiredTextarea, $textareaOnKeyUp, $limit, $limitValue, $edit, $imageUrl, null, $networkKind);
                     $shipping .= '</div>';
                 }
 
@@ -1972,7 +2054,18 @@ class B2S_Ship_Item {
         }
     }
 
-    public function getMessagebyTemplate($data) {
+    public function getMessagebyTemplate($data, $customText = '') {
+        if (!isset($this->post_template) || empty($this->post_template)) {
+            $this->options = new B2S_Options(B2S_PLUGIN_BLOG_USER_ID);
+            $this->post_template = $this->options->_getOption("post_template");
+            if (B2S_PLUGIN_USER_VERSION < 1 || $this->post_template == false || !isset($this->post_template[$data->networkId][$data->networkType])) {
+                $this->post_template = $this->default_template;
+            }
+        }
+
+        if (isset($customText) && !empty($customText)) {
+            $this->postData->post_content = $customText;
+        }
         $post_template = $this->post_template[$data->networkId][$data->networkType];
 
 //V6.5.5 - Xing Pages => Two diferend kinds
@@ -2050,6 +2143,7 @@ class B2S_Ship_Item {
                 }
             }
 
+
             if (isset($this->postData->post_author) && (int) $this->postData->post_author > 0) {
                 $author_name = $this->hook_filter->get_wp_user_post_author_display_name((int) $this->postData->post_author);
                 $message = stripslashes(preg_replace("/\{AUTHOR\}/", addcslashes($author_name, "\\$"), $message));
@@ -2090,11 +2184,40 @@ class B2S_Ship_Item {
             if (!empty($this->postUrl) && $data->networkId == 43 && isset($post_template['format']) && (int) $post_template['format'] == 1) {
                 $limit = 300 - B2S_Util::getNetwork43UrlLength($this->postUrl);
             }
-
             $message = B2S_Util::getExcerpt($message, 0, $limit);
         }
 
         return $message;
     }
 
+    private function getAssBtnHtml($networkAuthId, $networkId, $schedCount = false) {
+        if ($this->viewMode == 'modal') {
+            return;
+        }
+        $networkName = unserialize(B2S_PLUGIN_NETWORK);
+        $html = '<div class="clearfix b2s-pb-1 b2s-post-item-ass-margin' . (in_array($networkId, $this->allowHtml) ? '-html' : '') . '">';
+        $html .= '<button type="button" class="btn btn-xs btn-ass b2s-post-item-ass-auth-btn" ' . ($this->assConnected == true ? 'style="display:none;"' : '') . ' data-network-count="' . ($schedCount !== false ? esc_attr($schedCount) : '-1') . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">'.esc_attr__('Connect with AI-Assistini', 'blog2social').'</button>';
+        $html .= '<button type="button" class="btn btn-xs btn-ass b2s-post-item-ass-create-btn" ' . ($this->assConnected == true ? '' : 'style="display:none;"') . ' data-network-count="' . ($schedCount !== false ? esc_attr($schedCount) : '-1') . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '" onclick="assGenerateText(' . esc_attr($networkAuthId) . ', \'' . esc_html($networkName[$networkId]) . '\'' . ($schedCount !== false ? ', ' . esc_attr($schedCount) : '') . ');">'.esc_attr__('Write with AI-Assistini', 'blog2social').'</button>';
+        $html .= '<button type="button" class="btn btn-xs btn-link b2s-post-item-ass-setting-btn" ' . ($this->assConnected == true ? '' : 'style="display:none;"') . ' data-network-count="' . ($schedCount !== false ? esc_attr($schedCount) : '-1') . '" data-network-id="' . esc_attr($networkId) . '" data-network-auth-id="' . esc_attr($networkAuthId) . '">'.esc_attr__('Settings for Assistini', 'blog2social').'</button>';
+        $html .= '</div>';
+        return $html;
+    }
+
+    private function getTextareaLoaderHtml(int $networkAuthId, $schedCount = false) {
+        if ($this->viewMode == 'modal') {
+            return;
+        }
+        $html = '<div id="b2s-post-item-textarea-loader-' . esc_attr($networkAuthId) . ($schedCount !== false ? '-' . esc_attr($schedCount) : '') . '" class="b2s-post-item-textarea-loader b2s-post-item-textarea-icon-container" data-network-auth-id="' . esc_attr($networkAuthId) . '" data-network-count="' . ($schedCount !== false ? esc_attr($schedCount) : '-1') . '">';
+        $html .= '<i class="b2s-post-item-textarea-icon"></i>';
+        $html .= '</div>';
+        return $html;
+    }
+
+    public function getCharacterLimits() {
+        return array(
+            0 => $this->limitCharacterProfile,
+            1 => $this->limitCharacterPage,
+            2 => $this->limitCharacterGroup,
+        );
+    }
 }

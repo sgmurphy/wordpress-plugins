@@ -69,7 +69,7 @@ class Post_Tag {
                 $wrapper_before .= '<div class="ultp-block-wrapper">';
                     $content .= '<div class="ultp-builder-tag">';
                         if($attr["tagIconShow"]){
-                            $content .= ultimate_post()->svg_icon(''.$attr["tagIconStyle"].'');
+                            $content .= ultimate_post()->get_svg_icon(''.$attr["tagIconStyle"].'');
                         }
                         if ($attr['tagLabelShow']) {
                             $content .= '<div class="tag-builder-label">';

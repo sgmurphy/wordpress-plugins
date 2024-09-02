@@ -102,7 +102,7 @@ class Post_Social_Share {
                                     $wrapper_content .= '<span class="ultp-post-share-count">'.$total_share.'</span>';
                                 }
                                 if ($attr["shareLabelStyle"] == 'style2') {
-                                    $wrapper_content .= '<span class="ultp-post-share-icon-section">'.ultimate_post()->svg_icon('share').'</span>';
+                                    $wrapper_content .= '<span class="ultp-post-share-icon-section">'.ultimate_post()->get_svg_icon('share').'</span>';
                                 }
                                 if ($attr["shareLabelStyle"] != 'style2' && $attr["shareCountLabel"]) {
                                     $wrapper_content .= '<span class="ultp-post-share-label">'.$attr["shareCountLabel"].'</span>';
@@ -116,7 +116,7 @@ class Post_Social_Share {
                                 $value['label'] = wp_kses($value['label'], $allowed_html_tags);
                                 $wrapper_content .= '<div class="ultp-post-share-item ultp-repeat-'.sanitize_html_class( $key ).' ultp-social-'.$value["type"].'">';
                                     $wrapper_content .= '<a href="javascript:" class="ultp-post-share-item-'.$value["type"].'" url="'.$this->share_link($value['type'], $post_link).'">';
-                                        $wrapper_content .= '<span class="ultp-post-share-item-icon">'.ultimate_post()->svg_icon($value['type']).'</span>';
+                                        $wrapper_content .= '<span class="ultp-post-share-item-icon">'.ultimate_post()->get_svg_icon($value['type']).'</span>';
                                         $wrapper_content .= ''.$value['enableLabel'] ? '<span class="ultp-post-share-item-label">'.$value['label'].'</span>' : "".' ';
                                     $wrapper_content .= '</a>';
                                 $wrapper_content .= '</div>';

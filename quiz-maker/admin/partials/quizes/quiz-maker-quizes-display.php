@@ -1004,6 +1004,37 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                         </select>
                                     </div>
                                 </div><!-- Question text alignment -->
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for='ays_quick_quiz_image_width'>
+                                            <?php echo __('Question image styles', $this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div style="margin-bottom: 10px;">
+                                                    <label for='ays_quick_quiz_image_width'>
+                                                        <?php echo __('Image Width', $this->plugin_name); ?>
+                                                    </label>
+                                                </div>
+                                                <div class="ays_quiz_display_flex_width">
+                                                    <div>
+                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_image_width' name='ays_quick_quiz_image_width' value=""/>
+                                                        <span class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
+                                                    </div>
+                                                    <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: flex-start;">
+                                                        <select id="ays_quick_quiz_image_width_by_percentage_px" name="ays_quick_quiz_image_width_by_percentage_px" class="ays-text-input ays-text-input-short" style="display:inline-block; width: 60px;">
+                                                            <option value="pixels" selected><?php echo __( "px", $this->plugin_name ); ?></option>
+                                                            <option value="percentage"><?php echo __( "%", $this->plugin_name ); ?></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- Question image styles -->
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

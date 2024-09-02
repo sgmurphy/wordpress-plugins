@@ -1086,12 +1086,7 @@ final class Builder {
         ];
     }
 
-    public function _save_shortcode_pref( $nonce, $prefs, $is_ajax ) {
-
-        if ( ! wp_verify_nonce( $nonce, '_gslogo_save_shortcode_pref_gs_') ) {
-            if ( $is_ajax ) wp_send_json_error( __('Unauthorised Request', 'gslogo'), 401 );
-            return false;
-        }
+    public function _save_shortcode_pref( $prefs, $is_ajax ) {
 
         $prefs = $this->validate_preference( $prefs );
         update_option( $this->option_name, $prefs, 'yes' );
@@ -1105,13 +1100,14 @@ final class Builder {
     }
 
     public function save_shortcode_pref( $nonce = null ) {
-        if ( ! $nonce ) {
-            $nonce = wp_create_nonce('_gslogo_save_shortcode_pref_gs_');
-        }
+
+        check_ajax_referer( '_gslogo_save_shortcode_pref_gs_' );
+
         if ( empty($_POST['prefs']) ) {
             wp_send_json_error( __('No preference provided', 'gslogo'), 400 );
         }
-        $this->_save_shortcode_pref( $nonce, $_POST['prefs'], true );
+
+        $this->_save_shortcode_pref( $_POST['prefs'], true );
     }
 
     public function validate_preference( $settings ) {

@@ -128,7 +128,6 @@ class News_Ticker {
         }
 
         $block_name = 'news-ticker';
-        $page_post_id = ultimate_post()->get_ID();
         $wraper_before = $wraper_after = $post_loop = '';
 
         $attr['queryNumber'] = ultimate_post()->get_post_number(4, $attr['queryNumber'], $attr['queryNumPosts']);
@@ -137,8 +136,8 @@ class News_Ticker {
         $arrowLeft = '';
         $arrowRight = '';
         if ( $attr['TickNavIconStyle'] != "icon2" ) {
-            $arrowLeft .=  ultimate_post()->svg_icon('left'.$attr['TickNavIconStyle']);
-            $arrowRight .= ultimate_post()->svg_icon('right'.$attr['TickNavIconStyle']);
+            $arrowLeft .=  ultimate_post()->get_svg_icon('left'.$attr['TickNavIconStyle']);
+            $arrowRight .= ultimate_post()->get_svg_icon('right'.$attr['TickNavIconStyle']);
         }
 
         $attr['className'] = isset($attr['className']) && $attr['className'] ? preg_replace('/[^A-Za-z0-9_ -]/', '', $attr['className']) : '';

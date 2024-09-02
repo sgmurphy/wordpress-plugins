@@ -353,7 +353,7 @@
 					<input type="text" id="vod_api_id" name="vod_api_id"
 					       value="<?php echo !empty($options['vod_api_id']) ? $options['vod_api_id']: ""; ?>"/>
 				</p>
-
+			    <?php wp_nonce_field('update_settings_action', 'plugin_nonce'); ?>
 				<p>
 					<label><?php _e('Connection', 'vod_infomaniak'); ?>:</label>
 					<?php

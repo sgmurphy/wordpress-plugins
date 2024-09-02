@@ -1,7 +1,6 @@
 <?php
 // phpcs:ignoreFile
 
-use AdvancedAds\Assets_Registry;
 use AdvancedAds\Entities;
 use AdvancedAds\Utilities\WordPress;
 
@@ -69,7 +68,7 @@ class Advanced_Ads_Admin_Meta_Boxes {
 		global $pagenow;
 
 		if ( 'index.php' === $pagenow ) {
-			Assets_Registry::enqueue_script( 'wp-widget-adsense' );
+			wp_advads()->registry->enqueue_script( 'wp-widget-adsense' );
 		}
 	}
 

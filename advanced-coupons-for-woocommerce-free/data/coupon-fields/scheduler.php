@@ -17,6 +17,10 @@ return array(
         'type'        => 'checkbox',
         'tooltip'     => __( 'When checked, this will enable scheduler for this coupon which will then show a notification for customers in the cart when the coupon can be applied.', 'advanced-coupons-for-woocommerce-free' ),
         'category'    => $category,
+        'options'     => array(
+            'enabled'  => 'yes',
+            'disabled' => 'no',
+        ),
     ),
     '_acfw_schedule_start'             => array(
         'label'       => __( 'Coupon start date', 'advanced-coupons-for-woocommerce-free' ),

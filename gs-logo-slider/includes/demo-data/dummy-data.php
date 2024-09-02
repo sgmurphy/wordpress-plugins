@@ -1,5 +1,5 @@
 <?php
-namespace GSLOGO;
+namespace GSWPS;
 
 /**
  * Protect direct access

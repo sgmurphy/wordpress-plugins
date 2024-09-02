@@ -128,6 +128,14 @@ $class = ( apply_filters('sjb_is_search_filters', sjb_is_keyword_search() || sjb
              * - Display Search Button.
              */
             get_simple_job_board_template('search/search-btn.php');
+
+            /**
+             * "Job Alert" pop-up on listing page
+             *
+             * @since   2.2.3
+             */
+            do_action('simple_job_board_job_alert_btn', $atts);
+            
             /**
              * Template -> Job tags:
              * 

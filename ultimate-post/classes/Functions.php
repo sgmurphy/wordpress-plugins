@@ -340,9 +340,10 @@ class Functions{
         if ( $post_id ) {
             $post = get_post($post_id);
             if ( isset($post->post_content) ) {
-                if ( has_blocks($post->post_content) && 
-                     strpos($post->post_content, 'wp:block') && 
-                     strpos($post->post_content, '"ref"') !== false 
+                if ( 
+                    has_blocks($post->post_content) && 
+                    strpos($post->post_content, 'wp:block') && 
+                    strpos($post->post_content, '"ref"') !== false 
                 ) {
                     $blocks = parse_blocks($post->post_content);
                     foreach ($blocks as $key => $value) {
@@ -555,9 +556,11 @@ class Functions{
 
     public function is_builder($builder = '') {
         $id = '';
-        $page_id = ultimate_post()->conditions('return');
-        if ($page_id && (ultimate_post()->get_setting('ultp_builder') != 'false')) {
-            $id = $page_id;
+        if ( ultimate_post()->get_setting('ultp_builder') != 'false' ) {
+            $page_id = ultimate_post()->builder_check_conditions('return');
+            if ( $page_id ) {
+                $id = $page_id;
+            }
         }
         return $id;
     }
@@ -572,18 +575,28 @@ class Functions{
 	 */
     public function get_post_number($preDef, $prev, $current) {
         
-        $current = is_object($current)?json_decode(wp_json_encode($current), true):$current;
-        if (['lg'=>$preDef,'sm'=>$preDef,'xs'=>$preDef] == $current) {
-            if ($preDef != $prev) {
+        $current = is_object($current) ? json_decode(wp_json_encode($current), true) : $current;
+        if ( ['lg'=> $preDef, 'sm'=> $preDef, 'xs'=> $preDef] == $current ) {
+            if ( $preDef != $prev ) {
                 return $prev;
             }
         }
-        if ($this->isDevice() == 'mobile') {
-            return isset($current['xs']) && $current['xs'] ?  $current['xs'] : $current['lg'];
-        } else if ($this->isDevice() == 'tablet') {
-            return isset($current['sm']) && $current['sm'] ?  $current['sm'] : $current['lg'];
+
+        $lg = isset($current['lg']) ? $current['lg'] : $prev;
+        $sm = isset($current['sm']) ? $current['sm'] : $lg;
+        $xs = isset($current['xs']) ? $current['xs'] : $lg;
+        if ( $lg == $sm && $sm == $xs ) {
+            return $lg;
         } else {
-            return $current['lg'];
+            global $ultpDevide;
+            $currentDevice = !empty($ultpDevide) ? $ultpDevide : $this->isDevice();
+            if ( $currentDevice == 'mobile' ) {
+                return $xs;
+            } else if ( $currentDevice == 'tablet' ) {
+                return $sm;
+            } else {
+                return $lg;
+            }
         }
     }
 
@@ -597,16 +610,17 @@ class Functions{
 	 */
     public function isDevice(){
         $useragent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_key($_SERVER['HTTP_USER_AGENT']) : '';
-        if ($useragent) {
-            if (preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))) {
-                return 'mobile';
-            } else if (preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($useragent))) {
-                return 'tablet';
-            } else {
-                return 'desktop';
+        $device = 'desktop';
+        if ( $useragent ) {
+            if ( preg_match('/(tablet|ipad|playbook)|(android(?!.*(mobi|opera mini)))/i', strtolower($useragent)) ) {
+                $device = 'tablet';
+            } else if ( preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))) {
+                $device = 'mobile';
             }
         }
-        return 'desktop';
+        global $ultpDevide;
+        $ultpDevide = $device;
+        return $device;
     }
 
 
@@ -619,7 +633,7 @@ class Functions{
 	 */
     public function get_value($attr) {
         $data = [];
-        if (is_array($attr)) {
+        if ( is_array($attr) ) {
             foreach ($attr as $val) {
                 $data[] = $val->value;
             }
@@ -1157,7 +1171,7 @@ class Functions{
             $html .= '<ul class="ultp-pagination">';            
                 $display_none = 'style="display:none"';
                 if ($pages > 1) {
-                    $html .= '<li class="ultp-prev-page-numbers" '.($paged == 1 ? $display_none : "").'><a href="'.$this->generatePaginationUrl($paged-1, $baseUrl).'">'.ultimate_post()->svg_icon('leftAngle2').' '.($paginationNav == 'textArrow' ? $prev_text : "").'</a></li>';
+                    $html .= '<li class="ultp-prev-page-numbers" '.($paged == 1 ? $display_none : "").'><a href="'.$this->generatePaginationUrl($paged-1, $baseUrl).'">'.ultimate_post()->get_svg_icon('leftAngle2').' '.($paginationNav == 'textArrow' ? $prev_text : "").'</a></li>';
                 }
                 if ($pages > 3) {
                     $html .= '<li class="ultp-first-pages" '.($paged < 2 ? $display_none : "").' data-current="1"><a href="'.$this->generatePaginationUrl(1, $baseUrl).'">1</a></li>';
@@ -1180,7 +1194,7 @@ class Functions{
                     $html .= '<li class="ultp-last-pages" data-current="'.$pages.'"><a href="'.$this->generatePaginationUrl($pages, $baseUrl).'">'.$pages.'</a></li>';
                 }
                 if ($paged != $pages) {
-                    $html .= '<li class="ultp-next-page-numbers"><a href="'.$this->generatePaginationUrl($paged + 1, $baseUrl).'">'.($paginationNav == 'textArrow' ? $next_text : "").ultimate_post()->svg_icon('rightAngle2').'</a></li>';
+                    $html .= '<li class="ultp-next-page-numbers"><a href="'.$this->generatePaginationUrl($paged + 1, $baseUrl).'">'.($paginationNav == 'textArrow' ? $next_text : "").ultimate_post()->get_svg_icon('rightAngle2').'</a></li>';
                 }
             $html .= '</ul>';
         }
@@ -1194,25 +1208,12 @@ class Functions{
      * @param string $ultp_icons
 	 * @return string
 	 */
-    public function svg_icon( $ultp_icons = '' ) {
+    public function get_svg_icon( $ultp_icons = '' ) {
         $svg = '';
         if ( $ultp_icons ) {
-            global $wp_filesystem;
-			if (! $wp_filesystem ) {
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
-                $init_fs = WP_Filesystem();
-                if (!$init_fs) {
-                    return '';
-                }
-			}
-
-            $svg_file_path = ULTP_PATH . 'assets/img/iconpack/' . $ultp_icons . '.svg';
-
-            if ( $wp_filesystem->exists($svg_file_path) ) {
-                $svg = $wp_filesystem->get_contents($svg_file_path);
-            }
+            $svg = $this->get_path_file_contents(ULTP_PATH . 'assets/img/iconpack/' . $ultp_icons . '.svg');
         }
-        return $svg ? $svg : '';
+        return $svg;
     }
 
     /**
@@ -1403,12 +1404,12 @@ class Functions{
         $html .= '<ul>';
             $html .= '<li>';
                 $html .= '<a class="ultp-prev-action ultp-disable" href="#">';
-                    $html .= ultimate_post()->svg_icon('leftAngle2').'<span class="screen-reader-text">'.esc_html__("Previous", "ultimate-post").'</span>';
+                    $html .= ultimate_post()->get_svg_icon('leftAngle2').'<span class="screen-reader-text">'.esc_html__("Previous", "ultimate-post").'</span>';
                 $html .= '</a>';
             $html .= '</li>';
             $html .= '<li>';
                 $html .= '<a class="ultp-next-action">';
-                    $html .= ultimate_post()->svg_icon('rightAngle2').'<span class="screen-reader-text">'.esc_html__("Next", "ultimate-post").'</span>';
+                    $html .= ultimate_post()->get_svg_icon('rightAngle2').'<span class="screen-reader-text">'.esc_html__("Next", "ultimate-post").'</span>';
                 $html .= '</a>';
             $html .= '</li>';
         $html .= '</ul>';
@@ -1423,7 +1424,7 @@ class Functions{
      * @param NULL
 	 * @return STRING
 	 */
-    public function loading() {
+    public function postx_loading() {
         $html = '';
         $style = ultimate_post()->get_setting('preloader_style');
         if ($style == 'style2') {
@@ -1442,7 +1443,7 @@ class Functions{
      * @param | Filter Text (STRING) | Filter Type (STRING) | Filter Value (ARRAY) | Filter Cat (ARRAY) | Filter Tag (ARRAY) |
 	 * @return STRING
 	 */
-    public function filter($filterText = '', $filterType = '', $filterValue = '[]', $filterMobileText = '...', $filterMobile = true) {
+    public function filter_html($filterText = '', $filterType = '', $filterValue = '[]', $filterMobileText = '...', $filterMobile = true) {
         $html = '';
         $html .= '<ul '.($filterMobile ? 'class="ultp-flex-menu"' : '').' data-name="'.($filterMobileText ? $filterMobileText : '&nbsp;').'">';
             $cat = $this->taxonomy($filterType);
@@ -1474,9 +1475,6 @@ class Functions{
         if (function_exists('ultimate_post_pro')) {
             return get_option('edd_ultp_license_status') == 'valid' ? true : false;
         }
-        if (get_transient( 'ulpt_theme_enable' ) == 'integration') {
-            return true;
-        }
         return false;
     }
 
@@ -1492,16 +1490,16 @@ class Functions{
         $html = '';
         if ($showSeoMeta) {
             $str = '';
-            if (function_exists('ultimate_post_pro') ) {
-                if (ultimate_post()->get_setting('ultp_yoast') == 'true') {
+            if ( function_exists('ultimate_post_pro') ) {
+                if ( ultimate_post()->get_setting('ultp_yoast') == 'true' ) {
                     $str =  method_exists( ultimate_post_pro(), 'get_yoast_meta' ) ? ultimate_post_pro()->get_yoast_meta($post_id) : '';
-                } else if (ultimate_post()->get_setting('ultp_rankmath') == 'true') {
+                } else if ( ultimate_post()->get_setting('ultp_rankmath') == 'true' ) {
                     $str = method_exists( ultimate_post_pro(), 'get_rankmath_meta' ) ? ultimate_post_pro()->get_rankmath_meta($post_id) : '';
-                } else if (ultimate_post()->get_setting('ultp_aioseo') == 'true') {
+                } else if ( ultimate_post()->get_setting('ultp_aioseo') == 'true' ) {
                     $str = method_exists( ultimate_post_pro(), 'get_aioseo_meta' ) ? ultimate_post_pro()->get_aioseo_meta($post_id) : '';
-                } else if (ultimate_post()->get_setting('ultp_seopress') == 'true') {
+                } else if ( ultimate_post()->get_setting('ultp_seopress') == 'true' ) {
                     $str = method_exists( ultimate_post_pro(), 'get_seopress_meta' ) ? ultimate_post_pro()->get_seopress_meta($post_id) : '';
-                } else if (ultimate_post()->get_setting('ultp_squirrly') == 'true') {
+                } else if ( ultimate_post()->get_setting('ultp_squirrly') == 'true' ) {
                     $str = method_exists( ultimate_post_pro(), 'get_squirrly_meta' ) ? ultimate_post_pro()->get_squirrly_meta($post_id) : '';
                 }
             }
@@ -1515,25 +1513,6 @@ class Functions{
         }
         return $html;
     }
-
-     /**
-	 * Array Sanitize Function
-     * 
-     * @since v.2.6.0
-     * @param ARRAY
-	 * @return ARRAY | Array of Sanitize
-	 */
-    public function recursive_sanitize_text_field($array) {
-        foreach ($array as $key => &$value) {
-            if (is_array($value)) {
-                $value = $this->recursive_sanitize_text_field($value);
-            } else {
-                $value = sanitize_text_field($value);
-            }
-        }
-        return $array;
-    }
-    
 
     public function get_embeded_video($url, $autoPlay, $loop, $mute, $playback, $preload, $poster, $inline, $size) {
         $vidAutoPlay = $vidloop = $vidloop = $vidmute = $vidplayback = $vidPoster = $vidInline = "";
@@ -1605,7 +1584,7 @@ class Functions{
      * @param NUMBER | Post ID
 	 * @return STRING | Content of the Post
 	 */ 
-    public function content($post_id, $builder_type = '') {
+    public function get_post_content($post_id, $builder_type = '') {
         $content_post = get_post($post_id);
         $content = $content_post->post_content;
         if($builder_type == 'divi' || $builder_type == 'elementor') {
@@ -1629,132 +1608,14 @@ class Functions{
     public function in_string_part($part, $data, $isValue = false) {
         $return = false;
         foreach ($data as $val) {
-            if (strpos($val, $part) !== false) {
+            if ( strpos($val, $part) !== false ) {
                 $return = $isValue ? $val : true;
                 break;
             }
         }
         return $return;
     }
-
-    /**
-	 * All Addons Data
-     * 
-     * @since v.2.7.0
-	 * @return ARRAY | String Part
-	 */
-    public static function all_addons() {
-        $all_addons = array(
-            'ultp_frontend_submission' => array(
-                'name'     => __( 'Front End Post Submission', 'ultimate-post' ),
-                'desc'     => __( 'Registered/guest writers can submit posts from frontend. Admins can easily manage, review, and publish posts.', 'ultimate-post' ),
-                'img'      => ULTP_URL . 'assets/img/addons/frontend_submission.svg',
-                'docs'     => 'https://wpxpo.com/docs/postx/add-on/front-end-post-submission/',
-		        'live'     => 'https://www.wpxpo.com/postx/front-end-posting/live_demo_args',
-                'video'    => 'https://www.youtube.com/watch?v=KofF7BUwNC0',
-                'is_pro'   => true,
-                'position' => 6,
-                'integration' => false,
-                'new' => true
-            ),
-            'ultp_category' => array(
-                'name' => __( 'Taxonomy Image & Color', 'ultimate-post' ),
-                'desc' => __( 'It allows you to add category or taxonomy-specific featured images and colors to make them attractive.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/category-style.svg',
-                'is_pro' => true,
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/category-addon',
-                'live' => 'https://www.wpxpo.com/postx/addons/category/live_demo_args',
-                'video' => 'https://www.youtube.com/watch?v=cd75q-lJIwg',
-                'position' => 15
-            ),
-            'ultp_progressbar' => array(
-                'name' => __( 'Progress Bar', 'ultimate-post' ),
-                'desc' => __( 'Display a visual indicator of the reading progression of blog posts and the scrolling progression of pages.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/progressbar.svg',
-                'is_pro' => true,
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/progress-bar/',
-                'live' => 'https://www.wpxpo.com/postx/progress-bar/live_demo_args',
-                'video' => 'https://www.youtube.com/watch?v=QErQoDhWi4c',
-                'position' => 30
-            ),
-            'ultp_yoast' => array(
-                'name' => __( 'Yoast', 'ultimate-post' ),
-                'desc' => __( 'It allows you to display custom meta descriptions added with the Yoast SEO plugin instead of excerpts.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/yoast.svg',
-                'is_pro' => true,
-                'live' => 'https://www.wpxpo.com/postx/addons/yoast/live_demo_args',
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/seo-meta/',
-                'video' => 'https://www.youtube.com/watch?v=H8x-hHC0JBM',
-                'required' => array(
-                    'name' => 'Yoast',
-                    'slug' => 'wordpress-seo/wp-seo.php'
-                ),
-                'position' => 55,
-                'integration' => true
-            ),
-            'ultp_aioseo' => array(
-                'name' => __( 'All in One SEO', 'ultimate-post' ),
-                'desc' => __( 'It allows you to display custom meta descriptions added with the All in One SEO plugin instead of excerpts.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/aioseo.svg',
-                'is_pro' => true,
-                'live' => 'https://www.wpxpo.com/postx/addons/all-in-one-seo-meta/live_demo_args',  
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/seo-meta/',
-                'video' => 'https://www.youtube.com/watch?v=H8x-hHC0JBM',  
-                'required' => array(
-                    'name' => 'All in One SEO',
-                    'slug' => 'all-in-one-seo-pack/all_in_one_seo_pack.php'
-                ),
-                'position' => 35,
-                'integration' => true
-                ),
-            'ultp_rankmath' => array(
-                'name' => __( 'Rank Math', 'ultimate-post' ),
-                'desc' => __( 'It allows you to display custom meta descriptions added with the Rank Math plugin instead of excerpts.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/rankmath.svg',
-                'is_pro' => true,
-                'live' => 'https://www.wpxpo.com/postx/addons/rankmath/live_demo_args',
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/seo-meta/', 
-                'video' => 'https://www.youtube.com/watch?v=H8x-hHC0JBM',
-                'required' => array(
-                    'name' => 'Rank Math',
-                    'slug' => 'seo-by-rank-math/rank-math.php'
-                ),
-                'position' => 40,
-                'integration' => true
-            ),
-            'ultp_seopress' => array(
-                'name' => __( 'SEOPress', 'ultimate-post' ),
-                'desc' => __( 'It allows you to display custom meta descriptions added with the SEOPress plugin instead of excerpts.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/seopress.svg',
-                'is_pro' => true,
-                'live' => 'https://www.wpxpo.com/postx/addons/seopress/live_demo_args',
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/seo-meta/', 
-                'video' => 'https://www.youtube.com/watch?v=H8x-hHC0JBM',
-                'required' => array(
-                    'name' => 'SEOPress',
-                    'slug' => 'wp-seopress/seopress.php'
-                ),
-                'position' => 45,
-                'integration' => true
-            ),
-            'ultp_squirrly' => array(
-                'name' => __( 'Squirrly', 'ultimate-post' ),
-                'desc' => __( 'It allows you to display custom meta descriptions added with the Squirrly plugin instead of excerpts.', 'ultimate-post' ),
-                'img' => ULTP_URL.'/assets/img/addons/squirrly.svg',
-                'is_pro' => true,
-                'live' => 'https://www.wpxpo.com/postx/addons/squirrly/live_demo_args',
-                'docs' => 'https://wpxpo.com/docs/postx/add-on/seo-meta/',
-                'video' => 'https://www.youtube.com/watch?v=H8x-hHC0JBM',
-                'required' => array(
-                    'name' => 'Squirrly',
-                    'slug' => 'squirrly-seo/squirrly.php'
-                ),
-                'position' => 50,
-                'integration' => true
-            ),
-            );
-        return  apply_filters('ultp_addons_config', $all_addons);
-    }
+        
 
     /**
 	 * Builder Conditions
@@ -1763,7 +1624,7 @@ class Functions{
      * @param STRING | Type of Return
 	 * @return MIXED || ID or Path
 	 */
-     public function conditions( $type = 'return', $condition = '' ) {
+     public function builder_check_conditions( $type = 'return', $condition = '' ) {
         $page_id = '';
 
         $conditions = $condition ? $condition : get_option('ultp_builder_conditions', array());
@@ -2173,11 +2034,11 @@ class Functions{
                                 if ('publish' == get_post_status($key)) {
                                     foreach ($val as $k => $v) {
                                         if ($key && strpos($v, 'include/header/singular') !== false) {
-                                            $temp = $this->conditions('return', ['singular' => [$key => [str_replace("header/", "", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['singular' => [$key => [str_replace("header/", "", $v)]]]);
                                             $page_id = $temp ? $temp : $page_id;
                                         }
                                         if (strpos($v, 'exclude/header/singular') !== false) {
-                                            $temp = $this->conditions('return', ['singular' => [$key => [str_replace("exclude/header", "include", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['singular' => [$key => [str_replace("exclude/header", "include", $v)]]]);
                                             $page_id = $temp ? '' : $page_id;
                                         }
                                     }
@@ -2187,11 +2048,11 @@ class Functions{
                                 if ('publish' == get_post_status($key)) {
                                     foreach ($val as $k => $v) {
                                         if ($key && strpos($v, 'include/header/archive') !== false) {
-                                            $temp = $this->conditions('return', ['archive' => [$key => [str_replace("header/", "", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['archive' => [$key => [str_replace("header/", "", $v)]]]);
                                             $page_id = $temp ? $temp : $page_id;
                                         }
                                         if (strpos($v, 'exclude/header/archive') !== false) {
-                                            $temp = $this->conditions('return', ['archive' => [$key => [str_replace("exclude/header", "include", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['archive' => [$key => [str_replace("exclude/header", "include", $v)]]]);
                                             $page_id = $temp ? '' : $page_id;
                                         }
                                     }
@@ -2224,11 +2085,11 @@ class Functions{
                                 if ('publish' == get_post_status($key)) {
                                     foreach ($val as $k => $v) {
                                         if ($key && strpos($v, 'include/footer/singular') !== false) {
-                                            $temp = $this->conditions('return', ['singular' => [$key => [str_replace("footer/", "", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['singular' => [$key => [str_replace("footer/", "", $v)]]]);
                                             $page_id = $temp ? $temp : $page_id;
                                         }
                                         if (strpos($v, 'exclude/footer/singular') !== false) {
-                                            $temp = $this->conditions('return', ['singular' => [$key => [str_replace("exclude/footer", "include", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['singular' => [$key => [str_replace("exclude/footer", "include", $v)]]]);
                                             $page_id = $temp ? '' : $page_id;
                                         }
                                     }
@@ -2238,11 +2099,11 @@ class Functions{
                                 if ('publish' == get_post_status($key)) {
                                     foreach ($val as $k => $v) {
                                         if ($key && strpos($v, 'include/footer/archive') !== false) {
-                                            $temp = $this->conditions('return', ['archive' => [$key => [str_replace("footer/", "", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['archive' => [$key => [str_replace("footer/", "", $v)]]]);
                                             $page_id = $temp ? $temp : $page_id;
                                         }
                                         if (strpos($v, 'exclude/footer/archive') !== false) {
-                                            $temp = $this->conditions('return', ['archive' => [$key => [str_replace("exclude/footer", "include", $v)]]]);
+                                            $temp = $this->builder_check_conditions('return', ['archive' => [$key => [str_replace("exclude/footer", "include", $v)]]]);
                                             $page_id = $temp ? '' : $page_id;
                                         }
                                     }
@@ -2321,22 +2182,22 @@ class Functions{
      * @since v.2.8.9
 	 * @return NULL
 	 */
-    public function get_page_post_id($page_post_id, $blockId) {
+    public function get_page_post_id($blockId) {
         global $wpdb;
         $post_meta = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM " . $wpdb->prefix . "postmeta WHERE meta_key=%s AND meta_value LIKE %s", '_ultp_css', '%.ultp-block-'.$blockId.'%')); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
         // For FSE theme
-        if (!$post_meta) {    
-            if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+        if ( !$post_meta ) {    
+            if ( wp_is_block_theme() ) {
                 $template = $wpdb->get_row($wpdb->prepare("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content LIKE %s", '%"blockId":"'.$blockId.'"%')); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-                if (isset($template->ID)) {
+                if ( isset($template->ID) ) {
                     return $template->ID;
                 }
             }
         }
-        if ($post_meta && isset($post_meta->post_id) && $post_meta->post_id != $page_post_id) {
+        if ( $post_meta && isset($post_meta->post_id) ) {
             return $post_meta->post_id;
         }
-        return $page_post_id;
+        return ultimate_post()->get_ID();
     }
 
     
@@ -2558,7 +2419,7 @@ class Functions{
      * @param $cap string
      * @return bool
      */
-    public function permission_check_for_restapi($post_id=false, $cap='') {
+    public function permission_check_for_restapi( $post_id=false, $cap='' ) {
         $cap = $cap ? $cap : 'edit_others_posts';
         $is_passed = false;
         if($post_id) {
@@ -2575,12 +2436,12 @@ class Functions{
      * @since v.4.0.0
     */
     public function ultp_rest_sanitize_params($params) {
-        if(is_array($params)) {
+        if ( is_array($params) ) {
            return array_map(array($this,'ultp_rest_sanitize_params'),$params);
         } else {
-            if(is_bool($params)) {
+            if( is_bool($params) ) {
                 return rest_sanitize_boolean($params);
-            } else if(is_object($params)) {
+            } else if( is_object($params) ) {
                 return $params;
             } else {
                 return sanitize_text_field($params);
@@ -2734,7 +2595,7 @@ class Functions{
      * @return boolean
      */
     public function is_dc_active(&$attr) {
-        if (class_exists('\ULTP\DCService')) {
+        if ( class_exists('\ULTP\DCService') ) {
             return \ULTP\DCService::is_dc_active($attr);
         }
         return false;

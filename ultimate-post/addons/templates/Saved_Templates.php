@@ -6,10 +6,10 @@ defined('ABSPATH') || exit;
 class Saved_Templates {
     public function __construct() {
         $this->templates_post_type_callback();
-        add_action('admin_head', array($this, 'custom_head_templates'));
-        add_action('load-post-new.php', array($this, 'disable_new_post_templates'));
-        add_filter('manage_ultp_templates_posts_columns', array($this, 'templates_table_head'));
-        add_action('manage_ultp_templates_posts_custom_column', array($this, 'templates_table_content'), 10, 2);
+        add_action( 'admin_head', array($this, 'custom_head_templates') );
+        add_action( 'load-post-new.php', array($this, 'disable_new_post_templates') );
+        add_filter( 'manage_ultp_templates_posts_columns', array($this, 'templates_table_head') );
+        add_action( 'manage_ultp_templates_posts_custom_column', array($this, 'templates_table_content'), 10, 2 );
     }
 
     public function custom_head_templates() {

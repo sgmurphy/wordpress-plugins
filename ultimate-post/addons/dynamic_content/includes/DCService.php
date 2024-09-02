@@ -203,7 +203,7 @@ final class DCService {
 
 				$dcContent[ $i ] .= '<div class="ultp-dynamic-content-field-common ultp-dynamic-content-field-' . $dcField['id'] . '">';
 				if ( ! empty( $dcField['icon'] ) ) {
-					$dcContent[ $i ] .= '<span class="ultp-dynamic-content-field-icon">' . ultimate_post()->svg_icon( $dcField['icon'] ) . '</span>';
+					$dcContent[ $i ] .= '<span class="ultp-dynamic-content-field-icon">' . ultimate_post()->get_svg_icon( $dcField['icon'] ) . '</span>';
 				}
 				$dcContent[ $i ] .= $dcField['beforeText'] ? '<p class="ultp-dynamic-content-field-before">' . $dcField['beforeText'] . '</p>' : '';
 

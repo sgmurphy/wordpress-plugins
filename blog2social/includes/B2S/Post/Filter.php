@@ -14,6 +14,7 @@ class B2S_Post_Filter {
     protected $searchSchedDate;
     protected $postsPerPage;
     protected $searchPostSharedById;
+    protected $searchSharedToNetwork;
     protected $postAuthor;
 
     function __construct($type, $title = "", $authorId = 0, $postStatus = "", $schedDate = "", $postCat = "", $postType = "", $postShareStatus = "", $postsPerPage = 25, $sharedById = 0, $sharedToNetwork = 0) {  //type=all,publish,sched

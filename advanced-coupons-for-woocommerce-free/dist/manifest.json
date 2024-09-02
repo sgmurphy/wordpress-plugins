@@ -61,7 +61,7 @@
     "src": "index.css"
   },
   "packages/acfwf-admin-app/index-legacy.tsx": {
-    "file": "packages/acfwf-admin-app/index-legacy.9653f8aa.js",
+    "file": "packages/acfwf-admin-app/index-legacy.1eea56ed.js",
     "imports": [
       "_reactLib-legacy.5e0011e8.js",
       "_redux-legacy.263f66e8.js",
@@ -79,7 +79,7 @@
     "css": [
       "assets/index-acfa8bbe.css"
     ],
-    "file": "packages/acfwf-admin-app/index.6ebbc659.js",
+    "file": "packages/acfwf-admin-app/index.bc21bc3d.js",
     "imports": [
       "_reactLib.deb836f9.js",
       "_redux.29e38e1a.js",

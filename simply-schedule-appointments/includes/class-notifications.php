@@ -575,7 +575,8 @@ class SSA_Notifications {
 				'example_appointment_type_id' => $appointment_type_object->id,
 			) );
 		}
-
+		
+		$template_string = $this->plugin->templates->cleanup_variables_in_string( $template_string );
 		$template_string = $this->prepare_notification_template( $template_string );
 		$template_string = $this->plugin->templates->render_template_string( $template_string, $notification_vars );
 		$template_string = str_replace(

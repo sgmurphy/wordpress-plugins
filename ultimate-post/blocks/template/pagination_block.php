@@ -15,7 +15,7 @@ if ( $attr['advPaginationEnable'] && ( $attr['paginationType'] == 'pagination' )
 		'paged'      => '1',
 		'pages'      => $pageNum,
 		'blockname'  => 'ultimate-post_' . $block_name,
-		'postid'     => ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? sanitize_html_class( $attr['currentPostId'] ) : ultimate_post()->get_page_post_id( ultimate_post()->get_ID(), $attr['blockId'] ),
+		'postid'     => ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? sanitize_html_class( $attr['currentPostId'] ) : ultimate_post()->get_page_post_id( $attr['blockId'] ),
 		'selfpostid' => ( ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? 'yes' : 'no' ),
 	);
 
@@ -40,7 +40,7 @@ if ( $attr['advPaginationEnable'] && ( $attr['paginationType'] == 'navigation' )
 		'pagenum'    => '1',
 		'pages'      => $pageNum,
 		'blockname'  => 'ultimate-post_' . $block_name,
-		'postid'     => ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? sanitize_html_class( $attr['currentPostId'] ) : ultimate_post()->get_page_post_id( ultimate_post()->get_ID(), $attr['blockId'] ),
+		'postid'     => ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? sanitize_html_class( $attr['currentPostId'] ) : ultimate_post()->get_page_post_id( $attr['blockId'] ),
 		'selfpostid' => ( ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? 'yes' : 'no' ),
 	);
 
@@ -62,7 +62,7 @@ if ( $attr['advPaginationEnable'] && ( $attr['paginationType'] == 'loadMore' ) )
 
 	$attr['loadMoreText'] = isset( $attr['loadMoreText'] ) ? wp_kses( $attr['loadMoreText'], $allowed_html_tags ) : 'Load More';
 
-	$page_post_id = ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? sanitize_html_class( $attr['currentPostId'] ) : ultimate_post()->get_page_post_id( ultimate_post()->get_ID(), $attr['blockId'] );
+	$page_post_id = ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? sanitize_html_class( $attr['currentPostId'] ) : ultimate_post()->get_page_post_id( $attr['blockId'] );
 
 	$self_post_id = 'data-selfpostid="' . ( ( isset( $attr['currentPostId'] ) && $attr['currentPostId'] ) ? 'yes' : 'no' ) . '"';
 
@@ -73,7 +73,7 @@ if ( $attr['advPaginationEnable'] && ( $attr['paginationType'] == 'loadMore' ) )
 	$pagi_block_html .= '<div class="ultp-loadmore">';
 
 	if ( 1 != $pageNum ) {
-		$pagi_block_html .= '<span' . $pagi_class . ' tabindex="0" role="button" data-for="ultp-block-' . $attr['blockId'] . '" data-pages="' . $pageNum . '" data-pagenum="1"  data-expost="' . $exclude_id . '" data-blockid="' . $attr['blockId'] . '" data-blockname="ultimate-post_' . $block_name . '" data-postid="' . $page_post_id . '" ' . ultimate_post()->get_builder_attr( $attr['queryType'] ) . $self_post_id . $adv_filter_dataset . '>' . $attr['loadMoreText'] . ' <span class="ultp-spin">' . ultimate_post()->svg_icon( 'refresh' ) . '</span></span>';
+		$pagi_block_html .= '<span' . $pagi_class . ' tabindex="0" role="button" data-for="ultp-block-' . $attr['blockId'] . '" data-pages="' . $pageNum . '" data-pagenum="1"  data-expost="' . $exclude_id . '" data-blockid="' . $attr['blockId'] . '" data-blockname="ultimate-post_' . $block_name . '" data-postid="' . $page_post_id . '" ' . ultimate_post()->get_builder_attr( $attr['queryType'] ) . $self_post_id . $adv_filter_dataset . '>' . $attr['loadMoreText'] . ' <span class="ultp-spin">' . ultimate_post()->get_svg_icon( 'refresh' ) . '</span></span>';
 	}
 
 	$pagi_block_html .= '</div>';

@@ -1097,6 +1097,13 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
             if ($calendar_language == '') $calendar_language = $this->autodetect_language();
             if ($calendar_language != '')
                 wp_enqueue_script($this->prefix.'_language_file', plugins_url('js/languages/jquery.ui.datepicker-'.$calendar_language.'.js', __FILE__), array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker"));
+        }  else if ($this->get_param("blocktimes") == '1') {                        
+            wp_enqueue_script( 'bootstrap-datepicker-js', plugins_url('/js/nope.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker") );
+            
+            wp_deregister_script( 'tribe-events-bootstrap-datepicker' );
+            wp_register_script('tribe-events-bootstrap-datepicker', plugins_url('/js/nope.js', __FILE__)); 
+            
+            wp_enqueue_style('cpapp-newadminstyle', plugins_url('/css/newadminlayout.css', __FILE__)); 
         }
         if( 'post.php' != $hook  && 'post-new.php' != $hook )
             return;
@@ -1359,7 +1366,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
                 {
                     for($k=0; $k<count($data["apps"]); $k++)
                         if ( (!isset($data["apps"][$k]["cancelled"]) || $data["apps"][$k]["cancelled"] == '' || $data["apps"][$k]["cancelled"] == 'Attended') &&
-                            ( !isset($data["apps"][$k]["field"]) || @$data["apps"][$k]["field"] == $field || $field == '') &&
+                            ( !isset($data["apps"][$k]["field"]) || @$data["apps"][$k]["field"] == $field || $field == '' || $data["apps"][$k]["field"] == '') &&
                             (($_REQUEST['cp_app_action'] != 'mv') || !strpos($excluded_multiview, ','.$data["apps"][$k]["field"].','))
                            )
                         {
@@ -1428,6 +1435,13 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
             @include_once dirname( __FILE__ ) . '/captcha/captcha.php';
             exit;
         }
+		
+        if ($this->get_param($this->prefix.'_blockmultiple') == '1' && is_admin())
+        {
+            $this->verify_nonce ($_POST["anonce"], 'cpappb_actions_admin');
+            $this->block_multiple();
+            return;
+        }  		
 
         if ($this->get_param($this->prefix.'_csv1') && is_admin() && $this->check_current_user_access(intval($this->get_param("cal"))))
         {
@@ -2134,6 +2148,79 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
     	return $this->CP_CFPP_global_templates;
     }
 
+
+    function block_multiple()
+    {
+        global $wpdb;
+        $rawfromfield = sanitize_text_field($_POST["bdate"]);
+        if ($rawfromfield == '')
+            return;
+        $rawfromfield = explode(",",$rawfromfield);
+       
+	    $calendars = array();
+	   	if (is_array($_POST["selectedcalendar"]))
+		    foreach ($_POST["selectedcalendar"] as $item)
+                $calendars[] = intval($item);
+        
+        $current_user = wp_get_current_user();
+        
+        foreach ($rawfromfield as $rawfrom)
+        {
+            $rawfrom = trim($rawfrom);
+            
+            foreach ($calendars as $calendar)
+            {
+                if ($calendar)
+                    $this->setId($calendar);
+                else
+                {
+                    $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.$this->table_items ); 
+                    $this->setId($myrows[0]->id);
+                }
+                
+                if ( current_user_can('manage_options') || @in_array($current_user->ID, unserialize($this->get_option("cp_user_access",""))) )
+                {
+                
+                    if ($this->get_option('date_format', 'mm/dd/yy') == 'dd/mm/yy')
+                        $rawfrom = str_replace('/','.',$rawfrom);
+                    $from = date("Y-m-d H:i", strtotime($rawfrom. " ".sanitize_text_field($_POST["h1"]). ":".sanitize_text_field($_POST["m1"])));
+                    $to = date("Y-m-d H:i", strtotime($rawfrom. " ".sanitize_text_field($_POST["h2"]). ":".sanitize_text_field($_POST["m2"])));
+                    $duration = ceil((strtotime($rawfrom. " ".sanitize_text_field($_POST["h2"]). ":".sanitize_text_field($_POST["m2"])) -  strtotime($rawfrom. " ".sanitize_text_field($_POST["h1"]). ":".sanitize_text_field($_POST["m1"])))  / 60);
+                            
+                    
+                    $apps = array();
+                    $apps[] = array ( 'id' => 1,
+                                      'cancelled' => '',
+                                      'serviceindex' => -1,
+                                      'service' => __('[all services]','appointment-hour-booking'),
+                                      'duration' => $duration,
+                                      'price' => 0, //$field->services[ $item_split[2] ]->price,
+                                      'date' => date("Y-m-d", strtotime($rawfrom. " ".sanitize_text_field($_POST["h1"]). ":".sanitize_text_field($_POST["m1"]))),
+                                      'slot' => date("H:i", strtotime($rawfrom. " ".sanitize_text_field($_POST["h1"]). ":".sanitize_text_field($_POST["m1"])))."/". date("H:i", strtotime($rawfrom. " ".sanitize_text_field($_POST["h2"]). ":".sanitize_text_field($_POST["m2"]))),
+                                      'military' => 0,
+                                      'field' => '',
+                                      'quant' => 0
+                                    );    
+                                    
+                     $apptext = __('BLOCKED BY ADMIN','appointment-hour-booking').  "\n\n" . $this->get_appointments_text ($apps);                        
+                     
+                     //echo '<pre>'; print_r($apptext);exit;
+                     $params = array();
+                     $params["apps"] = $apps;
+                     $current_user = wp_get_current_user();
+                     $rows_affected = $wpdb->insert( $wpdb->prefix.$this->table_messages, array( 'formid' => $calendar,
+                                                                                                 'time' => current_time('mysql'),
+                                                                                                 'ipaddr' => (get_option('cp_cpappb_storeip', CP_APPBOOK_DEFAULT_track_IP)?$_SERVER['REMOTE_ADDR']:''),
+                                                                                                 'notifyto' => $this->blocked_by_admin_indicator,
+                                                                                                 'posted_data' => serialize($params),
+                                                                                                 'data' => $apptext,
+                                                                                                 'whoadded' => "".$current_user->ID
+                                                                                                ) );
+                }
+            }
+        }                                                                           
+    }
+	
 
     function save_edition() {
         global $wpdb;

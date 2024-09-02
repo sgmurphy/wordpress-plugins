@@ -89,9 +89,6 @@ class Advanced_Ads_Plugin {
 	 * Execute various hooks after WordPress and all plugins are available
 	 */
 	public function wp_plugins_loaded() {
-		// Load plugin text domain.
-		$this->load_plugin_textdomain();
-
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'wp_head', [ $this, 'print_head_scripts' ], 7 );
@@ -263,13 +260,6 @@ class Advanced_Ads_Plugin {
 	 */
 	public function widget_init() {
 		register_widget( 'Advanced_Ads_Widget' );
-	}
-
-	/**
-	 * Load the plugin text domain for translation.
-	 */
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'advanced-ads', false, ADVADS_BASE_DIR . '/languages' );
 	}
 
 	/**

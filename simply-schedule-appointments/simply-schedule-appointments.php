@@ -3,7 +3,7 @@
  * Plugin Name: Simply Schedule Appointments
  * Plugin URI:  https://simplyscheduleappointments.com
  * Description: Easy appointment scheduling
- * Version:     1.6.7.43
+ * Version:     1.6.7.45
  * Requires PHP: 7.4
  * Author:      NSquared
  * Author URI:  https://nsquared.io/
@@ -15,7 +15,7 @@
  * @link    https://simplyscheduleappointments.com
  *
  * @package Simply_Schedule_Appointments
- * @version 1.6.7.43
+ * @version 1.6.7.45
  *
  * Built using generator-plugin-wp (https://github.com/WebDevStudios/generator-plugin-wp)
  */
@@ -118,6 +118,7 @@ final class Simply_Schedule_Appointments {
 	public $gcal_exporter;
 	public $google_calendar_admin;
 	public $google_calendar_api;
+	public $embed_booking_app_api;
 	public $google_calendar_client;
 	public $google_calendar_settings;
 	public $google_calendar;
@@ -203,7 +204,7 @@ final class Simply_Schedule_Appointments {
 	 * @var    string
 	 * @since  0.0.0
 	 */
-	const VERSION = '1.6.7.43';
+	const VERSION = '1.6.7.45';
 
 	/**
 	 * URL of plugin directory.
@@ -472,6 +473,7 @@ final class Simply_Schedule_Appointments {
 			'mailchimp_api'       => 'SSA_Mailchimp_Api',
 			'sms_api'             => 'SSA_Sms_Api',
 			'support_status_api'  => 'SSA_Support_Status_Api',
+			'embed_booking_app_api'=> 'SSA_Embed_Booking_App_Api',
 		);
 
 		foreach ( $classes as $variable_name => $class_name ) {

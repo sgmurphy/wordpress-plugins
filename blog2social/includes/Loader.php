@@ -49,13 +49,13 @@ class B2S_Loader {
         define('B2S_PLUGIN_AUTO_POST_LIMIT', serialize(array(0 => 0, 1 => 25, 2 => 50, 3 => 100, 4 => 100)));
         define('B2S_PLUGIN_RE_POST_LIMIT', serialize(array(0 => 0, 1 => 25, 2 => 50, 3 => 100, 4 => 100)));
         define('B2S_PLUGIN_NETWORK_OAUTH', serialize(array(1, 2, 3, 4, 6, 7, 8, 11, 15, 17, 18, 21, 25, 32, 35, 36, 37, 38, 39, 42, 43)));
-        define('B2S_PLUGIN_USER_APP_NETWORKS', serialize(array(2,6)));
+        define('B2S_PLUGIN_USER_APP_NETWORKS', serialize(array(2, 6)));
         define('B2S_PLUGIN_DEFAULT_USER_APP_QUANTITY', serialize(array(0 => 1, 1 => 1, 2 => 3, 3 => 5)));
+        define('B2S_PLUGIN_ALLOW_VIDEO_MIME_TYPE', serialize(array('video/x-msvideo', 'video/avi', 'video/mp4', 'video/mpeg', 'video/ogg', 'video/x-flv', 'video/quicktime', 'video/x-ms-asf')));
 
         define('B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT', serialize(array(
             1 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 500), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => false),
-                1 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 0), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => false),
-                2 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 0), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => false)
+                1 => array('short_text' => array('active' => 0, 'range_min' => 500, 'range_max' => 1000, 'excerpt_range_min' => 250, 'excerpt_range_max' => 500, 'limit' => 0), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => false)
             ),
             2 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 254, 'excerpt_range_min' => 200, 'excerpt_range_max' => 254, 'limit' => 280), 'content' => '{CONTENT} {KEYWORDS}', 'format' => 1, 'addLink' => true, 'twitterThreads' => false)),
             3 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 3000), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0),
@@ -86,7 +86,7 @@ class B2S_Loader {
             38 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 400, 'range_max' => 500, 'excerpt_range_min' => 0, 'excerpt_range_max' => 500, 'limit' => 500), 'content' => '{CONTENT} {KEYWORDS}', 'format' => false, 'addLink' => true)),
             39 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 0, 'range_max' => 2000, 'excerpt_range_min' => 0, 'excerpt_range_max' => 2000, 'limit' => 2000), 'content' => "{TITLE} {CONTENT}", 'format' => false, 'disableKeywords' => true)),
             42 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 0, 'range_max' => 1000, 'excerpt_range_min' => 0, 'excerpt_range_max' => 2000, 'limit' => 0), 'content' => "{CONTENT}", 'format' => false, 'addLink' => true),
-                    1 => array('short_text' => array('active' => 0, 'range_min' =>0, 'range_max' => 1000, 'excerpt_range_min' => 0, 'excerpt_range_max' => 2000, 'limit' => 0), 'content' => "{CONTENT}", 'format' => false, 'addLink' => true)),
+                1 => array('short_text' => array('active' => 0, 'range_min' => 0, 'range_max' => 1000, 'excerpt_range_min' => 0, 'excerpt_range_max' => 2000, 'limit' => 0), 'content' => "{CONTENT}", 'format' => false, 'addLink' => true)),
             43 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 300, 'excerpt_range_min' => 200, 'excerpt_range_max' => 300, 'limit' => 300), 'content' => '{CONTENT} {KEYWORDS}', 'format' => 1, 'addLink' => true)),
         )));
         define('B2S_PLUGIN_SYSTEMREQUIREMENT_WORDPRESSVERSION', '4.7.0');
@@ -98,7 +98,7 @@ class B2S_Loader {
         define('B2S_PLUGIN_SYSTEMREQUIREMENT_PHPMBSTRING', true);
         define('B2S_PLUGIN_SYSTEMREQUIREMENT_PHPDOM', true);
         define('B2S_PLUGIN_SYSTEMREQUIREMENT_HOTLINKPROTECTION', true);
-        define('B2S_PLUGIN_SYSTEMREQUIREMENT_PLUGINWARNING_WORDS', serialize(array('hotlink', 'firewall','total cache', 'security', 'heartbeat', 'disable')));
+        define('B2S_PLUGIN_SYSTEMREQUIREMENT_PLUGINWARNING_WORDS', serialize(array('hotlink', 'firewall', 'total cache', 'security', 'heartbeat', 'disable')));
         define('B2S_PLUGIN_SYSTEMREQUIREMENT_WPJSON', true);
         define('B2S_PLUGIN_SYSTEMREQUIREMENT_OPENSSL', true);
         define('B2S_PLUGIN_PAGE_SLUG', serialize(array('blog2social', 'blog2social-post', 'blog2social-calendar', 'blog2social-curation', 'blog2social-network', 'blog2social-settings', 'prg-post', 'blog2social-support', 'blog2social-premium', 'blog2social-sched', 'blog2social-approve', 'blog2social-publish', 'blog2social-notice', 'blog2social-ship', 'blog2social-video', 'blog2social-curation-draft', 'blog2social-draft-post', 'prg-login', 'prg-ship')));
@@ -388,7 +388,14 @@ class B2S_Loader {
                                                     if ($res !== false && is_array($res)) {
                                                         $ship = true;
                                                         $res = array_merge($res, $defaultPostData);
-                                                        $autoShare->saveShareData($res, $networkDetails[0]->network_id, $networkDetails[0]->network_type, $value, 0, strip_tags($networkDetails[0]->network_display_name));
+                                                        $networkId = $networkDetails[0]->network_id;
+                                                        $networkType = $networkDetails[0]->network_type;
+                                                        if (((int) $networkId == 12) && isset($optionPostFormat[$networkId][$networkType]['addLink']) && $optionPostFormat[$networkId][$networkType]['addLink'] == false) {
+                                                            $res['url'] = '';
+                                                        } else if (((int) $networkId == 1 || (int) $networkId == 2 || (int) $networkId == 43) && isset($optionPostFormat[$networkId][$networkType]['format']) && (int) $optionPostFormat[$networkId][$networkType]['format'] == 1 && isset($optionPostFormat[$networkId][$networkType]['addLink']) && $optionPostFormat[$networkId][$networkType]['addLink'] == false) {
+                                                            $res['url'] = '';
+                                                        }
+                                                        $autoShare->saveShareData($res, $networkId, $networkType, $value, 0, strip_tags($networkDetails[0]->network_display_name));
                                                     }
                                                 }
                                             }
@@ -879,7 +886,7 @@ class B2S_Loader {
                                                             $res = array_merge($res, $defaultPostData);
                                                             if (((int) $value->networkId == 12) && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
                                                                 $res['url'] = '';
-                                                            } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 24 || (int) $value->networkId == 43) && isset($optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
+                                                            } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 43) && isset($optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
                                                                 $res['url'] = '';
                                                             }
                                                             $shareApprove = (isset($value->instant_sharing) && (int) $value->instant_sharing == 1) ? 1 : 0;
@@ -1188,7 +1195,7 @@ class B2S_Loader {
             'SERVICE_LIMIT' => esc_html__("The post limit for your Twitter API App has been reached. Please check the settings of your API app in your developer account and consider an upgrade if necessary.", "blog2social"),
             'NETWORK_APP_ACCOUNT_PERMISSON' => esc_html__('An issue with your API App has been detected. Please check the settings for your API App on your developer account of the respective social platform.', 'blog2social'),
             'NETWORK_APP_RIGHT' => esc_html__('Your network app does not have permission for this action. Please check your network app settings in your network developer portal.', 'blog2social'),
-            'NETWORK_APP_RIGHT_IS_TRIAL' => sprintf(__('Your network apps with Trial access may not create posts. Please check your network app settings in your network developer portal and upgrade your app. Please read also the following <a target="_blank" href="%s">guide</a>.', 'blog2social'),esc_url(B2S_Tools::getSupportLink('network_app_is_trial'))),
+            'NETWORK_APP_RIGHT_IS_TRIAL' => sprintf(__('Your network apps with Trial access may not create posts. Please check your network app settings in your network developer portal and upgrade your app. Please read also the following <a target="_blank" href="%s">guide</a>.', 'blog2social'), esc_url(B2S_Tools::getSupportLink('network_app_is_trial'))),
             'LICENCE_RATE_DAILY_LIMIT' => esc_html__('Your daily posting limit has been reached. Please try again tomorrow or upgrade your version.', 'blog2social'), //since 7.3.5
             'LICENCE_RATE_LIMIT' => esc_html__('Your posting limit has been reached. Please upgrade your version or order an additional posting contingent for your premium version.', 'blog2social'), //since 7.3.5
             'LICENCE_NETWORK_UNLOOK' => esc_html__('Your network activation has expired. Please unlook this network for your licence.', 'blog2social')))); //since 7.5.0
@@ -1219,7 +1226,7 @@ class B2S_Loader {
     public function getUserDetails() {
         $tokenInfo = get_option('B2S_PLUGIN_USER_VERSION_' . B2S_PLUGIN_BLOG_USER_ID);
         if ($tokenInfo == false || !isset($tokenInfo['B2S_PLUGIN_VERSION']) || $tokenInfo['B2S_PLUGIN_USER_VERSION_NEXT_REQUEST'] < time() || (isset($tokenInfo['B2S_PLUGIN_VERSION']) && (int) $tokenInfo['B2S_PLUGIN_VERSION'] < (int) B2S_PLUGIN_VERSION) || (isset($tokenInfo['B2S_PLUGIN_TRAIL_END']) && strtotime($tokenInfo['B2S_PLUGIN_TRAIL_END']) < strtotime(gmdate('Y-m-d H:i:s')))) {
-            B2S_Tools::setUserDetails($this->blogUserData->ID, get_option('home'),$this->blogUserData->user_email);
+            B2S_Tools::setUserDetails($this->blogUserData->ID, get_option('home'), $this->blogUserData->user_email);
         } else {
             define('B2S_PLUGIN_USER_VERSION', $tokenInfo['B2S_PLUGIN_USER_VERSION']);
             if (isset($tokenInfo['B2S_PLUGIN_TRAIL_END'])) {
@@ -2105,9 +2112,6 @@ class B2S_Loader {
             }
         }
 
-//Notice Rating - stop rating remember again
-//$wpdb->query('UPDATE `b2s_user` SET `feature` = 0');
-
         $keys = $wpdb->get_results('SHOW INDEX FROM `' . $wpdb->prefix . 'b2s_user`');
         $allowIndexUser = array('PRIMARY', 'blog_user_id', 'token', 'feature');
         foreach ($keys as $k => $value) {
@@ -2115,6 +2119,16 @@ class B2S_Loader {
                 $wpdb->query('ALTER TABLE `' . $wpdb->prefix . 'b2s_user` DROP INDEX ' . $value->Key_name);
             }
         }
+
+        $sqlCreateUserTool = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}b2s_user_tool` (
+          `id` int(11) NOT NULL AUTO_INCREMENT,
+          `create_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+          `blog_user_id` int(11) NOT NULL,
+          `tool_id` TINYINT NOT NULL DEFAULT '1',
+          `access_token` varchar(255) NOT NULL,
+          PRIMARY KEY (`id`), INDEX `access_token` (`access_token`), INDEX `blog_user_id` (`blog_user_id`), INDEX `tool_id` (`tool_id`)
+          ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;";
+        $wpdb->query($sqlCreateUserTool);
 
         $sqlCreateUserPosts = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}b2s_posts` (
           `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -2427,5 +2441,4 @@ class B2S_Loader {
             $options->_setOption("B2S_PLUGIN_USER_CALENDAR_BLOCKED", false);
         }
     }
-
 }

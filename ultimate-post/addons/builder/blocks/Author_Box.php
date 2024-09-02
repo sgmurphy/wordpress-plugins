@@ -78,7 +78,7 @@ class Author_Box{
         $block_name = 'author_box';
         $author_bio = $wrapper_before = $wrapper_after = $content = '';
 
-        $page_post_id = get_the_ID(); // ultimate_post()->get_ID();
+        $page_post_id = get_the_ID();
         
         if($page_post_id){
 

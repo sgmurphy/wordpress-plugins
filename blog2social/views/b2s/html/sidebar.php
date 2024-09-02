@@ -31,10 +31,10 @@ $getPage = (isset($_GET['page']) && !empty($_GET['page'])) ? sanitize_text_field
                         <?php } ?>
                     </div>
                 </div>
-                <br>
+                
                 <?php if (!B2S_System::isblockedArea('B2S_MENU_ITEM_LICENSE', B2S_PLUGIN_ADMIN)) { ?> 
                     <div class="row">
-                        <div class="panel panel-default b2s-margin-right-10 b2s-margin-bottom-10">
+                        <div class="panel panel-default b2s-margin-right-10 b2s-margin-bottom-10 b2s-margin-top-8">
                             <div class="panel-body b2s-padding-10">
                                 <div class="media d-flex">
                                     <div class="align-self-center">

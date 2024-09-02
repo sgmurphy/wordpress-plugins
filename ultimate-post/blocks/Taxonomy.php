@@ -102,7 +102,7 @@ class Taxonomy {
 
             $wraper_before .= '<div '.( $attr['advanceId'] ? 'id="'.$attr['advanceId'].'" ':'' ).' class="wp-block-ultimate-post-'.$block_name.' ultp-block-'.$attr["blockId"].' '.( $attr["className"] ? $attr["className"]:'' ).'">';
                 $wraper_before .= '<div class="ultp-block-wrapper">';
-                    $wraper_before .= ultimate_post()->loading(); // Loading
+                    $wraper_before .= ultimate_post()->postx_loading(); // Loading
                     
                     if ( $attr['headingShow'] ) {
                         $wraper_before .= '<div class="ultp-heading-filter">';

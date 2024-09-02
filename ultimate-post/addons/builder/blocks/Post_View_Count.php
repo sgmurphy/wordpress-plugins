@@ -68,7 +68,7 @@ class Post_View_Count {
             $wrapper_before .= '<div class="ultp-block-wrapper">';     
                 $content .= '<span class="ultp-view-count">';
                     if ($attr["viewIconShow"] && $attr["viewIconStyle"]) {
-                        $content .= ultimate_post()->svg_icon($attr["viewIconStyle"]); 
+                        $content .= ultimate_post()->get_svg_icon($attr["viewIconStyle"]); 
                     }
                     $content .= '<span class="ultp-view-count-number">';
                         $content .= $count ? $count : 0;

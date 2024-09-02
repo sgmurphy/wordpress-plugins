@@ -84,8 +84,8 @@ class Next_Previous {
         $attr['prevHeadText'] = wp_kses($attr['prevHeadText'], $allowed_html_tags);
         $attr['nextHeadText'] = wp_kses($attr['nextHeadText'], $allowed_html_tags);
 
-        $arrowLeft = '<span class="ultp-icon ultp-icon-'.$attr['arrowIconStyle'].'">'.ultimate_post()->svg_icon('left'.$attr['arrowIconStyle']).'</span>';
-        $arrowRight = '<span class="ultp-icon ultp-icon-'.$attr['arrowIconStyle'].'">'.ultimate_post()->svg_icon('right'.$attr['arrowIconStyle']).'</span>';
+        $arrowLeft = '<span class="ultp-icon ultp-icon-'.$attr['arrowIconStyle'].'">'.ultimate_post()->get_svg_icon('left'.$attr['arrowIconStyle']).'</span>';
+        $arrowRight = '<span class="ultp-icon ultp-icon-'.$attr['arrowIconStyle'].'">'.ultimate_post()->get_svg_icon('right'.$attr['arrowIconStyle']).'</span>';
 
         $wrapper_before .= '<div '.( $attr['advanceId'] ? 'id="'.$attr['advanceId'].'" ':'' ).' class="wp-block-ultimate-post-'.$block_name.' ultp-block-'.$attr["blockId"].( $attr["className"] ?' '.$attr["className"]:'' ).''.( $attr["align"] ? ' align' .$attr["align"]:'' ).'">';
             $wrapper_before .= '<div class="ultp-block-wrapper">';

@@ -5,7 +5,7 @@
 	 *
 	 * @author Infomaniak vod team
 	 * @link http://infomaniak.com
-	 * @version 1.5.7
+	 * @version 1.5.8
 	 * @copyright infomaniak.com
 	 */
 	define('VOD_RIGHT_CONTRIBUTOR', 1);
@@ -14,7 +14,7 @@
 	define('VOD_RIGHT_ADMIN', 4);
 
 	class EasyVod {
-		public $version = "1.5.7";
+		public $version = "1.5.8";
 		private $local_version;
 		private $plugin_url;
 		private $options;
@@ -871,6 +871,10 @@
 			$site_url = get_option("siteurl");
             $aFolders = array();
 			if (isset($_POST['submitted'])) {
+
+				if (!isset($_POST['plugin_nonce']) || !wp_verify_nonce($_POST['plugin_nonce'], 'update_settings_action')) {
+					wp_die(__('Vérification de sécurité échouée', 'text-domain'));
+				}
 
 				$bResult = false;
 

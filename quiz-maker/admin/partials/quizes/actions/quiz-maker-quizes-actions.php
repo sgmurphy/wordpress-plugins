@@ -7363,137 +7363,493 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
             
             <div id="tab5" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab5') ? 'ays-quiz-tab-content-active' : ''; ?>">
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_accordion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('Limitation of Users',$this->plugin_name)?></p>
-                </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <label for="ays_limit_users">
-                            <?php echo __('Limit Users',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('This option allows to block the users who have already passed the quiz.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('Limitation of Users',$this->plugin_name)?></p>
                     </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_limit_users" name="ays_limit_users"
-                               value="on" <?php echo (isset($options['limit_users']) && $options['limit_users'] == 'on') ? 'checked' : ''; ?>/>
-                    </div>
-                    <div class="col-sm-8" id="limit-user-options" style="border-left: 1px solid #ccc">
-                        <div class="ays-limitation-options">
-                            <!-- Limitation by -->
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_limitation_message">
-                                        <?php echo __('Limit users by',$this->plugin_name)?>
-                                        <a class="ays_help" data-toggle="tooltip" data-html="true" title="<?php echo __('Limit users pass the quiz by IP or by User ID.',$this->plugin_name)?><br><?php echo __('If you choose \'User ID\', the \'Limit users\' option will not work for the not logged in users. It works only with \'Only for logged in users\' option.',$this->plugin_name)?>">
-                                            <i class="ays_fa ays_fa_info_circle"></i>
-                                        </a>
-                                    </label>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="ays_limit_users">
+                                    <?php echo __('Limit Users',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('This option allows to block the users who have already passed the quiz.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_limit_users" name="ays_limit_users"
+                                       value="on" <?php echo (isset($options['limit_users']) && $options['limit_users'] == 'on') ? 'checked' : ''; ?>/>
+                            </div>
+                            <div class="col-sm-8" id="limit-user-options" style="border-left: 1px solid #ccc">
+                                <div class="ays-limitation-options">
+                                    <!-- Limitation by -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_limitation_message">
+                                                <?php echo __('Limit users by',$this->plugin_name)?>
+                                                <a class="ays_help" data-toggle="tooltip" data-html="true" title="<?php echo __('Limit users pass the quiz by IP or by User ID.',$this->plugin_name)?><br><?php echo __('If you choose \'User ID\', the \'Limit users\' option will not work for the not logged in users. It works only with \'Only for logged in users\' option.',$this->plugin_name)?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <label class="ays_quiz_loader">
+                                                <input type="radio" id="ays_limit_users_by_ip" name="ays_limit_users_by" value="ip" <?php echo ($limit_users_by == 'ip') ? 'checked' : ''; ?>/>
+                                                <span for="ays_limit_users_by_ip"><?php echo __('IP',$this->plugin_name)?></span>
+                                            </label>
+                                            <label class="ays_quiz_loader">
+                                                <input type="radio" id="ays_limit_users_by_user_id" name="ays_limit_users_by" value="user_id" <?php echo ($limit_users_by == 'user_id') ? 'checked' : ''; ?>/>
+                                                <span for="ays_limit_users_by_user_id"><?php echo __('User ID',$this->plugin_name)?></span>
+                                            </label>
+                                            <label class="ays_quiz_loader">
+                                                <input type="radio" id="ays_limit_users_by_cookie" name="ays_limit_users_by" value="cookie" <?php echo ($limit_users_by == 'cookie') ? 'checked' : ''; ?>/>
+                                                <span for="ays_limit_users_by_cookie"><?php echo __('Cookie',$this->plugin_name)?></span>
+                                            </label>
+                                            <label class="ays_quiz_loader">
+                                                <input type="radio" id="ays_limit_users_by_ip_cookie" name="ays_limit_users_by" value="ip_cookie" <?php echo ($limit_users_by == 'ip_cookie') ? 'checked' : ''; ?>/>
+                                                <span for="ays_limit_users_by_ip_cookie"><?php echo __('IP and Cookie',$this->plugin_name)?></span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-9">
-                                    <label class="ays_quiz_loader">
-                                        <input type="radio" id="ays_limit_users_by_ip" name="ays_limit_users_by" value="ip" <?php echo ($limit_users_by == 'ip') ? 'checked' : ''; ?>/>
-                                        <span for="ays_limit_users_by_ip"><?php echo __('IP',$this->plugin_name)?></span>
-                                    </label>
-                                    <label class="ays_quiz_loader">
-                                        <input type="radio" id="ays_limit_users_by_user_id" name="ays_limit_users_by" value="user_id" <?php echo ($limit_users_by == 'user_id') ? 'checked' : ''; ?>/>
-                                        <span for="ays_limit_users_by_user_id"><?php echo __('User ID',$this->plugin_name)?></span>
-                                    </label>
-                                    <label class="ays_quiz_loader">
-                                        <input type="radio" id="ays_limit_users_by_cookie" name="ays_limit_users_by" value="cookie" <?php echo ($limit_users_by == 'cookie') ? 'checked' : ''; ?>/>
-                                        <span for="ays_limit_users_by_cookie"><?php echo __('Cookie',$this->plugin_name)?></span>
-                                    </label>
-                                    <label class="ays_quiz_loader">
-                                        <input type="radio" id="ays_limit_users_by_ip_cookie" name="ays_limit_users_by" value="ip_cookie" <?php echo ($limit_users_by == 'ip_cookie') ? 'checked' : ''; ?>/>
-                                        <span for="ays_limit_users_by_ip_cookie"><?php echo __('IP and Cookie',$this->plugin_name)?></span>
-                                    </label>
+                                <hr/>
+                                <div class="form-group row" style="position:relative;">
+                                    <div class="col-sm-12 only_pro" style="padding:15px;">
+                                        <div class="pro_features pro_features_popup">
+                                            <div class="pro-features-popup-conteiner">
+                                                <div class="pro-features-popup-title">
+                                                    <?php echo __("Maximum number of attempts", $this->plugin_name); ?>
+                                                </div>
+                                                <div class="pro-features-popup-content" data-link="https://youtu.be/3MboTs_CO3k">
+                                                    <p>
+                                                        <?php echo sprintf( __("With the help of this option you can no longer struggle with getting multiple results from the same person, which will draw a false conclusion. Restrict the attempt of the same user by just activating the %s Maximum number of attempts option. %s", $this->plugin_name),
+                                                            "<strong>",
+                                                            "</strong>"
+                                                        ); ?>
+                                                    </p>
+                                                    <p>
+                                                        <?php echo __("This can be a useful tool for running a fair and safe examination.", $this->plugin_name); ?>
+                                                    </p>
+                                                    <p>
+                                                        <?php echo __("You will be able to detect uses by IP addresses, WP User IDs, Browser Cookies and by both IP addresses and Cookies. Just write the attempts count and the users will not be able to pass the quiz for more than the count that you have set.", $this->plugin_name); ?>
+                                                    </p>
+                                                    <p>
+                                                        <?php echo __("Write warning messages, redirect them to your desired URL and all this just in one feature.", $this->plugin_name); ?>
+                                                    </p>
+                                                    <div>
+                                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("Learn More", $this->plugin_name); ?></a>
+                                                    </div>
+                                                </div>
+                                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-attempts-count">
+                                                    <?php echo __("Try It Now", $this->plugin_name); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Limitation count -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_quiz_max_pass_count">
+                                                    <?php echo __('Attempts count:',$this->plugin_name)?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the count of the attempts per user for passing the quiz.',$this->plugin_name)?>">
+                                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="ays-text-input" id="ays_quiz_max_pass_count" tabindex="-1"/>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <!-- Limitation pass score -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_quiz_pass_score">
+                                                    <?php echo __('Pass score for attempt restriction',$this->plugin_name)?> (%)
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Select the passing score(in percentage), and the attempt of the user will be detected only under that given condition. For example: If we give 40% value to it and assign 5 to the Attempts count option, the user can pass the quiz with getting more than 40% score in 5 times, but will have a chance to pass the quiz with getting under the 40% score as to how much as he/she wants.',$this->plugin_name)?>">
+                                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="ays-text-input" id="ays_quiz_pass_score" tabindex="-1"/>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <!-- Limit count by user role -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_limit_count_by_user_role">
+                                                    <?php echo __( 'Attempts count for each user role', $this->plugin_name ); ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Limit the count of the attempts for each user role for passing the quiz. To have this option work you need to enable Only for selected user role option.', $this->plugin_name)?>">
+                                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="number" class="ays-text-input" value="" tabindex="-1"/>
+                                            </div>
+                                        </div>
+
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-attempts-count" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-new-upgrade-button-box">
+                                                <div>
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                                </div>
+                                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                            </div>
+                                        </a>
+                                        <div class="ays-quiz-new-watch-video-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="ays-limitation-options">
+                                    <!-- Limitation message -->
+                                    <div class="form-group row ays-quiz-result-message-vars-parent">
+                                        <div class="col-sm-3">
+                                            <label for="ays_limitation_message">
+                                                <?php echo __('Message',$this->plugin_name)?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for those who have passed the quiz',$this->plugin_name)?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <?php
+                                            echo $quiz_message_vars_limitation_message_html;
+                                            $content = wpautop(stripslashes((isset($options['limitation_message'])) ? $options['limitation_message'] : ''));
+                                            $editor_id = 'ays_limitation_message';
+                                            $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_limitation_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                            wp_editor($content, $editor_id, $settings);
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <!-- Limitation redirect url -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_redirect_url">
+                                                <?php echo __('Redirect URL',$this->plugin_name)?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('For leave current page and go to the link provided',$this->plugin_name)?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="ays_redirect_url" id="ays_redirect_url"
+                                                   class="ays-text-input"
+                                                   value="<?php echo (isset($options['redirect_url'])) ? $options['redirect_url'] : ''; ?>"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <!-- Limitation redirect delay -->
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_redirection_delay">
+                                                <?php echo __('Redirect delay',$this->plugin_name)?>(s)
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Leave current page and go to the link provided after X second',$this->plugin_name)?>">
+                                                    <i class="ays_fa ays_fa_info_circle"></i>
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="number" name="ays_redirection_delay" id="ays_redirection_delay"
+                                                   class="ays-text-input"
+                                                   value="<?php echo (isset($options['redirection_delay'])) ? $options['redirection_delay'] : 0; ?>"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group row" style="position:relative;">
+                                        <div class="col-sm-12 only_pro" style="padding:15px;">
+                                            <div class="pro_features pro_features_popup">
+                                                <div class="pro-features-popup-conteiner">
+                                                    <div class="pro-features-popup-title">
+                                                        <?php echo __("Turn on extra security check", $this->plugin_name); ?>
+                                                    </div>
+                                                    <div class="pro-features-popup-content" data-link="https://youtu.be/Ie0x_jP-ng8">
+                                                        <p>
+                                                            <?php echo sprintf( __("The %s Turn on extra security check %s option will help you to create a quiz that %s is not possible to cheat. %s", $this->plugin_name),
+                                                                "<strong>",
+                                                                "</strong>",
+                                                                "<strong>",
+                                                                "</strong>"
+                                                            ); ?>
+                                                        </p>
+                                                        <p>
+                                                            <?php echo __("The option works when the admin has enabled a limitation for the quiz and set the attempts count for it.", $this->plugin_name); ?>
+                                                        </p>
+                                                        <p>
+                                                            <?php echo __("You will be able to detect uses by IP addresses, WP User IDs, Browser Cookies and by both IP addresses and Cookies. Just write the attempts count and the users will not be able to pass the quiz for more than the count that you have set.", $this->plugin_name); ?>
+                                                        </p>
+                                                        <p>
+                                                            <?php echo __("If this option is enabled, and the user tries to open the quiz in more than one tab simultaneously, the quiz will not be opened.", $this->plugin_name); ?>
+                                                        </p>
+                                                        <div>
+                                                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-extra-security">
+                                                        <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Turn on extra security check -->
+                                            <div class="form-group row">
+                                                <div class="col-sm-3">
+                                                    <label for="ays_turn_on_extra_security_check">
+                                                        <?php echo __( 'Turn on extra security check', $this->plugin_name ); ?>
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('When the attempt limit of the quiz has reached, and a user tries to open your quiz in more than one tab concurrently, the results of their additional attempt will not be stored.', $this->plugin_name)?>">
+                                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="checkbox" value="on" tabindex="-1"/>
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <!-- Hide attempts limitation notice -->
+                                            <div class="form-group row">
+                                                <div class="col-sm-3">
+                                                    <label for="ays_hide_limit_attempts_notice">
+                                                        <?php echo __( 'Hide attempts limitation notice', $this->plugin_name ); ?>
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Hide the remaining attempts count warning when the limitation is activated.', $this->plugin_name)?>">
+                                                            <i class="ays_fa ays_fa_info_circle"></i>
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="checkbox" value="on" tabindex="-1"/>
+                                                </div>
+                                            </div>
+
+                                            <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-extra-security" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                                <div class="ays-quiz-new-upgrade-button-box">
+                                                    <div>
+                                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                                    </div>
+                                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                                </div>
+                                            </a>
+                                            <div class="ays-quiz-new-watch-video-button-box">
+                                                <div>
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                                </div>
+                                                <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <hr/>
+                        <div class="form-group row ays-quiz-result-message-vars-parent">
+                            <div class="col-sm-3">
+                                <label for="ays_enable_logged_users">
+                                    <?php echo __('Only for logged in users',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('After enabling this option, only logged in users will be able to pass the quiz.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_enable_logged_users"
+                                       name="ays_enable_logged_users"
+                                       value="on" <?php echo (((isset($options['enable_logged_users']) && $options['enable_logged_users'] == 'on')) || (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on')) ? 'checked' : ''; ?>/>
+                            </div>
+                            <div class="col-sm-8" style="border-left: 1px solid #ededed; <?php echo ((isset($options['enable_logged_users']) && $options['enable_logged_users'] == 'on') || (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on')) ? '' : 'display:none;' ?>"
+                                 id="ays_logged_in_users_div" >
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="ays_logged_in_message">
+                                            <?php echo __('Message',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for those who haven’t logged in',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <?php
+                                        echo $quiz_message_vars_logged_in_users_html;
+                                        $content = wpautop(stripslashes((isset($options['enable_logged_users_message'])) ? $options['enable_logged_users_message'] : ''));
+                                        $editor_id = 'ays_logged_in_message';
+                                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_enable_logged_users_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                        wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="ays_show_login_form">
+                                            <?php echo __('Show Login form',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the Login form bottom of the message for not logged in users.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_show_login_form" name="ays_show_login_form" value="on" <?php echo $show_login_form ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row ays-quiz-result-message-vars-parent">
+                            <div class="col-sm-3">
+                                <label for="ays_enable_restriction_pass">
+                                    <?php echo __('Only for selected user role',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Quiz is available only for the users who have role mentioned in the list.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1" id="ays_enable_restriction_pass"
+                                       name="ays_enable_restriction_pass"
+                                       value="on" <?php echo (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on') ? 'checked' : ''; ?>/>
+                            </div>
+                            <div class="col-sm-8" id="ays_users_roles_td"
+                                 style="border-left: 1px solid #ededed; display: <?php echo (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on') ? '' : 'none'; ?>">
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="ays_users_roles">
+                                            <?php echo __('User role',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Role of the user on the website. Option accepts multiple values.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select name="ays_users_roles[]" id="ays_users_roles" multiple>
+                                            <?php
+                                            foreach ($ays_users_roles as $key => $user_role) {
+                                                $selected_role = "";
+                                                if(isset($options['user_role'])){
+                                                    if(is_array($options['user_role'])){
+                                                        if(in_array($user_role['name'], $options['user_role'])){
+                                                            $selected_role = 'selected';
+                                                        }else{
+                                                            $selected_role = '';
+                                                        }
+                                                    }else{
+                                                        if($options['user_role'] == $user_role['name']){
+                                                            $selected_role = 'selected';
+                                                        }else{
+                                                            $selected_role = '';
+                                                        }
+                                                    }
+                                                }
+                                                echo "<option value='" . $user_role['name'] . "' " . $selected_role . ">" . $user_role['name'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label for="restriction_pass_message">
+                                            <?php echo __('Message',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for the users who aren’t included in the above-mentioned list.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <?php
+                                        echo $quiz_message_vars_only_selected_user_role_html;
+                                        $content = wpautop(stripslashes((isset($options['restriction_pass_message'])) ? $options['restriction_pass_message'] : ''));
+                                        $editor_id = 'restriction_pass_message';
+                                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'restriction_pass_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                        wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>  <!-- AV Access Only selected users -->
                         <div class="form-group row" style="position:relative;">
                             <div class="col-sm-12 only_pro" style="padding:15px;">
                                 <div class="pro_features pro_features_popup">
                                     <div class="pro-features-popup-conteiner">
                                         <div class="pro-features-popup-title">
-                                            <?php echo __("Maximum number of attempts", $this->plugin_name); ?>
+                                            <?php echo __("Access only selected users", $this->plugin_name); ?>
                                         </div>
-                                        <div class="pro-features-popup-content" data-link="https://youtu.be/3MboTs_CO3k">
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/mWAByB5La3Q">
                                             <p>
-                                                <?php echo sprintf( __("With the help of this option you can no longer struggle with getting multiple results from the same person, which will draw a false conclusion. Restrict the attempt of the same user by just activating the %s Maximum number of attempts option. %s", $this->plugin_name),
+                                                <?php echo sprintf( __("Do you want to decide for yourself who can take your quiz? Access only selected users feature of the Quiz Maker plugin allows you to decide who can take your quiz swiftly. Just enable that feature and type in only the users' names %s who will have an access to your quiz. %s The ones whose names you don’t type, can’t take your quiz. So type in the message and inform them about it.", $this->plugin_name),
                                                     "<strong>",
                                                     "</strong>"
                                                 ); ?>
                                             </p>
-                                            <p>
-                                                <?php echo __("This can be a useful tool for running a fair and safe examination.", $this->plugin_name); ?>
-                                            </p>
-                                            <p>
-                                                <?php echo __("You will be able to detect uses by IP addresses, WP User IDs, Browser Cookies and by both IP addresses and Cookies. Just write the attempts count and the users will not be able to pass the quiz for more than the count that you have set.", $this->plugin_name); ?>
-                                            </p>
-                                            <p>
-                                                <?php echo __("Write warning messages, redirect them to your desired URL and all this just in one feature.", $this->plugin_name); ?>
-                                            </p>
                                             <div>
-                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("Learn More", $this->plugin_name); ?></a>
+                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                             </div>
                                         </div>
-                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-attempts-count">
-                                            <?php echo __("Try It Now", $this->plugin_name); ?>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users">
+                                            <?php echo __("Upgrade to Pro Now", $this->plugin_name); ?>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Limitation count -->
-                                <div class="form-group row">
+                                <div class="form-group row ays_toggle_parent">
                                     <div class="col-sm-3">
-                                        <label for="ays_quiz_max_pass_count">
-                                            <?php echo __('Attempts count:',$this->plugin_name)?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the count of the attempts per user for passing the quiz.',$this->plugin_name)?>">
+                                        <label for="ays_enable_restriction_pass_users">
+                                            <?php echo __('Access only selected users',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Quiz is available only for the users mentioned in the list.',$this->plugin_name)?>">
                                                 <i class="ays_fa ays_fa_info_circle"></i>
                                             </a>
                                         </label>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <input type="number" class="ays-text-input" id="ays_quiz_max_pass_count" tabindex="-1"/>
+                                    <div class="col-sm-1">
+                                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_restriction_pass_users" value="on" tabindex="-1" />
                                     </div>
-                                </div>
-                                <hr/>
-                                <!-- Limitation pass score -->
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_quiz_pass_score">
-                                            <?php echo __('Pass score for attempt restriction',$this->plugin_name)?> (%)
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Select the passing score(in percentage), and the attempt of the user will be detected only under that given condition. For example: If we give 40% value to it and assign 5 to the Attempts count option, the user can pass the quiz with getting more than 40% score in 5 times, but will have a chance to pass the quiz with getting under the 40% score as to how much as he/she wants.',$this->plugin_name)?>">
-                                                <i class="ays_fa ays_fa_info_circle"></i>
-                                            </a>
-                                        </label>
+                                    <div class="col-sm-8 ays_toggle_target ays_divider_left">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label for="ays_users_roles">
+                                                    <?php echo __('Users',$this->plugin_name)?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Users on the website.',$this->plugin_name)?>">
+                                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <select id="ays_quiz_users_sel" name="ays_users_search[]" tabindex="-1" multiple style="width: 100%; max-width: 100%;">
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label for="restriction_pass_users_message">
+                                                    <?php echo __('Message',$this->plugin_name)?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for the users who aren’t included in the above-mentioned list.',$this->plugin_name)?>">
+                                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <textarea type="text" tabindex="-1" id="restriction_pass_users_message" class="ays-textarea ays-disable-setting"
+                                                      disabled></textarea>                                        
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <input type="number" class="ays-text-input" id="ays_quiz_pass_score" tabindex="-1"/>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <!-- Limit count by user role -->
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_limit_count_by_user_role">
-                                            <?php echo __( 'Attempts count for each user role', $this->plugin_name ); ?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Limit the count of the attempts for each user role for passing the quiz. To have this option work you need to enable Only for selected user role option.', $this->plugin_name)?>">
-                                                <i class="ays_fa ays_fa_info_circle"></i>
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="number" class="ays-text-input" value="" tabindex="-1"/>
-                                    </div>
-                                </div>
+                                </div> <!-- Access Only selected users -->
 
-                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-attempts-count" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users" target="_blank" class="ays-quiz-new-upgrade-button-link">
                                     <div class="ays-quiz-new-upgrade-button-box">
                                         <div>
                                             <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
@@ -7509,556 +7865,200 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                     </div>
                                     <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
                                 </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="ays-limitation-options">
-                            <!-- Limitation message -->
-                            <div class="form-group row ays-quiz-result-message-vars-parent">
-                                <div class="col-sm-3">
-                                    <label for="ays_limitation_message">
-                                        <?php echo __('Message',$this->plugin_name)?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for those who have passed the quiz',$this->plugin_name)?>">
-                                            <i class="ays_fa ays_fa_info_circle"></i>
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <?php
-                                    echo $quiz_message_vars_limitation_message_html;
-                                    $content = wpautop(stripslashes((isset($options['limitation_message'])) ? $options['limitation_message'] : ''));
-                                    $editor_id = 'ays_limitation_message';
-                                    $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_limitation_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                    wp_editor($content, $editor_id, $settings);
-                                    ?>
-                                </div>
-                            </div>
-                            <hr/>
-                            <!-- Limitation redirect url -->
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_redirect_url">
-                                        <?php echo __('Redirect URL',$this->plugin_name)?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('For leave current page and go to the link provided',$this->plugin_name)?>">
-                                            <i class="ays_fa ays_fa_info_circle"></i>
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" name="ays_redirect_url" id="ays_redirect_url"
-                                           class="ays-text-input"
-                                           value="<?php echo (isset($options['redirect_url'])) ? $options['redirect_url'] : ''; ?>"/>
-                                </div>
-                            </div>
-                            <hr/>
-                            <!-- Limitation redirect delay -->
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_redirection_delay">
-                                        <?php echo __('Redirect delay',$this->plugin_name)?>(s)
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Leave current page and go to the link provided after X second',$this->plugin_name)?>">
-                                            <i class="ays_fa ays_fa_info_circle"></i>
-                                        </a>
-                                    </label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="number" name="ays_redirection_delay" id="ays_redirection_delay"
-                                           class="ays-text-input"
-                                           value="<?php echo (isset($options['redirection_delay'])) ? $options['redirection_delay'] : 0; ?>"/>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="form-group row" style="position:relative;">
-                                <div class="col-sm-12 only_pro" style="padding:15px;">
-                                    <div class="pro_features pro_features_popup">
-                                        <div class="pro-features-popup-conteiner">
-                                            <div class="pro-features-popup-title">
-                                                <?php echo __("Turn on extra security check", $this->plugin_name); ?>
-                                            </div>
-                                            <div class="pro-features-popup-content" data-link="https://youtu.be/Ie0x_jP-ng8">
-                                                <p>
-                                                    <?php echo sprintf( __("The %s Turn on extra security check %s option will help you to create a quiz that %s is not possible to cheat. %s", $this->plugin_name),
-                                                        "<strong>",
-                                                        "</strong>",
-                                                        "<strong>",
-                                                        "</strong>"
-                                                    ); ?>
-                                                </p>
-                                                <p>
-                                                    <?php echo __("The option works when the admin has enabled a limitation for the quiz and set the attempts count for it.", $this->plugin_name); ?>
-                                                </p>
-                                                <p>
-                                                    <?php echo __("You will be able to detect uses by IP addresses, WP User IDs, Browser Cookies and by both IP addresses and Cookies. Just write the attempts count and the users will not be able to pass the quiz for more than the count that you have set.", $this->plugin_name); ?>
-                                                </p>
-                                                <p>
-                                                    <?php echo __("If this option is enabled, and the user tries to open the quiz in more than one tab simultaneously, the quiz will not be opened.", $this->plugin_name); ?>
-                                                </p>
-                                                <div>
-                                                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
-                                                </div>
-                                            </div>
-                                            <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-extra-security">
-                                                <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Turn on extra security check -->
-                                    <div class="form-group row">
-                                        <div class="col-sm-3">
-                                            <label for="ays_turn_on_extra_security_check">
-                                                <?php echo __( 'Turn on extra security check', $this->plugin_name ); ?>
-                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('When the attempt limit of the quiz has reached, and a user tries to open your quiz in more than one tab concurrently, the results of their additional attempt will not be stored.', $this->plugin_name)?>">
-                                                    <i class="ays_fa ays_fa_info_circle"></i>
-                                                </a>
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="checkbox" value="on" tabindex="-1"/>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <!-- Hide attempts limitation notice -->
-                                    <div class="form-group row">
-                                        <div class="col-sm-3">
-                                            <label for="ays_hide_limit_attempts_notice">
-                                                <?php echo __( 'Hide attempts limitation notice', $this->plugin_name ); ?>
-                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Hide the remaining attempts count warning when the limitation is activated.', $this->plugin_name)?>">
-                                                    <i class="ays_fa ays_fa_info_circle"></i>
-                                                </a>
-                                            </label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="checkbox" value="on" tabindex="-1"/>
-                                        </div>
-                                    </div>
-
-                                    <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-extra-security" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                        <div class="ays-quiz-new-upgrade-button-box">
-                                            <div>
-                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                            </div>
-                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                        </div>
-                                    </a>
-                                    <div class="ays-quiz-new-watch-video-button-box">
-                                        <div>
-                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
+                                    <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
+                                        <div class="ays-quiz-center-new-watch-video-demo-button">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
                                             <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                            <?php echo __("Watch Video", "quiz-maker"); ?>
                                         </div>
-                                        <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                    </div>
+                                    <div class="ays-quiz-center-big-upgrade-button-box">
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-center-new-big-upgrade-button">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
+                                                <?php echo __("Upgrade", "quiz-maker"); ?>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="form-group row ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-3">
-                        <label for="ays_enable_logged_users">
-                            <?php echo __('Only for logged in users',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('After enabling this option, only logged in users will be able to pass the quiz.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_enable_logged_users"
-                               name="ays_enable_logged_users"
-                               value="on" <?php echo (((isset($options['enable_logged_users']) && $options['enable_logged_users'] == 'on')) || (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on')) ? 'checked' : ''; ?>/>
-                    </div>
-                    <div class="col-sm-8" style="border-left: 1px solid #ededed; <?php echo ((isset($options['enable_logged_users']) && $options['enable_logged_users'] == 'on') || (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on')) ? '' : 'display:none;' ?>"
-                         id="ays_logged_in_users_div" >
-                        <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label for="ays_logged_in_message">
-                                    <?php echo __('Message',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for those who haven’t logged in',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-9">
-                                <?php
-                                echo $quiz_message_vars_logged_in_users_html;
-                                $content = wpautop(stripslashes((isset($options['enable_logged_users_message'])) ? $options['enable_logged_users_message'] : ''));
-                                $editor_id = 'ays_logged_in_message';
-                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_enable_logged_users_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                wp_editor($content, $editor_id, $settings);
-                                ?>
                             </div>
                         </div>
                         <hr/>
-                        <div class="form-group row">
+                        <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
                             <div class="col-sm-3">
-                                <label for="ays_show_login_form">
-                                    <?php echo __('Show Login form',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the Login form bottom of the message for not logged in users.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_show_login_form" name="ays_show_login_form" value="on" <?php echo $show_login_form ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="form-group row ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-3">
-                        <label for="ays_enable_restriction_pass">
-                            <?php echo __('Only for selected user role',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Quiz is available only for the users who have role mentioned in the list.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1" id="ays_enable_restriction_pass"
-                               name="ays_enable_restriction_pass"
-                               value="on" <?php echo (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on') ? 'checked' : ''; ?>/>
-                    </div>
-                    <div class="col-sm-8" id="ays_users_roles_td"
-                         style="border-left: 1px solid #ededed; display: <?php echo (isset($options['enable_restriction_pass']) && $options['enable_restriction_pass'] == 'on') ? '' : 'none'; ?>">
-                        <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label for="ays_users_roles">
-                                    <?php echo __('User role',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Role of the user on the website. Option accepts multiple values.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-9">
-                                <select name="ays_users_roles[]" id="ays_users_roles" multiple>
-                                    <?php
-                                    foreach ($ays_users_roles as $key => $user_role) {
-                                        $selected_role = "";
-                                        if(isset($options['user_role'])){
-                                            if(is_array($options['user_role'])){
-                                                if(in_array($user_role['name'], $options['user_role'])){
-                                                    $selected_role = 'selected';
-                                                }else{
-                                                    $selected_role = '';
-                                                }
-                                            }else{
-                                                if($options['user_role'] == $user_role['name']){
-                                                    $selected_role = 'selected';
-                                                }else{
-                                                    $selected_role = '';
-                                                }
-                                            }
-                                        }
-                                        echo "<option value='" . $user_role['name'] . "' " . $selected_role . ">" . $user_role['name'] . "</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label for="restriction_pass_message">
-                                    <?php echo __('Message',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for the users who aren’t included in the above-mentioned list.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-9">
-                                <?php
-                                echo $quiz_message_vars_only_selected_user_role_html;
-                                $content = wpautop(stripslashes((isset($options['restriction_pass_message'])) ? $options['restriction_pass_message'] : ''));
-                                $editor_id = 'restriction_pass_message';
-                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'restriction_pass_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                wp_editor($content, $editor_id, $settings);
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>  <!-- AV Access Only selected users -->
-                <div class="form-group row" style="position:relative;">
-                    <div class="col-sm-12 only_pro" style="padding:15px;">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Access only selected users", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/mWAByB5La3Q">
-                                    <p>
-                                        <?php echo sprintf( __("Do you want to decide for yourself who can take your quiz? Access only selected users feature of the Quiz Maker plugin allows you to decide who can take your quiz swiftly. Just enable that feature and type in only the users' names %s who will have an access to your quiz. %s The ones whose names you don’t type, can’t take your quiz. So type in the message and inform them about it.", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <div>
-                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
-                                    </div>
-                                </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users">
-                                    <?php echo __("Upgrade to Pro Now", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row ays_toggle_parent">
-                            <div class="col-sm-3">
-                                <label for="ays_enable_restriction_pass_users">
-                                    <?php echo __('Access only selected users',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Quiz is available only for the users mentioned in the list.',$this->plugin_name)?>">
+                                <label for="ays_enable_tackers_count">
+                                    <?php echo __('Limitation count of takers', $this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('You can choose how many users can pass the quiz.',$this->plugin_name)?>">
                                         <i class="ays_fa ays_fa_info_circle"></i>
                                     </a>
                                 </label>
                             </div>
                             <div class="col-sm-1">
-                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_restriction_pass_users" value="on" tabindex="-1" />
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_tackers_count"
+                                       name="ays_enable_tackers_count" value="on" <?php echo $enable_tackers_count ? 'checked' : ''; ?>/>
                             </div>
-                            <div class="col-sm-8 ays_toggle_target ays_divider_left">
+                            <div class="col-sm-8 ays_toggle_target ays_divider_left <?php echo $enable_tackers_count ? '' : 'display_none'; ?>">
                                 <div class="form-group row">
                                     <div class="col-sm-2">
-                                        <label for="ays_users_roles">
-                                            <?php echo __('Users',$this->plugin_name)?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Users on the website.',$this->plugin_name)?>">
+                                        <label for="ays_tackers_count">
+                                            <?php echo __('Count',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The number of users who can pass the quiz.',$this->plugin_name)?>">
                                                 <i class="ays_fa ays_fa_info_circle"></i>
                                             </a>
                                         </label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <select id="ays_quiz_users_sel" name="ays_users_search[]" tabindex="-1" multiple style="width: 100%; max-width: 100%;">
-                                            <option></option>
-                                        </select>
+                                        <input type="number" name="ays_tackers_count" id="ays_tackers_count" class="ays-enable-timerl ays-text-input"
+                                               value="<?php echo $tackers_count; ?>">
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
                                     <div class="col-sm-2">
-                                        <label for="restriction_pass_users_message">
-                                            <?php echo __('Message',$this->plugin_name)?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Message for the users who aren’t included in the above-mentioned list.',$this->plugin_name)?>">
+                                        <label for="ays_quiz_tackers_message">
+                                            <?php echo __('Message',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the message when the quiz is already taken by the required count of takers.',$this->plugin_name); ?>">
                                                 <i class="ays_fa ays_fa_info_circle"></i>
                                             </a>
                                         </label>
                                     </div>
                                     <div class="col-sm-10">
-                                        <textarea type="text" tabindex="-1" id="restriction_pass_users_message" class="ays-textarea ays-disable-setting"
-                                              disabled></textarea>                                        
+                                        <?php
+                                        echo $quiz_message_vars_limitation_count_of_takers_html;
+                                        $editor_id = 'ays_quiz_tackers_message';
+                                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_tackers_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                        wp_editor($quiz_tackers_message, $editor_id, $settings);
+                                        ?>
                                     </div>
                                 </div>
-                            </div>
-                        </div> <!-- Access Only selected users -->
-
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-                        <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
-                            <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
-                                <div class="ays-quiz-center-new-watch-video-demo-button">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                                    <?php echo __("Watch Video", "quiz-maker"); ?>
-                                </div>
-                            </div>
-                            <div class="ays-quiz-center-big-upgrade-button-box">
-                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-center-new-big-upgrade-button">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
-                                        <?php echo __("Upgrade", "quiz-maker"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-3">
-                        <label for="ays_enable_tackers_count">
-                            <?php echo __('Limitation count of takers', $this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('You can choose how many users can pass the quiz.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_tackers_count"
-                               name="ays_enable_tackers_count" value="on" <?php echo $enable_tackers_count ? 'checked' : ''; ?>/>
-                    </div>
-                    <div class="col-sm-8 ays_toggle_target ays_divider_left <?php echo $enable_tackers_count ? '' : 'display_none'; ?>">
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label for="ays_tackers_count">
-                                    <?php echo __('Count',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The number of users who can pass the quiz.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-10">
-                                <input type="number" name="ays_tackers_count" id="ays_tackers_count" class="ays-enable-timerl ays-text-input"
-                                       value="<?php echo $tackers_count; ?>">
                             </div>
                         </div>
                         <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label for="ays_quiz_tackers_message">
-                                    <?php echo __('Message',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the message when the quiz is already taken by the required count of takers.',$this->plugin_name); ?>">
+                        <div class="form-group row ays_toggle_parent">
+                            <div class="col-sm-3">
+                                <label for="ays_enable_password">
+                                    <?php echo __('Password for passing quiz', $this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('You can choose a password for users to pass the quiz.',$this->plugin_name)?>">
                                         <i class="ays_fa ays_fa_info_circle"></i>
                                     </a>
                                 </label>
                             </div>
-                            <div class="col-sm-10">
-                                <?php
-                                echo $quiz_message_vars_limitation_count_of_takers_html;
-                                $editor_id = 'ays_quiz_tackers_message';
-                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_tackers_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                wp_editor($quiz_tackers_message, $editor_id, $settings);
-                                ?>
+                            <div class="col-sm-1">
+                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_password" name="ays_enable_password" value="on" <?php echo $enable_password ? 'checked' : ''; ?>/>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row ays_toggle_parent">
-                    <div class="col-sm-3">
-                        <label for="ays_enable_password">
-                            <?php echo __('Password for passing quiz', $this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('You can choose a password for users to pass the quiz.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-1">
-                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_enable_password" name="ays_enable_password" value="on" <?php echo $enable_password ? 'checked' : ''; ?>/>
-                    </div>
-                    <div class="col-sm-12 ays_toggle_target <?php echo $enable_password ? '' : 'display_none'; ?>">
-                        <div class="form-group row" style="position:relative;">
-                            <div class="col-sm-12 only_pro" style="padding:15px;">
-                                <div class="pro_features" style="align-items: flex-end;justify-content: flex-end;">
+                            <div class="col-sm-12 ays_toggle_target <?php echo $enable_password ? '' : 'display_none'; ?>">
+                                <div class="form-group row" style="position:relative;">
+                                    <div class="col-sm-12 only_pro" style="padding:15px;">
+                                        <div class="pro_features" style="align-items: flex-end;justify-content: flex-end;">
 
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="ays_quiz_loader" for="ays_psw_quiz">
-                                            <input type="radio" class="ays_generate_password_quiz_class" id="ays_psw_quiz" name='ays_psw_quiz' value='general' checked>
-                                            <?php echo __('General', $this->plugin_name) ?>
-                                        </label>
-                                        <label class="ays_quiz_loader" for="ays_generate_password_quiz">
-                                            <input type="radio" class="ays_generate_password_quiz_class">
-                                            <?php echo __('Generated Passwords', $this->plugin_name) ?>
-                                        </label>
-                                    </div>
-
-                                    <div class="col-sm-6 ays_psw_quiz_import_type_box">
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio" checked>
-                                            <?php echo __('Default', $this->plugin_name) ?>
-                                        </label>
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio">
-                                            <?php echo __('File upload', $this->plugin_name) ?>
-                                        </label>
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio">
-                                            <?php echo __('Clipboard', $this->plugin_name) ?>
-                                        </label>
-                                    </div>
-                                </div>
-                                <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-new-upgrade-button-box">
-                                        <div>
-                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
                                         </div>
-                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <label class="ays_quiz_loader" for="ays_psw_quiz">
+                                                    <input type="radio" class="ays_generate_password_quiz_class" id="ays_psw_quiz" name='ays_psw_quiz' value='general' checked>
+                                                    <?php echo __('General', $this->plugin_name) ?>
+                                                </label>
+                                                <label class="ays_quiz_loader" for="ays_generate_password_quiz">
+                                                    <input type="radio" class="ays_generate_password_quiz_class">
+                                                    <?php echo __('Generated Passwords', $this->plugin_name) ?>
+                                                </label>
+                                            </div>
+
+                                            <div class="col-sm-6 ays_psw_quiz_import_type_box">
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio" checked>
+                                                    <?php echo __('Default', $this->plugin_name) ?>
+                                                </label>
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio">
+                                                    <?php echo __('File upload', $this->plugin_name) ?>
+                                                </label>
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio">
+                                                    <?php echo __('Clipboard', $this->plugin_name) ?>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-new-upgrade-button-box">
+                                                <div>
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                                </div>
+                                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="ays_password_quiz">
+                                            <?php echo __('Password',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Password for users who can pass the quiz.',$this->plugin_name)?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="ays_password_quiz" id="ays_password_quiz" class="ays-enable-timer ays-text-input" value="<?php echo $password_quiz; ?>">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="ays_password_quiz">
+                                            <?php echo __('Password input width',$this->plugin_name)?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the password text box width in px. If you leave the box empty the width will automatically be 100%.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="ays_quiz_password_width" id="ays_quiz_password_width" class="ays-enable-timer ays-text-input" value="<?php echo $quiz_password_width; ?>">
+                                        <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label for="ays_quiz_enable_password_visibility">
+                                            <?php echo __('Enable toggle password visibility',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick the option, and it will let you enable and disable password visibility in a password input field.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_password_visibility" name="ays_quiz_enable_password_visibility" value="on" <?php echo $quiz_enable_password_visibility ? 'checked' : ''; ?>/>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row ays-quiz-result-message-vars-parent">
+                                    <div class="col-sm-2">
+                                        <label for="ays_quiz_password_message">
+                                            <?php echo __('Message',$this->plugin_name); ?>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Users will see this message before entering the password for passing the quiz.',$this->plugin_name); ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <?php
+                                        echo $quiz_message_vars_password_for_passing_quiz_html;
+                                        $content = $quiz_password_message;
+                                        $editor_id = 'ays_quiz_password_message';
+                                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_password_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                        wp_editor($content, $editor_id, $settings);
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label for="ays_password_quiz">
-                                    <?php echo __('Password',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Password for users who can pass the quiz.',$this->plugin_name)?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-10">
-                                <input type="text" name="ays_password_quiz" id="ays_password_quiz" class="ays-enable-timer ays-text-input" value="<?php echo $password_quiz; ?>">
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label for="ays_password_quiz">
-                                    <?php echo __('Password input width',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the password text box width in px. If you leave the box empty the width will automatically be 100%.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-10">
-                                <input type="text" name="ays_quiz_password_width" id="ays_quiz_password_width" class="ays-enable-timer ays-text-input" value="<?php echo $quiz_password_width; ?>">
-                                <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label for="ays_quiz_enable_password_visibility">
-                                    <?php echo __('Enable toggle password visibility',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Tick the option, and it will let you enable and disable password visibility in a password input field.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-10">
-                                <input type="checkbox" class="ays-enable-timer1" id="ays_quiz_enable_password_visibility" name="ays_quiz_enable_password_visibility" value="on" <?php echo $quiz_enable_password_visibility ? 'checked' : ''; ?>/>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row ays-quiz-result-message-vars-parent">
-                            <div class="col-sm-2">
-                                <label for="ays_quiz_password_message">
-                                    <?php echo __('Message',$this->plugin_name); ?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Users will see this message before entering the password for passing the quiz.',$this->plugin_name); ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </label>
-                            </div>
-                            <div class="col-sm-10">
-                                <?php
-                                echo $quiz_message_vars_password_for_passing_quiz_html;
-                                $content = $quiz_password_message;
-                                $editor_id = 'ays_quiz_password_message';
-                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_quiz_password_message', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                                wp_editor($content, $editor_id, $settings);
-                                ?>
-                            </div>
-                        </div>
+                        </div><!-- Password for quiz -->
                     </div>
-                </div><!-- Password for quiz -->
-               </div>
-              </div>
+                </div>
             </div>
             
             <div id="tab6" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab6') ? 'ays-quiz-tab-content-active' : ''; ?>">

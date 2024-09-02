@@ -6,7 +6,7 @@ Tags: image gallery, video gallery, lightbox, gallery, wordpress gallery plugin
 Requires at least: 5.8.0
 Tested up to: 6.6
 Requires PHP: 5.3.8
-Stable tag: 3.2.4
+Stable tag: 3.2.4.1
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,11 @@ Yes! SimpLy Gallery Blocks's core features are absolutely free.
 
 == Changelog ==
 
+= 3.2.4.1 =
+* Fixed: issue with album initialization when adding an album to a page
+* Updated: shortcode generation script
+
+
 = 3.2.4 =
 * Updated: Changed the algorithm for calculating responsive height for mobile devices (smartPhone)
 * Tweak: Updated Freemius SDK (2.7.4)
@@ -147,7 +152,7 @@ Yes! SimpLy Gallery Blocks's core features are absolutely free.
 
 = 3.2.1 =
 * Fixed: a problem with the poster editor (impossibility to delete) in Items Manager
-* vvvvv: Twitter icon to X
+* Updated: Twitter icon to X
 * Tweak: Updated Freemius SDK (2.7.2)
 * Fixed: minor bug fixes
 

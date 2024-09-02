@@ -160,7 +160,7 @@ class Advance_Post_Meta {
             $authContent .= '<span class="ultp-post-auth ultp-meta-separator">';
                 $authContent .= '<span class="ultp-auth-heading">';
                     if ($attr["authIconShow"]) {
-                        $authContent .= ultimate_post()->svg_icon(''.$attr["authIconStyle"].'');
+                        $authContent .= ultimate_post()->get_svg_icon(''.$attr["authIconStyle"].'');
                     } 
                     if ($attr["authImgShow"]) {
                         $authContent .= get_avatar( $author_id, 32 );
@@ -186,7 +186,7 @@ class Advance_Post_Meta {
         if ($attr["dateShow"] ) {
             $dateContent .= '<span class="ultp-date-meta ultp-meta-separator">';
                 if ($attr["DateIconShow"] ) {
-                    $dateContent .='<span class="ultp-date-icon">'.ultimate_post()->svg_icon(''.$attr["dateIconStyle"].'').'</span>';
+                    $dateContent .='<span class="ultp-date-icon">'.ultimate_post()->get_svg_icon(''.$attr["dateIconStyle"].'').'</span>';
                 }
                 if ($attr["dateFormat"] == "updated" ) {
                     $dateContent .='<span class="ultp-post-update">'.$dateLabel.'<span class="ultp-post-date__val">'.get_the_modified_date(ultimate_post()->get_format($attr["metaDateFormat"]), $post_id).'</span></span>';
@@ -210,19 +210,19 @@ class Advance_Post_Meta {
                                 $wrapper_content .= $dateContent;
                             }
                             if ($val == "cmtCount" && $attr["cmtCountShow"] && $attr["cmntAlign"] == false) {
-                                $wrapper_content .= $this->renderPostCount("comment", get_post_field('comment_count' , ''), $attr["cmtLabelShow"], $attr["cmtLabel"], $attr["cmtIconShow"],ultimate_post()->svg_icon(''.$attr["cmntIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("comment", get_post_field('comment_count' , ''), $attr["cmtLabelShow"], $attr["cmtLabel"], $attr["cmtIconShow"],ultimate_post()->get_svg_icon(''.$attr["cmntIconStyle"].''), $post_id);
                             }
                             if ($val == "viewCount" && $attr["viewCountShow"] && $attr["viewAlign"] == false) {
-                                $wrapper_content .= $this->renderPostCount("view", get_post_meta( $post_id, '__post_views_count', true ), $attr["viewLabelShow"], $attr["viewLabel"], $attr["viewIconShow"], ultimate_post()->svg_icon(''.$attr["viewIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("view", get_post_meta( $post_id, '__post_views_count', true ), $attr["viewLabelShow"], $attr["viewLabel"], $attr["viewIconShow"], ultimate_post()->get_svg_icon(''.$attr["viewIconStyle"].''), $post_id);
                             }
                             if ($val == "readTime" && $attr["readTimeShow"] && $attr["readAlign"] == false) {
-                                $wrapper_content .= $this->renderPostCount("readTime", 12, $attr["readTimePrefix"] , $attr["readTimeText"], $attr["readTimeIcon"], ultimate_post()->svg_icon(''.$attr["readIconStyle"].''), $post_id );
+                                $wrapper_content .= $this->renderPostCount("readTime", 12, $attr["readTimePrefix"] , $attr["readTimeText"], $attr["readTimeIcon"], ultimate_post()->get_svg_icon(''.$attr["readIconStyle"].''), $post_id );
                             }
                             if ($val == "cat" && $attr["catShow"] && $attr["catAlign"] == false) {
-                                $wrapper_content .= $this->renderPostCount("cat", get_the_category(), $attr["catLabelShow"], $attr["catLabel"], $attr["catIconShow"], ultimate_post()->svg_icon(''.$attr["catIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("cat", get_the_category(), $attr["catLabelShow"], $attr["catLabel"], $attr["catIconShow"], ultimate_post()->get_svg_icon(''.$attr["catIconStyle"].''), $post_id);
                             }
                             if ($val == "tag" && $attr["tagShow"] && $attr["tagAlign"] == false) {
-                                $wrapper_content .= $this->renderPostCount("tag",get_the_tags(), $attr["tagLabelShow"], $attr["tagLabel"], $attr["tagIconShow"], ultimate_post()->svg_icon(''.$attr["tagIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("tag",get_the_tags(), $attr["tagLabelShow"], $attr["tagLabel"], $attr["tagIconShow"], ultimate_post()->get_svg_icon(''.$attr["tagIconStyle"].''), $post_id);
                             }
                         }
                     $wrapper_content .= '</div>';
@@ -235,19 +235,19 @@ class Advance_Post_Meta {
                                 $wrapper_content .= $dateContent;
                             }
                             if ($content == "cmtCount" && $attr["cmtCountShow"] && $attr["cmntAlign"]) {
-                                $wrapper_content .= $this->renderPostCount("comment", get_post_field('comment_count' , ''), $attr["cmtLabelShow"], $attr["cmtLabel"], $attr["cmtIconShow"], ultimate_post()->svg_icon(''.$attr["cmntIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("comment", get_post_field('comment_count' , ''), $attr["cmtLabelShow"], $attr["cmtLabel"], $attr["cmtIconShow"], ultimate_post()->get_svg_icon(''.$attr["cmntIconStyle"].''), $post_id);
                             }
                             if ($content == "viewCount" && $attr["viewCountShow"] && $attr["viewAlign"]) {
-                                $wrapper_content .= $this->renderPostCount("view", get_post_meta( get_the_ID(), '__post_views_count', true ), $attr["viewLabelShow"], $attr["viewLabel"], $attr["viewIconShow"], ultimate_post()->svg_icon(''.$attr["viewIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("view", get_post_meta( get_the_ID(), '__post_views_count', true ), $attr["viewLabelShow"], $attr["viewLabel"], $attr["viewIconShow"], ultimate_post()->get_svg_icon(''.$attr["viewIconStyle"].''), $post_id);
                             }
                             if ($content == "readTime" && $attr["readTimeShow"] && $attr["readAlign"]) {
-                                $wrapper_content .= $this->renderPostCount("readTime", 12, $attr["readTimePrefix"], $attr["readTimeText"], $attr["readTimeIcon"], ultimate_post()->svg_icon(''.$attr["readIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("readTime", 12, $attr["readTimePrefix"], $attr["readTimeText"], $attr["readTimeIcon"], ultimate_post()->get_svg_icon(''.$attr["readIconStyle"].''), $post_id);
                             }
                             if ($content == "cat" && $attr["catShow"] && $attr["catAlign"]) {
-                                $wrapper_content .= $this->renderPostCount("cat", get_the_category(), $attr["catLabelShow"], $attr["catLabel"], $attr["catIconShow"], ultimate_post()->svg_icon(''.$attr["catIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("cat", get_the_category(), $attr["catLabelShow"], $attr["catLabel"], $attr["catIconShow"], ultimate_post()->get_svg_icon(''.$attr["catIconStyle"].''), $post_id);
                             }
                             if ($content == "tag" && $attr["tagShow"] && $attr["tagAlign"]) {
-                                $wrapper_content .= $this->renderPostCount("tag",get_the_tags(), $attr["tagLabelShow"], $attr["tagLabel"], $attr["tagIconShow"], ultimate_post()->svg_icon(''.$attr["tagIconStyle"].''), $post_id);
+                                $wrapper_content .= $this->renderPostCount("tag",get_the_tags(), $attr["tagLabelShow"], $attr["tagLabel"], $attr["tagIconShow"], ultimate_post()->get_svg_icon(''.$attr["tagIconStyle"].''), $post_id);
                             }
                         }
                     $wrapper_content .= '</div>'; 

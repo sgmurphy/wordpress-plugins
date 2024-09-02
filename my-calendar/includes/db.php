@@ -91,7 +91,20 @@ function my_calendar_locations_table( $site = false ) {
  */
 function my_calendar_select_table( $table = 'my_calendar_events', $site = false ) {
 	global $wpdb;
-	$local = $wpdb->prefix . $table;
+
+	/**
+	 * Filter the database prefix. Useful when accessing a remote database with a different prefix.
+	 *
+	 * @hook mc_db_prefix
+	 *
+	 * @param {string}          $wpdb->prefix Local DB prefix.
+	 * @param {string}          $table Database table requested.
+	 * @param {int|string|bool} $site A site ID, the string 'global' for the main site, or false for defaults.
+	 *
+	 * @return {string}
+	 */
+	$prefix = apply_filters( 'mc_db_prefix', $wpdb->prefix, $table, $site );
+	$local  = $prefix . $table;
 
 	if ( is_multisite() ) {
 		$option = (int) get_site_option( 'mc_multisite' );
@@ -128,7 +141,7 @@ function my_calendar_select_table( $table = 'my_calendar_events', $site = false 
 }
 
 /**
- * Determine whether we're accessing a remote database.
+ * Get the database connection, checking whether a remote DB is in use.
  *
  * @return object WP DB object
  */

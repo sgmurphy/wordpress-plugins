@@ -6,13 +6,13 @@ defined('ABSPATH') || exit;
 class Custom_Font {
     public function __construct() {
         $this->custom_font_post_type_callback();
-        add_action('add_meta_boxes', array($this, 'init_metabox_callback'));
-        add_action('save_post', array($this, 'metabox_save_data'));
-        add_filter('manage_ultp_custom_font_posts_columns', array($this, 'templates_table_head'));
-        add_action('manage_ultp_custom_font_posts_custom_column', array($this, 'templates_table_content'), 10, 2);
-        add_filter('upload_mimes', array($this, 'add_file_types_to_uploads'));
-        add_filter('wp_check_filetype_and_ext', array($this, 'font_correct_filetypes'), 10, 5);
-        add_filter('enter_title_here', array($this, 'update_custom_font_title'), 10, 2);
+        add_action( 'add_meta_boxes', array($this, 'init_metabox_callback') );
+        add_action( 'save_post', array($this, 'metabox_save_data') );
+        add_filter( 'manage_ultp_custom_font_posts_columns', array($this, 'templates_table_head') );
+        add_action( 'manage_ultp_custom_font_posts_custom_column', array($this, 'templates_table_content'), 10, 2 );
+        add_filter( 'upload_mimes', array($this, 'add_file_types_to_uploads') );
+        add_filter( 'wp_check_filetype_and_ext', array($this, 'font_correct_filetypes'), 10, 5 );
+        add_filter( 'enter_title_here', array($this, 'update_custom_font_title'), 10, 2 );
     }
 
     public function update_custom_font_title( $title, $post ) {
@@ -38,17 +38,19 @@ class Custom_Font {
 
 
     public function add_file_types_to_uploads($file_types) {
-        if ( !current_user_can('manage_options') ) {
+        if ( "ultp_custom_font" == get_post_type() || current_user_can('manage_options') ) {
+            $new_filetypes = array();
+            $new_filetypes['woff'] = 'font/woff';
+            $new_filetypes['woff2'] = 'font/woff2';
+            $new_filetypes['ttf'] = 'font/ttf';
+            $new_filetypes['svg'] = 'image/svg+xml';
+            $new_filetypes['eot'] = 'font/ttf';
+            $file_types = array_merge($file_types, $new_filetypes );
+            return $file_types;
+        } else {
             return $file_types;
         }
-        $new_filetypes = array();
-        $new_filetypes['woff'] = 'font/woff';
-        $new_filetypes['woff2'] = 'font/woff2';
-        $new_filetypes['ttf'] = 'font/ttf';
-        $new_filetypes['svg'] = 'image/svg+xml';
-        $new_filetypes['eot'] = 'font/ttf';
-        $file_types = array_merge($file_types, $new_filetypes );
-        return $file_types;
+       
     }
 
 

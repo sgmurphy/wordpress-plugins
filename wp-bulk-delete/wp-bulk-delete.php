@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Delete
  * Plugin URI:        http://xylusthemes.com/plugins/wp-bulk-delete/
  * Description:       Bulk delete and cleanup anything like posts, comments, users, meta fields, taxonomy terms. with powerful filter options.
- * Version:           1.2.9
+ * Version:           1.3.0
  * Author:            Xylus Themes
  * Author URI:        http://xylusthemes.com
  * License:           GPL-2.0+
@@ -72,14 +72,14 @@ class WP_Bulk_Delete{
 	 *
 	 * @since 1.0.0
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wp-bulk-delete' ), '1.2.9' ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wp-bulk-delete' ), '1.3.0' ); }
 
 	/**
 	 * A dummy magic method to prevent WP_Bulk_Delete from being unserialized.
 	 *
 	 * @since 1.0.0
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wp-bulk-delete' ), '1.2.9' ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'wp-bulk-delete' ), '1.3.0' ); }
 
 
 	/**
@@ -93,7 +93,7 @@ class WP_Bulk_Delete{
 
 		// Plugin version.
 		if( ! defined( 'WPBD_VERSION' ) ){
-			define( 'WPBD_VERSION', '1.2.9' );
+			define( 'WPBD_VERSION', '1.3.0' );
 		}
 
 		// Plugin folder Path.
@@ -135,14 +135,11 @@ class WP_Bulk_Delete{
 		require_once WPBD_PLUGIN_DIR . 'includes/delele-terms-form-functions.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/class-wpbd-plugin-deactivation.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/admin-pages.php';
-		require_once WPBD_PLUGIN_DIR . 'includes/admin/admin-sidebar.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/posts/display-delete-posts.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/comments/display-delete-comments.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/users/display-delete-users.php';
-		require_once WPBD_PLUGIN_DIR . 'includes/admin/meta/display-delete-meta.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/terms/display-delete-terms.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/cleanup/cleanup-form.php';
-		require_once WPBD_PLUGIN_DIR . 'includes/admin/cleanup/cleanup-page.php';
 		require_once WPBD_PLUGIN_DIR . 'includes/admin/support-page.php';
 	}
 

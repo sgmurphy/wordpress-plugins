@@ -38,18 +38,20 @@
                             <div class="clearfix"></div>
                             <br>
                             <div class="b2s-key-area">
-                                <div id="b2s-license-user-area" class="col-md-4 col-sm-12 col-xs-12">
-                                    <select id="b2s-license-user-select" class="form-control" data-placeholder="<?php esc_html_e('Select a user', 'blog2social'); ?>">
-                                        <?php echo wp_kses(B2S_Tools::searchUser(wp_get_current_user()->display_name, B2S_PLUGIN_BLOG_USER_ID), array(
-                                            'option' => array(
-                                                'value' => array(),
-                                                'selected' => array()
-                                            )
-                                        )); ?>
-                                    </select>
+                                <?php if (defined('B2S_PLUGIN_USER_VERSION') && (int) B2S_PLUGIN_USER_VERSION > 2) { ?>
+                                    <div id="b2s-license-user-area" class="col-md-4 col-sm-12 col-xs-12">
+                                        <select id="b2s-license-user-select" class="form-control" data-placeholder="<?php esc_html_e('Select a user', 'blog2social'); ?>">
+                                            <?php echo wp_kses(B2S_Tools::searchUser(wp_get_current_user()->display_name, B2S_PLUGIN_BLOG_USER_ID), array(
+                                                'option' => array(
+                                                    'value' => array(),
+                                                    'selected' => array()
+                                                )
+                                            )); ?>
+                                        </select>
+                                    </div>
+                                    <?php } ?>
                                     <input type="hidden" id="b2s-license-user" value="<?php echo esc_attr(get_current_user_id()); ?>">
                                     <input type="hidden" id="b2s-no-user-found" value="<?php esc_attr_e('No User found', 'blog2social'); ?>">
-                                </div>
                                 <div class="input-group col-md-8 col-sm-12 col-xs-12">
                                     <input class="form-control input-sm b2s-key-area-input" placeholder="<?php esc_html_e('Enter license key and change your version', 'blog2social'); ?>" value="" type="text">
                                     <span class="input-group-btn">

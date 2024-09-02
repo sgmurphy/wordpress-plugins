@@ -491,7 +491,7 @@ echo esc_html(__($categoryName, 'trustindex-plugin'));
 <?php foreach ($pluginManager::$widget_templates['templates'] as $id => $template): ?>
 <?php
 $className = 'ti-full-width';
-if (in_array($template['type'], [ 'badge', 'button', 'floating', 'popup', 'sidebar' ])) {
+if (in_array($template['type'], [ 'badge', 'button', 'floating', 'popup', 'sidebar', 'top-rated-badge' ])) {
 $className = 'ti-half-width';
 }
 $set = 'light-background';
@@ -545,7 +545,7 @@ if (!isset($template['is-active']) || $template['is-active']):
 <?php endif; ?>
 <?php
 $className = 'ti-full-width';
-if (in_array($pluginManager::$widget_templates['templates'][ $styleId ]['type'], [ 'badge', 'button', 'floating', 'popup', 'sidebar' ])) {
+if (in_array($pluginManager::$widget_templates['templates'][ $styleId ]['type'], [ 'badge', 'button', 'floating', 'popup', 'sidebar', 'top-rated-badge' ])) {
 $className = 'ti-half-width';
 }
 ?>
@@ -573,7 +573,7 @@ $className = 'ti-half-width';
 <?php elseif ($stepCurrent === 4): ?>
 <?php
 $widgetType = $pluginManager::$widget_templates['templates'][$styleId]['type'];
-$widgetHasReviews = !in_array($widgetType, ['button', 'badge']) || in_array($styleId, [23, 30, 32]);
+$widgetHasReviews = !in_array($widgetType, ['button', 'badge', 'top-rated-badge']) || in_array($styleId, [23, 30, 32]);
 ?>
 <h1 class="ti-header-title"><?php echo __('Set up widget', 'trustindex-plugin'); ?></h1>
 <?php if (!count($reviews) && !$isReviewDownloadInProgress): ?>

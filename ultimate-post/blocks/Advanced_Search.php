@@ -121,7 +121,7 @@ class Advanced_Search {
                                     }
                                     $popup_content .= $this->renderSearchForm($attr['searchFormStyle'], $attr['searchBtnText'], $attr['searchBtnIcon'], $attr);
                                 $popup_content .= '</div>';
-                                $popup_content .= '<div class="ultp-popupclose-icon">'.ultimate_post()->svg_icon('close_line').'</div>';
+                                $popup_content .= '<div class="ultp-popupclose-icon">'.ultimate_post()->get_svg_icon('close_line').'</div>';
                             $popup_content .= '</div>';
                             if($attr['popupAnimation'] == 'popup'){
                                 $content .= $popup_content;
@@ -140,7 +140,7 @@ class Advanced_Search {
         $textShow = $textEnable && $style != "popup-icon1";
         $result = '';
         $result .= '<div class=" '.($style ? 'ultp-searchpopup-icon ultp-searchbtn-'.$style : 'ultp-search-button').'">';
-        $result .= ($style || $iconEnable) ? ultimate_post()->svg_icon('search_line') : '';
+        $result .= ($style || $iconEnable) ? ultimate_post()->get_svg_icon('search_line') : '';
         $result .= $textShow ? '<span class="ultp-search-button__text"> '.$searchButtonText.' </span>' : '';
         $result .= '</div>';
         return $result;
@@ -150,7 +150,7 @@ class Advanced_Search {
         $dt = is_search() ? get_search_query(true) : '';
         $searchForm = '';
         $searchForm .= '<div class="ultp-searchform-content ultp-searchform-'.$searchFormStyle.'">';
-        $searchForm .= '<div class="ultp-search-inputwrap"> <input type="text" value="'.$dt.'" class="ultp-searchres-input"  placeholder="'.$attr['searchInputPlaceholder'].'"/> <span class="ultp-search-clear" data-blockid="'.$attr["blockId"].'">'.ultimate_post()->svg_icon('close_line').'</span> </div>';
+        $searchForm .= '<div class="ultp-search-inputwrap"> <input type="text" value="'.$dt.'" class="ultp-searchres-input"  placeholder="'.$attr['searchInputPlaceholder'].'"/> <span class="ultp-search-clear" data-blockid="'.$attr["blockId"].'">'.ultimate_post()->get_svg_icon('close_line').'</span> </div>';
             $searchForm .= $this->renderSearchButton(false, $attr['searchBtnText'], $attr['searchBtnIcon'] ,$attr['searchButtonText']);
         $searchForm .= '</div>';
         return $searchForm;

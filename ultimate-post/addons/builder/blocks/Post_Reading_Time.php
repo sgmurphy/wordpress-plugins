@@ -62,7 +62,7 @@ class Post_Reading_Time {
             $wrapper_before .= '<div class="ultp-block-wrapper">';
                 $content .= '<span class="ultp-read-count">';
                     if ($attr["readIconShow"] && ($attr["readIconStyle"] != '')) {
-                        $content .= ultimate_post()->svg_icon($attr["readIconStyle"]); 
+                        $content .= ultimate_post()->get_svg_icon($attr["readIconStyle"]); 
                     }
                     $content .= '<div>';
                         $content .= ceil(mb_strlen(wp_strip_all_tags(get_the_content( null,  false, get_the_ID() )))/1200);

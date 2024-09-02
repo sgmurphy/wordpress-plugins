@@ -19,6 +19,13 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 		use YITH_WCAS_Trait_Singleton;
 
 		/**
+		 * Holds the registered blocks that have YITH Search blocks as their parents.
+		 *
+		 * @var array List of registered blocks.
+		 */
+		private $registered_blocks_with_yith_search_parents;
+
+		/**
 		 * Constructor.
 		 */
 		private function __construct() {
@@ -165,24 +172,64 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 		}
 
 		/**
-		 * Add data-attributes to blocks when rendered if the block is under the woocommerce/ namespace.
+		 * Get registered blocks that have YITH search blocks as their parents. Adds the value to the
+		 * `registered_blocks_with_yith_search_parents` cache if `init` has been fired.
 		 *
-		 * @param string $content Block content.
-		 * @param array  $block Parsed block data.
-		 *
-		 * @return string
+		 * @return array Registered blocks with YITH search blocks as parents.
 		 */
-		public function add_data_attributes( $content, $block ) {
-			$block_name      = $block['blockName'];
+		public function get_registered_blocks_with_yith_search_parent() {
+			// If init has run and the cache is already set, return it.
+			if ( did_action( 'init' ) && ! empty( $this->registered_blocks_with_yith_search_parents ) ) {
+				return $this->registered_blocks_with_yith_search_parents;
+			}
+
+			$registered_blocks = \WP_Block_Type_Registry::get_instance()->get_all_registered();
+
+			if ( ! is_array( $registered_blocks ) ) {
+				return array();
+			}
+
+			$this->registered_blocks_with_yith_search_parents = array_filter(
+				$registered_blocks,
+				function ( $block ) {
+					if ( empty( $block->parent ) ) {
+						return false;
+					}
+					if ( ! is_array( $block->parent ) ) {
+						$block->parent = array( $block->parent );
+					}
+					$yith_search_blocks = array_filter(
+						$block->parent,
+						function ( $parent_block_name ) {
+							return 'yith' === strtok( $parent_block_name, '/' );
+						}
+					);
+					return ! empty( $yith_search_blocks );
+				}
+			);
+			return $this->registered_blocks_with_yith_search_parents;
+		}
+
+		/**
+		 * Check if a block should have data attributes appended on render. If it's in an allowed namespace, or the block
+		 * has explicitly been added to the allowed block list, or if one of the block's parents is in the WooCommerce
+		 * namespace it can have data attributes.
+		 *
+		 * @param string $block_name Name of the block to check.
+		 *
+		 * @return boolean
+		 */
+		public function block_should_have_data_attributes( $block_name ) {
 			$block_namespace = strtok( $block_name ?? '', '/' );
+
 			/**
 			 * Filters the list of allowed block namespaces.
 			 *
 			 * This hook defines which block namespaces should have block name and attribute `data-` attributes appended on render.
 			 *
-			 * @param array $allowed_namespaces List of namespaces.
-			 *
 			 * @since 5.9.0
+			 *
+			 * @param array $allowed_namespaces List of namespaces.
 			 */
 			$allowed_namespaces = array_merge( array( 'yith' ), (array) apply_filters( '__experimental_yith_ajax_search_blocks_add_data_attributes_to_namespace', array() ) );
 
@@ -191,24 +238,50 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 			 *
 			 * This hook defines which block names should have block name and attribute data- attributes appended on render.
 			 *
-			 * @param array $allowed_namespaces List of namespaces.
+			 * @since 2.0.0
 			 *
-			 * @since 5.9.0
+			 * @param array $allowed_namespaces List of namespaces.
 			 */
 			$allowed_blocks = (array) apply_filters( '__experimental_yith_ajax_search_blocks_blocks_add_data_attributes_to_block', array() );
 
-			if ( ! in_array( $block_namespace, $allowed_namespaces, true ) && ! in_array( $block_name, $allowed_blocks, true ) ) {
+			$blocks_with_yith_parents   = $this->get_registered_blocks_with_yith_search_parent();
+			$block_has_yith_parent      = in_array( $block_name, array_keys( $blocks_with_yith_parents ), true );
+			$in_allowed_namespace_list = in_array( $block_namespace, $allowed_namespaces, true );
+			$in_allowed_block_list     = in_array( $block_name, $allowed_blocks, true );
+
+			return $block_has_yith_parent || $in_allowed_block_list || $in_allowed_namespace_list;
+		}
+
+		/**
+		 * Add data-attributes to blocks when rendered if the block is under the woocommerce/ namespace.
+		 *
+		 * @param string $content Block content.
+		 * @param array  $block Parsed block data.
+		 *
+		 * @return string
+		 */
+		public function add_data_attributes( $content, $block ) {
+			$content = trim( $content );
+
+			if ( ! $this->block_should_have_data_attributes( $block['blockName'] ) ) {
 				return $content;
 			}
 
-			$attributes              = (array) apply_filters( 'ywcas_block_data_attributes', $block['attrs'], $block );
-			$exclude_attributes      = array( 'className', 'align' );
-			$escaped_data_attributes = array(
-				'data-block-name="' . esc_attr( $block['blockName'] ) . '"',
-			);
+			$attributes         = (array) $block['attrs'];
+			$exclude_attributes = array( 'className', 'align' );
 
-			foreach ( $attributes as $key => $value ) {
-				if ( in_array( $key, $exclude_attributes, true ) ) {
+			$processor = new \WP_HTML_Tag_Processor( $content );
+
+			if (
+				false === $processor->next_token() ||
+				'DIV' !== $processor->get_token_name() ||
+				$processor->is_tag_closer()
+			) {
+				return $content;
+			}
+
+			foreach ( $attributes as $key  => $value ) {
+				if ( ! is_string( $key ) || in_array( $key, $exclude_attributes, true ) ) {
 					continue;
 				}
 				if ( is_bool( $value ) ) {
@@ -217,10 +290,16 @@ if ( ! class_exists( 'YITH_WCAS_Gutenberg_Blocks_Controller' ) ) {
 				if ( ! is_scalar( $value ) ) {
 					$value = wp_json_encode( $value );
 				}
-				$escaped_data_attributes[] = 'data-' . esc_attr( strtolower( preg_replace( '/(?<!\ )[A-Z]/', '-$0', $key ) ) ) . '="' . esc_attr( $value ) . '"';
+
+				// For output consistency, we convert camelCase to kebab-case and output in lowercase.
+				$key = strtolower( preg_replace( '/(?<!^|\ )[A-Z]/', '-$0', $key ) );
+
+				$processor->set_attribute( "data-{$key}", $value );
 			}
 
-			return preg_replace( '/^<div /', '<div ' . implode( ' ', $escaped_data_attributes ) . ' ', trim( $content ) );
+			// Set this last to prevent user-input from overriding it.
+			$processor->set_attribute( 'data-block-name', $block['blockName'] );
+			return $processor->get_updated_html();
 		}
 
 		/**

@@ -955,7 +955,7 @@ class SSA_Revision_Model extends SSA_Db_Model {
 			case 'has_max_capacity_changed':
 				return '{{ user }} switched the maximum capacity option ';
 			case 'reminder_sent':
-				return 'The notification was sent to remind the {{ recipient_type }} about the appointment';
+				return 'The notification was sent by {{ notification_type }} to remind the {{ recipient_type }} about the appointment';
 			case 'reminder_not_sent':
 				return 'The notification by {{ notification_type }} to remind the {{ recipient_type }} about the appointment could not be sent';
 			default:
@@ -989,7 +989,7 @@ class SSA_Revision_Model extends SSA_Db_Model {
 	}
 
 	public function insert_revision_on_notification_sent( $appointment_id, $response, $action_noun, $action_verb, $recipient_type,$notification_type,$data_after, $data_before) {
-		if ($response === true){
+		if ($response === true || (is_array($response) && !in_array(false, $response))){
 			$res = 'success';
 			if($action_noun == 'appointment_start'){
 				$action = 'reminder_sent';

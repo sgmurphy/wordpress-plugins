@@ -72,7 +72,7 @@ class Post_Category {
                 $wrapper_before .= '<div class="ultp-block-wrapper">';
                     $content .= '<div class="ultp-builder-category">';
                         if($attr["catIconShow"]){
-                            $content .= ultimate_post()->svg_icon(''.$attr["catIconStyle"].'');
+                            $content .= ultimate_post()->get_svg_icon(''.$attr["catIconStyle"].'');
                         }
                         if ($attr['catLabelShow'] ) { 
                             $content .= '<div class="cat-builder-label">'.$attr['catLabel'].'</div>';

@@ -31,7 +31,7 @@ FLBuilder::register_module( 'PostXBeaverTemplate', array(
 					'edit_template' => array(
 						'type'    => 'raw',
 						'label'   =>  __( 'Edit Template', 'ultimate-post' ),
-						'content' => '<a href="'.admin_url('edit.php?post_type=ultp_templates').'" style="color:#fff; background-color:#0c0d0e; padding:10px 20px; border-radius:4px; display:inline-block;" target="_blank"><span style="color:#fff; font-size:12px; width:12px; height:12px;" class="dashicons dashicons-edit"></span> '.__('Edit This Template', 'ultimate-post').'</a>'
+						'content' => '<a href="'.admin_url('admin.php?page=ultp-settings#saved-templates').'" style="color:#fff; background-color:#0c0d0e; padding:10px 20px; border-radius:4px; display:inline-block;" target="_blank"><span style="color:#fff; font-size:12px; width:12px; height:12px;" class="dashicons dashicons-edit"></span> '.__('Edit This Template', 'ultimate-post').'</a>'
 					),
 					'add_new_template' => array(
 						'type'    => 'raw',

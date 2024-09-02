@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Ajax Search Premium\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "ajax-search\n"
-"POT-Creation-Date: 2024-08-14T08:20:25+00:00\n"
+"POT-Creation-Date: 2024-09-02T09:14:13+00:00\n"
 "PO-Revision-Date: 2020-03-20 08:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: Yithemes <plugins@yithemes.com>\n"
@@ -310,61 +310,61 @@ msgid ""
 "2024. After that date, it will be automatically updated to the new form."
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:293
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:372
 msgid "Add to cart"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:294
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:373
 msgctxt "add to cart label for not purchasable products"
 msgid "Read more"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:295
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:374
 #, fuzzy
 msgctxt "add to cart label for variable products"
 msgid "Select options"
 msgstr "Seleziona una data"
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:296
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:375
 msgid "In stock"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:297
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:376
 #: includes/class-yith-wcas-settings.php:281
 #: includes/legacy/class-yith-wcas-legacy.php:584
 msgid "Out of stock"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:298
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:377
 msgid "SKU: "
 msgstr ""
 
 #. translators: %1$s is the amount of result %2$s is the query searched.
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:305
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:384
 #, fuzzy
 msgctxt "1 result for \"shoes\""
 msgid "%1$s result for \"%2$s\""
 msgstr "Nessun risultato"
 
 #. translators: %1$s is the amount of result %2$s is the query searched.
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:307
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:386
 #, fuzzy
 msgctxt "3 results for \"shoes\""
 msgid "%1$s results for \"%2$s\""
 msgstr "Nessun risultato"
 
 #. translators: %s is the query searched.
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:309
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:388
 #, fuzzy
 msgctxt "Results for \"shoes\""
 msgid "Results for \"%s\""
 msgstr "Nessun risultato"
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:310
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:389
 msgid "Delete all"
 msgstr ""
 
-#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:311
+#: includes/builders/gutenberg/class-yith-wcas-gutenberg-blocks-controller.php:390
 msgctxt "T-shirts in Woman Clothes"
 msgid "in"
 msgstr ""

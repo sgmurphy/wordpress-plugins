@@ -91,6 +91,18 @@ class SSA_Templates_Api extends WP_REST_Controller {
 	 */
 	public function validate_twig_template( WP_REST_Request $request ) {
 		$template_string = $request->get_param( 'message' );
+		
+		// if string includes any js or event handlers, return an error
+		if (  preg_match( '/ on\w+=.*\(/', $template_string ) || preg_match( '/<script\b[^>]*>(.*?)<\/script>/is', $template_string ) ) {
+			return new WP_REST_Response(
+				array(
+					'success' => false,
+					'error'   => 'JavaScript is not allowed in Twig templates.',
+				),
+				200
+			);
+		}
+		
 		$template_string = $this->plugin->templates->cleanup_variables_in_string( $template_string );
 		$template_string = $this->plugin->notifications->prepare_notification_template( $template_string );
 

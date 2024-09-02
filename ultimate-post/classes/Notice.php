@@ -19,7 +19,6 @@ class Notice {
 	 * @since v.1.0.0
 	 */
     private $notice_version = 'v416';
-    private $valid_notices = array();
 
     public function __construct() {
         add_filter( 'ultp_dashboard_notice', array( $this, 'dashboard_notice_callback' ) );
@@ -77,7 +76,10 @@ class Notice {
 	public function set_dismiss_notice_callback() {
         $valid_notices = $this->notice_data();
         
-        if( !( isset($_GET['ultp_dashboard_nonce']) && wp_verify_nonce(sanitize_key(wp_unslash($_GET['ultp_dashboard_nonce'])), 'ultp-dashboardnonce') )) {
+        if( 
+            !( isset($_GET['ultp_dashboard_nonce'])  && 
+            wp_verify_nonce(sanitize_key(wp_unslash($_GET['ultp_dashboard_nonce'])), 'ultp-dashboardnonce') )
+        ) {
             return;
         }
         if ( count( $valid_notices ) > 0 ) {
@@ -156,7 +158,6 @@ class Notice {
                 }
             }
         }
-		
 	}
 
     /**
@@ -472,45 +473,4 @@ class Notice {
 		</style>
 		<?php
     }
-
-    public function set_notice($key='',$value='',$expiration='') {
-        if($key) {
-            $option_name = 'ultp_notice';
-            $notice_data = ultimate_post()->get_option_without_cache($option_name,array());
-            if(!isset($notice_data) || !is_array($notice_data)) {
-                $notice_data = array();
-            } 
-    
-            $notice_data[$key] = $value;
-    
-            if($expiration) {
-                $expire_notice_key = 'timeout_'.$key;
-                $notice_data[$expire_notice_key] = time() + $expiration;
-            }
-            update_option( $option_name, $notice_data );
-        }
-    }
-
-    public function get_notice($key='') {
-        if($key) {
-            $option_name = 'ultp_notice';
-            $notice_data = ultimate_post()->get_option_without_cache($option_name,array());
-            if(!isset($notice_data) || !is_array($notice_data)) {
-                return false;
-            }
-
-            if(isset($notice_data[$key])) {
-                $expire_notice_key = 'timeout_'.$key;
-                if(isset($notice_data[$expire_notice_key]) && $notice_data[$expire_notice_key]< time()  ) {
-                    unset($notice_data[$key]);
-                    unset($notice_data[$expire_notice_key]);
-                    update_option( $option_name, $notice_data);
-                    return false;
-                }
-                return $notice_data[$key];
-            }
-        }
-        return false;
-    }
-    
 }

@@ -28,7 +28,7 @@ if ( wp_is_block_theme() ) {
 
 do_action( 'ultp_before_content' );
 
-$page_id = ultimate_post()->conditions('return');
+$page_id = ultimate_post()->builder_check_conditions('return');
 
 $width = $page_id ? ( get_post_meta($page_id, '__container_width', true) ? get_post_meta($page_id, '__container_width', true) : '1140' ) : '1140';
 $sidebar = $page_id ? get_post_meta($page_id, '__builder_sidebar', true) : '';
@@ -56,7 +56,7 @@ echo '<div class="ultp-builder-container'.(esc_html($has_widget?' ultp-widget-'.
                 $builder_type = 'elementor';
             }
             /* Content Filtering for elementor & divi */
-            ultimate_post()->content($page_id, $builder_type);
+            ultimate_post()->get_post_content($page_id, $builder_type);
         } else {
             the_content();
         }

@@ -72,7 +72,7 @@ class Post_Comment_Count {
                 $wrapper_before .= '<div class="ultp-block-wrapper">';
                     $content .= '<span class="ultp-comment-count">';
                         if ($attr["commentIconShow"] && ($attr["commentIconStyle"] != '')) {
-                            $content .= ultimate_post()->svg_icon($attr["commentIconStyle"]); 
+                            $content .= ultimate_post()->get_svg_icon($attr["commentIconStyle"]); 
                         }
                         $content .= '<span>'.($comment_count ? $comment_count : 0).'</span>';
                         if ($attr["commentLabel"]) {

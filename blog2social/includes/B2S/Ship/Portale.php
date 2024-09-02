@@ -7,6 +7,8 @@ class B2S_Ship_Portale {
     private $allowPage;
     private $allowGroup;
     private $oAuthPortal;
+    private $networkTypeName;
+    private $networkTypeNameIndividual;
     private $isVideoNetwork;
 
     public function __construct() {

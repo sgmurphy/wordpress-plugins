@@ -827,7 +827,7 @@ function pgc_sgb_custom_columns_data($column, $post_id)
 			break;
 		case 'shortcode':
 			echo '<code class="pgc-sgb-onclick-selection" role="button" tabIndex="0" aria-hidden="true">';
-			echo '[pgc_simply_gallery id="' . get_the_ID() . '"]';
+			echo '[pgc_simply_gallery id="' . $post_id . '"]';
 			echo '</code>';
 			break;
 	}

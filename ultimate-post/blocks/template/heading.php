@@ -37,7 +37,7 @@ if ( $attr['headingShow'] ) {
 		$wraper_before .= '<' . $attr['headingTag'] . ' class="ultp-heading-inner"><span>' . $finalHeadingText . '</span></' . $attr['headingTag'] . '>';
 	}
 	if ( $attr['headingStyle'] == 'style11' && $finalHeadingURL && $attr['headingBtnText'] ) {
-		$wraper_before .= '<a class="ultp-heading-btn" href="' . $finalHeadingURL . '" ' . $new_tab . '>' . $attr['headingBtnText'] . ultimate_post()->svg_icon( 'rightAngle2' ) . '</a>';
+		$wraper_before .= '<a class="ultp-heading-btn" href="' . $finalHeadingURL . '" ' . $new_tab . '>' . $attr['headingBtnText'] . ultimate_post()->get_svg_icon( 'rightAngle2' ) . '</a>';
 	}
 	if ( $attr['subHeadingShow'] ) {
 		$wraper_before .= '<div class="ultp-sub-heading"><div class="ultp-sub-heading-inner">' . $finalSubHeadingText . '</div></div>';
