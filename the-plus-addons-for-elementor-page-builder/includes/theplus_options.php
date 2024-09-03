@@ -1547,7 +1547,7 @@ class L_Theplus_Elementor_Plugin_Options
 
 		foreach ( $option_tabs as $index => $option_tab ) {
 			if ( $index == 0 ) {
-				$this->options_pages[] = add_menu_page( $this->title, $this->title, 'manage_options', $option_tab['id'], array( $this, 'admin_page_display' ), 'dashicons-plus-settings', 66 );
+				$this->options_pages[] = add_menu_page( $this->title, $this->title, 'manage_options', $option_tab['id'], array( $this, 'admin_page_display' ), 'dashicons-plus-settings',  67.1 );
 				
 				add_submenu_page( $option_tabs[0]['id'], $this->title, $option_tab['title'], 'manage_options', $option_tab['id'], array( $this, 'admin_page_display' ) );
 			} elseif ( isset( $option_tabs ) && $option_tab['id'] != 'theplus_white_label' && $option_tab['id'] != 'theplus_purchase_code' ) {

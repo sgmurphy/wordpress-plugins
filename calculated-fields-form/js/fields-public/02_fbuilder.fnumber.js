@@ -20,6 +20,7 @@
 			max:"",
 			step:1,
 			formatDynamically:false,
+			twoDecimals:false,
 			dformat:"digits",
 			set_step:function(v, rmv)
 				{
@@ -71,6 +72,7 @@
 					{
 						if(v < 0) s = '-';
 						v = ABS(v);
+						if(this.twoDecimals && FLOOR(v) != v ) v = v.toFixed(2);
 						parts = v.toString().split(".");
 
 						for(var i = parts[0].length-1; i >= 0; i--){

@@ -29,6 +29,7 @@ class BWFAN_DB_Update {
 	public function __construct() {
 		add_action( 'admin_init', [ $this, 'db_update' ], 11 );
 		add_action( 'bwfan_db_update_2_11', array( $this, 'db_update_2_11_cb' ) );
+		add_action( 'bwfan_reindex_cart_conversions_base_total', array( $this, 'reindex_cart_conversion_base_total' ) );
 
 		$this->db_changes = array(
 			'2.11' => '2_11',
@@ -341,6 +342,97 @@ class BWFAN_DB_Update {
 				bwf_schedule_recurring_action( time(), 60, $action, $args, 'bwf_update' );
 			}
 		}
+	}
+
+	/**
+	 * Re-index cart and conversion table base total
+	 *
+	 * @return void
+	 */
+	public function reindex_cart_conversion_base_total() {
+		global $wpdb;
+		$start_time = time();
+
+		do {
+			$data_type         = bwf_options_get( 're_index_data_type' );
+			$last_processed_id = bwf_options_get( 'last_index_id' );
+
+			/** Fetch rows from conversion table  */
+			if ( 'conversion' === $data_type ) {
+				$last_id = intval( $last_processed_id ) > 0 ? " AND `ID` > $last_processed_id " : "";
+				$query   = "SELECT `ID`, `wctotal` AS total, `wcid` FROM `{$wpdb->prefix}bwfan_conversions` WHERE 1=1 $last_id ORDER BY `ID` ASC LIMIT 0,30";
+
+				$result = $wpdb->get_results( $query, ARRAY_A );
+				if ( is_array( $result ) && count( $result ) > 0 ) {
+					$last_id = 0;
+					foreach ( $result as $data ) {
+						$order_id = isset( $data['wcid'] ) ? $data['wcid'] : 0;
+						if ( empty( $order_id ) ) {
+							continue;
+						}
+						$id          = $data['ID'];
+						$saved_price = isset( $data['total'] ) ? $data['total'] : 0;
+						$order       = wc_get_order( $order_id );
+						$order_total = $order instanceof WC_Order ? $order->get_total() : 0;
+						if ( empty( $order_total ) && empty( $saved_price ) ) {
+							$last_id = $id;
+							continue;
+						}
+
+						$currency = $order instanceof WC_Order ? $order->get_currency() : '';
+						if ( ! empty( $currency ) && ! empty( $order_total ) ) {
+							$order_total = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $order_total, $currency );
+						}
+
+						$wpdb->update( $wpdb->prefix . 'bwfan_conversions', [ 'wctotal' => $order_total ], array( 'ID' => $id ) );
+						$last_id = $id;
+					}
+
+					bwf_options_update( 'last_index_id', $last_id );
+					continue;
+				} else {
+					/** cart table will process now */
+					$last_processed_id = 0;
+					bwf_options_update( 'last_index_id', 0 );
+					bwf_options_update( 're_index_data_type', 'cart' );
+				}
+			}
+
+			/** No conversion rows are left, fetch rows from cart table */
+			$last_id = intval( $last_processed_id ) > 0 ? " AND `ID` > $last_processed_id " : "";
+			$query   = "SELECT `ID`, `total`, `currency` FROM `{$wpdb->prefix}bwfan_abandonedcarts` WHERE 1=1 $last_id ORDER BY `ID` ASC LIMIT 0,30";
+
+			$result = $wpdb->get_results( $query, ARRAY_A );
+			if ( is_array( $result ) && count( $result ) > 0 ) {
+				$last_id = 0;
+				foreach ( $result as $data ) {
+					$id          = $data['ID'];
+					$saved_price = isset( $data['total'] ) ? $data['total'] : 0;
+					if ( empty( $saved_price ) ) {
+						$last_id = $id;
+						continue;
+					}
+					$currency    = isset( $data['currency'] ) ? $data['currency'] : '';
+					$order_total = 0;
+					if ( ! empty( $currency ) ) {
+						$order_total = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $saved_price, $currency );
+					}
+
+					$wpdb->update( $wpdb->prefix . 'bwfan_abandonedcarts', [ 'total_base' => $order_total ], array( 'ID' => $id ) );
+					$last_id = $id;
+				}
+
+				bwf_options_update( 'last_index_id', $last_id );
+				continue;
+			}
+
+			/** No cart rows to process */
+			bwf_options_delete( 're_index_data_type' );
+			bwf_options_delete( 'last_index_id' );
+
+			bwf_unschedule_actions( 'bwfan_reindex_cart_conversions_base_total' );
+			break;
+		} while ( $this->should_run( $start_time ) ); // keep going until we run out of time, or memory
 	}
 }
 

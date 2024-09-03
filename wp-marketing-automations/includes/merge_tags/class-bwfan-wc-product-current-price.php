@@ -60,5 +60,5 @@ class BWFAN_WC_Product_Current_Price extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_product', 'BWFAN_WC_Product_Current_Price', null, 'Product' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_product', 'BWFAN_WC_Product_Current_Price', null, __( 'Product', 'wp-marketing-automations' ) );
 }

@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use QuadLayers\IGG\Models\Feeds as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feeds;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 
 /**
@@ -13,29 +13,29 @@ class Create extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = json_decode( $request->get_body(), true );
+		try {
 
-		if ( empty( $body['feed'] ) ) {
+			$body = json_decode( $request->get_body(), true );
+
+			if ( empty( $body['feed'] ) ) {
+				throw new \Exception( esc_html__( 'Feed not setted.', 'insta-gallery' ), 412 );
+			}
+
+			$feed = Models_Feeds::instance()->create( $body['feed'] );
+
+			if ( ! $feed ) {
+				throw new \Exception( esc_html__( 'Unknown error.', 'insta-gallery' ), 412 );
+			}
+
+			return $this->handle_response( $feed );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'Feed not setted', 'insta-gallery' ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		$models_feed = new Models_Feed();
-
-		$feed = $models_feed->create( $body['feed'] );
-
-		if ( ! $feed ) {
-			$response = array(
-				'code'    => 500,
-				'message' => esc_html__( 'Unknown error', 'insta-gallery' ),
-			);
-			return $this->handle_response( $response );
-		}
-
-		return $this->handle_response( $feed );
 	}
 
 	public static function get_rest_args() {

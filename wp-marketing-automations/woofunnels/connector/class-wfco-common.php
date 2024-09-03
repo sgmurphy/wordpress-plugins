@@ -567,24 +567,6 @@ class WFCO_Common {
 	}
 
 	/**
-	 * Check is_connector_page
-	 *
-	 * @param string $section
-	 *
-	 * @return bool
-	 */
-	public static function is_connector_page( $section = '' ) {
-		if ( 'autonami' === filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) && '' === $section ) {
-			return true;
-		}
-		if ( 'autonami' === filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) && filter_input( INPUT_GET, 'section', FILTER_UNSAFE_RAW ) === $section ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Generate random string
 	 *
 	 * @param int $length

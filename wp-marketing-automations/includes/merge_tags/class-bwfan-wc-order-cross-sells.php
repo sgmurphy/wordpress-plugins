@@ -42,7 +42,7 @@ class BWFAN_WC_Order_Cross_Sells extends Merge_Tag_Abstract_Product_Display {
 	public function parse_shortcode( $attr ) {
 		if ( false === BWFAN_Merge_Tag_Loader::get_data( 'is_preview' ) ) {
 			$order_id = BWFAN_Merge_Tag_Loader::get_data( 'order_id' );
-			$order 	= wc_get_order( $order_id );
+			$order    = wc_get_order( $order_id );
 
 			if ( ! $order instanceof WC_Order ) {
 				return $this->parse_shortcode_output( '', $attr );
@@ -70,5 +70,5 @@ class BWFAN_WC_Order_Cross_Sells extends Merge_Tag_Abstract_Product_Display {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Cross_Sells', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Cross_Sells', null, __( 'Order', 'wp-marketing-automations' ) );
 }

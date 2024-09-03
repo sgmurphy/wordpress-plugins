@@ -392,43 +392,48 @@ class dataList {
 		global $wpdb;
 		switch ( $this->arr_search['column'] ) {
 			case 'post_id':
-				$column            = 'post.ID';
-				$have_post_id_from = ! empty( $this->arr_search['word']['post_id_from'] );
-				$have_post_id_to   = ! empty( $this->arr_search['word']['post_id_to'] );
+				$column       = 'post.ID';
+				$post_id_from = isset( $this->arr_search['word']['post_id_from'] ) ? $this->arr_search['word']['post_id_from'] : '';
+				$post_id_to   = isset( $this->arr_search['word']['post_id_to'] ) ? $this->arr_search['word']['post_id_to'] : '';
 
-				if ( $have_post_id_from ) {
-					$this->searchSql = $wpdb->prepare( $column . ' >= %d', (int) $this->arr_search['word']['post_id_from'] );
+				if ( ! empty( $post_id_from ) ) {
+					$this->searchSql = $wpdb->prepare( $column . ' >= %d', (int) $post_id_from );
 				}
 
-				if ( $have_post_id_from && $have_post_id_to ) {
+				if ( ! empty( $post_id_from ) && ! empty( $post_id_to ) ) {
 					$this->searchSql .= ' AND ';
 				}
 
-				if ( $have_post_id_to ) {
-					$this->searchSql .= $wpdb->prepare( $column . ' <= %d', (int) $this->arr_search['word']['post_id_to'] );
+				if ( ! empty( $post_id_to ) ) {
+					$this->searchSql .= $wpdb->prepare( $column . ' <= %d', (int) $post_id_to );
 				}
 				break;
 			case 'item_code':
-				$this->searchSql =  'item.itemCode LIKE '."'%" . esc_sql( $this->arr_search['word']['item_code'] ) . "%'";
+				$item_code = isset( $this->arr_search['word']['item_code'] ) ? $this->arr_search['word']['item_code'] : '';
+				$this->searchSql =  'item.itemCode LIKE '."'%" . esc_sql( $item_code) . "%'";
 				break;
 			case 'item_name':
-				$this->searchSql = 'item.itemName LIKE '."'%" . esc_sql( $this->arr_search['word']['item_name'] ) . "%'";
+				$item_name = isset( $this->arr_search['word']['item_name'] ) ? $this->arr_search['word']['item_name'] : '';
+				$this->searchSql = 'item.itemName LIKE '."'%" . esc_sql( $item_name) . "%'";
 				break;
 			case 'post_title':
-				$this->searchSql = 'post.post_title LIKE '."'%" . esc_sql( $this->arr_search['word']['post_title'] ) . "%'";
+				$post_title = isset( $this->arr_search['word']['post_title'] ) ? $this->arr_search['word']['post_title'] : '';
+				$this->searchSql = 'post.post_title LIKE '."'%" . esc_sql( $post_title ) . "%'";
 				break;
 			case 'zaiko_num':
 				$this->searchSql = "sku.stocknum = '0'";
 				break;
 			case 'zaiko':
-				$this->searchSql = "sku.stock = '" . esc_sql( $this->arr_search['word']['zaiko'] ) . "'";
+				$zaiko = isset( $this->arr_search['word']['zaiko'] ) ? $this->arr_search['word']['zaiko'] : '';
+				$this->searchSql = "sku.stock = '" . esc_sql( $zaiko ) . "'";
 				break;
 			case 'category':
-				$column = 'tt.term_id';
-				$this->searchSql = "tt.term_id = '" . esc_sql( $this->arr_search['word']['category'] ) . "'";
+				$category = isset( $this->arr_search['word']['category'] ) ? $this->arr_search['word']['category'] : '';
+				$this->searchSql = "tt.term_id = '" . esc_sql( $category ) . "'";
 				break;
 			case 'display_status':
-				$this->searchSql = "post.post_status = '" . esc_sql( $this->arr_search['word']['display_status'] ) . "'";
+				$display_status = isset( $this->arr_search['word']['display_status'] ) ? $this->arr_search['word']['display_status'] : '';
+				$this->searchSql = "post.post_status = '" . esc_sql( $display_status ) . "'";
 				break;
 		}
 	}

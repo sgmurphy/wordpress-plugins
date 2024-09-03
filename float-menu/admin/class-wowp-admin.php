@@ -92,7 +92,7 @@ class WOWP_Admin {
 
 		$handle     = WOWP_Plugin::SLUG;
 		$version    = WOWP_Plugin::info( 'version' );
-		$url_assets = plugin_dir_url( __FILE__ ) . 'assets/';
+		$url_assets        = WOWP_Plugin::url() . 'vendors/';
 
 		$fonticonpicker_js = $url_assets . 'fonticonpicker/fonticonpicker.min.js';
 		wp_enqueue_script( $handle . '-fonticonpicker', $fonticonpicker_js, array( 'jquery' ), $version, true );
@@ -103,8 +103,8 @@ class WOWP_Admin {
 		$fonticonpicker_dark_css = $url_assets . 'fonticonpicker/fonticonpicker.darkgrey.min.css';
 		wp_enqueue_style( $handle . '-fonticonpicker-darkgrey', $fonticonpicker_dark_css, null, $version );
 
-		$url_fontawesome = WOWP_Plugin::url() . '/vendors/fontawesome/css/all.min.css';
-		wp_enqueue_style( 'wowp-fontawesome', $url_fontawesome, null, '6.5.1' );
+		$url_fontawesome = $url_assets . 'fontawesome/css/all.min.css';
+		wp_enqueue_style( 'wowp-fontawesome', $url_fontawesome, null, '6.6' );
 
 	}
 

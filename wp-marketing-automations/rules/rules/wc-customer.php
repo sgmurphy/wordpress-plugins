@@ -348,7 +348,7 @@ class BWFAN_Rule_Customer_Role extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -426,17 +426,24 @@ class BWFAN_Rule_Customer_Role extends BWFAN_Rule_Base {
 
 	/** v2 Methods: END */
 
-	public function get_possible_rule_values() {
+	public function get_possible_rule_values( $term = '' ) {
 		if ( ! function_exists( 'get_editable_roles' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/user.php';
 		}
-		$result         = array();
+
 		$editable_roles = get_editable_roles();
+		if ( empty( $editable_roles ) || ! is_array( $editable_roles ) ) {
+			return [];
+		}
 
-		if ( $editable_roles ) {
-			foreach ( $editable_roles as $role => $details ) {
-				$name = translate_user_role( $details['name'] );
-
+		$result = array();
+		foreach ( $editable_roles as $role => $details ) {
+			$name = translate_user_role( $details['name'] );
+			if ( empty( $term ) ) {
+				$result[ $role ] = $name;
+				continue;
+			}
+			if ( stripos( $name, $term ) !== false ) {
 				$result[ $role ] = $name;
 			}
 		}

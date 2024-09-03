@@ -392,21 +392,6 @@ class BravePop_Rest_Server extends WP_REST_Controller {
         }
     }
 
-    public function bravepopup_sanitize_array_field($value, $request, $param ) {
-        if(!is_array($value) ) {
-            return new WP_Error('rest_invalid_param', esc_html__('The argument must be an array.', 'bravepop'), array( 'status' => 400 ));
-        }
-        foreach ( $array as $key => &$val ) {
-            if ( is_array( $value ) ) {
-                $val = recursive_sanitize_text_field($val);
-            }
-            else {
-                $val = sanitize_text_field( $val );
-            }
-        }
-        return $array;
-    }
-
 
     public function check_user_permission(){
          if ( ! current_user_can( 'access_brave_menus' ) ) {
@@ -893,7 +878,9 @@ class BravePop_Rest_Server extends WP_REST_Controller {
             
             //Send the Updated Popup
             $popup = get_post( (int) $args['id'] );
-            if ( empty( $popup ) || empty( $popup->ID ) || $popup->post_type !== 'popup' ) {   return $notFoundError;  }
+            if ( empty( $popup ) || empty( $popup->ID ) || $popup->post_type !== 'popup' ) {   
+               return new WP_Error( 'rest_post_not_found', __( 'Popup Not Found' ), array( 'status' => 404 ) ); 
+            }
             //Get MetaData
             foreach ($this->metaData as $value) {
                 $popup->$value  = get_post_meta($args['id'], $value, true);

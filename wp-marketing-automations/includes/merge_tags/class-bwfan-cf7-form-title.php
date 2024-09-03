@@ -53,5 +53,5 @@ class BWFAN_CF7_Form_Title extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_cf7_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'cf7', 'BWFAN_CF7_Form_Title', null, 'Contact Form 7' );
+	BWFAN_Merge_Tag_Loader::register( 'cf7', 'BWFAN_CF7_Form_Title', null, __( 'Contact Form 7', 'wp-marketing-automations' ) );
 }

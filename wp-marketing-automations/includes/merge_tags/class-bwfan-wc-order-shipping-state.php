@@ -85,7 +85,7 @@ class BWFAN_WC_Order_Shipping_State extends BWFAN_Merge_Tag {
 				'options'     => $options,
 				'label'       => __( 'Select Format', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Select',
+				"placeholder" => __( 'Select', 'wp-marketing-automations' ),
 				"required"    => true,
 				"description" => ""
 			],
@@ -97,5 +97,5 @@ class BWFAN_WC_Order_Shipping_State extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Shipping_State', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Shipping_State', null, __( 'Order', 'wp-marketing-automations' ) );
 }

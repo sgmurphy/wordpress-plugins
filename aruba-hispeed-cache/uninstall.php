@@ -22,7 +22,7 @@ if ( ! \defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 \delete_site_option( 'aruba_hispeed_cache_version');
 if ( ! is_multisite() ) {
 
+	require_once( ABSPATH . 'wp-admin/includes/file.php' );
 	$htaccess = get_home_path() . '.htaccess';
 	insert_with_markers( $htaccess, 'AHSC_RULES', array(' ') );
-	
 }

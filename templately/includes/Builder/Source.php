@@ -37,7 +37,7 @@ class Source {
 			add_action( 'admin_footer', [ $this, 'app' ] );
 		}
 
-		add_action( 'save_post', [ $this, 'save_post' ], 11, 3 );
+		// add_action( 'save_post', [ $this, 'save_post' ], 11, 3 );
 	}
 
 	/**

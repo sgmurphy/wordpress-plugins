@@ -61,6 +61,8 @@ abstract class BWFAN_Event {
 	/** @var string Disable adding default field in event schema */
 	protected $disable_default_fields = false;
 
+	protected $force_async = false;
+
 	public function is_goal() {
 		return $this->is_goal;
 	}
@@ -837,10 +839,34 @@ abstract class BWFAN_Event {
 		BWFAN_Common::event_advanced_logs( 'URL: ' . $url );
 		BWFAN_Common::event_advanced_logs( $args );
 
+		if ( 1 === BWFAN_Common::$stop_async_call && false === $this->is_force_asyc() ) {
+			return;
+		}
+		$flag_saved_val = get_transient( 'bwfan_stop_async_call' );
+		if ( 1 === intval( $flag_saved_val ) && false === $this->is_force_asyc() ) {
+			return;
+		}
+
+		$start_time = microtime( true );
+
 		$response = wp_remote_post( $url, $args );
 
+		$end_time = microtime( true );
+
+		if ( ( $end_time - $start_time ) > 0.2 ) {
+			/** Curl took minimum 0.2 secs */
+			set_transient( 'bwfan_stop_async_call', 1, WEEK_IN_SECONDS );
+
+			BWFAN_Common::$stop_async_call = 1;
+		}
+
 		BWFAN_Common::event_advanced_logs( 'Event endpoint response' );
-		BWFAN_Common::event_advanced_logs( $response );
+		if ( is_wp_error( $response ) ) {
+			BWFAN_Common::event_advanced_logs( $response->get_error_message() );
+		} elseif ( isset( $response['body'] ) ) {
+			BWFAN_Common::event_advanced_logs( $response['body'] );
+			BWFAN_Common::event_advanced_logs( $response['response'] );
+		}
 
 		return $response;
 	}
@@ -1101,7 +1127,7 @@ abstract class BWFAN_Event {
 	 */
 	public function get_rule_group() {
 		$rule_groups = $this->event_rule_groups;
-		$rule_groups = array_merge( $rule_groups, [ 'bwf_automation', 'languages', 'bwf_date_time' ] );
+		$rule_groups = array_merge( $rule_groups, [ 'bwf_automation', 'languages', 'bwf_date_time', 'bwf_pushengage' ] );
 
 		return apply_filters( 'bwfan_event_' . $this->get_slug() . '_rules_group', $rule_groups, $this );
 	}
@@ -1401,6 +1427,10 @@ abstract class BWFAN_Event {
 	 */
 	public function get_manually_added_contact_automation_data( $automation_data, $cid ) {
 		return array_merge( $automation_data, [ 'cid' => $cid ] );
+	}
+
+	protected function is_force_asyc() {
+		return $this->force_async;
 	}
 
 	/**

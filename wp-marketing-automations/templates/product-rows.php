@@ -35,7 +35,8 @@ if ( is_array( $products ) ) : ?>
 			$disable_product_thumbnail = BWFAN_Common::disable_product_thumbnail();
 
 			if ( false !== $cart ) {
-				$suffix = get_option( 'woocommerce_price_display_suffix' );
+				$cartItemLinkEnabled = apply_filters( 'bwfan_block_editor_enable_cart_item_link', true );
+				$suffix              = get_option( 'woocommerce_price_display_suffix' );
 				foreach ( $cart as $item ) :
 					$product = isset( $item['data'] ) ? $item['data'] : '';
 					if ( empty( $product ) || ! $product instanceof WC_Product ) {
@@ -45,14 +46,19 @@ if ( is_array( $products ) ) : ?>
 					$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 					?>
                     <tr>
-						<?php
-						if ( false === $disable_product_thumbnail ) {
-							?>
+						<?php if ( false === $disable_product_thumbnail ) : ?>
                             <td class="image" width="100">
-								<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'thumbnail', false, 100 ) ); //phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<?php if ( true === $cartItemLinkEnabled ) :
+									$cartItemLink = BWFAN_Common::decode_merge_tags( apply_filters( 'bwfan_block_editor_alter_cart_item_link', '{{cart_recovery_link}}' ) );
+									?>
+                                    <a href="<?php echo $cartItemLink; ?>" target="_blank">
+										<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'thumbnail', false, 100 ) ); ?>
+                                    </a>
+								<?php else : ?>
+									<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'thumbnail', false, 100 ) ); ?>
+								<?php endif; ?>
                             </td>
-							<?php
-						} ?>
+						<?php endif; ?>
                         <td width="">
                             <h4 style="vertical-align:middle;"><?php echo wp_kses_post( BWFAN_Common::get_name( $product ) ); ?></h4>
                         </td>

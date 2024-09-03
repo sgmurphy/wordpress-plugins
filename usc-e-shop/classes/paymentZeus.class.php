@@ -1530,6 +1530,7 @@ jQuery(document).ready(function($) {
 			if ( ! empty( $order_id ) ) {
 				if ( '03' === $data['status'] ) {
 					$res = usces_change_order_receipt( $order_id, 'receipted' );
+					do_action( 'usces_action_zeus_bank_receipted', $order_id, $data );
 				} else {
 					$res = usces_change_order_receipt( $order_id, 'noreceipt' );
 				}
@@ -1583,6 +1584,7 @@ jQuery(document).ready(function($) {
 				if ( '05' !== $data['status'] ) {
 					if ( '04' === $data['status'] ) {
 						$res = usces_change_order_receipt( $order_id, 'receipted' );
+						do_action( 'usces_action_conv_bank_receipted', $order_id, $data );
 					} else {
 						$res = usces_change_order_receipt( $order_id, 'noreceipt' );
 					}

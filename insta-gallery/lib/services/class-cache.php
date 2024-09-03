@@ -1,6 +1,6 @@
 <?php
 
-namespace QuadLayers\IGG\Utils;
+namespace QuadLayers\IGG\Services;
 
 /**
  * QuadLayers Cache

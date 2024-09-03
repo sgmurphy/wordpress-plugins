@@ -2,8 +2,8 @@
 
 namespace QuadLayers\IGG\Controllers;
 
-use QuadLayers\IGG\Models\Feeds as Models_Feed;
-use QuadLayers\IGG\Models\Setting as Models_Setting;
+use QuadLayers\IGG\Models\Feeds as Models_Feeds;
+use QuadLayers\IGG\Models\Settings as Models_Settings;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Profile;
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Media as Api_Rest_User_Media;
@@ -42,7 +42,7 @@ class Frontend {
 			'qligg-frontend',
 			'qligg_frontend',
 			array(
-				'settings'       => ( new Models_Setting() )->get(),
+				'settings'       => Models_Settings::instance()->get(),
 				'restRoutePaths' => array(
 					'username'    => Api_Rest_User_Media::get_rest_url(),
 					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
@@ -75,7 +75,7 @@ class Frontend {
 		wp_enqueue_script( 'qligg-frontend' );
 		ob_start();
 		?>
-		<div id="instagram-gallery-feed-<?php echo esc_attr( $id ); ?>" class="instagram-gallery-feed" data-feed="<?php echo htmlentities( json_encode( $feed ), ENT_QUOTES, 'UTF-8' ); ?>">
+		<div id="instagram-gallery-feed-<?php echo esc_attr( $id ); ?>" class="instagram-gallery-feed" data-feed="<?php echo htmlentities( wp_json_encode( $feed ), ENT_QUOTES, 'UTF-8' ); ?>">
 		<!-- <FeedContainer/> -->
 		</div>
 		<?php
@@ -93,8 +93,7 @@ class Frontend {
 
 		$id = absint( $atts['id'] );
 
-		$models_feed = new Models_Feed();
-		$feed        = $models_feed->get( $id );
+		$feed = Models_Feeds::instance()->get( $id );
 
 		return $this->create_shortcode( $feed, $id );
 

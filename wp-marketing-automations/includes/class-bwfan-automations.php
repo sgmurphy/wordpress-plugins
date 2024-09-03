@@ -39,7 +39,7 @@ class BWFAN_Automations {
 		if ( empty( $automation_id ) ) {
 			$automation_table = $wpdb->prefix . 'bwfan_automations';
 			$query            = "SELECT ID FROM $automation_table WHERE v = $version";
-			$automation_id    = $wpdb->get_results( $query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL
+			$automation_id    = $wpdb->get_col( $query ); //phpcs:ignore WordPress.DB.PreparedSQL
 			if ( empty( $automation_id ) ) {
 				return;
 			}
@@ -50,9 +50,8 @@ class BWFAN_Automations {
 		}
 
 		$automation_data = [];
-
 		foreach ( $automation_id as $id ) {
-			$automation_meta = BWFAN_Core()->automations->get_automation_data_meta( $id );
+			$automation_meta = BWFAN_Core()->automations->get_automation_data_meta( intval( $id ) );
 			$json_data_array = array(
 				'data' => array(
 					'source' => $automation_meta['source'],
@@ -174,10 +173,16 @@ class BWFAN_Automations {
 	public static function get_currency( $currency ) {
 		$price_format = apply_filters( 'bwfan_get_price_format_cart', get_woocommerce_price_format(), $currency );
 
+		$currency_symbol = '';
+		if ( method_exists( 'BWF_Plugin_Compatibilities', 'get_currency_symbol' ) ) {
+			$currency_symbol = BWF_Plugin_Compatibilities::get_currency_symbol( $currency );
+		}
+		$currency_symbol = empty( $currency_symbol ) ? get_woocommerce_currency_symbol( $currency ) : $currency_symbol;
+
 		return [
 			'code'              => ! empty( $currency ) ? $currency : get_option( 'woocommerce_currency' ),
 			'precision'         => wc_get_price_decimals(),
-			'symbol'            => html_entity_decode( get_woocommerce_currency_symbol( $currency ) ),
+			'symbol'            => html_entity_decode( $currency_symbol ),
 			'symbolPosition'    => get_option( 'woocommerce_currency_pos' ),
 			'decimalSeparator'  => wc_get_price_decimal_separator(),
 			'thousandSeparator' => wc_get_price_thousand_separator(),
@@ -222,7 +227,7 @@ class BWFAN_Automations {
 		if ( ! is_array( $data ) || 0 === count( $data ) ) {
 			return [];
 		}
-		$meta = BWFAN_Model_Automationmeta::get_automation_meta( $automation_id );
+		$meta = BWFAN_Model_Automationmeta::get_automation_meta( $automation_id, false );
 		if ( 2 === absint( $data['v'] ) && isset( $meta['title'] ) ) {
 			unset( $meta['title'] );
 		}

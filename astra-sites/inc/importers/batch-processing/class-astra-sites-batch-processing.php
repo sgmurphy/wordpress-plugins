@@ -94,6 +94,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 
 			// Start image importing after site import complete.
 			add_filter( 'astra_sites_image_importer_skip_image', array( $this, 'skip_image' ), 10, 2 );
+			add_action( 'astra_sites_import_complete', array( $this, 'start_process' ) );
 			add_action( 'astra_sites_process_single', array( $this, 'start_process_single' ) );
 			if ( current_user_can( 'manage_options' ) ) {
 				add_action( 'admin_init', array( $this, 'start_importer' ) );
@@ -112,6 +113,85 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			add_action( 'wp_ajax_astra-sites-get-all-categories-and-tags', array( $this, 'get_all_categories_and_tags' ) );
 
 			add_action( 'astra_sites_site_import_batch_complete', array( $this, 'sync_batch_complete' ) );
+		}
+
+		/**
+		 * Start Image Import
+		 *
+		 * @since 1.0.14
+		 *
+		 * @return void
+		 */
+		public function start_process() {
+			set_transient( 'astra_sites_batch_process_started', 'yes', HOUR_IN_SECONDS );
+
+			/** WordPress Plugin Administration API */
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			require_once ABSPATH . 'wp-admin/includes/update.php';
+
+			$this->includes();
+
+			$wxr_id = get_site_option( 'astra_sites_imported_wxr_id', 0 );
+			if ( $wxr_id ) {
+				wp_delete_attachment( $wxr_id, true );
+				Astra_Sites_Importer_Log::add( 'Deleted Temporary WXR file ' . $wxr_id );
+				delete_option( 'astra_sites_imported_wxr_id' );
+				Astra_Sites_Importer_Log::add( 'Option `astra_sites_imported_wxr_id` Deleted.' );
+			}
+
+			$classes = array();
+
+			Astra_Sites_Importer_Log::add( 'Batch Process Started..' );
+			Astra_Sites_Importer_Log::add( Astra_Sites_White_Label::get_instance()->get_white_label_name( ASTRA_SITES_NAME ) . ' - Importing Images for Blog name \'' . get_bloginfo( 'name' ) . '\' (' . get_current_blog_id() . ')' );
+
+			// Add "widget" in import [queue].
+			$classes[] = Astra_Sites_Batch_Processing_Widgets::get_instance();
+
+			// Add "brizy" in import [queue].
+			if ( is_plugin_active( 'brizy/brizy.php' ) ) {
+				$classes[] = Astra_Sites_Batch_Processing_Brizy::get_instance();
+			}
+
+			// Add "bb-plugin" in import [queue].
+			// Add "beaver-builder-lite-version" in import [queue].
+			if ( is_plugin_active( 'beaver-builder-lite-version/fl-builder.php' ) || is_plugin_active( 'bb-plugin/fl-builder.php' ) ) {
+				$classes[] = Astra_Sites_Batch_Processing_Beaver_Builder::get_instance();
+			}
+
+			// Add "elementor" in import [queue].
+			// @todo Remove required `allow_url_fopen` support.
+			if ( ini_get( 'allow_url_fopen' ) && is_plugin_active( 'elementor/elementor.php' ) ) {
+				$import    = new \Elementor\TemplateLibrary\Astra_Sites_Batch_Processing_Elementor();
+				$classes[] = $import;
+			}
+
+			// Add "astra-addon" in import [queue].
+			if ( is_plugin_active( 'astra-addon/astra-addon.php' ) ) {
+				$classes[] = Astra_Sites_Compatibility_Astra_Pro::get_instance();
+			}
+
+			// Add "customizer" in import [queue].
+			$classes[] = Astra_Sites_Batch_Processing_Customizer::get_instance();
+
+			if ( defined( 'WP_CLI' ) ) {
+				WP_CLI::line( 'Batch Process Started..' );
+				// Process all classes.
+				foreach ( $classes as $key => $class ) {
+					if ( method_exists( $class, 'import' ) ) {
+						$class->import();
+					}
+				}
+				WP_CLI::line( 'Batch Process Complete!' );
+			} else {
+				// Add all classes to batch queue.
+				foreach ( $classes as $key => $class ) {
+					self::$process_all->push_to_queue( $class );
+				}
+
+				// Dispatch Queue.
+				self::$process_all->save()->dispatch();
+			}
+
 		}
 
 		/**
@@ -162,6 +242,7 @@ if ( ! class_exists( 'Astra_Sites_Batch_Processing' ) ) :
 			// // Process Importer.
 			require_once ASTRA_SITES_DIR . 'inc/importers/batch-processing/class-astra-sites-batch-processing-importer.php';
 
+			self::$process_all           = new WP_Background_Process_Astra();
 			self::$process_single        = new WP_Background_Process_Astra_Single();
 			self::$process_site_importer = new WP_Background_Process_Astra_Site_Importer();
 		}

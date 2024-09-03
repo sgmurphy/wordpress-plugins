@@ -1,14 +1,14 @@
-=== SKT Templates - Elementor & Gutenberg templates ===
+=== SKT Templates - 100% free Elementor & Gutenberg templates ===
 Contributors: sonalsinha21
 Tags: gutenberg, elementor, themes, one click demo import, templates
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 6.15
+Stable tag: 6.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-SKT Templates is an Elementor template library with over 100s of designs to choose from and select and use them with either SKT Themes free or with any popular themes from the WordPress repository.
+SKT Templates is an Elementor template library with over 200+ 100% free templates to choose from and select and use them with either SKT Themes free or with any popular themes from the WordPress repository.
 
 == Description ==
 
@@ -67,7 +67,7 @@ Of course it will work with any WordPress theme provided it does not conflicts w
 
 = Are all the templates FREE? =
 
-All the themes displayed in our plugin backend are free of cost. In the initial release we are launching 60 designs. However we will soon to updating the list to over 100+ within a month's time.
+All the templates displayed in our plugin backend are 100% free of cost. In the initial release we are launching 60 designs. However we will soon to updating the list to over 100+ within a month's time.
 
 = Can i import in an existing website? =
 
@@ -79,6 +79,9 @@ Yes if your site import is done and you are currently editing via Elementor or i
 
 
 == Changelog ==
+= 6.16 =
+Reordering SKT Windows And Doors in Elementor Templates.
+
 = 6.15 =
 Resolved reported vulnerability issue.
 

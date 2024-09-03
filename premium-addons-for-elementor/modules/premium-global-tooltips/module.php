@@ -1069,14 +1069,26 @@ class Module {
 					anime: settings.premium_tooltip_anime,
 					trigger: settings.premium_tooltip_trigger,
 					side: settings.premium_tooltip_position,
-					follow_mouse: '' === settings.pa_tooltip_class && 'yes' === settings.premium_tooltip_mouse_follow,
 					arrow: 'yes' === settings.premium_tooltip_arrow ? true : false,
 					distance: '' !== settings.premium_tooltip_distance_position ? settings.premium_tooltip_distance_position : 6,
 					duration: '' !== settings.premium_tooltip_anime_dur ? settings.premium_tooltip_anime_dur : 350,
 					delay: '' !== settings.premium_tooltip_anime_delay ? settings.premium_tooltip_anime_delay : 10,
 					hideOn: settings.hide_tooltip_on,
-					uniqueClass: settings.pa_tooltip_class
 				};
+
+                if( settings.pa_tooltip_class ) {
+
+					tooltip_settings.uniqueClass  = settings.pa_tooltip_class;
+					tooltip_settings.follow_mouse = '' != settings.pa_tooltip_class && 'yes' === settings.premium_tooltip_mouse_follow;
+
+					if ( '' != settings.pa_tooltip_class ) {
+						tooltip_settings.isTourStarter = 'yes' === settings.is_tour_starter;
+					}
+
+				} else {
+
+					tooltip_settings.follow_mouse = 'yes' === settings.premium_tooltip_mouse_follow;
+				}
 
 				tooltip_settings.interactive = tooltip_settings.follow_mouse ? false : 'yes' === settings.premium_tooltip_interactive;
 
@@ -1132,6 +1144,7 @@ class Module {
 		$tooltips_enabled = $settings['premium_tooltip_switcher'];
 
 		if ( 'yes' === $tooltips_enabled ) {
+
 			$type    = $settings['premium_tooltip_type'];
 			$content = '';
 
@@ -1209,39 +1222,47 @@ class Module {
 			);
 
 			$tooltip_settings = array( // escape it all
-				'type'         => $type,
-				'content'      => $content, // needs escaping
-				'minWidth'     => $min_width,
-				'maxWidth'     => $max_width,
-				'zindex'       => $settings['pa_tooltip_zindex'],
-				'target'       => $settings['pa_tooltip_target'],
-				'anime'        => $settings['premium_tooltip_anime'],
-				'trigger'      => $settings['premium_tooltip_trigger'],
-				'side'         => $settings['premium_tooltip_position'],
-				'follow_mouse' => empty( $settings['pa_tooltip_class'] ) && 'yes' === $settings['premium_tooltip_mouse_follow'],
-				'arrow'        => 'yes' === $settings['premium_tooltip_arrow'],
-				'distance'     => ! empty( $settings['premium_tooltip_distance_position'] ) ? $settings['premium_tooltip_distance_position'] : 6,
-				'duration'     => ! empty( $settings['premium_tooltip_anime_dur'] ) ? $settings['premium_tooltip_anime_dur'] : 350,
-				'delay'        => ! empty( $settings['premium_tooltip_anime_delay'] ) ? $settings['premium_tooltip_anime_delay'] : 10,
-				'hideOn'       => $settings['hide_tooltip_on'],
-				'uniqueClass'  => $settings['pa_tooltip_class'],
-				'elemID'       => $elem_id,
+				'type'     => $type,
+				'content'  => $content, // needs escaping
+				'minWidth' => $min_width,
+				'maxWidth' => $max_width,
+				'zindex'   => $settings['pa_tooltip_zindex'],
+				'target'   => $settings['pa_tooltip_target'],
+				'anime'    => $settings['premium_tooltip_anime'],
+				'trigger'  => $settings['premium_tooltip_trigger'],
+				'side'     => $settings['premium_tooltip_position'],
+				'arrow'    => 'yes' === $settings['premium_tooltip_arrow'],
+				'distance' => ! empty( $settings['premium_tooltip_distance_position'] ) ? $settings['premium_tooltip_distance_position'] : 6,
+				'duration' => ! empty( $settings['premium_tooltip_anime_dur'] ) ? $settings['premium_tooltip_anime_dur'] : 350,
+				'delay'    => ! empty( $settings['premium_tooltip_anime_delay'] ) ? $settings['premium_tooltip_anime_delay'] : 10,
+				'hideOn'   => $settings['hide_tooltip_on'],
+				'elemID'   => $elem_id,
 			);
 
-			$tooltip_settings['interactive'] = $tooltip_settings['follow_mouse'] ? false : 'yes' === $settings['premium_tooltip_interactive'];
+			if ( isset( $settings['pa_tooltip_class'] ) ) {
 
-			if ( ! empty( $settings['pa_tooltip_class'] ) ) {
-				$tooltip_settings['isTourStarter'] = 'yes' === $settings['is_tour_starter'];
+				$tooltip_settings['uniqueClass']  = $settings['pa_tooltip_class'];
+				$tooltip_settings['follow_mouse'] = empty( $settings['pa_tooltip_class'] ) && 'yes' === $settings['premium_tooltip_mouse_follow'];
+
+				if ( ! empty( $settings['pa_tooltip_class'] ) ) {
+					$tooltip_settings['isTourStarter'] = 'yes' === $settings['is_tour_starter'];
+				}
+			} else {
+
+				$tooltip_settings['follow_mouse'] = 'yes' === $settings['premium_tooltip_mouse_follow'];
 			}
+
+			$tooltip_settings['interactive'] = $tooltip_settings['follow_mouse'] ? false : 'yes' === $settings['premium_tooltip_interactive'];
 
 			$element->add_render_attribute( '_wrapper', 'data-tooltip-id', $id );
 
 			$element->add_render_attribute( '_wrapper', 'data-tooltip_settings', wp_json_encode( $tooltip_settings ) );
 
-			$element->add_render_attribute( 'gTooltips_temps' . $id,
+			$element->add_render_attribute(
+				'gTooltips_temps' . $id,
 				array(
-					'id'=> 'premium-global-tooltips-temp-' . esc_attr( $id ),
-					'data-tooltip_settings'=> wp_json_encode( $tooltip_settings )
+					'id'                    => 'premium-global-tooltips-temp-' . esc_attr( $id ),
+					'data-tooltip_settings' => wp_json_encode( $tooltip_settings ),
 				)
 			);
 
@@ -1269,9 +1290,9 @@ class Module {
 			return;
 		}
 
-        $settings = $element->get_active_settings();
+		$settings = $element->get_active_settings();
 
-		if ( ! empty( $settings[ 'premium_tooltip_switcher' ] ) ) {
+		if ( ! empty( $settings['premium_tooltip_switcher'] ) ) {
 
 			$this->enqueue_styles();
 			$this->enqueue_scripts();

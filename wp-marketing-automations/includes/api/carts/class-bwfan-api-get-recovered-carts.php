@@ -61,11 +61,11 @@ class BWFAN_API_Get_Recovered_Carts extends BWFAN_API_Base {
 			if ( ! $order instanceof WC_Order ) {
 				continue;
 			}
-			$cartDate = new DateTime( $order->get_date_created()->date( 'Y-m-d H:i:s' ) );
-			$diff     = date_diff( $nowDate, $cartDate, true );
-			$diff     = BWFAN_Common::get_difference_string( $diff );
-
-			$result[] = [
+			$cartDate      = new DateTime( $order->get_date_created()->date( 'Y-m-d H:i:s' ) );
+			$diff          = date_diff( $nowDate, $cartDate, true );
+			$diff          = BWFAN_Common::get_difference_string( $diff );
+			$currency_data = BWFAN_Recoverable_Carts::get_currency( $order );
+			$result[]      = [
 				'id'            => $order->get_meta( '_bwfan_recovered_ab_id' ),
 				'order_id'      => $order->get_id(),
 				'email'         => $order->get_billing_email(),
@@ -77,7 +77,7 @@ class BWFAN_API_Get_Recovered_Carts extends BWFAN_API_Base {
 				'date'          => $order->get_date_created()->date( 'Y-m-d H:i:s' ),
 				'items'         => $this->get_items( $order ),
 				'total'         => $order->get_total(),
-				'currency'      => BWFAN_Recoverable_Carts::get_currency( $order ),
+				'currency'      => $currency_data,
 				'buyer_name'    => $this->get_order_name( $order ),
 				'user_id'       => ! empty( $order->get_customer_id() ) ? $order->get_customer_id() : 0,
 				'checkout_data' => ! is_null( $order->get_meta() ) ? $order->get_meta() : '',

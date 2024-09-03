@@ -223,11 +223,14 @@ if ( ! class_exists( 'BWFAN_Model_Engagement_Tracking' ) && BWFAN_Common::is_pro
 			if ( ! empty( $conversions ) ) {
 				/** Conversions */
 				$final_data = array_merge( $final_data, array_map( function ( $conversion ) {
+					$order = wc_get_order( $conversion['wcid'] );
+
 					return array(
 						'type'     => 'conversion',
 						'date'     => ! empty( $conversion['date'] ) ? get_date_from_gmt( $conversion['date'] ) : '',
-						'revenue'  => $conversion['wctotal'],
-						'order_id' => $conversion['wcid']
+						'revenue'  => $order->get_total(),
+						'order_id' => $conversion['wcid'],
+						'currency' => BWFAN_Automations::get_currency( $order->get_currency() )
 					);
 				}, $conversions ) );
 			}
@@ -261,11 +264,14 @@ if ( ! class_exists( 'BWFAN_Model_Engagement_Tracking' ) && BWFAN_Common::is_pro
 
 			/** Conversions */
 			$final_data = array_merge( $final_data, array_map( function ( $conversion ) {
+				$order = wc_get_order( $conversion['wcid'] );
+
 				return array(
 					'type'     => 'conversion',
 					'date'     => ! empty( $conversion['date'] ) ? get_date_from_gmt( $conversion['date'] ) : '',
-					'revenue'  => $conversion['wctotal'],
-					'order_id' => $conversion['wcid']
+					'revenue'  => $order->get_total(),
+					'order_id' => $conversion['wcid'],
+					'currency' => BWFAN_Automations::get_currency( $order->get_currency() )
 				);
 			}, $conversions ) );
 

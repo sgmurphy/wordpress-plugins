@@ -693,7 +693,10 @@ const Images = () => {
 						</div>
 						<input
 							className="!text-sm p-0 border-0 w-full focus:outline-none focus:ring-0 focus-visible:outline-none"
-							placeholder="Add more relevant keywords..."
+							placeholder={ __(
+								'Add more relevant keywords…',
+								'ai-builder'
+							) }
 							autoComplete="off"
 							onKeyDown={ handleOpenSuggestedKeywords }
 							onClick={ handleOpenSuggestedKeywords }
@@ -998,7 +1001,10 @@ const Images = () => {
 				<NavigationButtons
 					{ ...( updateImages
 						? {
-								continueButtonText: 'Save & Exit',
+								continueButtonText: __(
+									'Save & Exit',
+									'ai-builder'
+								),
 								onClickContinue: handleSaveDetails,
 						  }
 						: {

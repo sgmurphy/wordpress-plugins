@@ -38,8 +38,9 @@ class BWFAN_API_Tools_Setting extends BWFAN_API_Base {
 		}
 
 		$this->response_code = 200;
+		$message             = $result['msg'] ?? __( 'Action executed', 'wp-marketing-automations' );
 
-		return $this->success_response( $result, __( 'Action executed', 'wp-marketing-automations' ) );
+		return $this->success_response( $result, $message );
 	}
 }
 

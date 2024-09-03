@@ -5,16 +5,16 @@
 	"license": "GPL-2.0-or-later",
 	"require": {
 		"php": ">=7.0",
-		"automattic/jetpack-connection": "^2.11.3",
-		"automattic/jetpack-autoloader": "^3.0.9",
+		"automattic/jetpack-connection": "^2.12.5",
+		"automattic/jetpack-autoloader": "^3.0.10",
 		"automattic/jetpack-config": "^2.0.4",
-		"automattic/jetpack-assets": "^2.2.0",
-		"automattic/jetpack-redirect": "^2.0.2",
-		"automattic/jetpack-plans": "^0.4.7"
+		"automattic/jetpack-assets": "^2.3.5",
+		"automattic/jetpack-redirect": "^2.0.3",
+		"automattic/jetpack-plans": "^0.4.8"
 	},
 	"require-dev": {
-		"yoast/phpunit-polyfills": "1.1.0",
-		"automattic/jetpack-changelogger": "^4.2.5",
+		"yoast/phpunit-polyfills": "^1.1.1",
+		"automattic/jetpack-changelogger": "^4.2.6",
 		"automattic/wordbless": "0.4.2"
 	},
 	"suggest": {
@@ -25,6 +25,7 @@
 			"src/"
 		],
 		"files": [
+			"actions.php",
 			"src/social-image-generator/utilities.php"
 		]
 	},
@@ -58,7 +59,7 @@
 			"link-template": "https://github.com/Automattic/jetpack-publicize/compare/v${old}...v${new}"
 		},
 		"branch-alias": {
-			"dev-trunk": "0.48.x-dev"
+			"dev-trunk": "0.50.x-dev"
 		}
 	},
 	"config": {

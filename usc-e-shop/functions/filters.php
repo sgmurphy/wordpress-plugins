@@ -1541,16 +1541,17 @@ function usces_responce_wcsite() {
 function usces_wcsite_activate() {
 	$usces                             = get_option( 'usces', array() );
 	$metas['usces_company_name']       = $usces['company_name'];
+	$metas['usces_company_tel']        = $usces['tel_number'];
+	$metas['usces_company_number']     = $usces['business_registration_number'];
+	$metas['usces_company_zip']        = $usces['zip_code'];
+	$metas['usces_company_location']   = $usces['address1'] . ' ' . $usces['address2'];
 	$metas['usces_inquiry_mail']       = $usces['inquiry_mail'];
 	$metas['usces_base_country']       = $usces['system']['base_country'];
 	$metas['usces_circulating_amount'] = wel_get_circulating_amount();
-
-	$metas['usces_used_sett'] = '';
-	$acting_settings          = get_option( 'usces_settlement_selected', array() );
-	foreach ( $acting_settings as $acting ) {
-		$metas['usces_used_sett'] .= $acting . ',';
-	}
-	$metas['usces_used_sett'] = trim( $metas['usces_used_sett'], ',' );
+	$metas['usces_categories']         = wel_get_categories();
+	$metas['usces_themes']             = wel_get_themes();
+	$metas['usces_plugins']            = wel_get_plugins();
+	$metas['usces_used_sett']          = wel_get_activ_pay_methd();
 
 	$base_metas = array(
 		'wcid'   => get_option( 'usces_wcid' ),

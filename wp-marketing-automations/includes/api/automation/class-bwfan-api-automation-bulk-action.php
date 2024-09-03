@@ -30,7 +30,7 @@ if ( ! class_exists( 'BWFAN_API_Automation_Bulk_Action' ) && BWFAN_Common::is_pr
 			$action        = $this->get_sanitized_arg( 'action', 'text_field' );
 			$status        = $this->get_sanitized_arg( 'status', 'text_field' );
 			$a_cids        = isset( $this->args['a_cids'] ) ? $this->args['a_cids'] : [];
-
+			$a_cids        = array_map( 'absint', $a_cids );
 			if ( empty( $a_cids ) ) {
 				return $this->error_response( [], __( 'Required parameter is missing', 'wp-marketing-automations' ) );
 			}

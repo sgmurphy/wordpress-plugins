@@ -394,9 +394,9 @@ final class BWFAN_WC_Order_Note_Added extends BWFAN_Event {
 				'options'     => $note_types,
 				'label'       => __( 'Select Order Note Mode', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Select',
+				"placeholder" => __( 'Select', 'wp-marketing-automations' ),
 				"required"    => true,
-				"errorMsg"    => 'Select note type.',
+				"errorMsg"    => __( 'Select note type.', 'wp-marketing-automations' ),
 				"description" => ""
 			],
 			[

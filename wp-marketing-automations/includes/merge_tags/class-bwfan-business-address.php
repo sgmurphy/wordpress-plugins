@@ -44,4 +44,4 @@ class BWFAN_Business_Address extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Business_Address', null, 'General' );
+BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Business_Address', null, __( 'General', 'wp-marketing-automations' ) );

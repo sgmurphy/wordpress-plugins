@@ -481,7 +481,7 @@ function sort_payment_method() {
  */
 function add_delivery_method() {
 	$options = get_option( 'usces', array() );
-	$name    = trim( wp_unslash( $_POST['name'] ) );
+	$name    = trim( esc_js( $_POST['name'] ) );
 	$ids     = array();
 	foreach ( (array) $options['delivery_method'] as $deli ) {
 		$ids[] = (int) $deli['id'];
@@ -492,22 +492,30 @@ function add_delivery_method() {
 	} else {
 		$newid = 0;
 	}
-	$index                                        = ( isset( $options['delivery_method'] ) && is_array( $options['delivery_method'] ) ) ? count( $options['delivery_method'] ) : 0;
-	$options['delivery_method'][ $index ]['id']   = $newid;
-	$options['delivery_method'][ $index ]['name'] = esc_js( $name );
-	$options['delivery_method'][ $index ]['time'] = wel_esc_script( str_replace( "\r\n", "\n", wp_unslash( $_POST['time'] ) ) );
-	$options['delivery_method'][ $index ]['time'] = str_replace( "\r", "\n", $options['delivery_method'][ $index ]['time'] );
-	$options['delivery_method'][ $index ]['charge']        = (int) wp_unslash( $_POST['charge'] );
-	$options['delivery_method'][ $index ]['days']          = (int) wp_unslash( $_POST['days'] );
-	$options['delivery_method'][ $index ]['nocod']         = wp_unslash( $_POST['nocod'] );
-	$options['delivery_method'][ $index ]['intl']          = wp_unslash( $_POST['intl'] );
-	$options['delivery_method'][ $index ]['cool_category'] = (int) wp_unslash( $_POST['cool_category'] );
+	$index = ( isset( $options['delivery_method'] ) && is_array( $options['delivery_method'] ) ) ? count( $options['delivery_method'] ) : 0;
+
+	$time       = wel_esc_script( str_replace( "\r\n", "\n", wp_unslash( $_POST['time'] ) ) );
+	$time       = str_replace( "\r", "\n", $time );
+	$time_array = explode( "\n", $time );
+	$times      = array();
+	foreach ( (array) $time_array as $val ) {
+		$times[] = esc_js( stripslashes( $val ) );
+	}
+
+	$options['delivery_method'][ $index ]['id']            = $newid;
+	$options['delivery_method'][ $index ]['name']          = esc_js( $name );
+	$options['delivery_method'][ $index ]['time']          = implode( "\n", $times );
+	$options['delivery_method'][ $index ]['charge']        = (int) esc_js( $_POST['charge'] );
+	$options['delivery_method'][ $index ]['days']          = (int) esc_js( $_POST['days'] );
+	$options['delivery_method'][ $index ]['nocod']         = esc_js( $_POST['nocod'] );
+	$options['delivery_method'][ $index ]['intl']          = esc_js( $_POST['intl'] );
+	$options['delivery_method'][ $index ]['cool_category'] = (int) esc_js( $_POST['cool_category'] );
 	update_option( 'usces', $options );
 
 	$response = array(
 		'id'            => $newid,
 		'name'          => esc_js( stripslashes( $name ) ),
-		'time'          => stripslashes( $options['delivery_method'][ $index ]['time'] ),
+		'time'          => implode( "\n", $times ),
 		'charge'        => $options['delivery_method'][ $index ]['charge'],
 		'days'          => $options['delivery_method'][ $index ]['days'],
 		'nocod'         => $options['delivery_method'][ $index ]['nocod'],
@@ -525,9 +533,9 @@ function add_delivery_method() {
  */
 function update_delivery_method() {
 	$options = get_option( 'usces', array() );
-	$name    = trim( wp_unslash( $_POST['name'] ) );
-	$id      = (int) wp_unslash( $_POST['id'] );
-	$charge  = (int) wp_unslash( $_POST['charge'] );
+	$name    = trim( esc_js( $_POST['name'] ) );
+	$id      = (int) esc_js( $_POST['id'] );
+	$charge  = (int) esc_js( $_POST['charge'] );
 	$index   = 0;
 	$ct      = ( isset( $options['delivery_method'] ) && is_array( $options['delivery_method'] ) ) ? count( $options['delivery_method'] ) : 0;
 	for ( $i = 0; $i < $ct; $i++ ) {
@@ -535,20 +543,27 @@ function update_delivery_method() {
 			$index = $i;
 		}
 	}
+	$time       = wel_esc_script( str_replace( "\r\n", "\n", wp_unslash( $_POST['time'] ) ) );
+	$time       = str_replace( "\r", "\n", $time );
+	$time_array = explode( "\n", $time );
+	$times      = array();
+	foreach ( (array) $time_array as $val ) {
+		$times[] = esc_js( stripslashes( $val ) );
+	}
+
 	$options['delivery_method'][ $index ]['name']          = esc_js( $name );
 	$options['delivery_method'][ $index ]['charge']        = $charge;
-	$options['delivery_method'][ $index ]['time']          = wel_esc_script( str_replace( "\r\n", "\n", wp_unslash( $_POST['time'] ) ) );
-	$options['delivery_method'][ $index ]['time']          = str_replace( "\r", "\n", $options['delivery_method'][ $index ]['time'] );
-	$options['delivery_method'][ $index ]['days']          = (int) wp_unslash( $_POST['days'] );
-	$options['delivery_method'][ $index ]['nocod']         = wp_unslash( $_POST['nocod'] );
-	$options['delivery_method'][ $index ]['intl']          = wp_unslash( $_POST['intl'] );
-	$options['delivery_method'][ $index ]['cool_category'] = (int) wp_unslash( $_POST['cool_category'] );
+	$options['delivery_method'][ $index ]['time']          = implode( "\n", $times );
+	$options['delivery_method'][ $index ]['days']          = (int) esc_js( $_POST['days'] );
+	$options['delivery_method'][ $index ]['nocod']         = esc_js( $_POST['nocod'] );
+	$options['delivery_method'][ $index ]['intl']          = esc_js( $_POST['intl'] );
+	$options['delivery_method'][ $index ]['cool_category'] = (int) esc_js( $_POST['cool_category'] );
 	update_option( 'usces', $options );
 
 	$response = array(
 		'id'            => $id,
 		'name'          => esc_js( stripslashes( $name ) ),
-		'time'          => stripslashes( $options['delivery_method'][ $index ]['time'] ),
+		'time'          => implode( "\n", $times ),
 		'charge'        => $options['delivery_method'][ $index ]['charge'],
 		'days'          => $options['delivery_method'][ $index ]['days'],
 		'nocod'         => $options['delivery_method'][ $index ]['nocod'],

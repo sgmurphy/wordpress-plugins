@@ -118,11 +118,14 @@ class BWFAN_Connectors {
 				return false;
 			}
 		}
+		if ( empty( WFCO_Common::$connectors_saved_data ) ) {
+			WFCO_Common::get_connectors_data();
+		}
 
 		$is_connected = isset( WFCO_Common::$connectors_saved_data[ $slug ] ) && ! is_null( $connector ) && true === $connector->has_settings();
 
 		/** For Bitly */
-		return ( false === $is_connected && method_exists( $connector, 'is_connected' ) ) ? $connector->is_connected() : $is_connected;
+		return ( false === $is_connected && ! is_null( $connector ) && method_exists( $connector, 'is_connected' ) ) ? $connector->is_connected() : $is_connected;
 	}
 
 	public function is_wizard_connector( $connector ) {

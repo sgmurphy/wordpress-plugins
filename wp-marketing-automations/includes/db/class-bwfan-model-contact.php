@@ -38,7 +38,7 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		 */
 		public static function get_first_contact_id( $id = 0 ) {
 			global $wpdb;
-			$where = $id ? "AND id > $id" : '';
+			$where = $id ? $wpdb->prepare( "AND id > %d", $id ) : '';
 			$query = 'SELECT MIN(id) from ' . self::_table() . ' WHERE 1=1 ' . $where;
 
 			return $wpdb->get_var( $query );
@@ -793,6 +793,11 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		 * @return bool
 		 */
 		public static function delete_contact( $contact_id ) {
+			$contact_id = absint( $contact_id );
+			if ( ! $contact_id ) {
+				return false;
+			}
+
 			global $wpdb;
 
 			$contact_table                 = $wpdb->prefix . 'bwf_contact';
@@ -809,8 +814,8 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$automation_complete_contact   = $wpdb->prefix . 'bwfan_automation_complete_contact';
 			$automation_contact_trail      = $wpdb->prefix . 'bwfan_automation_contact_trail';
 
-			$contact_email = $wpdb->get_col( "select email from {$contact_table} where id=$contact_id" );
-			$contact_phone = $wpdb->get_col( "select contact_no from {$contact_table} where id=$contact_id" );
+			$contact_email = $wpdb->get_col( $wpdb->prepare( "select email from {$contact_table} where id=%d", $contact_id ) );
+			$contact_phone = $wpdb->get_col( $wpdb->prepare( "select contact_no from {$contact_table} where id=%d", $contact_id ) );
 
 			$delete_contact = $wpdb->delete( $contact_table, array( 'id' => $contact_id ) );
 			if ( ! $delete_contact ) {
@@ -835,13 +840,13 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$wpdb->delete( $automation_complete_contact, array( 'cid' => $contact_id ) );
 			$wpdb->delete( $automation_contact_trail, array( 'cid' => $contact_id ) );
 
-			$wpdb->query( "DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_woofunnel_cid' AND meta_value = $contact_id" );
-			$wpdb->query( "DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_woofunnel_custid' AND meta_value = $contact_id" );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_woofunnel_cid' AND meta_value = %d", $contact_id ) );
+			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}postmeta WHERE meta_key LIKE '_woofunnel_custid' AND meta_value = %d", $contact_id ) );
 
-			$engagement_meta_query = "DELETE $contact_engagement_meta_table
+			$engagement_meta_query = $wpdb->prepare( "DELETE $contact_engagement_meta_table
 				FROM $contact_engagement_meta_table
 				INNER JOIN $contact_engagement_table ON $contact_engagement_table.id = $contact_engagement_meta_table.eid
-				WHERE $contact_engagement_table.cid = $contact_id";
+				WHERE $contact_engagement_table.cid = %d", $contact_id );
 
 			/** delete from engagement meta and engagement table */
 			$wpdb->query( $engagement_meta_query );
@@ -866,18 +871,15 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		 * @return bool
 		 */
 		public static function delete_multiple_contacts( $contact_ids ) {
-			global $wpdb;
-
-			/** Remove Contacts from every other place */
-			$contact_table          = $wpdb->prefix . 'bwf_contact';
-			$contact_meta_table     = $wpdb->prefix . 'bwf_contact_meta';
-			$contact_customer_table = $wpdb->prefix . 'bwf_wc_customers';
-			$contact_fields_table   = $wpdb->prefix . 'bwf_contact_fields';
-
-			$ids    = implode( ',', array_map( 'absint', $contact_ids ) );
-			$status = true;
+			if ( empty( $contact_ids ) ) {
+				return false;
+			}
+			$contact_ids = array_map( 'absint', $contact_ids );
+			$status      = true;
 			foreach ( $contact_ids as $contact_id ) {
-				$status = self::delete_contact( $contact_id );
+				if ( intval( $contact_id ) > 0 ) {
+					$status = self::delete_contact( $contact_id );
+				}
 			}
 
 			return $status;
@@ -893,24 +895,24 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			$contact_orders_total_results = [];
 			if ( method_exists( 'BWF_WC_Compatibility', 'is_hpos_enabled' ) && BWF_WC_Compatibility::is_hpos_enabled() ) {
-				$contact_orders_total_query   = "SELECT count(wc_stats.order_id) as orders, SUM(wc_stats.total_sales) as total 
+				$contact_orders_total_query   = $wpdb->prepare( "SELECT count(wc_stats.order_id) as orders, SUM(wc_stats.total_sales) as total 
 									FROM {$wpdb->prefix}wc_order_stats as wc_stats 
 									LEFT JOIN {$wpdb->prefix}wc_orders_meta pm 
 									ON wc_stats.order_id =pm.order_id 
 									WHERE wc_stats.status = 'wc-completed' 
 									and pm.meta_key='_woofunnel_cid'
-									and pm.meta_value=$contact_id";
+									and pm.meta_value=%d", $contact_id );
 				$contact_orders_total_results = $wpdb->get_results( $contact_orders_total_query, ARRAY_A );
 			}
 
 			if ( empty( $contact_orders_total_results ) ) {
-				$contact_orders_total_query   = "SELECT count(wc_stats.order_id) as orders, SUM(wc_stats.total_sales) as total 
+				$contact_orders_total_query   = $wpdb->prepare( "SELECT count(wc_stats.order_id) as orders, SUM(wc_stats.total_sales) as total 
 									FROM {$wpdb->prefix}wc_order_stats as wc_stats 
 									LEFT JOIN {$wpdb->prefix}postmeta pm 
 									ON wc_stats.order_id =pm.post_id 
 									WHERE wc_stats.status = 'wc-completed' 
 									and pm.meta_key='_woofunnel_cid'
-									and pm.meta_value=$contact_id";
+									and pm.meta_value=%d", $contact_id );
 				$contact_orders_total_results = $wpdb->get_results( $contact_orders_total_query, ARRAY_A );
 			}
 
@@ -937,9 +939,9 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$bump_data['accepted'] = 0;
 			$bump_data['revenue']  = 0;
 
-			$bump_query   = "SELECT bump.bid as 'object_id',
+			$bump_query   = $wpdb->prepare( "SELECT bump.bid as 'object_id',
 						bump.total as 'total_revenue', 
-						'bump' as 'type' FROM {$wpdb->prefix}wfob_stats AS bump WHERE bump.cid='" . $contact_id . "' AND bump.converted=1";
+						'bump' as 'type' FROM {$wpdb->prefix}wfob_stats AS bump WHERE bump.cid='%d' AND bump.converted=1", $contact_id );
 			$bump_results = $wpdb->get_results( $bump_query, ARRAY_A );
 			if ( empty( $bump_results ) ) {
 				return $bump_data;
@@ -964,10 +966,10 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			global $wpdb;
 			$upstroke_data['accepted'] = 0;
 
-			$upstroke_query  = "SELECT event.action_type_id,event.value 
+			$upstroke_query  = $wpdb->prepare( "SELECT event.action_type_id,event.value 
 						   FROM {$wpdb->prefix}wfocu_event as event LEFT JOIN {$wpdb->prefix}wfocu_session as session 
 						   ON event.sess_id = session.id 
-						   WHERE (event.action_type_id = 4) AND session.cid='" . $contact_id . "'";
+						   WHERE (event.action_type_id = 4) AND session.cid='%d'", $contact_id );
 			$upstroke_result = $wpdb->get_results( $upstroke_query, ARRAY_A );
 			if ( empty( $upstroke_result ) ) {
 				return $upstroke_data;
@@ -1018,7 +1020,7 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		public static function get_checkout_details( $contact_id ) {
 			global $wpdb;
 
-			$query         = "SELECT  count(aero.wfacp_id) as total_orders, sum(aero.total_revenue) as 'total_revenue' FROM " . $wpdb->prefix . 'bwf_contact' . ' AS contact JOIN ' . $wpdb->prefix . 'wfacp_stats' . " AS aero ON contact.id=aero.cid WHERE aero.cid=$contact_id  ORDER BY aero.date DESC";
+			$query         = $wpdb->prepare( "SELECT  count(aero.wfacp_id) as total_orders, sum(aero.total_revenue) as 'total_revenue' FROM {$wpdb->prefix}bwf_contact AS contact JOIN {$wpdb->prefix}wfacp_stats AS aero ON contact.id=aero.cid WHERE aero.cid=%d ORDER BY aero.date DESC", $contact_id );
 			$checkout_data = $wpdb->get_results( $query, ARRAY_A ); //phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 			$return = array();
@@ -1038,7 +1040,7 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			global $wpdb;
 			$optin_submission = 0;
 
-			$query      = 'SELECT count(optin.id) as total_submission FROM ' . $wpdb->prefix . 'bwf_contact' . ' AS contact JOIN ' . $wpdb->prefix . 'bwf_optin_entries' . " AS optin ON contact.id=optin.cid WHERE optin.cid=$contact_id ORDER BY optin.date DESC";
+			$query      = $wpdb->prepare( "SELECT count(optin.id) as total_submission FROM {$wpdb->prefix}bwf_contact AS contact JOIN {$wpdb->prefix}bwf_optin_entries AS optin ON contact.id=optin.cid WHERE optin.cid=%d ORDER BY optin.date DESC", $contact_id );
 			$optin_data = $wpdb->get_results( $query, ARRAY_A );
 			if ( ! isset( $optin_data[0]['total_submission'] ) || empty( $optin_data[0]['total_submission'] ) ) {
 				return $optin_submission;
@@ -1101,7 +1103,7 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$wp_wc_columns  = $wc_get_data ? 'c.*, wc.id as customer_id, wc.l_order_date, wc.f_order_date, wc.total_order_count, wc.total_order_value, wc.purchased_products, wc.purchased_products_cats, wc.purchased_products_tags, wc.used_coupons' : 'c.*';
 			$join_wc_query  = $wc_get_data ? "LEFT JOIN $customer_table as wc ON c.id = wc.cid" : '';
 			$cart_join      = "LEFT JOIN $contact_table as c ON ab.email = c.email";
-			$base_query     = "SELECT $wp_wc_columns FROM $cart_table as ab $cart_join $join_wc_query WHERE 1=1 and ab.status IN (0,1,3,4) and c.id IS NOT NULL ORDER BY ab.last_modified DESC LIMIT $offset,$limit";
+			$base_query     = $wpdb->prepare( "SELECT $wp_wc_columns FROM $cart_table as ab $cart_join $join_wc_query WHERE 1=1 and ab.status IN (0,1,3,4) and c.id IS NOT NULL ORDER BY ab.last_modified DESC LIMIT %d,%d", $offset, $limit );
 			$contacts       = $wpdb->get_results( $base_query, ARRAY_A );
 
 			if ( ! is_array( $contacts ) || 0 === count( $contacts ) ) {
@@ -1189,6 +1191,11 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		public static function prepared_data( $contacts, $columns_needs_to_add ) {
 			if ( empty( $contacts ) ) {
 				return [];
+			}
+
+			/** Set woocommerce currency */
+			if ( method_exists( 'BWF_Plugin_Compatibilities', 'get_currency_symbol' ) ) {
+				BWF_Plugin_Compatibilities::get_currency_symbol( get_option( 'woocommerce_currency' ) );
 			}
 
 			return array_map( function ( $contact ) use ( $columns_needs_to_add ) {
@@ -1311,6 +1318,21 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 					$contact['aov'] = ! empty( $contact['aov'] ) ? wc_price( $contact['aov'] ) : '';
 				}
 
+				/** Link trigger */
+				if ( class_exists( 'BWFAN_Model_Link_Triggers' ) && isset( $contact['link-trigger-click'] ) && ! empty( $contact['link-trigger-click'] ) ) {
+					$contact['link-trigger-click'] = json_decode( $contact['link-trigger-click'] );
+					$data                          = BWFAN_Model_Link_Triggers::get_link_triggers( '', '', 0, 0, false, $contact['link-trigger-click'] );
+					if ( isset( $data['links'] ) ) {
+						$contact['links'] = array_map( function ( $link ) {
+							return array(
+								'id'   => $link['ID'],
+								'name' => $link['title'],
+								'link' => admin_url( 'admin.php?page=autonami&path=/link-trigger/' . $link['ID'] )
+							);
+						}, $data['links'] );
+						unset( $contact['link-trigger-click'] );
+					}
+				}
 
 				if ( ! empty( $columns_needs_to_add ) && is_array( $columns_needs_to_add ) ) {
 					foreach ( $columns_needs_to_add as $column ) {
@@ -1356,6 +1378,7 @@ if ( ! class_exists( 'BWFCRM_Model_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			$contact_details = isset( $columns['contact_details'] ) && is_array( $columns['contact_details'] ) ? $columns['contact_details'] : [];
 			$segments        = isset( $columns['segments'] ) && is_array( $columns['segments'] ) ? $columns['segments'] : [];
 			$custom_fields   = isset( $columns['contact_custom_fields'] ) && is_array( $columns['contact_custom_fields'] ) ? $columns['contact_custom_fields'] : [];
+			$custom_fields   = apply_filters( 'bwfcrm_contact_custom_columns_query_update', $custom_fields );
 			$wc_columns      = isset( $columns['woocommerce'] ) && is_array( $columns['woocommerce'] ) ? $columns['woocommerce'] : [];
 			$geography       = isset( $columns['geography'] ) && is_array( $columns['geography'] ) ? $columns['geography'] : [];
 			$engagement      = isset( $columns['engagement'] ) && is_array( $columns['engagement'] ) ? $columns['engagement'] : [];

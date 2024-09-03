@@ -169,7 +169,7 @@ class BWFAN_WC_Dynamic_Coupon extends BWFAN_Merge_Tag {
 				'label'       => __( 'Step ID', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
 				"required"    => true,
-				'placeholder' => 'Select',
+				'placeholder' => __( 'Select', 'wp-marketing-automations' ),
 				"description" => "",
 				"ajax_cb"     => 'bwfan_get_automation_wc_dynamic_coupon',
 			],
@@ -183,6 +183,6 @@ class BWFAN_WC_Dynamic_Coupon extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( function_exists( 'bwfan_is_woocommerce_active' ) && bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_WC_Dynamic_Coupon', null, 'Contact' );
+	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_WC_Dynamic_Coupon', null, __( 'Contact', 'wp-marketing-automations' ) );
 }
 

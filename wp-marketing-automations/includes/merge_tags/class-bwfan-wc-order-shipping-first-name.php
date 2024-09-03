@@ -37,7 +37,7 @@ class BWFAN_WC_Order_Shipping_First_Name extends BWFAN_Merge_Tag {
 			return $this->parse_shortcode_output( $this->get_dummy_preview(), $attr );
 		}
 		$order_id = BWFAN_Merge_Tag_Loader::get_data( 'order_id' );
-		$order 	= wc_get_order( $order_id );
+		$order    = wc_get_order( $order_id );
 
 		if ( ! $order instanceof WC_Order ) {
 			return $this->parse_shortcode_output( '', $attr );
@@ -66,5 +66,5 @@ class BWFAN_WC_Order_Shipping_First_Name extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Shipping_First_Name', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Shipping_First_Name', null, __( 'Order', 'wp-marketing-automations' ) );
 }

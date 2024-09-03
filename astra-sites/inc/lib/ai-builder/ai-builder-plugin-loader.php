@@ -389,33 +389,33 @@ class Ai_Builder_Plugin_Loader {
 		$support_link = 'https://wpastra.com/starter-templates-support/?ip=' . $this->get_client_ip();
 
 		return array(
-			'ajax_url'           => admin_url( 'admin-ajax.php' ),
-			'_ajax_nonce'        => wp_create_nonce( 'astra-sites' ),
-			'adminUrl'           => admin_url(),
-			'imageDir'           => AI_BUILDER_URL . 'inc/assets/images/',
-			'supportLink'        => $support_link,
-			'logoUrl'            => apply_filters( 'ai_builder_logo', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
-			'placeholder_images' => Helper::get_image_placeholders(),
-			'reportError'        => $this->should_report_error(),
-			'zip_token_exists'   => Helper::get_token() !== '' ? true : false,
-			'themeStatus'        => $theme_status,
-			'firstImportStatus'  => get_option( 'astra_sites_import_complete', false ),
-			'analytics'          => get_site_option( 'bsf_analytics_optin', false ),
-			'siteUrl'            => site_url(),
-			'installed'          => __( 'Installed! Activating..', 'astra-sites' ),
-			'activating'         => __( 'Activating...', 'astra-sites' ),
-			'activated'          => __( 'Activated!', 'astra-sites' ),
-			'installing'         => __( 'Installing...', 'astra-sites' ),
-			'logoUrlDark'        => apply_filters( 'st_ai_onboarding_logo_dark', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/st-logo-dark.svg' ),
-			'logoUrlLight'       => apply_filters( 'st_ai_onboarding_logo_light', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
-			'zip_plans'          => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),
-			'dashboard_url'      => admin_url(),
-			'migrateSvg'         => apply_filters( 'ai_builder_migrate_svg', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/migrate.svg' ),
-			'business_details'   => Ai_Builder_ZipWP_Integration::get_business_details(),
-			'skipFeatures'       => 'yes' === apply_filters( 'ai_builder_skip_features', 'no' ),
-			'show_premium_badge' => 'yes' === apply_filters( 'ai_builder_show_premium_badge', 'yes' ),
-			'parent_plugin'      => apply_filters( 'ai_builder_parent_plugin', 'wp-astra-sites' ),
-			'filtered_data'      => apply_filters(
+			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
+			'_ajax_nonce'              => wp_create_nonce( 'astra-sites' ),
+			'adminUrl'                 => admin_url(),
+			'imageDir'                 => AI_BUILDER_URL . 'inc/assets/images/',
+			'supportLink'              => $support_link,
+			'logoUrl'                  => apply_filters( 'ai_builder_logo', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
+			'placeholder_images'       => Helper::get_image_placeholders(),
+			'reportError'              => $this->should_report_error(),
+			'zip_token_exists'         => Helper::get_token() !== '' ? true : false,
+			'themeStatus'              => $theme_status,
+			'firstImportStatus'        => get_option( 'astra_sites_import_complete', false ),
+			'analytics'                => get_site_option( 'bsf_analytics_optin', false ),
+			'siteUrl'                  => site_url(),
+			'installed'                => __( 'Installed! Activating..', 'astra-sites' ),
+			'activating'               => __( 'Activating...', 'astra-sites' ),
+			'activated'                => __( 'Activated!', 'astra-sites' ),
+			'installing'               => __( 'Installing...', 'astra-sites' ),
+			'logoUrlDark'              => apply_filters( 'st_ai_onboarding_logo_dark', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/st-logo-dark.svg' ),
+			'logoUrlLight'             => apply_filters( 'st_ai_onboarding_logo_light', AI_BUILDER_URL . 'inc/assets/images/logo.svg' ),
+			'zip_plans'                => ( $plans && isset( $plans['data'] ) ) ? $plans['data'] : array(),
+			'dashboard_url'            => admin_url(),
+			'migrateSvg'               => apply_filters( 'ai_builder_migrate_svg', AI_BUILDER_URL . 'inc/assets/images/build-with-ai/migrate.svg' ),
+			'business_details'         => Ai_Builder_ZipWP_Integration::get_business_details(),
+			'skipFeatures'             => 'yes' === apply_filters( 'ai_builder_skip_features', 'no' ),
+			'show_premium_badge'       => 'yes' === apply_filters( 'ai_builder_show_premium_badge', 'yes' ),
+			'parent_plugin'            => apply_filters( 'ai_builder_parent_plugin', 'wp-astra-sites' ),
+			'filtered_data'            => apply_filters(
 				'ai_builder_limit_exceeded_popup_strings',
 				array(
 					'main_content'      => sprintf(
@@ -441,6 +441,7 @@ class Ai_Builder_Plugin_Loader {
 					'contact_text'      => __( 'Contact Support', 'astra-sites' ),
 				)
 			),
+			'default_website_language' => apply_filters( 'ai_builder_default_website_language', 'en' ),
 		);
 	}
 

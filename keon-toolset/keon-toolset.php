@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) exit;
 Plugin Name: Keon Toolset
 Plugin URI:  
 Description: A easy plugin to import dummy data for themes by Keon Themes.
-Version:     1.8.6
+Version:     1.8.7
 Author:      Keon Themes
 Author URI:  https://keonthemes.com
 License:     GPLv3 or later
@@ -43,10 +43,6 @@ function keon_toolset_get_theme_screenshot(){
  * @since    1.0.0
  */   
 require KEON_TOOLSET_PATH . 'demo/functions.php';
-if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' || keon_toolset_get_theme_slug() == 'shoppable-jewelry' || keon_toolset_get_theme_slug() == 'shoppable-camera' ){
-    require KEON_TOOLSET_PATH . 'demo/base-install/base-install.php';  
-}
-
 require KEON_TOOLSET_PATH . 'includes/class-template-library-base.php';
 require KEON_TOOLSET_PATH . 'includes/theme-check-functions.php';
 require KEON_TOOLSET_PATH . 'includes/admin-notices.php';
@@ -66,7 +62,8 @@ add_filter( 'admin_enqueue_scripts', array( $plugin_admin, 'enqueue_scripts' ), 
 add_action( 'advanced_import_replace_term_ids', array( $plugin_admin, 'replace_term_ids' ), 20 );
 add_action( 'advanced_import_replace_post_ids', array( $plugin_admin, 'replace_attachment_ids' ), 30 );
 
-if( keon_toolset_get_theme_slug() == 'shoppable-fashion' || keon_toolset_get_theme_slug() == 'shoppable-wardrobe' || keon_toolset_get_theme_slug() == 'shoppable-marketplace' || keon_toolset_get_theme_slug() == 'shoppable-grocery-store' || keon_toolset_get_theme_slug() == 'shoppable-furnish' || keon_toolset_get_theme_slug() == 'shoppable-jewelry' || keon_toolset_get_theme_slug() == 'shoppable-camera' ){
+if( ( keon_toolset_theme_check( 'shoppable' ) && !keon_toolset_theme_check( 'hello-shoppable' ) ) || ( keon_toolset_theme_check( 'bosa-media-marketing' ) ) ){
+    require KEON_TOOLSET_PATH . 'demo/base-install/base-install.php';
     add_action('advanced_import_after_complete_screen', array( $plugin_admin, 'kt_advance_import' ));
-    add_action('advanced_import_after_content_screen', array( $plugin_admin, 'kt_advance_import_transient' ));
+    add_action('advanced_import_after_content_screen', array( $plugin_admin, 'kt_advance_import_transient' )); 
 }

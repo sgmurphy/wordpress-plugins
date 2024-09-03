@@ -33,7 +33,7 @@ class L_ThePlus_Gravity_Form extends Widget_Base {
 	 * @since 1.0.1
 	 * @version 5.4.2
 	 */
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.

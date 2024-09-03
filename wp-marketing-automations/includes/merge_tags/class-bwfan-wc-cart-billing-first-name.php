@@ -9,7 +9,7 @@ class BWFAN_WC_Cart_Billing_First_Name extends Cart_Merge_Tag {
 		$this->tag_description = __( 'Cart Billing First Name', 'wp-marketing-automations' );
 		add_shortcode( 'bwfan_cart_billing_first_name', array( $this, 'parse_shortcode' ) );
 		$this->support_fallback = true;
-		$this->priority = 6;
+		$this->priority         = 6;
 	}
 
 	public static function get_instance() {
@@ -42,8 +42,8 @@ class BWFAN_WC_Cart_Billing_First_Name extends Cart_Merge_Tag {
 		if ( empty( $cart_details ) ) {
 			return $this->parse_shortcode_output( '', $attr );
 		}
-		
-		$field_value  = $this->get_cart_value( 'billing_first_name', $cart_details );
+
+		$field_value = $this->get_cart_value( 'billing_first_name', $cart_details );
 
 		return $this->parse_shortcode_output( ucwords( $field_value ), $attr );
 	}
@@ -81,5 +81,5 @@ class BWFAN_WC_Cart_Billing_First_Name extends Cart_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Billing_First_Name', null, 'Abandoned Cart' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Billing_First_Name', null, __( 'Abandoned Cart', 'wp-marketing-automations' ) );
 }

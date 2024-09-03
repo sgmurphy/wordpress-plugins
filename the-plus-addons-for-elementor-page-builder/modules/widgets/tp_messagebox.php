@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class L_ThePlus_MessageBox extends Widget_Base {
 
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.
@@ -107,7 +107,10 @@ class L_ThePlus_MessageBox extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => esc_html__( 'This is alert need your attention', 'tpebl' ),
 				'placeholder' => esc_html__( 'Enter Title', 'tpebl' ),
-				'label_block' => true,
+				'label_block' => false,
+				'ai' => [
+					'active' => false,
+				],
 			)
 		);
 		$this->add_control(
@@ -118,7 +121,6 @@ class L_ThePlus_MessageBox extends Widget_Base {
 				'label_on'  => esc_html__( 'Enable', 'tpebl' ),
 				'label_off' => esc_html__( 'Disable', 'tpebl' ),
 				'default'   => 'no',
-				'separator' => 'before',
 			)
 		);
 		$this->add_control(

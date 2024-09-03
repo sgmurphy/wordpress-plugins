@@ -3,9 +3,8 @@
 namespace QuadLayers\IGG\Controllers;
 
 use QuadLayers\IGG\Helpers as Helpers;
-use QuadLayers\IGG\Models\Feeds as Models_Feed;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
-use QuadLayers\IGG\Models\Setting as Models_Setting;
+use QuadLayers\IGG\Models\Feeds as Models_Feeds;
+use QuadLayers\IGG\Models\Settings as Models_Settings;
 use QuadLayers\IGG\Frontend\Load as Frontend;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Frontend\User_Profile as Api_Rest_User_Profile;
@@ -43,7 +42,7 @@ class Gutenberg {
 			'qligg-gutenberg',
 			'qligg_frontend',
 			array(
-				'settings'       => ( new Models_Setting() )->get(),
+				'settings'       => Models_Settings::instance()->get(),
 				'restRoutePaths' => array(
 					'username'    => Api_Rest_User_Media::get_rest_url(),
 					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
@@ -78,11 +77,7 @@ class Gutenberg {
 
 	private function get_attributes() {
 
-		$models_account  = new Models_Account();
-		$accounts = $models_account->get_all();
-
-		$models_feed = new Models_Feed();
-		$feed_arg    = $models_feed->get_args();
+		$feed_arg = Models_Feeds::instance()->get_args();
 
 		$attributes = array();
 

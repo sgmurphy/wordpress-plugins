@@ -3,7 +3,7 @@
         'name' => 'apto-shield/requirements',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '94f5b6b8e5cc54c2a90cd3ba34c7d2395b1eb23b',
+        'reference' => '039a03ec12ae8724b08af5d93e89f01f1c4577d2',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'apto-shield/requirements' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '94f5b6b8e5cc54c2a90cd3ba34c7d2395b1eb23b',
+            'reference' => '039a03ec12ae8724b08af5d93e89f01f1c4577d2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

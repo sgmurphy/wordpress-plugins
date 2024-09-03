@@ -594,8 +594,13 @@ class WlcMemberList
 
 			switch( $this->arr_search['member_word_term'][0] ){
 				case 'notcontain':
-					$wordterm0 = ' NOT LIKE %s';
-					$word0 = "%".$this->arr_search['member_word'][0]."%";
+					if ( 'rank' === $this->arr_search['member_column'][0] ) {
+						$wordterm0 = ' != %d';
+						$word0 = (int) $this->arr_search['member_word'][0];
+					} else {
+						$wordterm0 = ' NOT LIKE %s';
+						$word0 = "%".$this->arr_search['member_word'][0]."%";
+					}
 					break;
 				case 'equal':
 					$wordterm0 = ' = %s';
@@ -611,15 +616,25 @@ class WlcMemberList
 					break;
 				case 'contain':
 				default:
-					$wordterm0 = ' LIKE %s';
-					$word0 = "%".$this->arr_search['member_word'][0]."%";
+					if ( 'rank' === $this->arr_search['member_column'][0] ) {
+						$wordterm0 = ' = %d';
+						$word0 = (int) $this->arr_search['member_word'][0];
+					} else {
+						$wordterm0 = ' LIKE %s';
+						$word0 = "%".$this->arr_search['member_word'][0]."%";
+					}
 					break;
 			}
 
 			switch( $this->arr_search['member_word_term'][1] ){
 				case 'notcontain':
-					$wordterm1 = ' NOT LIKE %s';
-					$word1 = "%".$this->arr_search['member_word'][1]."%";
+					if ( 'rank' === $this->arr_search['member_column'][1] ) {
+						$wordterm1 = ' != %d';
+						$word1 = (int) $this->arr_search['member_word'][1];
+					} else {
+						$wordterm1 = ' NOT LIKE %s';
+						$word1 = "%".$this->arr_search['member_word'][1]."%";
+					}
 					break;
 				case 'equal':
 					$wordterm1 = ' = %s';
@@ -635,8 +650,13 @@ class WlcMemberList
 					break;
 				case 'contain':
 				default:
-					$wordterm1 = ' LIKE %s';
-					$word1 = "%".$this->arr_search['member_word'][1]."%";
+					if ( 'rank' === $this->arr_search['member_column'][1] ) {
+						$wordterm1 = ' = %d';
+						$word1 = (int) $this->arr_search['member_word'][1];
+					} else {
+						$wordterm1 = ' LIKE %s';
+						$word1 = "%".$this->arr_search['member_word'][1]."%";
+					}
 					break;
 			}
 

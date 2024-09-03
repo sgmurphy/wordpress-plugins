@@ -1,3 +1,6 @@
+v1.1.8 - 29-August-2024
+- New: Added image replacement compatibility for archive product banner image. 
+
 v1.1.7 - 28-August-2024
 - Improvement: Hardened the security of the plugin.
 

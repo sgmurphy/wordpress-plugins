@@ -78,8 +78,8 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
       }
 
       public function enqueue_date_js( $hook ) {
-         wp_enqueue_script( 'brave_pikaday_js', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/pikaday.min.js' ,'','',true);
-         wp_enqueue_script( 'brave_pikaday_init', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/formdate.js' ,'','',true);
+         wp_enqueue_script( 'brave_pikaday_js', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/pikaday.min.js' ,array(),'1.8.2',true);
+         wp_enqueue_script( 'brave_pikaday_init', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/formdate.js' ,array(),'1.1.0',true);
       }
 
       public function enqueue_recaptcha_js( $hook ) {
@@ -119,7 +119,7 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
                $vars['linkedin_rediret_url'] = urlencode(esc_url( home_url( '/' ) ).'?brave_linkedin_auth');
             }
             
-            wp_register_script( 'bravepop_social_login_js', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/social_login.js' ,'','',true);
+            wp_register_script( 'bravepop_social_login_js', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/social_login.js' ,array(),'1.1.0',true);
             wp_localize_script( 'bravepop_social_login_js', 'brave_social_global', $vars );
             wp_enqueue_script('bravepop_social_login_js');
          }

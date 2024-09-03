@@ -506,10 +506,11 @@ function usces_have_skus() {
 function usces_the_itemSku( $out = '' ) {
 	global $usces;
 
+	$skucode = isset( $usces->itemsku['code'] ) ? $usces->itemsku['code'] : '';
 	if ( 'return' === $out ) {
-		return $usces->itemsku['code'];
+		return $skucode;
 	} else {
-		echo esc_attr( $usces->itemsku['code'] );
+		echo esc_attr( $skucode );
 	}
 }
 

@@ -172,7 +172,7 @@ class SupportForm {
                         </html>';
 		$type         = sanitize_text_field( $support['type'] );
 		$to_mail      = WOWP_Plugin::info( 'email' );
-		$send         = wp_mail( $to_mail, 'August749 / Support Ticket: ' . $type, $message_mail, $headers );
+		$send         = wp_mail( $to_mail, 'Support Request: ' . $type, $message_mail, $headers );
 
 		if ( $send ) {
 			$text = __( 'Your message has been sent to the support team.', 'float-menu' );

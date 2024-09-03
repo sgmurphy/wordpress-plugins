@@ -100,7 +100,7 @@ class BWFAN_WC_Cart_Items extends Merge_Tag_Abstract_Product_Display {
 		$lang             = is_array( $checkout_data ) && isset( $checkout_data['lang'] ) ? $checkout_data['lang'] : '';
 		$items            = apply_filters( 'bwfan_abandoned_cart_items_visibility', maybe_unserialize( $cart_details['items'] ) );
 		$tax_display      = get_option( 'woocommerce_tax_display_cart' );
-		$currency         = is_array( $cart_details ) & isset( $cart_details['currency'] ) ? $cart_details['currency'] : '';
+		$currency         = is_array( $cart_details ) & isset( $cart_details['currency'] ) ? maybe_unserialize( $cart_details['currency'] ) : '';
 		$products         = [];
 		$product_quantity = [];
 		$product_sku      = [];
@@ -129,7 +129,7 @@ class BWFAN_WC_Cart_Items extends Merge_Tag_Abstract_Product_Display {
 			'shipping_total'     => maybe_unserialize( $cart_details['shipping_total'] ),
 			'shipping_tax_total' => maybe_unserialize( $cart_details['shipping_tax_total'] ),
 			'total'              => maybe_unserialize( $cart_details['total'] ),
-			'currency'           => maybe_unserialize( $cart_details['currency'] ),
+			'currency'           => $currency,
 			'lang'               => $lang
 		];
 		$this->products          = $products;
@@ -190,6 +190,10 @@ class BWFAN_WC_Cart_Items extends Merge_Tag_Abstract_Product_Display {
 				'value' => 'comma-separated-with-name-price',
 				'label' => __( 'Product Names with Price', 'wp-marketing-automations' ),
 			],
+			[
+				'value' => 'comma-separated-product-ids',
+				'label' => __( 'Product IDs - Comma Separated  ', 'wp-marketing-automations' ),
+			]
 		];
 
 		return [
@@ -243,5 +247,5 @@ class BWFAN_WC_Cart_Items extends Merge_Tag_Abstract_Product_Display {
  *
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Items', null, 'Abandoned Cart' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Items', null, __( 'Abandoned Cart', 'wp-marketing-automations' ) );
 }

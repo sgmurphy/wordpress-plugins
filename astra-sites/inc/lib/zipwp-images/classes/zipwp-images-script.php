@@ -97,7 +97,7 @@ class Zipwp_Images_Script {
 				'is_bb_editor'         => ( class_exists( '\FLBuilderModel' ) ) ? ( \FLBuilderModel::is_builder_active() ) : false,
 				'is_brizy_editor'      => ( class_exists( 'Brizy_Editor_Post' ) ) ? ( isset( $_GET['brizy-edit'] ) || isset( $_GET['brizy-edit-iframe'] ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Fetching GET parameter, no nonce associated with this action.
 				'saved_images'         => get_option( 'zipwp-images-saved-images', array() ),
-				'title'                => apply_filters( 'zipwp_images_tab_title', __( 'ZipWP Images', 'astra-sites' ) ),
+				'title'                => apply_filters( 'zipwp_images_tab_title', __( 'Search Images', 'astra-sites' ) ),
 				'search_placeholder'   => __( 'Search - Ex: flowers', 'astra-sites' ),
 				'downloading'          => __( 'Downloading...', 'astra-sites' ),
 				'validating'           => __( 'Validating...', 'astra-sites' ),

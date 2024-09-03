@@ -2,7 +2,7 @@
 Contributors: dnesscarkey
 Tags: mobile theme, mobile theme switcher, mobile browser detect, mobile detect, theme redirection based on mobile device, mobile detect, user agent detect, mobile user agent
 Requires at least: 3.0
-Tested up to: 6.4.1
+Tested up to: 6.6.1
 Stable tag: 3.2
 
 This Plugin detects mobile browser and display the theme as the setting done from admin. Usefull for switch to Mobile Theme. 

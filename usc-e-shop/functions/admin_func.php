@@ -553,9 +553,11 @@ function wel_get_circulating_amount() {
 	$last_month      = wp_date( 'Y-m-d H:i:s', $last_month_time );
 	$this_month_time = strtotime( 'first day of this month 00:00:00', $current_time );
 	$this_month      = wp_date( 'Y-m-d H:i:s', $this_month_time );
+	$next_month_time = strtotime( 'last day of this month 23:59:59', $this_month_time );
+	$next_month      = wp_date( 'Y-m-d H:i:s', $next_month_time );
 
 	$table_name = $wpdb->prefix . 'usces_order';
-	$result     = $wpdb->get_var(
+	$normal     = $wpdb->get_var(
 		$wpdb->prepare(
 			"SELECT SUM(
 				order_item_total_price + order_shipping_charge + order_cod_fee + order_tax - order_usedpoint + order_discount
@@ -573,12 +575,143 @@ function wel_get_circulating_amount() {
 			$this_month
 		)
 	);
-
-	if ( $result ) {
-		return $result;
-	} else {
-		return 0;
+	if ( defined( 'WCEX_DLSELLER' ) ) {
+		$access_table = $wpdb->prefix . 'usces_continuation';
+		if ( $access_table !== $wpdb->get_var( "SHOW TABLES LIKE '$access_table'" ) ) {
+			$continue = 0;
+		} else {
+			$this_month = substr( $this_month, 0, 10 );
+			$next_month = substr( $next_month, 0, 10 );
+			$continue = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT SUM( con_price ) AS total_con_price FROM {$access_table}
+					WHERE con_status = %s
+					AND con_next_charging >= %s AND con_next_charging <= %s",
+					'continuation',
+					$this_month,
+					$next_month
+				)
+			);
+		}
 	}
+	$result = (int) $normal + (int) $continue;
+	return $result;
+}
+
+/**
+ * Get item categories.
+ *
+ * @return string
+ */
+function wel_get_categories() {
+
+	$parent_category_slug = 'itemgenre';
+	$parent_category      = get_category_by_slug( $parent_category_slug );
+
+	if ( $parent_category ) {
+		$categories = get_categories(
+			array(
+				'taxonomy'   => 'category',
+				'hide_empty' => 0,
+				'parent'     => $parent_category->term_id,
+			)
+		);
+	}
+
+	if ( empty( $categories ) ) {
+		$fallback_category_slug = 'item';
+		$fallback_category      = get_category_by_slug( $fallback_category_slug );
+
+		if ( $fallback_category ) {
+			$categories = get_categories(
+				array(
+					'taxonomy'   => 'category',
+					'hide_empty' => 0,
+					'parent'     => $fallback_category->term_id,
+				)
+			);
+		}
+	}
+
+	$result = '';
+	if ( ! empty( $categories ) ) {
+		foreach ( $categories as $index => $category ) {
+			if ( 10 > $index ) {
+				$result .= $category->name . ':';
+			} else {
+				break;
+			}
+		}
+		$result = trim( $result, ':' );
+	}
+
+	return $result;
+}
+
+/**
+ * Get active theme.
+ *
+ * @return string
+ */
+function wel_get_themes() {
+	$result = '';
+
+	$active_theme = wp_get_theme();
+	$result       = $active_theme->get( 'Name' );
+
+	if ( $active_theme->parent() ) {
+		$parent_theme = $active_theme->parent();
+		$result      .= ' : ' . $parent_theme->get( 'Name' );
+	}
+
+	return $result;
+}
+
+/**
+ * Get active plugins.
+ *
+ * @return string
+ */
+function wel_get_plugins() {
+	$result = '';
+
+	$all_plugins    = get_plugins();
+	$active_plugins = get_option('active_plugins');
+
+	foreach ( $active_plugins as $plugin_path ) {
+		if ( strpos( $plugin_path, 'wcex' ) === 0 && isset( $all_plugins[ $plugin_path ] ) ) {
+			$plugin  = $all_plugins[ $plugin_path ];
+			$result .= dirname( $plugin_path ) . '(' . $plugin['Version'] . '):';
+		}
+	}
+	$result = trim( $result, ':' );
+	return $result;
+}
+
+/**
+ * Get active payment methods.
+ *
+ * @return string
+ */
+function wel_get_activ_pay_methd() {
+	global $usces;
+
+	$result         = '';
+	$payment_method = get_option( 'usces_payment_method' );
+
+	foreach ( $payment_method as $method ) {
+		if ( 'activate' !== $method['use']) {
+			continue;
+		}
+		$payname = str_replace( 'acting', '', $method['settlement'] );
+		$payname = ltrim( $payname, '_' );
+		if ( empty( $payname ) ) {
+			$payname = $method['module'];
+		}
+		$result .= $payname . ':';
+	}
+	$result = trim( $result, ':' );
+	return $result;
 }
 
 /**

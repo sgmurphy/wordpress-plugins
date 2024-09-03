@@ -12,7 +12,7 @@ require_once( __DIR__ . '/Cmn/Db.php' );
 require_once( __DIR__ . '/Cmn/Img.php' );
 require_once( __DIR__ . '/Cmn/Plugin.php' );
 
-const PLUGIN_SETT_VER								= 136;
+const PLUGIN_SETT_VER								= 137;
 const PLUGIN_DATA_VER								= 1;
 const PLUGIN_EULA_VER								= 1;
 const QUEUE_DB_VER									= 4;
@@ -792,6 +792,11 @@ function OnOptRead_Sett( $sett, $verFrom )
 		Gen::SetArrField( $sett, array( 'cache', 'opAgentPostpone' ), false );
 	}
 
+	if( $verFrom && $verFrom < 137 )
+	{
+		Gen::SetArrField( $sett, array( 'contPr', 'img', 'lazy', 'own' ), true );
+	}
+
 	return( $sett );
 }
 
@@ -960,6 +965,7 @@ function OnOptGetDef_Sett()
 			'urisExcl' => array(
 				'/checkout/',
 				'@.*sitemap\.xsl$@',
+				'@page/@',
 			),
 			'exclAgents' => array(
 				'printfriendly',
@@ -1104,6 +1110,18 @@ function OnOptGetDef_Sett()
 					'enable' => true,
 					'name' => 'us_cookie_notice',
 					'cookies' => array( 'us_cookie_notice_accepted' ),
+				),
+
+				array(
+					'enable' => true,
+					'name' => 'Transcy',
+					'cookies' => array( 'transcy_' ),
+				),
+
+				array(
+					'enable' => true,
+					'name' => 'WP Legal Pages',
+					'cookies' => array( 'wplegalpages-' ),
 				),
 			),
 
@@ -1290,6 +1308,7 @@ function OnOptGetDef_Sett()
 				'lazy' => array(
 					'setSize' => false,
 					'load' => true,
+					'own' => true,
 					'smoothAppear' => true,
 					'del3rd' => true,
 					'excl' => array(
@@ -3146,7 +3165,7 @@ function ContProcIsCompatView( $settCache, $userAgent  )
 
 function GetViewTypeUserAgent( $viewsDeviceGrp )
 {
-	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.4 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
+	return( 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.5 ' . ucwords( implode( ' ', Gen::GetArrField( $viewsDeviceGrp, array( 'agents' ), array() ) ) ) );
 }
 
 function CorrectRequestScheme( &$serverArgs, $target = null )
@@ -3229,6 +3248,8 @@ function OnAsyncTask_QueueProcessItems( $args )
 	$nMaxItemsTotal = $nMaxItems;
 
 	$procTmLim = Gen::GetArrField( Plugin::SettGet(), array( 'cache', 'procTmLim' ), 570 );
+
+	$dirFileValues = PluginFileValues::GetDirVar( '' );
 
 	$tmCur = microtime( true );
 
@@ -3365,7 +3386,7 @@ function OnAsyncTask_QueueProcessItems( $args )
 		if( $nMaxItems < $nMaxItemsTotal )
 			return;
 
-		$procEndLastTime = intval( get_option( 'seraph_accel_procEndLastTime' ) );
+		$procEndLastTime = intval( PluginFileValues::GetEx( $dirFileValues, 'pelt' ) );
 		if( $tmCur - $procEndLastTime < $procInterval )
 			return;
 	}
@@ -3442,18 +3463,19 @@ function CachePushQueueProcessor( $next = false, $immediately = false, $shortInt
 		$procInterval = $shortInterval ? (isset($settCacheGlobal[ 'procIntervalShort' ])?$settCacheGlobal[ 'procIntervalShort' ]:null) : (isset($settCacheGlobal[ 'procInterval' ])?$settCacheGlobal[ 'procInterval' ]:null);
 	}
 
+	$dirFileValues = PluginFileValues::GetDirVar( '' );
 	$time = time() + $procInterval;
 
 	if( !is_bool( $immediately ) )
 	{
-		$timeLast = get_option( 'seraph_accel_queueProcessItemNext' );
+		$timeLast = PluginFileValues::GetEx( $dirFileValues, 'qpin' );
 		if( $timeLast && ( $time - $timeLast < $immediately ) )
 			$procInterval = 99999;
 	}
 	else if( $next && ( $immediately || $shortInterval ) )
-		update_option( 'seraph_accel_procEndLastTime', 0, false );
+		PluginFileValues::SetEx( $dirFileValues, 'pelt', 0 );
 
-	update_option( 'seraph_accel_queueProcessItemNext', $time, false );
+	PluginFileValues::SetEx( $dirFileValues, 'qpin', $time );
 
 	Plugin::AsyncFastTaskPost( 'QueueProcessItems', null, array( $time ), false, true );
 
@@ -3616,6 +3638,7 @@ function OnAsyncTask_CacheProcessItem( $args )
 	if( !$id || !$siteId )
 		return;
 
+	$dirFileValues = PluginFileValues::GetDirVar( '' );
 	$dirQueue = GetCacheDir() . '/q/' . $siteId;
 
 	$item = null;
@@ -3935,7 +3958,7 @@ function OnAsyncTask_CacheProcessItem( $args )
 
 	ProcessCtlData_Del( $fileCtl );
 
-	update_option( 'seraph_accel_procEndLastTime', ( int )$tmFinish, false );
+	PluginFileValues::SetEx( $dirFileValues, 'pelt', ( int )$tmFinish );
 
 	if( $needRepeat && CachePostPreparePageEx( (isset($data[ 'u' ])?$data[ 'u' ]:null), $siteId, $priorOrig, (isset($data[ 'p' ])?$data[ 'p' ]:null), $hdrs, $tmOrig, $repeatIdx !== null ? ( $repeatIdx + 1 ) : null, (isset($data[ 'l' ])?$data[ 'l' ]:null) ) )
 	    $immediatelyPushQueue = true;
@@ -4096,7 +4119,7 @@ function CachePostPreparePageEx( $url, $siteId, $priority, $priorityInitiator, $
 	$idLearn = md5( $idLearn, true );
 
 	$viewName = null;
-	if( $viewsDeviceGrp = GetCacheViewDeviceGrp( $settCache, strtolower( (isset($headers[ 'User-Agent' ])?$headers[ 'User-Agent' ]:null) ) ) )
+	if( $viewsDeviceGrp = GetCacheViewDeviceGrp( $settCache, strtolower( isset( $headers[ 'X-Seraph-Accel-Postpone-User-Agent' ] ) ? $headers[ 'X-Seraph-Accel-Postpone-User-Agent' ] : (isset($headers[ 'User-Agent' ])?$headers[ 'User-Agent' ]:null) ) ) )
 		$viewName = GetViewDeviceGrpNameFromData( $viewsDeviceGrp );
 
 	$dirQueue = GetCacheDir() . '/q/' . $siteId;
@@ -4198,7 +4221,7 @@ function GetExtContents( $url, &$contMimeType = null, $userAgentCmn = true, $tim
 
 	$args = array( 'sslverify' => false, 'timeout' => $timeout );
 	if( $userAgentCmn )
-		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.4';
+		$args[ 'user-agent' ] = 'Mozilla/99999.9 AppleWebKit/9999999.99 (KHTML, like Gecko) Chrome/999999.0.9999.99 Safari/9999999.99 seraph-accel-Agent/2.22.5';
 
 	global $seraph_accel_g_aGetExtContentsFailedSrvs;
 

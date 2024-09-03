@@ -5,7 +5,7 @@ Tags: Elementor,Templates,Gutenberg,Block Editor,Astra Starter Sites
 Requires at least: 4.4
 Requires PHP: 7.4
 Tested up to: 6.6.1
-Stable tag: 4.4.1
+Stable tag: 4.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,6 +246,20 @@ Once your website is generated, you have complete control over its content and l
 6. Use the power of AI with a single click to write copy, proofread, translate content into different languages. Adjust content length and tone seamlessly for maximum appeal.
 
 == Changelog ==
+
+v4.4.2 - 03-September-2024
+- New: 
+    - AI Builder : Added a filter to update default website language.
+    - AI Builder : Added image replacement compatibility for archive product banner image.
+    - Added filter to disable the "Design Kit" library.
+- Improvements:
+    - Design Kit: Enhanced API performance by optimizing execution times and reducing delays.
+    - Free Images : Enhanced UI for better user experience.
+    - Better database handling for the NPS.
+- Fixes:
+    - Design Kit: Corrected styling issues for patterns/pages preview to ensure consistent display.
+    - Design Kit: Addressed CSS conflicts with SureCart blocks to prevent styling discrepancies.
+    - After import images were not getting replaced for classic Elementor templates.
 
 v4.4.1 - 28-August-2024
 - Improvement: Hardened the security of the plugin.

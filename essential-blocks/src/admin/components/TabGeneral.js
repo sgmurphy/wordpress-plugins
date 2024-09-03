@@ -277,27 +277,51 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.9.0", "essential-blocks")}
+                                    {__("Version: 4.9.1", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("27/08/2024", "essential-blocks")}
+                                        {__("03/09/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Improved: Optimized codebase for better performance and efficiency",
+                                            "Added: Responsive typography support",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Synced Pattern re-render issue in some blocks",
+                                            "Added: Product Grid | Product image clicable option",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: EB Post Carousel | Throwing PHP warning",
+                                            "Fixed: Post Carousel | Posts not showing for default query",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: NFT Gallery | API updated to v2.0",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Slider | Loading icon showing all time if image is transparent",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Image Gallery | Image size settings reverted to default",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Toggle Content | z-index conflict with Astra theme",
                                             "essential-blocks"
                                         )}
                                     </li>

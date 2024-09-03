@@ -354,11 +354,11 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
       
       public function popup_external_scripts() {
          if($this->advancedAnimation && $this->hasAnimation) {
-            wp_enqueue_script( 'bravepop_animejs', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/anime.min.js' ,'','',true);
-            wp_enqueue_script( 'bravepop_animation', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/animate.js' ,'','',true);
+            wp_enqueue_script( 'bravepop_animejs', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/anime.min.js' ,array(),'3.1.0',true);
+            wp_enqueue_script( 'bravepop_animation', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/animate.js' ,array(),'1.1.0',true);
          }
          if($this->hasLoginElement){
-            wp_enqueue_script( 'bravepop_loginjs', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/login.js' ,'','',true);
+            wp_enqueue_script( 'bravepop_loginjs', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/login.js' ,array(),'1.1.0',true);
             wp_enqueue_style('bravepop_login_element',  BRAVEPOP_PLUGIN_PATH . 'assets/css/wp_login.min.css' );
          }
          if($this->hasWpPosts){
@@ -370,7 +370,7 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
       }
 
       public function popup_content_lock_script(){
-         wp_enqueue_script( 'bravepop_embedlock', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/embedlock.js' ,'','',false);
+         wp_enqueue_script( 'bravepop_embedlock', BRAVEPOP_PLUGIN_PATH . 'assets/frontend/embedlock.js' ,array(),'1.1.0',false);
       }
 
       public function popup_embedlock_script() { ?>

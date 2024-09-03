@@ -65,7 +65,7 @@ class BWFAN_API_Update_User_Preference extends BWFAN_API_Base {
 			$userdata   = get_user_meta( $user_id, '_bwfan_header_notification', true );
 			$userdata   = empty( $userdata ) && ! is_array( $userdata ) ? [] : $userdata;
 			$userdata[] = $data['bwfan_header_notification'];
-			update_user_meta( $user_id, '_bwfan_header_notification', $userdata );
+			update_user_meta( $user_id, '_bwfan_header_notification', array_unique( $userdata ) );
 		}
 		if ( isset( $data['bwfan_failed_automations'] ) ) {
 			update_user_meta( $user_id, 'bwfan_failed_automations', [

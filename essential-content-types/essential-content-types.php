@@ -16,7 +16,7 @@
  * Plugin Name:       Essential Content Types
  * Plugin URI:        https://catchplugins.com/plugins/essential-content-types/
  * Description:       Essential Content Types allows you to feature the impressive content through different content/post types on your website just the way you want it. These content/post types are missed by the themes in WordPress Theme Directory as the feature falls more towards the plugins’ territory.
- * Version:           2.2.5
+ * Version:           2.2.6
  * Author:            Catch Plugins
  * Author URI:        https://catchplugins.com
  * License:           GPL-3.0+
@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Define Version
-define( 'ESSENTIAL_CONTENT_TYPES_VERSION', '2.2.5' );
+define( 'ESSENTIAL_CONTENT_TYPES_VERSION', '2.2.6' );
 
 /**
  * The code that runs during plugin activation.

@@ -36,4 +36,4 @@ class BWFAN_Admin_Email extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Admin_Email', null, 'General' );
+BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Admin_Email', null, __( 'General', 'wp-marketing-automations' ) );

@@ -2,9 +2,9 @@
 Contributors: xlplugins, amans2k
 Tags: cart abandonment, follow up emails, email marketing, email customizer, crm, woocommerce, newsletter, marketing automation
 Requires at least: 5.0
-Tested up to: 6.6.0
+Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 3.1.2
+Stable tag: 3.2.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -415,6 +415,47 @@ FunnelKit Automations is 100% self-hosted and fully GDPR compliant.
 
 
 == Change log ==
+
+= 3.2.1 (Sep 3, 2024) =
+* Fixed: Added a function exists check to prevent errors during updates on some setups. (#3395)
+* Fixed: Automation Action - Send Email: Correctly maps static email addresses in the "To" field with the contact, or leaves it blank if needed. (#3357)
+* Fixed: Contact Filters: Corrected the readable value for the "Last Clicked Between" operator. (#3398)
+
+= 3.2.0 (Sep 2, 2024) =
+* Compatible upto WordPress 6.6.1
+* Compatible upto WooCommerce 9.2.3
+* New: Pro: PushEngage integration added. (#3213)
+ - Send Push notification from Automation.
+ - Send Push notification directly from single contact profile page.
+ - Recording clicks from push notifications.
+ - Push notifications listing on the single contact profile page.
+* Added: Merge Tags: Order items and Cart items merge tag, new type 'Product IDs comma separated' added. (#3369)
+* Added: Compatibility added with currency related plugins and a tool to reindex cart and conversions total amount. (#3316, #3260, #3268)
+* Added: Onboarding wizard for quick setup. (#2768)
+* Security: Sanitize contact id in the delete call. (#3298)
+* Improved: Pro: OptinMonster integration redirect issue during connection for a case. (#3284)
+* Improved: WooCommerce checkout flow, FK Automation code optimized. (#3338)
+* Improved: Automation Action: Cart items merge tag, images are linked with recovery link. (#3295)
+* Improved: Static translations made dynamic. (#3320)
+* Improved: Contacts Listing: Link trigger clicked column values are now linked to respective. (#3307)
+* Improved: Automation Action: Third party SMS related connectors, anaytics option enabled. (#3326)
+* Improved: Database Tables: Some columns are marked unique. (#3361)
+* Improved: Optimize email template data while saving. (#3323)
+* Improved: Pro: Twilio settings improved. Having just one webhook URL option. (#3356)
+* Improved: Pro: Twilio settings improved. Keeping just one webhook URL option. (#3356)
+* Fixed: Automation Contacts: Rerun via Bulk action wasn't working, fixed. (#3267)
+* Fixed: Automation Export: Sometimes issue in export on cached setup, fixed. (#3269)
+* Fixed: Compatibility with FunnelKit Cart updated. (#3277)
+* Fixed: Search component UI issue fixed. (#3275, #3342)
+* Fixed: Automation Event: Editing event was triggering the JS error in a case, fixed. (#3275)
+* Fixed: Automation: Action failed message, trimmed before updating. (#3282)
+* Fixed: Automation Goal: Goal wasn't traversing to Split path step type, fixed. (#3285)
+* Fixed: Marketing consent checkbox disappears after sometime on the checkout page. (#3305)
+* Fixed: Automation Rules: Some filters search results were not coming as per the search string, fixed. (#3310, #3303)
+* Fixed: Automation Builder: JS code optimized. (#3330)
+* Fixed: Automation Action: Update Field code fixed for number type. (#3378)
+* Dev: Filter hook 'bwfan_skip_user_agents' added to modify user agents to stop tracking opens and clicks. (#3242)
+* Dev: Filter hook 'bwfan_email_pre_header_space' added to modify spaces in the email for the preview text. (#3314)
 
 = 3.1.2 (Jul 20, 2024) =
 * Fixed: Legacy automation screen were throwing PHP error, fixed. (#3262)

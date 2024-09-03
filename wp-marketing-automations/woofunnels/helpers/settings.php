@@ -77,7 +77,7 @@ return apply_filters( 'bwf_settings_config', array(
 				'label'       => __( 'Pixel ID', 'woofunnels' ),
 				'type'        => 'input',
 				'placeholder' => __( '294123501257422', 'woofunnels' ),
-				'hint'        => __( 'Log into your Facebook ads account to find your Pixel ID. <a target="_blank" href="https://www.facebook.com/ads/manager/pixel/facebook_pixel/">Learn More</a>', 'woofunnels' ),
+				'hint'        => __( 'Log into your Facebook ads account to find your Pixel ID. <a target="_blank" href="https://funnelkit.com/docs/funnel-builder/how-to/configure-facebook-conversion-api/#step-4-go-to-settings">Learn More</a>', 'woofunnels' ),
 			),
 
 			array(
@@ -453,7 +453,7 @@ return apply_filters( 'bwf_settings_config', array(
 				'type'        => 'input',
 				'label'       => __( 'Analytics ID', 'woofunnels' ),
 				'placeholder' => __( 'G-9F3K2TGHH4', 'woofunnels' ),
-				'hint'        => __( 'Log into your Google Analytics account to find your Analytics ID. <a target="_blank" href="https://support.google.com/analytics/answer/10269537">Learn More</a>', 'woofunnels' ),
+				'hint'        => __( 'Log into your Google Analytics account to find your Analytics ID. <a target="_blank" href="https://funnelkit.com/docs/funnel-builder/how-to/set-up-google-analytics-4-property/">Learn More</a>', 'woofunnels' ),
 			),
 
 			array(

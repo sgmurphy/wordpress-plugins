@@ -70,7 +70,8 @@ class HMWP_Models_Compatibility
             'two-factor/two-factor.php' => 'HMWP_Models_Compatibility_TwoFactor',
             'hcaptcha-for-forms-and-more/hcaptcha.php' => 'HMWP_Models_Compatibility_hCaptcha',
             'mainwp-child/mainwp-child.php' => 'HMWP_Models_Compatibility_MainWP',
-        );
+			'userswp/userswp.php' => 'HMWP_Models_Compatibility_UsersWP',
+		);
 
 	    try {
 

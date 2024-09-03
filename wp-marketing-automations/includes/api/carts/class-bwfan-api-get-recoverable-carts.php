@@ -62,9 +62,11 @@ class BWFAN_API_Get_Recoverable_Carts extends BWFAN_API_Base {
 		$result  = [];
 		$nowDate = new DateTime( 'now', new DateTimeZone( "UTC" ) );
 		foreach ( $recoverable_carts as $item ) {
-			$cartDate = new DateTime( $item->last_modified );
-			$diff     = date_diff( $nowDate, $cartDate, true );
-			$diff     = BWFAN_Common::get_difference_string( $diff );
+			$cartDate      = new DateTime( $item->last_modified );
+			$diff          = date_diff( $nowDate, $cartDate, true );
+			$diff          = BWFAN_Common::get_difference_string( $diff );
+			$currency_data = BWFAN_Recoverable_Carts::get_currency( $item );
+			$total         = ! is_null( $item->total ) ? $item->total : 0;
 
 			$result[] = [
 				'id'            => ! is_null( $item->ID ) ? $item->ID : 0,
@@ -76,8 +78,8 @@ class BWFAN_API_Get_Recoverable_Carts extends BWFAN_API_Base {
 				'diffstring'    => $diff,
 				'status'        => ! is_null( $item->status ) ? $item->status : '',
 				'items'         => $this->get_items( $item ),
-				'total'         => ! is_null( $item->total ) ? $item->total : 0,
-				'currency'      => BWFAN_Recoverable_Carts::get_currency( $item ),
+				'total'         => $total,
+				'currency'      => $currency_data,
 				'buyer_name'    => $this->get_order_name( $item ),
 				'order_id'      => $this->get_order_id( $item ),
 				'user_id'       => ! empty( $item->user_id ) ? $item->user_id : 0,

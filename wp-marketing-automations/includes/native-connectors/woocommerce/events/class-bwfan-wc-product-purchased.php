@@ -639,7 +639,7 @@ final class BWFAN_WC_Product_Purchased extends BWFAN_Event {
 				'class'       => '',
 				'placeholder' => '',
 				'required'    => true,
-				"errorMsg"    => 'Select at least one status.',
+				"errorMsg"    => __( 'Select at least one status.', 'wp-marketing-automations' ),
 				'options'     => $this->get_view_data(),
 				'hint'        => __( 'This automation would run on new orders product with selected statuses.', 'wp-marketing-automations' ),
 			],
@@ -649,11 +649,11 @@ final class BWFAN_WC_Product_Purchased extends BWFAN_Event {
 				'type'        => 'radio',
 				'options'     => [
 					[
-						'label' => 'Any Product',
+						'label' => __( 'Any Product', 'wp-marketing-automations' ),
 						'value' => 'any'
 					],
 					[
-						'label' => 'Specific Products',
+						'label' => __( 'Specific Products', 'wp-marketing-automations' ),
 						'value' => 'selected_product'
 					],
 				],
@@ -687,7 +687,7 @@ final class BWFAN_WC_Product_Purchased extends BWFAN_Event {
 				'type'     => 'notice',
 				'class'    => '',
 				'status'   => 'warning',
-				'message'  => 'This is a Pro feature.',
+				'message'  => __( 'This is a Pro feature.', 'wp-marketing-automations' ),
 				'dismiss'  => false,
 				'required' => false,
 				'toggler'  => [

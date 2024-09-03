@@ -3,7 +3,7 @@
  * Plugin Name: Starter Templates Importer
  * Description: Library which interacts with Starter Templates and provide multiple useful modules.
  * Author: Brainstorm Force
- * Version: 1.1.7
+ * Version: 1.1.8
  * License: GPL v2
  * Text Domain: st-importer
  *

@@ -589,11 +589,20 @@ class Log_List_Table extends WP_List_Table {
 
 		if ( empty( $orderby ) ) {
 			$orderby = 'ID';
+		} else {
+			if ( ! array_key_exists( $orderby, $this->get_columns() ) ) {
+				$orderby = 'ID';
+			}
 		}
 
 		if ( empty( $order ) ) {
 			$order = 'DESC';
+		} else {
+			if ( 'DESC' !== strtoupper( $order ) && 'ASC' !== strtoupper( $order ) ) {
+				$order = 'DESC';
+			}
 		}
+
 		$sql = $wpdb->prepare( ' ORDER BY %s %s', esc_sql( $orderby ), esc_sql( $order ) );
 		$sql = str_replace( "'", '', stripslashes( $sql ) );
 
@@ -619,15 +628,15 @@ class Log_List_Table extends WP_List_Table {
 			$entity_id = filter_input( INPUT_GET, 'usces_entity_id' );
 			$where     = array();
 			if ( ! empty( $authors ) ) {
-				$where[] = $wpdb->prepare( 'author = %s', $authors );
+				$where[] = $wpdb->prepare( 'author = %s', esc_sql( $authors ) );
 			}
 
 			if ( ! empty( $action ) ) {
-				$where[] = $wpdb->prepare( 'action = %s', $action );
+				$where[] = $wpdb->prepare( 'action = %s', esc_sql( $action ) );
 			}
 
 			if ( ! empty( $screen ) ) {
-				$where[] = $wpdb->prepare( 'screen = %s', $screen );
+				$where[] = $wpdb->prepare( 'screen = %s', esc_sql( $screen ) );
 			}
 
 			if ( ! empty( $datetime ) ) {
@@ -637,16 +646,16 @@ class Log_List_Table extends WP_List_Table {
 
 			if ( ! empty( $entity_id ) ) {
 				$entity_id = trim( $entity_id );
-				$where[]   = $wpdb->prepare( 'entity_id = %s', $entity_id );
+				$where[]   = $wpdb->prepare( 'entity_id = %s', esc_sql( $entity_id ) );
 			}
 		} elseif ( $this->is_order_mode() ) {
 			$order_id = $this->get_context_entity_id( 'order_id' );
 			$where[]  = $wpdb->prepare( 'screen IN ( %s )', implode( "','", $this->get_order_screen_ids() ) );
-			$where[]  = $wpdb->prepare( 'entity_id = %s', $order_id );
+			$where[]  = $wpdb->prepare( 'entity_id = %s', esc_sql( $order_id ) );
 		} elseif ( $this->is_member_mode() ) {
 			$member_id = $this->get_context_entity_id( 'member_id' );
 			$where[]   = $wpdb->prepare( 'screen IN ( %s )', implode( "','", $this->get_member_screen_ids() ) );
-			$where[]   = $wpdb->prepare( 'entity_id = %s', $member_id );
+			$where[]   = $wpdb->prepare( 'entity_id = %s', esc_sql( $member_id ) );
 		}
 
 		if ( ! empty( $where ) ) {

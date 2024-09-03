@@ -18,8 +18,8 @@ if ( ! class_exists( 'BravePop_Webhook' ) ) {
             $defaultKey = !$defaultKey && isset($field->placeholder) ? $field->placeholder : $defaultKey;
 
             $fieldKey = isset($field->uid) ? $field->uid : $defaultKey;
-            $fieldValue = isset($field->value) && is_string($field->value) && $field->value ? strip_tags($field->value) : '';
-            $fieldValue = isset($field->value) && is_array($field->value) && $field->value ? strip_tags(implode(", ", $field->value)) : $fieldValue;
+            $fieldValue = isset($field->value) && is_string($field->value) && $field->value ? wp_strip_all_tags($field->value) : '';
+            $fieldValue = isset($field->value) && is_array($field->value) && $field->value ? wp_strip_all_tags(implode(", ", $field->value)) : $fieldValue;
             
             if(isset($field->value) && is_array($field->value) && $field->type === 'input' && $field->validation === 'name'){
                $defaultKey2 = isset($field->secondLabel) ? $field->secondLabel : ''; 

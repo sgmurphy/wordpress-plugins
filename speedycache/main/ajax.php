@@ -109,10 +109,10 @@ class Ajax{
 		$options['combine_js'] = isset($_POST['combine_js']);
 		$options['delay_js'] = isset($_POST['delay_js']);
 		$options['delay_js_mode'] = isset($_POST['delay_js_mode']) ? Util::sanitize_post('delay_js_mode') : '';
-		$options['delay_js_excludes'] = isset($_POST['delay_js_excludes']) ? sanitize_textarea_field(wp_unslash($_POST['delay_js_excludes'])) : '';
-		$options['delay_js_scripts'] = isset($_POST['delay_js_scripts']) ? sanitize_textarea_field(wp_unslash($_POST['delay_js_scripts'])) : '';
+		$options['delay_js_excludes'] = !empty($_POST['delay_js_excludes']) ? explode("\n", sanitize_textarea_field(wp_unslash($_POST['delay_js_excludes']))) : [];
+		$options['delay_js_scripts'] = !empty($_POST['delay_js_scripts']) ? explode("\n", sanitize_textarea_field(wp_unslash($_POST['delay_js_scripts']))) : [];
 		$options['render_blocking'] = isset($_POST['render_blocking']);
-		$options['render_blocking_excludes'] = isset($_POST['render_blocking_excludes']) ? sanitize_textarea_field(wp_unslash($_POST['render_blocking_excludes'])) : '';
+		$options['render_blocking_excludes'] = isset($_POST['render_blocking_excludes']) ? explode("\n", sanitize_textarea_field(wp_unslash($_POST['render_blocking_excludes']))) : [];
 		$options['disable_emojis'] = isset($_POST['disable_emojis']);
 		$options['lazy_load_html'] = isset($_POST['lazy_load_html']);
 
@@ -261,6 +261,10 @@ class Ajax{
 		global $speedycache;
 		
 		$options = get_option('speedycache_cdn', []);
+		if(!is_array($options)){
+			$options = [];
+		}
+
 		$options['enabled'] = isset($_POST['enable_cdn']);
 		$options['cdn_type'] = Util::sanitize_post('cdn_type');
 		$options['cdn_key'] = sanitize_key(wp_unslash($_POST['cdn_key']));

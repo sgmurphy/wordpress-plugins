@@ -527,7 +527,7 @@ class BWFAN_Rule_Product_Item_Type extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -678,18 +678,25 @@ class BWFAN_Rule_Product_Item_Type extends BWFAN_Rule_Base {
 		return $this->get_possible_rule_values();
 	}
 
-	public function get_possible_rule_values() {
-		$terms = get_terms( 'product_type', array(
+	public function get_possible_rule_values( $term = '' ) {
+		$product_type = get_terms( 'product_type', array(
 			'hide_empty' => false,
 		) );
 
 		$result = [];
-		if ( $terms && ! is_wp_error( $terms ) ) {
-			foreach ( $terms as $term ) {
-				if ( 'grouped' === $term->name ) {
+		if ( $product_type && ! is_wp_error( $product_type ) ) {
+			foreach ( $product_type as $type ) {
+				$name = $type->name;
+				if ( 'grouped' === $name ) {
 					continue;
 				}
-				$result[ $term->term_id ] = $term->name;
+				if ( ! empty( $term ) ) {
+					if ( stripos( $name, $term ) !== false ) {
+						$result[ $type->term_id ] = $name;
+					}
+					continue;
+				}
+				$result[ $type->term_id ] = $name;
 			}
 		}
 
@@ -1143,7 +1150,7 @@ class BWFAN_Rule_Order_Item_Type extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -1289,18 +1296,25 @@ class BWFAN_Rule_Order_Item_Type extends BWFAN_Rule_Base {
 		return $this->get_possible_rule_values();
 	}
 
-	public function get_possible_rule_values() {
-		$terms = get_terms( 'product_type', array(
+	public function get_possible_rule_values( $term = '' ) {
+		$order_type = get_terms( 'product_type', array(
 			'hide_empty' => false,
 		) );
 
 		$result = [];
-		if ( $terms && ! is_wp_error( $terms ) ) {
-			foreach ( $terms as $term ) {
-				if ( 'grouped' === $term->name ) {
+		if ( $order_type && ! is_wp_error( $order_type ) ) {
+			foreach ( $order_type as $type ) {
+                $name = $type->name;
+				if ( 'grouped' === $name ) {
 					continue;
 				}
-				$result[ $term->term_id ] = $term->name;
+				if ( ! empty( $term ) ) {
+					if ( stripos( $name, $term ) !== false ) {
+						$result[ $type->term_id ] = $name;
+					}
+					continue;
+				}
+				$result[ $type->term_id ] = $name;
 			}
 		}
 
@@ -1730,7 +1744,7 @@ class BWFAN_Rule_Order_Payment_Gateway extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -1779,10 +1793,16 @@ class BWFAN_Rule_Order_Payment_Gateway extends BWFAN_Rule_Base {
 
 	/** v2 Methods: END */
 
-	public function get_possible_rule_values() {
+	public function get_possible_rule_values( $term = '' ) {
 		$result = array();
 		foreach ( WC()->payment_gateways()->payment_gateways() as $gateway ) {
 			if ( 'yes' === $gateway->enabled ) {
+				if ( ! empty( $term ) ) {
+					if ( stripos( $gateway->get_title(), $term ) !== false ) {
+						$result[ $gateway->id ] = $gateway->get_title();
+					}
+					continue;
+				}
 				$result[ $gateway->id ] = $gateway->get_title();
 			}
 		}
@@ -1888,7 +1908,7 @@ class BWFAN_Rule_Order_Shipping_Method extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -1951,12 +1971,19 @@ class BWFAN_Rule_Order_Shipping_Method extends BWFAN_Rule_Base {
 
 	/** v2 Methods: END */
 
-	public function get_possible_rule_values() {
+	public function get_possible_rule_values( $term = '' ) {
 		$result = array();
 
 		foreach ( WC()->shipping()->get_shipping_methods() as $method_id => $method ) {
 			// get_method_title() added in WC 2.6
-			$result[ $method_id ] = is_callable( array( $method, 'get_method_title' ) ) ? $method->get_method_title() : $method->get_title();
+			$title = is_callable( array( $method, 'get_method_title' ) ) ? $method->get_method_title() : $method->get_title();
+			if ( ! empty( $term ) ) {
+				if ( stripos( $title, $term ) !== false ) {
+					$result[ $method_id ] = $title;
+				}
+				continue;
+			}
+			$result[ $method_id ] = $title;
 		}
 
 		return $result;
@@ -2351,7 +2378,7 @@ class BWFAN_Rule_Order_Status_Change extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -2360,8 +2387,18 @@ class BWFAN_Rule_Order_Status_Change extends BWFAN_Rule_Base {
 
 	/** v2 Methods: END */
 
-	public function get_possible_rule_values() {
-		return wc_get_order_statuses();
+	public function get_possible_rule_values( $term = '' ) {
+		$order_status = wc_get_order_statuses();
+		if ( empty( $term ) ) {
+			return $order_status;
+		}
+		$result = array();
+		foreach ( $order_status as $status_key => $status_name ) {
+			if ( stripos( $status_name, $term ) !== false ) {
+				$result[ $status_key ] = $status_name;
+			}
+		}
+		return $result;
 	}
 
 	public function get_condition_input_type() {
@@ -2565,7 +2602,7 @@ class BWFAN_Rule_Order_Status extends BWFAN_Rule_Base {
 	/** v2 Methods: START */
 
 	public function get_options( $term = '' ) {
-		return $this->get_possible_rule_values();
+		return $this->get_possible_rule_values( $term );
 	}
 
 	public function get_rule_type() {
@@ -2574,8 +2611,19 @@ class BWFAN_Rule_Order_Status extends BWFAN_Rule_Base {
 
 	/** v2 Methods: END */
 
-	public function get_possible_rule_values() {
-		return wc_get_order_statuses();
+	public function get_possible_rule_values( $term = '' ) {
+		$order_status = wc_get_order_statuses();
+		if ( empty( $term ) ) {
+			return $order_status;
+		}
+		$result = array();
+		foreach ( $order_status as $status_key => $status_name ) {
+			if ( stripos( $status_name, $term ) !== false ) {
+				$result[ $status_key ] = $status_name;
+			}
+		}
+
+		return $result;
 	}
 
 	public function get_condition_input_type() {

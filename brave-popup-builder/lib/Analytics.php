@@ -7,7 +7,7 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
          if(!$popupID){ return; }
          global $wpdb; $viewTable = $wpdb->prefix . 'bravepopup_stats';
          $popupID = absint( $popupID );
-         $sql   = 'SELECT * FROM ' . $viewTable . " WHERE `popup` = '$popupID' DESC";
+         $sql = $wpdb->prepare("SELECT * FROM $viewTable WHERE `popup` = %d ORDER BY id DESC", $popupID);
          return $wpdb->get_results( $sql );
       }
 
@@ -21,10 +21,12 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
          if(!$popupID || !$startDate || !$endDate){ return; }
          global $wpdb; $goalTable = $wpdb->prefix . 'bravepopup_goal_stats';
          $popupID = absint( $popupID ); $pagination ='';
-         if($offset){
-            $pagination = "OFFSET $offset ROWS FETCH NEXT 3 ROWS ONLY";
-         }
-         $sql   = 'SELECT * FROM ' . $goalTable . " WHERE (`popup` = '$popupID' AND `goal_time` BETWEEN '$startDate' AND '$endDate') ORDER BY goal_time";
+         $sql = $wpdb->prepare(
+            "SELECT * FROM $goalTable WHERE (`popup` = %d AND `goal_time` BETWEEN %s AND %s) ORDER BY goal_time",
+            $popupID,
+            $startDate,
+            $endDate
+        );
          return $wpdb->get_results( $sql );
       }
 
@@ -32,7 +34,11 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
          if(!$startDate || !$endDate){ return; }
          global $wpdb; $goalTable = $wpdb->prefix . 'bravepopup_goal_stats';
          //$startDate = '2020-08-24';  $endDate = '2020-08-25 23:59:59';
-         $sql   = 'SELECT * FROM ' . $goalTable . "  WHERE `goal_time` BETWEEN '$startDate' and '$endDate'";
+         $sql = $wpdb->prepare(
+            "SELECT * FROM $goalTable WHERE `goal_time` BETWEEN %s AND %s",
+            $startDate,
+            $endDate
+        );
          return $wpdb->get_results( $sql );
       }
 
@@ -65,7 +71,7 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
          $startTime = microtime(true);
          global $wpdb; $viewTable = $wpdb->prefix . 'bravepopup_stats';
          $popupID = absint($popupID);
-         $sql   = 'SELECT * FROM ' . $viewTable . " WHERE `popup` = '$popupID'";
+         $sql = $wpdb->prepare("SELECT * FROM $viewTable WHERE `popup` = %d", $popupID);
          $popupViewRow = $wpdb->get_results( $sql );
          // error_log($type.' '.json_encode($popupViewRow));
          if(isset($popupViewRow[0])){
@@ -117,8 +123,9 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
       static function get_analytics_csv( $popupID ) {
          if(!$popupID){ return; }
          global $wpdb; 
+         $popupID = absint($popupID);
          $goalTable = $wpdb->prefix . 'bravepopup_goal_stats';
-         $sql   = 'SELECT * FROM ' . $goalTable . "  WHERE (`popup` = '$popupID' )";
+         $sql = $wpdb->prepare("SELECT * FROM $goalTable WHERE `popup` = %d", $popupID);
          $allEntries =  $wpdb->get_results( $sql );
          $analytics_entries = array();
          $settings = get_option('_bravepopup_settings');

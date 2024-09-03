@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
+class ComposerStaticInit74b9f45daec271d48236a833cf56b3b7
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-assets/actions.php',
@@ -96,14 +96,14 @@ class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
         'QuadLayers\\IGG\\Controllers\\Gutenberg' => __DIR__ . '/../..' . '/lib/controllers/class-gutenberg.php',
         'QuadLayers\\IGG\\Entity\\Account' => __DIR__ . '/../..' . '/lib/entity/class-account.php',
         'QuadLayers\\IGG\\Entity\\Feed' => __DIR__ . '/../..' . '/lib/entity/class-feed.php',
-        'QuadLayers\\IGG\\Entity\\Settings' => __DIR__ . '/../..' . '/lib/entity/class-settings.php',
+        'QuadLayers\\IGG\\Entity\\Setting' => __DIR__ . '/../..' . '/lib/entity/class-setting.php',
         'QuadLayers\\IGG\\Helpers' => __DIR__ . '/../..' . '/lib/class-helpers.php',
         'QuadLayers\\IGG\\Models\\Accounts' => __DIR__ . '/../..' . '/lib/models/class-accounts.php',
         'QuadLayers\\IGG\\Models\\Feeds' => __DIR__ . '/../..' . '/lib/models/class-feeds.php',
-        'QuadLayers\\IGG\\Models\\Setting' => __DIR__ . '/../..' . '/lib/models/class-setting.php',
+        'QuadLayers\\IGG\\Models\\Settings' => __DIR__ . '/../..' . '/lib/models/class-settings.php',
         'QuadLayers\\IGG\\Plugin' => __DIR__ . '/../..' . '/lib/class-plugin.php',
         'QuadLayers\\IGG\\Services\\Accounts' => __DIR__ . '/../..' . '/lib/services/class-accounts.php',
-        'QuadLayers\\IGG\\Utils\\Cache' => __DIR__ . '/../..' . '/lib/utils/class-cache.php',
+        'QuadLayers\\IGG\\Services\\Cache' => __DIR__ . '/../..' . '/lib/services/class-cache.php',
         'QuadLayers\\WP_Dashboard_Widget_News\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-dashboard-widget-news/src/Load.php',
         'QuadLayers\\WP_Notice_Plugin_Promote\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-promote/src/Load.php',
         'QuadLayers\\WP_Notice_Plugin_Promote\\PluginByFile' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-promote/src/PluginByFile.php',
@@ -116,6 +116,7 @@ class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
         'QuadLayers\\WP_Notice_Plugin_Required\\Plugin' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-notice-plugin-required/src/Plugin.php',
         'QuadLayers\\WP_Orm\\Builder\\CollectionRepositoryBuilder' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Builder/CollectionRepositoryBuilder.php',
         'QuadLayers\\WP_Orm\\Builder\\SingleRepositoryBuilder' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Builder/SingleRepositoryBuilder.php',
+        'QuadLayers\\WP_Orm\\Builder\\SingleVirtualRepositoryBuilder' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Builder/SingleVirtualRepositoryBuilder.php',
         'QuadLayers\\WP_Orm\\Entity\\CollectionEntity' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Entity/CollectionEntity.php',
         'QuadLayers\\WP_Orm\\Entity\\EntityInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Entity/EntityInterface.php',
         'QuadLayers\\WP_Orm\\Entity\\SingleEntity' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Entity/SingleEntity.php',
@@ -130,6 +131,8 @@ class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
         'QuadLayers\\WP_Orm\\Repository\\CollectionRepositoryInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/CollectionRepositoryInterface.php',
         'QuadLayers\\WP_Orm\\Repository\\SingleRepository' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/SingleRepository.php',
         'QuadLayers\\WP_Orm\\Repository\\SingleRepositoryInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/SingleRepositoryInterface.php',
+        'QuadLayers\\WP_Orm\\Repository\\SingleVirtualRepository' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/SingleVirtualRepository.php',
+        'QuadLayers\\WP_Orm\\Repository\\SingleVirtualRepositoryInterface' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/Repository/SingleVirtualRepositoryInterface.php',
         'QuadLayers\\WP_Plugin_Install_Tab\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-install-tab/src/Load.php',
         'QuadLayers\\WP_Plugin_Suggestions\\Load' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Load.php',
         'QuadLayers\\WP_Plugin_Suggestions\\Page' => __DIR__ . '/../..' . '/jetpack_vendor/quadlayers/wp-plugin-suggestions/src/Page.php',
@@ -140,9 +143,9 @@ class ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4d147c8a0498b65d4d5938bb7c2ba468::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit74b9f45daec271d48236a833cf56b3b7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit74b9f45daec271d48236a833cf56b3b7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit74b9f45daec271d48236a833cf56b3b7::$classMap;
 
         }, null, ClassLoader::class);
     }

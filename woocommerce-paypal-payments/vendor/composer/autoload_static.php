@@ -33,6 +33,7 @@ class ComposerStaticInit8d6d274f3742efb3f1278eee713257b4
             'WooCommerce\\PayPalCommerce\\PayLaterBlock\\' => 41,
             'WooCommerce\\PayPalCommerce\\OrderTracking\\' => 41,
             'WooCommerce\\PayPalCommerce\\Onboarding\\' => 38,
+            'WooCommerce\\PayPalCommerce\\LocalAlternativePaymentMethods\\' => 58,
             'WooCommerce\\PayPalCommerce\\Googlepay\\' => 37,
             'WooCommerce\\PayPalCommerce\\Compat\\' => 34,
             'WooCommerce\\PayPalCommerce\\Common\\' => 34,
@@ -141,6 +142,10 @@ class ComposerStaticInit8d6d274f3742efb3f1278eee713257b4
         'WooCommerce\\PayPalCommerce\\Onboarding\\' => 
         array (
             0 => __DIR__ . '/../..' . '/modules/ppcp-onboarding/src',
+        ),
+        'WooCommerce\\PayPalCommerce\\LocalAlternativePaymentMethods\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/ppcp-local-alternative-payment-methods/src',
         ),
         'WooCommerce\\PayPalCommerce\\Googlepay\\' => 
         array (

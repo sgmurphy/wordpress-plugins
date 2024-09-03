@@ -148,11 +148,11 @@ final class BWFAN_WC_Product_Stock_Reduced extends BWFAN_Event {
 	}
 
 	public function get_event_data() {
-		$data_to_send                             = [];
-		$data_to_send['global']['order_id']       = $this->order_id;
-		$data_to_send['global']['single_item_id'] = $this->single_item_id;
-		$data_to_send['global']['qty']            = $this->qty;
-		$data_to_send['global']['single_item']    = $this->single_item;
+		$data_to_send                                = [];
+		$data_to_send['global']['order_id']          = $this->order_id;
+		$data_to_send['global']['wc_single_item_id'] = $this->single_item_id;
+		$data_to_send['global']['qty']               = $this->qty;
+		$data_to_send['global']['single_item']       = $this->single_item;
 
 		$this->order                     = $this->order instanceof WC_Order ? $this->order : wc_get_order( $this->order_id );
 		$data_to_send['global']['email'] = BWFAN_Common::get_email_from_order( $this->order_id, $this->order );
@@ -178,7 +178,7 @@ final class BWFAN_WC_Product_Stock_Reduced extends BWFAN_Event {
 	public function set_merge_tags_data( $task_meta ) {
 		$get_data = BWFAN_Merge_Tag_Loader::get_data();
 		$set_data = array(
-			'wc_single_item_id' => $task_meta['global']['single_item_id'],
+			'wc_single_item_id' => $task_meta['global']['wc_single_item_id'],
 		);
 
 		if ( ! isset( $get_data['wc_order_id'] ) || $get_data['wc_order_id'] !== $task_meta['global']['order_id'] ) {
@@ -187,7 +187,6 @@ final class BWFAN_WC_Product_Stock_Reduced extends BWFAN_Event {
 		}
 
 		$set_data['wc_single_item'] = $task_meta['global']['single_item'];
-
 		BWFAN_Merge_Tag_Loader::set_data( $set_data );
 	}
 
@@ -209,17 +208,16 @@ final class BWFAN_WC_Product_Stock_Reduced extends BWFAN_Event {
 	 * @return array|bool
 	 */
 	public function capture_v2_data( $automation_data ) {
-		$details = BWFAN_Common::$events_async_data['details'];
-
+		$details              = BWFAN_Common::$events_async_data['details'];
 		$this->single_item_id = $details['single_item_id'];
 		$this->order_id       = $details['order_id'];
 		$this->single_item    = new WC_Order_Item_Product( $this->single_item_id );
 		$this->qty            = $details['qty'];
 		$this->order_id       = $details['order_id'];
 
-		$automation_data['single_item_id'] = $this->single_item_id;
-		$automation_data['order_id']       = $this->order_id;
-		$automation_data['qty']            = $this->qty;
+		$automation_data['wc_single_item_id'] = $this->single_item_id;
+		$automation_data['order_id']          = $this->order_id;
+		$automation_data['qty']               = $this->qty;
 
 		return $automation_data;
 	}

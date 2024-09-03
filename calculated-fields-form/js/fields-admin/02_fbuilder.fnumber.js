@@ -29,16 +29,64 @@
 				max:"",
 				step:"",
 				formatDynamically:false,
+				twoDecimals:false,
 				dformat:"digits",
 				formats:new Array("digits","number", "percent"),
 				initAdv: function() {
 					if ( ! ( 'spinner_left' in this.advanced.css ) ) this.advanced.css.spinner_left = {label: 'Left spinner',rules:{}};
 					if ( ! ( 'spinner_right' in this.advanced.css ) ) this.advanced.css.spinner_right = {label: 'Right spinner',rules:{}};
 				},
+				getFormattedValue:function(value)
+				{
+					if(value == '') return value;
+					var ts = this.thousandSeparator,
+						ds = ((ds=String(this.decimalSymbol).trim()) !== '') ? ds : '.',
+						v = $.fbuilder.parseVal(value, ts, ds),
+						s = '',
+						counter = 0,
+						str = '',
+						parts = [],
+						step  = $('[id="'+this.name+'"]').attr('step'),
+						prefix  = this.dformat == 'number' ? this.prefix : '',
+						postfix = this.dformat == 'number' ? this.postfix : '';
+
+					if(!isNaN(v))
+					{
+						if(v < 0) s = '-';
+						v = Math.abs(v);
+						if(this.twoDecimals && Math.floor(v) != v) v = v.toFixed(2);
+						parts = v.toString().split(".");
+
+						for(var i = parts[0].length-1; i >= 0; i--){
+							counter++;
+							str = parts[0][i]+str;
+							if(counter%3 == 0 && i != 0) str = ts+str;
+
+						}
+						parts[0]  = str;
+						if(
+							typeof parts[1] != 'undefined' &&
+							parts[1]*1 &&
+							typeof step != 'undefined' &&
+							! isNaN(step*1)
+						){
+							var l = (new String(step)).split('.');
+							if(l.length == 2){
+								l = Math.max(l.length-(new String(parts[1])).length, 0);
+								for(var i = 0; i < l; i++) parts[1] += '0';
+							}
+						}
+						return prefix+s+parts.join(ds)+((this.dformat == 'percent') ? '%':'')+postfix;
+					}
+					else
+					{
+						return value;
+					}
+				},
 				display:function( css_class )
 					{
 						css_class = css_class || '';
-						return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Number')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.predefined)+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
+						return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Number')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+'<input class="field disabled '+this.size+'" type="text" value="'+cff_esc_attr(this.getFormattedValue(this.predefined))+'"/><span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';
 					},
 				editItemEvents:function()
 					{
@@ -61,6 +109,7 @@
 							{s:"#sDecimalSymbol",e:"change keyup", l:"decimalSymbol", x:1},
 							{s:"#sSpinner",e:"click", l:"spinner",f:f},
 							{s:"#sFormatDynamically",e:"click", l:"formatDynamically",f:f},
+							{s:"#sTwoDecimals",e:"click", l:"twoDecimals",f:f},
 						];
 						$.fbuilder.controls[ 'ffields' ].prototype.editItemEvents.call(this, evt);
 					},
@@ -80,7 +129,9 @@
 						'<label>Prefix Symbol</label><input type="text" name="sPrefix" id="sPrefix" value="'+cff_esc_attr(this.prefix)+'" class="large">'+
 						'<label>Postfix Symbol</label><input type="text" name="sPostfix" id="sPostfix" value="'+cff_esc_attr(this.postfix)+'" class="large">'+
 						'</div>'+
-						'<div class="fnumber-symbols" '+((df == 'digits') ? 'style="display:none;"' : '')+'><label><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'> Format dynamically</label></div>';
+						'<div class="fnumber-symbols" '+((df == 'digits') ? 'style="display:none;"' : '')+'><label class="column width50"><input type="checkbox" name="sFormatDynamically" id="sFormatDynamically" '+( (this.formatDynamically) ? 'CHECKED' : '')+'> Format dynamically to</label>'+
+						'<label class="column width50"><input type="checkbox" name="sTwoDecimals" id="sTwoDecimals" '+( (this.twoDecimals) ? 'CHECKED' : '')+'> two decimal places</label>'+
+						'<div class="clearer"></div></div>';
 					},
 				showRangeIntance: function()
 					{

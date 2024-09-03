@@ -8,6 +8,7 @@ if ( ! class_exists( 'BWFAN_Message' ) && BWFAN_Common::is_pro_3_0() ) {
 		private $_subject = '';
 		private $_body = '';
 		private $_date = '';
+		private $data = [];
 
 		public function __construct( $m_id = 0 ) {
 			if ( empty( absint( $m_id ) ) ) {
@@ -20,6 +21,9 @@ if ( ! class_exists( 'BWFAN_Message' ) && BWFAN_Common::is_pro_3_0() ) {
 			}
 
 			$this->set_message( $message['ID'], $message['track_id'], $message['sub'], $message['body'], $message['date'] );
+			if ( isset( $message['data'] ) ) {
+				$this->set_data( $message['data'] );
+			}
 		}
 
 		public function is_message_exists() {
@@ -74,6 +78,14 @@ if ( ! class_exists( 'BWFAN_Message' ) && BWFAN_Common::is_pro_3_0() ) {
 			$this->_subject = $subject;
 		}
 
+		public function set_data( $data ) {
+			$this->data = $data;
+		}
+
+		public function get_data() {
+			return json_decode( $this->data, true );
+		}
+
 		/**
 		 * @return int
 		 */
@@ -82,20 +94,27 @@ if ( ! class_exists( 'BWFAN_Message' ) && BWFAN_Common::is_pro_3_0() ) {
 				return false;
 			}
 			if ( 0 === $this->get_id() ) {
-				BWFAN_Model_Message::insert( array(
+				$insert_data = array(
 					'track_id' => $this->get_track_id(),
 					'sub'      => $this->get_subject(),
 					'body'     => $this->get_body(),
-					'date'     => current_time( 'mysql', 1 )
-				) );
+					'date'     => current_time( 'mysql', 1 ),
+				);
+				if ( ! empty( $this->data ) ) {
+					$insert_data['data'] = wp_json_encode( $this->data );
+				}
+				BWFAN_Model_Message::insert( $insert_data );
 
 				$this->set_id( BWFAN_Model_Message::insert_id() );
 			} else {
-
-				BWFAN_Model_Message::update( array(
+				$updated_data = array(
 					'sub'  => $this->get_subject(),
-					'body' => $this->get_body()
-				), [ 'ID' => $this->get_id() ] );
+					'body' => $this->get_body(),
+				);
+				if ( ! empty( $this->data ) ) {
+					$updated_data['data'] = wp_json_encode( $this->data );
+				}
+				BWFAN_Model_Message::update( $updated_data, [ 'ID' => $this->get_id() ] );
 			}
 
 			return $this->get_id();

@@ -110,4 +110,4 @@ class BWFAN_Contact_Subscribe_Link extends BWFAN_Merge_Tag {
 if ( ! bwfan_is_autonami_pro_active() ) {
 	return;
 }
-BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Subscribe_Link', null, 'Contact' );
+BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Subscribe_Link', null, __( 'Contact', 'wp-marketing-automations' ) );

@@ -139,9 +139,10 @@ class Http extends Base {
         }
 
         $headers = [
-            'Content-Type'     => 'application/json',
-            'x-templately-ip'  => Helper::get_ip(),
-            'x-templately-url' => home_url( '/' )
+            'Content-Type'         => 'application/json',
+            'x-templately-ip'      => Helper::get_ip(),
+            'x-templately-url'     => home_url( '/' ),
+            'x-templately-version' => TEMPLATELY_VERSION,
         ];
 
         if ( ! empty( $args['headers'] ) ) {

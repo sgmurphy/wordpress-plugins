@@ -279,6 +279,66 @@ class AST_Integration {
 				'img'		=> 'shirtee-cloud-icon.png',				
 				'documentation' => 'https://docs.zorem.com/docs/ast-pro/integrations/shirtee-cloud/',
 			),
+			'enable_qapla_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'Qapla', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'qapla-icon.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/integrations/qapla/',
+			),
+			'enable_shiptime_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'Shiptime', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'shiptime-icon.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/integrations/shiptime/',
+			),
+			'enable_eshipper_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'eShipper', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'eshipper-icon.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/integrations/eshipper/',
+			),
+			'enable_linnworks_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'Linnworks', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'linnworks-icon.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/integrations/linnworks/',
+			),
+			'enable_simplesell_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'SimpleSell', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'simplesell-icon.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/integrations/simplesell/',
+			),
+			'enable_easypost_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'EasyPost', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'easypost.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/ast-pro/integrations/easypost/',
+			),
+			'enable_interparcel_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'Interparcel', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'interparcel.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/ast-pro/integrations/interparcel/',
+			),
+			'enable_sendle_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'Sendle', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'sendle.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/ast-pro/integrations/sendle/',
+			),
+			'enable_woocommerce_gls_plugin_by_tehster_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'WooCommerce GLS plugin by Tehster', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'tehster.png',				
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/ast-pro/integrations/woocommerce-gls-plugin-by-tehster/',
+			),
+			'enable_woocommerce_germanized_plugin_by_vendidero_integration' => array(
+				'type'		=> 'tgl_checkbox',
+				'title'		=> __( 'WooCommerce Germanized plugin by Vendidero', 'woo-advanced-shipment-tracking' ),				
+				'img'		=> 'woocommerce-germanized.png',
+				'documentation' => 'https://docs.zorem.com/docs/ast-pro/ast-pro/integrations/woocommerce-germanized-plugin-by-vendidero/',
+			),
 		);
 		
 		return $form_data;

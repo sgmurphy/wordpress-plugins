@@ -5,7 +5,7 @@ Tags: sidebar menu, floating menu, side menu, sticky menu, float menu
 Requires at least: 4.3
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 6.0.2
+Stable tag: 6.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,9 @@ Search for answers and ask your questions at [support center](https://wordpress.
 1. Menu
 
 == Changelog ==
+= 6.0.3 =
+* Updated: FontAwesome Icon to version 6.6
+
 = 6.0.2 =
 * Improved: plugin interface
 

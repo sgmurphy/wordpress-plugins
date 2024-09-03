@@ -360,6 +360,7 @@ class Ays_Pb_Activator {
             'notification_button_1_bg_hover_color' => '',
             'notification_button_1_text_color' => '',
             'notification_button_1_text_hover_color' => '',
+            'notification_button_1_text_transformation' => '',
             'notification_button_1_letter_spacing' => 0,
             'notification_button_1_font_size' => 15,
             'notification_button_1_border_radius' => 6,

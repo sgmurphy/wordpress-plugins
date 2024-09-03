@@ -27,7 +27,7 @@ class BWFAN_API_Delete_Contact extends BWFAN_API_Base {
 	public function process_api_call() {
 		/** checking if search present in params **/
 
-		$contact_id = $this->get_sanitized_arg( 'contact_id', 'text_field' );
+		$contact_id = intval( $this->get_sanitized_arg( 'contact_id', 'text_field' ) );
 		if ( empty( $contact_id ) ) {
 			return $this->error_response( __( 'Contact id is missing.', 'wp-marketing-automations' ) );
 		}

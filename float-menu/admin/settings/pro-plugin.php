@@ -229,7 +229,7 @@ $open = ! empty( $item_order ) ? ' open' : '';
     </details>
 
     <div class="wpie-buttons">
-        <a href="https://wow-estore.com/interactive-demo-float-menu-pro/" target="_blank" class="wpie-button is-demo">Demo</a>
+        <a href="https://demo.wow-estore.com/float-menu-pro/" target="_blank" class="wpie-button is-demo">Demo</a>
         <a href="https://wow-estore.com/item/float-menu-pro/" target="_blank" class="wpie-button is-pro">GET PRO</a>
     </div>
 </div>

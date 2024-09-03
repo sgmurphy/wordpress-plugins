@@ -66,6 +66,7 @@ class BWFAN_Automation_Controller {
 	public static $GOAL_END = 6;
 	public static $CART_RECOVERED_END = 7;
 	public static $BEFORE_START_VALIDATION = 8;
+	public static $AUTOMATION_DATA_NOT_FOUND = 9;
 
 	public function __construct() {
 		$this->run_duration = apply_filters( 'bwfan_automation_v2_run_duration', $this->run_duration );
@@ -79,11 +80,11 @@ class BWFAN_Automation_Controller {
 	 * @return bool
 	 */
 	public function set_automation_data( $aContact ) {
+		$this->automation_contact = $aContact;
 		if ( ! is_array( $aContact ) || ! isset( $aContact['data'] ) ) {
 			return false;
 		}
 
-		$this->automation_contact      = $aContact;
 		$this->automation_contact_data = ! empty( $aContact['data'] ) ? json_decode( $aContact['data'], true ) : array();
 
 		$this->attempts      = absint( $aContact['attempts'] );
@@ -195,14 +196,16 @@ class BWFAN_Automation_Controller {
 
 		/** Fetch Automation DB Row */
 		$this->automation = $this->get_automation_data( $this->automation_id );
-		if ( ! is_array( $this->automation ) || ! isset( $this->automation['ID'] ) ) {
-			$this->traverse_ins->log( 'Unable to get automation data for ID: ' . $this->automation_id );
-
-			return;
-		}
 
 		/** Setup Traverse Controller */
 		$this->setup_traverser();
+
+		if ( ! is_array( $this->automation ) || ! isset( $this->automation['ID'] ) ) {
+			$automation_id = $this->automation_contact['aid'] ?? $this->automation_id;
+			$this->traverse_ins->log( 'Unable to get automation data for ID: ' . $automation_id );
+
+			return;
+		}
 
 		/** Set current step id. If last 0 then pick the start node */
 		$this->step_id = ( 0 === absint( $this->automation_contact['last'] ) ) ? $this->automation['start'] : $this->automation_contact['last'];
@@ -260,6 +263,17 @@ class BWFAN_Automation_Controller {
 	 */
 	public function setup_traverser() {
 		$this->traverse_ins = new BWFAN_Traversal_Controller();
+		if ( ! is_array( $this->automation ) || empty( $this->automation ) ) {
+			$this->traverse_ins->current_node_id = 'end';
+			$this->end_reason                    = [
+				'type' => self::$AUTOMATION_DATA_NOT_FOUND,
+				'data' => [
+					'event_slug' => $this->automation_contact['event']
+				],
+			];
+
+			return;
+		}
 		$this->traverse_ins->set_steps( $this->automation['meta']['steps'] );
 		$this->traverse_ins->set_links( $this->automation['meta']['links'] );
 
@@ -424,13 +438,13 @@ class BWFAN_Automation_Controller {
 		}
 
 		BWFAN_Model_Automation_Complete_Contact::insert( array(
-			'cid'    => $this->contact_id,
-			'aid'    => $this->automation_id,
-			'event'  => $this->event_slug,
-			's_date' => $this->c_date,
+			'cid'    => empty( $this->contact_id ) && isset( $this->automation_contact['cid'] ) ? $this->automation_contact['cid'] : $this->contact_id,
+			'aid'    => empty( $this->automation_id ) && isset( $this->automation_contact['aid'] ) ? $this->automation_contact['aid'] : $this->automation_id,
+			'event'  => empty( $this->event_slug ) && isset( $this->automation_contact['event'] ) ? $this->automation_contact['event'] : $this->event_slug,
+			's_date' => empty( $this->c_date ) && isset( $this->automation_contact['c_date'] ) ? $this->automation_contact['c_date'] : $this->c_date,
 			'c_date' => current_time( 'mysql', 1 ),
 			'data'   => json_encode( $this->automation_contact_data ),
-			'trail'  => $this->trail_id,
+			'trail'  => empty( $this->trail_id ) && isset( $this->automation_contact['trail'] ) ? $this->automation_contact['trail'] : $this->trail_id,
 		) );
 
 		/** Delete the row from automation contact table */
@@ -452,6 +466,17 @@ class BWFAN_Automation_Controller {
 		$ins = new BWFAN_Action_Controller();
 		$ins->populate_automation_contact_data( $this->automation_contact );
 		$ins->populate_step_data( $this->current_step );
+
+		if ( 'wp_sendemail' !== $ins->action_data['action'] && ! BWFAN_Common::check_for_lks() ) {
+			$this->set_trail_item( [ 'error_msg' => 'License Expired. Renew Now.' ], 3 );
+
+			$this->status = self::$STATUS_FAILED;
+			$this->e_time = current_time( 'timestamp', 1 );
+
+			$this->end_current_process = true;
+
+			return;
+		}
 
 		$result = $ins->execute_action();
 		if ( $result instanceof WP_Error ) {
@@ -536,6 +561,12 @@ class BWFAN_Automation_Controller {
 			'c_time' => time(),
 			'status' => $status,
 		);
+		if ( isset( $message['msg'] ) && strlen( $message['msg'] ) > 220 ) {
+			$message['msg'] = substr( $message['msg'], 0, 220 );
+		}
+		if ( isset( $message['error_msg'] ) && strlen( $message['error_msg'] ) > 220 ) {
+			$message['error_msg'] = substr( $message['error_msg'], 0, 220 );
+		}
 		if ( ! empty( $message ) ) {
 			$arr['data'] = json_encode( $message );
 		}

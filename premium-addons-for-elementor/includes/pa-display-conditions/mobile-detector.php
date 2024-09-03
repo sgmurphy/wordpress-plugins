@@ -1189,6 +1189,10 @@ class PA_Mobile_Detect {
 
 		$this->setDetectionType( self::DETECTION_TYPE_MOBILE );
 
+        if( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+            return false;
+        }
+
 		foreach ( self::$tabletDevices as $_regex ) {
 			if ( $this->match( $_regex, $_SERVER['HTTP_USER_AGENT'] ) ) {
 				return true;

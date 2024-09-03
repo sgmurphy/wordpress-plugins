@@ -71,7 +71,7 @@ abstract class BWFCRM_Base_React_Page {
                             </svg>',
 		);
 
-		$first_broadcast_id = $first_form_id = $first_automation_id = $first_export_id = $first_template_id = $first_link_trigger_id = $first_bulk_action_id = null;
+		$first_contact_id = $first_broadcast_id = $first_form_id = $first_automation_id = $first_export_id = $first_template_id = $first_link_trigger_id = $first_bulk_action_id = $first_audience_id = null;
 		if ( apply_filters( 'bwf_set_zero_state', true ) ) {
 			if ( class_exists( 'BWFCRM_Core' ) ) {
 				$first_broadcast_id    = BWFAN_Model_Broadcast::get_first_broadcast_id();
@@ -80,19 +80,21 @@ abstract class BWFCRM_Base_React_Page {
 				$first_template_id     = BWFAN_Model_Templates::get_first_template_id();
 				$first_link_trigger_id = class_exists( 'BWFAN_Model_Link_Triggers' ) ? BWFAN_Model_Link_Triggers::get_first_link_id() : null;
 				$first_bulk_action_id  = class_exists( 'BWFAN_Model_Bulk_Action' ) ? BWFAN_Model_Bulk_Action::get_first_bulk_action_id() : null;
-			} else {
-				$first_contact_id = BWFCRM_Model_Contact::get_first_contact_id();
+				$first_audience_id     = method_exists( 'BWFCRM_Audience', 'get_first_audience_id' ) ? BWFCRM_Audience::get_first_audience_id() : null;
 			}
+			$first_contact_id    = BWFCRM_Model_Contact::get_first_contact_id();
 			$first_automation_id = BWFAN_Model_Automations::get_first_automation_id();
 		}
 
 		$this->page_data['first_broadcast_id']    = $first_broadcast_id;
+		$this->page_data['first_contact_id']      = $first_contact_id;
 		$this->page_data['first_form_id']         = $first_form_id;
 		$this->page_data['first_automation_id']   = $first_automation_id;
 		$this->page_data['first_export_id']       = $first_export_id;
 		$this->page_data['first_template_id']     = $first_template_id;
 		$this->page_data['first_link_trigger_id'] = $first_link_trigger_id;
 		$this->page_data['first_bulk_action_id']  = $first_bulk_action_id;
+		$this->page_data['first_audience_id']     = $first_audience_id;
 		$this->page_data['bwfan_nonce']           = get_option( 'bwfan_u_key', '' );
 		$this->page_data['wp_version']            = get_bloginfo( 'version' );
 		$this->page_data['is_rtl']                = is_rtl();
@@ -223,7 +225,10 @@ abstract class BWFCRM_Base_React_Page {
 			'content' => '',
 			'term'    => '',
 		] );
+		$this->page_data['wizard_status']      = get_option( '_bwfan_onboarding_completed', false );
 
+		$this->page_data['user_email']                 = get_user_by( 'id', get_current_user_id() )->user_email;
+		$this->page_data['bwfan_onboarding_completed'] = get_option( '_bwfan_onboarding_completed' );
 		do_action( 'bwfan_admin_view_localize_data', $this );
 	}
 

@@ -1,9 +1,8 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use QuadLayers\IGG\Models\Feeds as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feeds;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
-use QuadLayers\IGG\Utils\Cache as Cache;
 
 
 /**
@@ -15,30 +14,29 @@ class Edit extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = json_decode( $request->get_body(), true );
+		try {
 
-		if ( empty( $body['feed'] ) ) {
+			$body = json_decode( $request->get_body(), true );
+
+			if ( ! isset( $body['feed']['id'], $body['feed'] ) ) {
+				throw new \Exception( esc_html__( 'Feed not setted.', 'insta-gallery' ), 412 );
+			}
+
+			$response = Models_Feeds::instance()->update( $body['feed']['id'], $body['feed'] );
+
+			if ( ! $response ) {
+				throw new \Exception( esc_html__( 'Feed cannot be updated.', 'insta-gallery' ), 412 );
+			}
+
+			return $this->handle_response( $response );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'Feed not setted', 'insta-gallery' ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		$feed        = $body['feed'];
-		$models_feed = new Models_Feed();
-
-		$feeds = $models_feed->update( $feed['id'], $feed );
-
-		if ( ! $feeds ) {
-			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'Feed cannot be updated', 'insta-gallery' ),
-			);
-			return $this->handle_response( $response );
-		}
-
-		return $this->handle_response( $feeds );
 	}
 
 	public static function get_rest_args() {

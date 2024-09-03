@@ -761,7 +761,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 		$local_template	= get_stylesheet_directory() . '/woocommerce/myaccount/tracking-info.php';
 
 		if ( file_exists( $local_template ) && is_writable( $local_template ) ) {	
-			wc_get_template( 'myaccount/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order_id, true ), 'order_id' => $order_id ), 'woocommerce-advanced-shipment-tracking/', get_stylesheet_directory() . '/woocommerce/' );
+			wc_get_template( 'myaccount/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order_id, true ), 'order_id' => $order_id ), '', get_stylesheet_directory() . '/woocommerce/' );
 		} else {
 			wc_get_template( 'myaccount/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order_id, true ), 'order_id' => $order_id ), 'woocommerce-advanced-shipment-tracking/', wc_advanced_shipment_tracking()->get_plugin_path() . '/templates/' );	
 		}
@@ -872,7 +872,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 			);
 						
 			if ( file_exists( $local_template ) && is_writable( $local_template ) ) {	
-				wc_get_template( 'emails/fluid-tracking-info.php', array( 'tracking_items' => $tracking_items, 'order_id'=> 1 ), 'woocommerce-advanced-shipment-tracking/', get_stylesheet_directory() . '/woocommerce/' );
+				wc_get_template( 'emails/fluid-tracking-info.php', array( 'tracking_items' => $tracking_items, 'order_id'=> 1 ), '', get_stylesheet_directory() . '/woocommerce/' );
 			} else {
 				wc_get_template( 'emails/fluid-tracking-info.php', array( 'tracking_items' => $tracking_items, 'order_id'=> 1 ), 'woocommerce-advanced-shipment-tracking/', wc_advanced_shipment_tracking()->get_plugin_path() . '/templates/' );	
 			}	
@@ -906,7 +906,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 						array( 
 							'tracking_items' => $this->get_tracking_items( $order_id, true ), 
 							'order_id'=> $order_id
-						)
+						), '', get_stylesheet_directory() . '/woocommerce/'
 					);
 				} else {
 					wc_get_template( 
@@ -927,7 +927,7 @@ class WC_Advanced_Shipment_Tracking_Actions {
 						array( 
 							'tracking_items' => $this->get_tracking_items( $order_id, true ), 
 							'order_id'=> $order_id
-						)
+						), '', get_stylesheet_directory() . '/woocommerce/'
 					);
 				} else {
 					wc_get_template( 
@@ -1209,13 +1209,16 @@ class WC_Advanced_Shipment_Tracking_Actions {
 		if ( $args['tracking_number'] ) {
 			$tracking_item['tracking_number'] = wc_clean( $args['tracking_number'] );
 		}
-		
+
 		if ( $args['date_shipped'] ) {
-			$date = str_replace( '/', '-', $args['date_shipped'] );
-			$date = date_create($date);
-			$date = date_format( $date, 'd-m-Y' );
-		
-			$tracking_item['date_shipped'] = wc_clean( strtotime( $date ) );
+			if ( is_numeric( $args['date_shipped'] ) ) {
+				$tracking_item['date_shipped'] = wc_clean( $args['date_shipped'] );
+			} else {
+				$date = str_replace( '/', '-', $args['date_shipped'] );
+				$date = date_create($date);
+				$date = date_format( $date, 'd-m-Y' );
+				$tracking_item['date_shipped'] = wc_clean( strtotime( $date ) );
+			}
 		}
 		
 		if ( $args['status_shipped'] ) {

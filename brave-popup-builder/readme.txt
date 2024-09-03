@@ -3,7 +3,7 @@ Contributors: getbrave
 Tags: popup, wordpress popup, popups, woocommerce popup, lead generation
 Requires at least: 5.2
 Tested up to: 6.6.1
-Stable tag: 0.7.1
+Stable tag: 0.7.2
 Requires PHP: 5.6.20
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -118,6 +118,10 @@ The PRO version lets you create unlimited steps that you can link to each other 
 
 
 == Changelog ==
+= 0.7.2 - 03 Sep 2024. =
+* Fixed: SQL Injection vulnerablities.
+
+
 = 0.7.1 - 12 Aug 2024. =
 * Fixed: Sometimes opening the Form Newsletter Settings tab crashes the editor.
 * Fixed: Klaviyo Newsletter could not be setup as the lists were not loading. 

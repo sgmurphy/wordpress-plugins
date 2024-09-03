@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Settings;
 
-use QuadLayers\IGG\Models\Setting as Models_Setting;
+use QuadLayers\IGG\Models\Settings as Models_Settings;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 
 /**
@@ -13,31 +13,29 @@ class Save extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$body = $request->get_body();
+		try {
 
-		$settings = json_decode( stripslashes( $body ), true );
+			$body = json_decode( $request->get_body(), true );
 
-		if ( ! is_array( $settings ) ) {
+			if ( ! is_array( $body ) ) {
+				throw new \Exception( esc_html__( 'Settings not saved.', 'insta-gallery' ), 412 );
+			}
+
+			$response = Models_Settings::instance()->save( $body );
+
+			if ( ! $response ) {
+				throw new \Exception( esc_html__( 'Unknown error', 'insta-gallery' ), 412 );
+			}
+
+			return $this->handle_response( $response );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'Settings not saved.', 'insta-gallery' ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		$models_settings = new Models_Setting();
-
-		$success = $models_settings->save( $settings );
-
-		if ( ! $success ) {
-			$response = array(
-				'code'    => 412,
-				'message' => esc_html__( 'Unknown error.', 'insta-gallery' ),
-			);
-			return $this->handle_response( $response );
-		}
-
-		return $this->handle_response( $success );
 
 	}
 

@@ -17,7 +17,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 
 	protected function __construct() {
 		$this->action_name     = __( 'Send Email', 'wp-marketing-automations' );
-		$this->action_desc     = __( 'This action sends an email to a user', 'autonami-automations-connectors' );
+		$this->action_desc     = __( 'This action sends an email to a user', 'wp-marketing-automations' );
 		$this->required_fields = array( 'subject', 'body', 'email', 'from_email', 'from_name' );
 		$this->support_v2      = true;
 		add_filter( 'admin_body_class', array( $this, 'add_email_preview_class' ) );
@@ -561,7 +561,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 		}, $emails );
 
 		/** Include extra class before send mail process */
-		BWFAN_Common::bwfan_before_send_mail(isset( $this->data['template'] ) ? $this->data['template'] : '' );
+		BWFAN_Common::bwfan_before_send_mail( isset( $this->data['template'] ) ? $this->data['template'] : '' );
 
 		if ( true === $this->is_preview ) {
 			$this->data['body'] = $this->preview_body;
@@ -683,8 +683,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 
 		/** it will add the space after the pre-header to not show the email body content */
 		if ( apply_filters( 'bwfan_email_enable_pre_header_preview_only', false ) === true ) {
-			$pre_header .= '<div style="display: none; max-height: 0; overflow: hidden;">'
-			               . str_repeat('&#847;&zwnj;&nbsp;', 50) // Adding 50 instances to create enough hidden space
+			$pre_header .= '<div style="display: none; max-height: 0; overflow: hidden;">' . str_repeat( '&#847;&zwnj;&nbsp;', apply_filters( 'bwfan_email_pre_header_space', 50 ) ) // Adding 50 instances to create enough hidden space
 			               . '</div>';
 		}
 
@@ -792,7 +791,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 		if ( bwfan_is_autonami_pro_active() && BWFCRM_Core()->campaigns->maybe_daily_limit_reached() ) {
 			return array(
 				'status'  => 0,
-				'message' => __( 'Daily Email Limit reached. Will retry after sometime' )
+				'message' => __( 'Daily Email Limit reached. Will retry after sometime', 'wp-marketing-automations' )
 			);
 		}
 
@@ -859,7 +858,7 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 				'label'                 => __( 'To', 'wp-marketing-automations' ),
 				'type'                  => 'text_with_button',
 				'class'                 => '',
-				'placeholder'           => 'Enter email',
+				'placeholder'           => __( 'Enter email', 'wp-marketing-automations' ),
 				'hint'                  => '',
 				'required'              => true,
 				'toggler'               => array(),
@@ -902,9 +901,9 @@ final class BWFAN_Wp_Sendemail extends BWFAN_Action {
 					'options'     => $lang_options,
 					'label'       => __( 'Select Language', 'wp-marketing-automations' ),
 					"class"       => 'bwfan-input-wrapper',
-					"placeholder" => 'Select',
+					"placeholder" => __( 'Select', 'wp-marketing-automations' ),
 					"required"    => true,
-					"errorMsg"    => 'Please select language.',
+					"errorMsg"    => __( 'Please select language.', 'wp-marketing-automations' ),
 					"description" => "",
 					'toggler'     => [
 						'fields' => [

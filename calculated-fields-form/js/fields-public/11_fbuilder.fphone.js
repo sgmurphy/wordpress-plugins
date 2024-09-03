@@ -28,6 +28,27 @@
 					}
 					return false;
 				},
+			_on_change_events:function()
+				{
+					var me = this;
+					$('input[id*="'+me.name+'_"]').each(function(){
+						el = $(this);
+						el.on('change', function(){
+							var v = '';
+                            $('[id*="'+me.name+'_"]').each(function(){v+=$(this).val();});
+							$('#'+me.name).val(v).trigger('change');
+						})
+						.on('keyup', function(evt){
+							var e = $(this);
+							if(e.val().length == e.attr('maxlength'))
+							{
+								e.trigger('change');
+								let i = parseInt(e.attr('name').match(/\d+$/))+1;
+								try{ $('#'+me.name+'_'+i).trigger('focus'); } catch(err){}
+							}
+						});
+					});
+				},
 			_input_boxes:function()
 				{
 					let me 		    = this,
@@ -79,6 +100,7 @@
 					e.append(output);
 					$('[id*="'+me.name+'"].cpefb_error.message').remove();
 					$(':input[id*="'+me.name+'"]').valid();
+					me._on_change_events();
 				},
 			show:function()
 				{
@@ -148,8 +170,7 @@
 				},
             after_show: function()
 				{
-					var me   = this,
-						tmp  = me.dformat.split(' ');
+					var me   = this;
 
 					if(!('phone' in $.validator.methods))
 						$.validator.addMethod("phone", function(value, element)
@@ -158,25 +179,7 @@
 							else return /^\+{0,1}\d*$/.test(value);
 						});
 
-					for (var i = 0, h = tmp.length+(me.countryComponent ? 1 : 0); i < h; i++)
-					{
-						$('#'+me.name+'_'+i).on('change', function(){
-							var v = '';
-                            $('[id*="'+me.name+'_"]').each(function(){v+=$(this).val();});
-							$('#'+me.name).val(v).trigger('change');
-						});
-						if(i+1 < h)
-						{
-							$('#'+me.name+'_'+i).on('keyup', { 'next': i+1 }, function(evt){
-								var e = $(this);
-								if(e.val().length == e.attr('maxlength'))
-								{
-									e.trigger('change');
-									$('#'+me.name+'_'+evt.data.next).trigger('focus');
-								}
-							});
-						}
-					}
+					me._on_change_events();
                     $('#'+me.name+'_0').trigger('change');
 					if (me.countryComponent && me.dynamic) {
 						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); }).trigger('change');

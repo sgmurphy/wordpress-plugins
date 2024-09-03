@@ -1,6 +1,6 @@
 <?php
 
-use QuadLayers\IGG\Models\Accounts as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -158,8 +158,7 @@ add_filter(
 
 			// Add the missing account_id to the block attributes
 			if ( ! isset( $parsed_block['attrs']['account_id'] ) && ! isset( $parsed_block['attrs']['username'] ) ) {
-				$models_account = new Models_Account();
-				$accounts       = $models_account->get_all();
+				$accounts = Models_Accounts::instance()->get_all();
 				if ( isset( $accounts[0]['id'] ) ) {
 					$parsed_block['attrs']['account_id'] = $accounts[0]['id'];
 				}

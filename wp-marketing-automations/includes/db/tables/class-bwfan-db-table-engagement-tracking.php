@@ -73,13 +73,17 @@ if ( ! class_exists( 'BWFAN_DB_Table_Engagement_Tracking' ) && BWFAN_Common::is_
 			`hour` tinyint(2) unsigned default NUll,
 			PRIMARY KEY (`ID`),			
 			KEY `cid` (`cid`),
-			KEY `hash_code` (`hash_code`),
 			KEY `created_at` (`created_at`),
 			KEY `mode` (`mode`),
 			KEY `type` (`type`),
 			KEY `oid` (`oid`),
 			KEY `sid` (`sid`),
-			KEY `c_status` (`c_status`)
+			KEY `f_open` (`f_open`),
+			KEY `f_click` (`f_click`),
+			KEY `day` (`day`),
+			KEY `hour` (`hour`),
+			KEY `c_status` (`c_status`),
+			UNIQUE `hash_code` (`hash_code`)
 		) $collate;";
 		}
 	}

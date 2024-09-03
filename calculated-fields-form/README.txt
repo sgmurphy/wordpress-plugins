@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.32
+Stable tag: 5.2.33
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.33 =
+
+* Implements the two decimals format in number controls.
+* Modifies DropDown control settings, replacing the select2 option label for a more intuitive text.
+* Modifies the ENABLEEQUATIONS, DISABLEEQUATIONS, and EVALEQUATIONS operations to improve the form identification in pages with multiple forms.
+* Modifies the Users Permissions add-on to include the Lost Password link in the log-in form (Developer and Platinum plugin versions).
+
 = 5.2.32 =
 
 * Modifies the container fields to avoid Hidden, Hidden DS,  and RecordSet DS controls affecting the columns' format.
@@ -488,8 +495,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the validation module to display the validation error associated with hidden fields.
 * Modifies the DS fields in the Developer and Platinum plugin versions.
 * Modifies the Stripe Checkout add-on to prevent it affects the WooCommerce integration add-on.
-
-= 5.2.27 =
-
-* Modifies the left and right-aligned labels.
-* Modifies the ACTIVATEFIELD, IGNOREFIELD, SHOWFIELD, and HIDEFIELD operations to avoid ambiguities when multiple forms are inserted on the page.

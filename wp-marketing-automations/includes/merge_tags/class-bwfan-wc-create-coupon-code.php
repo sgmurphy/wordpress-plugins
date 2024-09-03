@@ -123,7 +123,7 @@ class BWFAN_WC_Create_Coupon_Code extends BWFAN_Merge_Tag {
 				'label'       => __( 'Coupon Name', 'wp-marketing-automations' ),
 				'type'        => 'text',
 				'class'       => '',
-				'placeholder' => 'Enter coupon name',
+				'placeholder' => __( 'Enter coupon name', 'wp-marketing-automations' ),
 				'required'    => false,
 				'toggler'     => array(),
 			],
@@ -146,7 +146,7 @@ class BWFAN_WC_Create_Coupon_Code extends BWFAN_Merge_Tag {
 				],
 				'label'       => __( 'Select Expiry Type', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Select',
+				"placeholder" => __( 'Select', 'wp-marketing-automations' ),
 				"required"    => false,
 				"description" => ""
 			],
@@ -156,7 +156,7 @@ class BWFAN_WC_Create_Coupon_Code extends BWFAN_Merge_Tag {
 				'type'        => 'number',
 				'class'       => 'bwf_w_full',
 				'placeholder' => 'xx',
-				'hint'        => 'Leave blank for no coupon expiry',
+				'hint'        => __( 'Leave blank for no coupon expiry', 'wp-marketing-automations' ),
 				'required'    => false,
 				'toggler'     => array(),
 			],
@@ -169,5 +169,5 @@ class BWFAN_WC_Create_Coupon_Code extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_WC_Create_Coupon_Code', null, 'Contact' );
+	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_WC_Create_Coupon_Code', null, __( 'Contact', 'wp-marketing-automations' ) );
 }

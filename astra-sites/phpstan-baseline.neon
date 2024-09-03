@@ -401,6 +401,11 @@ parameters:
 			path: inc/classes/class-astra-sites-page.php
 
 		-
+			message: "#^Call to static method get_instance\\(\\) on an unknown class Nps_Survey_Script\\.$#"
+			count: 1
+			path: inc/classes/class-astra-sites-update.php
+
+		-
 			message: "#^Call to static method get_white_label\\(\\) on an unknown class Astra_Ext_White_Label_Markup\\.$#"
 			count: 1
 			path: inc/classes/class-astra-sites-white-label.php
@@ -1681,7 +1686,7 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:get_white_label_name\\(\\)\\.$#"
-			count: 1
+			count: 2
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
@@ -1716,12 +1721,12 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:push_to_queue\\(\\)\\.$#"
-			count: 9
+			count: 10
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-
 			message: "#^Call to an undefined method object\\:\\:save\\(\\)\\.$#"
-			count: 2
+			count: 3
 			path: inc/importers/batch-processing/class-astra-sites-batch-processing.php
 
 		-

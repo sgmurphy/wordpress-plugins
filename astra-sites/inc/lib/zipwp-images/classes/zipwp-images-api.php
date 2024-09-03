@@ -176,7 +176,7 @@ class Zipwp_Images_Api {
 		$api_endpoint = $this->get_api_domain() . 'images/';
 
 		$post_data = array(
-			'keywords'    => isset( $request['keywords'] ) && ! empty( $request['keywords'] ) ? [ $request['keywords'] ] : [ 'flowers' ],
+			'keywords'    => isset( $request['keywords'] ) && ! empty( $request['keywords'] ) ? [ $request['keywords'] ] : [ 'people' ],
 			'per_page'    => isset( $request['per_page'] ) ? $request['per_page'] : 20,
 			'page'        => isset( $request['page'] ) ? sanitize_text_field( $request['page'] ) : '1',
 			// Expected orientation values are all, landscape, portrait.
@@ -265,6 +265,7 @@ class Zipwp_Images_Api {
 
 		$url      = isset( $_POST['url'] ) ? sanitize_url( $_POST['url'] ) : false; // phpcs:ignore -- We need to remove this ignore once the WPCS has released this issue fix - https://github.com/WordPress/WordPress-Coding-Standards/issues/2189.
 		$name     = isset( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : false;
+		$desc     = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
 		$photo_id = isset( $_POST['id'] ) ? absint( sanitize_key( $_POST['id'] ) ) : 0;
 
 		if ( 0 === $photo_id ) {
@@ -279,7 +280,7 @@ class Zipwp_Images_Api {
 		$result = array();
 
 		$name  = preg_replace( '/\.[^.]+$/', '', (string) $name ) . '-' . $photo_id . '.jpg';
-		$image = $this->create_image_from_url( $url, $name, (string) $photo_id );
+		$image = $this->create_image_from_url( $url, $name, (string) $photo_id, $desc );
 
 		if ( empty( $image ) ) {
 			wp_send_json_error( __( 'Could not download the image.', 'astra-sites' ) );

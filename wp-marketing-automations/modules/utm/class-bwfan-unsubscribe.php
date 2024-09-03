@@ -81,7 +81,7 @@ class BWFAN_unsubscribe {
 
 		$uid = filter_input( INPUT_GET, 'uid' );
 		if ( ! empty( $uid ) && ! headers_sent() ) {
-			setcookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), true );
+			BWFAN_Common::set_cookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ) );
 		}
 
 		$one_click = filter_input( INPUT_POST, 'List-Unsubscribe' );

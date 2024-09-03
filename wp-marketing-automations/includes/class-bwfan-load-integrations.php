@@ -562,7 +562,7 @@ class BWFAN_Load_Integrations {
 	public function get_integration_subgroups() {
 		return apply_filters( 'bwfan_integration_subgroups', [
 			'hubspot'        => [
-				'Hubspot' => [
+				__( 'Hubspot', 'wp-marketing-automations' ) => [
 					'hubspot_create_contact',
 					'hubspot_update_contact',
 					'hubspot_add_contact_to_list',
@@ -572,7 +572,7 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'autonami'       => [
-				'Contact' => [
+				__( 'Contact', 'wp-marketing-automations' ) => [
 					'crm_create_contact',
 					'crm_change_contact_status',
 					'crm_update_customfields',
@@ -585,12 +585,12 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'wp'             => [
-				'Email' => [
+				__( 'Email', 'wp-marketing-automations' ) => [
 					'wp_sendemail',
 				],
 			],
 			'wp_adv'         => [
-				'WordPress' => [
+				__( 'WordPress', 'wp-marketing-automations' ) => [
 					'wp_createuser',
 					'wp_update_user_meta',
 					'wp_update_user_role',
@@ -600,18 +600,18 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'twilio'         => [
-				'Twilio' => [
+				__( 'Twilio', 'wp-marketing-automations' ) => [
 					'twilio_send_sms',
 				],
 			],
 			'wcm'            => [
-				'Membership' => [
+				__( 'Membership', 'wp-marketing-automations' ) => [
 					'wcm_update_plan',
 					'wcm_delete_membership',
 				],
 			],
 			'wcs'            => [
-				'Subscriptions' => [
+				__( 'Subscriptions', 'wp-marketing-automations' ) => [
 					'wcs_change_subscription_status',
 					'wcs_cancel_order_subscriptions',
 					'wcs_add_note',
@@ -621,13 +621,13 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'wc'             => [
-				'WooCommerce' => [
+				__( 'WooCommerce', 'wp-marketing-automations' ) => [
 					'pro_wc_create_coupon',
 					'wc_remove_coupon',
 				],
 			],
 			'getresponse'    => [
-				'Get Response' => [
+				__( 'Get Response', 'wp-marketing-automations' ) => [
 					'gr_create_contact',
 					'gr_update_custom_fields',
 					'gr_add_tags',
@@ -637,7 +637,7 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'ontraport'      => [
-				'Ontraport' => [
+				__( 'Ontraport', 'wp-marketing-automations' ) => [
 					'ontraport_create_contact',
 					'ontraport_update_contact_fields',
 					'ontraport_add_tags',
@@ -647,7 +647,7 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'mailchimp'      => [
-				'Mailchimp' => [
+				__( 'Mailchimp', 'wp-marketing-automations' ) => [
 					'mailchimp_add_to_list',
 					'mailchimp_remove_from_list',
 					'mailchimp_add_tags',
@@ -659,14 +659,14 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'klaviyo'        => [
-				'Klaviyo' => [
+				__( 'Klaviyo', 'wp-marketing-automations' ) => [
 					'klaviyo_add_to_list',
 					'klaviyo_remove_from_list',
 					'klaviyo_update_profile_fields',
 				],
 			],
 			'convertkit'     => [
-				'Convertkit' => [
+				__( 'Convertkit', 'wp-marketing-automations' ) => [
 					'ck_add_tags',
 					'ck_rmv_tags',
 					'ck_add_to_sequence',
@@ -674,12 +674,12 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'bulkgate'       => [
-				'BulkGate' => [
+				__( 'BulkGate', 'wp-marketing-automations' ) => [
 					'bulkgate_send_transactional_sms',
 				],
 			],
 			'activecampaign' => [
-				'ActiveCampaign' => [
+				__( 'ActiveCampaign', 'wp-marketing-automations' ) => [
 					'ac_create_contact',
 					'ac_update_customfields',
 					'ac_add_tag',
@@ -692,7 +692,7 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'wlm'            => [
-				'WishList Member' => [
+				__( 'WishList Member', 'wp-marketing-automations' ) => [
 					'wlm_add_user_to_pay_per_post',
 					'wlm_remove_user_from_pay_per_post',
 					'wlm_user_add_level',
@@ -702,7 +702,7 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'ld'             => [
-				'LearnDash' => [
+				__( 'LearnDash', 'wp-marketing-automations' ) => [
 					'ld_enroll_user_into_course',
 					'ld_remove_user_from_course',
 					'ld_add_user_to_group',
@@ -712,22 +712,22 @@ class BWFAN_Load_Integrations {
 				],
 			],
 			'google_sheets'  => [
-				'Google Sheets' => [
+				__( 'Google Sheets', 'wp-marketing-automations' ) => [
 					'gs_insert_data',
 					'gs_update_data',
 					'gs_delete_data',
 				],
 			],
 			'zapier'         => [
-				'General'   => [
+				__( 'General', 'wp-marketing-automations' ) => [
 					'wp_http_post',
 				],
-				'Zapier' => [
+				'Zapier'                                    => [
 					'za_send_data',
 				],
 			],
 			'slack'          => [
-				'Slack' => [
+				__( 'Slack', 'wp-marketing-automations' ) => [
 					'sl_message',
 					'sl_message_user',
 				]

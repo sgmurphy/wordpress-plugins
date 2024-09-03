@@ -1204,7 +1204,7 @@
 		},
 		showSelect2: function(v)
 		{
-			return '<label><input type="checkbox" name="sSelect2" id="sSelect2" '+((v)?"checked":"")+'>Apply Select2 library (Experimental)</label>';
+			return '<label><input type="checkbox" name="sSelect2" id="sSelect2" '+((v)?"checked":"")+'>Include a search box (Experimental)</label>';
 		},
 		showReadonly: function(v)
 		{

@@ -10,13 +10,14 @@ abstract class BWFAN_AJAX_Controller {
 		/**
 		 * Run on front end backend
 		 */
-		add_action( 'wp_ajax_bwf_update_automation', array( __CLASS__, 'update_automation' ) );
-		add_action( 'wp_ajax_bwf_toggle_automation_state', array( __CLASS__, 'toggle_automation_state' ) );
-		add_action( 'wp_ajax_bwf_select2ajax', array( __CLASS__, 'bwfan_select2ajax' ) );
-		add_action( 'wp_ajax_bwf_show_email_preview', array( __CLASS__, 'bwfan_save_temporary_preview_data' ) );
-		add_action( 'wp_ajax_bwf_test_email', array( __CLASS__, 'test_email' ) );
-		add_action( 'wp_ajax_bwf_test_sms', array( __CLASS__, 'test_sms' ) );
-		add_action( 'wp_ajax_bwf_automation_submit', array( __CLASS__, 'handle_automation_post_submit' ) );
+		add_action( 'wp_ajax_bwfan_update_automation', array( __CLASS__, 'update_automation' ) );
+		add_action( 'wp_ajax_bwfan_toggle_automation_state', array( __CLASS__, 'toggle_automation_state' ) );
+		add_action( 'wp_ajax_bwfan_select2ajax', array( __CLASS__, 'bwfan_select2ajax' ) );
+		add_action( 'wp_ajax_bwfan_show_email_preview', array( __CLASS__, 'bwfan_save_temporary_preview_data' ) );
+		add_action( 'wp_ajax_bwfan_test_email', array( __CLASS__, 'test_email' ) );
+		add_action( 'wp_ajax_bwfan_test_sms', array( __CLASS__, 'test_sms' ) );
+		add_action( 'wp_ajax_bwfan_automation_submit', array( __CLASS__, 'handle_automation_post_submit' ) );
+
 	}
 
 	public static function bwfan_select2ajax() {

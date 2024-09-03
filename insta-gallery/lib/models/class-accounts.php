@@ -8,7 +8,7 @@ use QuadLayers\IGG\Api\Fetch\Business\Access_Token\Refresh as Api_Fetch_Business
 use QuadLayers\IGG\Api\Fetch\Personal\Access_Token\Refresh as Api_Fetch_Personal_Refresh_Access_Token;
 
 /**
- * Models_Feed Class
+ * Models_Feeds Class
  */
 class Accounts {
 

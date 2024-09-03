@@ -49,7 +49,7 @@ const SiteListHeader = () => {
 				<Logo />
 			</div>
 			<div className="st-header-right">
-				<Tooltip content={ __( "What's new", 'astra-sites' ) }>
+				<Tooltip content={ __( "What's New", 'astra-sites' ) }>
 					<div id="st-whats-new"></div>
 				</Tooltip>
 				<MyFavorite />

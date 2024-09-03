@@ -57,10 +57,10 @@ if ( wc_tax_enabled() ) {
         </tr>
         </thead>
         <tbody>
-
 		<?php
 		$tax_display = get_option( 'woocommerce_tax_display_cart' );
 		if ( false !== $cart ) {
+			$cartItemLinkEnabled = apply_filters( 'bwfan_block_editor_enable_cart_item_link', true );
 			foreach ( $cart as $item ) :
 				$product = isset( $item['data'] ) ? $item['data'] : '';
 				if ( empty( $product ) || ! $product instanceof WC_Product ) {
@@ -81,7 +81,15 @@ if ( wc_tax_enabled() ) {
 					if ( false === $disable_product_thumbnail ) {
 						?>
                         <td class="image" style="width: 15%;min-width: 40px;">
-							<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'thumbnail', false, 100 ) ); ?>
+							<?php if ( true === $cartItemLinkEnabled ) :
+								$cartItemLink = BWFAN_Common::decode_merge_tags( apply_filters( 'bwfan_block_editor_alter_cart_item_link', '{{cart_recovery_link}}' ) );
+								?>
+                                <a href="<?php echo $cartItemLink; ?>" target="_blank">
+									<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'thumbnail', false, 100 ) ); ?>
+                                </a>
+							<?php else : ?>
+								<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'thumbnail', false, 100 ) ); ?>
+							<?php endif; ?>
                         </td>
 						<?php
 					}

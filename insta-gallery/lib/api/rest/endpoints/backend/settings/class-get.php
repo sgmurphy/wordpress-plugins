@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Settings;
 
-use QuadLayers\IGG\Models\Setting as Models_Setting;
+use QuadLayers\IGG\Models\Settings as Models_Settings;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 
 /**
@@ -14,19 +14,22 @@ class Get extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$models_settings = new Models_Setting();
+		try {
+			$response = Models_Settings::instance()->get();
 
-		$settings = $models_settings->get();
+			if ( null === $response || 0 === count( $response ) ) {
+				throw new \Exception( esc_html__( 'Unknown error', 'insta-gallery' ), 412 );
+			}
 
-		if ( null === $settings || 0 === count( $settings ) ) {
+			return $this->handle_response( $response );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 500,
-				'message' => esc_html__( 'Unknown error', 'insta-gallery' ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		return $this->handle_response( $settings );
 	}
 
 	public static function get_rest_method() {

@@ -44,7 +44,7 @@
 				}*/
 
 				for (let j = 0; j < field.length; j++) {
-					console.log(field[j].classList);
+					//console.log(field[j]);
 					field[j].classList.toggle("hidden");
 				}
 			});
@@ -121,4 +121,13 @@
 			jQuery(this).closest("table").find("tbody").toggle(); //you can set delay within toggle as well, like .toggle(500);
 		});
 	});
+
+	jQuery("#ahsc_dns_preconnect").on('click',function(){
+		console.log(jQuery(this).is(':checked'))
+		if(jQuery(this).is(':checked')==true) {
+			jQuery("#ahsc_dns_preconnect_domains_contenitor").show();
+		}else{
+			jQuery("#ahsc_dns_preconnect_domains_contenitor").hide();
+		}
+	})
 })();

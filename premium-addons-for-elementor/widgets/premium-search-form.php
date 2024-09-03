@@ -1095,6 +1095,18 @@ class Premium_Search_Form extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'excerpt_length_apply',
+			array(
+				'label'        => __( 'Apply On Posts With Excerpt Set', 'premium-addons-for-elementor' ),
+                'description'        => __( 'Enable this option if you want the excerpt length to be also applied on posts with the Excerpt field set.', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'condition'    => array(
+					'show_excerpt' => 'yes',
+				),
+			)
+		);
+
 		$this->add_control(
 			'excerpt_type',
 			array(

@@ -9,7 +9,7 @@ class BWFAN_WC_Cart_Billing_Email extends BWFAN_Merge_Tag {
 		$this->tag_description = __( 'Cart Billing Email', 'wp-marketing-automations' );
 		add_shortcode( 'bwfan_cart_billing_email', array( $this, 'parse_shortcode' ) );
 		$this->support_fallback = false;
-		$this->priority = 1;
+		$this->priority         = 1;
 	}
 
 	public static function get_instance() {
@@ -51,5 +51,5 @@ class BWFAN_WC_Cart_Billing_Email extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Billing_Email', null, 'Abandoned Cart' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Billing_Email', null, __( 'Abandoned Cart', 'wp-marketing-automations' ) );
 }

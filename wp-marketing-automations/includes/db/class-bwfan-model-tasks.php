@@ -48,7 +48,7 @@ class BWFAN_Model_Tasks extends BWFAN_Model {
 		global $wpdb;
 		$time  = current_time( 'timestamp', 1 );
 		$table = self::_table();
-		$query = $wpdb->prepare( "SELECT `ID` FROM {$table} WHERE `e_date` < %s AND `status` = 0", $time );
+		$query = $wpdb->prepare( "SELECT MAX(`ID`) FROM {$table} WHERE `e_date` < %s AND `status` = 0", $time );
 		$count = $wpdb->get_var( $query );
 		if ( empty( $count ) ) {
 			return false;

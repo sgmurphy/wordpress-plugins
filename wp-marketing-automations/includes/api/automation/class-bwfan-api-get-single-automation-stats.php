@@ -187,7 +187,7 @@ class BWFAN_API_Get_Single_Automation_Stats extends BWFAN_API_Base {
 
 		$tiles = [
 			[
-				'l' => __('Sent', 'wp-marketing-automations' ),
+				'l' => __( 'Sent', 'wp-marketing-automations' ),
 				'v' => empty( $sent ) ? '-' : $sent,
 			],
 			[
@@ -216,7 +216,7 @@ class BWFAN_API_Get_Single_Automation_Stats extends BWFAN_API_Base {
 					'v' => empty( $conversions ) ? '-' : $revenue . ' (' . $conversions . ')',
 				],
 				[
-					'l' => __('Revenue/Contact', 'wp-marketing-automations' ),
+					'l' => __( 'Revenue/Contact', 'wp-marketing-automations' ),
 					'v' => empty( $rev_per_person ) ? '-' : $rev_per_person,
 				]
 			];

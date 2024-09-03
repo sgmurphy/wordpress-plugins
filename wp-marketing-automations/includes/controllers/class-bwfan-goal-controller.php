@@ -1,4 +1,5 @@
 <?php
+
 #[AllowDynamicProperties]
 class BWFAN_Goal_Controller extends BWFAN_Base_Step_Controller {
 

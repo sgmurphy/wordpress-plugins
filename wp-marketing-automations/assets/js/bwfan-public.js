@@ -180,7 +180,7 @@ var BWFAN_Public;
             BWFAN_Public.checkout_fields_data = checkout_formdata;
 
         },
-        bwfan_process_email: function (email) {
+        bwfan_process_email: async function (email) {
             if ('undefined' === typeof email) {
                 return;
             }
@@ -230,6 +230,7 @@ var BWFAN_Public;
                 };
             }
 
+            var pushengage_token = await BWFAN_Public.getPushToken();
             BWFAN_Public.capture_email_xhr = $.post(bwfanParamspublic.wc_ajax_url.toString().replace('%%endpoint%%', 'bwfan_insert_abandoned_cart'), {
                     'email': email,
                     'action': 'bwfan_insert_abandoned_cart',
@@ -239,6 +240,7 @@ var BWFAN_Public;
                     'current_page_id': bwfanParamspublic.current_page_id,
                     'timezone': timezone,
                     'aerocheckout_page_id': aero_id,
+                    'pushengage_token': pushengage_token,
                     '_wpnonce': bwfanParamspublic.ajax_nonce
                 }, function (res) {
                     if (parseInt(res.id) > 0 && 0 === $('#bwfan_cart_id').length) {
@@ -263,7 +265,17 @@ var BWFAN_Public;
                     res.push(obj[k]);
             }
             return res;
-        }
+        },
+
+        getPushToken: async function () {
+            try {
+                const subscriberID = await window.PushEngage.getSubscriberId();
+                return subscriberID;
+            } catch (error) {
+
+            }
+            return null;
+        },
     };
 
     /**

@@ -65,7 +65,89 @@ final class L_Theplus_Element_Load {
 	 *
 	 * @since 1.0.0
 	 */
-	private function __construct() {
+	public function __construct() {
+
+		add_action( 'in_plugin_update_message-' . L_THEPLUS_PBNAME, array( $this, 'tp_f_in_plugin_update_message' ), 10, 2 );
+
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			add_action( 'admin_notices', array( $this, 'tp_f_elementor_load_notice' ) );
+			return;
+		}
+
+		register_activation_hook( L_THEPLUS_FILE, array( __CLASS__, 'tp_f_activation' ) );
+		register_deactivation_hook( L_THEPLUS_FILE, array( __CLASS__, 'tp_f_deactivation' ) );
+
+		add_action( 'plugins_loaded', array( $this, 'tp_f_plugin_loaded' ) );
+	}
+
+	/**
+	 * When Show Update Notice that time this function is used
+	 *
+	 * @since 5.6.6
+	 *
+	 * @param array  $data     Array of plugin update data.
+	 * @param object $response Object containing response data from the update check.
+	 */
+	public function tp_f_in_plugin_update_message( $data, $response ) {
+
+		if ( isset( $data['upgrade_notice'] ) && ! empty( $data['upgrade_notice'] ) ) {
+			printf( '<div class="update-message">%s</div>', wpautop( $data['upgrade_notice'] ) );
+		}
+	}
+
+	/**
+	 * Elementor Plugin Not install than show this Notice
+	 *
+	 * @since 5.6.6
+	 */
+	public function tp_f_elementor_load_notice() {
+		$plugin = 'elementor/elementor.php';
+
+		$installed_plugins = get_plugins();
+
+		if ( isset( $installed_plugins[ $plugin ] ) ) {
+
+			if ( ! current_user_can( 'activate_plugins' ) ) {
+				return;
+			}
+
+			$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $plugin . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $plugin );
+			$admin_notice   = '<p>' . esc_html__( 'Elementor is missing. You need to activate your installed Elementor to use The Plus Addons.', 'tpebl' ) . '</p>';
+			$admin_notice  .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $activation_url, esc_html__( 'Activate Elementor Now', 'tpebl' ) ) . '</p>';
+		} else {
+			if ( ! current_user_can( 'install_plugins' ) ) {
+				return;
+			}
+			$install_url   = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
+			$admin_notice  = '<p>' . esc_html__( 'Elementor Required. You need to install & activate Elementor to use The Plus Addons.', 'tpebl' ) . '</p>';
+			$admin_notice .= '<p>' . sprintf( '<a href="%s" class="button-primary">%s</a>', $install_url, esc_html__( 'Install Elementor Now', 'tpebl' ) ) . '</p>';
+		}
+
+		echo '<div class="notice notice-error is-dismissible" style="border-left-color: #8072fc;">' . $admin_notice . '</div>';
+	}
+
+	/**
+	 * Plugin Activation.
+	 *
+	 * @return void
+	 */
+	public static function tp_f_activation() {}
+
+	/**
+	 * Plugin deactivation.
+	 *
+	 * @return void
+	 */
+	public static function tp_f_deactivation() {}
+
+	/**
+	 * After Load Plugin All set than call this function
+	 *
+	 * @since 5.6.6
+	 */
+	public function tp_f_plugin_loaded() {
+
+		$this->tp_f_load_textdomain();
 
 		// Register class automatically.
 		$this->tp_manage_files();
@@ -84,6 +166,16 @@ final class L_Theplus_Element_Load {
 		$this->include_widgets();
 
 		l_theplus_widgets_include();
+	}
+
+	/**
+	 * Load Text Domain.
+	 * Text Domain : tpebl
+	 *
+	 * @since 5.6.6
+	 */
+	public function tp_f_load_textdomain() {
+		load_plugin_textdomain( 'tpebl', false, L_THEPLUS_PNAME . '/lang' );
 	}
 
 	/**
@@ -358,7 +450,7 @@ final class L_Theplus_Element_Load {
 			}
 
 			$to_return = array();
-	
+
 			\Elementor\Plugin::$instance->db->iterate_data(
 				$meta_data,
 				function ( $element ) use ( $tp_widgets_list, &$to_return ) {
@@ -440,7 +532,7 @@ final class L_Theplus_Element_Load {
 	 */
 	public function print_style() {
 		?>
-			<style>*:not(.elementor-editor-active) .plus-conditions--hidden {display: none;}</style>
+		<style>*:not(.elementor-editor-active) .plus-conditions--hidden {display: none;}</style> 
 		<?php
 	}
 

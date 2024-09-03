@@ -2,9 +2,9 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Frontend;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Base;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
 use QuadLayers\IGG\Api\Fetch\Business\Hashtag_Media\Get as Api_Fetch_Business_Hashtag_Media;
-use QuadLayers\IGG\Utils\Cache;
+use QuadLayers\IGG\Services\Cache;
 
 class Hashtag_Media extends Base {
 
@@ -50,7 +50,7 @@ class Hashtag_Media extends Base {
 			return $response['response'];
 		}
 
-		$account = ( new Models_Account() )->get( $account_id );
+		$account = Models_Accounts::instance()->get( $account_id );
 
 		// Check if exist an access_token and access_token_type related to id setted by param, if it is not return error.
 		if ( ! isset( $account['access_token'], $account['access_token_type'] ) ) {

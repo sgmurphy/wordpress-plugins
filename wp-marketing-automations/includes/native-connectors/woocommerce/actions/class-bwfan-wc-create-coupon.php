@@ -11,7 +11,7 @@ final class BWFAN_WC_Create_Coupon extends BWFAN_Action {
 		$this->action_priority = 5;
 		$this->support_v2      = false;
 		$this->support_v1      = true;
-    }
+	}
 
 	public static function get_instance() {
 		if ( null === self::$ins ) {
@@ -363,7 +363,7 @@ final class BWFAN_WC_Create_Coupon extends BWFAN_Action {
 
 		return array(
 			'status'  => 3,
-			'message' => "Coupon {$this->data['coupon_name']} created."
+			'message' => sprintf( __( 'Coupon %s created', 'wp-marketing-automations' ), $this->data['coupon_name'] ),
 		);
 	}
 

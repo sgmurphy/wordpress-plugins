@@ -563,7 +563,11 @@ class Assets_Manager {
 
 		if ( isset( $file_content['code'] ) ) {
 
-			if ( in_array( $file_content['code'], array( 0, 404, 401 ), true ) ) {
+			if( 404 === $file_content['code'] ) {
+				return 'not_found';
+			}
+
+			if ( in_array( $file_content['code'], array( 0, 401 ), true ) ) {
 				return 'empty';
 			}
 		}

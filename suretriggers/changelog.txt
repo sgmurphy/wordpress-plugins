@@ -1,3 +1,10 @@
+Version 1.0.58 - Tuesday, 3rd September 2024
+- New: Added "Services For SureCart" Integration
+- Improvement: "Voxel" - Added new Triggers and Actions
+- Improvement: "Advanced Custom Fields" - Added fix for listing fields in Actions
+- Improvement: "TutorLMS" - Added fix for response in "User Enrolls in Course" Trigger
+- Improvement: "LatePoint" - Added fix for listing custom fields in Actions
+
 Version 1.0.57 - Tuesday, 20th August 2024
 - Improvement: "Bricks Builder" - Added improvements for form response with empty labels
 - Improvement: "Groundhogg" - Added fix for listing tags in Actions

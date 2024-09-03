@@ -162,4 +162,4 @@ class BWFAN_Unsubscribe_Link extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Unsubscribe_Link', null, 'Contact' );
+BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Unsubscribe_Link', null, __( 'Contact', 'wp-marketing-automations' ) );

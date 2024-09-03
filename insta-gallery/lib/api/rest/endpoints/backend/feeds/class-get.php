@@ -1,7 +1,7 @@
 <?php
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds;
 
-use QuadLayers\IGG\Models\Feeds as Models_Feed;
+use QuadLayers\IGG\Models\Feeds as Models_Feeds;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
 /**
  * Api_Rest_Feeds_Get Class
@@ -11,31 +11,33 @@ class Get extends Base {
 	protected static $route_path = 'feeds';
 
 	public function callback( \WP_REST_Request $request ) {
+		try {
 
-		$models_feed = new Models_Feed();
+			$feed_id = $request->get_param( 'feed_id' );
 
-		$feed_id = $request->get_param( 'feed_id' );
-
-		if ( null === $feed_id ) {
-			$feeds = $models_feed->get_all();
-			if ( null !== $feeds && 0 !== count( $feeds ) ) {
-				return $this->handle_response( $feeds );
+			if ( null === $feed_id ) {
+				$response = Models_Feeds::instance()->get_all();
+				if ( null !== $response && 0 !== count( $response ) ) {
+					return $this->handle_response( $response );
+				}
+				return $this->handle_response( array() );
 			}
-			return $this->handle_response( array() );
-		}
 
-		$feed = $models_feed->get( $feed_id );
+			$response = Models_Feeds::instance()->get( $feed_id );
 
-		if ( ! $feed ) {
+			if ( ! $response ) {
+				throw new \Exception( sprintf( esc_html__( 'Feed %s not found', 'insta-gallery' ), $feed_id ), 412 );
+			}
+
+			return $this->handle_response( $response );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 404,
-				'message' => sprintf( esc_html__( 'Feed %s not found', 'insta-gallery' ), $feed_id ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		return $this->handle_response( $feed );
-
 	}
 
 	public static function get_rest_args() {

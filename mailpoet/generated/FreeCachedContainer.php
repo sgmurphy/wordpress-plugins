@@ -2238,7 +2238,7 @@ class FreeCachedContainer extends Container
      */
     protected function getCustomerOrderFieldsFactoryService()
     {
-        return $this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\CustomerOrderFieldsFactory'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\CustomerOrderFieldsFactory(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? ($this->services['MailPoet\\Automation\\Engine\\WordPress'] = new \MailPoet\Automation\Engine\WordPress())), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] ?? ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] = new \MailPoet\Automation\Integrations\WooCommerce\WooCommerce())), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermOptionsBuilder'] ?? $this->getTermOptionsBuilderService()), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] ?? $this->getTermParentsLoaderService()));
+        return $this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\CustomerOrderFieldsFactory'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\CustomerOrderFieldsFactory(($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] ?? ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] = new \MailPoet\Automation\Integrations\WooCommerce\WooCommerce())), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermOptionsBuilder'] ?? $this->getTermOptionsBuilderService()), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] ?? ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\TermParentsLoader())));
     }
 
     /**
@@ -2258,7 +2258,7 @@ class FreeCachedContainer extends Container
      */
     protected function getOrderFieldsFactoryService()
     {
-        return $this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\OrderFieldsFactory'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\OrderFieldsFactory(($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermOptionsBuilder'] ?? $this->getTermOptionsBuilderService()), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] ?? $this->getTermParentsLoaderService()), ($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? ($this->services['MailPoet\\Automation\\Engine\\WordPress'] = new \MailPoet\Automation\Engine\WordPress())), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] ?? ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] = new \MailPoet\Automation\Integrations\WooCommerce\WooCommerce())));
+        return $this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\OrderFieldsFactory'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\OrderFieldsFactory(($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermOptionsBuilder'] ?? $this->getTermOptionsBuilderService()), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] ?? ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\TermParentsLoader())), ($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? ($this->services['MailPoet\\Automation\\Engine\\WordPress'] = new \MailPoet\Automation\Engine\WordPress())), ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] ?? ($this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\WooCommerce'] = new \MailPoet\Automation\Integrations\WooCommerce\WooCommerce())));
     }
 
     /**
@@ -2278,7 +2278,7 @@ class FreeCachedContainer extends Container
      */
     protected function getTermParentsLoaderService()
     {
-        return $this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\TermParentsLoader(($this->services['MailPoet\\Automation\\Engine\\WordPress'] ?? ($this->services['MailPoet\\Automation\\Engine\\WordPress'] = new \MailPoet\Automation\Engine\WordPress())));
+        return $this->services['MailPoet\\Automation\\Integrations\\WooCommerce\\Fields\\TermParentsLoader'] = new \MailPoet\Automation\Integrations\WooCommerce\Fields\TermParentsLoader();
     }
 
     /**

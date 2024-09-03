@@ -17253,7 +17253,7 @@ class GlobalSearchController {
 	 * @return array|void
 	 */
 	public function search_late_point_booking_fields( $data ) {
-		if ( ! class_exists( 'LatePointAddonCustomFields' ) ) {
+		if ( ! class_exists( 'OsCustomFieldsController' ) ) {
 			
 			return;
 		}
@@ -17601,6 +17601,50 @@ class GlobalSearchController {
 			} else {
 				$context = json_decode( '{"pluggable_data":{"id": "15","vendor_id": null,"details": {"cart": {"type": "direct_cart","items": {"6b39iruj": {"product": {"post_id": 9211,"field_key": "product"},"stock": {"quantity": 1}}}},"pricing": {"currency": "USD","subtotal": 10,"total": 10},"status": {"last_updated": "2024-05-30 06:52:05"}},"payment_method": "offline_payment","status": "pending_approval","created_at": "2024-05-30 06:50:19","subtotal": null,"total": null,"tax_amount": null,"discount_amount": null,"shipping_amount": null,"order_item_count": 1,"order_items": [{"id": 11,"type": "regular","currency": "USD","quantity": 1,"subtotal": 10,"product_id": 9211,"product_label": "Pro 1","product_thumbnail_url": null,"product_link": "https:\/\/example.com\/products\/pro-1\/","description": "","addon_data": []}],"vendor": {"wp_user_id": 1,"user_login": "admin","display_name": "Arian","user_firstname": "arian","user_lastname": "d","user_email": "johnd@gmail.com","user_role": {"0": "administrator","7": "academy_instructor","8": "tutor_instructor"}},"customer": {"wp_user_id": 98,"user_login": "johnd","display_name": "johndoe","user_firstname": "john","user_lastname": "d","user_email": "johnd@example.com","user_role": ["customer"]}},"response_type":"sample"}', true );// @phpcs:ignore
 			}
+		} elseif ( 'order_promotion_activated' === $term || 'order_promotion_canceled' === $term || 'order_claim_listing' === $term ) {
+			if ( 'order_promotion_activated' === $term ) {
+				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE status = 'completed' AND details LIKE '%voxel:promotion%' ORDER BY id DESC LIMIT 1";
+			} elseif ( 'order_promotion_canceled' === $term ) {
+				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE status = 'canceled' AND details LIKE '%voxel:promotion%' ORDER BY id DESC LIMIT 1";
+			} elseif ( 'order_claim_listing' === $term ) {
+				$sql = "SELECT * FROM {$wpdb->prefix}vx_orders WHERE details LIKE '%voxel:claim%' ORDER BY id DESC LIMIT 1";
+			}
+			$results      = $wpdb->get_results( $sql, ARRAY_A );// @phpcs:ignore
+			if ( ! empty( $results ) ) {
+				// Get Order.
+				$context['pluggable_data']['id']             = $results[0]['id'];
+				$context['pluggable_data']['payment_method'] = $results[0]['payment_method'];
+				$context['pluggable_data']['status']         = $results[0]['status'];
+				$context['pluggable_data']['created_at']     = $results[0]['created_at'];
+				// Get order items.
+				$order                                = \Voxel\Product_Types\Orders\Order::find(
+					[
+						'id' => $results[0]['id'],
+					] 
+				);
+				$order_items                          = $order->get_items();
+				$context['pluggable_data']['details'] = $order->get_details();
+				$context['pluggable_data']['order_item_count'] = $order->get_item_count();
+				foreach ( $order_items as $item ) {
+					$context['pluggable_data']['order_items'][] = [
+						'id'                    => $item->get_id(),
+						'type'                  => $item->get_type(),
+						'currency'              => $item->get_currency(),
+						'quantity'              => $item->get_quantity(),
+						'subtotal'              => $item->get_subtotal(),
+						'product_id'            => $item->get_post()->get_id(),
+						'product_label'         => $item->get_product_label(),
+						'product_thumbnail_url' => $item->get_product_thumbnail_url(),
+						'product_link'          => $item->get_product_link(),
+						'description'           => $item->get_product_description(),
+					];
+				}
+				// Get Customer.
+				$context['pluggable_data']['customer'] = WordPress::get_user_context( $results[0]['customer_id'] );
+				$context['response_type']              = 'live';
+			} else {
+				$context = json_decode( '{"pluggable_data":{"id":"22","payment_method":"offline_payment","status":"pending_approval","created_at":"2024-08-27 10:20:16","details":{"cart":{"type":"direct_cart","items":{"lzl47hyq":{"product":{"post_id":8912,"field_key":"voxel:claim"}}}},"pricing":{"currency":"USD","subtotal":5,"total":5},"order_notes":"ABDDD","status":{"last_updated":"2024-08-27 10:20:16"}},"order_item_count":1,"order_items":[{"id":22,"type":"regular","currency":"USD","quantity":null,"subtotal":5,"product_id":8912,"product_label":"Fokachio","product_thumbnail_url":"https://example.com/wp-content/uploads/2024/05/8a13537-150x150.jpg","product_link":"https://example.com/places/papas-pita-2/","description":"Claim request"}],"customer":{"wp_user_id":1,"user_login":"johnd","display_name":"johnd","user_firstname":"john","user_lastname":"d","user_email":"johnd@example.com","user_registered":"2023-01-16 09:23:31","user_role":{"8":"tutor_instructor"}}},"response_type":"sample"}', true );// @phpcs:ignore
+			}
 		}
 		return $context;
 	}
@@ -17926,7 +17970,7 @@ class GlobalSearchController {
 	 * @return array|void
 	 */
 	public function search_late_point_customer_fields( $data ) {
-		if ( ! class_exists( 'LatePointAddonCustomFields' ) ) {
+		if ( ! class_exists( 'OsCustomFieldsController' ) ) {
 			
 			return;
 		}
@@ -18514,7 +18558,7 @@ class GlobalSearchController {
 		if ( 'new_service_created' === $term ) {
 			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_status LIKE 'service_created' ORDER BY service_id DESC Limit 1", ARRAY_A );
 		} elseif ( 'requirement_submitted' === $term ) {
-			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_requirements ORDER BY requirement_id DESC Limit 1", ARRAY_A );
+			$result = $wpdb->get_row( "SELECT created_at FROM {$wpdb->prefix}surelywp_sv_requirements ORDER BY created_at DESC Limit 1", ARRAY_A );
 		} elseif ( 'message_sent' === $term ) {
 			$result = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}surelywp_sv_messages ORDER BY message_id DESC Limit 1", ARRAY_A );
 		} elseif ( 'message_final_delivery_sent' === $term ) {
@@ -18540,49 +18584,94 @@ class GlobalSearchController {
 					'product_id'         => $result['product_id'],
 					'service_status'     => $result['service_status'],
 					'delivery_date'      => $result['delivery_date'],
-					'user_id'            => $result['user_id'],
 				];
-				$context['pluggable_data'] = $service_data;
+				$context['pluggable_data'] = array_merge( $service_data, WordPress::get_user_context( $result['user_id'] ) );
+				$context['response_type']  = 'live';
 			} elseif ( 'requirement_submitted' === $term ) {
-				$requirement_data          = [
-					'req_title' => $result['requirement_title'],
-					'req_desc'  => $result['requirement_desc'],
-				];
-				$context['pluggable_data'] = $requirement_data;
+				$requirements_data = $wpdb->get_results( 
+					$wpdb->prepare( 
+						"SELECT * FROM {$wpdb->prefix}surelywp_sv_requirements WHERE created_at = %s", 
+						$result['created_at']
+					), 
+					ARRAY_A 
+				);
+				$service_result    = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_id = %d", $requirements_data[0]['service_id'] ), ARRAY_A );
+				$user_data         = WordPress::get_user_context( $service_result['user_id'] );
+				unset( $service_result['user_id'] );
+				$context['pluggable_data'] = array_merge( $requirements_data, $service_result, $user_data );
+				foreach ( $requirements_data as $value ) {
+					if ( 'file' == $value['requirement_type'] ) {
+						$upload_dir            = wp_upload_dir();
+						$attachment_file_names = json_decode( $value['requirement'], true );
+						foreach ( (array) $attachment_file_names as $attachment_file_name ) {
+							$context['pluggable_data']['requirement_attachment_file'][] = $upload_dir['baseurl'] . '/surelywp-services-data/' . $value['service_id'] . '/requirement/' . $attachment_file_name;
+						}
+					}
+				}
+				$context['response_type'] = 'live';
 			} elseif ( 'message_sent' === $term || 'message_final_delivery_sent' === $term ) {
 				$message_data              = [
-					'sender_id'            => $result['sender_id'],
-					'receiver_id'          => $result['receiver_id'],
+					'sender'               => WordPress::get_user_context( $result['sender_id'] ),
+					'receiver'             => WordPress::get_user_context( $result['receiver_id'] ),
 					'service_id'           => $result['service_id'],
 					'message_text'         => $result['message_text'],
 					'attachment_file_name' => $result['attachment_file_name'],
 					'is_final_delivery'    => $result['is_final_delivery'],
 				];
 				$context['pluggable_data'] = $message_data;
-			} elseif ( 'customer_request_revision' === $term || 'customer_approves_final_delivery' === $term || 'delivery_date_changed' === $term || 'service_cancel' === $term || 'service_marked_canceled' === $term || 'service_completed' === $term || 'service_mark_completed' === $term ) {
-				$context['pluggable_data'] = $result;
+				$upload_dir                = wp_upload_dir();
+				$attachment_file_names     = json_decode( $result['attachment_file_name'], true );
+				foreach ( (array) $attachment_file_names as $attachment_file_name ) {
+					$context['pluggable_data']['attachment_file'][] = $upload_dir['baseurl'] . '/surelywp-services-data/' . $result['service_id'] . '/messages/' . $attachment_file_name;
+				}
+				$context['response_type'] = 'live';
+			} elseif ( 'customer_request_revision' === $term ) {
+				$message_result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}surelywp_sv_messages WHERE service_id = %d AND is_final_delivery = %d ORDER BY message_id DESC LIMIT 1", $result['service_id'], 1 ), ARRAY_A );
+				if ( ! empty( $message_result ) ) {
+					global $surelywp_sv_model;
+					$revision_message                      = $surelywp_sv_model->surelywp_sv_get_customer_revision_msg( $message_result['service_id'], $message_result['message_id'] );
+					$context['pluggable_data']             = array_merge( $result, $revision_message );
+					$context['pluggable_data']['sender']   = WordPress::get_user_context( $revision_message['sender_id'] );
+					$context['pluggable_data']['receiver'] = WordPress::get_user_context( $revision_message['receiver_id'] );
+					$upload_dir                            = wp_upload_dir();
+					$attachment_file_names                 = json_decode( $revision_message['attachment_file_name'], true );
+					foreach ( (array) $attachment_file_names as $attachment_file_name ) {
+						$context['pluggable_data']['attachment_file'][] = $upload_dir['baseurl'] . '/surelywp-services-data/' . $revision_message['service_id'] . '/messages/' . $attachment_file_name;
+					}
+					$context['response_type'] = 'live';
+				} else {
+					$context = json_decode( '{"pluggable_data":{"service_id":"6","service_setting_id":"kXg4Exmj","user_id":"51","order_id":"16574f7f-66d8-466e-8716-8da9671e6668","product_id":"f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_status":"service_start","delivery_date":"2024-08-29","created_at":"2024-08-25 22:42:57","updated_at":null,"message_id":"13","sender_id":"41","receiver_id":"0","message_text":"This is the final revision","attachment_file_name":"[\"test_copy-1724605977.pdf\",\"test-1724605977.pdf\"]","is_final_delivery":"0","is_approved_delivery":null,"sender":{"wp_user_id":41,"user_login":"john@example.com","display_name":"john@example.com","user_firstname":"john","user_lastname":"d","user_email":"john@example.com","user_registered":"2023-01-30 09:34:54","user_role":["customer"]},"receiver":[],"attachment_file":["https://example.com/wp-content/uploads/surelywp-services-data/6/messages/test_copy-1724605977.pdf","https://example.com/wp-content/uploads/surelywp-services-data/6/messages/test-1724605977.pdf"]},"response_type":"sample"}', true );
+				}
+			} elseif ( 'customer_approves_final_delivery' === $term || 'delivery_date_changed' === $term || 'service_cancel' === $term || 'service_marked_canceled' === $term || 'service_completed' === $term || 'service_mark_completed' === $term ) {
+				$user_data = WordPress::get_user_context( $result['user_id'] );
+				unset( $result['user_id'] );
+				$context['pluggable_data'] = array_merge( $result, $user_data );
+				$context['response_type']  = 'live';
 			} elseif ( 'contract_signed' === $term ) {
-				$contract_data             = [
+				$contract_data  = [
 					'service_id'       => $result['service_id'],
 					'signature'        => $result['signature'],
 					'contract_details' => $result['contract_details'],
 				];
-				$context['pluggable_data'] = $contract_data;
+				$service_result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}surelywp_sv_services WHERE service_id = %d", $result['service_id'] ), ARRAY_A );
+				$user_data      = WordPress::get_user_context( $service_result['user_id'] );
+				unset( $service_result['user_id'] );
+				$context['pluggable_data'] = array_merge( $contract_data, $user_data, $service_result );
+				$context['response_type']  = 'live';
 			}
-			$context['response_type'] = 'live';
 		} else {
 			if ( 'new_service_created' === $term || 'customer_request_revision' === $term || 'customer_approves_final_delivery' === $term || 'delivery_date_changed' === $term ) {
-				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_created","user_id": "84"},"response_type":"sample"}', true );
+				$context = json_decode( '{"pluggable_data":{"service_setting_id":"3","order_id":"81ac6e4f-1f8a-4f8b-a3d1-37fba6c8f893","product_id":"f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_status":"service_created","delivery_date":null,"wp_user_id":84,"user_login":"johnd@example.com","display_name":"johnd@example.com","user_firstname":"John","user_lastname":"D","user_email":"johnd@example.com","user_registered":"2023-02-02 13:08:44","user_role":["customer"]},"response_type":"sample"}', true );
 			} elseif ( 'requirement_submitted' === $term ) {
-				$context = json_decode( '{"pluggable_data":{req_title: "Requirement Title",req_desc: "Requirement Description"},"response_type":"sample"}', true );
+				$context = json_decode( '{"pluggable_data":{"0":{"requirement_id":"6","service_id":"7","requirement_type":"textarea","requirement_title":"TestReq","requirement_desc":"This is a testing requirement","requirement":"This is my requirements.","created_at":"2024-08-26 10:27:33","updated_at":null},"1":{"requirement_id":"7","service_id":"7","requirement_type":"file","requirement_title":"Upload Photos","requirement_desc":"Please upload reference photos","requirement":"[\"test_copy-1724648253.pdf\",\"test-1724648253.pdf\"]","created_at":"2024-08-26 10:27:33","updated_at":null},"service_id":"7","service_setting_id":"kXg4Exmj","order_id":"16574f7f-66d8-466e-8716-8da9671e6668","product_id":"f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_status":"service_start","delivery_date":"2024-08-29","created_at":"2024-08-26 10:22:31","updated_at":"2024-08-26 04:57:36","wp_user_id":51,"user_login":"johnd@example.com","display_name":"johnd@example.com","user_firstname":"john","user_lastname":"d","user_email":"johnd@example.com","user_registered":"2023-02-02 07:12:46","user_role":["customer"],"requirement_attachment_file":["https://example.com/wp-content/uploads/surelywp-services-data/7/requirement/test_copy-1724648253.pdf","https://example.com/wp-content/uploads/surelywp-services-data/7/requirement/test-1724648253.pdf"]},"response_type":"sample"}', true );
 			} elseif ( 'message_sent' === $term || 'message_final_delivery_sent' === $term ) {
-				$context = json_decode( '{"pluggable_data":{sender_id: "1",receiver_id: "2",service_id: "1",message_text: "Message Text",attachment_file_name: "Attachment File Name",is_final_delivery: "1"},"response_type":"sample"}', true );
+				$context = json_decode( '{"pluggable_data":{"sender":{"wp_user_id":84,"user_login":"johnd@example.com","display_name":"johnd@example.com","user_firstname":"john","user_lastname":"d","user_email":"johnd@example.com","user_registered":"2023-02-02 13:08:44","user_role":["customer"]},"receiver_id": {"wp_user_id":8,"user_login":"johnde@example.com","display_name":"johnde@example.com","user_firstname":"johnd","user_lastname":"ed","user_email":"johnde@example.com","user_registered":"2023-02-02 13:08:44","user_role":["admin"]},"service_id": "1","message_text": "Message Text","attachment_file_name": "Attachment File Name","is_final_delivery": "1", "attachment_file":["https://example.com/wp-content/uploads/surelywp-services-data/6/messages/test_copy-1724605977.pdf","https://example.com/wp-content/uploads/surelywp-services-data/6/messages/test-1724605977.pdf"]},"response_type":"sample"}', true );
 			} elseif ( 'service_cancel' === $term ) {
-				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_canceled","user_id": "84"},"response_type":"sample"}', true );
+				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_canceled","wp_user_id":84,"user_login":"johnd@example.com","display_name":"johnd@example.com","user_firstname":"John","user_lastname":"D","user_email":"johnd@example.com","user_registered":"2023-02-02 13:08:44","user_role":["customer"]},"response_type":"sample"}', true );
 			} elseif ( 'service_marked_canceled' === $term || 'service_completed' === $term || 'service_mark_completed' === $term ) {
-				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_completed","user_id": "84"},"response_type":"sample"}', true );
+				$context = json_decode( '{"pluggable_data":{"delivery_date": null,"order_id": "a3830048-9a43-4088-a78e-285537f16ecc","product_id": "f59f62cc-fd70-4007-8bcf-56d07f1ac871","service_setting_id": "2","service_status": "service_completed","wp_user_id":84,"user_login":"johnd@example.com","display_name":"johnd@example.com","user_firstname":"John","user_lastname":"D","user_email":"johnd@example.com","user_registered":"2023-02-02 13:08:44","user_role":["customer"]},"response_type":"sample"}', true );
 			} elseif ( 'contract_signed' === $term ) {
-				$context = json_decode( '{"pluggable_data":{service_id: "1",signature: "Signature",contract_details: "Contract Details"},"response_type":"sample"}', true );
+				$context = json_decode( '{"pluggable_data":{"service_id":"4","signature":"signature","contract_details":"Contract Details","wp_user_id":84,"user_login":"johnd@example.com","display_name":"johnd@example.com","user_firstname":"John","user_lastname":"D","user_email":"johnd@example.com","user_registered":"2023-02-02 13:08:44","user_role":["customer"],"service_setting_id":"u2pDYtDF","user_id":"84","order_id":"8e8ca710-13cd-4c94-8de5-98a19a3b9de6","product_id":"a39c7d4f-50bd-49ba-b56c-4f17aac61306","service_status":"service_start","delivery_date":"2024-08-25","created_at":"2024-08-22 15:15:27","updated_at":"2024-08-22 09:46:02"},"response_type":"sample"}', true );
 			}
 		}
 		return (array) $context;

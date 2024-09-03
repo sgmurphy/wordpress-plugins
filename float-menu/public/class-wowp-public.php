@@ -46,7 +46,7 @@ class WOWP_Public {
 
 			foreach ( $args as $id => $param ) {
 				if ( empty( $param['fontawesome'] ) ) {
-					wp_enqueue_style( $handle . '-fontawesome', $url_fontawesome, null, '6.5.1' );
+					wp_enqueue_style( $handle . '-fontawesome', $url_fontawesome, null, '6.6' );
 				}
 
 				if ( empty( $param['velocity'] ) ) {
@@ -119,7 +119,7 @@ class WOWP_Public {
 		$url_fontawesome = WOWP_Plugin::url() . '/vendors/fontawesome/css/all.min.css';
 
 		if ( empty( $param['fontawesome'] ) ) {
-			wp_enqueue_style( $handle . '-fontawesome', $url_fontawesome, null, '6.5.1' );
+			wp_enqueue_style( $handle . '-fontawesome', $url_fontawesome, null, '6.6' );
 		}
 
 		$style        = new  Style_Maker( $id, $param );

@@ -7,7 +7,7 @@ import {
     BlockControls,
     AlignmentToolbar
 } from "@wordpress/block-editor";
-import { select } from "@wordpress/data";
+import { useSelect } from '@wordpress/data'
 import { useEntityProp } from '@wordpress/core-data';
 
 /**
@@ -33,6 +33,7 @@ function Edit(props) {
         attributes,
         setAttributes,
         isSelected,
+        context
     } = props;
     const {
         blockId,
@@ -68,16 +69,13 @@ function Edit(props) {
     }, [])
 
     useEffect(() => {
-        const postId = select("core/editor")?.getCurrentPostId();
-        const postType = select("core/editor")?.getCurrentPostType();
-
-        if (postId) {
+        if (context.postId && !currentPostId && !currentPostType) {
             setAttributes({
-                currentPostId: postId,
-                currentPostType: postType,
+                currentPostId: context.postId,
+                currentPostType: context.postType,
             });
         }
-    }, [source])
+    }, [source]);
 
     const [rawTitle = '', setTitle, fullTitle] = useEntityProp(
         'postType',

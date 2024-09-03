@@ -281,7 +281,7 @@ class BWFAN_Automation_V2 {
 			}
 
 			foreach ( $all_merge_tags[ $merge_tag_group ] as $tags ) {
-				if ( ! $tags->is_support_v2() ) {
+				if ( ! $tags->is_support_v2() || 'bwfan_contact_confirmation_link' === $tags->get_slug() ) {
 					continue;
 				}
 

@@ -5,29 +5,29 @@ use QuadLayers\WP_Orm\Entity\CollectionEntity;
 
 class Feed extends CollectionEntity {
 	public static $primaryKey  = 'id'; //phpcs:ignore
-	public $id                 = 0;
-	public $account_id         = '';
-	public $source             = 'username';
-	public $tag                = 'WordPress';
-	public $order_by           = 'top_media';
-	public $layout             = 'gallery';
-	public $limit              = 12;
-	public $columns            = 3;
-	public $lazy               = false;
-	public $spacing            = 10;
-	public $highlight          = array(
+	public $id                = 0;
+	public $account_id        = '';
+	public $source            = 'username';
+	public $tag               = 'WordPress';
+	public $order_by          = 'top_media';
+	public $layout            = 'gallery';
+	public $limit             = 12;
+	public $columns           = 3;
+	public $lazy              = false;
+	public $spacing           = 10;
+	public $highlight         = array(
 		'tag'      => '',
 		'id'       => '',
 		'position' => '1,3,5',
 	);
-	public $reel               = array(
+	public $reel              = array(
 		'hide' => false,
 	);
-	public $copyright          = array(
+	public $copyright         = array(
 		'hide'        => false,
 		'placeholder' => '',
 	);
-	public $profile            = array(
+	public $profile           = array(
 		'display'      => false,
 		'auto'         => false,
 		'username'     => '',
@@ -38,7 +38,7 @@ class Feed extends CollectionEntity {
 		'website_text' => 'Website',
 		'avatar'       => '',
 	);
-	public $box                = array(
+	public $box               = array(
 		'display'    => false,
 		'padding'    => 1,
 		'radius'     => 0,
@@ -47,13 +47,13 @@ class Feed extends CollectionEntity {
 		'desc'       => '',
 		'text_color' => '#000000',
 	);
-	public $mask               = array(
+	public $mask              = array(
 		'display'        => true,
 		'background'     => '#000000',
 		'likes_count'    => true,
 		'comments_count' => true,
 	);
-	public $card               = array(
+	public $card              = array(
 		'display'          => false,
 		'radius'           => 1,
 		'font_size'        => 12,
@@ -66,7 +66,7 @@ class Feed extends CollectionEntity {
 		'comments_count'   => true,
 		'text_align'       => 'left',
 	);
-	public $carousel           = array(
+	public $carousel          = array(
 		'slidespv'          => 5,
 		'centered_slides'   => false,
 		'autoplay'          => false,
@@ -76,7 +76,7 @@ class Feed extends CollectionEntity {
 		'pagination'        => true,
 		'pagination_color'  => '',
 	);
-	public $modal              = array(
+	public $modal             = array(
 		'display'           => true,
 		'profile'           => true,
 		'media_description' => true,
@@ -87,14 +87,14 @@ class Feed extends CollectionEntity {
 		'text_length'       => 10000,
 		'font_size'         => 12,
 	);
-	public $button             = array(
+	public $button            = array(
 		'display'          => true,
 		'text'             => 'View on Instagram',
 		'text_color'       => '#ffff',
 		'background'       => '',
 		'background_hover' => '',
 	);
-	public $button_load        = array(
+	public $button_load       = array(
 		'display'          => false,
 		'text'             => 'Load more...',
 		'text_color'       => '#ffff',

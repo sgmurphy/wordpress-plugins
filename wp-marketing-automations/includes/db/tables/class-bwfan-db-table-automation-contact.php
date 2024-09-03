@@ -55,7 +55,8 @@ class BWFAN_DB_Table_Automation_Contact extends BWFAN_DB_Tables_Base {
 		  KEY `aid` (`aid`),
 		  KEY `e_time` (`e_time`),
 		  KEY `status` (`status`),
-		  KEY `claim_id` (`claim_id`)
+		  KEY `claim_id` (`claim_id`),
+		  UNIQUE `trail` (`trail`)
 		) $collate;";
 	}
 }

@@ -55,7 +55,7 @@ class WFCO_Load_Connectors {
 		if ( empty( $rest_route ) ) {
 			return;
 		}
-		if ( strpos( $rest_route, 'autonami/' ) === false && strpos( $rest_route, 'woofunnel_customer/' ) === false && strpos( $rest_route, 'funnelkit-app' ) === false && strpos( $rest_route, 'autonami-app' ) === false && strpos( $rest_route, 'funnelkit-automations' ) === false && strpos( $rest_route, 'autonami-webhook' ) === false && strpos( $rest_route, 'woofunnels/' ) === false ) {
+		if ( strpos( $rest_route, 'autonami/' ) === false && strpos( $rest_route, 'woofunnel_customer/' ) === false && strpos( $rest_route, 'funnelkit-app' ) === false && strpos( $rest_route, 'autonami-app' ) === false && strpos( $rest_route, 'funnelkit-automations' ) === false && strpos( $rest_route, 'autonami-webhook' ) === false && strpos( $rest_route, 'woofunnels/' ) === false && strpos( $rest_route, '/omapp/' ) === false ) {
 			return;
 		}
 
@@ -91,7 +91,7 @@ class WFCO_Load_Connectors {
 		if ( empty( $ajax_action ) ) {
 			return;
 		}
-		$array = [ 'wfco', 'bwfan' ];
+		$array = [ 'wfco', 'bwfan', 'bwf_' ];
 		foreach ( $array as $value ) {
 			if ( strpos( $ajax_action, $value ) !== false ) {
 				do_action( 'wfco_load_connectors' );
@@ -120,7 +120,6 @@ class WFCO_Load_Connectors {
 		$slug = $temp_ins->get_slug();
 
 		self::$connectors[ $slug ] = $temp_ins;
-		add_action( 'wfco_connector_screen', [ $temp_ins, 'setting_view' ] );
 		$temp_ins->load_calls();
 	}
 

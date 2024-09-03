@@ -30,6 +30,20 @@ if ( ! class_exists( 'BWFAN_Model_Engagement_Trackingmeta' ) && BWFAN_Common::is
 			return $merge_tags;
 		}
 
+		static function get_notification_data( $con_id ) {
+			$result = self::get_meta( $con_id, 'notification_data' );
+			if ( empty( $result ) ) {
+				return array();
+			}
+			try {
+				$merge_tags = json_decode( $result[0]['meta_value'], true );
+			} catch ( Exception $e ) {
+				return array();
+			}
+
+			return $merge_tags;
+		}
+
 		public static function delete_engagements_meta( $ids ) {
 			if ( empty( $ids ) ) {
 				return;

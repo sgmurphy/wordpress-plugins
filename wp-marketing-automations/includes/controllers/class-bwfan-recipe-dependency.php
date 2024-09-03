@@ -1,4 +1,5 @@
 <?php
+
 #[AllowDynamicProperties]
 class BWFAN_Recipe_Dependency {
 

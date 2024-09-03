@@ -14,10 +14,7 @@ class Kt_Base_Install_Hooks {
      *
      */
     public function __construct() {
-        add_action( 'advanced_import_before_plugin_screen', array( $this, 'switch_base_theme' ) );
-        add_action( 'after_switch_theme', array( $this, 'after_switch_theme' ));
-        add_action( 'wp_ajax_install_base_theme_selection', array( $this, 'install_base_theme_selection' ));
-        add_action( 'wp_ajax_clear_transient_on_cancel', array( $this, 'clear_transient_on_cancel' ));
+        add_action( 'wp_ajax_install_base_theme', array( $this, 'install_base_theme' ));
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ), 10, 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10, 1 );
     }
@@ -39,106 +36,124 @@ class Kt_Base_Install_Hooks {
 
         wp_enqueue_script( 'kt-base-install', plugin_dir_url( __FILE__ ) . 'assets/base-install.js', array( 'jquery' ), '1.0.0', true );
 
+        $base_theme = kt_get_base_theme();
+        $action = __( 'Install and Activate', 'keon-toolset' );
+        if( kt_base_theme_installed() ){
+            $action = __( 'Activate', 'keon-toolset' );
+        }
         wp_localize_script(
             'kt-base-install',
-            'install_theme',
+            'direct_install',
             array(
                 'ajax_url'  => admin_url( 'admin-ajax.php' ),
-                'admin_url' => admin_url(),
-                'is_base_installed' => kt_base_theme_installed() ? true : false,
-                'is_base_active' => get_stylesheet() === 'hello-shoppable' ? true : false,
-                'nonce'     => wp_create_nonce( 'install_theme_nonce' ),
-                'base_html' => '<div class="base-install-notice-outer">
-                    <div class="base-install-notice-inner">
-                        <div class="base-install-content"><h3>Hello Shoppable</h3><p>We recommend to install Hello Shoppable theme as all our demo works perfectly with this theme. You can still try our demo on any theme but it might not look as you see on our demo. You can skip if you want to proceed without installing theme.</p></div>
-                        <div class="base-install-btn">
-                            <a class= "install-base-theme button button-primary">Install Hello Shoppable</a>
-                            <a class= "close-base-notice button">Skip</a>
+                'nonce'     => wp_create_nonce( 'direct_theme_install' ),
+                'base_html' => sprintf(
+                    '<div class="base-install-notice-outer">
+                        <div class="base-install-notice-inner">
+                            <div class="base-install-prompt" >
+                                <div class="base-install-content"><h2 class="base-install-title">%1$s</h2><p>We recommend to %2$s %1$s theme as all our demo works perfectly with this theme. You can still try our demo on any block theme but it might not look as you see on our demo.</p></div>
+                                <div class="base-install-btn">
+                                    <a class= "install-base-theme button button-primary">%2$s %1$s</a>
+                                    <a class= "close-base-notice button close-base-button">Skip</a>
+                                </div>
+                            </div>
+                            <div class="base-install-success">
+                                <div class="base-install-content"><h3>Thank you for installing %1$s. Click on Next to proceed to demo importer.</h3></div>
+                                <div class="base-install-btn">
+                                    <a class= "close-base-notice button button-primary">Next</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </div>',
-                'notice_html' => '<li>We recommend to install Hello Shoppable theme as all our demo works perfectly with this theme. You can skip if you want to proceed without installing theme.</li><br><input type="checkbox" checked="true" id="installBase"><label> Install Hello Shoppable</label>'
+                    $base_theme['name'],
+                    $action
+                ),
             )
         );
-        wp_localize_script(
-            'kt-base-install',
-            'clear_state',
+    }
+
+    /**
+     *  Install base theme.
+     */
+    public function install_base_theme(){
+        check_ajax_referer( 'direct_theme_install', 'security' );
+
+        if( !current_user_can('manage_options') ) {
+            $error = __( 'Sorry, you are not allowed to install themes on this site.', 'keon-toolset' );
+            wp_send_json_error( $error );
+        }
+
+        $base_theme = kt_get_base_theme();
+        if ( kt_base_theme_installed() ) {
+            switch_theme( $base_theme['slug'] );
+            wp_send_json_success();
+        }
+
+        require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/theme.php';
+
+        $api = themes_api(
+            'theme_information',
             array(
-                'ajax_url'  => admin_url( 'admin-ajax.php' ),
-                'nonce'     => wp_create_nonce( 'clear_transient' ),
+                'slug'   => $base_theme['slug'],
+                'fields' => array( 'sections' => false ),
             )
         );
-    }
-
-    /**
-     * Check base theme install option.
-     */
-    public function install_base_theme_selection(){
-        check_ajax_referer( 'install_theme_nonce', 'security' );
-
-        if( $_POST['is_checked'] == 'true' ){
-            delete_transient( 'skip_base_install' );
-            return;
-        }
-        set_transient('skip_base_install', 'skipped', HOUR_IN_SECONDS);
-    }
-
-    /**
-     * Clears base theme option transient.
-     */
-    public function clear_transient_on_cancel(){
-        check_ajax_referer( 'clear_transient', 'security' );
-        if( get_transient('skip_base_install') ){
-            delete_transient( 'skip_base_install' );
-        }
-    }
-
-    /**
-     * Switches to base theme.
-     */
-    public function switch_base_theme(){
-        if( get_transient('skip_base_install') ){
-            return;
-        }
-        $base_theme = 'hello-shoppable';
-        if( get_stylesheet() === $base_theme ){
-            return;
+     
+        if ( is_wp_error( $api ) ) {
+            $status['errorMessage'] = $api->get_error_message();
+            wp_send_json_error( $status['errorMessage'] );
         }
 
-        if( !kt_base_theme_installed() ){
-            return;
-        }
-        
-        switch_theme('hello-shoppable');
-        return;
-    }
+        $skin     = new WP_Ajax_Upgrader_Skin();
+        $upgrader = new Theme_Upgrader( $skin );
+        $result   = $upgrader->install( $api->download_link );
 
-    /**
-     * Redirects after base theme activation to demo import.
-     */
-    public function after_switch_theme () {
-        if( get_stylesheet() == 'hello-shoppable' ){
-            wp_safe_redirect( admin_url( 'themes.php?page=advanced-import&browse=all' ) );
+        if (is_wp_error($result)) {
+           wp_send_json_error( $result->errors );
         }
+
+        switch_theme( $base_theme['slug'] );
+        wp_send_json_success();
+        die();
     }
 }
 
 /**
- * Checks base theme installed.
+ * Checks if base theme installed.
  */
 function kt_base_theme_installed(){
-    $base_theme = 'hello-shoppable';
+    $base_theme = kt_get_base_theme();
     $all_themes = wp_get_themes();
     $installed_themes = array();
     foreach( $all_themes as $theme ){
         $theme_text_domain = esc_attr ( $theme->get('TextDomain') );
         $installed_themes[] = $theme_text_domain;
     }
-    if( in_array( $base_theme, $installed_themes, true ) ){
+    if( in_array( $base_theme['slug'], $installed_themes, true ) ){
         return true;
     }
     return false;
     
+}
+
+/**
+ * Returns base theme.
+ */
+function kt_get_base_theme(){
+    $theme = keon_toolset_get_theme_slug();
+    $base_theme = array(
+        'name' => '',
+        'slug' => '',
+    );
+    if( strpos( $theme, 'bosa' ) !== false ){
+        $base_theme['name'] = 'Bosa';
+        $base_theme['slug'] = 'bosa';
+    }elseif( strpos( $theme, 'shoppable' ) !== false ){
+        $base_theme['name'] = 'Hello Shoppable';
+        $base_theme['slug'] = 'hello-shoppable';
+    }
+    return $base_theme;
 }
 
 return new Kt_Base_Install_Hooks();

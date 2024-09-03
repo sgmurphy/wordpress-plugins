@@ -386,6 +386,15 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 				'required_plugins' => array( 'elementor' => array( 'title' => __( 'Elementor Page Builder', 'skt-templates' ) ) ),
 			);
 			$templates_list = array(
+			'skt-windowsanddoors-elementor'              => array(
+					'title'       => __( 'SKT Windows And Doors', 'skt-templates' ),
+					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
+					'theme_url'   => esc_url('#'),
+					'demo_url'    => esc_url('https://demosktthemes.com/free/windowsanddoors/'),
+					'screenshot'  => esc_url('https://demosktthemes.com/free/windowsanddoors/windowsanddoors.jpg'),
+					'import_file' => esc_url('https://demosktthemes.com/free/windowsanddoors/windowsanddoors.json'),
+					'keywords'    => __( ' windowsanddoors, window installations, Doors fixer, handyman, repair services, remodeling, window and door cleaning services, manufacturers, Aluminum Door manufacturing, Repair Business, UPVC Window, Suppliers, home improvement industry, strategic consultancy, local businesses, Sliding Windows installer, Windows And Doors, windows, doors, door' ),
+			),				
 			'skt-enterprise-elementor'              => array(
 					'title'       => __( 'SKT Enterprise', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
@@ -1212,15 +1221,6 @@ if ( ! class_exists( '\SktThemes\PageTemplatesDirectory' ) ) {
 					'import_file' => esc_url('https://demosktthemes.com/free/kitchen-design/kitchen-design.json'),
 					'keywords'    => __( ' kitchendesign, interior designs, designs, kitchen appliances, Whole Home Makeovers, Crowdsourcing Platform, Furniture Re-Upholsterer, E-decorating Service, Home Window Dresser, Resale Sites, Home Accessories Decorator, Designer Rooms, Eco-Friendly Home Decor Services, Makers And Manufacturers, home decor, interior construction, home decorating, decoration, decor, furnishing articles, interior equipment, internal design, interior set-up, interior fit-out, remodeling, overhaul, improvement, reconstruction, betterment, modernization, redo, new look, refashion, redecoration, repair, revamp, restore, rehabilitation, retreading, refitting, renovation, retouch, Kitchen Design, design' ),
 				),	
-				'windowsanddoors-elementor'              => array(
-					'title'       => __( 'Windows And Doors', 'skt-templates' ),
-					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),
-					'theme_url'   => esc_url('#'),
-					'demo_url'    => esc_url('https://demosktthemes.com/free/windowsanddoors/'),
-					'screenshot'  => esc_url('https://demosktthemes.com/free/windowsanddoors/windowsanddoors.jpg'),
-					'import_file' => esc_url('https://demosktthemes.com/free/windowsanddoors/windowsanddoors.json'),
-					'keywords'    => __( ' windowsanddoors, window installations, Doors fixer, handyman, repair services, remodeling, window and door cleaning services, manufacturers, Aluminum Door manufacturing, Repair Business, UPVC Window, Suppliers, home improvement industry, strategic consultancy, local businesses, Sliding Windows installer, Windows And Doors, windows, doors, door' ),
-				),																																	
 				'sanitization-elementor'              => array(
 					'title'       => __( 'Sanitization', 'skt-templates' ),
 					'description' => __( 'It downloads from our website sktthemes.org, once you do it you will get the exact preview like shown in the demo. Steps after downloading the theme: Upload it via appearance>themes>add new>upload theme zip file and activate the theme.', 'skt-templates' ),

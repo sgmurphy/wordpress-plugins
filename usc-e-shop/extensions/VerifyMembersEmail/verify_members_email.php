@@ -81,6 +81,7 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 				add_action( 'usces_main', array( $this, 'verified_member' ) );
 				add_filter( 'usces_filter_login_inform', array( $this, 'login_inform' ) );
 				add_action( 'usces_action_login_page_inform', array( $this, 'login_page_inform' ) );
+				add_filter( 'usces_filter_member_submenu_list', array( $this, 'member_submenu_list' ), 99, 2 );
 				add_action( 'usces_action_member_logined', array( $this, 'after_login' ) );
 			}
 		}
@@ -824,8 +825,8 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 	 * Authentication mail transmission completion page.
 	 */
 	public function member_edit_verifying_form() {
-		ob_start();
 		get_header();
+		ob_start();
 		?>
 <div class="storycontent">
 <div id="primary" class="site-content">
@@ -856,7 +857,7 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 		</div>
 
 		<div class="send">
-			<input type="button" name="back" class="top" value="<?php esc_attr_e( 'Back', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( USCES_MEMBER_URL ); ?>'" />
+			<input type="button" name="back" class="top back" value="<?php esc_attr_e( 'Back', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( USCES_MEMBER_URL ); ?>'" />
 		</div>
 
 		</div><!-- #memberedit -->
@@ -868,10 +869,11 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 </div><!-- .storycontent -->
 			<?php
 		endif;
-		get_footer();
 		$contents = ob_get_contents();
 		ob_end_clean();
+		$contents = apply_filters( 'usces_filter_member_edit_verifying_form', $contents );
 		echo $contents; // no escape.
+		get_footer();
 	}
 
 	/**
@@ -879,8 +881,8 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 	 */
 	public function member_verifying_error_form() {
 		$auth_error = filter_input( INPUT_GET, 'auth_error', FILTER_DEFAULT );
-		ob_start();
 		get_header();
+		ob_start();
 		?>
 <div class="storycontent">
 <div id="primary" class="site-content">
@@ -911,7 +913,7 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 		</div>
 
 		<div class="send">
-			<input type="button" name="back" class="top" value="<?php esc_attr_e( 'Back to the member page.', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( USCES_MEMBER_URL ); ?>'" />
+			<input type="button" name="back" class="top back" value="<?php esc_attr_e( 'Back to the member page.', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( USCES_MEMBER_URL ); ?>'" />
 		</div>
 
 		</div><!-- #memberedit -->
@@ -923,10 +925,11 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 </div><!-- .storycontent -->
 			<?php
 		endif;
-		get_footer();
 		$contents = ob_get_contents();
 		ob_end_clean();
+		$contents = apply_filters( 'usces_filter_member_verifying_error_form', $contents, $auth_error );
 		echo $contents; // no escape.
+		get_footer();
 	}
 
 	/**
@@ -942,8 +945,8 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 			$update = 'update';
 		}
 
-		ob_start();
 		get_header();
+		ob_start();
 		?>
 <div class="storycontent">
 <div id="primary" class="site-content">
@@ -994,7 +997,7 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 			<input id="update" type="hidden" value="<?php echo esc_attr( $update ); ?>" />
 			<div class="send">
 				<input type="button" name="top" class="top" value="<?php esc_attr_e( 'Back to the top page.', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( home_url() ); ?>'" />
-				<input type="button" name="back" class="top" value="<?php esc_attr_e( 'Back to the member page.', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( USCES_MEMBER_URL ); ?>'" />
+				<input type="button" name="back" class="top back" value="<?php esc_attr_e( 'Back to the member page.', 'usces' ); ?>" onclick="location.href='<?php echo esc_url( USCES_MEMBER_URL ); ?>'" />
 				<input type="submit" name="editmember" class="editmember" value="<?php esc_html_e( 'update it', 'usces' ); ?>" />
 				<input type="submit" name="deletemember" class="deletemember" value="<?php esc_html_e( 'delete it', 'usces' ); ?>" onclick="return confirm('<?php esc_attr_e( 'All information about the member is deleted. Are you all right?', 'usces' ); ?>');" />
 				<?php $noncekey = 'post_member' . $usces->get_uscesid( false ); ?>
@@ -1011,10 +1014,11 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 </div><!-- .storycontent -->
 			<?php
 		endif;
-		get_footer();
 		$contents = ob_get_contents();
 		ob_end_clean();
+		$contents = apply_filters( 'usces_filter_member_edit_form', $contents, $member, $update );
 		echo $contents; // no escape.
+		get_footer();
 	}
 
 	/**
@@ -1165,6 +1169,21 @@ class USCES_VERIFY_MEMBERS_EMAIL {
 		} elseif ( isset( $_POST['memeditauth'] ) ) {
 			echo '<input type="hidden" name="memeditauth" value="' . esc_attr( $_POST['memeditauth'] ) . '">';
 		}
+	}
+
+	/**
+	 * Submenu area of the member page.
+	 * usces_filter_member_submenu_list
+	 *
+	 * @param string $submenu_list Submenu area.
+	 * @param array  $member Member information.
+	 * @return string
+	 */
+	public function member_submenu_list( $submenu_list, $member ) {
+		if ( empty( $submenu_list ) ) {
+			$submenu_list = '<li class="member-edit"><a href="#edit">' . esc_html__( 'To member information editing', 'usces' ) . '</a></li>';
+		}
+		return $submenu_list;
 	}
 
 	/**

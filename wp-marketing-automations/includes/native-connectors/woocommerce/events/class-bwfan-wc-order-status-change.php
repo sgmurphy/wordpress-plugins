@@ -480,11 +480,11 @@ final class BWFAN_WC_Order_Status_Change extends BWFAN_Event {
 				'type'        => 'radio',
 				'options'     => [
 					[
-						'label' => 'Any Product',
+						'label' => __( 'Any Product', 'wp-marketing-automations' ),
 						'value' => 'any'
 					],
 					[
-						'label' => 'Specific Products',
+						'label' => __( 'Specific Products', 'wp-marketing-automations' ),
 						'value' => 'selected_product'
 					],
 				],
@@ -518,7 +518,7 @@ final class BWFAN_WC_Order_Status_Change extends BWFAN_Event {
 				'type'     => 'notice',
 				'class'    => '',
 				'status'   => 'warning',
-				'message'  => 'This is a Pro feature.',
+				'message'  => __( 'This is a Pro feature.', 'wp-marketing-automations' ),
 				'dismiss'  => false,
 				'required' => false,
 				'toggler'  => [

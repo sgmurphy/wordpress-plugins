@@ -1,7 +1,8 @@
 <?php
 use EssentialBlocks\Blocks\Row;
-use EssentialBlocks\Blocks\Form;
 use EssentialBlocks\Blocks\Icon;
+use EssentialBlocks\Blocks\Form;
+use EssentialBlocks\Blocks\Text;
 use EssentialBlocks\Blocks\PopUp;
 use EssentialBlocks\Blocks\Button;
 use EssentialBlocks\Blocks\Notice;
@@ -10,12 +11,16 @@ use EssentialBlocks\Blocks\Social;
 use EssentialBlocks\Blocks\FlipBox;
 use EssentialBlocks\Blocks\InfoBox;
 use EssentialBlocks\Blocks\WPForms;
-use EssentialBlocks\Blocks\Wrapper;
 use EssentialBlocks\Blocks\PostGrid;
+use EssentialBlocks\Blocks\Wrapper;
+use EssentialBlocks\Blocks\PostMeta;
+use EssentialBlocks\Blocks\Taxonomy;
 use EssentialBlocks\Blocks\Accordion;
+use EssentialBlocks\Blocks\AddToCart;
 use EssentialBlocks\Blocks\CountDown;
 use EssentialBlocks\Blocks\GoogleMap;
 use EssentialBlocks\Blocks\Openverse;
+use EssentialBlocks\Blocks\Breadcrumb;
 use EssentialBlocks\Blocks\DualButton;
 use EssentialBlocks\Blocks\NftGallery;
 use EssentialBlocks\Blocks\TeamMember;
@@ -30,19 +35,25 @@ use EssentialBlocks\Blocks\CallToAction;
 use EssentialBlocks\Blocks\ImageGallery;
 use EssentialBlocks\Blocks\PostCarousel;
 use EssentialBlocks\Blocks\PricingTable;
+use EssentialBlocks\Blocks\ProductPrice;
 use EssentialBlocks\Blocks\ShapeDivider;
 use EssentialBlocks\Blocks\AdvancedImage;
 use EssentialBlocks\Blocks\AdvancedVideo;
 use EssentialBlocks\Blocks\InstagramFeed;
 use EssentialBlocks\Blocks\NumberCounter;
+use EssentialBlocks\Blocks\ProductImages;
+use EssentialBlocks\Blocks\ProductRating;
 use EssentialBlocks\Blocks\ToggleContent;
 use EssentialBlocks\Blocks\ParallaxSlider;
+use EssentialBlocks\Blocks\ProductDetails;
 use EssentialBlocks\Blocks\WooProductGrid;
 use EssentialBlocks\Blocks\AdvancedHeading;
 use EssentialBlocks\Blocks\ImageComparison;
 use EssentialBlocks\Blocks\TableOfContents;
 use EssentialBlocks\Blocks\InteractivePromo;
 use EssentialBlocks\Blocks\AdvancedNavigation;
+
+$testArr = [  ];
 
 $free_blocks = [
     'accordion'           => [
@@ -502,7 +513,10 @@ $free_blocks = [
         'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-icon-picker',
         'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/icon/icon.svg'
      ]
-    // 'text'                => [
+ ];
+
+$new_blocks = [
+    // 'text'            => [
     //     'label'      => __( 'Text', 'essential-blocks' ),
     //     'value'      => 'text',
     //     'visibility' => 'true',
@@ -513,7 +527,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/text/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-heading/icon.svg'
     //  ],
-    // 'taxonomy'            => [
+    // 'taxonomy'        => [
     //     'label'      => __( 'Taxonomy', 'essential-blocks' ),
     //     'value'      => 'taxonomy',
     //     'visibility' => 'true',
@@ -524,7 +538,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/taxonomy/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/taxonomy/icon.svg'
     //  ],
-    // 'product_price'       => [
+    // 'product_price'   => [
     //     'label'      => __( 'Product Price', 'essential-blocks' ),
     //     'value'      => 'product_price',
     //     'visibility' => 'true',
@@ -535,7 +549,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-product-price/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-price/icon.svg'
     //  ],
-    // 'post_meta'           => [
+    // 'post_meta'       => [
     //     'label'      => __( 'Post Meta', 'essential-blocks' ),
     //     'value'      => 'post_meta',
     //     'visibility' => 'true',
@@ -545,7 +559,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-advanced-navigation/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/advanced-navigation/icon.svg'
     //  ],
-    // 'product_rating'      => [
+    // 'product_rating'  => [
     //     'label'      => __( 'Product Rating', 'essential-blocks' ),
     //     'value'      => 'product_rating',
     //     'visibility' => 'true',
@@ -556,7 +570,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-product-rating/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-rating/icon.svg'
     //  ],
-    // 'product_details'     => [
+    // 'product_details' => [
     //     'label'      => __( 'Product Details', 'essential-blocks' ),
     //     'value'      => 'product_details',
     //     'visibility' => 'true',
@@ -567,7 +581,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-product-details/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-details/icon.svg'
     //  ],
-    // 'add_to_cart'         => [
+    // 'add_to_cart'     => [
     //     'label'      => __( 'Add To Cart', 'essential-blocks' ),
     //     'value'      => 'add_to_cart',
     //     'visibility' => 'true',
@@ -578,7 +592,7 @@ $free_blocks = [
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-add-to-cart/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/add-to-cart/icon.svg'
     //  ],
-    // 'product_images'      => [
+    // 'product_images'  => [
     //     'label'      => __( 'Product Images', 'essential-blocks' ),
     //     'value'      => 'product_images',
     //     'visibility' => 'true',
@@ -588,11 +602,21 @@ $free_blocks = [
     //     'demo'       => ESSENTIAL_BLOCKS_SITE_URL . 'demo/product-image-gallery/',
     //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-product-image-gallery/',
     //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks/product-images/icon.svg'
+    //  ],
+    // 'breadcrumb'      => [
+    //     'label'      => __( 'Breadcrumb', 'essential-blocks' ),
+    //     'value'      => 'breadcrumb',
+    //     'visibility' => 'true',
+    //     'status'     => 'new',
+    //     'category'   => 'dynamic',
+    //     'object'     => Breadcrumb::get_instance(),
+    //     'demo'       => ESSENTIAL_BLOCKS_SITE_URL . 'demo/breadcrumb/',
+    //     'doc'        => ESSENTIAL_BLOCKS_SITE_URL . 'docs/eb-breadcrumb/',
+    //     'icon'       => ESSENTIAL_BLOCKS_ADMIN_URL . 'assets/blocks-icon/breadcrumb.svg'
     //  ]
  ];
 
 $pro_blocks = [
-
     'advanced_search'           => [
         'label'      => __( 'Advanced Search', 'essential-blocks' ),
         'value'      => 'advanced_search',
@@ -703,4 +727,4 @@ $pro_blocks = [
      ]
  ];
 
-return array_merge( $free_blocks, $pro_blocks );
+return array_merge( $free_blocks, $new_blocks, $pro_blocks );

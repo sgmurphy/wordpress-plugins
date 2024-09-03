@@ -81,6 +81,9 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 			case 'whatsapp':
 				$mode = BWFAN_Email_Conversations::$MODE_WHATSAPP;
 				break;
+			case 'push-notification':
+				$mode = BWFAN_Email_Conversations::$MODE_NOTIFICATION;
+				break;
 		}
 
 		BWFAN_Merge_Tag_Loader::set_data( array(
@@ -92,7 +95,22 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 			'subject'  => ( empty( $title ) ? '' : $title ),
 			'template' => ( empty( $message ) ? '' : $message )
 		];
-		$conversation = $this->conversation->create_campaign_conversation( $contact, 0, 0, $author_id, $mode, true, $template );
+		$message_data = [];
+		if ( BWFAN_Email_Conversations::$MODE_NOTIFICATION === $mode ) {
+			$url = $this->get_sanitized_arg( 'url', 'text_field' );
+			if ( ! empty( $url ) ) {
+				$template['url']                  = $url;
+				$message_data['notification_url'] = $url;
+			}
+			$image_url = $this->get_sanitized_arg( 'image_url', 'text_field' );
+			if ( ! empty( $image_url ) ) {
+				$template['image_url']              = $image_url;
+				$message_data['notification_image'] = $image_url;
+			}
+		}
+
+
+		$conversation = $this->conversation->create_campaign_conversation( $contact, 0, 0, $author_id, $mode, true, $template, BWFAN_Email_Conversations::$MODE_NOTIFICATION === $mode ? 8 : 0 );
 
 		if ( empty( $conversation['conversation_id'] ) ) {
 			return $this->error_response( $conversation );
@@ -101,6 +119,7 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 		if ( class_exists( 'BWFAN_Message' ) ) {
 			$message_obj = new BWFAN_Message();
 			$message_obj->set_message( 0, $conversation['conversation_id'], $title, $message );
+			$message_obj->set_data( $message_data );
 			$message_obj->save();
 		}
 
@@ -111,6 +130,9 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 			$sent = $this->send_single_sms( $conversation, $contact );
 		} else if ( 'whatsapp' === $type ) {
 			$sent = $this->send_single_whatsapp_message( $conversation, $contact );
+		} else if ( 'push-notification' === $type ) {
+			$sent = $this->send_single_push_notification( $conversation, $contact, $template );
+
 		} else {
 			$sent = $this->send_single_email( $title, $conversation, $contact );
 		}
@@ -120,6 +142,42 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 		}
 
 		return $this->error_response( $sent, null, 500 );
+	}
+
+	public function send_single_push_notification( $conversation, $contact, $template ) {
+		if ( ! bwfan_is_autonami_pro_active() ) {
+			return __( 'FunnelKit automations Pro is not active ', 'wp-marketing-automations' );
+		}
+
+		$contact_id           = $contact->contact->get_id();
+		$notification_message = $this->conversation->prepare_notification_data( $conversation['conversation_id'], $contact_id, $conversation['hash_code'], $conversation['template'] );
+
+		/** Append tracking code in url */
+		$notification_url = $this->conversation->prepare_notification_data( $conversation['conversation_id'], $contact_id, $conversation['hash_code'], $template['url'] );
+
+		$data = [
+			'contact_id'           => $contact_id,
+			'notification_message' => $notification_message,
+			'notification_url'     => $notification_url,
+			'notification_title'   => $template['subject'],
+			'notification_image'   => isset( $template['image_url'] ) ? $template['image_url'] : '',
+		];
+
+		$res = $this->send_notification( $data );
+
+		if ( $res instanceof WP_Error ) {
+			$this->conversation->fail_the_conversation( $conversation['conversation_id'], $res->get_error_message() );
+
+			return $res->get_error_message();
+		}
+
+		/** Save the date of last sent engagement **/
+		$data = array( 'cid' => $contact_id );
+		$this->conversation::save_last_sent_engagement( $data );
+
+		$this->conversation->update_conversation_status( $conversation['conversation_id'], BWFAN_Email_Conversations::$STATUS_SEND );
+
+		return true;
 	}
 
 	/**
@@ -295,6 +353,30 @@ class BWFAN_API_SendMessage extends BWFAN_API_Base {
 		) );
 
 		return BWFAN_Common::decode_merge_tags( $subject );
+	}
+
+	public function send_notification( $args ) {
+		// fetching provider for test sms
+		$provider = isset( $args['push_provider'] ) ? $args['push_provider'] : '';
+
+		if ( empty( $provider ) ) {
+			$global_settings = BWFAN_Common::get_global_settings();
+			$provider        = isset( $global_settings['bwfan_push_service'] ) && ! empty( $global_settings['bwfan_push_service'] ) ? $global_settings['bwfan_push_service'] : BWFAN_Common::get_default_push_provider();
+		}
+
+		/** If no provider selected OR selected provider is not within active providers, then select default provider */
+		if ( empty( $provider ) || ! isset( $active_services[ $provider ] ) ) {
+			$provider = BWFAN_Common::get_default_push_provider();
+		}
+
+		$provider = explode( 'bwfco_', $provider );
+		$provider = isset( $provider[1] ) ? $provider[1] : '';
+		$provider = ! empty( $provider ) ? BWFAN_Core()->integration->get_integration( $provider ) : '';
+		if ( ! $provider instanceof BWFAN_Integration || ! method_exists( $provider, 'send_message' ) ) {
+			return new WP_Error( 'connector_not_found', __( 'Connector Integration not found', 'wp-marketing-automations-pro' ) );
+		}
+
+		return $provider->send_message( $args );
 	}
 }
 

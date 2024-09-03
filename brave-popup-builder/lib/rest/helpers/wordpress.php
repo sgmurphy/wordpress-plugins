@@ -8,8 +8,8 @@ function bravepop_get_wpdata( $type, $ids=array() ) {
        //GET ALL PAGES
        $pages = get_pages(array('number' => 300, 'suppress_filters' => true, 'lang' => '')); 
        $posts = get_posts(array('post_type' => 'post', 'numberposts' => 300, 'suppress_filters' => true, 'lang' => ''));
-       $categories = get_terms( 'category', 'orderby=name&order=ASC&hide_empty=0' ); 
-       $tags = get_terms( 'post_tag', 'orderby=name&order=ASC&hide_empty=0' ); 
+       $categories = get_terms(array( 'taxonomy' => 'category', 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false));
+       $tags = get_terms(array( 'taxonomy' => 'post_tag', 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false)); 
        $attachments = get_posts( array( 'post_type' => 'attachment', 'numberposts' => 100,'post_status' => null,'post_parent' => null) );
        $userFields = [];
        $allPages = [];
@@ -179,8 +179,8 @@ function bravepop_get_wpdata( $type, $ids=array() ) {
                }
            }
 
-           $productCategories = get_terms( 'product_cat', 'orderby=name&order=ASC&hide_empty=0' ); 
-           $productTags = get_terms( 'product_tag', 'orderby=name&order=ASC&hide_empty=0' ); 
+           $productCategories = get_terms(array( 'taxonomy' => 'product_cat', 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false));
+           $productTags = get_terms(array( 'taxonomy' => 'product_tag', 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false)); 
            $allProducts = [];
            $allProductCategories = [];
            $allProductTags = [];
@@ -381,8 +381,8 @@ function bravepop_get_translated_terms( ){
       
       foreach ($currentLangs as $key => $value) {
          $sitepress->switch_lang($key); // Switch to new language
-         $pcats = get_terms( 'product_cat', 'orderby=name&order=ASC&hide_empty=0' ); 
-         $ptags = get_terms( 'product_tag', 'orderby=name&order=ASC&hide_empty=0' );  
+         $pcats = get_terms(array( 'taxonomy' => 'product_cat', 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false));
+         $ptags = get_terms(array( 'taxonomy' => 'product_tag', 'orderby' => 'name', 'order' => 'ASC', 'hide_empty' => false)); 
          //Get Categories
          foreach ($pcats as $index => $cat) {
             if($cat->term_id && !isset($allCats[$cat->term_id])){

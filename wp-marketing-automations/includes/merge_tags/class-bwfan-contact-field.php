@@ -189,5 +189,5 @@ if ( ! class_exists( 'BWFAN_Contact_Field' ) && BWFAN_Common::is_pro_3_0() ) {
 	/**
 	 * Register this merge tag to a group.
 	 */
-	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Field', null, 'Contact' );
+	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Field', null, __( 'Contact', 'wp-marketing-automations' ) );
 }

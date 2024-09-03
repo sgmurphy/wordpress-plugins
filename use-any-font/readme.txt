@@ -2,7 +2,7 @@
 Contributors: dnesscarkey
 Tags: custom fonts, font manager, font uploader, typography, google fonts
 Requires at least: 4.0
-Tested up to: 6.5.3
+Tested up to: 6.6.1
 Stable tag: 6.3.08
 Requires PHP: 7.0
 License: GPLv2 or later

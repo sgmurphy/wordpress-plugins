@@ -62,15 +62,15 @@ class BWFAN_WC_Order_Refund_Amount extends BWFAN_Merge_Tag {
 		$options = [
 			[
 				'value' => 'raw',
-				'label' => 'Raw',
+				'label' => __( 'Raw', 'wp-marketing-automations' ),
 			],
 			[
 				'value' => 'formatted',
-				'label' => 'Formatted',
+				'label' => __( 'Formatted', 'wp-marketing-automations' ),
 			],
 			[
 				'value' => 'formatted-currency',
-				'label' => 'Formatted with currency',
+				'label' => __( 'Formatted with currency', 'wp-marketing-automations' ),
 			],
 		];
 
@@ -81,7 +81,7 @@ class BWFAN_WC_Order_Refund_Amount extends BWFAN_Merge_Tag {
 				'options'     => $options,
 				'label'       => __( 'Display', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Raw',
+				"placeholder" => __( 'Raw', 'wp-marketing-automations' ),
 				"required"    => false,
 				"description" => ""
 			],
@@ -94,5 +94,5 @@ class BWFAN_WC_Order_Refund_Amount extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order_refund', 'BWFAN_WC_Order_Refund_Amount', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order_refund', 'BWFAN_WC_Order_Refund_Amount', null, __( 'Order', 'wp-marketing-automations' ) );
 }

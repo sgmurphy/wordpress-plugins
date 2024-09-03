@@ -1616,6 +1616,32 @@
         });
         /* Select message vars sccp page | End */
 
+        $(document).find('.ays-sccp-accordion-arrow-box').on('click', function(e) {
+            var _this = $(this);
+            openSccpCloseAccordion( _this );
+        });
+
+        function openSccpCloseAccordion( _this ){
+            var parent = _this.closest(".ays-sccp-accordion-options-main-container");
+            var container = parent.find('.ays-sccp-accordion-options-box');
+
+            if( parent.attr('data-collapsed') === 'true' ){
+                setTimeout( function() {
+                    container.slideDown();
+                    parent.find('.ays-sccp-accordion-arrow-box .ays-sccp-accordion-arrow').removeClass('ays-sccp-accordion-arrow-right').addClass('ays-sccp-accordion-arrow-down');
+                    parent.attr('data-collapsed', 'false');
+                    parent.find('.ays-sccp-accordion-options-main-container').attr('data-collapsed', 'false');
+                }, 150);
+            }else{
+                setTimeout( function() {
+                    container.slideUp();
+                    parent.find('.ays-sccp-accordion-arrow-box .ays-sccp-accordion-arrow').removeClass('ays-sccp-accordion-arrow-down').addClass('ays-sccp-accordion-arrow-right');
+                    parent.attr('data-collapsed', 'true');
+                    parent.find('.ays-sccp-accordion-options-main-container').attr('data-collapsed', 'true');
+                }, 150);
+            }
+        }
+
         $(document).on("click", "#ays-sccp-dismiss-buttons-content .ays-button, #ays-sccp-dismiss-buttons-content-black-friday .ays-button-black-friday, #ays-sccp-dismiss-buttons-content-helloween .ays-button-helloween", function(e){
             e.preventDefault();
 

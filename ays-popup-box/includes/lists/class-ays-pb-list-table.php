@@ -1489,6 +1489,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 text hover color
         $notification_button_1_text_hover_color = (isset($data['ays_pb_notification_button_1_text_hover_color']) && $data['ays_pb_notification_button_1_text_hover_color'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_hover_color']) ) : '#FFFFFF';
 
+        // Notification type | Button 1 text transformation
+        $notification_button_1_text_transformation = (isset($data['ays_pb_notification_button_1_text_transformation']) && $data['ays_pb_notification_button_1_text_transformation'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_transformation']) ) : 'none';
+
         // Notification type | Button 1 letter spacing
         $notification_button_1_letter_spacing = (isset($data['ays_pb_notification_button_1_letter_spacing']) && $data['ays_pb_notification_button_1_letter_spacing'] != '') ? absint( intval($data['ays_pb_notification_button_1_letter_spacing']) ) : 0;
 
@@ -1834,6 +1837,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_button_1_bg_hover_color' => $notification_button_1_bg_hover_color,
             'notification_button_1_text_color' => $notification_button_1_text_color,
             'notification_button_1_text_hover_color' => $notification_button_1_text_hover_color,
+            'notification_button_1_text_transformation' => $notification_button_1_text_transformation,
             'notification_button_1_letter_spacing' => $notification_button_1_letter_spacing,
             'notification_button_1_font_size' => $notification_button_1_font_size,
             'notification_button_1_border_radius' => $notification_button_1_border_radius,

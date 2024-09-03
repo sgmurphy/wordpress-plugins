@@ -46,8 +46,9 @@ if ( is_array( $products ) ) : ?>
 						$disable_product_thumbnail = BWFAN_Common::disable_product_thumbnail();
 
 						if ( false !== $cart ) {
-							$suffix      = get_option( 'woocommerce_price_display_suffix' );
-							$tax_display = get_option( 'woocommerce_tax_display_cart' );
+							$cartItemLinkEnabled = apply_filters( 'bwfan_block_editor_enable_cart_item_link', true );
+							$suffix              = get_option( 'woocommerce_price_display_suffix' );
+							$tax_display         = get_option( 'woocommerce_tax_display_cart' );
 							foreach ( $cart as $item ) {
 								$product = isset( $item['data'] ) ? $item['data'] : '';
 								if ( empty( $product ) || ! $product instanceof WC_Product ) {
@@ -57,7 +58,17 @@ if ( is_array( $products ) ) : ?>
 								$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 								?>
                                 <div class="bwfan-product-grid-item-3-col bwfan-product-type-cart" style="<?php echo( $n % 3 ? '' : 'margin-right: 0;' ); ?>">
-									<?php echo ( false === $disable_product_thumbnail ) ? wp_kses_post( BWFAN_Common::get_product_image( $product, 'shop_catalog', false, 150 ) ) : ''; //phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php if ( false === $disable_product_thumbnail ) : ?>
+										<?php if ( true === $cartItemLinkEnabled ) :
+											$cartItemLink = BWFAN_Common::decode_merge_tags( apply_filters( 'bwfan_block_editor_alter_cart_item_link', '{{cart_recovery_link}}' ) );
+											?>
+                                            <a href="<?php echo $cartItemLink; ?>" target="_blank">
+												<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'shop_catalog', false, 150 ) ); ?>
+                                            </a>
+										<?php else : ?>
+											<?php echo wp_kses_post( BWFAN_Common::get_product_image( $product, 'shop_catalog', false, 150 ) ); ?>
+										<?php endif; ?>
+									<?php endif; ?>
                                     <h4 style="vertical-align:middle;"><?php echo wp_kses_post( BWFAN_Common::get_name( $product ) ); ?></h4>
                                     <p class="price">
                                         <strong>

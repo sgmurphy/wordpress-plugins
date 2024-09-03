@@ -52,5 +52,5 @@ class BWFAN_WC_Review_Content extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_review', 'BWFAN_WC_Review_Content', null, 'Review' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_review', 'BWFAN_WC_Review_Content', null, __( 'Review', 'wp-marketing-automations' ) );
 }

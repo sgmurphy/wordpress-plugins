@@ -409,7 +409,12 @@ class BWFAN_Recoverable_Carts {
 		} else {
 			$currency = ! is_null( $item->currency ) ? $item->currency : get_option( 'woocommerce_currency' );
 		}
-		$currency_symbol = get_woocommerce_currency_symbol( $currency );
+
+		$currency_symbol = '';
+		if ( method_exists( 'BWF_Plugin_Compatibilities', 'get_currency_symbol' ) ) {
+			$currency_symbol = BWF_Plugin_Compatibilities::get_currency_symbol( $currency );
+		}
+		$currency_symbol = empty( $currency_symbol ) ? get_woocommerce_currency_symbol( $currency ) : $currency_symbol;
 		$price_format    = apply_filters( 'bwfan_get_price_format_cart', get_woocommerce_price_format(), $currency );
 
 		return [

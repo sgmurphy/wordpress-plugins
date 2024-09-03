@@ -3295,6 +3295,51 @@ body[class*='secure-copy-content-protect'] #wpfooter{
     transition-timing-function: ease-in-out;
 }
 
+/* SCCP options accordion | Start */
+
+p.ays-subtitle {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    min-height: 30px;
+    word-break: break-word;
+}
+
+#wpwrap hr.ays-sccp-bolder-hr {
+    border-top: 1px solid #c9c9c9;
+    box-shadow: 0px 1px 2px #0000001f;
+}
+
+.ays-sccp-accordion-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.ays-sccp-accordion-container p.ays-subtitle {
+    margin: 0px;
+}
+
+.ays-sccp-accordion-container .ays-sccp-accordion-arrow-box {
+    cursor: pointer;
+}
+
+.ays-sccp-accordion-container .ays-sccp-accordion-arrow {
+    transition: .3s ease;
+}
+
+.ays-sccp-accordion-container .ays-sccp-accordion-arrow-right,
+.ays-sccp-accordion-container .ays-sccp-accordion-arrow-right path {
+    fill: #c4c4c4;
+}
+
+.ays-sccp-accordion-container .ays-sccp-accordion-arrow-down {
+    transform: rotate(90deg);
+}
+
+/* SCCP options accordion | End */
+
 /* Our products (new design) END */
 
 @media screen and (max-width: 640px){

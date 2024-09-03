@@ -27,9 +27,9 @@ class BWFAN_Api_Get_WC_Coupons extends BWFAN_API_Base {
 	}
 
 	public function process_api_call() {
-		$search  = ! empty( $this->get_sanitized_arg( 'search', 'text_field' ) ) ? $this->get_sanitized_arg( 'search', 'text_field' ) : '';
-		$exclude_autonami  = ! empty( $this->get_sanitized_arg( 'exclude_autonami', 'bool' ) ) ? $this->get_sanitized_arg( 'exclude_autonami', 'bool' ) : true;
-		$coupons = $this->get_all_coupons( $search, $exclude_autonami );
+		$search           = ! empty( $this->get_sanitized_arg( 'search', 'text_field' ) ) ? $this->get_sanitized_arg( 'search', 'text_field' ) : '';
+		$exclude_autonami = ! empty( $this->get_sanitized_arg( 'exclude_autonami', 'bool' ) ) ? $this->get_sanitized_arg( 'exclude_autonami', 'bool' ) : true;
+		$coupons          = $this->get_all_coupons( $search, $exclude_autonami );
 
 		$this->response_code = 200;
 
@@ -52,7 +52,7 @@ class BWFAN_Api_Get_WC_Coupons extends BWFAN_API_Base {
 		);
 
 		if ( $exclude_autonami ) {
-			$args[ 'meta_query' ] = [
+			$args['meta_query'] = [
 				[
 					'key'     => '_is_bwfan_coupon',
 					'compare' => 'NOT EXISTS', // this will exclude the coupons where _is_bwfan_coupon meta key exists

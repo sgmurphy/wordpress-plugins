@@ -19,10 +19,12 @@ class BWFAN_Admin {
 	public $actions_js_data = array();
 	public $select2ajax_js_data = array();
 	public $dashboard_page;
+	public $wizard_url = '';
 
 	public function __construct() {
 		$this->admin_path = BWFAN_PLUGIN_DIR . '/admin';
 		$this->admin_url  = BWFAN_PLUGIN_URL . '/admin';
+		$this->wizard_url = admin_url( 'admin.php?page=autonami&path=/user-setup' );
 		$this->include_admin_pages();
 		$this->init_admin_pages();
 		add_action( 'admin_menu', array( $this, 'register_admin_menu' ), 90 );
@@ -31,7 +33,6 @@ class BWFAN_Admin {
 		 * Admin enqueue scripts
 		 */
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_assets' ), 99 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_settings_page' ), 99 );
 
 		/**
 		 * Admin footer text
@@ -99,6 +100,9 @@ class BWFAN_Admin {
 		/** Add a plugin action link and notice for pro plugin*/
 		add_action( 'after_plugin_row', [ $this, 'maybe_add_notice' ] );
 		add_action( 'plugin_action_links', [ $this, 'plugin_action_link' ], 10, 2 );
+
+		/** Force redirect to wizard page*/
+		add_action( 'admin_init', array( $this, 'maybe_redirect_to_wizard' ), 15 );
 	}
 
 	/**
@@ -360,16 +364,16 @@ class BWFAN_Admin {
 			$license_data = BWFAN_Common::get_lk_data();
 
 			if ( is_array( $license_data ) && isset( $license_data['e'] ) && ! empty( $license_data['e'] ) ) {
-				$expiry  = new DateTime( $license_data['e'] );
-				$current = new DateTime( current_time( 'mysql', true ) );
+				$e = new DateTime( $license_data['e'] );
+				$c = new DateTime( current_time( 'mysql', true ) );
 				/**
 				 * the expiry should always be less than on current utc
 				 */
-				if ( $expiry->getTimestamp() < $current->getTimestamp() ) {
+				if ( $e->getTimestamp() < $c->getTimestamp() ) {
 					$link = add_query_arg( [
 						'utm_source'   => 'WordPress',
 						'utm_medium'   => 'Admin+Menu+Upgrade+Pro',
-						'utm_campaign' => 'FKA+Lite',
+						'utm_campaign' => 'FKA+Lite+Plugin',
 					], 'https://funnelkit.com/my-account/' );
 					add_submenu_page( 'autonami', null, '<a href="' . $link . '" style="background-color:#e15334; color:white;" target="_blank"><strong>' . __( 'License Expired', 'wp-marketing-automations' ) . '</strong></a>', 'manage_options', 'upgrade_pro', function () {
 					}, 99 );
@@ -538,7 +542,7 @@ class BWFAN_Admin {
 
 		$data['bitly_success_authentication_message'] = __( 'Successfully Authenticated', 'wp-marketing-automations' );
 		$data['setting_page_url']                     = admin_url( 'admin.php?page=autonami-settings' );
-		$data['connector_page_url']                   = admin_url( 'admin.php?page=autonami-automations&tab=connector' );
+		$data['connector_page_url']                   = admin_url( 'admin.php?page=autonami&path=connectors' );
 		$data                                         = apply_filters( 'bwfan_admin_localize_data', $data, $this );
 		$data['coupon_enabled']                       = ( 'yes' === get_option( 'woocommerce_enable_coupons' ) ) ? 'y' : 'n';
 		$data['pro_active']                           = $pro_active;
@@ -757,30 +761,6 @@ class BWFAN_Admin {
 		} else {
 			$this->actions_js_data[ $integration_slug ][ $key ] = $data;
 		}
-	}
-
-	public function admin_enqueue_settings_page() {
-		$is_connector_page = $this->is_autonami_connector_page();
-		if ( $is_connector_page ) {
-			wp_enqueue_style( 'wfco-sweetalert2-style' );
-			wp_enqueue_style( 'wfco-izimodal' );
-			wp_enqueue_style( 'wfco-toast-style' );
-			wp_enqueue_script( 'wfco-sweetalert2-script' );
-			wp_enqueue_script( 'wfco-izimodal' );
-			wp_enqueue_script( 'wfco-toast-script' );
-			wp_enqueue_script( 'wc-backbone-modal' );
-			wp_enqueue_style( 'wfco-admin' );
-			wp_enqueue_script( 'wfco-admin' );
-			WFCO_Admin::localize_data();
-		}
-	}
-
-	public function is_autonami_connector_page() {
-		if ( isset( $_GET['page'] ) && 'autonami-automations' === sanitize_text_field( $_GET['page'] ) && false !== strpos( filter_input( INPUT_GET, 'page' ), 'autonami' ) && 'connector' === filter_input( INPUT_GET, 'tab' ) ) { // WordPress.CSRF.NonceVerification.NoNonceVerification
-			return true;
-		}
-
-		return false;
 	}
 
 	public function autonami_page() {
@@ -1736,10 +1716,9 @@ class BWFAN_Admin {
 			return;
 		}
 
-		$current = new DateTime( current_time( 'mysql', true ) );
-		$expiry  = new DateTime( $license_data['e'] );
-
-		if ( $expiry->getTimestamp() > $current->getTimestamp() ) {
+		$c = new DateTime( current_time( 'mysql', true ) );
+		$e = new DateTime( $license_data['e'] );
+		if ( $e->getTimestamp() > $c->getTimestamp() ) {
 			return;
 		}
 		?>
@@ -1751,7 +1730,7 @@ class BWFAN_Admin {
                     </svg>
                     <p>
 						<?php
-						echo sprintf( wp_kses_post( __( '<strong>Your FunnelKit Automation Pro license has expired!</strong> Please renew your license to continue using premium features without interruption. <a href="%s">Renew Now</a> or <a href="%s">I have My License Key</a>', 'wp-marketing-automations' ) ), 'https://funnelkit.com/my-account/?utm_source=WordPress&utm_campaign=FKA+Lite&utm_medium=Plugin+Inline+Notice+Renew+Now', esc_url( admin_url( 'admin.php?page=autonami&path=/settings' ) ) );
+						echo sprintf( wp_kses_post( __( '<strong>Your FunnelKit Automation Pro license has expired!</strong> Please renew your license to continue using premium features without interruption. <a href="%s">Renew Now</a> or <a href="%s">I have My License Key</a>', 'wp-marketing-automations' ) ), 'https://funnelkit.com/my-account/?utm_source=WordPress&utm_campaign=FKA+Lite+Plugin&utm_medium=Plugin+Inline+Notice+Renew+Now', esc_url( admin_url( 'admin.php?page=autonami&path=/settings' ) ) );
 						?>
                     </p>
                 </div>
@@ -1808,9 +1787,9 @@ class BWFAN_Admin {
 			return $actions;
 		}
 
-		$current = new DateTime( current_time( 'mysql', true ) );
-		$expiry  = new DateTime( $license_data['e'] );
-		if ( $expiry->getTimestamp() > $current->getTimestamp() ) {
+		$c = new DateTime( current_time( 'mysql', true ) );
+		$e = new DateTime( $license_data['e'] );
+		if ( $e->getTimestamp() > $c->getTimestamp() ) {
 			return $actions;
 		}
 
@@ -1829,9 +1808,27 @@ class BWFAN_Admin {
 </svg>
 <a href="' . $link . '" class="bwfan_renew_license" style="color: #d63638;padding-left: 20px;">' . __( 'Renew Expired License', 'wp-marketing-automations' ) . '</a>';
 
-		$actions = array_merge( $new_actions, $actions );
+		return array_merge( $new_actions, $actions );
+	}
 
-		return $actions;
+	/**
+	 * Maybe redirect to wizard if new user
+	 *
+	 * @return void
+	 */
+	public function maybe_redirect_to_wizard() {
+		if ( ! current_user_can( 'manage_options' ) || ! isset( $_GET['page'] ) || 'autonami' !== $_GET['page'] ) {
+			return;
+		}
+
+		$new_user = get_option( 'bwfan_new_user', '' );
+		if ( $new_user !== 'yes' ) {
+			return;
+		}
+
+		delete_option( 'bwfan_new_user' );
+		wp_safe_redirect( $this->wizard_url );
+		exit;
 	}
 }
 

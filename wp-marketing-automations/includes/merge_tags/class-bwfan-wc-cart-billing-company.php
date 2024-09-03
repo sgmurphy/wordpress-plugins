@@ -41,8 +41,8 @@ class BWFAN_WC_Cart_Billing_Company extends Cart_Merge_Tag {
 		if ( empty( $cart_details ) ) {
 			return $this->parse_shortcode_output( '', $attr );
 		}
-		
-		$field_value  = $this->get_cart_value( 'billing_company', $cart_details );
+
+		$field_value = $this->get_cart_value( 'billing_company', $cart_details );
 
 		return $this->parse_shortcode_output( $field_value, $attr );
 	}
@@ -63,5 +63,5 @@ class BWFAN_WC_Cart_Billing_Company extends Cart_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Billing_Company', null, 'Abandoned Cart' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_ab_cart', 'BWFAN_WC_Cart_Billing_Company', null, __( 'Abandoned Cart', 'wp-marketing-automations' ) );
 }

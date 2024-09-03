@@ -10,7 +10,7 @@ class BWFAN_WC_Order_Payment_Url extends BWFAN_Merge_Tag {
 		$this->tag_description = __( 'Order Payment URL', 'wp-marketing-automations' );
 		add_shortcode( 'bwfan_order_payment_url', array( $this, 'parse_shortcode' ) );
 		$this->support_fallback = false;
-		$this->priority = 5;
+		$this->priority         = 5;
 	}
 
 	public static function get_instance() {
@@ -34,7 +34,7 @@ class BWFAN_WC_Order_Payment_Url extends BWFAN_Merge_Tag {
 		}
 
 		$order_id = BWFAN_Merge_Tag_Loader::get_data( 'order_id' );
-		$order 	= wc_get_order( $order_id );
+		$order    = wc_get_order( $order_id );
 
 		if ( ! $order instanceof WC_Order ) {
 			return $this->parse_shortcode_output( '', $attr );
@@ -70,5 +70,5 @@ class BWFAN_WC_Order_Payment_Url extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Payment_Url', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Payment_Url', null, __( 'Order', 'wp-marketing-automations' ) );
 }

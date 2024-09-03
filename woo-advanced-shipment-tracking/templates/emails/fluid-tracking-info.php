@@ -145,13 +145,29 @@ $text_align = is_rtl() ? 'right' : 'left';
 					<td class="fluid_provider_img" style="padding-right:0 !important;">
 						<img src="<?php echo esc_url( $tracking_item['tracking_provider_image'] ); ?>"></img>
 					</td>	
-				<?php } ?>				
-				<td class="fluid_2cl_td_provider">
+				<?php } ?>
+				<td class="<?php echo !empty( $tracking_item['ast_tracking_link'] ) ? 'fluid_2cl_td_provider' : 'fluid_2cl_td_provider_empty'; ?>">
 					<span class="tracking_provider"><?php esc_html_e( $ast_provider_title ); ?></span></br>
-					<a class="tracking_number" href="<?php echo esc_url( $tracking_item['ast_tracking_link'] ); ?>" target="_blank"><?php esc_html_e( $tracking_item['tracking_number'] ); ?></a>	
+					<?php 	
+					if ( !empty( $tracking_item['ast_tracking_link'] ) ) {
+						?>
+							<a class="tracking_number" href="<?php echo esc_url( $tracking_item['ast_tracking_link'] ); ?>" target="_blank"><?php esc_html_e( $tracking_item['tracking_number'] ); ?></a>	
+						<?php
+					} else {
+						?>
+							<span class="tracking_link_empty"><?php esc_html_e( $tracking_item['tracking_number'] ); ?></span>	
+						<?php
+					}
+					?>
 				</td>
 				<td class="fluid_2cl_td_button" style="text-align: right;">
-					<a href="<?php echo esc_url( $tracking_item['ast_tracking_link'] ); ?>" class="track-button" target="_blank"><?php esc_html_e( $fluid_button_text ); ?></a>	
+					<?php 	
+					if ( !empty( $tracking_item['ast_tracking_link'] ) ) {
+						?>
+							<a href="<?php echo esc_url( $tracking_item['ast_tracking_link'] ); ?>" class="track-button" target="_blank"><?php esc_html_e( $fluid_button_text ); ?></a>
+						<?php
+					}
+					?>
 				</td>
 			</tr>
 		</tbody>
@@ -217,6 +233,13 @@ line-height: 19px;
 display: block;
 margin-top: 4px;
 }
+.tracking_link_empty{
+	text-decoration: none;    
+	font-size: 14px;
+	line-height: 19px;
+	display: block;
+	margin-top: 4px;
+}
 .order_status{
 font-size: 12px;    
 margin: 0;	
@@ -253,6 +276,10 @@ white-space: nowrap;
 }
 .track-button-div{
 float: right;
+}
+
+.fluid_2cl_td_provider_empty{
+	width: 100%;
 }
 
 @media screen and (max-width: 720px) {

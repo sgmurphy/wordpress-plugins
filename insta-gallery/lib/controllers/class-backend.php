@@ -4,8 +4,8 @@ namespace QuadLayers\IGG\Controllers;
 
 use QuadLayers\IGG\Helpers as Helpers;
 use QuadLayers\IGG\Models\Feeds as Models_Feeds;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
-use QuadLayers\IGG\Models\Setting as Models_Setting;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
+use QuadLayers\IGG\Models\Settings as Models_Settings;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts\Get as API_Rest_Accounts_Get;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds\Get as API_Rest_Feeds_Get;
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Feeds\Clear_Cache as API_Rest_Feeds_Clear_Cache;
@@ -168,8 +168,8 @@ class Backend {
 				'QLIGG_DEVELOPER'         => QLIGG_DEVELOPER,
 				'QLIGG_BUSSINESS_LINK'    => Helpers::get_business_access_token_link(),
 				'QLIGG_PERSONAL_LINK'     => Helpers::get_personal_access_token_link(),
-				'QLIGG_MODELS_FEED'       => ( new Models_Feeds() )->get_args(),
-				'QLIGG_MODELS_SETTING'    => ( new Models_Setting() )->get_args(),
+				'QLIGG_MODELS_FEED'       => Models_Feeds::instance()->get_args(),
+				'QLIGG_MODELS_SETTING'    => Models_Settings::instance()->get_args(),
 			)
 		);
 
@@ -177,7 +177,7 @@ class Backend {
 			'qligg-backend',
 			'qligg_frontend',
 			array(
-				'settings'       => ( new Models_Setting() )->get(),
+				'settings'       => Models_Settings::instance()->get(),
 				'restRoutePaths' => array(
 					'username'    => Api_Rest_User_Media::get_rest_url(),
 					'tag'         => Api_Rest_Hashtag_Media::get_rest_url(),
@@ -223,12 +223,12 @@ class Backend {
 			return;
 		}
 
-		$account = Models_Account::instance()->get( $_REQUEST['accounts'][0]['id'] );
+		$account = Models_Accounts::instance()->get( $_REQUEST['accounts'][0]['id'] );
 
 		if ( $account ) {
-			$account = Models_Account::instance()->update( $_REQUEST['accounts'][0]['id'], $_REQUEST['accounts'][0] );
+			$account = Models_Accounts::instance()->update( $_REQUEST['accounts'][0]['id'], $_REQUEST['accounts'][0] );
 		} else {
-			$account = Models_Account::instance()->create( $_REQUEST['accounts'][0] );
+			$account = Models_Accounts::instance()->create( $_REQUEST['accounts'][0] );
 		}
 
 			/*

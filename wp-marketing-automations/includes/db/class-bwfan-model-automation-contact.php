@@ -171,6 +171,7 @@ class BWFAN_Model_Automation_Contact extends BWFAN_Model {
 		if ( true === $more_data ) {
 			$more_columns = ", cc.e_time, cc.status, cc.last ";
 		}
+		$order_by = ! empty( $order_by ) ? $order_by : "ORDER BY cc.c_date DESC";
 
 		$query    = "SELECT  cc.ID,cc.cid, cc.aid, cc.trail, cc.c_date, c.email, c.f_name, c.l_name, c.contact_no, c.creation_date as date $more_columns FROM $table_name as cc JOIN {$wpdb->prefix}bwf_contact AS c ON cc.cid = c.ID WHERE 1=1 $where  $order_by $limit";
 		$contacts = $wpdb->get_results( $query, ARRAY_A );

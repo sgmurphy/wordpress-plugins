@@ -206,7 +206,7 @@ class Get extends Base {
 		if ( isset( $url['message'], $url['code'] ) ) {
 			return $this->handle_response(
 				array(
-					'body' => json_encode( $url ),
+					'body' => wp_json_encode( $url ),
 				)
 			);
 		}

@@ -37,6 +37,13 @@ class BWFAN_API_Get_Tools_Setting extends BWFAN_API_Base {
 
 		if ( bwfan_is_woocommerce_active() ) {
 			$tool_settings[] = array(
+				"title"          => __( "Re-index Cart and Orders conversions for multi-currency setups" ),
+				"description"    => __( "This will reindex cart and conversion table for order price.", "wp-marketing-automations" ),
+				"task"           => "re_index_cart_orders_conversion",
+				"task_text"      => __( "Re-index", "wp-marketing-automations" ),
+				"processingText" => __( "We are Re-indexing all cart total & conversion total", "wp-marketing-automations" ),
+			);
+			$tool_settings[] = array(
 				"title"          => __( "Delete Lost Carts", "wp-marketing-automations" ),
 				"description"    => __( "This will schedule the process to delete all the lost carts.", "wp-marketing-automations" ),
 				"task"           => "delete_lost_carts",

@@ -247,6 +247,18 @@ class ST_Replace_Images {
 			astra_update_option( 'ast-dynamic-archive-post-banner-custom-bg', $blog_archieve_image_obj );
 		}
 
+		$sc_product_banner_image = astra_get_option( 'ast-dynamic-archive-sc_product-banner-custom-bg' );
+		if ( isset( $sc_product_banner_image ) && ! empty( $sc_product_banner_image ) ) {
+			$sc_product_banner_image = $this->get_updated_astra_option( $sc_product_banner_image );
+			astra_update_option( 'ast-dynamic-archive-sc_product-banner-custom-bg', $sc_product_banner_image );
+		}
+
+		$wc_shop_banner_image = astra_get_option( 'ast-dynamic-archive-product-banner-custom-bg' );
+		if ( isset( $wc_shop_banner_image ) && ! empty( $wc_shop_banner_image ) ) {
+			$wc_shop_banner_image = $this->get_updated_astra_option( $wc_shop_banner_image );
+			astra_update_option( 'ast-dynamic-archive-product-banner-custom-bg', $wc_shop_banner_image );
+		}
+
 		$social_options = $this->get_options();
 
 		/**

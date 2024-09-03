@@ -33,7 +33,7 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 	 *
 	 * @var tp_doc of the class.
 	 */
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.
@@ -116,7 +116,7 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 		$this->add_control(
 			'main_style',
 			array(
-				'label'   => esc_html__( 'Select Main Style', 'tpebl' ),
+				'label'   => esc_html__( 'Main Style', 'tpebl' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'progressbar',
 				'options' => array(
@@ -229,7 +229,8 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 				'type'      => Controls_Manager::TEXT,
 				'default'   => esc_html__( 'The Plus', 'tpebl' ),
 				'separator' => 'before',
-				'dynamic'   => array( 'active' => true ),
+				'dynamic'   => array( 'active' => false ),
+				'ai' 		=> array('active' => false ),
 			)
 		);
 		$this->add_control(
@@ -238,8 +239,8 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 				'label'     => esc_html__( 'Sub Title', 'tpebl' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => esc_html__( 'The Plus', 'tpebl' ),
-				'separator' => 'before',
-				'dynamic'   => array( 'active' => true ),
+				'dynamic'   => array( 'active' => false ),
+				'ai' 		=> array('active' => false ),
 			)
 		);
 
@@ -251,7 +252,8 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 				'default'     => esc_html__( '59', 'tpebl' ),
 				'placeholder' => esc_html__( 'Enter Number Ex. 50 , 60', 'tpebl' ),
 				'separator'   => 'before',
-				'dynamic'     => array( 'active' => true ),
+				'dynamic'     => array( 'active' => false ),
+				'ai' 		  => array('active' => false ),
 			)
 		);
 		$this->add_control(
@@ -261,7 +263,8 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 				'type'        => Controls_Manager::TEXT,
 				'default'     => esc_html__( '%', 'tpebl' ),
 				'placeholder' => esc_html__( 'Enter Symbol', 'tpebl' ),
-				'dynamic'     => array( 'active' => true ),
+				'dynamic'     => array( 'active' => false ),
+				'ai' 		  => array('active' => false ),
 			)
 		);
 		$this->add_control(
@@ -329,7 +332,6 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 			array(
 				'name'      => 'select_image_thumbnail',
 				'default'   => 'full',
-				'separator' => 'after',
 			)
 		);
 		$this->add_control(
@@ -752,7 +754,6 @@ class L_ThePlus_Progress_Bar extends Widget_Base {
 				'selectors'  => array(
 					'{{WRAPPER}} .progress_bar .prog-title.prog-icon span.progres-ims,{{WRAPPER}} .pt-plus-circle .pianumber-css .progres-ims,{{WRAPPER}} .pt-plus-pie_chart .pie_chart .progres-ims' => 'font-size: {{SIZE}}{{UNIT}};',
 				),
-
 			)
 		);
 		$this->add_control(

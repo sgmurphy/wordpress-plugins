@@ -33,7 +33,7 @@ class BWFAN_Mail_Footer extends BWFAN_Merge_Tag {
 			return '';
 		}
 
-		$footer = BWFAN_Common::decode_merge_tags(  $global_settings['bwfan_email_footer_setting'] );
+		$footer = BWFAN_Common::decode_merge_tags( $global_settings['bwfan_email_footer_setting'] );
 
 		return $this->parse_shortcode_output( $footer, $attr );
 	}
@@ -43,4 +43,4 @@ class BWFAN_Mail_Footer extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Mail_Footer', null, 'General' );
+BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Mail_Footer', null, __( 'General', 'wp-marketing-automations' ) );

@@ -80,7 +80,7 @@ if ( ! class_exists( 'ST_Image_Importer' ) ) :
 		 * Add filters to defer image subsizes processing while importing.
 		 */
 		public function defer_image_processing_while_import() {
-			if ( astra_sites_has_import_started() && 'ai' !== get_option( 'astra_sites_current_import_template_type' ) ) {
+			if ( function_exists( 'astra_sites_has_import_started' ) && astra_sites_has_import_started() && 'ai' !== get_option( 'astra_sites_current_import_template_type' ) ) {
 				$this->defer_image_subsizes();
 			}
 		}

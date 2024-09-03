@@ -36,4 +36,4 @@ class BWFAN_Store_Name extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Store_Name', null, 'General' );
+BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Store_Name', null, __( 'General', 'wp-marketing-automations' ) );

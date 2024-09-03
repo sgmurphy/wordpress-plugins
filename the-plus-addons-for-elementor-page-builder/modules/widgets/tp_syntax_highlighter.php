@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class L_ThePlus_Syntax_Highlighter extends Widget_Base {
 
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.

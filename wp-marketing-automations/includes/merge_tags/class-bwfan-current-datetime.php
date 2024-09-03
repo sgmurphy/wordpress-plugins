@@ -46,17 +46,18 @@ class BWFAN_Current_Datetime extends BWFAN_Merge_Tag {
 	 * @return array[]
 	 */
 	public function get_setting_schema() {
-		$formats = $this->date_formats;
+		$formats      = $this->date_formats;
 		$date_formats = [];
 		foreach ( $formats as $data ) {
-			if( isset( $data['format'] ) ) {
-				$date_time = date( $data['format'] );
+			if ( isset( $data['format'] ) ) {
+				$date_time      = date( $data['format'] );
 				$date_formats[] = [
 					'value' => $data['format'],
 					'label' => $date_time,
 				];
 			}
 		}
+
 		return [
 			[
 				'id'          => 'format',
@@ -85,4 +86,4 @@ class BWFAN_Current_Datetime extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Current_Datetime', null, 'General' );
+BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Current_Datetime', null, __( 'General', 'wp-marketing-automations' ) );

@@ -5,8 +5,8 @@ namespace QuadLayers\IGG;
 use QuadLayers\IGG\Controllers\Backend;
 use QuadLayers\IGG\Controllers\Frontend;
 use QuadLayers\IGG\Controllers\Gutenberg;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
-use QuadLayers\IGG\Models\Setting as Models_Setting;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
+use QuadLayers\IGG\Models\Settings as Models_Settings;
 
 final class Plugin {
 
@@ -46,16 +46,15 @@ final class Plugin {
 		add_action(
 			'qligg_cron_account',
 			function( $id ) {
-				$models_account      = new Models_Account();
-				$account             = $models_account->get( $id );
+				$account             = Models_Accounts::instance()->get( $id );
 				$old_expiration_date = $account['access_token_expiration_date'];
 
-				$is_renewed_account = $models_account->is_access_token_renewed( $account );
+				$is_renewed_account = Models_Accounts::instance()->is_access_token_renewed( $account );
 				if ( ! $is_renewed_account ) {
 					return false;
 				}
 
-				$account_renewed = $models_account->get( $id );
+				$account_renewed = Models_Accounts::instance()->get( $id );
 				$new_expiration  = $account_renewed['access_token_expiration_date'];
 
 				$admin_email = $this->get_admin_email();
@@ -78,8 +77,7 @@ final class Plugin {
 	}
 
 	protected function get_admin_email() {
-		$models_setting = new Models_Setting();
-		$user_settings  = $models_setting->get();
+		$user_settings = Models_Settings::instance()->get();
 		if ( isset( $user_settings['mail_to_alert'] ) ) {
 			return $user_settings['mail_to_alert'];
 		}

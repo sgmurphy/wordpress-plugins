@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class L_ThePlus_Button extends Widget_Base {
 
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.

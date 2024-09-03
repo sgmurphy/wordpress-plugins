@@ -319,9 +319,12 @@ class Premium_Fancytext extends Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'premium_fancy_additional_settings',
+			'switched_settings',
 			array(
-				'label' => __( 'Additional Settings', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Switched Settings', 'premium-addons-for-elementor' ),
+				'condition' => array(
+					'style' => 'switch',
+				),
 			)
 		);
 
@@ -341,53 +344,8 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 'typing',
 				'render_type' => 'template',
 				'label_block' => true,
-				'condition'   => array(
-					'style' => 'switch',
-				),
 			)
 		);
-
-		$this->add_control(
-			'highlight_effect',
-			array(
-				'label'       => __( 'Effect', 'premium-addons-for-elementor' ),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
-					'shadow'    => __( 'Animated Shadow', 'premium-addons-for-elementor' ),
-					'pattern'   => __( 'Animated Pattern', 'premium-addons-for-elementor' ),
-					'fill'      => __( 'Animated Fill', 'premium-addons-for-elementor' ),
-					'tilt'      => __( 'Tilt', 'premium-addons-for-elementor' ),
-					'flip'      => apply_filters( 'pa_pro_label', __( 'Flip (Pro)', 'premium-addons-for-elementor' ) ),
-					'wave'      => apply_filters( 'pa_pro_label', __( 'Wave (Pro)', 'premium-addons-for-elementor' ) ),
-					'pop'       => apply_filters( 'pa_pro_label', __( 'Pop (Pro)', 'premium-addons-for-elementor' ) ),
-					'reveal'    => apply_filters( 'pa_pro_label', __( 'Reveal (Pro)', 'premium-addons-for-elementor' ) ),
-					'lines'     => apply_filters( 'pa_pro_label', __( 'Moving Lines (Pro)', 'premium-addons-for-elementor' ) ),
-					'underline' => apply_filters( 'pa_pro_label', __( 'Color Highlight (Pro)', 'premium-addons-for-elementor' ) ),
-					'shape'     => apply_filters( 'pa_pro_label', __( 'Draw Shape (Pro)', 'premium-addons-for-elementor' ) ),
-				),
-				'default'     => 'shadow',
-				'label_block' => true,
-				'condition'   => array(
-					'style' => 'highlight',
-				),
-			)
-		);
-
-		$this->add_control(
-			'pattern_notice',
-			array(
-				'raw'             => __( 'This effect works only with one word highlighted text.', 'premium-addons-for-elementor' ),
-				'type'            => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
-				'condition'       => array(
-					'style'            => 'highlight',
-					'highlight_effect' => 'pattern',
-
-				),
-			)
-		);
-
-		do_action( 'pa_atext_highlight_controls', $this );
 
 		$this->add_control(
 			'custom_animation',
@@ -397,7 +355,6 @@ class Premium_Fancytext extends Widget_Base {
 				'render_type' => 'template',
 				'default'     => 'fadeIn',
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'custom',
 				),
 			)
@@ -411,7 +368,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'Set typing effect speed in milliseconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -425,7 +381,6 @@ class Premium_Fancytext extends Widget_Base {
 				'render_type' => 'template',
 				'description' => __( 'Set animation speed in milliseconds. Default value is 1000', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                      => 'switch',
 					'premium_fancy_text_effect!' => array( 'typing', 'slide' ),
 				),
 				'selectors'   => array(
@@ -441,7 +396,6 @@ class Premium_Fancytext extends Widget_Base {
 				'type'        => Controls_Manager::NUMBER,
 				'description' => __( 'Set animation delay in milliseconds. Default value is 2500', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                      => 'switch',
 					'premium_fancy_text_effect!' => array( 'typing', 'slide' ),
 				),
 			)
@@ -453,7 +407,6 @@ class Premium_Fancytext extends Widget_Base {
 				'label'     => __( 'Loop Count', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::NUMBER,
 				'condition' => array(
-					'style'                      => 'switch',
 					'premium_fancy_text_effect!' => array( 'typing', 'slide' ),
 				),
 			)
@@ -467,7 +420,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'Set a speed for backspace effect in milliseconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -481,7 +433,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'If you set it on 5000 milliseconds, the first word/string will appear after 5 seconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -495,7 +446,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 30,
 				'description' => __( 'If you set it on 5000 milliseconds, the word/string will remain visible for 5 seconds before backspace effect.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -508,7 +458,6 @@ class Premium_Fancytext extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'condition' => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
@@ -521,26 +470,10 @@ class Premium_Fancytext extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'default'   => 'yes',
 				'condition' => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'typing',
 				),
 			)
 		);
-
-		// $this->add_control(
-		// 'premium_fancy_text_cursor_text',
-		// array(
-		// 'label'     => __( 'Cursor Mark', 'premium-addons-for-elementor' ),
-		// 'type'      => Controls_Manager::TEXT,
-		// 'dynamic'   => array( 'active' => true ),
-		// 'default'   => '|',
-		// 'condition' => array(
-		// 'style'                          => 'switch',
-		// 'premium_fancy_text_effect'      => 'typing',
-		// 'premium_fancy_text_show_cursor' => 'yes',
-		// ),
-		// )
-		// );
 
 		$this->add_control(
 			'premium_slide_up_speed',
@@ -550,7 +483,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 200,
 				'description' => __( 'Set a duration value in milliseconds for slide up effect.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -564,7 +496,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 3000,
 				'description' => __( 'How long should the word/string stay visible? Set a value in milliseconds.', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -578,7 +509,6 @@ class Premium_Fancytext extends Widget_Base {
 				'default'     => 1,
 				'description' => __( 'How many items should be visible at a time?', 'premium-addons-for-elementor' ),
 				'condition'   => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
 				),
 			)
@@ -591,40 +521,8 @@ class Premium_Fancytext extends Widget_Base {
 				'type'         => Controls_Manager::SWITCHER,
 				'prefix_class' => 'premium-atext__paused-',
 				'render_type'  => 'template',
-				'conditions'   => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'terms' => array(
-								array(
-									'name'  => 'style',
-									'value' => 'highlight',
-								),
-								array(
-									'name'     => 'highlight_effect',
-									'operator' => '!==',
-									'value'    => 'underline',
-								),
-								array(
-									'name'     => 'highlight_effect',
-									'operator' => '!==',
-									'value'    => 'shape',
-								),
-							),
-						),
-						array(
-							'terms' => array(
-								array(
-									'name'  => 'style',
-									'value' => 'switch',
-								),
-								array(
-									'name'  => 'premium_fancy_text_effect',
-									'value' => 'slide',
-								),
-							),
-						),
-					),
+				'condition'    => array(
+					'premium_fancy_text_effect' => 'slide',
 				),
 			)
 		);
@@ -637,7 +535,6 @@ class Premium_Fancytext extends Widget_Base {
 				'prefix_class' => 'premium-atext__loading-',
 				'render_type'  => 'template',
 				'condition'    => array(
-					'style'                      => 'switch',
 					'premium_fancy_text_effect!' => 'typing',
 				),
 			)
@@ -668,8 +565,69 @@ class Premium_Fancytext extends Widget_Base {
 					'{{WRAPPER}} .premium-fancy-list-items' => 'text-align: {{VALUE}}',
 				),
 				'condition' => array(
-					'style'                     => 'switch',
 					'premium_fancy_text_effect' => 'slide',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'highlighted_settings',
+			array(
+				'label'     => __( 'Highlighted Settings', 'premium-addons-for-elementor' ),
+				'condition' => array(
+					'style' => 'highlight',
+				),
+			)
+		);
+
+		$this->add_control(
+			'highlight_effect',
+			array(
+				'label'       => __( 'Effect', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => array(
+					'shadow'    => __( 'Animated Shadow', 'premium-addons-for-elementor' ),
+					'pattern'   => __( 'Animated Pattern', 'premium-addons-for-elementor' ),
+					'fill'      => __( 'Animated Fill', 'premium-addons-for-elementor' ),
+					'tilt'      => __( 'Tilt', 'premium-addons-for-elementor' ),
+					'flip'      => apply_filters( 'pa_pro_label', __( 'Flip (Pro)', 'premium-addons-for-elementor' ) ),
+					'wave'      => apply_filters( 'pa_pro_label', __( 'Wave (Pro)', 'premium-addons-for-elementor' ) ),
+					'pop'       => apply_filters( 'pa_pro_label', __( 'Pop (Pro)', 'premium-addons-for-elementor' ) ),
+					'reveal'    => apply_filters( 'pa_pro_label', __( 'Reveal (Pro)', 'premium-addons-for-elementor' ) ),
+					'lines'     => apply_filters( 'pa_pro_label', __( 'Moving Lines (Pro)', 'premium-addons-for-elementor' ) ),
+					'underline' => apply_filters( 'pa_pro_label', __( 'Color Highlight (Pro)', 'premium-addons-for-elementor' ) ),
+					'shape'     => apply_filters( 'pa_pro_label', __( 'Draw Shape (Pro)', 'premium-addons-for-elementor' ) ),
+				),
+				'default'     => 'shadow',
+				'label_block' => true,
+			)
+		);
+
+		$this->add_control(
+			'pattern_notice',
+			array(
+				'raw'             => __( 'This effect works only with one word highlighted text.', 'premium-addons-for-elementor' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+				'condition'       => array(
+					'highlight_effect' => 'pattern',
+				),
+			)
+		);
+
+		do_action( 'pa_atext_highlight_controls', $this );
+
+		$this->add_control(
+			'highlighted_hover_pause',
+			array(
+				'label'        => __( 'Pause on Hover', 'premium-addons-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'prefix_class' => 'premium-atext__paused-',
+				'render_type'  => 'template',
+				'condition'    => array(
+					'highlight_effect!' => array( 'underline', 'shape' ),
 				),
 			)
 		);

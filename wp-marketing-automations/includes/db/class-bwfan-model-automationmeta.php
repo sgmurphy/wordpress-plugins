@@ -17,11 +17,11 @@ class BWFAN_Model_Automationmeta extends BWFAN_Model {
 		if ( empty( $automation_id ) ) {
 			return [];
 		}
-        $meta = [];
-        $WooFunnels_Cache_obj = WooFunnels_Cache::get_instance();
-        if ( $cache ) {
-            $meta = $WooFunnels_Cache_obj->get_cache( 'bwfan_automations_meta_' . $automation_id, 'autonami' );
-        }
+		$meta                 = [];
+		$WooFunnels_Cache_obj = WooFunnels_Cache::get_instance();
+		if ( $cache ) {
+			$meta = $WooFunnels_Cache_obj->get_cache( 'bwfan_automations_meta_' . $automation_id, 'autonami' );
+		}
 
 		if ( empty( $meta ) ) {
 			global $wpdb;
@@ -89,16 +89,16 @@ class BWFAN_Model_Automationmeta extends BWFAN_Model {
 		$table     = self::_table();
 		$sql_query = "SELECT bwfan_automation_id, meta_key, meta_value FROM {$table} WHERE bwfan_automation_id IN ($aids)";
 
-		if ( !empty( $meta_key ) ) {
+		if ( ! empty( $meta_key ) ) {
 			$sql_query .= " AND meta_key= 'event_meta'";
 		}
-		
-		$result    = $wpdb->get_results( $sql_query, ARRAY_A ); // WPCS: unprepared SQL OK
-		$meta      = [];
+
+		$result = $wpdb->get_results( $sql_query, ARRAY_A ); // WPCS: unprepared SQL OK
+		$meta   = [];
 
 		if ( is_array( $result ) && count( $result ) > 0 ) {
 			foreach ( $result as $meta_values ) {
-				$key          = $meta_values['meta_key'];
+				$key                                                 = $meta_values['meta_key'];
 				$meta[ $meta_values['bwfan_automation_id'] ][ $key ] = maybe_unserialize( $meta_values['meta_value'] );
 			}
 		}
@@ -111,6 +111,6 @@ class BWFAN_Model_Automationmeta extends BWFAN_Model {
 		$table = self::_table();
 		$query = "DELETE FROM {$table} WHERE `bwfan_automation_id` = %d AND `meta_key` = %s ";
 
-		$wpdb->query( $wpdb->prepare( $query, $aid, $meta_key ) ); 
+		$wpdb->query( $wpdb->prepare( $query, $aid, $meta_key ) );
 	}
 }

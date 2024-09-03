@@ -86,7 +86,7 @@ class BWFAN_WC_Item_Price extends BWFAN_Cart_Display {
 		$options = [
 			[
 				'value' => 'raw',
-				'label' => 'Raw',
+				'label' => __( 'Raw', 'wp-marketing-automations' ),
 			],
 			[
 				'value' => 'formatted',
@@ -94,7 +94,7 @@ class BWFAN_WC_Item_Price extends BWFAN_Cart_Display {
 			],
 			[
 				'value' => 'formatted-currency',
-				'label' => 'Formatted with currency',
+				'label' => __( 'Formatted with currency', 'wp-marketing-automations' ),
 			],
 		];
 
@@ -105,7 +105,7 @@ class BWFAN_WC_Item_Price extends BWFAN_Cart_Display {
 				'options'     => $options,
 				'label'       => __( 'Display', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Raw',
+				"placeholder" => __( 'Raw', 'wp-marketing-automations' ),
 				"required"    => false,
 				"description" => ""
 			],
@@ -118,5 +118,5 @@ class BWFAN_WC_Item_Price extends BWFAN_Cart_Display {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_items', 'BWFAN_WC_Item_Price', null, 'Order Item' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_items', 'BWFAN_WC_Item_Price', null, __( 'Order Item', 'wp-marketing-automations' ) );
 }

@@ -42,4 +42,4 @@ class BWFAN_Site_Url extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Site_Url', null, 'General' );
+BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_Site_Url', null, __( 'General', 'wp-marketing-automations' ) );

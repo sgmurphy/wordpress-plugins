@@ -240,18 +240,23 @@
 
     lib.disableequations = lib.DISABLEEQUATIONS = function(f)
 	{
-		fbuilderjQuery(f || '[id*="cp_calculatedfieldsf_pform_"]').attr('data-evalequations',0);
+		f = f || '_1';
+		let _f = _getForm(f);
+		fbuilderjQuery('[id="cp_calculatedfieldsf_pform' + _f + '"]').attr('data-evalequations',0);
 	};
 
 	lib.enableequations = lib.ENABLEEQUATIONS = function(f)
 	{
-		fbuilderjQuery(f || '[id*="cp_calculatedfieldsf_pform_"]').attr('data-evalequations',1);
+		f = f || '_1';
+		let _f = _getForm(f);
+		fbuilderjQuery('[id="cp_calculatedfieldsf_pform' + _f + '"]').attr('data-evalequations',1);
 	};
 
 	lib.EVALEQUATIONS = lib.evalequations = function(f)
 	{
 		if( typeof f != 'undefined') {
-			fbuilderjQuery.fbuilder.calculator.defaultCalc(f, false, true);
+			let _f = _getForm(f);
+			fbuilderjQuery.fbuilder.calculator.defaultCalc('[id="cp_calculatedfieldsf_pform' + _f + '"]', false, true);
 		} else {
 			for( var i in fbuilderjQuery.fbuilder.forms ) {
 				fbuilderjQuery.fbuilder.calculator.defaultCalc(fbuilderjQuery('[id="'+fbuilderjQuery.fbuilder.forms[i].formId+'"]'), false, true);

@@ -367,7 +367,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 			}
 
 			if ( false === $slim_data ) {
-				$contact_array['link_triggers'] = bwfan_is_autonami_pro_active() ? $this->get_all_link_triggers() : [];
+				$contact_array['link_triggers'] = $this->get_all_link_triggers();
 			}
 
 			return apply_filters( 'bwfan_single_contact_get_array', $contact_array, $this, $slim_data );
@@ -406,6 +406,10 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		 * @return array|mixed
 		 */
 		public function get_all_link_triggers() {
+			if ( ! bwfan_is_autonami_pro_active() ) {
+				return [];
+			}
+
 			$links = $this->get_link_triggers();
 			if ( empty( $links ) ) {
 				return array();
@@ -568,7 +572,8 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 						continue;
 					}
 					$user_total_renewal ++;
-					$user_total_renewal_amount += $order->get_total();
+					$order_total               = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $order->get_total(), BWF_WC_Compatibility::get_order_currency( $order ) );
+					$user_total_renewal_amount += $order_total;
 				}
 			}
 
@@ -641,7 +646,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 		public static function get_next_renewal_amount( $subscription ) {
 			$order_total = 0;
 			if ( $subscription->get_total() > 0 && '' !== $subscription->get_billing_period() && ! $subscription->is_one_payment() ) {
-				$order_total = $subscription->get_total();
+				$order_total = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $subscription->get_total(), $subscription->get_currency() );
 			}
 
 			return $order_total;
@@ -848,6 +853,12 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			/** remove tags from the contact $tag */
 			foreach ( $tags as $tag ) {
+				if ( ! is_string( $tag ) && ! is_numeric( $tag ) ) {
+					BWFAN_Common::log_test_data( 'contact id: ' . $this->get_id(), 'remove_tags', true );
+					BWFAN_Common::log_test_data( $tags, 'remove_tags', true );
+					BWFAN_Common::log_test_data( wp_debug_backtrace_summary(), 'remove_tags', true );
+					continue;
+				}
 				$list_key = array_search( strval( $tag ), $applied_tags );
 				if ( false === $list_key ) {
 					continue;
@@ -1353,7 +1364,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 
 			$field_array = array();
 			foreach ( $this->fields as $field_id => $field_value ) {
-				$field_value = ! is_null( $field_value ) && is_string( $field_value ) ? trim( $field_value ) : '';
+				$field_value = is_string( $field_value ) ? trim( $field_value ) : $field_value;
 
 				/** Checkbox, Radio and Select field values alter */
 				$allowed_types = array(
@@ -1365,6 +1376,10 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 					$field_value = $this->get_field_values( $field_value, $field_meta[ $field_id ], $field_types[ $field_id ] );
 
 					$field_array[ 'f' . $field_id ] = $field_value;
+					continue;
+				}
+
+				if ( is_array( $field_value ) ) {
 					continue;
 				}
 
@@ -1402,7 +1417,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 				return $values;
 			}
 			$options     = isset( $meta['options'] ) ? $meta['options'] : [];
-			$json_values = json_decode( $values, true );
+			$json_values = ! is_array( $values ) ? json_decode( $values, true ) : $values;
 			if ( null === $json_values && ! is_array( $values ) ) {
 				$values = ( $field_type === BWFCRM_Fields::$TYPE_CHECKBOX ) ? array_map( 'trim', explode( ',', $values ) ) : [ $values ];
 			} else {
@@ -1619,7 +1634,7 @@ if ( ! class_exists( 'BWFCRM_Contact' ) && BWFAN_Common::is_pro_3_0() ) {
 				];
 				$contact_subscription_data['subscriptions'][ $co_id ]['first_name']        = $subscriptions->get_billing_first_name();
 				$contact_subscription_data['subscriptions'][ $co_id ]['last_name']         = $subscriptions->get_billing_last_name();
-				$contact_subscription_data['subscriptions'][ $co_id ]['total']             = $subscriptions->get_total();
+				$contact_subscription_data['subscriptions'][ $co_id ]['total']             = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $subscriptions->get_total(), $subscriptions->get_currency() );
 				$contact_subscription_data['subscriptions'][ $co_id ]['item_count']        = $subscriptions->get_item_count();
 				$contact_subscription_data['subscriptions'][ $co_id ]['next_renewal_date'] = $subscriptions->get_date( 'next_payment' );
 

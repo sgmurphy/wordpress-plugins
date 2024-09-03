@@ -777,5 +777,47 @@ function CacheExt_Clear( $url = null )
 		if( (isset($sett[ 'log' ])?$sett[ 'log' ]:null) && (isset($sett[ 'logScope' ][ 'srvClr' ])?$sett[ 'logScope' ][ 'srvClr' ]:null) )
 			LogWrite( 'Sucuri: ' . _CacheExt_GetResponseResString( $requestRes ), Ui::MsgInfo, 'Server/cloud cache update' );
 	}
+
+	if( ( Gen::DoesFuncExist( 'pantheon_clear_edge_all' ) ) )
+	{
+		$logInfo = '';
+
+		if( $url )
+		{
+			if( Gen::DoesFuncExist( 'pantheon_clear_edge_paths' ) )
+			{
+				try
+				{
+					$url = Net::UrlParse( $url );
+					$url = Gen::GetArrField( $url, array( 'path' ), '' );
+					pantheon_clear_edge_paths( array( $url ) );
+
+					$logInfo = 'URL \'' . $url . '\' purged';
+				}
+				catch( \Exception $e )
+				{
+					$logInfo = $ex -> getMessage();
+				}
+			}
+			else
+				$logInfo = 'Invalid state';
+		}
+		else
+		{
+			try
+			{
+				pantheon_clear_edge_all();
+
+				$logInfo = 'Purged all';
+			}
+			catch( \Exception $e )
+			{
+				$logInfo = $ex -> getMessage();
+			}
+		}
+
+		if( (isset($sett[ 'log' ])?$sett[ 'log' ]:null) && (isset($sett[ 'logScope' ][ 'srvClr' ])?$sett[ 'logScope' ][ 'srvClr' ]:null) )
+			LogWrite( 'Pantheon Cache: ' . $logInfo, Ui::MsgInfo, 'Server/cloud cache update' );
+	}
 }
 

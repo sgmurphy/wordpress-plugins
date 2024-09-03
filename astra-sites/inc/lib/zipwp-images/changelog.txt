@@ -1,3 +1,6 @@
+v1.0.8 - 15-August-2024
+- Improvement: Enhanced UI for better user experience.
+
 v1.0.7 - 12-June-2024
 - Fix: "Select" of media library was not showing in the customizer preview.
 

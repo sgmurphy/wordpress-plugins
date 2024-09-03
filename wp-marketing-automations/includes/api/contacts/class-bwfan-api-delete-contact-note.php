@@ -40,7 +40,7 @@ class BWFAN_API_Delete_Contact_Note extends BWFAN_API_Base {
 
 			return $this->error_response( __( 'No contact found with id #' . $contact_id, 'wp-marketing-automations' ) );
 		}
-		$note_id                    = $this->get_sanitized_arg( 'note_id', 'key' );
+		$note_id                    = intval( $this->get_sanitized_arg( 'note_id', 'key' ) );
 		$delete_contact_note_result = $contact->delete_notes( $note_id );
 
 		if ( ! $delete_contact_note_result ) {

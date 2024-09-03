@@ -27,7 +27,7 @@ class BWFAN_API_Get_Fields extends BWFAN_API_Base {
 		$fields            = method_exists( 'BWFCRM_Fields', 'get_sorted_fields' ) ? BWFCRM_Fields::get_sorted_fields( $fields ) : $fields;
 		$this->total_count = count( $fields );
 
-		return $this->success_response( $fields, __( empty( $fields ) ? 'No Fields found.' : 'Got all fields', 'wp-marketing-automations' ) );
+		return $this->success_response( $fields, empty( $fields ) ? __( 'No Fields found.', 'wp-marketing-automations' ) : __( 'Got all fields', 'wp-marketing-automations' ) );
 	}
 
 

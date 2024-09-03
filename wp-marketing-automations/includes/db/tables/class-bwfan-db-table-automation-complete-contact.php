@@ -43,7 +43,8 @@ class BWFAN_DB_Table_Automation_Complete_Contact extends BWFAN_DB_Tables_Base {
 		  KEY `ID` (`ID`),
 		  KEY `cid` (`cid`),
 		  KEY `aid` (`aid`),
-		  KEY `c_date` (`c_date`)
+		  KEY `c_date` (`c_date`),
+		  UNIQUE `trail` (`trail`)
 		) $collate;";
 	}
 }

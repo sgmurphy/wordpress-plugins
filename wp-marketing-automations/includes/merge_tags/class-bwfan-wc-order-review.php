@@ -120,5 +120,5 @@ class BWFAN_WC_Order_Review extends Merge_Tag_Abstract_Product_Display {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Review', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Review', null, __( 'Order', 'wp-marketing-automations' ) );
 }

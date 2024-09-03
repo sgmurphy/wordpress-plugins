@@ -36,7 +36,7 @@ class L_ThePlus_Carousel_Anything extends Widget_Base {
 	 *
 	 * @var tp_doc of the class.
 	 */
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.

@@ -68,7 +68,7 @@ if ( ! class_exists( 'BravePopup_Initialize' ) ) {
                      wp_enqueue_style('bravepop_admin_css',  BRAVEPOP_PLUGIN_PATH . 'assets/css/admin.min.css');
                }
                if(('brave_page_bravepop-submissions' === $hook || 'brave_page_bravepop-analytics' === $hook) && class_exists('BravePop_Geolocation')){
-                  wp_enqueue_script( 'papaparse-js', BRAVEPOP_PLUGIN_PATH . 'assets/js/exportcsv.js', '', '', true );
+                  wp_enqueue_script( 'papaparse-js', BRAVEPOP_PLUGIN_PATH . 'assets/js/exportcsv.js', array(),'1.1.0', true );
                }
                
             }

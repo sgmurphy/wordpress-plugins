@@ -567,18 +567,21 @@ class Populator {
   }
 
   private function rowExists(string $tableName, array $columns): bool {
-    global $wpdb;
-
-    $conditions = array_map(function($key, $value) {
-      return esc_sql($key) . "='" . esc_sql($value) . "'";
-    }, array_keys($columns), $columns);
-
-    $table = esc_sql($tableName);
-    // $conditions is escaped
-    // phpcs:ignore WordPressDotOrg.sniffs.DirectDB.UnescapedDBParameter
-    return $wpdb->get_var(
-      "SELECT COUNT(*) FROM $table WHERE " . implode(' AND ', $conditions)
-    ) > 0;
+    $qb = $this->entityManager->getConnection()->createQueryBuilder();
+    $qb->select('COUNT(*)')
+      ->from($tableName, 't')
+      ->where(
+        $qb->expr()->and(
+          ...array_map(
+            function ($column, $value) use ($qb) {
+              return $qb->expr()->eq('t.' . $column, $qb->createNamedParameter($value));
+            },
+            array_keys($columns),
+            $columns
+          )
+        )
+      );
+    return $qb->executeQuery()->fetchOne() > 0;
   }
 
   private function insertRow($table, $row) {
@@ -601,39 +604,41 @@ class Populator {
   }
 
   private function removeDuplicates($table, $row, $where) {
-    global $wpdb;
-
-    $conditions = ['1=1'];
-    $values = [];
-    foreach ($where as $field => $value) {
-      $conditions[] = "`t1`.`" . esc_sql($field) . "` = `t2`.`" . esc_sql($field) . "`";
-      $conditions[] = "`t1`.`" . esc_sql($field) . "` = %s";
-      $values[] = $value;
-    }
-
-    $conditions = implode(' AND ', $conditions);
-
-    $table = esc_sql($table);
+    $qb = $this->entityManager->getConnection()->createQueryBuilder();
+    $conditions = $qb->expr()->and(
+      $qb->expr()->eq(1, 1),
+      ...array_map(
+        function ($field) use ($qb) {
+          return $qb->expr()->eq('t1.' . $field, 't2.' . $field);
+        },
+        array_keys($where)
+      ),
+      ...array_map(
+        function ($field, $value) use ($qb) {
+          return $qb->expr()->eq('t1.' . $field, $qb->createNamedParameter($value));
+        },
+        array_keys($where),
+        $where
+      )
+    );
 
     // SQLite doesn't support JOIN in DELETE queries, we need to use a subquery.
     if (Connection::isSQLite()) {
-      return $wpdb->query(
-        $wpdb->prepare(
-          "DELETE FROM $table WHERE id IN (
-            SELECT t1.id
-            FROM $table t1
-            JOIN $table t2 ON t1.id < t2.id AND $conditions
-          )",
-          $values
-        )
-      );
+      $subquery = $qb->select('t1.id')
+        ->from($table, 't1')
+        ->join('t1', $table, 't2', 't1.id < t2.id')
+        ->where($conditions);
+
+      $qb = $this->entityManager->getConnection()->createQueryBuilder();
+      return $qb->delete($table)
+        ->where($qb->expr()->in('id', $subquery->getSQL()))
+        ->setParameters($subquery->getParameters())
+        ->executeStatement();
     }
 
-    return $wpdb->query(
-      $wpdb->prepare(
-        "DELETE t1 FROM $table t1, $table t2 WHERE t1.id < t2.id AND $conditions",
-        $values
-      )
+    return $this->entityManager->getConnection()->executeStatement(
+      "DELETE t1 FROM `$table` t1, `$table` t2 WHERE t1.id < t2.id AND $conditions",
+      $qb->getParameters()
     );
   }
 

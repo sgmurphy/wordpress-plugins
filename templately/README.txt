@@ -5,7 +5,7 @@ Tags: templates, elementor template, Gutenberg template, landing page, WoCommerc
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 3.1.4
+Stable tag: 3.1.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,6 +140,12 @@ Every month we are adding new Elementor templates, along with Gutenberg template
 
 == Changelog ==
 
+= 3.1.5 – 03-09-2024 =
+Fixed: Header/Footer issues with Gutenberg templates in Templately Theme Builder.
+Fixed: FSI revert functionality when Elementor is deactivated.
+Fixed: Saved Templates not syncing to Cloud without Elementor.
+Other: Minor bug fixes and improvements.
+
 = 3.1.4 – 22-08-2024 =
 Enhanced: Security improvements reported by Patchstack
 Few minor bug fixes & improvements.
@@ -164,64 +170,6 @@ Few minor bug fixes & improvements
 Added: Global color control for FSI
 Added: Live logo adding control for FSI
 Fixed: Template import issues in Multisite.
-Few minor bug fixes & improvements
-
-= 3.0.9 – 13-06-2024 =
-Improved: Added Name (32 chars max) and Password (64 chars max) validation.
-Improved: Plugin dependency in single template import.
-Minor bug fixes and improvements.
-
-= 3.0.8 – 30-05-2024 =
-Fixed: Dependent plugin installation error.
-Few minor bug fixes & improvements
-
-= 3.0.7 – 30-05-2024 =
-Fixed: Templately theme builder type error.
-Fixed: Swiper JS loading issue for Single Product page.
-Few minor bug fixes & improvements
-
-= 3.0.6 – 09-05-2024 =
-Fixed: CSS loading issue for Gutenberg templates.
-Fixed: Full Site Import issue on LiteSpeed server
-Fixed: Navigation wasn’t working for Gutenberg packs.
-Fixed: Theme builder template was saving as post type instead of template.
-Improved: Navigation for FSI modal.
-Few minor bug fixes & improvements
-
-= 3.0.5 – 25-04-2024 =
-Fixed: Header Footer style was blinking after a hard reload.
-Fixed: Template unzipping issue for specific server.
-Fixed: Full site import count issue after a failed import.
-Few minor bug fixes & improvements
-
-= 3.0.4 – 21-03-2024 =
-Added: WordPress 6.5 compatibility.
-Fixed: Template import issues in LiteSpeed Server.
-Fixed: Template import issues in Gutenberg Editor.
-Fixed: Elementor editor modal's cancel button close the whole Templately modal.
-Fixed: Same form was importing multiple times when it was used in multiple pages.
-Improved: Templates Display Condition from Templately Theme Builder.
-Few minor bug fixes & improvements
-
-= 3.0.3 – 05-03-2024 =
-Improved: Dependency plugin installation process for FSI.
-Improved: Dashboard UI for better user experience.
-Few minor bug fixes & improvements
-
-= 3.0.2 – 18-02-2024 =
-Fixed: Gutenberg image import to media library.
-Fixed: Shows error modal if account isn't verified before importing.
-Fixed: Changing the image of a block breaks its design.
-Improved: Templately dashboard network/timeout issue.
-Improved: Template import execution time.
-Few minor bug fixes & improvements
-
-= 3.0.1 – 30-01-2024 =
-Fixed: Full site import issue when WordPress is installed in a subdirectory.
-Few minor bug fixes & improvements
-
-= 3.0.0 – 24-01-2024 =
-Added: Templately Full Site Import 🚀
 Few minor bug fixes & improvements
 
 = Earlier versions =

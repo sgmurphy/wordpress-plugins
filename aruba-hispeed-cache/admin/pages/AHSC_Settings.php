@@ -34,7 +34,6 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 		$this->fields['sections']['general']['general'] = array(
 			'ids'   => array( 'ahsc_enable_purge' ),
 			'name'  =>wp_kses( __( 'Cache purging options', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
-				//esc_html__( 'Cache purging options', 'aruba-hispeed-cache' ),
 			'class' => '',
 		);
 
@@ -43,14 +42,13 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 				//\esc_html__( 'Enable automatic purge of the cache', 'aruba-hispeed-cache' ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_enable_purge',
-			'checked' => \checked( $option['ahsc_enable_purge'], true, false ),
+			'checked' => \checked( $option['ahsc_enable_purge'] ?? 0 , true, false ),
 		);
 
 		$is_hidden = ! $option['ahsc_enable_purge' ];
 
 		$this->fields['sections']['general']['settings_tittle'] = array(
 			'title' =>  wp_kses( __( 'Automatically purge the entire cache when:', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
-				//\esc_html__( 'Automatically purge the entire cache when:', 'aruba-hispeed-cache' ),
 			'type'  => 'title',
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
@@ -58,8 +56,6 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 		$this->fields['sections']['general']['homepage'] = array(
 			'ids'   => array( 'ahsc_purge_homepage_on_edit', 'ahsc_purge_homepage_on_del' ),
 			'name'  =>wp_kses( __( 'Home page:', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
-				//\esc_html__( 'Home page:', 'aruba-hispeed-cache' ),
-			// 'legend' => \esc_html__( 'Home page:', 'aruba-hispeed-cache' ),
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
 
@@ -67,21 +63,19 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'name'    => \wp_kses( __( 'A post (or page/custom post) is modified or added.', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_homepage_on_edit',
-			'checked' => \checked( $option['ahsc_purge_homepage_on_edit'], 1, false ),
+			'checked' => \checked( $option['ahsc_purge_homepage_on_edit'] ?? 0 , 1, false ),
 		);
 
 		$this->fields['ahsc_purge_homepage_on_del'] = array(
 			'name'    => wp_kses( __( 'a <strong>published post</strong> (or page/custom post) is <strong>cancelled</strong>.', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_homepage_on_del',
-			'checked' => \checked( $option['ahsc_purge_homepage_on_del'], 1, false ),
+			'checked' => \checked( $option['ahsc_purge_homepage_on_del'] ?? 0 , 1, false ),
 		);
 
 		$this->fields['sections']['general']['pages'] = array(
 			'ids'   => array( 'ahsc_purge_page_on_mod', 'ahsc_purge_page_on_new_comment', 'ahsc_purge_page_on_deleted_comment' ),
 			'name'  => wp_kses( __( 'Post/page/custom post:', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
-				//\esc_html__( 'Post/page/custom post:', 'aruba-hispeed-cache' ),
-			// 'legend' => \esc_html__( 'Post/page/custom post type:', 'aruba-hispeed-cache' ),
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
 
@@ -89,21 +83,21 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'name'    => wp_kses( __( 'A post is published', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_page_on_mod',
-			'checked' => \checked( $option[ 'ahsc_purge_page_on_mod' ], 1, false ),
+			'checked' => \checked( $option[ 'ahsc_purge_page_on_mod' ] ?? 0 , 1, false ),
 		);
 
 		$this->fields['ahsc_purge_page_on_new_comment'] = array(
 			'name'    => wp_kses( __( 'A comment is published', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_page_on_new_comment',
-			'checked' => \checked( $option['ahsc_purge_page_on_new_comment' ], 1, false ),
+			'checked' => \checked( $option['ahsc_purge_page_on_new_comment' ] ?? 0 , 1, false ),
 		);
 
 		$this->fields['ahsc_purge_page_on_deleted_comment'] = array(
 			'name'    => wp_kses( __( 'A comment is not approved or is deleted', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_page_on_deleted_comment',
-			'checked' => \checked( $option[ 'ahsc_purge_page_on_deleted_comment' ], 1, false ),
+			'checked' => \checked( $option[ 'ahsc_purge_page_on_deleted_comment' ] ?? 0 , 1, false ),
 		);
 
 		$this->fields['sections']['general']['archives'] = array(
@@ -119,14 +113,14 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'name'    => wp_kses( __( 'a <strong>post</strong> (or page/custom post) is <strong>modified</strong> or <strong>added</strong>.', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_archive_on_edit',
-			'checked' => \checked( $option['ahsc_purge_archive_on_edit' ], 1, false ),
+			'checked' => \checked( $option['ahsc_purge_archive_on_edit' ] ?? 0 , 1, false ),
 		);
 
 		$this->fields['ahsc_purge_archive_on_del'] = array(
 			'name'    => wp_kses( __( 'A published post (or page/custom post) is deleted', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_archive_on_del',
-			'checked' => \checked( $option['ahsc_purge_archive_on_del' ], 1, false ),
+			'checked' => \checked( $option['ahsc_purge_archive_on_del' ] ?? 0 , 1, false ),
 		);
 
 		$this->fields['sections']['general']['comments'] = array(
@@ -148,7 +142,7 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'name'    => wp_kses( __( 'A comment is not approved or is deleted', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_purge_archive_on_deleted_comment',
-			'checked' => \checked( $option[ 'ahsc_purge_archive_on_deleted_comment' ], 1, false ),
+			'checked' => \checked( $option[ 'ahsc_purge_archive_on_deleted_comment' ] ?? 0 , 1, false ),
 		);
 
 
@@ -171,21 +165,19 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'legend' => wp_kses( __( 'Cache Warming is the process through which webpages are preloaded in the cache so they can be displayed quicker.<br> When the cache is emptied, the homepage data and the last ten posts of the site are automatically renewed to guarantee faster page loading', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_cache_warmer',
-			'checked' => \checked( $option[ 'ahsc_cache_warmer' ], 1, false ),
+			'checked' => \checked( $option[ 'ahsc_cache_warmer' ]  ?? 0 , 1, false ),
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
 
 
 		$this->fields['sections']['general']['cache_static']['settings_tittle'] = array(
 			'title' => wp_kses( __( 'Static File Cache:', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
-				//\esc_html__( 'Static File Cache:', 'aruba-hispeed-cache' ),
 			'type'  => 'title',
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
 		$this->fields['sections']['general']['cache_static'] = array(
 			'ids'   => array( 'ahsc_static_cache' ),
 			'name'  => wp_kses( __( 'Static File Cache options', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
-				//\esc_html__( 'Static File Cache options', 'aruba-hispeed-cache' ),
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
 		$this->fields['ahsc_static_cache'] = array(
@@ -193,9 +185,39 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 			'legend' => wp_kses( __( 'Enable cache for static file on browser such image file, css file js file etc.etc.', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
 			'type'    => 'checkbox',
 			'id'      => 'ahsc_static_cache',
-			'checked' => \checked( $option[ 'ahsc_static_cache' ], 1, false ),
+			'checked' => \checked( $option[ 'ahsc_static_cache' ] ?? 0 , 1, false ),
 			'class' => ( $is_hidden ) ? 'hidden' : '',
 		);
+
+		$this->fields['sections']['general']['dns_preconnect']['settings_tittle'] = array(
+			'title' => wp_kses( __( 'DNS Prefetch and Preconnect:', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
+			'type'  => 'title',
+			'class' =>( $is_hidden ) ? 'hidden' : '',
+		);
+		$this->fields['sections']['general']['dns_preconnect'] = array(
+			'ids'   => array( 'ahsc_dns_preconnect' ,'ahsc_dns_preconnect_domains'),
+			'name'  => wp_kses( __( 'DNS Prefetch and Preconnect for external domain resources', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
+			'class' =>( $is_hidden ) ? 'hidden' : '',
+		);
+		$this->fields['ahsc_dns_preconnect'] = array(
+			'name'    => "<strong>".wp_kses( __( 'DNS Prefetch and Preconnect for external domain resources', 'aruba-hispeed-cache' ), array( 'strong' => array() ) )."</strong>",
+			'legend' => wp_kses( __( 'DNS Prefetch and Preconnect are used to reduce the time to establish a connection to external resources, like CSS, fonts, js from some third-party domain.', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
+			'type'    => 'checkbox',
+			'id'      => 'ahsc_dns_preconnect',
+			'checked' => \checked( $option['ahsc_dns_preconnect'] ?? 0 , 1, false ),
+			'class' =>( $is_hidden ) ? 'hidden' : '',
+		);
+
+		$text_is_hidden = ! $option['ahsc_dns_preconnect' ];
+		$this->fields['ahsc_dns_preconnect_domains'] = array(
+			'name'    => wp_kses( "<strong>".__( 'DNS Prefetch and Preconnect domain list.', 'aruba-hispeed-cache' )."</strong>", array( 'strong' => array() ) ),
+			'legend' => wp_kses( __( 'Insert one external domain per line, for example "https://dominioesterno.it"', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
+			'type'    => 'textarea',
+			'id'      => 'ahsc_dns_preconnect_domains',
+			'class' =>( $text_is_hidden ) ? 'hidden' : '',
+			'value'=>$option['ahsc_dns_preconnect_domains'] ?? ""
+		);
+
 
 	}
 

@@ -1,4 +1,5 @@
 <?php
+
 #[AllowDynamicProperties]
 class BWFAN_Delay_Controller extends BWFAN_Base_Step_Controller {
 	public static $DELAY_DURATION = 1;

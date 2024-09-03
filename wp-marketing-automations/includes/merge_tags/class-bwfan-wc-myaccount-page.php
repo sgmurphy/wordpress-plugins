@@ -37,7 +37,7 @@ class BWFAN_WC_MyAccount_Page extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-if(bwfan_is_woocommerce_active()){
-	BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_WC_MyAccount_Page', null, 'General' );
+if ( bwfan_is_woocommerce_active() ) {
+	BWFAN_Merge_Tag_Loader::register( 'bwfan_default', 'BWFAN_WC_MyAccount_Page', null, __( 'General', 'wp-marketing-automations' ) );
 }
 

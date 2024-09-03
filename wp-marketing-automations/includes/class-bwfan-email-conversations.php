@@ -19,6 +19,7 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 		public static $MODE_EMAIL = 1;
 		public static $MODE_SMS = 2;
 		public static $MODE_WHATSAPP = 3;
+		public static $MODE_NOTIFICATION = 4;
 
 		public static $TYPE_AUTOMATION = 1;
 		public static $TYPE_CAMPAIGN = 2;
@@ -221,6 +222,15 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			return $this->insert_automation_conversation( $data, $sms_body, self::$MODE_SMS );
 		}
 
+		/**
+		 * Insert engagement in DB
+		 *
+		 * @param $data
+		 * @param $body
+		 * @param $mode
+		 *
+		 * @return array|mixed|string|string[]|null
+		 */
 		public function insert_automation_conversation( $data, $body, $mode ) {
 			$automation_id   = ! empty( $data['automation_id'] ) ? $data['automation_id'] : 0;
 			$task_id         = ! empty( $data['task_id'] ) ? $data['task_id'] : 0;
@@ -233,11 +243,22 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			$send_to         = $mode === self::$MODE_SMS ? $phone : $email;
 			$hash_code       = md5( time() . $send_to . $task_id );
 
-			$cid         = BWFAN_Common::get_cid_from_contact( $email, $user_id, $phone );
+			$contact_email = '';
+			$cid           = 0;
+			if ( isset( $data['contact_id'] ) && ! empty( $data['contact_id'] ) ) {
+				$contact       = new WooFunnels_Contact( '', '', '', $data['contact_id'] );
+				$contact_email = $contact->get_email();
+				$cid           = $contact->get_id();
+			}
+			$cid         = ( $send_to !== $contact_email ) ? BWFAN_Common::get_cid_from_contact( $email, $user_id, $phone ) : $cid;
 			$create_time = current_time( 'mysql', 1 );
 
 			/** Template Addition */
-			$subject     = $mode === self::$MODE_EMAIL && isset( $data['subject'] ) ? $data['subject'] : '';
+			$subject = $mode === self::$MODE_EMAIL && isset( $data['subject'] ) ? $data['subject'] : '';
+			if ( empty( $subject ) && $mode === self::$MODE_NOTIFICATION ) {
+				$subject = isset( $data['notification_title'] ) ? $data['notification_title'] : $subject;
+			}
+
 			$data['cid'] = $cid;
 			$template_id = self::check_already_exists_template( $subject, $body, $mode, $data );
 
@@ -291,6 +312,13 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			/** Add tracking code */
 			$body = $this->add_tracking_code( $body, $data, $hash_code, $automation_id, $is_track_enable, $mode );
 
+			if ( $mode === self::$MODE_NOTIFICATION ) {
+				return [
+					'body' => $body,
+					'url'  => $this->add_tracking_code( $data['notification_url'], $data, $hash_code, $automation_id, $is_track_enable, $mode ),
+				];
+			}
+
 			return $body;
 		}
 
@@ -320,10 +348,11 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				'updated_at' => $create_time,
 			);
 
-			$canned_query = '';
-			if ( true === $create_if_canned ) {
-				$canned_query = ' AND canned = 0';
+			if ( ! empty( $data ) ) {
+				$templates_data['data'] = wp_json_encode( $data );
 			}
+
+			$canned_query = ( true === $create_if_canned ) ? ' AND canned = 0' : '';
 
 			$query = $wpdb->prepare( 'SELECT `ID` FROM {table_name} WHERE `template` = "%s" AND `subject` = "%s"' . $canned_query, $template_body, $template_subject );
 
@@ -563,7 +592,7 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			);
 
 			/** Check if action clicked and open count is zero */
-			if ( 'c' === $action && 0 === absint( $get_row[0]['open'] ) ) {
+			if ( 'c' === $action && 1 === intval( $get_row[0]['mode'] ) && 0 === absint( $get_row[0]['open'] ) ) {
 				$o_time        = current_time( 'timestamp' );
 				$o_time        = $o_time - 20;
 				$o_time        = date( "Y-m-d H:i:s", $o_time );
@@ -602,7 +631,7 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				if ( $contact instanceof WooFunnels_Contact ) {
 					$uid = $contact->get_uid();
 					if ( ! empty( $uid ) ) {
-						setcookie( '_fk_contact_uid', $uid, time() + 10 * 365 * 24 * 60 * 60, '/' );
+						BWFAN_Common::set_cookie( '_fk_contact_uid', $uid, time() + 10 * 365 * 24 * 60 * 60 );
 					}
 				}
 			}
@@ -647,6 +676,12 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				$this->track_click_skip();
 
 				return;
+			}
+
+			/** Checking source of click */
+			if ( self::checking_user_agent() ) {
+				BWFAN_Common::wp_redirect( $link );
+				exit;
 			}
 
 			if ( false !== strpos( $link, 'bwfan-action=incentive' ) ) {
@@ -837,13 +872,35 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			if ( ! is_array( $template ) || empty( $template ) || ! isset( $template['ID'] ) ) {
 				return array( 'error' => __( 'Template attached to Email not found', 'wp-marketing-automations' ) );
 			}
+			$notification_data = [];
+			if ( intval( $con['mode'] ) === BWFAN_Email_Conversations::$MODE_NOTIFICATION ) {
+				if ( isset( $template['data'] ) && ! empty( $template['data'] ) ) {
+					$template_data     = json_decode( $template['data'], true );
+					$notification_data = [
+						'title'                   => $template_data['notification_title'] ?? '',
+						'url'                     => $template_data['notification_url'] ?? '',
+						'image'                   => $template_data['notification_image'] ?? '',
+						'enable_large_image'      => $template_data['enable_large_image'] ?? '',
+						'large_image_url'         => $template_data['large_image_url'] ?? '',
+						'multiple_buttons_enable' => $template_data['multiple_buttons_enable'] ?? '',
+						'first_button_url'        => $template_data['first_button_url'] ?? '',
+						'first_button_title'      => $template_data['first_button_title'] ?? '',
+						'first_button_image'      => $template_data['first_button_image'] ?? '',
+						'second_button_enable'    => $template_data['second_button_enable'] ?? '',
+						'second_button_title'     => $template_data['second_button_title'] ?? '',
+						'second_button_url'       => $template_data['second_button_url'] ?? '',
+						'second_button_image'     => $template_data['second_button_image'] ?? '',
+					];
+				}
+			}
 
 			$subject                      = isset( $template['subject'] ) ? $template['subject'] : '';
 			$template_type                = isset( $template['mode'] ) ? absint( $template['mode'] ) : 0;
 			$template                     = isset( $template['template'] ) ? $template['template'] : '';
+			$template_mode                = isset( $template['mode'] ) ? $template['mode'] : '';
 			$template                     = BWFAN_Common::correct_shortcode_string( $template, $template_type );
 			$interaction                  = array();
-			$interaction['o_interaction'] = isset( $con['o_interaction'] ) && ! empty( $con['o_interaction'] ) ? json_decode( $con['o_interaction'], true ) : array();
+			$interaction['o_interaction'] = isset( $con['o_interaction'] ) && ! empty( $con['o_interaction'] ) && intval( $con['mode'] ) === 1 ? json_decode( $con['o_interaction'], true ) : array();
 			$interaction['c_interaction'] = isset( $con['c_interaction'] ) && ! empty( $con['c_interaction'] ) ? json_decode( $con['c_interaction'], true ) : array();
 
 			BWFAN_Common::bwfan_before_send_mail( $template_type );
@@ -896,6 +953,9 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 				'mode'          => $con['mode'],
 				'template_mode' => $template_mode,
 			);
+			if ( ! empty( $notification_data ) ) {
+				$data['notification_data'] = $notification_data;
+			}
 
 			if ( empty( $merge_tags ) ) {
 				$data['merge_tags'] = 0;
@@ -1164,7 +1224,7 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			$error_msg = empty( $error_msg ) && isset( $response['reponse'][0] ) && ! is_array( $response['body'][0] ) ? $response['body'][0] : $error_msg;
 			$error_msg = empty( $error_msg ) && isset( $response['message'] ) && ! empty( $response['message'] ) ? $response['message'] : $error_msg;
 			$error_msg = empty( $error_msg ) && isset( $response['body']['message'] ) && ! empty( $response['body']['message'] ) ? $response['body']['message'] : $error_msg;
-			$error_msg = empty( $error_msg ) ? __( 'SMS could not be sent. ', 'autonami-automations-connectors' ) : $error_msg;
+			$error_msg = empty( $error_msg ) ? __( 'SMS could not be sent. ', 'wp-marketing-automations' ) : $error_msg;
 
 			self::insert_conversation_meta( $this->track_id, array(), $error_msg );
 		}
@@ -1218,6 +1278,28 @@ if ( ! class_exists( 'BWFAN_Email_Conversations' ) && BWFAN_Common::is_pro_3_0()
 			$default_time    = apply_filters( 'bwfan_default_skip_track_time', 5, $track_id, $get_row );
 
 			return ( ( $current_time - $created_at_time ) <= $default_time );
+		}
+
+		/**
+		 * Checking source of link click and email open
+		 *
+		 * @return bool
+		 */
+		public static function checking_user_agent() {
+			$skip_user_agents = apply_filters( 'bwfan_skip_user_agents', [] );
+			if ( empty( $skip_user_agents ) || ! is_array( $skip_user_agents ) ) {
+				return false;
+			}
+
+			$user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+			foreach ( $skip_user_agents as $skip_user_agent ) {
+				if ( false !== strpos( $user_agent, $skip_user_agent ) ) {
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 

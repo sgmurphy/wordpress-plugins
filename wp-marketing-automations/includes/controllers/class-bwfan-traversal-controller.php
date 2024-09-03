@@ -1,4 +1,5 @@
 <?php
+
 #[AllowDynamicProperties]
 class BWFAN_Traversal_Controller {
 	public $current_node_id = 0;
@@ -130,6 +131,16 @@ class BWFAN_Traversal_Controller {
 					}
 					$this->traverse_to_next_step();
 					$this->log( 'traversed to next step from goal step', 'goal-check' );
+					break;
+				case 'split':
+					if ( in_array( $current_step['id'], $goal_ins->goal_steps ) ) {
+						$goal_found_nodes[] = $current_step['id'];
+						$this->log( 'split step found during traverse. split step id: ' . $current_step['id'], 'goal-check' );
+					}
+					$this->process_split_path( $automation_contact );
+					$this->traverse_to_next_step();
+					/** No need to traverse to next step as traversing already from process_jump function */
+					$this->log( 'traversed to next split step', 'goal-check' );
 					break;
 				default:
 					break;
@@ -399,9 +410,31 @@ class BWFAN_Traversal_Controller {
 	}
 
 	/**
+	 * Process split step for goal only
+	 *
+	 * @param $automation_contact
+	 *
+	 * @return void
+	 */
+	public function process_split_path( $automation_contact ) {
+		$current_step         = $this->get_current_step();
+		$ins                  = new BWFAN_Split_Test_Controller();
+		$ins->current_node_id = $this->current_node_id;
+		$ins->automation_id   = $this->automation_id;
+		$ins->step_id         = absint( $current_step['stepId'] );
+
+		$ins->populate_step_data( $current_step );
+		$ins->populate_automation_contact_data( $automation_contact );
+		$path = $ins->get_next_path();
+
+		$this->split_result_node_id = $current_step['id'] . '-path-' . $path;
+	}
+
+	/**
 	 * Special log function for step execution
 	 *
 	 * @param $log
+	 * @param $name
 	 *
 	 * @return void
 	 */

@@ -34,23 +34,11 @@ class WFCO_Admin {
 		include_once( $this->admin_path . '/class-wfco-call.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 		include_once( $this->admin_path . '/class-wfco-load-connectors.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 		include_once( $this->admin_path . '/class-wfco-common.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
-		include_once( $this->admin_path . '/class-wfco-ajax-controller.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 		include_once( $this->admin_path . '/class-wfco-db.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 		include_once( $this->admin_path . '/class-wfco-connector-api.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
 
 		WFCO_Common::init();
 
-		/**
-		 * Admin enqueue scripts
-		 */
-		add_action( 'admin_init', array( $this, 'register_assets' ), 99 );
-
-		/**
-		 * Admin footer text
-		 */
-		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 9999, 1 );
-		add_filter( 'update_footer', array( $this, 'update_footer' ), 9999, 1 );
-		add_action( 'in_admin_header', array( $this, 'maybe_remove_all_notices_on_page' ) );
 	}
 
 	public static function get_instance() {
@@ -63,23 +51,6 @@ class WFCO_Admin {
 
 	public static function get_plugins() {
 		return apply_filters( 'all_plugins', get_plugins() );
-	}
-
-	public static function localize_data() {
-		$data = array(
-			'ajax_nonce'            => wp_create_nonce( 'wfcoaction-admin' ),
-			'plugin_url'            => plugin_dir_url( WFCO_PLUGIN_FILE ),
-			'ajax_url'              => admin_url( 'admin-ajax.php' ),
-			'admin_url'             => admin_url(),
-			'ajax_chosen'           => wp_create_nonce( 'json-search' ),
-			'search_products_nonce' => wp_create_nonce( 'search-products' ),
-			'connectors_pg'         => admin_url( 'admin.php?page=connector&tab=connectors' ),
-			'oauth_nonce'           => wp_create_nonce( 'wfco-connector' ),
-			'oauth_connectors'      => self::get_oauth_connector(),
-			'errors'                => self::get_error_message(),
-			'texts'                 => self::js_text(),
-		);
-		wp_localize_script( 'wfco-admin', 'wfcoParams', $data );
 	}
 
 	public static function get_oauth_connector() {
@@ -162,10 +133,10 @@ class WFCO_Admin {
 
 	public static function get_error_message() {
 		$errors      = [];
-		$errors[100] = __( 'Connector not found' );
-		$errors[101] = __( 'FunnelKit Automations license is required in order to install a connector' );
-		$errors[102] = __( 'FunnelKit Automations license is invalid, kindly contact woofunnels team.' );
-		$errors[103] = __( 'FunnelKit Automations license is expired, kindly renew and activate it first.' );
+		$errors[100] = __( 'Connector not found', 'woofunnels' );
+		$errors[101] = __( 'FunnelKit Automations license is required in order to install a connector', 'woofunnels' );
+		$errors[102] = __( 'FunnelKit Automations license is invalid, kindly contact woofunnels team.', 'woofunnels' );
+		$errors[103] = __( 'FunnelKit Automations license is expired, kindly renew and activate it first.', 'woofunnels' );
 
 		return $errors;
 	}
@@ -212,70 +183,10 @@ class WFCO_Admin {
 		] );
 	}
 
-	public function register_assets() {
-		/**
-		 * Including izimodal assets
-		 */
-		wp_register_style( 'wfco-sweetalert2-style', $this->admin_url . '/assets/css/sweetalert2.css', array(), WooFunnel_Loader::$version );
-		wp_register_style( 'wfco-izimodal', $this->admin_url . '/assets/css/iziModal/iziModal.css', array(), WooFunnel_Loader::$version );
-		wp_register_style( 'wfco-toast-style', $this->admin_url . '/assets/css/toast.min.css', array(), WooFunnel_Loader::$version );
-		wp_register_style( 'wfco-sweetalert2-script', $this->admin_url . '/assets/js/sweetalert2.js', array( 'jquery' ), WooFunnel_Loader::$version, true );
-		wp_register_style( 'wfco-izimodal', $this->admin_url . '/assets/js/iziModal/iziModal.js', array(), WooFunnel_Loader::$version );
-		wp_register_style( 'wfco-toast-script', $this->admin_url . '/assets/js/toast.min.js', array( 'jquery' ), WooFunnel_Loader::$version, true );
-		/**
-		 * Including Connector assets on all connector pages.
-		 */
-		wp_register_style( 'wfco-admin', $this->admin_url . '/assets/css/wfco-admin.css', array(), WooFunnel_Loader::$version );
-		wp_register_script( 'wfco-admin', $this->admin_url . '/assets/js/wfco-admin.js', array(), WooFunnel_Loader::$version );
-	}
-
-	public function is_connector_page( $section = '' ) {
-		if ( 'autonami' === filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) && '' === $section ) {
-			return true;
-		}
-
-		if ( 'autonami' === filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) && filter_input( INPUT_GET, 'section', FILTER_UNSAFE_RAW ) === $section ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public function connector_page() {
-		if ( 'autonami' === filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) ) {
-			include_once( $this->admin_path . '/view/connector-admin.php' ); //phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.UsingVariable
-		}
-	}
-
-	public function admin_footer_text( $footer_text ) {
-		if ( WFCO_Common::is_load_admin_assets( 'all' ) ) {
-			return '';
-		}
-
-		return $footer_text;
-	}
-
-	public function update_footer( $footer_text ) {
-		if ( WFCO_Common::is_load_admin_assets( 'all' ) ) {
-			return '';
-		}
-
-		return $footer_text;
-	}
-
 	public function tooltip( $text ) {
 		?>
         <span class="wfco-help"><i class="icon"></i><div class="helpText"><?php echo $text; ?></div></span>
 		<?php
-	}
-
-	/**
-	 * Remove all the notices in our dashboard pages as they might break the design.
-	 */
-	public function maybe_remove_all_notices_on_page() {
-		if ( 'autonami' === filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW ) && filter_input( INPUT_GET, 'section', FILTER_UNSAFE_RAW ) ) {
-			remove_all_actions( 'admin_notices' );
-		}
 	}
 
 }

@@ -262,9 +262,9 @@ if ( ! bwfan_is_autonami_pro_active() && ! class_exists( 'BWFAN_Funnel_Optin_For
 					'options'     => $forms,
 					'label'       => __( 'Select Form', 'wp-marketing-automations' ),
 					"class"       => 'bwfan-input-wrapper',
-					"placeholder" => 'Select',
+					"placeholder" => __( 'Select', 'wp-marketing-automations' ),
 					"required"    => true,
-					"errorMsg"    => "Form is required.",
+					"errorMsg"    => __( "Form is required.", 'wp-marketing-automations' ),
 					"description" => ""
 				],
 				[
@@ -272,7 +272,7 @@ if ( ! bwfan_is_autonami_pro_active() && ! class_exists( 'BWFAN_Funnel_Optin_For
 					'type'        => 'bwf_form_submit',
 					"class"       => 'bwfan-input-wrapper',
 					"required"    => true,
-					'placeholder' => 'Select',
+					'placeholder' => __( 'Select', 'wp-marketing-automations' ),
 					"description" => "",
 					"ajax_cb"     => 'bwfan_get_optin_form_fields',
 					"ajax_field"  => [
@@ -292,7 +292,7 @@ if ( ! bwfan_is_autonami_pro_active() && ! class_exists( 'BWFAN_Funnel_Optin_For
 				[
 					'id'            => 'bwfan-mark-contact-subscribed',
 					'type'          => 'checkbox',
-					'checkboxlabel' => 'Mark Contact as Subscribed',
+					'checkboxlabel' => __( 'Mark Contact as Subscribed', 'wp-marketing-automations' ),
 					'description'   => '',
 					"toggler"       => [
 						'fields'   => array(

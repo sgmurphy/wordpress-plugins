@@ -163,4 +163,4 @@ class BWFAN_Contact_Creation_Date extends BWFAN_Merge_Tag {
 	}
 }
 
-BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Creation_date', null, 'Contact' );
+BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Creation_date', null, __( 'Contact', 'wp-marketing-automations' ) );

@@ -250,9 +250,16 @@ class Pa_Nav_Menu_Walker extends \Walker_Nav_Menu {
 			}
 		}
 
+		/** handling active anchor links which redirects to an id in a page */
+		$is_anchor = false !== strpos( $menu_item->url, '#' );
+
 		// we can later add other classes here based on the user settings.
-		if ( in_array( 'current-menu-item', $classes, true ) ) {
+		if ( ! $is_anchor && in_array( 'current-menu-item', $classes, true ) ) {
 			$classes[] = 'premium-active-item';
+		}
+
+		if ( $is_anchor ) { // the active class will be added via js.
+			$classes[] = 'premium-item-anchor';
 		}
 
 		// Add badge marker.

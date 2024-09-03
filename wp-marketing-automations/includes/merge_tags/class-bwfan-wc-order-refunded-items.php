@@ -119,7 +119,7 @@ class BWFAN_WC_Order_Refunded_Items extends Merge_Tag_Abstract_Product_Display {
 				'options'     => $options,
 				'label'       => __( 'Select Template', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Product Grid - 2 Column',
+				"placeholder" => __( 'Product Grid - 2 Column', 'wp-marketing-automations' ),
 				"required"    => false,
 				"description" => ""
 			],
@@ -131,5 +131,5 @@ class BWFAN_WC_Order_Refunded_Items extends Merge_Tag_Abstract_Product_Display {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order_refund', 'BWFAN_WC_Order_Refunded_Items', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order_refund', 'BWFAN_WC_Order_Refunded_Items', null, __( 'Order', 'wp-marketing-automations' ) );
 }

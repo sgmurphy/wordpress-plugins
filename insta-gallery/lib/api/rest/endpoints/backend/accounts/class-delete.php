@@ -2,8 +2,8 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
-use QuadLayers\IGG\Utils\Cache as Cache;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
+use QuadLayers\IGG\Services\Cache;
 
 /**
  * Api_Rest_Accounts_Delete Class
@@ -16,29 +16,32 @@ class Delete extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$models_account = new Models_Account();
+		try {
+			$account_id = trim( $request->get_param( 'id' ) );
 
-		$account_id = trim( $request->get_param( 'id' ) );
+			$response = Models_Accounts::instance()->delete( $account_id );
 
-		$success = $models_account->delete( $account_id );
+			if ( ! $response ) {
+				throw new \Exception( sprintf( esc_html__( 'Can\'t delete account, account_id not found.', 'insta-gallery' ), $account_id ), 412 );
+			}
 
-		if ( ! $success ) {
+			// Clear cache
+
+			$cache_key = "profile_{$account_id}";
+
+			$cache_engine = new Cache( 6, true, $cache_key );
+
+			$cache_engine->delete_key( $cache_key );
+
+			return $this->handle_response( $response );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 404,
-				'message' => esc_html__( 'Can\'t delete account, account_id not found', 'insta-gallery' ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		// Clear cache
-
-		$cache_key = "profile_{$account_id}";
-
-		$cache_engine = new Cache( 6, true, $cache_key );
-
-		$cache_engine->delete_key( $cache_key );
-
-		return $this->handle_response( $success );
 	}
 
 	public static function get_rest_args() {

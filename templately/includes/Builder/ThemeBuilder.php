@@ -194,7 +194,8 @@ class ThemeBuilder extends Base {
 	}
 
 	public function modify_template_type( $value, $object_id, $meta_key, $single ) {
-		if ( Document::TYPE_META_KEY === $meta_key && Source::CPT === get_post_type( $object_id ) ) {
+		$_value = $value;
+		if ( empty($value) && Document::TYPE_META_KEY === $meta_key && Source::CPT === get_post_type( $object_id ) ) {
 			remove_filter( 'get_post_metadata', [ $this, 'modify_template_type' ] );
 			$value = get_post_meta( $object_id, Source::TYPE_META_KEY, $single );
 			$arr = [
@@ -208,6 +209,9 @@ class ThemeBuilder extends Base {
 			];
 			$key = $single ? $value : (isset($value[0]) ? $value[0] : '');
 			$value = isset( $arr[ $key ] ) ? $arr[ $key ] : $value;
+			if(in_array($value, ['header', 'footer'])){
+				return $_value;
+			}
 		}
 
 		return $value;

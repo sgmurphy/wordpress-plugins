@@ -47,6 +47,9 @@ class BWFAN_Common {
 	public static $order_status_change = [];
 	public static $show_tags_list_by_name = null;
 
+	protected static $c_lk_d = null;
+	protected static $c_lk_p = null;
+
 	public static $crm_default_fields = [
 		'address-1' => [
 			'name'  => 'Address 1',
@@ -105,6 +108,8 @@ class BWFAN_Common {
 			'meta'  => []
 		]
 	];
+
+	public static $stop_async_call = null;
 
 	public static function init() {
 		self::$date_format           = get_option( 'date_format' );
@@ -210,7 +215,8 @@ class BWFAN_Common {
 		/** Update automation contact's step trail status */
 		add_action( 'bwfan_update_contact_trail', [ __CLASS__, 'bwfan_update_contact_trail' ] );
 
-		add_action( 'woocommerce_order_status_changed', [ __CLASS__, 'order_status_change' ], 10, 3 );
+		add_filter( 'fk_before_sending_order_status_change_async_request', [ __CLASS__, 'order_status_change' ], 10, 4 );
+		add_action( 'fk_order_status_change_async_capture', [ __CLASS__, 'order_status_change_async_capture' ] );
 
 		/** Cron 'every 8 hrs' schedule */
 		add_filter( 'cron_schedules', [ __CLASS__, 'add_schedules' ], 100 );
@@ -234,7 +240,7 @@ class BWFAN_Common {
 
 		$general_options = self::get_global_settings();
 		$wc_endpoint     = filter_input( INPUT_GET, 'wc-ajax' );
-		if ( ! is_null( $wc_endpoint ) ) {
+		if ( ! is_null( $wc_endpoint ) && ! wp_doing_ajax() ) {
 			return;
 		}
 
@@ -341,8 +347,8 @@ class BWFAN_Common {
 			'bwfan_user_consent_non_eu'                    => '0',
 			'bwfan_delete_autonami_generated_coupons_time' => 1,
 			'bwfan_user_consent_position'                  => 'below_term',
-			'bwfan_email_footer_setting'                   => '<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">{{business_name}}, {{business_address}}</span><br /><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">Don\'t want to stay in the loop? We\'ll be sad to see you go, but you can click here to <a href="{{unsubscribe_link}}">unsubscribe</a></span></p>',
-			'bwfan_sms_unsubscribe_text'                   => 'Reply STOP to unsubscribe',
+			'bwfan_email_footer_setting'                   => '<p><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">{{business_name}}, {{business_address}}</span><br /><span style="font-size: 14px; font-family: arial, helvetica, sans-serif;">' . __( 'Don\'t want to stay in the loop? We\'ll be sad to see you go, but you can click here to', 'wp-marketing-automations' ) . ' <a href="{{unsubscribe_link}}">' . __( 'unsubscribe', 'wp-marketing-automations' ) . '</a></span></p>',
+			'bwfan_sms_unsubscribe_text'                   => __( 'Reply STOP to unsubscribe', 'wp-marketing-automations' ),
 			'bwfan_bounce_select'                          => '',
 			'bwfan_unsubscribe_page'                       => '',
 			'bwfan_unsubscribe_from_all_label'             => __( 'Unsubscribe from all Email Lists', 'wp-marketing-automations' ),
@@ -440,6 +446,23 @@ class BWFAN_Common {
 
 	public static function get_sms_services() {
 		$services = apply_filters( 'bwfan_sms_services', array() );
+
+		return ! empty( $services ) ? $services : array();
+	}
+
+	/**
+	 * fetching default push notification provider
+	 * @return false|mixed|string
+	 */
+	public static function get_default_push_provider() {
+		$default   = apply_filters( 'bwfan_default_push_services', 'bwfco_pushengage' );
+		$providers = self::get_push_services();
+
+		return self::get_provider_value( $providers, $default );
+	}
+
+	public static function get_push_services() {
+		$services = apply_filters( 'bwfan_push_services', array() );
 
 		return ! empty( $services ) ? $services : array();
 	}
@@ -2301,12 +2324,6 @@ class BWFAN_Common {
 			'callback'            => array( __CLASS__, 'run_worker_tasks' ),
 			'permission_callback' => '__return_true',
 		) );
-
-		register_rest_route( 'autonami/v2', '/order_status_change', array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'callback'            => array( __CLASS__, 'capture_order_status_change' ),
-			'permission_callback' => '__return_true',
-		) );
 	}
 
 	/**
@@ -2867,7 +2884,12 @@ class BWFAN_Common {
 
 		$resp = wp_remote_post( $url, $args );
 		self::event_advanced_logs( 'V2 worker response' );
-		self::event_advanced_logs( $resp );
+		if ( is_wp_error( $resp ) ) {
+			self::event_advanced_logs( $resp->get_error_message() );
+		} elseif ( isset( $resp['body'] ) ) {
+			self::event_advanced_logs( $resp['body'] );
+			self::event_advanced_logs( $resp['response'] );
+		}
 	}
 
 	/**
@@ -3258,7 +3280,7 @@ class BWFAN_Common {
 
 		$calculated_total   = wc_format_decimal( $calculated_total, wc_get_price_decimals() );
 		$data['total']      = $calculated_total;
-		$data['total_base'] = apply_filters( 'bwfan_ab_cart_total_base', $calculated_total );
+		$data['total_base'] = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $calculated_total, get_woocommerce_currency() );
 
 		return $data;
 	}
@@ -4634,6 +4656,21 @@ class BWFAN_Common {
 				$result['msg'] = __( 'Engagement Tracking meta table optimized.', 'wp-marketing-automations' );
 
 				break;
+			case 're_index_cart_orders_conversion':
+				if ( false !== bwf_has_action_scheduled( 'bwfan_reindex_cart_conversions_base_total' ) ) {
+					$result['msg']    = __( 'A process is already scheduled for re-indexing cart & conversion value', 'wp-marketing-automations' );
+					$result['status'] = false;
+
+					return $result;
+				}
+
+				$result['msg'] = __( 'Process scheduled for re-indexing cart & conversion value', 'wp-marketing-automations' );
+
+				bwf_options_update( 're_index_data_type', 'conversion' );
+				bwf_options_update( 'last_index_id', 0 );
+				bwf_schedule_recurring_action( time(), 60, 'bwfan_reindex_cart_conversions_base_total' );
+
+				break;
 		}
 
 		return $result;
@@ -4753,7 +4790,8 @@ class BWFAN_Common {
 				'required'    => false,
 				'wrap_before' => '<h3>' . __( 'Footer', 'wp-marketing-automations' ) . '</h3>',
 				'toggler'     => array(),
-				'hint'        => __( 'Anti-spam laws require you to put a physical address and an unsubscribe link at the bottom of every email. Use dynamic tags <b>{{business_name}}</b> for Business Name', 'wp-marketing-automations' ) . ', ' . __( '<b>{{business_address}}</b> for Business Address', 'wp-marketing-automations' ) . ' and ' . __( '<b>{{unsubscribe_link}}</b> for Unsubscribe page link', 'wp-marketing-automations' ),
+				'hint'        => __( 'Anti-spam laws require you to put a physical address and an unsubscribe link at the bottom of every email. Use dynamic tags ', 'wp-marketing-automations' ) . '<b>{{business_name}}</b>' . __( ' for Business Name', 'wp-marketing-automations' ) . ', ' . '<b>{{business_address}}</b>' . __( ' for Business Address', 'wp-marketing-automations' ) . ' and ' . '<b>{{unsubscribe_link}}</b>' . __( ' for Unsubscribe page link', 'wp-marketing-automations' ),
+
 			),
 		);
 
@@ -4786,17 +4824,19 @@ class BWFAN_Common {
 
 		/** getting the twilio sms webhook link for unsubscribes in case connector and class exists */
 		if ( $is_twilio_connected ) {
-			if ( bwfan_is_autonami_connector_active() && class_exists( 'BWFAN_Twilio_SMS_Unsubscribe' ) ) {
-				$twilio_sms_unsub_instance       = new BWFAN_Twilio_SMS_Unsubscribe();
+			if ( bwfan_is_autonami_connector_active() && class_exists( 'BWFAN_Twilio_Webhook_Setup' ) && method_exists( 'BWFAN_Twilio_Webhook_Setup', 'get_webhooks' ) ) {
+				$twilio_sms_unsub_instance       = BWFAN_Twilio_Webhook_Setup::get_instance();
 				$twilio_webhook                  = $twilio_sms_unsub_instance->get_webhooks();
+				$webhook_link                    = ! empty( $twilio_webhook['link'] ) ? $twilio_webhook['link'] : '';
 				$twilio_sms_unsubscribe_settings = array(
-					'id'        => 'bwfan_sms_webhook_twilio',
-					'label'     => __( 'Unsubscribe Webhook URL', 'wp-marketing-automations' ),
-					'type'      => 'copier',
-					'class'     => 'bwfan_sms_webhook_twilio',
-					'hint'      => __( "Paste this URL into your Twilio's settings to stop sending messages to the contacts. <a href='https://funnelkit.com/docs/autonami-2/sms-broadcasts/unsubscribe-text/'>Learn more</a> on how to set up.", 'wp-marketing-automations' ),
-					'required'  => false,
-					'copy_text' => $twilio_webhook['link'],
+					'id'          => 'bwfan_sms_webhook_twilio',
+					'label'       => __( 'Webhook URL', 'wp-marketing-automations' ),
+					'type'        => 'copier',
+					'class'       => 'bwfan_sms_webhook_twilio',
+					'hint'        => __( "Paste this URL into your Twilio's settings to send requests. <a href='https://funnelkit.com/docs/autonami-2/sms-broadcasts/unsubscribe-text/' target='_blank'>Learn more</a> on how to set up.", 'wp-marketing-automations' ),
+					'required'    => false,
+					'copy_text'   => $webhook_link,
+					'wrap_before' => '<h3>' . __( 'Twilio Settings', 'wp-marketing-automations' ) . '</h3>',
 				);
 				if ( true === apply_filters( 'bwfan_enable_twilio_advanced_settings', false ) ) {
 					$twilio_sms_sort_url   = array(
@@ -4827,20 +4867,19 @@ class BWFAN_Common {
 			}
 			$unsubscribe_text = array(
 				'id'           => 'bwfan_sms_unsubscribe_text',
-				'label'        => __( 'Text', 'wp-marketing-automations' ),
+				'label'        => __( 'Unsubscribe Text', 'wp-marketing-automations' ),
 				'type'         => 'text',
 				'class'        => 'bwfan_sms_unsubscribe_text',
 				'placeholder'  => __( 'Enter Unsubscribe Text', 'wp-marketing-automations' ),
 				'required'     => true,
 				'disabled'     => method_exists( 'BWFCRM_Common', 'get_sms_provider_slug' ) && ! empty( BWFCRM_Common::get_sms_provider_slug() ) ? false : true,
-				'wrap_before'  => '<h3>' . __( 'Unsubscribe Text', 'wp-marketing-automations' ) . '</h3>',
 				'isProSetting' => true,
 			);
 		}
 		$sms_fields = array(
-			$unsubscribe_text,
 			$twilio_sms_unsubscribe_settings,
 			$twilio_sms_sort_url,
+			$unsubscribe_text,
 			$messaging_service_sid,
 			array(
 				'id'            => 'bwfan_disable_sms_tracking',
@@ -5796,10 +5835,17 @@ class BWFAN_Common {
 	 * @return array
 	 */
 	public static function get_lk_data() {
+		if ( ! is_null( self::$c_lk_d ) ) {
+			return self::$c_lk_d;
+		}
+
 		$arr = [ 's' => 0, 'e' => '' ];
 		if ( ! bwfan_is_autonami_pro_active() ) {
-			return $arr;
+			self::$c_lk_d = $arr;
+
+			return self::$c_lk_d;
 		}
+
 		$arr['s'] = 1;
 		if ( is_multisite() ) {
 			$l_data = get_blog_option( get_network()->site_id, 'woofunnels_plugins_info', [] );
@@ -5809,12 +5855,17 @@ class BWFAN_Common {
 		if ( ! defined( 'BWFAN_PRO_ENCODE' ) || empty( $l_data ) || ! is_array( $l_data ) || ! isset( $l_data[ BWFAN_PRO_ENCODE ] ) || ! isset( $l_data[ BWFAN_PRO_ENCODE ]['activated'] ) || 1 !== intval( $l_data[ BWFAN_PRO_ENCODE ]['activated'] ) ) {
 			$arr['ad'] = bwf_options_get( 'fka_psd' );
 
-			return $arr;
+			self::$c_lk_d = $arr;
+
+			return self::$c_lk_d;
 		}
+
 		$arr['s'] = 2;
 		$arr['e'] = $l_data[ BWFAN_PRO_ENCODE ]['data_extra']['expires'];
 
-		return $arr;
+		self::$c_lk_d = $arr;
+
+		return self::$c_lk_d;
 	}
 
 	public static function get_connector_license( $onlyKey = true ) {
@@ -6772,18 +6823,24 @@ class BWFAN_Common {
 	 * @return array
 	 */
 	public static function fetch_merge_tags( $str ) {
+		/** Remove all style tags and their content */
+		$pattern = '/<style\b[^>]*>(.*?)<\/style>/is';
+		$str     = preg_replace( $pattern, '', $str );
+
 		$count              = substr_count( $str, '{{' );
 		$merge_tag          = [];
 		$closing_merge_tags = [];
 
+		/** Decode block shortcodes first */
 		$pattern = '/\\[bwfbe_.*?\\](.*?)\\[\\/bwfbe_.*?\\]/s';
 		preg_match_all( $pattern, $str, $closing_merge_tags );
-		$closetags = $closing_merge_tags[0] ?? [];
+		$close_tags = $closing_merge_tags[0] ?? [];
 
-		foreach ( $closetags as $s ) {
+		foreach ( $close_tags as $s ) {
 			$str = str_ireplace( $s, '', $str );
 		}
 
+		/** Decode normal merge tags */
 		for ( $i = 0; $i < $count; $i ++ ) {
 			$tag = self::fetch_inner_most_tag( $str );
 			if ( empty( $tag ) ) {
@@ -6810,9 +6867,7 @@ class BWFAN_Common {
 			$external_merge_tag = array_filter( array_values( $more_merge_tags[0] ) );
 		}
 
-		$merge_tag = array_merge( $merge_tag, $external_merge_tag, $closetags );
-
-		return $merge_tag;
+		return array_merge( $merge_tag, $external_merge_tag, $close_tags );
 	}
 
 	/**
@@ -7987,13 +8042,13 @@ class BWFAN_Common {
 			return;
 		}
 
-		if ( 'completed' === $status ) {
+		if ( 'completed' === $status && 'rerun' !== $action ) {
 			$action = 'delete_complete';
 		}
-		self::perform_bulk_action( $a_cids, $option_key, $action );
+		self::perform_bulk_action( $a_cids, $option_key, $action, $status );
 	}
 
-	public static function perform_bulk_action( $a_cids, $option_key, $action = '' ) {
+	public static function perform_bulk_action( $a_cids, $option_key, $action = '', $status = '' ) {
 		$updated_a_cids = $a_cids;
 		$start_time     = time();
 		$batch_size     = 20;
@@ -8010,8 +8065,8 @@ class BWFAN_Common {
 
 			global $wpdb;
 
-			if ( 'delete_complete' === $action ) {
-				$query = " SELECT `ID`,`cid`,`aid`,`trail` FROM {$wpdb->prefix}bwfan_automation_complete_contact WHERE `ID` IN ($selected_ids) ";
+			if ( 'delete_complete' === $action || 'completed' === $status ) {
+				$query = " SELECT `ID`,`cid`,`aid`,`trail`,`event` FROM {$wpdb->prefix}bwfan_automation_complete_contact WHERE `ID` IN ($selected_ids) ";
 			} else {
 				$query = " SELECT `ID`,`cid`,`aid`,`trail` FROM {$wpdb->prefix}bwfan_automation_contact WHERE `ID` IN ($selected_ids)";
 			}
@@ -8060,7 +8115,7 @@ class BWFAN_Common {
 				case ( 'run_now' === $action ):
 					BWFAN_Model_Automation_Contact::update_e_time_col_of_ids( $ids );
 					break;
-				case ( 'rerun' === $action ):
+				case ( 'rerun' === $action || 're_run' === $action ):
 					self::insert_automations( $result );
 					break;
 				case ( 'startbegin' === $action ):
@@ -8346,27 +8401,27 @@ class BWFAN_Common {
 		$default_columns = [
 			[
 				'country'    => 'Country/Region',
-				'label'      => 'Country/Region',
+				'label'      => __( 'Country/Region', 'wp-marketing-automations' ),
 				'groupKey'   => 'geography',
-				'groupLabel' => 'Geography',
+				'groupLabel' => __( 'Geography', 'wp-marketing-automations' ),
 			],
 			[
 				'state'      => 'State',
-				'label'      => 'State',
+				'label'      => __( 'State', 'wp-marketing-automations' ),
 				'groupKey'   => 'geography',
-				'groupLabel' => 'Geography',
+				'groupLabel' => __( 'Geography', 'wp-marketing-automations' ),
 			],
 			[
 				'tags'       => 'Tags',
-				'label'      => 'Tags',
+				'label'      => __( 'Tags', 'wp-marketing-automations' ),
 				'groupKey'   => 'segments',
-				'groupLabel' => 'Segments',
+				'groupLabel' => __( 'Segments', 'wp-marketing-automations' ),
 			],
 			[
-				'lists'      => 'Lists',
+				'lists'      => __( 'Lists', 'wp-marketing-automations' ),
 				'label'      => 'Lists',
 				'groupKey'   => 'segments',
-				'groupLabel' => 'Segments',
+				'groupLabel' => __( 'Segments', 'wp-marketing-automations' ),
 			]
 		];
 
@@ -8374,21 +8429,21 @@ class BWFAN_Common {
 			$wc_columns = [
 				[
 					'total_order_count' => 'Orders Count',
-					'label'             => 'Orders Count',
+					'label'             => __( 'Orders Count', 'wp-marketing-automations' ),
 					'groupKey'          => 'woocommerce',
-					'groupLabel'        => 'WooCommerce',
+					'groupLabel'        => __( 'WooCommerce', 'wp-marketing-automations' ),
 				],
 				[
 					'total_order_value' => 'Total Revenue',
-					'label'             => 'Total Revenue',
+					'label'             => __( 'Total Revenue', 'wp-marketing-automations' ),
 					'groupKey'          => 'woocommerce',
-					'groupLabel'        => 'WooCommerce',
+					'groupLabel'        => __( 'WooCommerce', 'wp-marketing-automations' ),
 				],
 				[
 					'l_order_date' => 'Last Order Date',
-					'label'        => 'Last Order Date',
+					'label'        => __( 'Last Order Date', 'wp-marketing-automations' ),
 					'groupKey'     => 'woocommerce',
-					'groupLabel'   => 'WooCommerce',
+					'groupLabel'   => __( 'WooCommerce', 'wp-marketing-automations' ),
 				],
 			];
 		}
@@ -8443,22 +8498,22 @@ class BWFAN_Common {
 			return '';
 		}
 		if ( $diff_time->y > 0 ) {
-			return $diff_time->y . ' year ago';
+			return $diff_time->y . __( ' year ago', 'wp-marketing-automations' );
 		}
 		if ( $diff_time->m > 0 ) {
-			return $diff_time->m . ' months ago';
+			return $diff_time->m . __( ' months ago', 'wp-marketing-automations' );
 		}
 		if ( $diff_time->d > 0 ) {
-			return $diff_time->d . ' days ago';
+			return $diff_time->d . __( ' days ago', 'wp-marketing-automations' );
 		}
 		if ( $diff_time->h > 0 ) {
-			return $diff_time->h . ' hours ago';
+			return $diff_time->h . __( ' hours ago', 'wp-marketing-automations' );
 		}
 		if ( $diff_time->i > 0 ) {
-			return $diff_time->i . ' minutes ago';
+			return $diff_time->i . __( ' minutes ago', 'wp-marketing-automations' );
 		}
 		if ( $diff_time->m > 0 ) {
-			return $diff_time->s . ' seconds ago';
+			return $diff_time->s . __( ' seconds ago', 'wp-marketing-automations' );
 		}
 
 		return '';
@@ -9065,7 +9120,8 @@ class BWFAN_Common {
 			$action = 'delete_complete';
 		}
 
-		self::perform_bulk_action( $a_cids, $option_key, $action );
+
+		self::perform_bulk_action( $a_cids, $option_key, $action, $status );
 	}
 
 	/**
@@ -9246,23 +9302,16 @@ class BWFAN_Common {
 	}
 
 	/**
+	 * Append extra data for order status change
+	 *
+	 * @param $extra_data
 	 * @param $order_id
 	 * @param $from
 	 * @param $to
 	 *
-	 * @return void
+	 * @return mixed
 	 */
-	public static function order_status_change( $order_id, $from, $to ) {
-		/** Avoid duplicate run on a single call */
-		$arr = [ $order_id, $from, $to ];
-		if ( isset( self::$order_status_change[ md5( json_encode( $arr ) ) ] ) ) {
-			BWFAN_Common::log_test_data( $arr, 'duplicate-order-status-change', true );
-
-			return;
-		}
-
-		self::$order_status_change[ md5( json_encode( $arr ) ) ] = 1;
-
+	public static function order_status_change( $extra_data, $order_id, $from, $to ) {
 		$data = [
 			'order_id'      => $order_id,
 			'from'          => $from,
@@ -9282,54 +9331,24 @@ class BWFAN_Common {
 		}
 
 		if ( ! empty( $a_e_id ) && intval( $a_e_id ) > 0 ) {
-			$data['a_e_id'] = $a_e_id;
+			$extra_data['a_e_id'] = $a_e_id;
 		}
 
-		/** No need of function_name */
-		unset( $data['function_name'] );
-
-		$url  = rest_url( '/autonami/v2/order_status_change' );
-		$args = bwf_get_remote_rest_args( $data );
-		self::event_advanced_logs( 'Sending data for Order status change json endpoint. URL: ' . $url );
-		self::event_advanced_logs( $args );
-
-		$response = wp_remote_post( $url, $args );
-
-		self::event_advanced_logs( "Order status change async call response" );
-		self::event_advanced_logs( $response );
+		return $extra_data;
 	}
 
-	/**
-	 * Order status change endpoint callback
-	 *
-	 * @param WP_REST_Request $request
-	 *
-	 * @return void
-	 */
-	public static function capture_order_status_change( WP_REST_Request $request ) {
-		self::nocache_headers();
-
-		$post_parameters = $request->get_body_params();
-		self::event_advanced_logs( "Order status change endpoint data received" );
-		self::event_advanced_logs( $post_parameters );
-
-		/** Check Unique key security */
-		$unique_key = get_option( 'bwfan_u_key', false );
-		if ( false === $unique_key || ! isset( $post_parameters['unique_key'] ) || $post_parameters['unique_key'] !== $unique_key ) {
-			return;
-		}
-
+	public static function order_status_change_async_capture( $order_data ) {
 		/** Delete row from automation events */
-		if ( isset( $post_parameters['a_e_id'] ) ) {
-			BWFAN_Model_Automation_Events::delete( $post_parameters['a_e_id'] );
+		if ( isset( $order_data['a_e_id'] ) ) {
+			BWFAN_Model_Automation_Events::delete( $order_data['a_e_id'] );
 		}
 
-		$order = wc_get_order( $post_parameters['order_id'] );
+		$order = wc_get_order( $order_data['order_id'] );
 		if ( ! $order instanceof WC_Order ) {
 			return;
 		}
 
-		do_action( 'bwfan_wc_order_status_changed', $order, $post_parameters['from'], $post_parameters['to'] );
+		do_action( 'bwfan_wc_order_status_changed', $order, $order_data['from'], $order_data['to'] );
 	}
 
 	/**
@@ -9621,7 +9640,7 @@ class BWFAN_Common {
 		if ( ! is_null( $bwf_contact ) && $bwf_contact instanceof WooFunnels_Contact ) {
 			$uid = $bwf_contact->get_uid();
 			if ( ! empty( $uid ) ) {
-				setcookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), true );
+				BWFAN_Common::set_cookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ) );
 
 				return;
 			}
@@ -9640,7 +9659,7 @@ class BWFAN_Common {
 		if ( empty( $uid ) ) {
 			return;
 		}
-		setcookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), true );
+		BWFAN_Common::set_cookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ) );
 	}
 
 	/**
@@ -10249,14 +10268,15 @@ class BWFAN_Common {
 			return '';
 		}
 		$messages = [
-			BWFAN_Automation_Controller::$MANUAL_END              => __( "Manually ended by User #{user_id}", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$ACTION_END              => __( "Ended by 'End automation' action (step #{step_id} of Automation #{automation_id})", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$BULK_ACTION_END         => __( "Ended by Bulk Action #{id}", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$LINK_TRIGGER_END        => __( "Ended by Link Trigger #{id}", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$GOAL_UPDATE_WITH_END    => __( "Ended because goal step ( step #{step_id} ) is updated with end automation", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$GOAL_END                => __( "Ended by Goal (Step #{step_id})", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$CART_RECOVERED_END      => __( "Ended as Cart is Recovered", 'wp-marketing-automations' ),
-			BWFAN_Automation_Controller::$BEFORE_START_VALIDATION => __( "Ended as Event validation failed", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$MANUAL_END                => __( "Manually ended by User #{user_id}", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$ACTION_END                => __( "Ended by 'End automation' action (step #{step_id} of Automation #{automation_id})", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$BULK_ACTION_END           => __( "Ended by Bulk Action #{id}", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$LINK_TRIGGER_END          => __( "Ended by Link Trigger #{id}", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$GOAL_UPDATE_WITH_END      => __( "Ended because goal step ( step #{step_id} ) is updated with end automation", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$GOAL_END                  => __( "Ended by Goal (Step #{step_id})", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$CART_RECOVERED_END        => __( "Ended as Cart is Recovered", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$BEFORE_START_VALIDATION   => __( "Ended as Event validation failed", 'wp-marketing-automations' ),
+			BWFAN_Automation_Controller::$AUTOMATION_DATA_NOT_FOUND => __( "Automation data not found for event ({event_slug})", 'wp-marketing-automations' ),
 		];
 
 		$type = intval( $reason_data['type'] );
@@ -10289,6 +10309,9 @@ class BWFAN_Common {
 			case BWFAN_Automation_Controller::$BEFORE_START_VALIDATION:
 			case BWFAN_Automation_Controller::$CART_RECOVERED_END:
 				$message = $messages[ $type ];
+				break;
+			case BWFAN_Automation_Controller::$AUTOMATION_DATA_NOT_FOUND:
+				$message = str_replace( '{event_slug}', $reason_data['data']['event_slug'], $messages[ $type ] );
 				break;
 		}
 
@@ -10438,19 +10461,22 @@ class BWFAN_Common {
 			return '';
 		}
 
-		if ( class_exists( 'woocommerce_wpml' ) ) {
-			$key = 'wpml_language';
-		} elseif ( function_exists( 'pll_current_language' ) ) {
+		if ( function_exists( 'pll_current_language' ) && function_exists( 'pll_get_post_language' ) ) {
 			$lang = pll_get_post_language( $order->get_id() );
 
-			return ! empty( $lang ) && is_string( $lang ) ? $lang : '';
-		} elseif ( bwfan_is_translatepress_active() ) {
-			$key = 'trp_language';
-		} elseif ( function_exists( 'bwfan_is_weglot_active' ) && bwfan_is_weglot_active() ) {
-			$key = 'weglot_language';
+			return $lang && is_string( $lang ) ? $lang : '';
 		}
 
-		return ! empty( $key ) ? $order->get_meta( $key ) : '';
+		$meta_key = '';
+		if ( class_exists( 'woocommerce_wpml' ) ) {
+			$meta_key = 'wpml_language';
+		} elseif ( bwfan_is_translatepress_active() ) {
+			$meta_key = 'trp_language';
+		} elseif ( function_exists( 'bwfan_is_weglot_active' ) && bwfan_is_weglot_active() ) {
+			$meta_key = 'weglot_language';
+		}
+
+		return $meta_key ? $order->get_meta( $meta_key ) : '';
 	}
 
 	/**
@@ -10551,5 +10577,55 @@ class BWFAN_Common {
 				'statusclass'   => 'bwf-tags bwf-tag-red',
 			]
 		];
+	}
+
+	public static function check_for_lks() {
+		if ( ! is_null( self::$c_lk_p ) ) {
+			return self::$c_lk_p;
+		}
+
+		$data = self::get_lk_data();
+		$s    = isset( $data['s'] ) ? $data['s'] : 0;
+		$e    = isset( $data['e'] ) ? $data['e'] : '';
+		$ad   = isset( $data['ad'] ) ? $data['ad'] : '';
+
+		if ( 2 === intval( $s ) ) {
+			if ( $e === '' ) {
+				self::$c_lk_p = true;
+
+				return self::$c_lk_p;
+			}
+			$n  = new DateTime();
+			$et = new DateTime( $e );
+			if ( $n > $et ) {
+				$d = $n->diff( $et )->days;
+
+				self::$c_lk_p = ( $d < 7 );
+
+				return self::$c_lk_p;
+			}
+			self::$c_lk_p = true;
+
+			return self::$c_lk_p;
+		}
+		if ( 1 === intval( $s ) ) {
+			if ( $ad !== '' ) {
+				$n   = new DateTime();
+				$adt = new DateTime( $ad );
+				$d   = $n->diff( $adt )->days;
+				if ( $d < 7 ) {
+					self::$c_lk_p = true;
+
+					return self::$c_lk_p;
+				}
+			}
+			self::$c_lk_p = false;
+
+			return self::$c_lk_p;
+		}
+
+		self::$c_lk_p = false;
+
+		return self::$c_lk_p;
 	}
 }

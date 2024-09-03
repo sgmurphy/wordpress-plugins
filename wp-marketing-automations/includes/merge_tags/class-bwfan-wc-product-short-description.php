@@ -37,7 +37,7 @@ class BWFAN_WC_Product_Short_Description extends BWFAN_Merge_Tag {
 		if ( ! $product instanceof WC_Product ) {
 			return $this->parse_shortcode_output( $product_link, $attr );
 		}
-		
+
 		$product_short_des = $product->get_short_description();
 
 		return $this->parse_shortcode_output( $product_short_des, $attr );
@@ -59,5 +59,5 @@ class BWFAN_WC_Product_Short_Description extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_product', 'BWFAN_WC_Product_Short_Description', null, 'Product' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_product', 'BWFAN_WC_Product_Short_Description', null, __( 'Product', 'wp-marketing-automations' ) );
 }

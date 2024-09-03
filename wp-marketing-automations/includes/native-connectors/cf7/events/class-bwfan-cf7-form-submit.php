@@ -31,6 +31,7 @@ final class BWFAN_CF7_Form_Submit extends BWFAN_Event {
 		$this->priority               = 10;
 		$this->customer_email_tag     = '';
 		$this->v2                     = true;
+		$this->force_async            = true;
 	}
 
 	public static function get_instance() {
@@ -541,7 +542,7 @@ final class BWFAN_CF7_Form_Submit extends BWFAN_Event {
 					'label'       => __( 'Select First Name', 'wp-marketing-automations' ),
 					"class"       => 'bwfan-input-wrapper bwf-3-col-item',
 					"required"    => false,
-					'placeholder' => 'Select',
+					'placeholder' => __( 'Select', 'wp-marketing-automations' ),
 					"description" => "",
 					"ajax_cb"     => 'bwfan_get_cf7_form_fields',
 					"ajax_field"  => [
@@ -607,7 +608,7 @@ final class BWFAN_CF7_Form_Submit extends BWFAN_Event {
 				[
 					'id'            => 'bwfan-mark-contact-subscribed',
 					'type'          => 'checkbox',
-					'checkboxlabel' => 'Mark Contact as Subscribed',
+					'checkboxlabel' => __( 'Mark Contact as Subscribed', 'wp-marketing-automations' ),
 					'description'   => '',
 					"toggler"       => [
 						'fields'   => array(
@@ -629,9 +630,9 @@ final class BWFAN_CF7_Form_Submit extends BWFAN_Event {
 				'options'     => $forms,
 				'label'       => __( 'Select Form', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Select',
+				"placeholder" => __( 'Select', 'wp-marketing-automations' ),
 				"required"    => true,
-				"errorMsg"    => 'Form is required.',
+				"errorMsg"    => __( 'Form is required.', 'wp-marketing-automations' ),
 				"description" => ""
 			],
 			[
@@ -641,8 +642,8 @@ final class BWFAN_CF7_Form_Submit extends BWFAN_Event {
 				"class"       => 'bwfan-input-wrapper',
 				"tip"         => "Map the field to be used by appropriate Rules and Actions.",
 				"required"    => true,
-				"errorMsg"    => 'Email field is required.',
-				'placeholder' => 'Select',
+				"errorMsg"    => __( 'Email field is required.', 'wp-marketing-automations' ),
+				'placeholder' => __( 'Select', 'wp-marketing-automations' ),
 				"description" => "",
 				"ajax_cb"     => 'bwfan_get_cf7_form_fields',
 				"ajax_field"  => [

@@ -62,5 +62,5 @@ class BWFAN_WC_Product_Featured_Image extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_product', 'BWFAN_WC_Product_Featured_Image', null, 'Product' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_product', 'BWFAN_WC_Product_Featured_Image', null, __( 'Product', 'wp-marketing-automations' ) );
 }

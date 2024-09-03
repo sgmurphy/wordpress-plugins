@@ -368,7 +368,7 @@ class BWFAN_Conversation {
 			return BWFAN_Common::crm_error( __( 'Unable to find contact', 'wp-marketing-automations' ) );
 		}
 
-		$to          = BWFAN_Email_Conversations::$MODE_EMAIL === absint( $conversation_mode ) ? $contact->contact->get_email() : $contact->contact->get_contact_no();
+		$to          = BWFAN_Email_Conversations::$MODE_SMS === intval( $conversation_mode ) ? $contact->contact->get_contact_no() : $contact->contact->get_email();
 		$hash_code   = md5( time() . $to );
 		$type        = ( true === $is_single ? ( BWFAN_Email_Conversations::$MODE_SMS === absint( $conversation_mode ) ? BWFAN_Email_Conversations::$TYPE_SMS : BWFAN_Email_Conversations::$TYPE_EMAIL ) : BWFAN_Email_Conversations::$TYPE_CAMPAIGN );
 		$type        = ( true === $is_single && ! empty( $single_type ) ? $single_type : $type );
@@ -596,6 +596,54 @@ class BWFAN_Conversation {
 		return true;
 	}
 
+	public function prepare_notification_data( $conversation_id, $contact_id, $hash_code = '', $template = '', $utm_data = array(), $broadcast_id = 0 ) {
+		if ( empty( $conversation_id ) ) {
+			return BWFAN_Common::crm_error( __( 'Conversation not found', 'wp-marketing-automations' ) );
+		}
+
+		$this->conversation_id = $conversation_id;
+		if ( empty( $hash_code ) ) {
+			$con       = BWFAN_Model_Templates::get( absint( $conversation_id ) );
+			$hash_code = $con['hash_code'];
+		}
+
+		if ( empty( $hash_code ) ) {
+			return BWFAN_Common::crm_error( __( 'No tracking enabled on this conversation: ' . $conversation_id, 'wp-marketing-automations' ) );
+		}
+
+		if ( empty( $template ) ) {
+			$template_id = BWFAN_Model_Engagement_Trackingmeta::get_meta( $conversation_id, 'template_id' );
+			if ( empty( $template_id ) ) {
+				return BWFAN_Common::crm_error( __( 'Template not found', 'wp-marketing-automations' ) );
+			}
+
+			$template = BWFAN_Model_Templates::get( intval( $template_id ) );
+			$template = $template['template'];
+		}
+
+		BWFAN_Merge_Tag_Loader::set_data( array(
+			'contact_id'   => intval( $contact_id ),
+			'contact_mode' => 2
+		) );
+		$template = BWFAN_Common::decode_merge_tags( $template );
+		$uid      = '';
+		if ( ! empty( $contact_id ) ) {
+			if ( ! empty( $broadcast_id ) ) {
+				BWFAN_Merge_Tag_Loader::set_data( array(
+					'broadcast_id' => intval( $broadcast_id ),
+				) );
+			}
+
+			$contact = new BWFCRM_Contact( $contact_id );
+			if ( $contact->is_contact_exists() ) {
+				$uid           = $contact->contact->get_uid();
+				$this->contact = $contact;
+			}
+		}
+
+		return $this->append_to_email_body_links( $template, $utm_data, $hash_code, $uid, 'push-notification' );
+	}
+
 	public function is_twilio_connected() {
 		if ( ! class_exists( 'WFCO_Autonami_Connectors_Core' ) || ! class_exists( 'WFCO_Load_Connectors' ) ) {
 			return false;
@@ -744,13 +792,16 @@ class BWFAN_Conversation {
 			'body'        => $req_params,
 			'headers'     => $headers,
 		) );
-		$response_body = isset( $response['body'] ) && ! empty( $response['body'] ) ? json_decode( $response['body'], true ) : array();
+		$response_body = array();
+		if ( ! is_wp_error( $response ) ) {
+			$response_body = isset( $response['body'] ) && ! empty( $response['body'] ) ? json_decode( $response['body'], true ) : $response_body;
+		}
 
 		if ( is_array( $response ) && 201 === $response['response']['code'] && empty( $response_body['error_message'] ) ) {
 			return true;
 		}
 
-		$message = __( 'SMS could not be sent. ', 'autonami-automations-connectors' );
+		$message = __( 'SMS could not be sent. ', 'wp-marketing-automations' );
 
 		if ( isset( $response['body']['errors'] ) && isset( $response['body']['errors'][0] ) && isset( $response['body']['errors'][0]['message'] ) ) {
 			$message = $response['body']['errors'][0]['message'];

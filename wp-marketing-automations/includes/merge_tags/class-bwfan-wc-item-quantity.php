@@ -66,5 +66,5 @@ class BWFAN_WC_Item_Quantity extends BWFAN_Cart_Display {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_items', 'BWFAN_WC_Item_Quantity', null, 'Order Item' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_items', 'BWFAN_WC_Item_Quantity', null, __( 'Order Item', 'wp-marketing-automations' ) );
 }

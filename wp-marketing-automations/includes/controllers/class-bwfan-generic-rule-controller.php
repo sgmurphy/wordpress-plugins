@@ -11,7 +11,6 @@ class BWFAN_Generic_Rule_Controller {
 	}
 
 	public function set_data( $data ) {
-
 		if ( empty( $data ) ) {
 			$data = array_merge( BWFAN_Merge_Tag_Loader::get_data(), BWFCRM_Core()->merge_tags->get_data() );
 			$data = [ 'global' => $data ];
@@ -40,8 +39,8 @@ class BWFAN_Generic_Rule_Controller {
 			return false;
 		}
 
-		/** No need to validate rule if preview */
-		if ( isset( $this->data['global']['is_preview'] ) && 1 === intval( $this->data['global']['is_preview'] ) ) {
+		/** No need to validate rule if preview or if is broadcast */
+		if ( ( isset( $this->data['global']['is_preview'] ) && 1 === intval( $this->data['global']['is_preview'] ) ) || ( isset( $this->data['global']['broadcast_id'] ) && intval( $this->data['global']['broadcast_id'] ) > 0 ) ) {
 			return true;
 		}
 

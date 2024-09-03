@@ -16,8 +16,8 @@ class BWFAN_Add_Contact_To_Automation_Controller {
 	];
 
 	public function __construct( $automation_id, $contact_id ) {
-		$this->automation_id = $automation_id;
-		$this->contact_id    = $contact_id;
+		$this->automation_id = intval( $automation_id );
+		$this->contact_id    = intval( $contact_id );
 	}
 
 	public function add_contact_to_automation() {

@@ -4,7 +4,7 @@ Tags: WordPress Block Editor, Gutenberg Blocks Plugin, WooCommerce, Gutenberg Te
 Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 4.9.0
+Stable tag: 4.9.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -229,6 +229,16 @@ Yes, you can effortlessly display your WooCommerce products on your store websit
 If you found the recent version of Essential Blocks isn’t working or conflicting with other plugins, then you can use earlier versions of the plugin.
 
 == Changelog ==
+
+= 4.9.1 - 03/09/2024 =
+- Added: Responsive typography support
+- Added: Product Grid | Product image clicable option
+- Fixed: Post Carousel | Posts not showing for default query
+- Fixed: NFT Gallery | API updated to v2.0
+- Fixed: Slider | Loading icon showing all time if image is transparent
+- Fixed: Image Gallery | Image size settings reverted to default
+- Fixed: Toggle Content | z-index conflict with Astra theme
+- Few minor bug fixes & improvements
 
 = 4.9.0 - 27/08/2024 =
 - Improved: Optimized codebase for better performance and efficiency

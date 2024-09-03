@@ -844,6 +844,13 @@ class FullSiteImport extends Base {
 		add_action('registered_taxonomy', function ($taxonomy, $object_type, $taxonomy_object) {
 			$this->update_imported_list('taxonomy', $taxonomy);
 		}, 10, 3);
+
+		$options = Utils::get_backup_options();
+		if (!empty($options) && is_array($options)) {
+			foreach ($options as $key => $value) {
+				delete_option("__templately_$key");
+			}
+		}
 	}
 
 	public static function has_revert(){
@@ -867,18 +874,23 @@ class FullSiteImport extends Base {
 		// 	wp_send_json_error("Nonce not verified.");
 		// }
 
+		$option_active         = null;
 		$options_deleted       = false;
 		$imported_list_deleted = false;
 		$options               = Utils::get_backup_options();
-		$kits_manager          = Plugin::$instance->kits_manager;
 		$status_args           = [ 'post_type' => 'templately_library' ];
 		$all_post_url          = admin_url(add_query_arg( $status_args, 'edit.php' ));
 		// wp_send_json_success([$options]);
 
-		$kit = $kits_manager->get_active_kit();
-		if ( ! $kit->get_id() ) {
-			$kit = $kits_manager->create_default();
-			update_option( $kits_manager::OPTION_ACTIVE, $kit );
+		if(class_exists('Elementor\Plugin')){
+			$kits_manager  = Plugin::$instance->kits_manager;
+			$option_active = $kits_manager::OPTION_ACTIVE;
+			$kit           = $kits_manager->get_active_kit();
+
+			if ( ! $kit->get_id() ) {
+				$kit = $kits_manager->create_default();
+				update_option( $kits_manager::OPTION_ACTIVE, $kit );
+			}
 		}
 
 
@@ -887,6 +899,13 @@ class FullSiteImport extends Base {
 				if ('stylesheet' === $key) {
 					if (get_option('stylesheet') !== $value) {
 						switch_theme($value);
+					}
+				} else if($option_active === $key && class_exists('Elementor\Plugin')) {
+					$kits_manager->revert( (int) $kits_manager->get_active_id(), (int) $value, 0 );
+					$kit      = $kits_manager->get_active_kit();
+					$settings = $kit->get_data('settings');
+					if ( isset( $settings['site_logo'] ) ) {
+						set_theme_mod( 'custom_logo', $settings['site_logo']['id'] );
 					}
 				} else {
 					update_option($key, $value);
@@ -908,7 +927,7 @@ class FullSiteImport extends Base {
 					switch ($type) {
 						case 'posts':
 							// making sure default kit don't get deleted.
-							if(isset($options[$kits_manager::OPTION_ACTIVE]) && $options[$kits_manager::OPTION_ACTIVE] == $item_id){
+							if($option_active && isset($options[$option_active]) && $options[$option_active] == $item_id){
 								break;
 							}
 							wp_delete_post($item_id, true); // Set true for permanent deletion

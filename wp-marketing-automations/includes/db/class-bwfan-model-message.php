@@ -50,7 +50,7 @@ if ( ! class_exists( 'BWFAN_Model_Message' ) && BWFAN_Common::is_pro_3_0() ) {
 			global $wpdb;
 			$table = self::_table();
 
-			$sql = "SELECT ID,sub as subject, body as template FROM {$table} WHERE track_id = $track_id LIMIT 0, 1";
+			$sql = "SELECT ID,sub as subject, body as template, data FROM {$table} WHERE track_id = $track_id LIMIT 0, 1";
 
 			return $wpdb->get_row( $sql, ARRAY_A );
 		}

@@ -204,11 +204,11 @@ class Premium_Template_Tags {
 
 			self::$e_temps_list = get_posts(
 				array(
-					'post_type' => 'elementor_library',
+					'post_type'              => 'elementor_library',
 					'posts_per_page'         => -1,
-                    'update_post_term_cache' => false,
-                    'update_post_meta_cache' => false,
-                    'fields'                 => array( 'ids' ),
+					'update_post_term_cache' => false,
+					'update_post_meta_cache' => false,
+					'fields'                 => array( 'ids' ),
 				)
 			);
 
@@ -252,12 +252,11 @@ class Premium_Template_Tags {
 		if ( ! $id ) {
 			$id = $this->get_id_by_title( $title );
 
-            if( ! $id ){
-                //To replace the &#8211; in templates names with dash.
-                $decoded_title = html_entity_decode( $title );
-                $id = $this->get_id_by_title( $decoded_title );
-            }
-
+			if ( ! $id ) {
+				// To replace the &#8211; in templates names with dash.
+				$decoded_title = html_entity_decode( $title );
+				$id            = $this->get_id_by_title( $decoded_title );
+			}
 
 			$id = apply_filters( 'wpml_object_id', $id, 'elementor_library', true );
 		} else {
@@ -639,8 +638,12 @@ class Premium_Template_Tags {
 
 		}
 
-		if ( isset( $settings['ignore_sticky_posts'] ) && 'yes' === $settings['ignore_sticky_posts'] ) {
-			$excluded_posts = array_merge( $excluded_posts, get_option( 'sticky_posts' ) );
+		if ( isset( $settings['ignore_sticky_posts'] ) ) {
+			if ( 'yes' === $settings['ignore_sticky_posts'] ) {
+				$excluded_posts = array_merge( $excluded_posts, get_option( 'sticky_posts' ) );
+			} else {
+				$post_args['ignore_sticky_posts'] = true;
+			}
 		}
 
 		if ( ( isset( $settings['query_exclude_current'] ) && 'yes' === $settings['query_exclude_current'] ) || 'related' === $post_type ) {
@@ -757,8 +760,9 @@ class Premium_Template_Tags {
 	 * @param integer $excerpt_length excerpt length.
 	 * @param string  $cta_type call to action type.
 	 * @param string  $read_more readmore text.
+     * @param string  $excerpt_all apply excerpt length on all posts.
 	 */
-	public function render_post_content( $source, $excerpt_length, $cta_type, $read_more ) {
+	public function render_post_content( $source, $excerpt_length, $cta_type, $read_more, $excerpt_all ) {
 
 		$excerpt = '';
 
@@ -768,7 +772,7 @@ class Premium_Template_Tags {
 			the_content();
 
 		} else {
-			$excerpt = trim( get_the_excerpt() );
+			$excerpt = strip_tags( trim( get_the_excerpt() ) );
 
 			$excerpt = apply_filters( 'pa_post_excerpt', $excerpt, get_the_ID() );
 
@@ -776,12 +780,15 @@ class Premium_Template_Tags {
 
 			if ( count( $words ) > $excerpt_length ) {
 
-				if ( ! has_excerpt() ) {
-					array_pop( $words );
-					if ( 'dots' === $cta_type ) {
-						array_push( $words, '…' );
-					}
-				}
+                if( 'yes' === $excerpt_all || ( 'yes' !== $excerpt_all && ! has_excerpt() ) ) {
+
+                    array_pop( $words );
+
+                    if ( 'dots' === $cta_type ) {
+                        array_push( $words, '…' );
+                    }
+
+                }
 			}
 
 			$excerpt = implode( ' ', $words );
@@ -996,9 +1003,9 @@ class Premium_Template_Tags {
 	 */
 	protected function get_post_content( $options ) {
 
-        if( ! isset( $options['button_class'] ) ) {
-            $options['button_class'] = true;
-        }
+		if ( ! isset( $options['button_class'] ) ) {
+			$options['button_class'] = true;
+		}
 
 		if ( 'yes' !== $options['excerpt'] || empty( $options['length'] ) ) {
 			return;
@@ -1013,7 +1020,7 @@ class Premium_Template_Tags {
 		if ( 'excerpt' === $options['source'] ) :
 			echo '<p class="' . $options['class'] . '">';
 		endif;
-			echo wp_kses_post( $this->render_post_content( $options['source'], $options['length'], $options['excerpt_type'], $options['excerpt_text'] ) );
+			echo wp_kses_post( $this->render_post_content( $options['source'], $options['length'], $options['excerpt_type'], $options['excerpt_text'], $options['excerpt_all'] ) );
 		if ( 'excerpt' === $options['source'] ) :
 			echo '</p>';
 		endif;
@@ -1058,6 +1065,7 @@ class Premium_Template_Tags {
 			'class'                => 'premium-blog-post-content',
 			'excerpt_class_prefix' => 'premium-blog-',
 			'content_classes'      => array( 'premium-blog-content-inner-wrapper' ),
+			'excerpt_all'          => $settings['excerpt_length_apply'],
 		);
 
 		$skin = $settings['premium_blog_skin'];
@@ -1515,7 +1523,6 @@ class Premium_Template_Tags {
 		}
 
 		wp_send_json_success( $data );
-
 	}
 
 	/**
@@ -1708,6 +1715,7 @@ class Premium_Template_Tags {
 							'excerpt_class_prefix' => 'premium-search-',
 							'content_classes'      => array( 'premium-search__excerpt-wrap' ),
 							'button_class'         => false,
+							'excerpt_all'          => $settings['excerpt_length_apply'],
 						);
 
 						do_action( 'pa_search_before_post_content' );
@@ -2411,6 +2419,7 @@ class Premium_Template_Tags {
 			'class'                => 'premium-smart-listing__post-content',
 			'content_classes'      => Helper_Functions::get_element_classes( $settings['pa_featured_hide_content'], array( 'premium-smart-listing__post-content-inner', 'premium-addons-element' ) ),
 			'excerpt_class_prefix' => 'premium-smart-listing__',
+			'excerpt_all'          => false,
 		);
 
 		$this->add_render_attribute(
@@ -2494,6 +2503,7 @@ class Premium_Template_Tags {
 			'class'                => 'premium-smart-listing__post-content',
 			'excerpt_class_prefix' => 'premium-smart-listing__',
 			'content_classes'      => Helper_Functions::get_element_classes( $settings['hide_content'], array( 'premium-smart-listing__post-content-inner', 'premium-addons-element' ) ),
+			'excerpt_all'          => false,
 		);
 
 		$this->add_render_attribute(

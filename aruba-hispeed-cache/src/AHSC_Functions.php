@@ -11,7 +11,7 @@ function AHSC_activation( ) {
 	$check=AHSC_check();
 	if(!$check['is_aruba_server']){
 		AHSC_deactivate_me();
-	    wp_die( esc_html(ahsc_get_check_notice($check)), 'Aruba HiSpeed Cache dependency check', array( 'back_link' => true ) );
+	    wp_die( ahsc_get_check_notice($check), 'Aruba HiSpeed Cache dependency check', array( 'back_link' => true ) );
 	}else{
 	  $options = AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS'];
 	  if ( ! $options ) {
@@ -141,7 +141,22 @@ if ( ! \function_exists( 'ahsc_save_options' ) ) {
 				$new_options = array();
 
 				foreach ( array_keys( AHSC_OPTIONS_LIST ) as $opt_key ) {
-					$new_options[ $opt_key ] = ( isset( $_POST[ $opt_key ] ) ) ? true : false;
+					if($opt_key!=="ahsc_dns_preconnect_domains"){
+					  $new_options[ $opt_key ] = ( isset( $_POST[ $opt_key ] ) ) ? true : false;
+					}else{
+
+						if(isset( $_POST[ $opt_key ] ) ){
+							$trans_domain_list = explode( "\n", trim( $_POST[ $opt_key ] ) );
+							foreach ( $trans_domain_list as $index => $string ) {
+								if ( strpos( $string, $_SERVER['SERVER_NAME'] ) !== false ) {
+									unset( $trans_domain_list[ $index ] );
+								}
+							}
+							$new_options[ $opt_key ] =$trans_domain_list;
+						}else{
+							$new_options[ $opt_key ] ="";
+						}
+					}
 				}
 
 				if ( \update_site_option( AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS_NAME'], $new_options ) ) {

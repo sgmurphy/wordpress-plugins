@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.57
+Stable tag: 1.0.58
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,13 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.58 - Tuesday, 3rd September 2024 =
+* New: Added "Services For SureCart" Integration
+* Improvement: "Voxel" - Added new Triggers and Actions
+* Improvement: "Advanced Custom Fields" - Added fix for listing fields in Actions
+* Improvement: "TutorLMS" - Added fix for response in "User Enrolls in Course" Trigger
+* Improvement: "LatePoint" - Added fix for listing custom fields in Actions
 
 = Version 1.0.57 - Tuesday, 20th August 2024 =
 * Improvement: "Bricks Builder" - Added improvements for form response with empty labels

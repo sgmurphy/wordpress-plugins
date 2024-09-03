@@ -71,12 +71,12 @@ class BWFAN_WC_Order_Used_Coupons extends BWFAN_Merge_Tag {
 		}
 
 		$order_id = BWFAN_Merge_Tag_Loader::get_data( 'order_id' );
-		$order 	= wc_get_order( $order_id );
+		$order    = wc_get_order( $order_id );
 
-		if ( ! $order instanceof WC_Order ) { 
+		if ( ! $order instanceof WC_Order ) {
 			return '';
 		}
-		
+
 		if ( version_compare( WC()->version, 3.7, '>=' ) ) {
 			$coupons = $order->get_coupon_codes();
 		} else {
@@ -123,11 +123,11 @@ class BWFAN_WC_Order_Used_Coupons extends BWFAN_Merge_Tag {
 
 		$options = [
 			[
-				'value' =>  '',
+				'value' => '',
 				'label' => __( 'Comma Separated', 'wp-marketing-automations' ),
 			],
 			[
-				'value' =>  'first-coupon',
+				'value' => 'first-coupon',
 				'label' => __( 'First Coupon', 'wp-marketing-automations' ),
 			],
 		];
@@ -139,7 +139,7 @@ class BWFAN_WC_Order_Used_Coupons extends BWFAN_Merge_Tag {
 				'options'     => $options,
 				'label'       => __( 'Select Type', 'wp-marketing-automations' ),
 				"class"       => 'bwfan-input-wrapper',
-				"placeholder" => 'Comma Separated',
+				"placeholder" => __( 'Comma Separated', 'wp-marketing-automations' ),
 				"required"    => false,
 				"description" => ""
 			],
@@ -151,5 +151,5 @@ class BWFAN_WC_Order_Used_Coupons extends BWFAN_Merge_Tag {
  * Register this merge tag to a group.
  */
 if ( bwfan_is_woocommerce_active() ) {
-	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Used_Coupons', null, 'Order' );
+	BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_Used_Coupons', null, __( 'Order', 'wp-marketing-automations' ) );
 }

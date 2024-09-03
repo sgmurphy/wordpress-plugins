@@ -4,24 +4,28 @@ Plugin Name: Login rebuilder
 Plugin URI: https://elearn.jp/wpman/column/login-rebuilder.html
 Description: This plugin will create a new login page for your site. The new login page can be placed in any directory. You can also create separate login pages for administrators and for other users.
 Author: tmatsuur
-Version: 2.8.2
+Version: 2.8.3
 Author URI: https://12net.jp/
 Text Domain: login-rebuilder
 Domain Path: /languages
 */
 
 /*
- Copyright (C) 2013-2023 tmatsuur (Email: takenori dot matsuura at 12net dot jp)
+ Copyright (C) 2013-2024 tmatsuur (Email: takenori dot matsuura at 12net dot jp)
 This program is licensed under the GNU GPL Version 2.
 */
 
+namespace jp12net;
+
 define( 'LOGIN_REBUILDER_DOMAIN', 'login-rebuilder' );
 define( 'LOGIN_REBUILDER_DB_VERSION_NAME', 'login-rebuilder-db-version' );
-define( 'LOGIN_REBUILDER_DB_VERSION', '2.8.2' );
+define( 'LOGIN_REBUILDER_DB_VERSION', '2.8.3' );
 define( 'LOGIN_REBUILDER_PROPERTIES', 'login-rebuilder' );
 define( 'LOGIN_REBUILDER_LOGGING_NAME', 'login-rebuilder-logging' );
 define( 'LOGIN_REBUILDER_LOGIN_IP_NAME', 'login-rebuilder-login-ip' );
 define( 'LOGIN_REBUILDER_UNKNOWN_IP_NAME', 'login-rebuilder-unknown-ip' );
+
+use jp12net\login_rebuilder;
 
 $plugin_login_rebuilder = new login_rebuilder();
 
@@ -120,9 +124,9 @@ require_once './wp-login.php';
 		}
 		$this->remote_addr = preg_match( '/^(([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3,5}([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/', $remote_addr )? $remote_addr: self::INVALID_REMOTE_ADDR;
 		$this->request_uri = $this->_sanitize_url( $_SERVER['REQUEST_URI'] );
-		$this->user_agent = isset( $_SERVER['HTTP_USER_AGENT'] )? wp_specialchars_decode( $_SERVER['HTTP_USER_AGENT'], ENT_QUOTES ): 'None';;
+		$this->user_agent = isset( $_SERVER['HTTP_USER_AGENT'] )? wp_specialchars_decode( $_SERVER['HTTP_USER_AGENT'], ENT_QUOTES ): 'None';
 
-		$this->host_name = $_SERVER['HTTP_HOST']; // [2.6.2] $_SERVER['SERVER_NAME'] was wrong.
+		$this->host_name = isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST']: 'Unknown'; // [2.8.3][2.6.2] $_SERVER['SERVER_NAME'] was wrong.
 		$this->root_url = ( ( is_ssl() || force_ssl_admin() )? "https://": "http://" ) . $this->host_name;
 		$this->root_path = $_SERVER['DOCUMENT_ROOT'];
 		if ( empty( $this->root_path ) ) {
@@ -274,7 +278,8 @@ require_once './wp-login.php';
 
 		load_plugin_textdomain( LOGIN_REBUILDER_DOMAIN, false, plugin_basename( dirname( __FILE__ ) ).'/languages' );
 		if ( preg_match( '/\/wp\-login\.php/u', $this->request_uri ) ||
-			!( ( $this->_in_url( $this->request_uri, $this->properties['page'] ) || $this->_in_url( $this->request_uri, $this->properties['page_subscriber'] ) ) && defined( 'LOGIN_REBUILDER_SIGNATURE' ) && $this->properties['keyword'] == LOGIN_REBUILDER_SIGNATURE ) ) {
+			!( ( $this->_in_url( $this->request_uri, $this->properties['page'] ) || $this->_in_url( $this->request_uri, $this->properties['page_subscriber'] ) ) &&
+			defined( 'LOGIN_REBUILDER_SIGNATURE' ) && $this->properties['keyword'] == LOGIN_REBUILDER_SIGNATURE ) ) {
 			if ( $this->properties['logging'] == self::LOGIN_REBUILDER_LOGGING_ALL ||
 				 $this->properties['logging'] == self::LOGIN_REBUILDER_LOGGING_INVALID_REQUEST ) {
 				$this->_logging(
@@ -2522,6 +2527,48 @@ document.querySelector( '#rest-log-notice .dashicons-editor-break' ).addEventLis
 	}
 
 	/**
+	 * Obtain the number of user environments.
+	 * 
+	 * @since 2.8.3
+	 * 
+	 * @access private.
+	 *
+	 * @param array $user_sessions;
+	 * @return int
+	 */
+	private function user_environment( $user_sessions ) {
+		$sessions = array();
+		foreach ( $user_sessions as $user_session ) {
+			$sessions[ $user_session['ua'] . '@' . $user_session['ip'] ][] = $user_session;
+		}
+		return count( $sessions );
+	}
+
+	/**
+	 * Summarize session token of the same environment.
+	 * 
+	 * @since 2.8.3
+	 * 
+	 * @access private.
+	 *
+	 * @param array $session_tokens
+	 * @return array
+	 */
+	private function summarize_user_environment( $session_tokens ) {
+		$sessions = array();
+		foreach ( $session_tokens as $session ) {
+			if ( isset( $sessions[ $session['ua'] . '@' . $session['ip'] ] ) ) {
+				if ( $sessions[ $session['ua'] . '@' . $session['ip'] ]['login'] < $session['login'] ) {
+					$sessions[ $session['ua'] . '@' . $session['ip'] ] = $session;
+				}
+			} else {
+				$sessions[ $session['ua'] . '@' . $session['ip'] ] = $session;
+			}
+		}
+		return array_values( $sessions );
+	}
+
+	/**
 	 * Retrieves information about the currently logged-in users.
 	 *
 	 * @since 2.8.0
@@ -2560,8 +2607,8 @@ document.querySelector( '#rest-log-notice .dashicons-editor-break' ).addEventLis
 		$users = get_users( $users_query );
 		remove_action( 'pre_user_query', array( $this, 'add_session_tokens_value' ) );
 
-		$sessions = WP_Session_Tokens::get_instance( $user->ID );
-		if ( 1 < count( $sessions->get_all() ) ) {
+		$sessions = \WP_Session_Tokens::get_instance( $user->ID );
+		if ( 1 < $this->user_environment( $sessions->get_all() ) ) {
 			$content['message']['text'] = __( 'This account is also logged in elsewhere.', LOGIN_REBUILDER_DOMAIN );
 			$content['message']['alert'] = true;
 		} else {
@@ -2575,6 +2622,7 @@ document.querySelector( '#rest-log-notice .dashicons-editor-break' ).addEventLis
 			$nicename = isset( $user->user_nicename )? $user->user_nicename: '@' . $user->ID;
 			$session_tokens = maybe_unserialize( $user->session_tokens );
 			if ( is_array( $session_tokens ) ) {
+				$session_tokens = $this->summarize_user_environment( $session_tokens );
 				$alert = ( 1 < count( $session_tokens ) );
 				foreach ( $session_tokens as $token => $session ) {
 					if ( is_array( $session ) ) {	// [2.8.2]
@@ -2620,7 +2668,7 @@ document.querySelector( '#rest-log-notice .dashicons-editor-break' ).addEventLis
 	 *
 	 * @param WP_User_Query $wp_user_query
 	 */
-	public function add_session_tokens_value( WP_User_Query $wp_user_query ) {
+	public function add_session_tokens_value( \WP_User_Query $wp_user_query ) {
 		global $wpdb;
 		if ( isset( $wp_user_query->query_vars['meta_key'] ) && 'session_tokens' === $wp_user_query->query_vars['meta_key'] ) {
 			$wp_user_query->query_fields .= ",$wpdb->usermeta.meta_value AS session_tokens";

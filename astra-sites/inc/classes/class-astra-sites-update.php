@@ -104,7 +104,24 @@ if ( ! class_exists( 'Astra_Sites_Update' ) ) :
 					delete_site_transient( 'astra-sites-import-check' );            
 				}
 			}
-			
+
+			if ( version_compare( $saved_version, '4.4.2', '<' ) ) {
+
+				$transient_name = 'nps-survay-form-dismissed';
+				$expiration_time = get_option( '_transient_timeout_' . $transient_name );
+				$nps_transient = get_transient( $transient_name );
+
+
+				if ( $nps_transient && $expiration_time ) {
+					$transient_duration = 2 * WEEK_IN_SECONDS;
+					$creation_time = $expiration_time - $transient_duration;
+
+					$status = Nps_Survey_Script::get_instance()->get_nps_survey_dismiss_status();
+					$status['dismiss_time'] = $creation_time;
+					update_option( 'nps-survay-form-dismiss-status', $status );
+				}
+			}
+
 			// Auto update product latest version.
 			update_option( 'astra-sites-auto-version', ASTRA_SITES_VER, 'no' );
 

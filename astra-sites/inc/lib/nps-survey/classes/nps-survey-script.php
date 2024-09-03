@@ -308,9 +308,10 @@ class Nps_Survey_Script {
 			);
 		}
 
-		set_transient( 'nps-survay-form-dismissed', 'yes', 2 * WEEK_IN_SECONDS );
-
 		$nps_form_status = $this->get_nps_survey_dismiss_status();
+
+		//Add dismiss date
+		$nps_form_status['dismiss_time'] = time();
 
 		//Update dismiss count.
 		$nps_form_status['dismiss_count'] = $nps_form_status['dismiss_count'] + 1;
@@ -343,14 +344,16 @@ class Nps_Survey_Script {
 			array(
 				'dismiss_count' => 0,
 				'dismiss_permanently' => false,
-				'dismiss_step' => ''
+				'dismiss_step' => '',
+				'dismiss_time' => ''
 			)
 		);
 
 		$status = array(
 			'dismiss_count' => ! empty( $default_status['dismiss_count'] ) ? $default_status['dismiss_count'] : 0,
 			'dismiss_permanently' =>  ! empty( $default_status['dismiss_permanently'] ) ? $default_status['dismiss_permanently'] : false,
-			'dismiss_step' => ! empty( $default_status['dismiss_step'] )  ? $default_status['dismiss_step'] : ''
+			'dismiss_step' => ! empty( $default_status['dismiss_step'] ) ? $default_status['dismiss_step'] : '',
+			'dismiss_time' => ! empty( $default_status['dismiss_time'] ) ? $default_status['dismiss_time'] : ''
 		);
 
 		return $status;
@@ -378,8 +381,20 @@ class Nps_Survey_Script {
 			return false;
 		}
 
-		if( false !== get_transient( 'nps-survay-form-dismissed' ) ){
-			return false;
+		// Retrieve the stored date time stamp from wp_options
+		$stored_date_timestamp = $status['dismiss_time'];
+
+		if ( $stored_date_timestamp ) {
+
+			$current_time = time();
+
+			// time difference of current time and the time user dismissed the nps
+			$time_difference = $current_time - $stored_date_timestamp;
+
+			// Check if two weeks have passed
+			if ( $time_difference <= 2 * WEEK_IN_SECONDS ) {
+				return false;
+			}
 		}
 
 		return true;

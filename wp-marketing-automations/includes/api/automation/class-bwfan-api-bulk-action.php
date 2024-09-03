@@ -29,7 +29,7 @@ class BWFAN_API_Bulk_Action extends BWFAN_API_Base {
 	public function process_api_call() {
 
 		$type      = $this->get_sanitized_arg( 'type' );
-		$ids       = ! empty( $this->args['ids'] ) ? array_filter( $this->args['ids'] ) : [];
+		$ids       = ! empty( $this->args['ids'] ) ? array_map( 'absint', $this->args['ids'] ) : [];
 		$cart_type = isset( $this->args['cart_type'] ) ? $this->args['cart_type'] : '';
 		if ( empty( $ids ) ) {
 			return $this->error_response( __( 'Invalid or empty ids', 'wp-marketing-automations' ), null, 400 );

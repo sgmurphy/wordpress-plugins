@@ -19,7 +19,7 @@ export const defaultOnboardingAIState = {
 	stepData: {
 		tokenExists: aiBuilderVars?.zip_token_exists || '',
 		businessType: '',
-		siteLanguage: 'en',
+		siteLanguage: aiBuilderVars.default_website_language,
 		businessName: '',
 		businessDetails: '',
 		keywords: [],
@@ -103,7 +103,8 @@ updatedInitialValue = {
 	stepData: {
 		tokenExists: aiBuilderVars?.zip_token_exists || '',
 		businessType: aiStepValues?.business_category_name || '',
-		siteLanguage: aiStepValues?.language || 'en',
+		siteLanguage:
+			aiStepValues?.language || aiBuilderVars.default_website_language,
 		businessName: aiStepValues?.business_name || '',
 		businessDetails: aiStepValues?.business_description || '',
 		keywords: aiStepValues?.image_keyword || [],

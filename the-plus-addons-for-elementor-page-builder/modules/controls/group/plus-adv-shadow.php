@@ -72,7 +72,7 @@ class L_Theplus_Advanced_Shadow extends Elementor\Widget_Base {
 				'default' => '',
 				'placeholder' => esc_html__( 'e.g. .class-name', 'tpebl' ), 
 				'dynamic' => ['active'   => true,],
-				'description' => '<a rel="noopener noreferrer" target="_blank" href="https://docs.posimyth.com/tpae/advanced-shadows/">Read Documentation</a>',
+				'description' => '<a rel="noopener noreferrer" target="_blank" href="https://theplusaddons.com/help/advanced-shadows/">Read Documentation</a>',
 				'condition'    => [
 					'adv_shadow_boxshadow' => 'yes',
 					'adv_shadow_boxshadow_apply' => 'customclass',
@@ -389,7 +389,7 @@ class L_Theplus_Advanced_Shadow extends Elementor\Widget_Base {
 				'default' => '',
 				'placeholder' => esc_html__( 'e.g. .class-name', 'tpebl' ), 
 				'dynamic' => ['active'   => true,],
-				'description' => '<a rel="noopener noreferrer" target="_blank" href="https://docs.posimyth.com/tpae/advanced-shadows/">Read Documentation</a>',
+				'description' => '<a rel="noopener noreferrer" target="_blank" href="https://theplusaddons.com/help/advanced-shadows/">Read Documentation</a>',
 				'condition'    => [
 					'adv_shadow_textshadow' => 'yes',
 					'adv_shadow_textshadow_apply' => 'customclass',
@@ -647,7 +647,7 @@ class L_Theplus_Advanced_Shadow extends Elementor\Widget_Base {
 				'default' => '',
 				'placeholder' => esc_html__( 'e.g. .class-name', 'tpebl' ), 
 				'dynamic' => ['active'   => true,],
-				'description' => '<a rel="noopener noreferrer" target="_blank" href="https://docs.posimyth.com/tpae/advanced-shadows/">Read Documentation</a>',
+				'description' => '<a rel="noopener noreferrer" target="_blank" href="https://theplusaddons.com/help/advanced-shadows/">Read Documentation</a>',
 				'condition'    => [
 					'adv_shadow_dropshadow' => 'yes',
 					'adv_shadow_dropshadow_apply' => 'customclass',

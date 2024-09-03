@@ -28,7 +28,7 @@ class BWFAN_API_Get_Automation_Contact_Trail extends BWFAN_API_Base {
 	/** Customer journey Api call */
 	public function process_api_call() {
 		$tid = $this->get_sanitized_arg( 'tid' );
-		$aid = empty( $this->get_sanitized_arg( 'automation_id' ) ) ? 0 : $this->get_sanitized_arg( 'automation_id' );
+		$aid = empty( $this->get_sanitized_arg( 'automation_id' ) ) ? 0 : intval( $this->get_sanitized_arg( 'automation_id' ) );
 
 		/** If step id is 0 , event data to be returned */
 		if ( empty( $tid ) ) {
@@ -143,6 +143,21 @@ class BWFAN_API_Get_Automation_Contact_Trail extends BWFAN_API_Base {
 	}
 
 	/**
+	 * Get trail message if multilevel array
+	 *
+	 * @param $res
+	 *
+	 * @return mixed|string
+	 */
+	public function get_trail_message( $res = '' ) {
+		if ( is_array( $res ) ) {
+			$res = $this->get_trail_message( array_values( $res )[0] );
+		}
+
+		return $res;
+	}
+
+	/**
 	 * Maybe alter trail if same steps found multiple times
 	 *
 	 * @param $trail
@@ -178,7 +193,7 @@ class BWFAN_API_Get_Automation_Contact_Trail extends BWFAN_API_Base {
 	public function get_trail_data_by_step_type( $data, $event, $current_step_index ) {
 		$status   = intval( $data['status'] );
 		$response = isset( $data['data'] ) ? json_decode( $data['data'], true ) : '';
-		$res_msg  = isset( $response['msg'] ) ? $response['msg'] : '';
+		$res_msg  = isset( $response['msg'] ) ? $this->get_trail_message( $response['msg'] ) : '';
 		$time     = $this->get_step_execution_time( $data, $current_step_index );
 
 		$trail_data = [];

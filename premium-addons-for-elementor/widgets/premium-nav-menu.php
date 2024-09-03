@@ -4789,8 +4789,16 @@ class Premium_Nav_Menu extends Widget_Base {
 
 				$is_active_item = $item['link']['url'] === $current_link;
 
-				if ( $is_active_item ) {
+				/** handling active anchor links which redirects to an id in a page */
+				$is_anchor = false !== strpos( $item['link']['url'], '#' );
+
+				// we can later add other classes here based on the user settings.
+				if ( ! $is_anchor && $is_active_item ) {
 					$this->add_render_attribute( 'menu-item-' . $index, 'class', 'premium-active-item' );
+				}
+
+				if ( $is_anchor ) { // the active class will be added via js.
+					$this->add_render_attribute( 'menu-item-' . $index, 'class', 'premium-item-anchor' );
 				}
 			}
 

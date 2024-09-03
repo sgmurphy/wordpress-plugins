@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 3.1.5 – 03-09-2024 =
+Fixed: Header/Footer issues with Gutenberg templates in Templately Theme Builder.
+Fixed: FSI revert functionality when Elementor is deactivated.
+Fixed: Saved Templates not syncing to Cloud without Elementor.
+Other: Minor bug fixes and improvements.
+
 = 3.1.4 – 22-08-2024 =
 Enhanced: Security improvements reported by Patchstack
 Few minor bug fixes & improvements.

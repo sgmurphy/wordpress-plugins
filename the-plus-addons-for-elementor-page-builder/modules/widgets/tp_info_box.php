@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class L_ThePlus_Info_Box extends Widget_Base {
 
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.
@@ -232,7 +232,7 @@ class L_ThePlus_Info_Box extends Widget_Base {
 				),
 			)
 		);
-		$this->add_control(
+		$this->add_responsive_control(
 			'text_align',
 			array(
 				'label'     => esc_html__( 'Info Box Alignment', 'tpebl' ),

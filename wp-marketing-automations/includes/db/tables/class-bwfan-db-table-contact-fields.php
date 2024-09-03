@@ -34,7 +34,7 @@ if ( ! class_exists( 'BWFAN_DB_Table_Contact_Fields' ) && BWFAN_Common::is_pro_3
  		   `ID` bigint(20) unsigned NOT NULL auto_increment,
 		   `cid` bigint(20) unsigned NOT NULL,
 		  PRIMARY KEY (`ID`),
-		  KEY `cid` (`cid`)
+		  UNIQUE `cid` (`cid`)
 		) $collate;";
 		}
 	}

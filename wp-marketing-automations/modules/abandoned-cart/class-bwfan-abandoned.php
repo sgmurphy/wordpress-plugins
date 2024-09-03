@@ -153,7 +153,7 @@ class BWFAN_Abandoned_Cart {
 		if ( ! $order instanceof WC_Order ) {
 			$order = wc_get_order( $order_id );
 		}
-		$total_base = apply_filters( 'bwfan_ab_cart_total_base', $order->get_total() );
+		$total_base = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $order->get_total(), BWF_WC_Compatibility::get_order_currency( $order ) );
 
 		BWFAN_Common::save_order_meta( $order_id, '_bwfan_order_total_base', $total_base );
 	}
@@ -299,7 +299,7 @@ class BWFAN_Abandoned_Cart {
 		}
 		$uid = $contact->get_uid();
 		if ( ! empty( $uid ) ) {
-			setcookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ), ( COOKIEPATH ? COOKIEPATH : '/' ), COOKIE_DOMAIN, is_ssl(), true );
+			BWFAN_Common::set_cookie( '_fk_contact_uid', $uid, time() + ( 10 * YEAR_IN_SECONDS ) );
 		}
 	}
 
@@ -948,6 +948,9 @@ class BWFAN_Abandoned_Cart {
 			'current_step'         => sanitize_text_field( $_POST['current_step'] ),
 			//phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput
 		];
+		if ( isset( $_POST['pushengage_token'] ) && ! empty( $_POST['pushengage_token'] ) ) {
+			$data['pushengage_token'] = sanitize_text_field( $_POST['pushengage_token'] ); //phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput
+		}
 
 		if ( isset( $data['fields']['bwfan_cart_id'] ) && intval( $data['fields']['bwfan_cart_id'] ) > 0 ) {
 			$data['bwfan_cart_id'] = intval( $data['fields']['bwfan_cart_id'] );
@@ -1227,10 +1230,10 @@ class BWFAN_Abandoned_Cart {
 		}
 
 		/** Maybe create contact */
-		$contact = new WooFunnels_Contact( $data['user_id'], $data['email'] );
+		$contact          = new WooFunnels_Contact( $data['user_id'], $data['email'] );
+		$checkout_data    = $details['checkout_data'];
+		$pushengage_token = $checkout_data['pushengage_token'] ?? '';
 		if ( empty( $contact->get_id() ) ) {
-			$checkout_data = $details['checkout_data'];
-
 			$f_name     = is_array( $checkout_data ) && isset( $checkout_data['fields']['billing_first_name'] ) ? $checkout_data['fields']['billing_first_name'] : '';
 			$l_name     = is_array( $checkout_data ) && isset( $checkout_data['fields']['billing_last_name'] ) ? $checkout_data['fields']['billing_last_name'] : '';
 			$contact_no = is_array( $checkout_data ) && isset( $checkout_data['fields']['billing_phone'] ) ? $checkout_data['fields']['billing_phone'] : '';
@@ -1260,6 +1263,7 @@ class BWFAN_Abandoned_Cart {
 
 			$contact->save();
 		}
+		$this->update_pushengage_token( $contact->get_id(), $pushengage_token );
 
 		BWFAN_Model_Abandonedcarts::insert( $data );
 
@@ -1287,8 +1291,9 @@ class BWFAN_Abandoned_Cart {
 		$data['shipping_tax_total'] = WC()->cart->shipping_tax_total;
 		$data['shipping_total']     = WC()->cart->shipping_total;
 		$data['currency']           = get_woocommerce_currency();
-		$data['total']              = WC()->cart->get_total( 'raw' );
-		$data['total_base']         = apply_filters( 'bwfan_ab_cart_total_base', $data['total'] );
+		$total                      = WC()->cart->get_total( 'raw' );
+		$data['total']              = $total;
+		$data['total_base']         = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $total, $data['currency'] );
 
 		return $data;
 	}
@@ -1587,6 +1592,10 @@ class BWFAN_Abandoned_Cart {
 		}
 		$rewards = FKCart\Includes\Data::get_rewards();
 
+		if ( empty( $rewards ) || ! isset( $rewards['rewards'] ) || ! is_array( $rewards['rewards'] ) ) {
+			return false;
+		}
+
 		$free_gifts = array_filter( $rewards['rewards'], function ( $reward ) {
 			return ( isset( $reward['type'] ) && 'freegift' === $reward['type'] );
 		} );
@@ -1600,6 +1609,35 @@ class BWFAN_Abandoned_Cart {
 		}
 
 		return in_array( $product_id, $free_products, true );
+	}
+
+	/**
+	 * @param $contact_id
+	 * @param $pushengage_token
+	 *
+	 * @return void
+	 */
+	public function update_pushengage_token( $contact_id, $pushengage_token ) {
+		if ( empty( $contact_id ) || empty( $pushengage_token ) ) {
+			return;
+		}
+		$field = BWFAN_Model_Fields::get_field_by_slug( 'push-engage-token' );
+		if ( ! isset( $field['ID'] ) || empty( $field['ID'] ) ) {
+			return;
+		}
+
+		$field_id      = 'f' . $field['ID'];
+		$field_values  = BWF_Model_Contact_Fields::get_contact_field_by_id( $contact_id );
+		$token_value   = $field_values[ $field_id ] ?? '';
+		$token_value   = ! empty( $token_value ) ? json_decode( $token_value, true ) : [];
+		$token_value[] = $pushengage_token;
+		if ( empty( $field_values ) || ! is_array( $field_values ) ) {
+			BWF_Model_Contact_Fields::insert( array( 'cid' => $contact_id, $field_id => json_encode( $token_value ) ) );
+
+			return;
+		}
+
+		BWF_Model_Contact_Fields::update( [ $field_id => json_encode( $token_value ) ], [ 'cid' => $contact_id ] );
 	}
 }
 

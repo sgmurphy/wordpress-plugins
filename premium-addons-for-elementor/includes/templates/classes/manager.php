@@ -39,7 +39,7 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 			add_action( 'wp_ajax_premium_get_templates', array( $this, 'get_templates' ) );
 			add_action( 'wp_ajax_premium_inner_template', array( $this, 'insert_inner_template' ) );
 
-			add_action( 'wp_ajax_get_pa_element_name', array( $this, 'get_pa_element_name' ) );
+			add_action( 'wp_ajax_get_pa_element_data', array( $this, 'get_pa_element_data' ) );
 
 			add_action( 'elementor/ajax/register_actions', array( $this, 'register_ajax_actions' ), 20 );
 
@@ -188,14 +188,14 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 		}
 
 		/**
-		 * Get template
+		 * Get PA Element Name
 		 *
-		 * Get templates grid data.
+		 * Gets premium element info.
 		 *
-		 * @since 3.6.0
+		 * @since 4.10.49
 		 * @access public
 		 */
-		public function get_pa_element_name() {
+		public function get_pa_element_data() {
 
 			if ( ! isset( $_GET['element'] ) ) {
 				wp_send_json_error();
@@ -216,14 +216,14 @@ if ( ! class_exists( 'Premium_Templates_Manager' ) ) {
 				esc_url( admin_url( 'admin.php' ) )
 			);
 
-            $demo_link = strstr( $info['demo'], '/?', true );
+			$demo_link = strstr( $info['demo'], '/?', true );
 
-            $demo_link = Helper_Functions::get_campaign_link( $demo_link, 'editor-page', 'wp-editor', 'template-issues' );
+			$demo_link = Helper_Functions::get_campaign_link( $demo_link, 'editor-page', 'wp-editor', 'template-issues' );
 
 			$data = array(
-				'name' => $info['title'],
-                'widgetURL'  => $demo_link,
-                'url'  => $url,
+				'name'      => $info['title'],
+				'widgetURL' => $demo_link,
+				'url'       => $url,
 			);
 
 			wp_send_json_success( $data );

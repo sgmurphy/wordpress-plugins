@@ -87,6 +87,6 @@ if ( ! bwfan_is_autonami_pro_active() || version_compare( BWFAN_PRO_VERSION, '2.
 	 * Register this merge tag to a group.
 	 */
 	if ( ! class_exists( 'BWFAN_BWF_Contact_ID' ) ) {
-		BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_ID', null, 'Contact' );
+		BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_ID', null, __( 'Contact', 'wp-marketing-automations' ) );
 	}
 }

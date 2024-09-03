@@ -2,9 +2,11 @@
 
 namespace QuadLayers\WP_Orm\Helpers;
 
+use QuadLayers\WP_Orm\Entity\EntityInterface;
+
 function isAssociativeArray(array $array): bool
 {
-    if (array() === $array) {
+    if ([] === $array) {
         return false;
     }
     return array_keys($array) !== range(0, count($array) - 1);
@@ -56,7 +58,7 @@ function getObjectSchema($properties): array
  */
 function arrayRecursiveDiff($array1, $array2)
 {
-    $result = array();
+    $result = [];
 
     foreach ($array2 as $key => $value) {
         // Condition 1: Check if the key doesn't exist in $array1 or if the values are not equal
@@ -191,3 +193,93 @@ function getSanitizedData($data, array $schema, bool $strict = false)
 
     return $sanitized;
 }
+
+function getSanitizeValue(EntityInterface $entity, $propertyName, $value)
+{
+    $sanitizeProperties = $entity::$sanitizeProperties;
+
+    if (!isset($sanitizeProperties[$propertyName])) {
+        return $value;
+    }
+
+    return invokeMethod($sanitizeProperties[$propertyName], $value, $entity);
+}
+
+function isValidValue(EntityInterface $entity, $propertyName, $value): bool
+{
+    $validateProperties = $entity::$validateProperties;
+
+    if (empty($validateProperties) || !isset($validateProperties[$propertyName])) {
+        return true;
+    }
+
+    return invokeMethod($validateProperties[$propertyName], $value, $entity);
+}
+
+function invokeMethod($method, $value, $context = null)
+{
+    static $methodCache = [];
+
+    $contextClass = is_object($context) ? get_class($context) : 'global';
+    $cacheKey = is_string($method) ? $method . '@' . $contextClass : json_encode($method);
+
+    if (!isset($methodCache[$cacheKey])) {
+        if (is_string($method)) {
+            if (strpos($method, 'self::') === 0 && $contextClass !== 'global') {
+                $method = [$contextClass, substr($method, 6)];
+            } elseif (strpos($method, '$this->') === 0 && $context) {
+                $method = [$context, substr($method, 7)];
+            } elseif (strpos($method, '::') !== false) {
+                $parts = explode('::', $method);
+                if (class_exists($parts[0])) {
+                    $method = $parts;
+                }
+            } else if (function_exists($method)) {
+                $method = $method;
+            } else {
+                throw new \InvalidArgumentException("Unknown function or method reference: $method");
+            }
+        }
+
+        if (!is_callable($method)) {
+            throw new \InvalidArgumentException("Method $cacheKey is not callable.");
+        }
+
+        $methodCache[$cacheKey] = $method;
+    }
+
+    return call_user_func($methodCache[$cacheKey], $value);
+}
+
+// function invokeMethod($method, $value, $context = null) {
+//     static $methodCache = [];
+
+//     // Generate a unique cache key based on the method and context type
+//     $contextClass = is_object($context) ? get_class($context) : null;
+//     $cacheKey = is_string($method) ? $method : json_encode($method) . ($contextClass ? ':' . $contextClass : '');
+
+//     // Check and cache the method reference
+//     if (!isset($methodCache[$cacheKey])) {
+//         if (is_string($method)) {
+//             if (strpos($method, 'self::') === 0 && $contextClass) {
+//                 $method = [$contextClass, substr($method, 6)];
+//             } elseif (strpos($method, '$this->') === 0 && $context) {
+//                 $method = [$context, substr($method, 7)];
+//             } elseif (!function_exists($method) && strpos($method, '::') !== false) {
+//                 // Assume it is a static method if containing '::' and not a known function
+//                 $method = explode('::', $method);
+//             }
+//             // If it's a single word string, it could be a PHP function or a simple callable
+//             // No modification needed, directly test if callable below
+//         }
+
+//         // Verify if the normalized method is callable
+//         if (!is_callable($method)) {
+//             throw new \InvalidArgumentException("Method $cacheKey is not callable.");
+//         }
+
+//         $methodCache[$cacheKey] = $method;
+//     }
+
+//     return call_user_func($methodCache[$cacheKey], $value, $context);
+// }

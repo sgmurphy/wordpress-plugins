@@ -11,7 +11,7 @@ use \SpeedyCache\Util;
 class Delete{
 	
 	static $cache_lifespan = 0;
-	
+
 	static function run($actions){
 		global $speedycache;
 		
@@ -49,7 +49,10 @@ class Delete{
 		}
 	}
 	
-	// Deletes a single page
+	/**
+	 * Deletes cache of a single page
+	 * @param int $post_id
+	 */
 	static function cache($post_id = false){
 		global $speedycache;
 
@@ -68,35 +71,62 @@ class Delete{
 			return;
 		}
 
-		$parsed_url = wp_parse_url($link);
-		$path = $parsed_url['path'];
-		
-		$file = '';
-		if(empty($path) || $path == '/'){
-			$file = 'index.html';
-		}
+		self::url($link);
 
-		$cache_path = [];
-		$cache_path[] = Util::cache_path('all/'.trim($path, '/') . $file);
-		if($speedycache->options['mobile_theme']){
-			$cache_path[] = Util::cache_path('mobile-cache/'.trim($path, '/') . $file);
-		}
-
-		foreach($cache_path as $c_path){
-			if(!file_exists($c_path)){
-				continue;
-			}
-
-			if(is_dir($c_path)){
-				self::rmdir($c_path);
-				continue;
-			}
-
-			unlink($c_path);
-		}
 		if(class_exists('\SpeedyCache\Logs')){
 			\SpeedyCache\Logs::log('delete');
 			\SpeedyCache\Logs::action();
+		}
+		
+		if(!empty($speedycache->options['preload'])){
+			\SpeedyCache\Preload::url($link);
+		}
+
+		delete_option('speedycache_html_size');
+		delete_option('speedycache_assets_size');
+	}
+
+	/**
+	* Deletes cache of a URL
+	* Parses and converts a URL to cache path and purges it
+	* @param array|string $urls
+	*/
+	static function url($urls){
+		global $speedycache;
+
+		if(!is_array($urls)){
+			$urls = [$urls];
+		}
+		
+		foreach($urls as $url){
+			$parsed_url = wp_parse_url($url);
+			$path = $parsed_url['path'];
+			
+			$file = '';
+			if(empty($path) || $path == '/'){
+				$file = 'index.html';
+			} else {
+				$file = trim($path, '/') . '/index.html';
+			}
+
+			$cache_path = [];
+			$cache_path[] = Util::cache_path('all') . $file;
+			if(!empty($speedycache->options['mobile_theme'])){
+				$cache_path[] = Util::cache_path('mobile-cache') . $file;
+			}
+
+			foreach($cache_path as $c_path){
+				if(!file_exists($c_path)){
+					continue;
+				}
+
+				if(is_dir($c_path)){
+					self::rmdir($c_path);
+					continue;
+				}
+
+				unlink($c_path);
+			}
 		}
 	}
 
@@ -117,7 +147,7 @@ class Delete{
 			\SpeedyCache\Logs::action();
 		}
 	}
-	
+
 	// Delete minified and Critical css content.
 	static function minified(){
 		$assets_cache_path = Util::cache_path('assets');
@@ -125,19 +155,19 @@ class Delete{
 		if(!file_exists($assets_cache_path)){
 			return;
 		}
-		
+
 		self::rmdir($assets_cache_path);
-		
+
 		if(class_exists('\SpeedyCache\Logs')){
 			\SpeedyCache\Logs::log('delete');
 			\SpeedyCache\Logs::action();
 		}
 	}
-	
+
 	// Delete local fonts
 	static function local_fonts(){
 		$fonts_path = Util::cache_path('fonts');
-		
+
 		if(!file_exists($fonts_path)){
 			return;
 		}
@@ -169,7 +199,7 @@ class Delete{
 	static function all_for_domain(){
 		
 	}
-	
+
 	static function rmdir($dir){
 
 		if(!file_exists($dir)){
@@ -248,7 +278,7 @@ class Delete{
 		
 		return array(__('Purged Varnish Cache Succesfully', 'speedycache'), 'success');
 	}
-	
+
 	static function expired_cache(){
 		global $speedycache;
 
@@ -260,13 +290,17 @@ class Delete{
 			return;
 		}
 
-		$cache_path = Util::cache_path('all');
+		$cache_path = [];
+		$cache_path[] = Util::cache_path('all');
+		$cache_path[] = Util::cache_path('mobile-cache');
 		
-		if(!file_exists($cache_path)){
-			return;
+		foreach($cache_path as $path){		
+			if(!file_exists($path)){
+				return;
+			}
+
+			self::rec_clean_expired($path);
 		}
-		
-		self::rec_clean_expired($cache_path);
 		
 		if(class_exists('\SpeedyCache\Logs')){
 			\SpeedyCache\Logs::log('delete');
@@ -274,6 +308,7 @@ class Delete{
 		}
 	}
 	
+	// Recursively deletes expired cache
 	static function rec_clean_expired($path){
 		$files = array_diff(scandir($path), array('..', '.'));
 
@@ -294,7 +329,9 @@ class Delete{
 			}
 		}
 	}
-	
+
+	// Deletes the cache of the post whose status got changed,
+	// only deletes when the post transitions in our out of published mode
 	static function on_status_change($new_status, $old_status, $post){
 		global $speedycache;
 
@@ -317,46 +354,103 @@ class Delete{
 		if($new_status == 'publish'){
 			self::cache($post->ID);
 		}
-
+		
+		// Deleting the cache of home page and blog page
 		$home_page_id = get_option('page_on_front');
 		self::cache($home_page_id);
-
+		
+		// For some sites home page and blog page could be same
 		$blog_page_id = get_option('page_for_posts');
 		if($home_page_id !== $blog_page_id){
 			self::cache($blog_page_id);
 		}
+
+		// Deleting the author page cache
+		$author_page_url = get_author_posts_url($post->post_author);
+		self::url($author_page_url);
+		
+		// Deleting cache of related terms
+		self::terms($post->ID);
+		
 	}
 
-	static function fetch_linked_posts($post_id){
-		if(!$post_id){
-			return [];
+	// Deletes cache of the page where a comments status got change.
+	static function on_comment_status($new_status, $old_status, $comment){
+		global $speedycache;
+
+		if($old_status == $new_status && $old_status !== 'approved') return;
+
+		if($old_status !== 'approved' && $new_status !== 'approved'){
+			return;
 		}
 
-		$current_post_url = get_permalink($post_id);
+		if(empty($speedycache->options['status'])){
+			return;
+		}
 
-		// Query posts that might contain a link to the current post
-		$args = [
-			'post_type'      => 'any',
-			'posts_per_page' => 10,
-			's'              => $current_post_url, // Search for the URL in the content
-		];
-
-		$query = new WP_Query($args);
+		self::cache($comment->comment_parent);
 		
-		$linked_posts = [];
+	}
 
-		if ($query->have_posts()) {
-			while ($query->have_posts()) {
-				$query->the_post();
-				// Verify that the content actually contains the URL
-				if (strpos(get_the_content(), $current_post_url) !== false) {
-					$linked_posts[] = get_the_ID();
-				}
+	static function terms($post_id){
+		global $speedycache;
+		
+		if(empty($post_id) || !is_numeric($post_id)){
+			return;
+		}
+
+		$terms = wp_get_post_terms($post_id);
+
+		$deletable_links = [];
+		foreach($terms as $term){
+			$link = get_term_link($term->term_id);
+			
+			$deletable_links[] = $link;
+		}
+
+		if(empty($deletable_links)){
+			return;
+		}
+		
+		self::url($deletable_links);
+		
+		if(!empty($speedycache->options['preload'])){
+			\SpeedyCache\Preload::url($deletable_links);
+		}
+	}
+
+	// Deletes cache of product page and its related pages when a order is made
+	static function order($order_id){
+		global $speedycache;
+
+		if(empty($speedycache->options['status'])){
+			return;
+		}
+
+		if(!function_exists('wc_get_order')){
+			return;
+		}
+
+		$order = wc_get_order($order_id);
+		$items = $order->get_items();
+
+		foreach($items as $item){
+			$product_id = $item->get_product_id();
+			
+			if(empty($product_id)){
+				continue;
+			}
+
+			self::cache($product_id);
+			
+			$categories = wp_get_post_terms($product_id, 'product_cat', array('fields' => 'ids'));
+
+			foreach($categories as $category){
+				self::cache($category);
 			}
 		}
 
-		wp_reset_postdata();
-
-		return $linked_posts;
+		$shop_page_id = wc_get_page_id('shop');
+		self::cache($shop_page_id);
 	}
 }

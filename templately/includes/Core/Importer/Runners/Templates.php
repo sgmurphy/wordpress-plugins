@@ -164,9 +164,8 @@ class Templates extends BaseRunner {
 	 */
 	private function create_page_template() {
 		try {
-			if ( $this->manifest['platform'] !== 'gutenberg' ) {
-				return;
-			}
+			$meta = [];
+			$data = [];
 
 			$post_data = [
 				'post_title'   => 'Single Page - (by Templately)',
@@ -174,12 +173,16 @@ class Templates extends BaseRunner {
 				'post_type'    => 'templately_library',
 			];
 
-			$meta = [];
-
-			$meta['_wp_page_template'] = PageTemplates::TEMPLATE_HEADER_FOOTER;
+			if ( $this->manifest['platform'] == 'elementor' ) {
+				$meta['_wp_page_template'] = 'elementor_header_footer';
+				$data = json_decode('{"content":[{"id":"4a86515d","settings":[],"elements":[{"id":"30a46db1","settings":{"content_width":"full"},"elements":[],"isInner":false,"widgetType":"tl-post-content","elType":"widget"}],"isInner":false,"elType":"container"}],"settings":{"template":"elementor_header_footer"},"metadata":[]}', true);
+			} elseif ( $this->manifest['platform'] == 'gutenberg' ) {
+				$meta['_wp_page_template'] = PageTemplates::TEMPLATE_HEADER_FOOTER;
+				$data = ['content' => '<!-- wp:post-content /-->'];
+			}
 
 			$template = $this->factory->create( 'page_single', $post_data, $meta );
-			$template->import( ['content' => '<!-- wp:post-content /-->'] );
+			$template->import( $data );
 
 			// return $archive_page;
 		} catch ( \Exception $e ) {

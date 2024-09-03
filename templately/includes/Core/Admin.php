@@ -180,6 +180,7 @@ class Admin extends Base {
 			'signed_as_global'   => Login::signed_as_global(),
 			'current_screen'     => $_current_screen,
 			'post_type' 		 => get_post_type(),
+			'has_elementor'      => rest_sanitize_boolean( is_plugin_active( 'elementor/elementor.php' ) ),
 			'has_elementor_pro'  => rest_sanitize_boolean( is_plugin_active( 'elementor-pro/elementor-pro.php' ) ),
 			'theme'                   => $_current_screen == 'templately' ? 'light' : $platform->ui_theme(),
 			'is_wp_support_gutenberg' => version_compare( get_bloginfo( 'version' ), '5.0.0', '>=' ),

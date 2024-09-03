@@ -127,6 +127,7 @@ class BWFAN_API_Update_Automation extends BWFAN_API_Base {
 			if ( isset( $automation_meta['event_meta'] ) ) {
 				$automation_meta['event_meta'] = BWFAN_Common::fetch_updated_data( $automation_meta['event_meta'] );
 			}
+
 			return $this->success_response( [
 				'meta' => $automation_meta,
 			], __( 'Automation Data Updated', 'wp-marketing-automations' ) );

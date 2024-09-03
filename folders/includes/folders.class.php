@@ -1022,11 +1022,13 @@ class WCP_Folders
                         } else if ($trash_count == null) {
 
                             if ($trash_count === null) {
-                                //$result = $wpdb->get_var("SELECT COUNT(*) FROM {$post_table} p JOIN {$term_table} rl ON p.ID = rl.object_id WHERE rl.term_taxonomy_id = '{$term->term_taxonomy_id}' AND p.post_status != 'trash' LIMIT 1");
                                 $query = "SELECT COUNT(DISTINCT(p.ID)) 
                                     FROM {$post_table} p 
                                         JOIN {$term_table} rl ON p.ID = rl.object_id 
-                                        WHERE rl.term_taxonomy_id = '{$term->term_taxonomy_id}' AND p.post_status != 'trash' LIMIT 1";
+                                        WHERE rl.term_taxonomy_id = '{$term->term_taxonomy_id}' 
+                                          AND p.post_status != 'trash' 
+                                          AND p.post_status != 'auto-draft' 
+                                        LIMIT 1";
                                 $result = $wpdb->get_var($query);
                                 if (intval($result) > 0) {
                                     $trash_count = intval($result);
@@ -2096,6 +2098,10 @@ class WCP_Folders
                     'is_key_active' => $is_active,
                     'hasStars'      => $hasStars,
                     'hasChildren'   => $hasChild,
+                    'lang'          => [
+                        "pro_message"   => esc_html__("WordPress doesn't allow you to upload SVG files, upgrade to Folders Pro and experience added SVG file upload support!", "folders"),
+                        "activate_key"  => esc_html__("Upgrade now!", "folders"),
+                    ]
                 ]
             );
             // Free/Pro URL Change
@@ -3848,7 +3854,7 @@ class WCP_Folders
      * @access public
      * @return $slug
      */
-    public function create_slug_from_string($str)
+    public static function create_slug_from_string($str)
     {
         $a = [
             'À',
@@ -4899,6 +4905,8 @@ class WCP_Folders
             'WCP_Form_View'       => WCP_DS."includes".WCP_DS."form.class.php",
             'WCP_Folder_WPML'     => WCP_DS."includes".WCP_DS."class-wpml.php",
             'WCP_Folder_PolyLang' => WCP_DS."includes".WCP_DS."class-polylang.php",
+            'Folders_Notifications' => WCP_DS."includes".WCP_DS."notifications.class.php",
+            'Folders_Import_Export' => WCP_DS."includes".WCP_DS."import.export.class.php",
         ];
 
         foreach ($files as $file) {
@@ -5417,6 +5425,12 @@ class WCP_Folders
             wp_enqueue_script('folders-slick', plugin_dir_url(dirname(__FILE__)).'assets/js/slick.min.js', ['jquery'], WCP_FOLDER_VERSION, true);
         }
 
+        $isShown = get_option("folder_update_message");
+        if ($isShown === false) {
+            wp_enqueue_script('folders-mailcheck-js', plugin_dir_url(dirname(__FILE__)).'assets/js/mailcheck.js', ['jquery'], WCP_FOLDER_VERSION, true);
+            return;
+        }
+
         if (self::is_active_for_screen()) {
             remove_filter("terms_clauses", "TO_apply_order_filter");
 
@@ -5672,6 +5686,10 @@ class WCP_Folders
                         'folders'       => $folders,
                         'hasStars'      => $hasStars,
                         'hasChildren'   => $hasChild,
+                        'lang'          => [
+                            "pro_message"   => esc_html__("WordPress doesn't allow you to upload SVG files, upgrade to Folders Pro and experience added SVG file upload support!", "folders"),
+                            "activate_key"  => esc_html__("Upgrade now!", "folders"),
+                        ],
                     ]
                 );
             }//end if
@@ -6310,7 +6328,7 @@ class WCP_Folders
                 $is_plugin_exists = $plugins->is_exists;
                 $settingURL = $this->getFolderSettingsURL();
 
-                $setting_page = in_array($setting_page, ["folder-settings", "customize-folders", "folders-import", "upgrade-to-pro", "folders-by-user"]) ? $setting_page : "folder-settings";
+                $setting_page = in_array($setting_page, ["folder-settings", "customize-folders", "folders-import", "upgrade-to-pro", "folders-by-user","notification-settings"]) ? $setting_page : "folder-settings";
                 $isInSettings = $this->isFoldersInSettings();
 
                 include_once dirname(dirname(__FILE__)) . "/templates/admin/general-settings.php";

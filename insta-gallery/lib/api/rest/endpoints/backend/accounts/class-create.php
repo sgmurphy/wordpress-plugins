@@ -2,7 +2,7 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
 
 /**
  * Api_Rest_Accounts_Create Class
@@ -15,7 +15,7 @@ class Create extends Base {
 
 		try {
 
-			$body = json_decode( $request->get_body() );
+			$body = json_decode( $request->get_body(), true );
 
 			if ( empty( $body->access_token ) ) {
 				throw new \Exception( esc_html__( 'access_token not set.', 'insta-gallery' ), 412 );
@@ -25,18 +25,13 @@ class Create extends Base {
 				throw new \Exception( esc_html__( 'id not set.', 'insta-gallery' ), 412 );
 			}
 
-			$account = ( new Models_Account() )->create(
-				array(
-					'access_token' => $body->access_token,
-					'id'           => $body->id,
-				)
-			);
+			$response = Models_Accounts::instance()->create( $body );
 
-			if ( ! isset( $account['access_token'] ) ) {
-				throw new \Exception( isset( $account['message'] ) ? $account['message'] : esc_html__( 'Unable to create account.', 'insta-gallery' ), 412 );
+			if ( ! isset( $response['access_token'] ) ) {
+				throw new \Exception( isset( $response['message'] ) ? $response['message'] : esc_html__( 'Unable to create account.', 'insta-gallery' ), 412 );
 			}
 
-			return $this->handle_response( $account );
+			return $this->handle_response( $response );
 
 		} catch ( \Exception $e ) {
 			$response = array(

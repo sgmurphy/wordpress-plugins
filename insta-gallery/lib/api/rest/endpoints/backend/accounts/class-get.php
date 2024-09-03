@@ -2,7 +2,7 @@
 namespace QuadLayers\IGG\Api\Rest\Endpoints\Backend\Accounts;
 
 use QuadLayers\IGG\Api\Rest\Endpoints\Backend\Base;
-use QuadLayers\IGG\Models\Accounts as Models_Account;
+use QuadLayers\IGG\Models\Accounts as Models_Accounts;
 
 /**
  * Api_Rest_Accounts_Get Class
@@ -13,36 +13,32 @@ class Get extends Base {
 
 	public function callback( \WP_REST_Request $request ) {
 
-		$models_account = new Models_Account();
+		try {
 
-		$id = trim( $request->get_param( 'id' ) );
+			$account_id = trim( $request->get_param( 'id' ) );
 
-		/**
-		 *Get all accounts
-		 */
-		if ( ! $id ) {
+			if ( ! $account_id ) {
 
-			$accounts = $models_account->get_all();
+				$response = Models_Accounts::instance()->get_all() ?? array();
 
-			return $this->handle_response( $accounts ?? array() );
-		}
+				return $this->handle_response( $response );
+			}
 
-		/**
-		 * Get accound by id
-		 */
+			$response = Models_Accounts::instance()->get( $account_id );
 
-		$account = $models_account->get( $id );
+			if ( ! $response ) {
+				throw new \Exception( sprintf( esc_html__( 'Account %s not found.', 'insta-gallery' ), $account_id ), 412 );
+			}
 
-		if ( ! $account ) {
+			return $this->handle_response( $response );
+
+		} catch ( \Exception $e ) {
 			$response = array(
-				'code'    => 404,
-				'message' => sprintf( esc_html__( 'Account %s not found.', 'insta-gallery' ), $id ),
+				'code'    => $e->getCode(),
+				'message' => $e->getMessage(),
 			);
 			return $this->handle_response( $response );
 		}
-
-		return $this->handle_response( $account );
-
 	}
 
 	public static function get_rest_args() {

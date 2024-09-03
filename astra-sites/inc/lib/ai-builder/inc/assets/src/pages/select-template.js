@@ -452,7 +452,7 @@ const SelectTemplate = () => {
 			onScroll={ handleShowBackToTop }
 		>
 			<Heading
-				heading="Choose the Design"
+				heading={ __( 'Choose the Design', 'ai-builder' ) }
 				className="px-5 md:px-10 lg:px-14 xl:px-15 pt-5 md:pt-10 lg:pt-8 xl:pt-8 max-w-fit mx-auto"
 			/>
 			<form
@@ -463,7 +463,7 @@ const SelectTemplate = () => {
 					name="keyword"
 					inputClassName="pl-4"
 					register={ register }
-					placeholder="Add a keyword"
+					placeholder={ __( 'Add a keyword', 'ai-builder' ) }
 					height="12"
 					error={ errors?.keyword }
 					suffixIcon={

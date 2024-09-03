@@ -1,3 +1,9 @@
+v1.2.2 - 30-August-2024
+- New: Added filter to update the default website language.
+
+v1.2.1 - 23-August-2024
+- Fix: Some strings were not translation ready.
+
 v1.2.0 - 07-August-2024
 - New: Enhanced AI onboarding UI.
 

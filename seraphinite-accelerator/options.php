@@ -157,7 +157,7 @@ function _SettingsPage()
 {
 
 	Plugin::CmnScripts( array( 'Cmn', 'Gen', 'Ui', 'Net', 'AdminUi' ) );
-	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.4' );
+	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.5' );
 	Plugin::Loc_ScriptLoad( Plugin::ScriptId( 'Admin' ) );
 	wp_enqueue_script( Plugin::ScriptId( 'Admin' ) );
 
@@ -2292,6 +2292,17 @@ function _SettingsPage()
 							$o .= ( Ui::TagOpen( 'tr' ) );
 							{
 								$o .= ( Ui::TagOpen( 'td', array( 'style' => array( 'padding-left' => '1.5em' ) ) ) );
+								{
+									$fldId = 'contPr/img/lazy/own';
+									$o .= ( Ui::CheckBox( esc_html_x( 'OwnChk', 'admin.Settings_Images_Lazy', 'seraphinite-accelerator' ), 'seraph_accel/' . $fldId, Gen::GetArrField( $sett, $fldId, false, '/' ), true ) );
+								}
+								$o .= ( Ui::TagClose( 'td' ) );
+							}
+							$o .= ( Ui::TagClose( 'tr' ) );
+
+							$o .= ( Ui::TagOpen( 'tr' ) );
+							{
+								$o .= ( Ui::TagOpen( 'td', array( 'style' => array( 'padding-left' => '3em' ) ) ) );
 								{
 									$fldId = 'contPr/img/lazy/smoothAppear';
 									$o .= ( Ui::CheckBox( esc_html_x( 'SmoothAppearChk', 'admin.Settings_Images_Lazy', 'seraphinite-accelerator' ), 'seraph_accel/' . $fldId, Gen::GetArrField( $sett, $fldId, false, '/' ), true ) );
@@ -5670,6 +5681,7 @@ function _OnSaveSettings( $args )
 		{ $fldId = 'contPr/img/szAdaptDpr';					Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'contPr/img/lazy/setSize';				Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'contPr/img/lazy/load';					Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
+		{ $fldId = 'contPr/img/lazy/own';					Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'contPr/img/lazy/smoothAppear';			Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'contPr/img/lazy/del3rd';				Gen::SetArrField( $sett, $fldId, isset( $args[ 'seraph_accel/' . $fldId ] ), '/' ); }
 		{ $fldId = 'contPr/img/lazy/excl';					Gen::SetArrField( $sett, $fldId, Ui::TokensList_GetVal( $args[ 'seraph_accel/' . $fldId ], 'seraph_accel\\Wp::SanitizeXPath', true ), '/' ); }

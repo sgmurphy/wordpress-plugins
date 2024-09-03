@@ -126,9 +126,14 @@ Class L_Plus_Library {
 			$merge[] = 'tp-info-box';
 			$merge[] = 'tp-info-box-style_1';
 			$merge[] = 'tp-info-box-style_3';
+			$merge[] = 'tp-info-box-style_4';
 			$merge[] = 'plus-responsive-visibility';
 		}
 
+		if(in_array('tp-messagebox',$elements)){
+			$merge[] = 'tp-messagebox-js';
+		}
+		
 		if ( in_array( 'tp-gallery-listout', $elements ) ) {
 			$merge[] = 'plus-listing-masonry';
 			$merge[] = 'plus-listing-metro';

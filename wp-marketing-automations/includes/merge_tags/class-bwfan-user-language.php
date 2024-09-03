@@ -10,7 +10,7 @@ class BWFAN_Contact_Language extends BWFAN_Merge_Tag {
 		add_shortcode( 'bwfan_user_language', array( $this, 'parse_shortcode' ) );
 		add_shortcode( 'bwfan_contact_language', array( $this, 'parse_shortcode' ) );
 		$this->support_fallback = true;
-		$this->priority = 36;
+		$this->priority         = 36;
 	}
 
 	public static function get_instance() {
@@ -73,4 +73,4 @@ class BWFAN_Contact_Language extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group.
  */
-BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Language', null, 'Contact' );
+BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Language', null, __( 'Contact', 'wp-marketing-automations' ) );

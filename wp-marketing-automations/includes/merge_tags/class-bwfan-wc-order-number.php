@@ -59,6 +59,6 @@ if ( ! class_exists( 'BWFAN_WC_Order_number' ) ) {
 	 * Register this merge tag to a group.
 	 */
 	if ( bwfan_is_woocommerce_active() ) {
-		BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_number', null, 'Order' );
+		BWFAN_Merge_Tag_Loader::register( 'wc_order', 'BWFAN_WC_Order_number', null, __( 'Order', 'wp-marketing-automations' ) );
 	}
 }

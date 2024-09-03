@@ -20,6 +20,7 @@ if ( ! class_exists( 'BWFAN_DB_Table_Message' ) && BWFAN_Common::is_pro_3_0() ) 
 				"sub",
 				"body",
 				"date",
+				"data",
 			];
 		}
 
@@ -38,6 +39,7 @@ if ( ! class_exists( 'BWFAN_DB_Table_Message' ) && BWFAN_Common::is_pro_3_0() ) 
 		  `sub` varchar(255) NOT NULL,
 		  `body` longtext,
 		  `date` datetime DEFAULT NULL,
+		  `data` longtext,
 		  PRIMARY KEY (`ID`),
 		  KEY `track_id` (`track_id`)
 		) $collate;";

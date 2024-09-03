@@ -60,6 +60,24 @@ $social_links_default = array(
     'behance_link' => '',
 );
 
+$text_transform_options = array(
+    'none' => __('None', "ays-popup-box"),
+    'capitalize' => __('Capitalize', "ays-popup-box"),
+    'uppercase' => __('Uppercase', "ays-popup-box"),
+    'lowercase' => __('Lowercase', "ays-popup-box"),
+);
+
+$border_styles = array(
+    'solid' => __('Solid',"ays-popup-box"),
+    'dotted' => __('Dotted',"ays-popup-box"),
+    'dashed' => __('Dashed',"ays-popup-box"),
+    'double' => __('Double',"ays-popup-box"),
+    'groove' => __('Groove',"ays-popup-box"),
+    'ridge' => __('Ridge',"ays-popup-box"),
+    'inset' => __('Inset',"ays-popup-box"),
+    'outset' => __('Outset',"ays-popup-box"),
+);
+
 $font_families = array(
     'inherit' => __('Inherit', "ays-popup-box"),
     'arial' => __('Arial', "ays-popup-box"),
@@ -100,6 +118,7 @@ $options = array(
     'notification_button_1_bg_hover_color' => '#F66123',
     'notification_button_1_text_color' => '#FFFFFF',
     'notification_button_1_text_hover_color' => '#FFFFFF',
+    'notification_button_1_text_transformation' => 'none',
     'notification_button_1_letter_spacing' => 0,
     'notification_button_1_font_size' => 15,
     'notification_button_1_border_radius' => 6,
@@ -463,6 +482,9 @@ $notification_button_1_text_color = (isset($options['notification_button_1_text_
 
 // Notification type | Button 1 text hover color
 $notification_button_1_text_hover_color = (isset($options['notification_button_1_text_hover_color']) && $options['notification_button_1_text_hover_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_hover_color']) ) : $notification_button_1_text_color;
+
+// Notification type | Button 1 text transformation
+$notification_button_1_text_transformation = (isset($options['notification_button_1_text_transformation']) && $options['notification_button_1_text_transformation'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_transformation']) ) : 'none';
 
 // Notification type | Button 1 letter spacing
 $notification_button_1_letter_spacing = (isset($options['notification_button_1_letter_spacing']) && $options['notification_button_1_letter_spacing'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing']) ) : 0;
@@ -1081,6 +1103,58 @@ if (isset($options['overlay_color_mobile'])) {
     $overlay_color_mobile = $overlay_color;
 }
 
+// Border width
+$border_size = (isset($popupbox['bordersize']) && $popupbox['bordersize'] != '') ? abs( intval( round($popupbox['bordersize']) ) ) : 0;
+
+// Enable different border width mobile
+$enable_border_size_mobile = (isset($options['enable_bordersize_mobile']) && $options['enable_bordersize_mobile'] == 'on') ? true : false;
+
+// Border width mobile
+if (isset($options['bordersize_mobile'])) {
+    $border_size_mobile = $options['bordersize_mobile'] != '' ? abs( intval( round($options['bordersize_mobile']) ) ) : 0;
+} else {
+    $border_size_mobile = $border_size;
+}
+
+// Border style
+$ays_pb_border_style = (isset($options['border_style']) && $options['border_style'] != '') ? esc_attr( stripslashes($options['border_style']) ) : 'solid';
+
+// Enable different border style mobile
+$enable_border_style_mobile = (isset($options['enable_border_style_mobile']) && $options['enable_border_style_mobile'] == 'on') ? true : false;
+
+// Border style mobile
+if (isset($options['border_style_mobile'])) {
+    $ays_pb_border_style_mobile = $options['border_style_mobile'] !== '' ? esc_attr( stripslashes($options['border_style_mobile']) ) : '';
+} else {
+    $ays_pb_border_style_mobile = $ays_pb_border_style;
+}
+
+// Border color
+$bordercolor = (isset($popupbox['bordercolor']) && $popupbox['bordercolor'] != '') ? esc_attr( stripslashes($popupbox['bordercolor']) ) : '';
+
+// Enable different border color mobile
+$enable_bordercolor_mobile = (isset($options['enable_bordercolor_mobile']) && $options['enable_bordercolor_mobile'] == 'on') ? true : false;
+
+// Border color mobile
+if (isset($options['bordercolor_mobile'])) {
+    $bordercolor_mobile = $options['bordercolor_mobile'] !== '' ? esc_attr( stripslashes($options['bordercolor_mobile']) ) : '';
+} else {
+    $bordercolor_mobile = $bordercolor;
+}
+
+// Border radius
+$border_radius = (isset($popupbox['border_radius']) && $popupbox['border_radius'] != '') ? abs( intval( round($popupbox['border_radius']) ) ) : 4;
+
+// Enable different border radius mobile
+$enable_border_radius_mobile = (isset($options['enable_border_radius_mobile']) && $options['enable_border_radius_mobile'] == 'on') ? true : false;
+
+// Border radius mobile
+if (isset($options['border_radius_mobile'])) {
+    $border_radius_mobile = $options['border_radius_mobile'] !== '' ? abs( intval( round($options['border_radius_mobile']) ) ) : 4;
+} else {
+    $border_radius_mobile = $border_radius;
+}
+
 // Custom class for quiz container
 $custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != "") ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
 $users_role   = (isset($popupbox['users_role']) && $popupbox['users_role'] != "") ? json_decode($popupbox['users_role'], true) : array();
@@ -1103,23 +1177,7 @@ if( isset( $popupbox['view_place'] ) && $popupbox['view_place'] != null){
     $id != null ? $view_place = explode( "***", $popupbox['view_place']) : $view_place = array();
 }
 
-// Border size
-$border_size = (isset($popupbox['bordersize']) && $popupbox['bordersize'] != '') ? abs(intval(round($popupbox['bordersize']))) : 1;
 $ays_pb_timer_position = (- absint(intval($border_size)) -40) . 'px';
-
-//Enable Different Border Size Mobile
-if (isset( $options['enable_bordersize_mobile'])) {
-    $enable_border_size_mobile = $options['enable_bordersize_mobile'] == 'on' ? true : false;
-} else {
-    $enable_border_size_mobile = false;
-}
-
-//Border Size Mobile
-if (isset($options['bordersize_mobile'])) {
-    $border_size_mobile = $options['bordersize_mobile'] != '' ? abs(intval(round($options['bordersize_mobile']))) : '1';
-} else {
-    $border_size_mobile = $border_size;
-}
 
 //Hide popupbox on mobile
 $ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? esc_attr($options['pb_mobile']) : 'off';
@@ -1133,40 +1191,6 @@ $ays_close_button_size = (isset($options['close_button_size']) && $options['clos
 $cookie             = (isset($popupbox['cookie']) && $popupbox['cookie'] != "") ? esc_attr( abs($popupbox['cookie']) ) : "";
 
 $custom_css = (isset($popupbox['custom_css']) && $popupbox['custom_css'] != "") ? stripslashes ( esc_attr($popupbox['custom_css'] ) ) : "";
-
-//Border Radius
-$border_radius = (isset($popupbox['border_radius']) && $popupbox['border_radius'] != "") ? abs(intval(round($popupbox['border_radius']))) : "";
-
-//Enable Different Border Radius Mobile
-if ( isset($options['enable_border_radius_mobile']) ) {
-    $enable_border_radius_mobile = $options['enable_border_radius_mobile'] == 'on' ? true : false;
-} else {
-    $enable_border_radius_mobile = false;
-}
-
-//Border Radius Mobile
-if ( isset($options['border_radius_mobile']) ) {
-    $border_radius_mobile = $options['border_radius_mobile'] !== '' ? abs( intval( round($options['border_radius_mobile']) ) ) : '';
-} else {
-    $border_radius_mobile = $border_radius;
-}
-
-//Popup Border Color
-$bordercolor = (isset($popupbox['bordercolor']) && $popupbox['bordercolor'] != "") ? esc_attr( stripslashes( $popupbox['bordercolor'] )) : "";
-
-//Enable Different Border Color Mobile
-if ( isset($options['enable_bordercolor_mobile']) ) {
-    $enable_bordercolor_mobile = $options['enable_bordercolor_mobile'] == 'on' ? true : false;
-} else {
-    $enable_bordercolor_mobile = false;
-}
-
-//Border Color Mobile
-if ( isset($options['bordercolor_mobile']) ) {
-    $bordercolor_mobile =  $options['bordercolor_mobile'] !== '' ? esc_attr($options['bordercolor_mobile']) : '';
-} else {
-    $bordercolor_mobile = $bordercolor;
-}
 
 $ays_pb_show_hide_timer_box = true;
 if ($enable_autoclose_delay_text_mobile) {
@@ -1244,36 +1268,6 @@ if($show_popup_desc == 'On'){
     $hide_desc = 'display:block';
 }else{
     $hide_desc = 'display:none';
-}
-
-//border style
-
-$border_styles = array(
-    'solid'     =>  __('Solid',"ays-popup-box"),
-    'dotted'    =>  __('Dotted',"ays-popup-box"),
-    'dashed'    =>  __('Dashed',"ays-popup-box"),
-    'double'    =>  __('Double',"ays-popup-box"),
-    'groove'    =>  __('Groove',"ays-popup-box"),
-    'ridge'     =>  __('Ridge',"ays-popup-box"),
-    'inset'     =>  __('Inset',"ays-popup-box"),
-    'outset'    =>  __('Outset',"ays-popup-box"),
-);
-
-// Popup Border Style
-$ays_pb_border_style = (isset($options['border_style']) && $options['border_style'] != "") ? esc_attr( stripslashes($options['border_style']) ) : "solid";
-
-//Enable Different Border Style Mobile
-if ( isset($options['enable_border_style_mobile']) ) {
-    $enable_border_style_mobile = $options['enable_border_style_mobile'] == 'on' ? true : false;
-} else {
-    $enable_border_style_mobile = false;
-}
-
-//Border Color Mobile
-if ( isset($options['border_style_mobile']) ) {
-    $ays_pb_border_style_mobile =  $options['border_style_mobile'] !== '' ? esc_attr( stripslashes($options['border_style_mobile']) ) : '';
-} else {
-    $ays_pb_border_style_mobile = $ays_pb_border_style;
 }
 
 $next_popup_id = "";
@@ -1938,6 +1932,34 @@ $ays_users_roles = $wp_roles->roles;
                                         </div>
                                         <div class="col-sm-9">
                                             <input type="text" id="ays_pb_notification_button_1_text_hover_color" class="ays_pb_color_input" name="ays_pb_notification_button_1_text_hover_color" value="<?php echo $notification_button_1_text_hover_color ?>" data-default-color="#FFFFFF" data-alpha="true" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_text_transformation">
+                                                <?php  echo __('Text transformation', "ays-popup-box") ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify how the text appears in all-uppercase or all-lowercase, or with each word capitalized.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select name="ays_pb_notification_button_1_text_transformation" id="ays_pb_notification_button_1_text_transformation" class="ays_pb_aysDropdown">
+                                                <?php
+                                                    foreach ($text_transform_options as $key => $text_transform) {
+                                                        $selected = '';
+                                                        if ($key == $notification_button_1_text_transformation) {
+                                                            $selected = 'selected';
+                                                        }
+                                                ?>
+                                                <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
+                                                    <?php echo $text_transform; ?>
+                                                </option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <hr>

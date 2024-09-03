@@ -253,21 +253,6 @@ abstract class BWF_CO {
 		return $this->is_oauth;
 	}
 
-	public function setting_view() {
-		?>
-        <script type="text/html" id="tmpl-connector-<?php echo esc_html( $this->get_slug() ); ?>">
-			<?php $this->get_settings_view(); ?>
-        </script>
-		<?php
-	}
-
-	public function get_settings_view() {
-		$file_path = $this->dir . '/views/settings.php';
-		if ( file_exists( $file_path ) ) {
-			include $file_path;
-		}
-	}
-
 	/**
 	 * Get the connector loading priority
 	 *

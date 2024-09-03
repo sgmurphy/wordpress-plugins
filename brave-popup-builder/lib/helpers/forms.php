@@ -63,7 +63,7 @@ function bravepop_form_submission(){
                      if($fID === $fieldID){
 
                         if(is_string($fVal)){
-                           $fieldSettings->$fieldID->value = strip_tags($fVal);
+                           $fieldSettings->$fieldID->value = wp_strip_all_tags($fVal);
                         }else{
                            $fieldSettings->$fieldID->value = $fVal;
                         }
@@ -78,18 +78,18 @@ function bravepop_form_submission(){
                         //Assign shortcode Values
                         if($fieldKey){
                            if(isset($fVal) && is_string($fVal)){
-                              $fieldSettings->$fieldID->$fieldKey = strip_tags($fVal);
+                              $fieldSettings->$fieldID->$fieldKey = wp_strip_all_tags($fVal);
                            }  
       
                            if(isset($fVal) && is_array($fVal)){
                               $arrayVal = implode(", ", $fVal);
-                              $fieldSettings->$fieldID->$fieldKey = strip_tags($arrayVal);
+                              $fieldSettings->$fieldID->$fieldKey = wp_strip_all_tags($arrayVal);
                            }
       
                            if(isset($fVal) && $field->type === 'input' && $field->validation === 'name' && (strpos($fVal, ',') !== false)){
                               $fullName = explode(',', $fVal);
-                              $firstname = isset($fullName[0]) ? strip_tags($fullName[0]) : '';
-                              $lastname = isset($fullName[1]) ? strip_tags($fullName[1]) : '';
+                              $firstname = isset($fullName[0]) ? wp_strip_all_tags($fullName[0]) : '';
+                              $lastname = isset($fullName[1]) ? wp_strip_all_tags($fullName[1]) : '';
                               $fieldSettings->$fieldID->$fieldKey = $firstname;
                               if($fieldKey2){
                                  $fieldSettings->$fieldID->$fieldKey2 = $lastname;
@@ -182,8 +182,8 @@ function bravepop_form_submission(){
                $defaultKey = !$defaultKey && isset($field->placeholder) ? $field->placeholder : $defaultKey;
 
                $fieldKey = isset($field->uid) ? $field->uid : $defaultKey;
-               $fieldValue = isset($field->value) && is_string($field->value) && $field->value ? strip_tags($field->value) : '';
-               $fieldValue = isset($field->value) && is_array($field->value) && $field->value ? strip_tags(implode(", ", $field->value)) : $fieldValue;
+               $fieldValue = isset($field->value) && is_string($field->value) && $field->value ? wp_strip_all_tags($field->value) : '';
+               $fieldValue = isset($field->value) && is_array($field->value) && $field->value ? wp_strip_all_tags(implode(", ", $field->value)) : $fieldValue;
                
                if(isset($field->value) && is_array($field->value) && $field->type === 'input' && $field->validation === 'name'){
                   $defaultKey2 = isset($field->secondLabel) ? $field->secondLabel : ''; 
@@ -332,7 +332,7 @@ function bravepop_form_submission(){
                if(!empty($matchedLisTags)){
                   $listID = isset($matchedLisTags['list']) ? $matchedLisTags['list'] : $listID;
                   $tags = isset($matchedLisTags['tags']) ? $matchedLisTags['tags'] : $tags;
-                  $miscSettings['mailchimp_groups'] = isset($matchedLisTags['groups']) ? $matchedLisTags['groups'] : $groups;
+                  $miscSettings['mailchimp_groups'] = isset($matchedLisTags['groups']) ? $matchedLisTags['groups'] : [];
                }
             }
          }
@@ -477,7 +477,7 @@ function bravepopup_validate_recaptcha(){
 }
 
 
-function bravepop_replace_emailShortcodes($message, $fieldValues, $userQuizData=false, $encode=false){
+function bravepop_replace_emailShortcodes($message, $fieldValues, $userQuizData=null, $encode=false){
    $finalMessage = $message;
    $formFieldKeyVals = '';
 

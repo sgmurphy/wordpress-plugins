@@ -6,10 +6,9 @@ use QuadLayers\IGG\Entity\Feed as Feed;
 use QuadLayers\WP_Orm\Builder\CollectionRepositoryBuilder;
 
 /**
- * Models_Feed Class
+ * Models_Feeds Class
  */
 class Feeds {
-
 
 	protected static $instance;
 	protected $repository;

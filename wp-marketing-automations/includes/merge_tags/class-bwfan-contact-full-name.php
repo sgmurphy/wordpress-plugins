@@ -9,7 +9,7 @@ if ( ! bwfan_is_autonami_pro_active() || version_compare( BWFAN_PRO_VERSION, '2.
 			$this->tag_description = __( 'Contact Full Name', 'wp-marketing-automations' );
 			add_shortcode( 'bwfan_contact_full_name', array( $this, 'parse_shortcode' ) );
 			add_shortcode( 'bwfan_customer_full_name', array( $this, 'parse_shortcode' ) );
-			$this->priority         = 13;
+			$this->priority = 13;
 		}
 
 		public static function get_instance() {
@@ -148,5 +148,5 @@ if ( ! bwfan_is_autonami_pro_active() || version_compare( BWFAN_PRO_VERSION, '2.
 	/**
 	 * Register this merge tag to a group.
 	 */
-	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Full_Name', null, 'Contact' );
+	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Full_Name', null, __( 'Contact', 'wp-marketing-automations' ) );
 }

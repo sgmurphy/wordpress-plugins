@@ -107,25 +107,25 @@ if ( ! class_exists( 'BWFAN_Conversions' ) && BWFAN_Common::is_pro_3_0() ) {
 			}
 
 			foreach ( $results as $conversation_data ) {
-				$this->add_new( $order_id, $conversation_data['ID'], $contact_id, $conversation_data['oid'], $conversation_data['type'] );
+				$this->add_new( $order, $conversation_data['ID'], $contact_id, $conversation_data['oid'], $conversation_data['type'] );
 			}
 		}
 
 		/**
-		 * @param int $order_id
-		 * @param int $conversation_id
-		 * @param int $contact_id
-		 * @param int $source_id
-		 * @param int $source_type
+		 * @param WC_Order $order
+		 * @param $conversation_id
+		 * @param $contact_id
+		 * @param $source_id
+		 * @param $source_type
 		 *
 		 * @return false|int
 		 */
-		public function add_new( $order_id, $conversation_id, $contact_id, $source_id, $source_type = 1 ) {
+		public function add_new( $order, $conversation_id, $contact_id, $source_id, $source_type = 1 ) {
 			if ( ! class_exists( 'WooCommerce' ) ) {
 				return false;
 			}
 
-			if ( ! absint( $order_id ) > 0 || ! absint( $conversation_id ) > 0 || ! absint( $contact_id ) > 0 || ! absint( $source_id ) > 0 ) {
+			if ( ! $order instanceof WC_Order || ! absint( $conversation_id ) > 0 || ! absint( $contact_id ) > 0 || ! absint( $source_id ) > 0 ) {
 				return false;
 			}
 
@@ -137,14 +137,15 @@ if ( ! class_exists( 'BWFAN_Conversions' ) && BWFAN_Common::is_pro_3_0() ) {
 					return false;
 				}
 			}
-
-			$order = wc_get_order( absint( $order_id ) );
-			if ( ! $order instanceof WC_Order || in_array( $order->get_status(), array( 'failed', 'pending', 'cancelled', 'refunded' ) ) ) {
+			if ( in_array( $order->get_status(), array( 'failed', 'pending', 'cancelled', 'refunded' ) ) ) {
 				return false;
 			}
 
 			$order_base_total = $order->get_meta( '_bwfan_order_total_base' );
-			$order_total      = ! empty( $order_base_total ) ? $order_base_total : $order->get_total();
+			$order_total      = ! empty( $order_base_total ) ? $order_base_total : '';
+			if ( empty( $order_total ) ) {
+				$order_total = BWF_Plugin_Compatibilities::get_fixed_currency_price_reverse( $order->get_total(), BWF_WC_Compatibility::get_order_currency( $order ) );
+			}
 			/** @todo order base total needs to calculate and add like we did in abandonment */
 			$order_date = $order->get_date_paid();
 			$order_date = ! $order_date instanceof WC_DateTime ? $order->get_date_created() : $order_date;
@@ -155,7 +156,7 @@ if ( ! class_exists( 'BWFAN_Conversions' ) && BWFAN_Common::is_pro_3_0() ) {
 				$order_date = $order_date->format( 'Y-m-d H:i:s' );
 			}
 			$data = array(
-				'wcid'    => absint( $order_id ),
+				'wcid'    => $order->get_id(),
 				'cid'     => absint( $contact_id ),
 				'trackid' => absint( $conversation_id ),
 				'oid'     => absint( $source_id ),
@@ -242,7 +243,7 @@ if ( ! class_exists( 'BWFAN_Conversions' ) && BWFAN_Common::is_pro_3_0() ) {
 				if ( $coupon_automation_id > 0 ) {
 					/** @todo should check tracking id by automation id, if not then any tracking id */
 					$track_id = $this->get_tracking_id( $order_email, $order_phone );
-					$this->add_new( $order_id, $track_id, $contact_id, $coupon_automation_id, 1 );
+					$this->add_new( $order, $track_id, $contact_id, $coupon_automation_id, 1 );
 
 					return true;
 				}
@@ -251,7 +252,7 @@ if ( ! class_exists( 'BWFAN_Conversions' ) && BWFAN_Common::is_pro_3_0() ) {
 				$coupon_broadcast_id = absint( get_post_meta( $coupon_id, '_bwfan_broadcast_id', true ) );
 				if ( $coupon_broadcast_id > 0 ) {
 					$track_id = $this->get_tracking_id( $order_email, $order_phone );
-					$this->add_new( $order_id, $track_id, $contact_id, $coupon_broadcast_id, 2 );
+					$this->add_new( $order, $track_id, $contact_id, $coupon_broadcast_id, 2 );
 
 					return true;
 				}

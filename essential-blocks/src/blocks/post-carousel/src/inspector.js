@@ -595,7 +595,7 @@ function Inspector(props) {
                             <BorderShadowControl
                                 controlName={COLUMN_BORDER_SHADOW}
                                 noShadow
-                            // noBorder
+                                // noBorder
                             />
                         </InspectorPanel.PanelBody>
                     </InspectorPanel.PanelBody>
@@ -858,7 +858,7 @@ function Inspector(props) {
                                 <BorderShadowControl
                                     controlName={READMORE_BORDER_SHADOW}
                                     noShadow
-                                // noBorder
+                                    // noBorder
                                 />
                             </InspectorPanel.PanelBody>
                         </InspectorPanel.PanelBody>

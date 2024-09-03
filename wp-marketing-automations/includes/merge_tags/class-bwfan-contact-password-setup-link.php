@@ -104,4 +104,4 @@ class BWFAN_Contact_Password_Setup_Link extends BWFAN_Merge_Tag {
 /**
  * Register this merge tag to a group
  */
-BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_password_setup_link', null, 'Contact' );
+BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_password_setup_link', null, __( 'Contact', 'wp-marketing-automations' ) );

@@ -108,6 +108,10 @@ class MyClouds extends API {
 		$id            = $this->get_param( 'id', 0, 'intval' );
 		$workspace_id  = $this->get_param( 'workspace_id', 0, 'intval' );
 
+		if( $file_type === 'elementor' && ! class_exists('Elementor\TemplateLibrary\Source_Local') ) {
+			return $this->error( 'required_elementor', __("Missing required dependency Elementor, please install before trying again.", "templately"), 'clouds/upload', 400 );
+        }
+
 		if( empty( $file_content ) ) {
             /**
              * @var Platform $platform

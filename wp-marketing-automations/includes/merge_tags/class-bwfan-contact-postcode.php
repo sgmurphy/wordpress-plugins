@@ -125,5 +125,5 @@ if ( ! bwfan_is_autonami_pro_active() || version_compare( BWFAN_PRO_VERSION, '2.
 	/**
 	 * Register this merge tag to a group.
 	 */
-	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Postcode', null, 'Contact' );
+	BWFAN_Merge_Tag_Loader::register( 'bwf_contact', 'BWFAN_Contact_Postcode', null, __( 'Contact', 'wp-marketing-automations' ) );
 }

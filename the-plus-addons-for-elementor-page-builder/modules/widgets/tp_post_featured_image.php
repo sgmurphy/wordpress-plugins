@@ -32,7 +32,7 @@ class L_ThePlus_Featured_Image extends Widget_Base {
 	 *
 	 * @var TpDoc of the class.
 	 */
-	public $tp_doc = L_THEPLUS_Tpdoc;
+	public $tp_doc = L_THEPLUS_TPDOC;
 
 	/**
 	 * Get Widget Name.
