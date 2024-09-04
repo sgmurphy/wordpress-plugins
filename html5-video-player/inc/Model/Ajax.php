@@ -82,8 +82,8 @@ class Ajax{
             wp_send_json_error('invalid request');
         }
 
-        if(!is_user_logged_in()){
-            wp_send_json_error('not logged in');
+        if(!current_user_can('edit_posts')){
+            return false;
         }
 
         $key = sanitize_text_field($_POST['key']);

@@ -1720,9 +1720,13 @@ class ShopEngine_Related extends \ShopEngine\Base\Widget
 			// Set a default value for slider loop if $args['related_products'] is not an array
 			$slider_loop = false;
 		}
+
+		// Fetch the column gap setting.
+		$shopengine_related_product_column_gap = $this->get_settings_for_display('shopengine_related_product_column_gap');
+		$shopengine_related_product_column_gap = isset($shopengine_related_product_column_gap) ? $shopengine_related_product_column_gap : ['size' => 10]; 
 		// slider controls for the template file
 		$slider_options = [
-			'slider_enabled'        => true,
+			'slider_enabled'        => $is_slider_enable,
 			'slides_to_show'		=> $shopengine_related_product_slider_perview,
 			'slides_to_show_mobile'		=> isset( $shopengine_related_product_slider_perview_mobile ) ? $shopengine_related_product_slider_perview_mobile : 1,
 			'slides_to_show_tablet'		=> isset( $shopengine_related_product_slider_perview_tablet ) ? $shopengine_related_product_slider_perview_tablet: 2,

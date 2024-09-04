@@ -87,6 +87,7 @@ return array(
     'Hummingbird\\Core\\Modules\\Minify\\Scanner' => $baseDir . '/core/modules/minify/class-scanner.php',
     'Hummingbird\\Core\\Modules\\Minify\\Sources_Collector' => $baseDir . '/core/modules/minify/class-sources-collector.php',
     'Hummingbird\\Core\\Modules\\Minify\\URI_Rewriter' => $baseDir . '/core/modules/minify/class-uri-rewriter.php',
+    'Hummingbird\\Core\\Modules\\Mixpanel_Analytics' => $baseDir . '/core/modules/class-mixpanel-analytics.php',
     'Hummingbird\\Core\\Modules\\Page_Cache' => $baseDir . '/core/modules/class-page-cache.php',
     'Hummingbird\\Core\\Modules\\Performance' => $baseDir . '/core/modules/class-performance.php',
     'Hummingbird\\Core\\Modules\\Redis' => $baseDir . '/core/modules/class-redis.php',

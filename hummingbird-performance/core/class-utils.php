@@ -298,21 +298,9 @@ class Utils {
 	 * @return array
 	 */
 	public static function get_tracking_data() {
-		global $wpdb, $wp_version;
-
 		return array(
 			'mixpanel' => array(
 				'enabled'        => Settings::get_setting( 'tracking', 'settings' ),
-				'plugin'         => 'Hummingbird',
-				'plugin_type'    => self::is_member() ? 'pro' : 'free',
-				'plugin_version' => WPHB_VERSION,
-				'wp_version'     => $wp_version,
-				'wp_type'        => is_multisite() ? 'multisite' : 'single',
-				'locale'         => get_locale(),
-				'active_theme'   => wp_get_theme()->get( 'Name' ),
-				'php_version'    => PHP_VERSION,
-				'mysql_version'  => $wpdb->db_version(),
-				'server_type'    => Module_Server::get_server_type(),
 			),
 		);
 	}

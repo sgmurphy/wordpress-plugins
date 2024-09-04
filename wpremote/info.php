@@ -10,7 +10,7 @@ if (!class_exists('WPRInfo')) :
 		public $badgeinfo = 'wprbadge';
 		public $ip_header_option = 'wpripheader';
 		public $brand_option = 'bv_whitelabel_infos';
-		public $version = '5.68';
+		public $version = '5.72';
 		public $webpage = 'https://wpremote.com';
 		public $appurl = 'https://app.wpremote.com';
 		public $slug = 'wpremote/plugin.php';

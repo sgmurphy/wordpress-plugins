@@ -108,6 +108,7 @@ class MetaBoxImport {
 				$get_fields_count = count($get_uploads_fields);
 				$indexs = 0;
 				foreach($get_uploads_fields as $uploads_fields){
+					MetaBoxImport::$media_instance->store_image_ids($i=1); 
 					$attachmentId = MetaBoxImport::$media_instance->image_meta_table_entry($line_number ,'', $pID ,$data_key, $uploads_fields, $hash_key,'metabox',$type,'','',$header_array, $value_array,'','',$indexs);
 					if($get_fields_count > 1){
 						add_post_meta($pID, $data_key, $attachmentId);	

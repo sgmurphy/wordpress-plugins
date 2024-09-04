@@ -4,7 +4,7 @@ Plugin Name: Login rebuilder
 Plugin URI: https://elearn.jp/wpman/column/login-rebuilder.html
 Description: This plugin will create a new login page for your site. The new login page can be placed in any directory. You can also create separate login pages for administrators and for other users.
 Author: tmatsuur
-Version: 2.8.3
+Version: 2.8.5
 Author URI: https://12net.jp/
 Text Domain: login-rebuilder
 Domain Path: /languages
@@ -126,7 +126,15 @@ require_once './wp-login.php';
 		$this->request_uri = $this->_sanitize_url( $_SERVER['REQUEST_URI'] );
 		$this->user_agent = isset( $_SERVER['HTTP_USER_AGENT'] )? wp_specialchars_decode( $_SERVER['HTTP_USER_AGENT'], ENT_QUOTES ): 'None';
 
-		$this->host_name = isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST']: 'Unknown'; // [2.8.3][2.6.2] $_SERVER['SERVER_NAME'] was wrong.
+		// [2.8.5][2.8.3][2.6.2] $_SERVER['SERVER_NAME'] was wrong.
+		if ( isset( $_SERVER['HTTP_HOST'] ) ) {
+			$this->host_name = $_SERVER['HTTP_HOST'];
+		} elseif ( isset( $_SERVER['SERVER_NAME'] ) ) {
+			$this->host_name = $_SERVER['SERVER_NAME'];
+		} else {
+			$this->host_name = gethostbyaddr( $_SERVER['SERVER_ADDR'] );
+		}
+
 		$this->root_url = ( ( is_ssl() || force_ssl_admin() )? "https://": "http://" ) . $this->host_name;
 		$this->root_path = $_SERVER['DOCUMENT_ROOT'];
 		if ( empty( $this->root_path ) ) {

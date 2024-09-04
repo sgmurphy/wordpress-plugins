@@ -8,7 +8,7 @@ Stable tag: 4.9.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
-The Essential Blocks Library for WordPress Gutenberg Editor.
+The powerful Gutenberg blocks library to create stunning websites in the WordPress Gutenberg Editor with 50+ advanced blocks for WooCommerce, post grids & more.
 
 == Description ==
 Bring your creative visions to life with **[Essential Blocks for Gutenberg](https://essential-blocks.com/)**, the ultimate blocks library for WordPress!
@@ -232,7 +232,7 @@ If you found the recent version of Essential Blocks isn’t working or conflicti
 
 = 4.9.1 - 03/09/2024 =
 - Added: Responsive typography support
-- Added: Product Grid | Product image clicable option
+- Added: Product Grid | Product Image Clickable Option
 - Fixed: Post Carousel | Posts not showing for default query
 - Fixed: NFT Gallery | API updated to v2.0
 - Fixed: Slider | Loading icon showing all time if image is transparent

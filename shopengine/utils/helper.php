@@ -527,7 +527,8 @@ class Helper {
 		$billing_fields = [];
 
 		foreach ($fields as $key => $field) {
-			$array = ['list_key' => $key, 'list_title' => $field['label']];
+			$label = isset($field['label']) ? $field['label'] : '';
+			$array = ['list_key' => $key, 'list_title' => $label];
 			array_push($billing_fields, $array);
 		}
 

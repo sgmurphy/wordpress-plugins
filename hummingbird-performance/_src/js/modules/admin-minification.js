@@ -14,7 +14,6 @@ import MinifyScanner from '../scanners/MinifyScanner';
 /**
  * External dependencies
  */
- const MixPanel = require( 'mixpanel-browser' );
  let criticalAjaxInterval;
  const ajaxExecutionInterval = 10000; // The interval set to 10 seconds
 

@@ -3,11 +3,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/js/block.js:186
+#: _src/js/block.js:185
 msgid "Generating Critical CSS"
 msgstr ""
 
-#: _src/js/block.js:92
+#: _src/js/block.js:91
 msgid "Critical CSS generated successfully"
 msgstr ""
 
@@ -666,34 +666,34 @@ msgid ""
 "next time someone visits your website."
 msgstr ""
 
-#: _src/react/modules/setup.jsx:305
+#: _src/react/modules/setup.jsx:289
 msgid "Setup wizard"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:311
+#: _src/react/modules/setup.jsx:295
 msgid "Hummingbird"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:312
+#: _src/react/modules/setup.jsx:296
 msgid "Wizard"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:317
+#: _src/react/modules/setup.jsx:301
 msgid ""
 "Get Hummingbird Pro for our full WordPress speed optimization suite, "
 "including uptime monitoring and enhanced CDN."
 msgstr ""
 
-#: _src/react/modules/setup.jsx:323
+#: _src/react/modules/setup.jsx:307
 #: _src/react/views/minify/summary.jsx:355
 msgid "UPGRADE TO PRO"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:334
+#: _src/react/modules/setup.jsx:318
 msgid "Quit wizard"
 msgstr ""
 
-#: _src/react/modules/setup.jsx:341
+#: _src/react/modules/setup.jsx:325
 msgid "Documentation"
 msgstr ""
 

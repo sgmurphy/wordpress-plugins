@@ -33,7 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 <script>
 	jQuery(document).ready( function() {
-		window.wphbMixPanel.init();
 		window.wphbMixPanel.trackProUpsell( 'expert_services_upsell', 'page_viewed' );
 	} );
 </script>

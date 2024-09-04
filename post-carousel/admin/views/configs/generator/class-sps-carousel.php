@@ -68,7 +68,7 @@ class SPS_Carousel {
 										'max'        => 10000,
 										'step'       => 100,
 										'unit'       => 'ms',
-										'title_info' => __( '<div class="spf-info-label">AutoPlay Delay Time</div> <div class="spf-short-content">Set autoplay delay or interval time. The amount of time to delay between automatically cycling a member. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'post-carousel' ),
+										'title_info' => '<div class="spf-info-label">' . __( 'AutoPlay Delay Time', 'post-carousel' ) . '</div> <div class="spf-short-content">' . __( 'Set autoplay delay or interval time. The amount of time to delay between automatically cycling a member. e.g. 1000 milliseconds(ms) = 1 second.', 'post-carousel' ) . '</div>',
 										'dependency' => array( 'pcp_autoplay', '==', true ),
 									),
 									array(

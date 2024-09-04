@@ -5,11 +5,11 @@ Tags: login secure security
 Requires at least: 3.2.0
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 2.8.3
+Stable tag: 2.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin will create a new login page for your site. The new login page can be placed in any directory. You can also create separate login pages for administrators and for other users.
+This plugin will create a new login page for your site. You can also create separate login pages for administrators and for other users.
 
 == Description ==
 
@@ -93,6 +93,12 @@ Yes, this plugin works well on Nginx.
 7. Widget to display currently logged in users.
 
 == Changelog ==
+
+= 2.8.5 =
+* Bug fix: Adjusted what is applied to internally stored hostnames when SERVER['HTTP_HOST'] does not exist.
+
+= 2.8.4 =
+* Bug fix: Fixed a bug that prevented the settings page from displaying.
 
 = 2.8.3 =
 * Bug fix: Changed to apply 'Unknown' to internally stored hostname when $_SERVER['HTTP_HOST'] does not exist.

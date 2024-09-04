@@ -1,35 +1,9 @@
 /* globals jQuery:true, ajaxurl:true, cp_ddp:true  */
-
-function cp_ddp_freemius_opt_in(element) { // eslint-disable-line no-unused-vars
-	var nonce = jQuery('#cp-ddp-freemius-opt-nonce').val(); // Nonce.
-	var choice = jQuery(element).data('opt'); // Choice.
-	jQuery('#cp-ddp-opt-spin').addClass('is-active');
-	jQuery.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		async: true,
-		data: {
-			action: 'cp_ddp_freemius_opt_in',
-			opt_nonce: nonce,
-			choice: choice
-		},
-		success: function () {
-			jQuery('#cp-ddp-opt-spin').removeClass('is-active');
-			location.reload();
-		},
-		error: function (xhr, textStatus, error) {
-			console.log(xhr.statusText);
-			console.log(textStatus);
-			console.log(error);
-		}
-	});
-}
-
 jQuery(document).ready(function ($) {
 
 	ddp_refresh_log();
 
-	jQuery('#ddp_redirtable').DataTable({
+	var redirTable = jQuery('#ddp_redirtable').DataTable({
 		"processing": true,
 		"serverSide": true,
 		"autoWidth": true,
@@ -55,44 +29,21 @@ jQuery(document).ready(function ($) {
 		"select": {
 			style: 'multi'
 		},
-		"dom": '<"top"Bfli>rt<"bottom"Bfli>p',
-
-    "buttons": [
+		"dom": '<"top"Blfip>rt<"bottom"Blfip>',
+		"buttons": [
 			{
-				"text": 'Select Visible',
-				"className": 'button button-secondary button-small',
-				"action": function (e, dt, node, config) {
-						dt.rows({ page: 'current' }).select();
-				}
-		},
-			{
-				"text": 'Delete Selected',
-				"className": 'button button-secondary button-small',
-				"action": function (e, dt, node, config) {
-						var selectedData = dt.rows({ selected: true }).data().toArray();
-						var postData = selectedData.map(function(row) {
-								return { ID: row.ID };
-						});
-				
-						jQuery.ajax({
-								url: ajaxurl,
-								type: 'POST',
-								data: {
-										action: 'ddp_delete_redirects',
-										_ajax_nonce: cp_ddp.nonce,
-										checked_posts: postData
-								},
-								success: function(response) {
-										// Handle the response, e.g., refresh the DataTable or show a success message
-										dt.ajax.reload();
-								},
-								error: function(xhr, status, error) {
-										// Handle any errors, e.g., show an error message
-								}
-						});
-				}
-			}
-	],
+				text: 'Refresh',
+				action: function ( e, dt, node, config ) {
+					var $button = $(node);
+					$button.prop('disabled', true).text('Refreshing...');
+					dt.ajax.reload(function() {
+						$button.prop('disabled', false).text('Refresh');
+					});
+				},
+				className: 'button button-secondary button-small'
+			},
+			// ... other existing buttons ...
+		],
 		"pageLength": 10,
 		"rowCallback": function (row, data) {
 			jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list');
@@ -100,119 +51,92 @@ jQuery(document).ready(function ($) {
 		"lengthMenu": [[10, 25, 50, 100, 250, 500], [10, 25, 50, 100, 250, 500]] 
 	});
 
+	// Custom error handling for redirTable
+	redirTable.on('error.dt', function (e, settings, techNote, message) {
+		e.preventDefault(); // Prevent default alert
+		console.error('RedirectsDataTables error:', message, 'TechNote:', techNote);
+		var errorDetails = 'Error details: ' + message + (techNote ? ' (Tech note: ' + techNote + ')' : '');
+		jQuery("#ddp-dashboard .errormessage").html("Redirects DataTables error occurred. " + errorDetails).show();
+	});
 
+	redirTable.buttons().container().appendTo('#ddp_redirtable_wrapper .top');
 
+	var table = jQuery('#ddp_dupetable').DataTable({
+		"select": {
+			style: 'multi'
+		},
+		"autoWidth": true,
+		"processing": true,
+		language: {
+			processing: '<div id="processingMessage">Looking for duplicates</div>'
+		},
+		"serverSide": true,
+		"searching": false,
+		"ordering": false,
+		"dom": '<"top"lip>rt<"bottom"ip><"clear">',
+		"ajax": {
+			"url": ajaxurl,
+			"type": "POST",
+			"data": function (d) {
+				return jQuery.extend({}, d, {
+					"action": "ddp_get_duplicates",
+					"_ajax_nonce": cp_ddp.nonce
+				});
+			},
+			"dataSrc": function (json) {
+				if (json.error) {
+					jQuery("#ddp-dashboard .errormessage").html(json.error).show();
+					return [];
+				}
+				return json.data;
+			},
+			"beforeSend": function () {
+				startTime = new Date().getTime();
+				jQuery('#requestTime').html("Request: 0 sec.");
+				interval = setInterval(updateTime, 1000);
+				jQuery("#ddp_dupetable .dt-button").prop('disabled', true);
+				jQuery('#ddp_dupetable tbody').css('opacity', '0.5');
+			},
+			"complete": function () {
+				clearInterval(interval);
+				jQuery('#ddp_dupetable tbody').css('opacity', '1');
+				jQuery("#ddp_dupetable .dt-button").prop('disabled', false);
+				ddp_refresh_log();
+			},
+			"error": function (jqXHR, textStatus, errorThrown) {
+				console.error('AJAX error:', textStatus, errorThrown);
+				var errorDetails = 'Status: ' + textStatus + ', Error: ' + errorThrown + ', Response: ' + jqXHR.responseText;
+				jQuery("#ddp-dashboard .errormessage").html("Failed to load data. " + errorDetails).show();
+				return []; // Return empty data to prevent further errors
+			}
+		},
+		"columns": [
+			{ "data": "ID", "visible": false },
+			{ "data": "orgID", "visible": false },
+			{ "data": "duplicate", "title": "Duplicate", "orderable": false },
+			{ "data": "original", "title": "Original", "orderable": false }
+		],
+		"rowCallback": function (row) {
+			jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list');
+		},
+		"lengthMenu": [[10, 25, 50, 100, 250, 500], [10, 25, 50, 100, 250, 500]] 
+	});
 
+	// Custom error handling for table
+	table.on('error.dt', function (e, settings, techNote, message) {
+		e.preventDefault(); // Prevent default alert
+		console.error('DataTables error:', message, 'TechNote:', techNote);
+		var errorDetails = 'Error details: ' + message + (techNote ? ' (Tech note: ' + techNote + ')' : '');
+		jQuery("#ddp-dashboard .errormessage").html("DataTables error occurred. " + errorDetails).show();
+	});
 
-/** 
- * Newsletter signup handling
- */
-	jQuery('.newsletter .ml-block-form, #cp-ddp-newsletter .ml-block-form').on('submit', function(e) {
-    e.preventDefault(); 
-    var formData = jQuery(this).serialize();
-    jQuery.ajax({
-        url: jQuery(this).attr('action'),
-        type: 'POST',
-        dataType: 'jsonp',
-        data: formData,
-        success: function(response) {
-            if(response.success) {
-                jQuery('.ml-block-form').html('<p>Thank you for signing up!</p>');
-            } else {
-                jQuery('.ml-block-form').append('<p>There was an error. Please try again.</p>');
-            }
-        },
-        error: function() {
-            jQuery('.newsletter .ml-block-form, #cp-ddp-newsletter .ml-block-form').append('<p>There was an error. Please try again.</p>'); 
-        }
-    });
-});
+	// Suppress all DataTables alert dialogs globally
+	$.fn.dataTable.ext.errMode = 'none';
 
+	// Create and insert buttons
+	var buttonsDiv = createButtons();
+	buttonsDiv.insertBefore('#ddp_dupetable_paginate');
 
-
-
-
-
-
-
-var startTime; // Removed unused elapsedTime variable
-
-// Initialize DataTable
-var table = jQuery('#ddp_dupetable').DataTable({
-    "select": {
-        style: 'multi'
-    },
-    "autoWidth": true,
-    "processing": true,
-    language: {
-        processing: '<div id="processingMessage">Looking for duplicates</div>'
-    },
-    "serverSide": true,
-    "searching": false,
-    "ordering": false,
-    "dom": '<"top"ip>rt<"bottom"ip><"clear">',
-    "ajax": {
-        "url": ajaxurl,
-        "type": "POST",
-        "data": function (d) {
-            return jQuery.extend({}, d, {
-                "action": "ddp_get_duplicates",
-                "_ajax_nonce": cp_ddp.nonce
-            });
-        },
-        "dataSrc": function (json) {
-            if (json.error) {
-                jQuery("#ddp-dashboard .errormessage").html(json.error).show();
-                return [];
-            }
-            return json.data;
-        },
-        "beforeSend": function () {
-            startTime = new Date().getTime();
-            jQuery('#requestTime').html("Request: 0 sec.");
-            interval = setInterval(updateTime, 1000);
-            jQuery("#ddp_dupetable .dt-button").prop('disabled', true);
-            jQuery('#ddp_dupetable tbody').css('opacity', '0.5');
-        },
-        "complete": function () {
-            clearInterval(interval);
-            jQuery('#ddp_dupetable tbody').css('opacity', '1');
-            jQuery("#ddp_dupetable .dt-button").prop('disabled', false);
-            ddp_refresh_log();
-        },
-        "error": function (jqXHR, textStatus, errorThrown) {
-            // Handle the error and display the message in a specific div
-            var errorMessage = "Failed to load data: " + textStatus + " - " + errorThrown;
-            jQuery("#ddp-dashboard .errormessage").html(errorMessage).show();
-        }
-    },
-    "columns": [
-        { "data": "ID", "visible": false },
-        { "data": "orgID", "visible": false },
-        { "data": "duplicate", "title": "Duplicate", "orderable": false },
-        { "data": "original", "title": "Original", "orderable": false }
-    ],
-    "rowCallback": function (row) {
-        jQuery(row).addClass('wp-list-table widefat fixed striped table-view-list');
-    },
-    "lengthMenu": [[10, 25, 50, 100, 250, 500], [10, 25, 50, 100, 250, 500]] 
-});
-
-// Custom error handling for DataTables to prevent default alert
-table.on('error.dt', function (e, settings, techNote, message) {
-    // Prevent default alert
-    e.preventDefault();
-    
-    // Display the error message in the specified div
-    jQuery("#ddp-dashboard .errormessage").html("DataTables error: " + message).show();
-});
-// #ddp_redirtable
-
-    // Create and insert buttons
-    var buttonsDiv = createButtons();
-    buttonsDiv.insertBefore('#ddp_dupetable_paginate');
-
-		
 	/**
 	 * refreshTable.
 	 *
@@ -222,145 +146,128 @@ table.on('error.dt', function (e, settings, techNote, message) {
 	 * @return	void
 	 */
 	function refreshTable() {
-    table.ajax.reload();
-}
-
-
-/**
- * deleteSelected.
- *
- * @author	Lars Koudal
- * @since	v0.0.1
- * @version	v1.0.0	Friday, January 5th, 2024.
- * @global
- * @return	void
- */
-function deleteSelected() {
-	var selectedRows = table.rows({ selected: true }).data();
-
-	// Check if there are any selected rows
-	if (selectedRows.length === 0) {
-			alert("Please select at least one row to delete.");
-			return;
+		table.ajax.reload();
 	}
 
-	// Existing confirmation and deletion code
-	if (!confirm(cp_ddp.text_areyousure)) {
-			return;
+	/**
+	 * deleteSelected.
+	 *
+	 * @author	Lars Koudal
+	 * @since	v0.0.1
+	 * @version	v1.0.0	Friday, January 5th, 2024.
+	 * @global
+	 * @return	void
+	 */
+	function deleteSelected() {
+		var selectedRows = table.rows({ selected: true }).data();
+
+		// Check if there are any selected rows
+		if (selectedRows.length === 0) {
+				alert("Please select at least one row to delete.");
+				return;
+		}
+
+		// Existing confirmation and deletion code
+		if (!confirm(cp_ddp.text_areyousure)) {
+				return;
+		}
+		
+		var checked_posts = [];
+		jQuery.each(selectedRows, function(index, value) {
+				checked_posts.push({
+						'ID': value.ID,
+						'orgID': value.orgID
+				});
+		});
+
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxurl,
+			data: {
+					'_ajax_nonce': cp_ddp.deletedupes_nonce,
+					'action': 'ddp_delete_duplicates',
+					'checked_posts': checked_posts
+			},
+			success: function (response) {
+				if (response.success) {
+					table.ajax.reload(null, false);
+					ddp_refresh_log();
+				} else {
+					var errorMessage = response.data && response.data.message ? response.data.message : "Unknown error occurred";
+					alert("Response from the server: " + errorMessage);
+				}
+			},
+			error: function (jqXHR, textStatus, errorThrown) {
+				// Handle other types of errors (e.g., network errors, server errors)
+				alert("An error occurred: " + textStatus);
+			}
+		});
 	}
-	
-	var checked_posts = [];
-	jQuery.each(selectedRows, function(index, value) {
-			checked_posts.push({
-					'ID': value.ID,
-					'orgID': value.orgID
-			});
-	});
 
-	jQuery.ajax({
-    type: 'POST',
-    url: ajaxurl,
-    data: {
-        '_ajax_nonce': cp_ddp.deletedupes_nonce,
-        'action': 'ddp_delete_duplicates',
-        'checked_posts': checked_posts
-    },
-    success: function (response) {
-			if (response.success) {
-        table.ajax.reload(null, false);
-        ddp_refresh_log();
-    } else {
-        var errorMessage = response.data && response.data.message ? response.data.message : "Unknown error occurred";
-        alert("Response from the server: " + errorMessage);
-    }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-        // Handle other types of errors (e.g., network errors, server errors)
-        alert("An error occurred: " + textStatus);
-    }
-});
+	/**
+	 * selectVisible.
+	 *
+	 * @author	Lars Koudal
+	 * @since	v0.0.1
+	 * @version	v1.0.0	Friday, January 5th, 2024.
+	 * @global
+	 * @return	void
+	 */
+	function selectVisible() {
+		table.rows({ page: 'current' }).select();
+	}
 
+	/**
+	 * selectNone.
+	 *
+	 * @author	Lars Koudal
+	 * @since	v0.0.1
+	 * @version	v1.0.0	Friday, January 5th, 2024.
+	 * @global
+	 * @return	void
+	 */
+	function selectNone() {
+		table.rows().deselect();
+	}
 
+	/**
+	 * createButtons.
+	 *
+	 * @author	Lars Koudal
+	 * @since	v0.0.1
+	 * @version	v1.0.0	Friday, January 5th, 2024.
+	 * @global
+	 * @return	mixed
+	 */
+	function createButtons() {
+		var buttonsDiv = jQuery('<div/>', { class: 'dt-buttons' });
 
-}
+		buttonsDiv.append(jQuery('<button/>', {
+			text: 'Refresh',
+			click: refreshTable,
+			class: 'dt-button button button-secondary button-small'
+		}));
 
+		buttonsDiv.append(jQuery('<button/>', {
+			text: 'Delete Selected',
+			click: deleteSelected,
+			class: 'dt-button button button-secondary button-small ddp-delete-selected'
+		}));
 
+		buttonsDiv.append(jQuery('<button/>', {
+			text: 'Select Visible',
+			click: selectVisible,
+			class: 'dt-button button button-secondary button-small'
+		}));
 
-
-
-/**
- * selectVisible.
- *
- * @author	Lars Koudal
- * @since	v0.0.1
- * @version	v1.0.0	Friday, January 5th, 2024.
- * @global
- * @return	void
- */
-function selectVisible() {
-    table.rows({ page: 'current' }).select();
-}
-
-
-
-/**
- * selectNone.
- *
- * @author	Lars Koudal
- * @since	v0.0.1
- * @version	v1.0.0	Friday, January 5th, 2024.
- * @global
- * @return	void
- */
-function selectNone() {
-    table.rows().deselect();
-}
-
-
-
-
-
-
-/**
- * createButtons.
- *
- * @author	Lars Koudal
- * @since	v0.0.1
- * @version	v1.0.0	Friday, January 5th, 2024.
- * @global
- * @return	mixed
- */
-function createButtons() {
-    var buttonsDiv = jQuery('<div/>', { class: 'dt-buttons' });
-
-    buttonsDiv.append(jQuery('<button/>', {
-        text: 'Refresh',
-        click: refreshTable,
-        class: 'dt-button button button-secondary button-small'
-    }));
-
-    buttonsDiv.append(jQuery('<button/>', {
-        text: 'Delete Selected',
-        click: deleteSelected,
-        class: 'dt-button button button-secondary button-small ddp-delete-selected'
-    }));
-
-    buttonsDiv.append(jQuery('<button/>', {
-        text: 'Select Visible',
-        click: selectVisible,
-        class: 'dt-button button button-secondary button-small'
-    }));
-
-    buttonsDiv.append(jQuery('<button/>', {
-        text: 'Select None',
-        click: selectNone,
-        class: 'dt-button button button-secondary button-small'
-    }));
+		buttonsDiv.append(jQuery('<button/>', {
+			text: 'Select None',
+			click: selectNone,
+			class: 'dt-button button button-secondary button-small'
+		}));
 
 		return buttonsDiv;
-}
-
-
+	}
 
 	/**
 	 * updateTime.
@@ -379,7 +286,6 @@ function createButtons() {
 		
 	}
 
-
 	/**
 	 * Add event listener for row selection
 	 *
@@ -390,12 +296,6 @@ function createButtons() {
 		jQuery(this).toggleClass('selected');
 	});
 
-
-
-
-
-
-
 	// REFRESH LIST
 	jQuery(document).on('click', '#deleteduplicateposts_resetview', function (e) {
 		e.preventDefault();
@@ -403,8 +303,6 @@ function createButtons() {
 		ddp_get_duplicates(1, senddata);
 		ddp_refresh_log();
 	});
-
-
 
 	/**
 	 * ddp_refresh_log.
@@ -441,8 +339,6 @@ function createButtons() {
 		});
 	}
 
-
-
 	/**
 	 * ddp_get_duplicates.
 	 *
@@ -456,9 +352,7 @@ function createButtons() {
 	 * @return	void
 	 */
 	function ddp_get_duplicates(stepid, data, self) {
-
-
-		jQuery.ajax({
+		jQuery.ajax({ 
 			type: 'POST',
 			url: ajaxurl,
 			data: {
@@ -468,22 +362,17 @@ function createButtons() {
 			},
 			dataType: "json",
 			success: function (response) {
-
 				let dupes = response.data.dupes;
 
 				if (dupes) {
-
 					jQuery('#ddp_container #dashboard .statusdiv .statusmessage').html(response.data.msg).show();
 					jQuery('#ddp_container #dashboard .statusdiv .dupelist .duplicatetable').show();
 
 					jQuery.each(dupes, function (key, value) {
 						jQuery('#ddp_container #dashboard .statusdiv .dupelist .duplicatetable tbody').append('<tr><th scope="row" class="check-column"><label class="screen-reader-text" for="cb-select-' + value.ID + '">Select Post</label><input id="cb-select-' + value.ID + '" type="checkbox" name="delpost[]" value="' + value.ID + '" data-orgid="' + value.orgID + '"><div class="locked-indicator"></div></th><td><a href="' + value.permalink + '" target="_blank">' + value.title + '</a> (ID #' + value.ID + ' type:' + value.type + ' status:' + value.status + ')</td><td><a href="' + value.orgpermalink + '" target="_blank">' + value.orgtitle + '</a> (ID #' + value.orgID + ') ' + value.why + '</td></tr>');
-
 					});
 
 					jQuery('#ddp_container #dashboard .statusdiv .dupelist .duplicatetable tbody').slideDown();
-
-
 				}
 				else {
 					jQuery('#ddp_container #dashboard .statusdiv .statusmessage').html(response.data.msg).show();
@@ -500,19 +389,15 @@ function createButtons() {
 				//ddp_refresh_log();
 			}
 		}).fail(function (response) {
-
 			if (window.console && window.console.log) {
 				window.console.log(response.statusCode + ' ' + response.statusText);
 			}
 		});
-
 	}
 
 	// Show / hide input fields in admin based on selected compare method.
 	jQuery(document).on('click', '.ddpcomparemethod li', function () {
-
 		jQuery(".ddpcomparemethod input:radio").each(function () {
-
 			if (this.checked) {
 				jQuery(this).closest('li').find('.ddp-compare-details').show();
 			}

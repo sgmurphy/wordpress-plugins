@@ -31,8 +31,8 @@ class DefaultExtension extends ExtensionHandler{
 		$import_types = $data;
 		$import_type = $this->import_name_as($import_types);
 		$response = [];
-		$check_custpost = array('Posts' => 'post', 'Pages' => 'page', 'Users' => 'users', 'Comments' => 'comments', 'CustomerReviews' =>'wpcr3_review', 'Categories' => 'categories', 'Tags' => 'tags', 'WooCommerce' => 'product', 'WPeCommerce' => 'wpsc-product','WPeCommerceCoupons' => 'wpsc-product', 'WooCommerceVariations' => 'product', 'WooCommerceOrders' => 'product', 'WooCommerceCoupons' => 'product', 'WooCommerceRefunds' => 'product', 'CustomPosts' => 'CustomPosts');	
-		if ($import_type != 'Users' && $import_type != 'Taxonomies' && $import_type != 'CustomerReviews' && $import_type != 'Comments' && $import_type != 'WooCommerceVariations' && $import_type != 'WooCommerceOrders' && $import_type != 'WooCommerceCoupons' && $import_type != 'WooCommerceRefunds' && $import_type != 'ngg_pictures' && $import_types != 'lp_order' && $import_types != 'nav_menu_item' && $import_types != 'widgets') {
+		$check_custpost = array('Posts' => 'post', 'Pages' => 'page', 'Users' => 'users', 'Comments' => 'comments', 'CustomerReviews' =>'wpcr3_review', 'Categories' => 'categories', 'Tags' => 'tags', 'WooCommerce' => 'product', 'WPeCommerce' => 'wpsc-product','WPeCommerceCoupons' => 'wpsc-product', 'WooCommerceVariations' => 'product', 'WooCommerceOrders' => 'product', 'WooCommerceCoupons' => 'product', 'WooCommerceRefunds' => 'product', 'CustomPosts' => 'CustomPosts','WooCommerceReviews' => 'reviews');	
+		if ($import_type != 'Users' && $import_type != 'Taxonomies' && $import_type != 'CustomerReviews' && $import_type != 'Comments' && $import_type != 'WooCommerceVariations' && $import_type != 'WooCommerceOrders' && $import_type != 'WooCommerceCoupons' && $import_type != 'WooCommerceRefunds' && $import_type != 'ngg_pictures' && $import_types != 'lp_order' && $import_types != 'nav_menu_item' && $import_types != 'widgets' && $import_type != 'WooCommerceReviews') {
 			$wordpressfields = array(
                 	'Title' => 'post_title',
                     'ID' => 'ID',
@@ -287,10 +287,27 @@ class DefaultExtension extends ExtensionHandler{
 					'Comment Author Email' => 'comment_author_email',
 					'Comment Author URL' => 'comment_author_url',
 					'Comment Content' => 'comment_content',
+					'Comment Rating' => 'comment_rating',
 					'Comment Author IP' => 'comment_author_IP',
 					'Comment Date' => 'comment_date',
 					'Comment Approved' => 'comment_approved',
 					'Comment Parent' => 'comment_parent', 
+					'user_id'=>'user_id',
+					);
+		}
+
+		if($import_type === 'WooCommerceReviews') {
+			$wordpressfields = array(
+					'Review Product Id' => 'comment_post_ID',
+					'Review Author' => 'comment_author',
+					'Review Author Email' => 'comment_author_email',
+					'Review Author URL' => 'comment_author_url',
+					'Review Content' => 'comment_content',
+					'Review Rating' => 'comment_rating',
+					'Review Author IP' => 'comment_author_IP',
+					'Review Date' => 'comment_date',
+					'Review Approved' => 'comment_approved',
+					'Review Parent' => 'comment_parent', 
 					'user_id'=>'user_id',
 					);
 		}

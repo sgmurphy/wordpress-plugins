@@ -62,8 +62,13 @@ class SPS_DetailSettings {
 						'default' => false,
 					),
 					array(
-						'type'    => 'notice',
-						'content' => __( 'To unlock the following amazing Popup Settings</b>, <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>Upgrade To Pro!</b></a>', 'post-carousel' ),
+						'type'    => 'notice',						
+						'content' => sprintf(
+							/* translators: 1: start link tag, 2: close tag. */
+							__( 'To unlock the following amazing Popup Settings, %1$sUpgrade To Pro!%2$s', 'post-carousel' ),
+							'<a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>',
+							'</b></a>'
+						),
 						'class'   => 'taxonomy-ajax-filter-notice',
 					),
 					array(

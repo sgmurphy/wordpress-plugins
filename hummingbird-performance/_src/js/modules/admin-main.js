@@ -7,11 +7,6 @@
 import Fetcher from '../utils/fetcher';
 import { getString } from '../utils/helpers';
 
-/**
- * External dependencies
- */
-const MixPanel = require( 'mixpanel-browser' );
-
 ( function( $ ) {
 	'use strict';
 

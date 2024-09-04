@@ -3386,36 +3386,8 @@
             $('body').addClass('js');
             Master_Addons.initEvents($scope, $);
         }
-
-
+        
     };
-
-
-    // Start of Wrapper Link
-    $('body').on('click.onMaWrapperLink', '.elementor-element[data-jltma-wrapper-link]', function ()
-    {
-        var $wrapper = $(this),
-            data = $wrapper.data('jltma-wrapper-link'),
-            id = $wrapper.data('id'),
-            anchor = document.createElement('a'),
-            anchorReal,
-            timeout;
-            anchor.id = 'master-addons-wrapper-link-' + id;
-            anchor.href = data.url;
-            anchor.target = data.is_external ? '_blank' : '_self';
-            anchor.rel = data.nofollow ? 'nofollow noreferer' : '';
-            anchor.style.display = 'none';
-            document.body.appendChild(anchor);
-            anchorReal = document.getElementById(anchor.id);
-            anchorReal.click();
-            timeout = setTimeout(function ()
-            {
-                document.body.removeChild(anchorReal);
-                clearTimeout(timeout);
-            });
-        }
-    );
-    // End of Wrapper Link
 
     $(window).on('elementor/frontend/init', function ()
     {
@@ -3481,9 +3453,17 @@
             elementorFrontend.hooks.addAction('frontend/element_ready/jltma-counter-up.default', Master_Addons.MA_Counter_Up);
             elementorFrontend.hooks.addAction('frontend/element_ready/ma-tooltip.default', Master_Addons.MA_Tooltip);
         }
-
-
-
+        
+        $('.jltma-wrapper-link').each(function() {
+            $(this).siblings().appendTo( $(this) );
+            $(this).css({
+                'position': 'relative',
+                'display': 'block',
+                'width': '100%',
+                'height': '100%',
+                'z-index': 'initial',
+            })
+        });
 
     });
 

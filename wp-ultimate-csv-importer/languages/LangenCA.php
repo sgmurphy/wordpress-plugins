@@ -146,6 +146,7 @@ class LangEN_CA {
                         'Height' => 'Height',
                         'SIMPLEMODE' => 'SIMPLE MODE',
                         'CustomerReviews' => 'Customer Reviews',
+                        'WooCommerceReviews' =>'WooCommerce Reviews',
                         'Buynow' => 'Buy now!',
                         'Addons' => 'Addons',
                         'Posts' => 'Posts',

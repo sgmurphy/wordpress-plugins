@@ -32,7 +32,12 @@ class SPS_FilterPost {
 						'type'          => 'select',
 						'title'         => __( 'Post Type(s)', 'post-carousel' ),
 						'subtitle'      => __( 'Select post type(s).', 'post-carousel' ),
-						'desc'          => __( 'To filter custom post type (product, portfolio, event...), <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><strong>Upgrade To Pro!</strong></a>', 'post-carousel' ),
+						'desc'          => sprintf(
+							/* translators: 1: start link and strong tag, 2: close tags. */
+							__( 'To filter custom post type (product, portfolio, event...), %1$sUpgrade To Pro!%2$s', 'post-carousel' ),
+							'<a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><strong>',
+							'</strong></a>',
+						),
 						'options'       => array(
 							'post'               => __( 'Posts', 'post-carousel' ),
 							'page'               => __( 'Pages', 'post-carousel' ),
@@ -203,7 +208,11 @@ class SPS_FilterPost {
 													'NOT IN' => __( 'NOT IN', 'post-carousel' ),
 												),
 												'default' => 'IN',
-												'help'    => __( 'IN - Show posts which associate with one or more terms<br>AND - Show posts which match all terms<br>NOT IN - Show posts which don\'t match the terms', 'post-carousel' ),
+												'help'    => sprintf(
+													/* translators: 1: br tag. */
+													__( 'IN - Show posts which associate with one or more terms%1$sAND - Show posts which match all terms%1$sNOT IN - Show posts which don\'t match the terms', 'post-carousel' ),
+													'<br>'
+												),
 												'dependency' => array( 'pcp_select_taxonomy', '!=', '' ),
 											),
 											array(
@@ -229,7 +238,12 @@ class SPS_FilterPost {
 													array(
 														'type' => 'notice',
 														'class'    => 'taxonomy-ajax-filter-notice',
-														'content' => __( 'To allow visitors to Filter, Search, and Sort on the front end,', 'post-carousel' ) . ' <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro!', 'post-carousel' ) . '</b></a>',
+														'content' => sprintf(
+															/* translators: 1: start link and strong tag, 2: close tags. */
+															__( 'To allow visitors to Filter, Search, and Sort on the front end, %1$sUpgrade To Pro!%2$s', 'post-carousel' ),
+															'<a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>',
+															'</b></a>',
+														),
 													),
 													array(
 														'id'       => 'ajax_filter_style',

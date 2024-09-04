@@ -21,22 +21,31 @@ if (!class_exists('WPRWPPHPErrorMonitoring')) :
 			if (self::$initialized) {
 				return;
 			}
+			include_once dirname(__FILE__) . '/../wp_settings.php';
+			include_once dirname(__FILE__) . '/../wp_db.php';
+			include_once dirname(__FILE__) . '/../info.php';
+
+			self::$settings = new WPRWPSettings();
+			self::$db = new WPRWPDb();
+			self::$info = new WPRInfo(self::$settings);
+
+			if (self::$info->isServiceActive('php_error_monitoring')) {
+				add_action('wpr_clear_php_error_config', array('WPRWPPHPErrorMonitoring', 'clearConfig'));
+			}
+
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 			if (is_plugin_active('wpremote/plugin.php')) {
-				include_once dirname(__FILE__) . '/../wp_settings.php';
-				include_once dirname(__FILE__) . '/../wp_db.php';
-				include_once dirname(__FILE__) . '/../info.php';
-				self::$settings = new WPRWPSettings();
-				self::$db = new WPRWPDb();
-				self::$info = new WPRInfo(self::$settings);
-
 				if (self::$info->isServiceActive('php_error_monitoring') && self::$info->hasValidDBVersion()) {
 					self::updateDefaultValues();
 					self::setPhpErrorHandler();
 					self::$initialized = true;
 				}
 			}
+		}
+
+		public static function clearConfig() {
+			self::$db->dropBVTable(self::ERROR_TABLE);
 		}
 
 		public static function isValidErrorLevel($error_level) {

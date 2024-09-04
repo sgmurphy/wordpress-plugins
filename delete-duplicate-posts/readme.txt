@@ -5,9 +5,9 @@ Tags: delete duplicate posts, duplicates, optimization, cleanup, performance
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.7
-Tested up to: 6.5.3
-Stable tag: 4.9.8
-Requires PHP: 5.6
+Tested up to: 6.6.1
+Stable tag: 4.9.9
+Requires PHP: 7.4
 
 Get rid of duplicate posts and pages (any post type) on your blog with manual or automatic modes.
 
@@ -63,6 +63,22 @@ You should restore the backup you took of your website before you ran this tool.
 3. Settings
 
 == Changelog ==
+
+= 4.9.9 =
+* Advertisements permanently displayed on plugin page. Thank you @secretja for the idea.
+* Added row count selection dropdown to duplicate posts and redirects tables.
+* Improved error handling for DataTables to display messages in the UI instead of alerts.
+* Enhanced user interface for better visibility of table controls.
+* Fixed issue with error messages not displaying properly in some scenarios.
+* Added row count selection dropdown to duplicate posts and redirects tables.
+* Improved error handling for DataTables to display messages in the UI instead of alerts.
+* Enhanced user interface for better visibility of table controls.
+* Fixed issue with error messages not displaying properly in some scenarios.
+* Added detailed error logging to console for easier debugging.
+* Resolved DataTables error related to mismatched column data.
+* Added a "Refresh" button to the redirects table for easy data reloading.
+* Fixed potential database table creation issue affecting DataTables functionality.
+  (If issues persist, use the "Recreate Databases" button in the sidebar)
 
 = 4.9.8 =
 * Finally fixing the ajax datatables error - maybe?
@@ -439,5 +455,5 @@ You should restore the backup you took of your website before you ran this tool.
 * First release
 
 == Upgrade Notice ==
-4.9.2
+4.9.9
 Recommended update, many bugfixes and a much improved interface!

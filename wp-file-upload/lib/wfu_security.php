@@ -112,7 +112,7 @@ function wfu_validate_mime_type($filepath, $filename, &$result) {
 	}
 	$mime_type = strtolower($mime_type);
 	$mime_types = wfu_extensions_mime_types();
-	$ext = wfu_fileext($filename);
+	$ext = strtolower(wfu_fileext($filename));
 	// check if file has an extension
 	if ( empty($ext) ) {
 		$result = "B";

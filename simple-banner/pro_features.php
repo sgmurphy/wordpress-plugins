@@ -118,6 +118,7 @@
                         disable on paths containing shop: <code>*shop*</code>
                     </li>
                 </div>
+
             </th>
             <td style="vertical-align:top;">
                 <?php

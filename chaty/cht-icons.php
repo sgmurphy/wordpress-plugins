@@ -8,7 +8,7 @@
   Text Domain: chaty
   Domain Path: /languages
   Version: 3.2.9
-  License: GPL2
+  License: GPLv3
 */
 
 if (!defined('ABSPATH')) {

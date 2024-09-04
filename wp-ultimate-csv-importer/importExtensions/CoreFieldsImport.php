@@ -90,7 +90,8 @@ class CoreFieldsImport {
 				$media_handle = get_option('smack_image_options');
 			}
 		}
-		if(($type == 'WooCommerce Product') || ($type == 'WooCommerce Product Variations')|| ($type == 'Categories') || ($type == 'Tags') || ($type == 'Taxonomies') || ($type == 'Comments') || ($type == 'Users') || ($type == 'Customer Reviews') || ($type == 'lp_order') || ($type == 'nav_menu_item') || ($type == 'widgets') || ($type == 'Media')){
+		
+		if(($type == 'WooCommerce Product') || ($type == 'WooCommerce Reviews') || ($type == 'WooCommerce Product Variations')|| ($type == 'Categories') || ($type == 'Tags') || ($type == 'Taxonomies') || ($type == 'Comments') || ($type == 'Users') || ($type == 'Customer Reviews') || ($type == 'lp_order') || ($type == 'nav_menu_item') || ($type == 'widgets') || ($type == 'Media')){
 
 			$comments_instance = CommentsImport::getInstance();
 			$customer_reviews_instance = CustomerReviewsImport::getInstance();
@@ -125,8 +126,8 @@ class CoreFieldsImport {
 			if($type == 'Users'){
 				$result = $userimp_class->users_import_function($post_values , $mode ,$unikey_value , $line_number);
 			}
-			if($type == 'Comments'){
-				$result = $comments_instance->comments_import_function($post_values , $mode ,$unikey_value , $unikey_name , $line_number);
+			if($type == 'Comments' || $type == 'WooCommerce Reviews'){
+				$result = $comments_instance->comments_import_function($post_values , $mode ,$unikey_value , $unikey_name , $line_number, $type);
 			}
 			if($type == 'Customer Reviews'){
 				$result = $customer_reviews_instance->customer_reviews_import($post_values , $mode , $check ,$unikey_value , $line_number);
@@ -158,7 +159,8 @@ class CoreFieldsImport {
 					$featured_image=$post_values['featured_image'];
 				}
 				if ( preg_match_all( '/\b[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $featured_image, $matchedlist, PREG_PATTERN_ORDER ) ) {	
-					$image_type = 'Featured';  
+					$image_type = 'Featured'; 
+					CoreFieldsImport::$media_instance->store_image_ids($i=1); 
 					$attach_id = CoreFieldsImport::$media_instance->image_meta_table_entry($line_number,$post_values,$post_id ,'',$featured_image, $hash_key ,$image_type,$type,'','',$header_array,$value_array);
 					//$attach_id = CoreFieldsImport::$media_instance->media_handling( $featured_image , $post_id ,$post_values,$type,$image_type,$hash_key,$templatekey,$header_array,$value_array);	
 				}
@@ -182,7 +184,8 @@ class CoreFieldsImport {
 				}
 				elseif( $type == 'Media'){
 					if (!empty($post_id)) {
-						$this->detailed_log[$line_number]['FileName'] = $post_values['file_name'] ;
+						$file_path = get_attached_file($post_id);
+						$this->detailed_log[$line_number]['FileName'] = basename($file_path);;
 						$this->detailed_log[$line_number]['attach_ID'] = $post_id;
 						$this->detailed_log[$line_number]['adminLink'] = get_edit_post_link( $post_id , true );
 						$image_url = wp_get_attachment_url($post_id);
@@ -249,12 +252,16 @@ class CoreFieldsImport {
 						$this->detailed_log[$line_number]['adminLink'] = isset($menu_item_object_id) ?  get_edit_post_link($menu_item_object_id, true) : null;
 					}
 				}
-				elseif($type == 'Comments'){
+				elseif($type == 'Comments' || $type == 'WooCommerce Reviews'   ){
 					if (!empty($post_id)) {
 						$this->detailed_log[$line_number]['webLink'] = get_comment_link( $post_id );
 						$this->detailed_log[$line_number]['adminLink'] = get_edit_comment_link( $post_id );
 						$this->detailed_log[$line_number]['id'] = $post_id ;
 						$this->detailed_log[$line_number]['post_type'] = 'Comment' ;
+						if($type == 'WooCommerce Reviews'){
+							$this->detailed_log[$line_number]['post_type'] = 'Reviews' ;
+							$this->detailed_log[$line_number]['adminLink'] = admin_url('comment.php?action=editcomment&c=' . $post_id);					
+						}
 						$comment = get_comment($post_id);
 						$comment_post_id = isset($comment->comment_post_ID) ? $comment->comment_post_ID : null;
 						$post_type = isset($comment_post_id) ? get_post_type($comment_post_id) : null;
@@ -561,6 +568,7 @@ class CoreFieldsImport {
 									$indexs = 0;
 									foreach ($orig_img_src as $img_val){
 										$shortcode  = 'inline';
+										CoreFieldsImport::$media_instance->store_image_ids($i=1);
 										$attach_id = CoreFieldsImport::$media_instance->image_meta_table_entry($line_number,$post_values,$post_id ,'',$img_val, $hash_key ,$shortcode,$get_import_type,'','',$header_array,$value_array,'','',$indexs);
 										$indexs++;																				
 									}
@@ -578,11 +586,10 @@ class CoreFieldsImport {
                         @$dom->loadHTML($post_values['post_content']);
                         $xpath = new \DOMXPath($dom);
                         $searchNode = $xpath->query('//img[@src]');
-						$i = 1;
 						foreach ( $searchNode as $searchNodes ) {
 							$orig_img_src[] = $searchNodes->getAttribute( 'src' );
 							if(!empty($orig_img_src)){
-								CoreFieldsImport::$media_instance->store_image_ids($i);
+								CoreFieldsImport::$media_instance->store_image_ids($i=1);
 							}
 						}	
 							$media_dir = wp_get_upload_dir();
@@ -763,13 +770,14 @@ class CoreFieldsImport {
 
 				if ( preg_match_all( '/\b[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $featured_image, $matchedlist, PREG_PATTERN_ORDER ) ) {			
 					if($media_handle['media_settings']['media_handle_option'] == 'true'){
+						if(!empty($post_values['featured_image'])){
+							CoreFieldsImport::$media_instance->store_image_ids($i=1);
+						}
 						if($media_handle['media_settings']['use_ExistingImage'] == 'true'){
-							$image_type = 'Featured';		
-						
+							$image_type = 'Featured';		  
 							$f_image = $post_values['featured_image'];
 							$f_path = CoreFieldsImport::$media_instance->get_filename_path($post_values['featured_image']);
 							$fimg_name = isset($f_path['fimg_name']) ? $f_path['fimg_name'] : '';
-							
 							// $check_featured_image = $wpdb->get_results("SELECT $unikey_name FROM {$wpdb->prefix}ultimate_csv_importer_media_report WHERE $unikey_name = '$unikey_value'  AND image_type = 'Featured' "); 
 							// if(empty($check_featured_image)){				
 							// 	$image_media_table = $wpdb->prefix . "ultimate_csv_importer_media_report";
@@ -793,20 +801,16 @@ class CoreFieldsImport {
 										if(!empty($failed_ids) && $failed_ids[0]->post_id != $post_id){
 											$attach_id = $failed_ids[0]->media_id;
 											CoreFieldsImport::$media_instance->store_failed_image_ids($attach_id);
-											CoreFieldsImport::$media_instance->store_image_ids($attach_id);
 											CoreFieldsImport::$media_instance->failed_media_data($line_number,$post_id,$failed_ids[0]->post_title,$failed_ids[0]->media_id, $failed_ids[0]->original_image,);				
 										}elseif(empty($failed_ids) ){
 											CoreFieldsImport::$media_instance->store_failed_image_ids($attach_id);
-											CoreFieldsImport::$media_instance->store_image_ids($attach_id);
 											CoreFieldsImport::$media_instance->failed_media_data($line_number,$post_id,$post_values['post_title'],$attach_id,$post_values['featured_image']);
 										}elseif(!empty($failed_ids) && $failed_ids[0]->post_id == $post_id){
 											CoreFieldsImport::$media_instance->store_failed_image_ids($failed_ids[0]->media_id);
-											CoreFieldsImport::$media_instance->store_image_ids($failed_ids[0]->media_id);
 											CoreFieldsImport::$media_instance->failed_media_data($line_number,$failed_ids[0]->post_id,$failed_ids[0]->post_title,$failed_ids[0]->media_id,$failed_ids[0]->original_image); 
 										}
 										set_post_thumbnail($post_id, $attach_id);
 									}else{
-										CoreFieldsImport::$media_instance->store_image_ids($attach_id);
 										set_post_thumbnail($post_id, $attach_id);
 									}             
 								}

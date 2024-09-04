@@ -372,6 +372,7 @@ class LangEN_GB {
                         'Taxonomies' => 'Taxonomies',
                         'Comments' => 'Comments',
                         'CustomerReviews' => 'Customer Reviews',
+                        'WooCommerceReviews' =>'WooCommerce Reviews',
                         'WooCommerceCoupons' => 'WooCommerce Vouchers',
                         'WooCommerceRefunds' => 'WooCommerce Refunds',
                         'WooCommerceVariations' => 'WooCommerce Options',

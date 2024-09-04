@@ -44,11 +44,11 @@ if ( ! class_exists( 'SP_PC_Field_color_group' ) ) {
 				foreach ( $options as $key => $option ) {
 
 					$color_value  = ( ! empty( $this->value[ $key ] ) ) ? $this->value[ $key ] : '';
-					$default_attr = ( ! empty( $this->field['default'][ $key ] ) ) ? ' data-default-color="' . $this->field['default'][ $key ] . '"' : '';
+					$default_attr = ( ! empty( $this->field['default'][ $key ] ) ) ? ' data-default-color="' . esc_attr( $this->field['default'][ $key ] ) . '"' : '';
 
 					echo '<div class="spf--left spf-field-color">';
 					echo '<div class="spf--title">' . $option . '</div>';
-					echo '<input type="text" name="' . $this->field_name( '[' . $key . ']' ) . '" value="' . $color_value . '" class="spf-color"' . $default_attr . $this->field_attributes() . '/>';// phpcs:ignore
+					echo '<input type="text" name="' . $this->field_name( '[' . $key . ']' ) . '" value="' .  esc_attr( $color_value ) . '" class="spf-color"' . $default_attr . $this->field_attributes() . '/>';// phpcs:ignore
 					echo '</div>';
 
 				}

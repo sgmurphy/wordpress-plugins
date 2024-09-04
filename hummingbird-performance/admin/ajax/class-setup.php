@@ -137,6 +137,13 @@ class Setup {
 			die();
 		}
 
+		$params = filter_input( INPUT_POST, 'data', FILTER_UNSAFE_RAW );
+		$params = json_decode( html_entity_decode( $params ), true );
+
+		if ( 'runPerf' === $params ) {
+			Utils::get_module( 'mixpanel_analytics' )->track_event_for_setup_performance_test();
+		}
+
 		update_option( 'wphb_run_onboarding', null );
 		wp_send_json_success();
 	}
@@ -161,7 +168,12 @@ class Setup {
 
 		// Tracking (make sure it's always updated).
 		if ( is_admin() || ( is_multisite() && is_network_admin() ) ) {
-			$tracking = isset( $settings['tracking'] ) && $settings['tracking'];
+			$tracking_value = Settings::get_setting( 'tracking', 'settings' );
+			$tracking       = isset( $settings['tracking'] ) && $settings['tracking'];
+			if ( $tracking && $tracking_value !== $tracking ) {
+				do_action( 'wphb_mixpanel_usage_tracking_value_update', true, $tracking );
+			}
+
 			Settings::update_setting( 'tracking', $tracking, 'settings' );
 		}
 

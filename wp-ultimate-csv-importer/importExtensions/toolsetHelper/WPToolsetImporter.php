@@ -357,8 +357,12 @@ class WPToolsetImporter extends ToolsetImporter
 					else{
 						$get_import_type = 'post';
 					}
-					// $attachid = self::$mediaInstance->media_handling($value, $postId);
-					$attachid = self::$mediaInstance->image_meta_table_entry($post_val, $postId, $metaKey, $value, $hash_key, 'types', $get_import_type,$templatekey,$gmode);
+					if($fields_Types == 'image'){
+						self::$mediaInstance->store_image_ids($i=1);
+						$attachid = self::$mediaInstance->image_meta_table_entry($post_val, $postId, $metaKey, $value, $hash_key, 'types', $get_import_type,$templatekey,$gmode);
+					}else{
+						$attachid = self::$mediaInstance->media_handling($value, $postId);
+					}
 					$attachids[] =$attachid;
 					if(empty($attachid)){
 						if ($this->postType == 'Users') {

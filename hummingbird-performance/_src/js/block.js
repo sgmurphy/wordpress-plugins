@@ -10,7 +10,6 @@ const { __ } = wp.i18n;
 
 if ( wphb.mixpanel.enabled ) {
 	require( './mixpanel' );
-	window.wphbMixPanel.init();
 }
 
 const generatedNoticeId = 'critical-generated-notice';

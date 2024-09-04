@@ -105,7 +105,6 @@
 
 			if ( ! wphbGlobal.is_hb_page ) {
 				require( './mixpanel' );
-				window.wphbMixPanel.init();
 			}
 
 			upsellSubmenuLink.addEventListener( 'click', () => {

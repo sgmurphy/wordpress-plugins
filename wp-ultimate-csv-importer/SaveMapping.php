@@ -331,8 +331,10 @@ class SaveMapping{
 		$addHeader = false;
 
 		if($file_extension == 'csv' || $file_extension == 'txt'){
-			if (!ini_get("auto_detect_line_endings")) {
-				ini_set("auto_detect_line_endings", true);
+			if (version_compare(PHP_VERSION, '8.1.0', '<')) {  // Only do this if PHP version is less than 8.1.0
+				if (!ini_get("auto_detect_line_endings")) {
+					ini_set("auto_detect_line_endings", true);
+				}
 			}
 			if (($h = fopen($upload_dir.$hash_key.'/'.$hash_key, "r")) !== FALSE) 
 			{
@@ -931,7 +933,7 @@ foreach ($log_value as $item) {
 		$categorie = 3;
 		
 	}
-	elseif($post_type == 'Comment'){
+	elseif($post_type == 'Comment' || 'WooCommerce Reviews'){
 		$categorie = 4;
 		
 	}
@@ -1550,6 +1552,9 @@ if (!empty($failed_media_log)) {
 		}
 		else{
 			$response['file_iteration'] = 5;
+		}
+		if(get_option('total_attachment_ids')){
+			delete_option('total_attachment_ids');
 		}
 		echo wp_json_encode($response);
 		wp_die();

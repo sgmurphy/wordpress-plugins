@@ -150,7 +150,7 @@ if ( ! class_exists( 'SP_PC_Field_border' ) ) {
 			}
 			echo '</div>';
 			if ( ! empty( $args['color'] ) ) {
-				$default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="' . $default_value['color'] . '"' : '';
+				$default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="' . esc_attr( $default_value['color'] ) . '"' : '';
 				echo '<div class="spf--color">';
 				echo '<div class="spf-field-color">';
 				echo '<div class="spf--title">' . esc_html__( 'Color', 'post-carousel' ) . '</div>';

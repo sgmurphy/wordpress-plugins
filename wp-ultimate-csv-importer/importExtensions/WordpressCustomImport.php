@@ -42,8 +42,8 @@ class WordpressCustomImport {
                     if ((isset($core_serialize_info[$custom_key]) && $core_serialize_info[$custom_key] == 'on') || is_plugin_active('wpml-import/plugin.php')) {
     
                         // Check if value is serialized,
-                        if (!is_serialized($custom_value)) {
-                            $custom_value = maybe_serialize($custom_value);
+                        if (is_serialized($custom_value)) {
+                            $custom_value = maybe_unerialize($custom_value);
                         }
                         $get_meta_info = $wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value FROM {$wpdb->prefix}postmeta WHERE post_id=%d AND meta_key=%s", $pID, $custom_key), ARRAY_A);
     
@@ -53,8 +53,8 @@ class WordpressCustomImport {
                             $wpdb->insert($wpdb->prefix . 'postmeta', array('meta_key' => $custom_key, 'meta_value' => $custom_value, 'post_id' => $pID));
                         }
                     } else {
-                        if (!is_serialized($custom_value)) {
-                            $custom_value = maybe_serialize($custom_value);
+                        if (is_serialized($custom_value)) {
+                            $custom_value = maybe_unerialize($custom_value);
                         }
                         update_post_meta($pID, $custom_key, $custom_value);
                     }
@@ -75,8 +75,8 @@ class WordpressCustomImport {
                         }
                     } else {
                         // Prevent double serialization for non-serialized user fields
-                        if (!is_serialized($custom_value)) {
-                            $custom_value = maybe_serialize($custom_value);
+                        if (is_serialized($custom_value)) {
+                            $custom_value = maybe_unerialize($custom_value);
                         }
                         update_user_meta($pID, $custom_key, $custom_value);
                     }

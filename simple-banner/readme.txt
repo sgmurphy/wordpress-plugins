@@ -4,7 +4,7 @@ Donate link: https://www.paypal.me/rpetersenDev
 Tags: banner, bar, announcement, notification, notice
 Requires at least: 3.0.1
 Tested up to: 6.6.1
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ Display a simple banner/bar at the top or bottom of your website. Now with multi
 This plugin makes it easy to display a simple announcement banner or bar at the top of your website. You can easily customize the color of the links, text, and background of the bar from within the settings. You can also customize to your heart's desire by adding your own custom CSS. There's also a fancy preview section within the settings so you can see your changes before you save them.
 
 = Now with multi-banner support =
-With Pro features you can display up to 5 separate banners on your site. Banners can be show simultaneously or plan weeks of banners by showing then consecutively. 
+With Pro features you can display up to 5 separate banners on your site. Banners can be shown simultaneously or plan weeks of banners by showing them consecutively. 
 
 == Installation ==
 
@@ -98,6 +98,9 @@ Try setting the "Prepend element" setting to <code>header</code>. If that doesn'
 4. This is the fifth screen shot.
 
 == Changelog ==
+
+= 3.0.3 =
+* Add back wp_body_open
 
 = 3.0.2 =
 * False text bug fix
@@ -350,6 +353,9 @@ Try setting the "Prepend element" setting to <code>header</code>. If that doesn'
 * First Version.
 
 == Upgrade Notice ==
+
+= 3.0.3 =
+* Add back wp_body_open
 
 = 3.0.2 =
 * False text bug fix

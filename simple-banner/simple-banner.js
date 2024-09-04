@@ -13,6 +13,8 @@ jQuery(document).ready(function ($) {
             simple_banner_prepend_element,
             keep_site_custom_css,
             keep_site_custom_js,
+            wp_body_open,
+            wp_body_open_enabled,
         } = bannerParams;
 
         const strings = {
@@ -49,12 +51,14 @@ jQuery(document).ready(function ($) {
         const isSimpleBannerVisible = isSimpleBannerTextSet && isSimpleBannerEnabledOnPage;
 
         if (isSimpleBannerVisible) {
-            const closeButton = close_button_enabled ? `<button aria-label="Close" id="${strings.simpleBannerCloseButton}" class="${strings.simpleBannerButton}">&#x2715;</button>` : '';
-            const prependElement = document.querySelector(simple_banner_insert_inside_element || simple_banner_prepend_element || 'body');
+            if (!wp_body_open || !wp_body_open_enabled) {
+                const closeButton = close_button_enabled ? `<button aria-label="Close" id="${strings.simpleBannerCloseButton}" class="${strings.simpleBannerButton}">&#x2715;</button>` : '';
+                const prependElement = document.querySelector(simple_banner_insert_inside_element || simple_banner_prepend_element || 'body');
 
-            $(
-                `<div id="${strings.simpleBanner}" class="${strings.simpleBanner}"><div class="${strings.simpleBannerText}"><span>${simple_banner_text}</span></div>${closeButton}</div>`
-            ).prependTo(prependElement || 'body');
+                $(
+                    `<div id="${strings.simpleBanner}" class="${strings.simpleBanner}"><div class="${strings.simpleBannerText}"><span>${simple_banner_text}</span></div>${closeButton}</div>`
+                ).prependTo(prependElement || 'body');
+            }
 
             // could move this out of the loop but not entirely necessary
             const bodyPaddingLeft = $('body').css('padding-left')

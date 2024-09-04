@@ -31,7 +31,7 @@ class SPS_Typography {
 					array(
 						'type'    => 'notice',
 						'class'   => 'taxonomy-ajax-filter-notice',
-						'content' => __( 'Want to easily customize everything (Typography, Colors, Margin)?', 'post-carousel' ) . ' <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro!', 'post-carousel' ) . '</b></a> P.S. Note: The color fields work in the lite version.',
+						'content' => __( 'Want to easily customize everything (Typography, Colors, Margin)?', 'post-carousel' ) . ' <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro!', 'post-carousel' ) . '</b></a> ' . __( 'P.S. Note: The color fields work in the lite version.', 'post-carousel' ),
 					),
 					array(
 						'id'         => 'section_title_typography',

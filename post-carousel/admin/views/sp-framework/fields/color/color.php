@@ -36,7 +36,7 @@ if ( ! class_exists( 'SP_PC_Field_color' ) ) {
 		 */
 		public function render() {
 
-			$default_attr = ( ! empty( $this->field['default'] ) ) ? ' data-default-color="' . $this->field['default'] . '"' : '';
+			$default_attr = ( ! empty( $this->field['default'] ) ) ? ' data-default-color="' . esc_attr( $this->field['default'] ) . '"' : '';
 
 			echo wp_kses_post( $this->field_before() );
 			echo '<input type="text" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '" class="spf-color"' . wp_kses_post( $default_attr ) . wp_kses_post( $this->field_attributes() ) . '/>';

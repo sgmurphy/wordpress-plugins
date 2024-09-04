@@ -22,6 +22,52 @@
 			"type": "string",
 			"default": "16px"
 		},
+		"counterFontFamily": {
+			"type": "string",
+			"default": ""
+		},
+		"labelFontFamily": {
+			"type": "string",
+			"default": ""
+		},
+		"counterDecoration": {
+			"type": "string",
+			"default": ""
+		},
+		"labelDecoration": {
+			"type": "string",
+			"default": ""
+		},
+		"counterLineHeight": {
+			"type": "string",
+			"default": ""
+		},
+		"labelLineHeight": {
+			"type": "string",
+			"default": ""
+		},
+		"counterLetterSpacing": {
+			"type": "string",
+			"default": ""
+		},
+		"labelLetterSpacing": {
+			"type": "string",
+			"default": ""
+		},
+		"counterFontAppearance": {
+			"type": "object",
+			"default": {
+				"fontStyle": "",
+				"fontWeight": ""
+			}
+		},
+		"labelFontAppearance": {
+			"type": "object",
+			"default": {
+				"fontStyle": "",
+				"fontWeight": ""
+			}
+		},
 		"startNumber": {
 			"type": "string",
 			"default": "0"

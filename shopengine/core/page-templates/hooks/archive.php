@@ -66,6 +66,19 @@ class Archive extends Base {
 				wp_dequeue_script('thim-main');
 				wp_dequeue_script('thim-custom-script');
 			}
+
+		if (function_exists('wp_get_theme')) {
+			$theme = wp_get_theme();
+			$active_theme = $theme->get('Name');
+			
+			if($active_theme === 'PHOX' || $active_theme === 'PHOX Child') {
+				wp_dequeue_style('wdes-woocommerce');
+				wp_dequeue_script('bootstrap');
+				
+			}
+
+		}
+			
 	}
 
 

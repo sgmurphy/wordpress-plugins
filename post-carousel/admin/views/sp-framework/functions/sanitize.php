@@ -105,9 +105,9 @@ if ( ! function_exists( 'spf_pcp_sanitize_border_field' ) ) {
 		$new_array = array();
 		foreach ( $array as $key => $value ) {
 			$sanitize_key = sanitize_key( $key );
-			if ( 'style' == $key || strpos( $key, 'color' ) !== false ) {
+			if ( 'style' === $key || 'unit' === $key || 'units' === $key || strpos( $key, 'color' ) !== false ) {
 				$new_array[ $sanitize_key ] = sanitize_text_field( $value );
-			} elseif ( ! empty( $value ) ) {
+			} else {
 				$new_array[ $sanitize_key ] = intval( $value );
 			}
 		}

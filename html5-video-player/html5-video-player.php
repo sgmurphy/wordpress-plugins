@@ -4,27 +4,27 @@
  * Plugin Name: Html5 Video Player
  * Plugin URI:  https://bplugins.com/html5-video-player-pro/
  * Description: You can easily integrate html5 Video player in your WordPress website using this plugin.
- * Version:     2.5.34
+ * Version:     2.5.35
  * Author:      bPlugins LLC
  * Author URI:  http://bplugins.com
  * License:     GPLv3    
  * 
  */
 use H5VP\Helper\Functions as Utils;
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
-    require_once dirname( __FILE__ ) . '/vendor/autoload.php';
-}
-if ( file_exists( dirname( __FILE__ ) . '/admin/awsmanager/vendor/autoload.php' ) ) {
-    require_once dirname( __FILE__ ) . '/admin/awsmanager/vendor/autoload.php';
-}
 if ( function_exists( 'h5vp_fs' ) ) {
     h5vp_fs()->set_basename( false, __FILE__ );
 } else {
+    if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+        require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+    }
+    if ( file_exists( dirname( __FILE__ ) . '/admin/awsmanager/vendor/autoload.php' ) ) {
+        require_once dirname( __FILE__ ) . '/admin/awsmanager/vendor/autoload.php';
+    }
     /*Some Set-up*/
     define( 'H5VP_PRO_PLUGIN_DIR', plugin_dir_url( __FILE__ ) );
     define( 'H5VP_PRO_PLUGIN_FILE_BASENAME', plugin_basename( __FILE__ ) );
     define( 'H5VP_PRO_PLUGIN_DIR_BASENAME', plugin_basename( __DIR__ ) );
-    define( 'H5VP_PRO_VER', ( isset( $_SERVER['HTTP_HOST'] ) && $_SERVER['HTTP_HOST'] === 'localhost' ? time() : '2.5.34' ) );
+    define( 'H5VP_PRO_VER', ( isset( $_SERVER['HTTP_HOST'] ) && $_SERVER['HTTP_HOST'] === 'localhost' ? time() : '2.5.33' ) );
     // Create a helper function for easy SDK access.
     function h5vp_fs() {
         global $h5vp_fs;

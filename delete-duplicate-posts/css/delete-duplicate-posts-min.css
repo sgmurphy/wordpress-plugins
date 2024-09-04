@@ -75,7 +75,13 @@
 	margin-bottom: 6px;
 }
 
-#delete-duplicate-posts-tabs ul.ui-tabs-nav li.ui-tabs-active a,
+#delete-duplicate-posts-tabs ul.ui-tabs-nav li.ui-tabs-active a {
+border-bottom-color: #ffffff;
+	background: none;
+	color: #00a0d2;
+}
+
+
 #delete-duplicate-posts-tabs ul.ui-tabs-nav li:hover a {
 	border-bottom-color: #00a0d2;
 	background: none;
@@ -85,6 +91,8 @@
 #delete-duplicate-posts-tabs .ui-tabs-panel {
 	padding: 15px;
 	border: 1px solid #ccc;
+	background: #ffffff;
+
 	border-top: none;
 }
 
@@ -333,13 +341,16 @@ ul.striped>:nth-child(even):hover {
 	margin-bottom: 10px;
 }
 
-.statusdiv .warning {
+.statusdiv .errormessage {
 	border: 1px solid #ff0000;
+	background-color: #ffe6e6;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
-	text-align: center;
+	text-align: left;
+	display: none;
+	margin-bottom: 20px;
 }
 
 .statusdiv .center {

@@ -3,7 +3,7 @@ Contributors: dotcamp, ultimateblocks, imtiazrayhan, istiakrayhan, erdembircan, 
 Tags: blocks, gutenberg blocks, gutenberg, block editor, free
 Requires at least: 5.8
 Tested up to: 6.6
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 Requires PHP: 5.6
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -149,6 +149,15 @@ That's it. You're done!
 3. Tabbed Content Block.
 
 == Changelog ==
+
+= 3.2.2 =
+
+* NEW: Link to Divider Feature in Table of content block.
+* NEW: Add gap option in Star Rating block.
+* NEW: Add all typography options in counter block.
+* FIX: Accessibility issue in tabbed content block.
+* FIX: Block Editor hang when inserting pattern with UB block.
+* PRO: FIX: PHP warning from saved styles.
 
 = 3.2.1 =
 

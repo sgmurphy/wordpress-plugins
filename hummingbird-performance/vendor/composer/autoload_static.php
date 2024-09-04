@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321
+class ComposerStaticInit728436b4cb924d5773e70f2b7ec78bb6
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
@@ -115,6 +115,7 @@ class ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321
         'Hummingbird\\Core\\Modules\\Minify\\Scanner' => __DIR__ . '/../..' . '/core/modules/minify/class-scanner.php',
         'Hummingbird\\Core\\Modules\\Minify\\Sources_Collector' => __DIR__ . '/../..' . '/core/modules/minify/class-sources-collector.php',
         'Hummingbird\\Core\\Modules\\Minify\\URI_Rewriter' => __DIR__ . '/../..' . '/core/modules/minify/class-uri-rewriter.php',
+        'Hummingbird\\Core\\Modules\\Mixpanel_Analytics' => __DIR__ . '/../..' . '/core/modules/class-mixpanel-analytics.php',
         'Hummingbird\\Core\\Modules\\Page_Cache' => __DIR__ . '/../..' . '/core/modules/class-page-cache.php',
         'Hummingbird\\Core\\Modules\\Performance' => __DIR__ . '/../..' . '/core/modules/class-performance.php',
         'Hummingbird\\Core\\Modules\\Redis' => __DIR__ . '/../..' . '/core/modules/class-redis.php',
@@ -409,9 +410,9 @@ class ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit063c5c290bb2b450ce8b35d1c54c6321::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit728436b4cb924d5773e70f2b7ec78bb6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit728436b4cb924d5773e70f2b7ec78bb6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit728436b4cb924d5773e70f2b7ec78bb6::$classMap;
 
         }, null, ClassLoader::class);
     }

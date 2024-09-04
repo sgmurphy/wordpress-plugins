@@ -4,7 +4,7 @@
  * Plugin Name:			ThumbPress
  * Plugin URI:			https://thumbpress.co
  * Description:			A complete image and thumbnail management solution for WordPress.
- * Version:				5.7
+ * Version:				5.7.1
  * Requires at least:	5.0
  * Requires PHP:		7.0
  * Tested up to:		6.6
@@ -244,6 +244,7 @@ final class Plugin {
 		$ajax->priv( 'handle_unhappy_survey', 'unhappy_servay' );
 		// $ajax->priv( 'image_sizes-pointer-dismiss', 'dismiss_pointer' );
 		$ajax->priv( 'image_sizes-dismiss', 'image_sizes_dismiss' );
+		$ajax->all( 'image-sizes_dismiss_notice', 'image_sizes_dismiss_notice_callback' );
 
 	}
 

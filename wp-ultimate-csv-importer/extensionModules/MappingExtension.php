@@ -78,8 +78,10 @@ class MappingExtension {
 		$smackcsv_instance = SmackCSV::getInstance();
 		$upload_dir = $smackcsv_instance->create_upload_dir();
 		if($file_extension == 'csv' || $file_extension == 'txt'){
-			if (!ini_get("auto_detect_line_endings")) {
-				ini_set("auto_detect_line_endings", true);
+			if (version_compare(PHP_VERSION, '8.1.0', '<')) {  // Only do this if PHP version is less than 8.1.0
+				if (!ini_get("auto_detect_line_endings")) {
+					ini_set("auto_detect_line_endings", true);
+				}
 			}
 			$info = [];
 			if (($h = fopen($upload_dir.$hash_key.'/'.$hash_key, "r")) !== FALSE) 

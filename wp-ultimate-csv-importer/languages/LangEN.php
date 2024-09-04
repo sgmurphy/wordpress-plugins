@@ -150,6 +150,7 @@ class LangEN {
                 'Height' => 'Height',
                 'SIMPLEMODE' => 'SIMPLE MODE',
                 'CustomerReviews' => 'Customer Reviews',
+                'WooCommerceReviews' =>'WooCommerce Reviews',
                 'Buynow' => 'BUY NOW!',
                 'Addons' => 'Addons',
                 'Posts' => 'Posts',

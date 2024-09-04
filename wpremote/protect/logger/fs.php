@@ -1,8 +1,8 @@
 <?php
 if (!defined('ABSPATH') && !defined('MCDATAPATH')) exit;
 
-if (!class_exists('WPRProtectLoggerFS_V568')) :
-class WPRProtectLoggerFS_V568 {
+if (!class_exists('WPRProtectLoggerFS_V572')) :
+class WPRProtectLoggerFS_V572 {
 	public $logFile;
 
 	function __construct($filename) {

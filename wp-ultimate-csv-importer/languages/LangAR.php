@@ -380,6 +380,7 @@ class LangAR
 					'Taxonomies' => 'التصنيفات',
 					'Comments' => 'تعليقات',
 					'CustomerReviews' => 'آراء العملاء',
+					'WooCommerceReviews' =>'تقييمات ووكومرس',
 					'WooCommerceCoupons' => 'كوبونات WooCommerce',
 					'WooCommerceRefunds' => 'المبالغ المستردة WooCommerce',
 					'WooCommerceVariations' => 'الاختلافات في WooCommerce',

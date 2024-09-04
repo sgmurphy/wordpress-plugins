@@ -2,10 +2,10 @@
 Contributors: shapedplugin, rubel_miah, shamimmiashuhagh, khalilu
 Tags: post slider, news carousel, post grid, latest post slider, post timeline
 Requires at least: 4.7
-Tested up to: 6.6
+Tested up to: 6.6.1
 WC requires at least: 5.0
-WC tested up to: 9.1.0
-Stable tag: 3.0.0
+WC tested up to: 9.2.3
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -184,6 +184,13 @@ Thank you!
 
 
 == Changelog ==
+
+= 3.0.1 - Sep 04, 2024 =
+* Improved: The plugin security has been improved.
+* Fix: Some string translation issue.
+* Updated: The language (.pot) file.
+* Tested: WordPress 6.6.1 compatibility.
+* Tested: WooCommerce 9.2.3 compatibility.
 
 = 3.0.0 - Jul 11, 2024 =
 * New: The Slider Layout feature.

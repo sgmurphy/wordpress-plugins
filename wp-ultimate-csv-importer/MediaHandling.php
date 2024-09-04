@@ -91,12 +91,13 @@ class MediaHandling{
 					
 					// Skip directories
 					if (substr($filename[$i], -1) == '/') continue;
-					
+					$sanitized_filename = str_replace(' ', '-', basename($filename[$i]));
+					$sanitized_filename = preg_replace('/[^a-zA-Z0-9._\-\s]/', '', $sanitized_filename);
+					$full_extract_path = $extract_path . $sanitized_filename;
 					$fp = $zip->getStream($filename[$i]);
 					$size[$i] = $zip->statIndex($i)['size'];
 					$kbsize[$i] = $this->convertToReadableSize($size[$i]);
-					$ofp = fopen($extract_path . '/' . basename($filename[$i]), 'w');
-					
+					$ofp = fopen($full_extract_path, 'w');
 					if (!$fp)
 						throw new Exception('Unable to extract the file.');
 					
@@ -636,7 +637,6 @@ class MediaHandling{
 	
 		$attach_id = $this->media_handling($acf_csv_name, $post_id, $post_values,$get_import_type,$plugin,$hash_key,'',$header_array,$value_array,$indexs,'','','',$line_number);
 		if (!empty($attach_id)) {
-			$this->store_image_ids($attach_id);
 			return $attach_id;
 		}
 	
@@ -653,12 +653,10 @@ class MediaHandling{
 		}
 	
 		if (empty($failed_inline_ids)) {
-			$this->store_image_ids($attach_id);
 			$this->store_failed_image_ids($attach_id);
 			$this->failed_media_data($line_number,$post_id,$post_title,$attach_id,$acf_csv_name);
 		} 
 		elseif (isset($failed_inline_ids[0]->post_id) && $failed_inline_ids[0]->post_id == $post_id) {
-			$this->store_image_ids($failed_inline_ids[0]->media_id);
 			$this->store_failed_image_ids($failed_inline_ids[0]->media_id);
 			$this->failed_media_data($line_number,$failed_inline_ids[0]->post_id,$failed_inline_ids[0]->post_title,$failed_inline_ids[0]->media_id,$failed_inline_ids[0]->original_image);
 		}
@@ -672,7 +670,6 @@ class MediaHandling{
 		if (empty($failed_ids)) {
 			$attach_id = $this->media_handling($acf_csv_name, $post_id, $post_values,$get_import_type,$plugin,$hash_key,'',$header_array,$value_array,'','','','',$line_number);
 			if (!empty($attach_id)) {
-				$this->store_image_ids($attach_id);
 				return $attach_id;
 			}
 		}
@@ -689,7 +686,6 @@ class MediaHandling{
 			$attach_id = wp_insert_attachment($post_info, $uploaddir_path, $post_id);
 	
 			if (empty($failed_ids)) {
-				$this->store_image_ids($attach_id);
 				$this->store_failed_image_ids($attach_id);
 				$this->failed_media_data($line_number,$post_id,$post_title,$attach_id,$acf_csv_name);
 			}
@@ -714,7 +710,6 @@ class MediaHandling{
 		$attach_id = $this->media_handling($acf_csv_name, $post_id, $post_values,$get_import_type,$plugin,$hash_key,'',$header_array,$value_array,$indexs,$acf_wpname_element,$acf_image_meta,'',$line_number);
 	
 		if (!empty($attach_id)) {
-			$this->store_image_ids($attach_id);
 			return $attach_id;
 		}
 	
@@ -729,14 +724,12 @@ class MediaHandling{
 			);
 			$attach_id = wp_insert_attachment($post_info, $uploaddir_path, $post_id);
 	
-			$this->store_image_ids($attach_id);
 			$this->store_failed_image_ids($attach_id);
 			$this->failed_media_data($line_number,$post_id,$post_title,$attach_id,$acf_csv_name);
 		} else {
 			$media_id = $failed_id[0]->media_id;
 			$attachment_id = $wpdb->get_results("SELECT ID FROM {$wpdb->prefix}posts WHERE ID = $media_id AND post_title = 'image-failed' AND post_type = 'attachment' AND guid LIKE '%$fimg_name%'", ARRAY_A);
 			$attach_id = $attachment_id[0]['ID'];
-			$this->store_image_ids($attach_id);
 		}
 	
 		return $attach_id;

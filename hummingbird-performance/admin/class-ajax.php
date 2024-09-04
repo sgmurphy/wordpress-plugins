@@ -2214,7 +2214,9 @@ class AJAX {
 		}
 
 		Settings::update_settings( $settings, 'settings' );
-		$is_mixpanel_value_updated = $settings['tracking'] && $prev_mixpanel_value !== $settings['tracking'] ? true : false;
+		$is_mixpanel_value_updated = $prev_mixpanel_value !== $settings['tracking'] ? true : false;
+
+		do_action( 'wphb_mixpanel_usage_tracking_value_update', $is_mixpanel_value_updated, $settings['tracking'] );
 
 		wp_send_json_success(
 			array(

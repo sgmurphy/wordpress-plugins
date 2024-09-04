@@ -148,7 +148,7 @@ if ( ! class_exists( 'SP_PC_Field_dimensions_advanced' ) ) {
 			}
 
 			if ( ! empty( $args['color'] ) ) {
-				$default_color_attr = ( ! empty( $default_values['color'] ) ) ? ' data-default-color="' . $default_values['color'] . '"' : '';
+				$default_color_attr = ( ! empty( $default_values['color'] ) ) ? ' data-default-color="' . esc_attr( $default_values['color'] ) . '"' : '';
 				echo '<div class="spf--left spf-field-color">';
 				echo '<input type="text" disabled="disabled" name="' . esc_attr( $this->field_name( '[color]' ) ) . '" value="' . esc_attr( $value['color'] ) . '" class="spf-color"' . wp_kses_post( $default_color_attr ) . ' />';
 				echo '</div>';

@@ -1,55 +1,16 @@
 /* global wphb */
-
-const MixPanel = require( 'mixpanel-browser' );
+import Fetcher from './utils/fetcher';
 
 ( function() {
 	'use strict';
 
 	window.wphbMixPanel = {
 		/**
-		 * Init super properties (common with every request).
-		 */
-		init() {
-			if (
-				'undefined' === typeof wphb.mixpanel ||
-				! wphb.mixpanel.enabled
-			) {
-				return;
-			}
-
-			MixPanel.init( '5d545622e3a040aca63f2089b0e6cae7', {
-				opt_out_tracking_by_default: ! wphb.mixpanel.enabled,
-				ip: false,
-			} );
-
-			MixPanel.register( {
-				plugin: wphb.mixpanel.plugin,
-				plugin_type: wphb.mixpanel.plugin_type,
-				plugin_version: wphb.mixpanel.plugin_version,
-				wp_version: wphb.mixpanel.wp_version,
-				wp_type: wphb.mixpanel.wp_type,
-				locale: wphb.mixpanel.locale,
-				active_theme: wphb.mixpanel.active_theme,
-				php_version: wphb.mixpanel.php_version,
-				mysql_version: wphb.mixpanel.mysql_version,
-				server_type: wphb.mixpanel.server_type,
-			} );
-		},
-
-		/**
 		 * Opt in tracking.
 		 */
 		optIn() {
 			wphb.mixpanel.enabled = true;
-			this.init();
-			MixPanel.opt_in_tracking();
-		},
-
-		/**
-		 * Opt out tracking.
-		 */
-		optOut() {
-			MixPanel.opt_out_tracking();
+			this.track( 'Opt In' );
 		},
 
 		/**
@@ -87,6 +48,23 @@ const MixPanel = require( 'mixpanel-browser' );
 				'Modal Action': 'direct_cta',
 				'Location': location,
 			} );
+		},
+
+		/**
+		 * Get update type
+		 *
+		 * @param {string} update_type Update type.
+		 */
+		getUpdateType( update_type ) {
+			if ( 'activate' === update_type ) {
+				return 'plugin_feature_activate';
+			}
+
+			if ( 'deactivate' === update_type ) {
+				return 'plugin_feature_deactivate';
+			}
+
+			return '';
 		},
 
 		/**
@@ -228,8 +206,8 @@ const MixPanel = require( 'mixpanel-browser' );
 		/**
 		 * Track an event.
 		 *
-		 * @param {string} event Event ID.
-		 * @param {Object} data  Event data.
+		 * @param {string} event                Event ID.
+		 * @param {Object} data                 Event data.
 		 */
 		track( event, data = {} ) {
 			if (
@@ -239,9 +217,7 @@ const MixPanel = require( 'mixpanel-browser' );
 				return;
 			}
 
-			if ( ! MixPanel.has_opted_out_tracking() ) {
-				MixPanel.track( event, data );
-			}
+			Fetcher.mixpanel.trackMixpanelEvent( event, data );
 		}
 	};
 }() );

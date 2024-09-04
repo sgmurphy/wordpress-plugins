@@ -11,27 +11,6 @@ if ( !defined( 'ABSPATH' ) ) {
 <div id="sidebar-container">
 	<?php 
 global $ddp_fs;
-if ( !$ddp_fs->is_registered() && !$ddp_fs->is_pending_activation() ) {
-    ?>
-		<div class="sidebarrow optin">
-			<h3><span class="dashicons dashicons-warning"></span>
-				<?php 
-    esc_html_e( 'Help us improve!', 'delete-duplicate-posts' );
-    ?></h3>
-			<p>
-				<?php 
-    esc_html_e( 'Opt-in to our security and feature updates notifications, and non-sensitive diagnostic tracking.', 'delete-duplicate-posts' );
-    ?>
-			</p>
-			<a href="javascript:;" class="button button-secondary" onclick="cp_ddp_freemius_opt_in(this)" data-opt="yes"><?php 
-    esc_html_e( 'Click here to opt in.', 'delete-duplicate-posts' );
-    ?></a>
-			<div id="cp-ddp-opt-spin" class="spinner"></div><input type="hidden" id="cp-ddp-freemius-opt-nonce" value="<?php 
-    echo esc_attr( wp_create_nonce( 'cp-ddp-freemius-opt' ) );
-    ?>" />
-		</div>
-		<?php 
-}
 $my_current_user = wp_get_current_user();
 $ddp_deleted_duplicates = get_option( 'ddp_deleted_duplicates' );
 if ( $ddp_deleted_duplicates ) {

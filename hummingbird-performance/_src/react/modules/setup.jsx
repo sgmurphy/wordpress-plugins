@@ -167,21 +167,13 @@ class SetupWizard extends React.Component {
 	 */
 	finish( goToPage = 'pluginDash' ) {
 		this.setState( { loading: true } );
+		if ( 'string' !== typeof goToPage ) {
+			goToPage = 'pluginDash';
+		}
+
 		this.state.api
-			.post( 'complete_wizard' )
+			.post( 'complete_wizard', goToPage )
 			.then( () => {
-				if ( 'string' !== typeof goToPage ) {
-					goToPage = 'pluginDash';
-				}
-
-				if ( 'runPerf' === goToPage ) {
-					window.wphbMixPanel.track( 'plugin_scan_started', {
-						score_mobile_previous: '-',
-						score_desktop_previous: '-',
-						Location: 'setup_wizard',
-					} );
-				}
-
 				window.location.href = getLink( goToPage );
 			} )
 			.catch( ( error ) => window.console.log( error ) );
@@ -250,14 +242,6 @@ class SetupWizard extends React.Component {
 	updateSettings( e ) {
 		const settings = { ...this.state.settings };
 		settings[ e.target.id ] = e.target.checked;
-
-		if ( 'tracking' === e.target.id ) {
-			if ( e.target.checked ) {
-				window.wphbMixPanel.optIn();
-			} else {
-				window.wphbMixPanel.optOut();
-			}
-		}
 
 		this.setState( { settings } );
 	}

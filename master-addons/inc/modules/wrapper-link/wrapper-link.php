@@ -28,8 +28,7 @@ class JLTMA_Extension_Wrapper_Link
         add_action('elementor/element/column/section_advanced/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 3);
         add_action('elementor/element/section/section_advanced/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 1);
         add_action('elementor/element/common/_section_style/after_section_end', [$this, 'jltma_wrapper_link_add_controls_section'], 10, 1);
-
-        add_action('elementor/frontend/before_render', [$this, 'jltma_before_section_render'], 10, 1);
+        add_action('elementor/widget/before_render_content', [$this, 'widget_before_render_content'], 10, 1);
     }
 
     public function jltma_wrapper_link_add_controls_section(Element_Base $element)
@@ -64,27 +63,24 @@ class JLTMA_Extension_Wrapper_Link
         $element->end_controls_section();
     }
 
-    public function jltma_before_section_render(Element_Base $element)
-    {
+    public function widget_before_render_content( Element_Base $element ) {
 
-        $jltma_element_link = $element->get_settings_for_display('jltma_section_element_link');
+        $settings = $element->get_settings_for_display('jltma_section_element_link');
 
-        if ($jltma_element_link && !empty($jltma_element_link['url'])) {
+        if ( empty( $settings['url'] ) ) return;
 
-            $jltma_element_link['url'] = esc_url_raw($jltma_element_link['url']);
+        $element->add_link_attributes( 'jltma_wrapper_link', $settings );
 
-            if(!empty($jltma_element_link['url'])){
-                $element->add_render_attribute(
-                    '_wrapper',
-                    [
-                        'data-jltma-wrapper-link' => json_encode($jltma_element_link),
-                        'style' => 'cursor: pointer'
-                    ]
-                );
-            }
-        }
+        $element->add_render_attribute( 'jltma_wrapper_link', [
+            'class' => 'jltma-wrapper-link',
+            'aria-label' => esc_html__( 'More Details', 'master-addons' ),
+            'style' => wp_strip_all_tags('position:absolute;width:100%;height:100%;top:0;left:0;z-index:99999')
+        ]);
+
+        ?>
+        <a <?php $element->print_render_attribute_string( 'jltma_wrapper_link' ); ?>></a>
+        <?php
     }
-
 
     public static function get_instance()
     {

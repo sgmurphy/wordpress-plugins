@@ -5,11 +5,11 @@ Plugin Name: Delete Duplicate Posts
 Plugin Script: delete-duplicate-posts.php
 Plugin URI: https://cleverplugins.com
 Description: Remove duplicate blogposts on your blog! Searches and removes duplicate posts and their post meta tags. You can delete posts, pages and other Custom Post Types enabled on your website.
-Version: 4.9.8
+Version: 4.9.9
 Author: cleverplugins.com
 Author URI: https://cleverplugins.com
 Min WP Version: 4.7
-Max WP Version: 6.5.2
+Max WP Version: 6.6.3
 Text Domain: delete-duplicate-posts
 Domain Path: /languages
 */
@@ -31,12 +31,8 @@ if ( function_exists( 'ddp_fs' ) ) {
                 if ( !defined( 'WP_FS__PRODUCT_925_MULTISITE' ) ) {
                     define( 'WP_FS__PRODUCT_925_MULTISITE', true );
                 }
-                require_once __DIR__ . '/freemius/start.php';
-                define( 'CP_DDP_FREEMIUS_STATE', 'cp_ddp_freemius_state' );
-                $cp_ddp_freemius_state = get_site_option( CP_DDP_FREEMIUS_STATE, 'anonymous' );
-                $is_anonymous = 'anonymous' === $cp_ddp_freemius_state || 'skipped' === $cp_ddp_freemius_state;
-                $is_premium = false;
-                $is_anonymous = ( $is_premium ? false : $is_anonymous );
+                // Include Freemius SDK.
+                require_once dirname( __FILE__ ) . '/freemius/start.php';
                 $ddp_fs = fs_dynamic_init( array(
                     'id'             => '925',
                     'slug'           => 'delete-duplicate-posts',
@@ -46,13 +42,14 @@ if ( function_exists( 'ddp_fs' ) ) {
                     'premium_suffix' => 'Pro',
                     'has_addons'     => false,
                     'has_paid_plans' => true,
-                    'anonymous_mode' => $is_anonymous,
+                    'trial'          => array(
+                        'days'               => 3,
+                        'is_require_payment' => false,
+                    ),
                     'menu'           => array(
-                        'slug'        => 'delete-duplicate-posts.php',
-                        'first-path'  => 'tools.php?page=delete-duplicate-posts',
-                        'support'     => false,
-                        'affiliation' => false,
-                        'parent'      => array(
+                        'slug'       => 'delete-duplicate-posts.php',
+                        'first-path' => 'tools.php?page=delete-duplicate-posts&welcome-message=true',
+                        'parent'     => array(
                             'slug' => 'tools.php',
                         ),
                     ),
@@ -62,7 +59,9 @@ if ( function_exists( 'ddp_fs' ) ) {
             return $ddp_fs;
         }
 
+        // Init Freemius.
         ddp_fs();
+        // Signal that SDK was initiated.
         do_action( 'ddp_fs_loaded' );
     }
     ddp_fs()->add_action( 'after_uninstall', 'ddp_fs_uninstall_cleanup' );
@@ -82,17 +81,15 @@ function ddp_fs_uninstall_cleanup() {
     $wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %s', $wpdb->prefix . 'ddp_redirects' ) );
     delete_option( 'ddp_deleted_duplicates' );
     delete_option( 'delete_duplicate_posts_options_v4' );
-    delete_option( 'cp_ddp_freemius_state' );
 }
 
-add_action( 'admin_init', array('PAnD', 'init') );
 if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
     class Delete_Duplicate_Posts {
         public static $options_name = 'delete_duplicate_posts_options_v4';
 
         public $localization_domain = 'delete-duplicate-posts';
 
-        public static $options = array();
+        public static $options = null;
 
         public function __construct() {
             // Adds extra permissions to Freemius
@@ -113,9 +110,7 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
             add_action( 'wp_ajax_ddp_get_loglines', array(__CLASS__, 'return_loglines_ajax') );
             add_action( 'wp_ajax_ddp_get_duplicates', array(__CLASS__, 'return_duplicates_ajax') );
             add_action( 'wp_ajax_ddp_delete_duplicates', array(__CLASS__, 'delete_duplicates_ajax') );
-            add_action( 'wp_ajax_cp_ddp_freemius_opt_in', array(__CLASS__, 'cp_ddp_fs_opt_in') );
             // loads admin notices
-            add_action( 'admin_init', array('PAnD', 'init') );
             add_action( 'admin_menu', array($this, 'admin_menu_link') );
             add_action( 'admin_enqueue_scripts', array($this, 'admin_enqueue_scripts') );
             add_action(
@@ -128,206 +123,6 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
             register_activation_hook( __FILE__, array($this, 'install') );
             add_action( 'ddp_cron', array($this, 'cleandupes') );
             add_action( 'cron_schedules', array($this, 'add_cron_intervals') );
-            add_action( 'admin_notices', array($this, 'ddp_action_admin_notices') );
-        }
-
-        /**
-         * Ajax callback to handle freemius opt in/out.
-         *
-         * @author   Lars Koudal
-         * @since    v0.0.1
-         * @version  v1.0.0  Tuesday, January 12th, 2021.
-         * @access   public static
-         * @return   void
-         */
-        public static function cp_ddp_fs_opt_in() {
-            if ( !current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( 'You do not have sufficient permissions to perform this action.' );
-                return;
-            }
-            $nonce = sanitize_text_field( $_POST['opt_nonce'] );
-            $choice = sanitize_text_field( $_POST['choice'] );
-            // Verify nonce.
-            if ( empty( $nonce ) || !wp_verify_nonce( $nonce, 'cp-ddp-freemius-opt' ) ) {
-                // Nonce verification failed.
-                echo wp_json_encode( array(
-                    'success' => false,
-                    'message' => esc_html__( 'Nonce verification failed.', 'delete-duplicate-posts' ),
-                ) );
-                exit;
-            }
-            // Check if choice is not empty.
-            if ( !empty( $choice ) ) {
-                if ( 'yes' === $choice ) {
-                    if ( !is_multisite() ) {
-                        ddp_fs()->opt_in();
-                        // Opt in.
-                    } else {
-                        // Get sites.
-                        $sites = \Freemius::get_sites();
-                        $sites_data = array();
-                        if ( !empty( $sites ) ) {
-                            foreach ( $sites as $site ) {
-                                $sites_data[] = ddp_fs()->get_site_info( $site );
-                            }
-                        }
-                        ddp_fs()->opt_in(
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            $sites_data
-                        );
-                    }
-                    // Update freemius state.
-                    update_site_option( CP_DDP_FREEMIUS_STATE, 'in' );
-                } elseif ( 'no' === $choice ) {
-                    if ( !is_multisite() ) {
-                        ddp_fs()->skip_connection();
-                        // Opt out.
-                    } else {
-                        ddp_fs()->skip_connection( null, true );
-                        // Opt out for all websites.
-                    }
-                    // Update freemius state.
-                    update_site_option( CP_DDP_FREEMIUS_STATE, 'skipped' );
-                }
-                echo wp_json_encode( array(
-                    'success' => true,
-                    'message' => esc_html__( 'Freemius opt choice selected.', 'delete-duplicate-posts' ),
-                ) );
-            } else {
-                echo wp_json_encode( array(
-                    'success' => false,
-                    'message' => esc_html__( 'Freemius opt choice not found.', 'delete-duplicate-posts' ),
-                ) );
-            }
-            exit;
-        }
-
-        /**
-         * ddp_action_admin_notices.
-         *
-         * @author   Lars Koudal
-         * @since    v0.0.1
-         * @version  v1.0.0  Tuesday, January 12th, 2021.
-         * @access   public static
-         * @return   void
-         */
-        public static function ddp_action_admin_notices() {
-            $screen = get_current_screen();
-            if ( \PAnD::is_admin_notice_active( 'ddp-newsletter-180' ) && in_array( $screen->id, array('dashboard', 'tools_page_delete-duplicate-posts', 'plugins'), true ) ) {
-                $current_user = wp_get_current_user();
-                $pluginfo = get_plugin_data( __FILE__ );
-                $plugin_version = $pluginfo['Version'];
-                ?>
-				<div id="cp-ddp-newsletter" data-dismissible="ddp-newsletter-180" class="updated notice notice-success is-dismissible">
-					<h3>Stay Ahead with Our Newsletter</h3>
-					<p>Sign up to receive the latest tips and updates directly to your inbox. Ensure your WordPress site remains efficient and duplicate-free!</p>
-					<form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/16490/forms/106309157552916248/subscribe" data-code="" method="post" target="_blank">
-						<input type="text" class="form-control" data-inputmask="" name="fields[name]" placeholder="Name" autocomplete="given-name" value="<?php 
-                echo esc_html( $current_user->display_name );
-                ?>" required="required">
-						<input type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email" value="<?php 
-                echo esc_html( $current_user->user_email );
-                ?>" required="required">
-						<input type="hidden" name="fields[signupsource]" value="Plugin v.<?php 
-                echo esc_attr( $plugin_version );
-                ?>">
-						<input type="hidden" name="ml-submit" value="1">
-						<input type="hidden" name="anticsrf" value="true">
-						<button type="submit" class="button button-primary button-small">Subscribe</button>
-					</form>
-					</br>
-				</div>
-				<?php 
-            }
-            if ( 'tools_page_delete-duplicate-posts' !== $screen->id ) {
-                return;
-            }
-            // Check anonymous mode.
-            if ( 'anonymous' === get_site_option( CP_DDP_FREEMIUS_STATE, 'anonymous' ) ) {
-                // If user manually opt-out then don't show the notice.
-                if ( ddp_fs()->is_anonymous() && ddp_fs()->is_not_paying() && ddp_fs()->has_api_connectivity() ) {
-                    if ( !is_multisite() || is_multisite() && is_network_admin() ) {
-                        if ( \PAnD::is_admin_notice_active( 'cp-ddp-improve-notice-30' ) ) {
-                            ?>
-							<div id="cp-ddp-freemius" data-dismissible="cp-ddp-improve-notice-30" class="notice notice-success is-dismissible">
-								<h3><?php 
-                            esc_html_e( 'Help Delete Duplicate Posts improve!', 'delete-duplicate-posts' );
-                            ?></h3>
-
-								<p>
-									<?php 
-                            echo esc_html__( 'Gathering non-sensitive diagnostic data about the plugin install helps us improve the plugin.', 'delete-duplicate-posts' ) . ' <a href="' . esc_url( 'https://cleverplugins.com/docs/install/non-sensitive-diagnostic-data/' ) . '" target="_blank" rel="noopener">' . esc_html__( 'Read more about what we collect.', 'delete-duplicate-posts' ) . '</a>';
-                            ?>
-								</p>
-
-								<p>
-									<?php 
-                            // translators:
-                            printf( esc_html__( 'If you opt-in, some data about your usage of %1$s will be sent to Freemius.com. If you skip this, that\'s okay! %1$s will still work just fine.', 'delete-duplicate-posts' ), '<b>Delete Duplicate Posts</b>' );
-                            ?>
-								</p>
-								<p>
-									<a href="javascript:;" class="button button-primary" onclick="cp_ddp_freemius_opt_in(this)" data-opt="yes"><?php 
-                            esc_html_e( 'Sure, opt-in', 'delete-duplicate-posts' );
-                            ?></a>
-
-									<a href="javascript:;" class="button dismiss-this"><?php 
-                            esc_html_e( 'No, thank you', 'delete-duplicate-posts' );
-                            ?></a>
-								</p>
-								<input type="hidden" id="cp-ddp-freemius-opt-nonce" value="<?php 
-                            echo esc_attr( wp_create_nonce( 'cp-ddp-freemius-opt' ) );
-                            ?>" />
-
-							</div>
-				<?php 
-                        }
-                    }
-                }
-            }
-            // Leave if it is not time to ask for review.
-            if ( !\PAnD::is_admin_notice_active( 'ddp-leavereview-180' ) ) {
-                return;
-            }
-            $totaldeleted = get_option( 'ddp_deleted_duplicates' );
-            if ( false !== $totaldeleted && 0 < $totaldeleted ) {
-                $totaldeleted = number_format_i18n( $totaldeleted );
-                ?>
-				<div id="cp-ddp-reviewlink" data-dismissible="ddp-leavereview-180" class="updated notice notice-success is-dismissible">
-					<h3>
-						<?php 
-                // translators: Total number of deleted duplicates
-                printf( esc_html__( '%s duplicates deleted!', 'delete-duplicate-posts' ), esc_html( $totaldeleted ) );
-                ?>
-					</h3>
-					<p>
-						<?php 
-                // translators: Asking for a review text
-                printf( esc_html__( "Hey, I noticed this plugin has deleted %s duplicate posts for you - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'delete-duplicate-posts' ), esc_html( $totaldeleted ) );
-                ?>
-					</p>
-
-					<p>
-					<a href="https://wordpress.org/support/plugin/delete-duplicate-posts/reviews/?filter=5#new-post" class="button-primary" target="_blank" rel="noopener"><?php 
-                echo esc_html__( 'Ok, you deserve it', 'delete-duplicate-posts' );
-                ?></a>
-<span class="dashicons dashicons-calendar"></span><a href="#" class="cp-ddp-dismiss-review-notice dismiss-this" target="_blank" rel="noopener"><?php 
-                echo esc_html__( 'Nope, maybe later', 'delete-duplicate-posts' );
-                ?></a>
-<span class="dashicons dashicons-smiley"></span><a href="#" class="cp-ddp-dismiss-review-notice dismiss-this" target="_blank" rel="noopener"><?php 
-                echo esc_html__( 'I already did', 'delete-duplicate-posts' );
-                ?></a>
-					</p>
-				</div>
-			<?php 
-            }
         }
 
         /**
@@ -378,7 +173,6 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
             }
             // Attempt to clean duplicates and handle possible failures
             $result = self::cleandupes( true, $cleaned_posts );
-            error_log( 'result ' . print_r( $result, true ) );
             if ( !$result ) {
                 $errorMessage = 'Error deleting duplicates.';
                 // Assuming $result is an array or object that could be serialized safely:
@@ -782,6 +576,9 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
          * @return  mixed
          */
         public static function get_options() {
+            if ( null !== self::$options ) {
+                return self::$options;
+            }
             $options = get_option( self::$options_name, array() );
             if ( !is_array( $options ) ) {
                 $options = array();
@@ -1386,6 +1183,7 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
 
 			<?php 
             $css_classes = ' free';
+            $display_ads = true;
             ?>
 
 			<div class="wrap<?php 
@@ -1394,11 +1192,11 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
 				<h2>Delete Duplicate Posts <span>v. <?php 
             echo esc_html( self::get_plugin_version() );
             ?></span></h2>
-
+				<?php 
+            $totaldeleted = get_option( 'ddp_deleted_duplicates' );
+            ?>
 				<div class="ddp_content_wrapper">
 					<div class="ddp_content_cell">
-
-
 						<div id="delete-duplicate-posts-tabs">
 							<ul>
 								<li><a href="#duplicates-tab">Duplicates</a></li>
@@ -1434,20 +1232,38 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
 											<div id="requestTime"></div>
 											<table id="ddp_dupetable" class="wp-list-table widefat fixed striped table-view-list"></table>
 										</div>
-
 									</div>
-
+									<?php 
+            if ( false !== $totaldeleted && 0 < $totaldeleted && $display_ads ) {
+                $totaldeleted = number_format_i18n( $totaldeleted );
+                ?>
+										<div id="cp-ddp-reviewlink" data-dismissible="ddp-leavereview-180" class="updated notice notice-success">
+											<h3>
+												<?php 
+                /* translators: %s: Total number of deleted duplicates */
+                printf( esc_html__( '%s duplicates deleted!', 'delete-duplicate-posts' ), esc_html( $totaldeleted ) );
+                ?>
+											</h3>
+											<p>
+												<?php 
+                /* translators: %s: Total number of deleted duplicates */
+                printf( esc_html__( "Hey, I noticed this plugin has deleted %s duplicate posts for you - that's awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.", 'delete-duplicate-posts' ), esc_html( $totaldeleted ) );
+                ?>
+											</p>
+											<p>
+												<a href="https://wordpress.org/support/plugin/delete-duplicate-posts/reviews/?filter=5#new-post" class="button-secondary button button-small" target="_blank" rel="noopener"><?php 
+                esc_html_e( 'Ok, you deserve it', 'delete-duplicate-posts' );
+                ?></a>
+										
+											</p>
+										</div>
+									<?php 
+            }
+            ?>
 								</div><!-- #dashboard -->
-
-
-
-
-
 							</div>
 
-
 							<div id="log-tab">
-
 								<div id="log">
 									<h3><?php 
             esc_html_e( 'The Log', 'delete-duplicate-posts' );
@@ -1465,16 +1281,10 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
             ?>" />
 								</form>
 								</p>
-
-
-
-
-
 							</div>
 
 							<div id="redirects-tab" class="pro">
 								<h3>Redirects</h3>
-
 								<?php 
             $output = '<p>Redirects is a feature in <a href="https://cleverplugins.com/delete-duplicate-posts/" target="_blank" rel="noopener">the premium version</a></p>';
             echo wp_kses( $output, array(
@@ -1486,12 +1296,7 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
                 ),
             ) );
             ?>
-
 							</div>
-
-
-
-
 							<div id="settings-tab">
 								<div id="ddp-configuration">
 									<h3><?php 
@@ -1525,8 +1330,6 @@ if ( !class_exists( __NAMESPACE__ . '\\Delete_Duplicate_Posts' ) ) {
             wp_nonce_field( 'ddp-update-options' );
             ?>
 									<table width="100%" cellspacing="2" cellpadding="5" class="form-table">
-
-
 										<tr valign="top">
 											<th><label for="ddp_pts"><?php 
             esc_html_e( 'Which post types?:', 'delete-duplicate-posts' );

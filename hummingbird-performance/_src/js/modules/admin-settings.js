@@ -36,10 +36,6 @@ import { getLink } from '../utils/helpers';
 				const tracking = document.getElementById( 'tracking' );
 
 				Fetcher.settings.saveSettings( form_data ).then( ( response ) => {
-					if ( tracking && true === tracking.checked && response.isMixpanelValueUpdated ) {
-						wphbMixPanel.optIn();
-					}
-
 					WPHB_Admin.notices.show();
 				} );
 

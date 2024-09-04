@@ -1,5 +1,5 @@
 === wpDataTables - WordPress Data Table, Dynamic Tables & Table Charts Plugin ===
-Contributors: wpDataTables, ameliabooking, isidoramarkovic, jelenicdanijela
+Contributors: wpDataTables, ameliabooking, isidoramarkovic, jelenicdanijela, stefke89
 Author URI: https://tmsproducts.io
 Plugin URI: https://wpdatatables.com/
 Tags: table, table builder, datatable, csv, chart
@@ -267,10 +267,6 @@ Installation of the plugin is really simple.
 
 == Frequently Asked Questions ==
 
-= I added a table but see no sorting, filtering or pagination =
-
-Usually this happens when PHP version is older than 5.4 is installed. Please first check this, and upgrade to PHP 5.4 or more, if that’s the issue.
-
 = How to hide “Showing X of X entries” in pagination? =
 
 Go to display tab of the table settings block and disable the “Info block” setting.
@@ -300,18 +296,19 @@ This can be changed from the “Number format” drop-down menu in the wpDataTab
 
 
 == Screenshots ==
-1. New simple editor
+1. Simple table editor
 2. Merge cells and customization
-3. Reorder/resizing columns and rows
-4. Front-end data table preview.
-5. Back-end data table editor preview.
-6. Data Table preview from the back-end
+3. CSV linked table
+4. Front-end data table preview
+5. Back-end data table editor preview
+6. Column settings the back-end
 7. Table browser example
-8. General settings
-9. Column settings
+8. Display table settings
+9. Simple table templates
 10. Plugin settings
 11. Google charts
-12. Google chart settings
+12. Chart.js charts
+13. Chart settings
 
 == Changelog ==
 = 3.4.2.23 =

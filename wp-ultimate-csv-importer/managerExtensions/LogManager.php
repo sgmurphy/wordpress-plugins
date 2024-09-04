@@ -35,55 +35,6 @@ class LogManager {
 		return LogManager::$instance;
     }
 
-    public function lfile($path) {
-		$this->log_file = $path;
-    }
-    
-	// write message to the log file
-	public function lwrite($message, $timestamp = true) {
-		$message = $message;
-		// if file pointer doesn't exist, then open log file
-		if (!is_resource($this->fp)) {
-			$this->lopen();
-		}
-		// define script name
-		$script_name = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-		// define current time and suppress E_WARNING if using the system TZ settings
-		// (don't forget to set the INI setting date.timezone)
-		$time = '';
-		if($timestamp == true) {
-			$time = @date( '[Y-m-d H:i:s]' );
-		}
-		// write current time, script name and message to the log file
-		fwrite($this->fp, "$time $message" . PHP_EOL);
-    }
-    
-    // close log file (it's always a good idea to close a file when you're done with it)
-	public function lclose() {
-		fclose($this->fp);
-	}
-	// open log file (private method)
-	private function lopen() {
-		// in case of Windows set default log file
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-			$log_file_default = 'c:/php/logfile.txt';
-		}
-		// set default log file for Linux and other systems
-		else {
-			$log_file_default = '/tmp/logfile.txt';
-		}
-		// define log file from lfile method or use previously set default
-		$lfile = $this->log_file ? $this->log_file : $log_file_default;
-		// Ensure the directory exists
-		$dir = dirname($lfile);
-		if (!is_dir($dir)) {
-			mkdir($dir, 0777, true);
-		}
-		// open log file for writing only and place file pointer at the end of the file
-		// (if the file does not exist, try to create it)
-		$this->fp = fopen($lfile, 'a') or exit("Can't open $lfile!");
-	}
-
 
 	/**
 	 * Writes event log in log file.
@@ -99,40 +50,7 @@ class LogManager {
 	public function get_event_log($hash_key , $original_file_name , $fileType , $mode , $totalCount , $importType , $core_log, $addHeader,$templatekey = null){
 		$smack_instance = SmackCSV::getInstance();
 		global $logArr;
-		if($templatekey != null) {
-			$upload_dir = $smack_instance->create_upload_dir('CLI');
-		//	$eventLogFile = $upload_dir.$hash_key.'/'.$templatekey.'/'.$templatekey . '.html';
-		}
-		else {
-			$upload_dir = $smack_instance->create_upload_dir();
-		//	$eventLogFile = $upload_dir.$hash_key.'/'.$hash_key.'.html';
-		}
-
-		$limit = 1;
-
-		//$this->lfile("$eventLogFile");
-
-		if ($addHeader) {
-			$this->lwrite(__("File has been used for this event: ") . $original_file_name . '<br/>', false);
-			$this->lwrite(__("Type of the imported file: ") . $fileType . '<br/>', false);
-			$this->lwrite(__("Mode of event: ") . $mode . '<br/>', false);
-			$this->lwrite(__("Total no of records: ") . $totalCount . '<br/>', false);
-			$this->lwrite(__("Rows handled on each iterations (Based on your server configuration): ") . $limit . '<br/>', false);
-			$this->lwrite(__("File used to import data into: ") . $importType . '<br/>', false);
-		}
 		if (is_array($core_log)){
-			foreach ($core_log as $lkey => $lvalue) {
-				$verify_link = '';
-				$eventLog = '';
-				foreach ($lvalue as $lindex => $lresult) {
-					if($lindex != 'VERIFY')
-						$eventLog .= $lindex . ':' . $lresult;
-					else
-						$verify_link = '<tr><td><p>' . $lresult . ' </td><p></tr>';
-				}
-				$eventLog .= $verify_link;
-				$this->lwrite($eventLog);
-			}
 			$logArr = $core_log;
 			$this->displayLogValue($logArr);	
 		}

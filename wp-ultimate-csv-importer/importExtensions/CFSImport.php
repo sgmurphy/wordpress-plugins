@@ -48,6 +48,7 @@ class CFSImport {
 				elseif($cfs_data['CFS'][$dkey]['type'] == 'file'){
 					$file_type = $this->get_remote_file_mime_type($dvalue);
 					if (strpos($file_type, 'image/') === 0) {
+						$media_instance->store_image_ids($i=1);
 						$darray[$cfs_data['CFS'][$dkey]['name']] = $media_instance->image_meta_table_entry($line_number, '', $pID, $cfs_data['CFS'][$dkey]['name'], $dvalue, $hash_key, 'cfs', '', '');
 					} else{
 						$darray[$cfs_data['CFS'][$dkey]['name']] = $media_instance->media_handling($dvalue, $pID);

@@ -178,8 +178,8 @@ class Ezoic_AdTester extends Ezoic_Feature
 			}
 
 			//Send the request to backend
-			$response = \wp_remote_post( $requestURL, $requestOptions);		
-			
+			$response = \wp_remote_post( $requestURL, $requestOptions);
+
 			// If an error was returned, log it
 			if ( \is_wp_error( $response ) ) {
 				Ezoic_AdTester::log( 'Unable to retrieve placeholder data, please refresh and try again' );
@@ -214,7 +214,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 * fetch placeholders - called via a cron
 	 */
 	public function fetch_placeholders() {
-		$this->initialize_config();		
+		$this->initialize_config();
 	}
 
 	/**
@@ -260,9 +260,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 * Initialize HTML Element Picker
 	 */
 	public function initialize_inserter() {
-		if ( 	!$this->do_insert
-			|| 	\count( $this->config->placeholders ) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return;
 		}
 	}
@@ -271,9 +269,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 * Insert sidebar placeholders
 	 */
 	public function set_sidebar_placeholder() {
-		if ( 	!$this->do_insert
-			|| 	\count($this->config->placeholders) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return;
 		}
 
@@ -291,9 +287,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 * Insert placeholders which require access to full page content
 	 */
 	private function set_final_content_placeholder( $content ) {
-		if ( 	!$this->do_insert
-			|| 	\count($this->config->placeholders) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return $content;
 		}
 
@@ -322,9 +316,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 * Inserts before content placeholders
 	 */
 	public function set_before_content_placeholder() {
-		if ( 	!$this->do_insert
-			|| 	\count($this->config->placeholders) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return;
 		}
 
@@ -337,9 +329,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 * Inserts after content placeholders
 	 */
 	public function set_after_content_placeholder() {
-		if ( 	!$this->do_insert
-			|| 	\count($this->config->placeholders) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return;
 		}
 
@@ -353,9 +343,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 	 */
 	private $excerpt_number = 0;
 	public function set_excerpt_placeholder( $content ) {
-		if ( 	!$this->do_insert
-			|| 	\count( $this->config->placeholders ) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return $content;
 		}
 
@@ -381,9 +369,7 @@ class Ezoic_AdTester extends Ezoic_Feature
 			return $content;
 		}
 
-		if ( 	!$this->do_insert
-			|| 	\count( $this->config->placeholders ) == 0
-			|| 	$this->user_has_ads_disabled() ) {
+		if ($this->should_skip_insertion()) {
 			return $content;
 		}
 
@@ -763,6 +749,14 @@ class Ezoic_AdTester extends Ezoic_Feature
 		$info .= PHP_EOL . PHP_EOL;
 
 		echo $info;
+	}
+
+	private function should_skip_insertion() {
+		return !$this->do_insert
+		       || !isset($this->config->placeholders)
+		       || !is_array($this->config->placeholders)
+		       || empty($this->config->placeholders)
+		       || $this->user_has_ads_disabled();
 	}
 
 	public static function log($str) {

@@ -30,10 +30,8 @@ if( in_array( $status, [ 'in-progress', 'pending' ] ) ) {
 	$message = __( 'Converting Images to WebP in Background', 'image-sizes' );
 }
 if( $status == 'complete' ) {
-	$message = sprintf(
-		__( 'Converting Images to WebP in background was completed %s', 'image-sizes' ),
-		esc_html( $completed_time )
-	);
+    // Translators: %s is the time when the image conversion to WebP was completed.
+    $message = sprintf( __( 'Converting Images to WebP in background was completed %s', 'image-sizes' ), esc_html( $completed_time ) );
 }
 if ( $status == 'failed' ) {
 	$message = __( 'Converting Images to WebP in Background Failed.', 'image-sizes' );
@@ -68,27 +66,23 @@ if ( $status == 'failed' ) {
 			<p class="thumbpress-processs-message" style="display: <?php echo esc_attr( $show_process ); ?>;">
 				<?php echo esc_html( $message ); ?>
 			</p>
-			<div id="thumbpress-action-result" style="display: <?php esc_attr_e( $show_process ); ?>;">
+			<div id="thumbpress-action-result" style="display: <?php echo esc_attr( $show_process ); ?>;">
 				<div class="thumbpress-progress-content">
-					<div class="thumbpress-progressbar" data-content="<?php esc_attr_e( $progress ) ?>" style="--value: <?php esc_attr_e( $progress ) ?>"></div>
+					<div class="thumbpress-progressbar" data-content="<?php echo esc_attr( $progress ); ?>" style="--value: <?php echo esc_attr( $progress ); ?>"></div>
 				</div>
 				<div id="thumbpress-message">
 					<p id="cx-processed">
 						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
 						<?php
-						printf(
-							__( 'Processed %s images', 'image-sizes' ),
-							'<span id="processed-count">' . esc_html( $processed_count ) . '</span>'
-						);
+						// Translators: %s is the number of images that have been processed.
+						printf( __( 'Processed %s images', 'image-sizes' ), '<span id="processed-count">' . esc_html( $processed_count ) . '</span>' );
 						?>
 					</p>
 					<p id="cx-converted">
 						<span class="dashicons dashicons-yes-alt cx-icon cx-success"></span>
 						<?php
-						printf(
-							__( 'Converted %s images.', 'image-sizes' ),
-							'<span id="converted-count">' . esc_html( $converted_count ) . '</span>'
-						);
+						// Translators: %s is the number of images that have been converted.
+						printf( __( 'Converted %s images.', 'image-sizes' ), '<span id="converted-count">' . esc_html( $converted_count ) . '</span>' );
 						?>
 					</p>
 				</div>
@@ -111,7 +105,7 @@ if ( $status == 'failed' ) {
 					<?php _e( 'Something went wrong!.', 'image-sizes' ); ?>
 				</p>
 				<p class='failed-message'>
-					<?php _e( 'Your backgroud action failed please try again..', 'image-sizes' ); ?>
+					<?php _e( 'Your backgroud action failed. Please try again.', 'image-sizes' ); ?>
 				</p>
 			</div>
 			<?php

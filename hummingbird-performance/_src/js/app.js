@@ -18,5 +18,4 @@ require( './mixpanel.js' );
 jQuery( document ).ready( function() {
 	window.WPHB_Admin.init();
 	window.WPHB_Admin.notices.init();
-	window.wphbMixPanel.init();
 } );

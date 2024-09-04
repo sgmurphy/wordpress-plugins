@@ -4,48 +4,48 @@
     <!-- <div class="tp-count-up-section" style="background-image: url('<?php echo esc_url( THUMBPRESS_ASSET . '/img/upgrade-pro/update-header-bg.png' ); ?>')">
 
         <h2>
-           <?php  _e( 'Upgrade to Manage Your WordPress Images & Thumbnails Like a Pro', 'image-sizes' ); ?>
+           <?php esc_html_e( 'Upgrade to Manage Your WordPress Images & Thumbnails Like a Pro', 'image-sizes' ); ?>
         </h2>
         <h5>
-            <?php _e( 'Rich in Features, Light in Cost!', 'image-sizes' ); ?>
+            <?php esc_html_e( 'Rich in Features, Light in Cost!', 'image-sizes' ); ?>
         </h5>
         <div class="tp-countup-wrapper">
             <div class="tp-countup-single tp-active-user">
                 <h3>
-                    <?php _e( '60,000+', 'image-sizes' ); ?>
+                    <?php esc_html_e( '60,000+', 'image-sizes' ); ?>
                 </h3>
                 <p>
-                    <?php _e( 'Active Users', 'image-sizes' ); ?>
+                    <?php esc_html_e( 'Active Users', 'image-sizes' ); ?>
                 </p>
             </div>
             <div class="tp-countup-single tp-downloads">
                 <h3>
-                    <?php _e( '500,000+', 'image-sizes' ); ?>
+                    <?php esc_html_e( '500,000+', 'image-sizes' ); ?>
                 </h3>
                 <p>
-                    <?php _e( 'Downloads', 'image-sizes' ); ?>
+                    <?php esc_html_e( 'Downloads', 'image-sizes' ); ?>
                 </p>
             </div>
             <div class="tp-countup-single tp-active-user">
                 <h3>
-                    <?php _e( '7+', 'image-sizes' ); ?>
+                    <?php esc_html_e( '7+', 'image-sizes' ); ?>
                 </h3>
                 <p>
-                    <?php _e( 'Active Years', 'image-sizes' ); ?>
+                    <?php esc_html_e( 'Active Years', 'image-sizes' ); ?>
                 </p>
             </div>
             <div class="tp-countup-single tp-active-user">
                 <h3>
-                    <?php _e( '7+', 'image-sizes' ); ?>
+                    <?php esc_html_e( '7+', 'image-sizes' ); ?>
                 </h3>
                 <p>
-                    <?php _e( 'Languages', 'image-sizes' ); ?>
+                    <?php esc_html_e( 'Languages', 'image-sizes' ); ?>
                 </p>
             </div>
         </div>
         <div class="tp-thumbpress-pro">
             <a href="<?php echo esc_url( 'https://thumbpress.co/pricing' ); ?>">
-                <?php _e( 'Get ThumbPress Pro', 'image-sizes' ); ?>
+                <?php esc_html_e( 'Get ThumbPress Pro', 'image-sizes' ); ?>
             </a>
         </div>
     </div> -->
@@ -368,9 +368,8 @@
                 <img src="<?php echo esc_url( THUMBPRESS_ASSET . '/img/settings/dashboard/get-support.png' ); ?>">
             </div>
             <div class="tp-best-out-container">
-                <h3><?php esc_html_e( __( 'Get Support', 'image-sizes' ) ); ?></h3>
-                <p><?php esc_html_e( __( 'Stuck with something? Our support team is always ready to help you out.', 'image-sizes' ) ); ?></p>
-
+                <h3><?php esc_html_e( 'Get Support', 'image-sizes' ); ?></h3>
+                <p><?php esc_html_e( 'Stuck with something? Our support team is always ready to help you out.', 'image-sizes' ); ?></p>
                 <?php
 
                 if( isset( $_GET['live-chat'] ) && $_GET['live-chat'] == 'enable' ) {
@@ -398,7 +397,7 @@
         <div class="tp-banner-wrap">
             <div class="tp-banner-bg-effect"></div>
             <div class="tp-banner-fg-effect"></div>
-            <h2><?php _e( 'Effortlessly Manage WordPress Images & Thumbnails', 'image-sizes' ); ?></h2>
+            <h2><?php esc_html_e( 'Effortlessly Manage WordPress Images & Thumbnails', 'image-sizes' ); ?></h2>
             <p>
                 <?php _e( 'Focus on crafting your blazing-fast WordPress site and leave the image & thumbnail management to ThumbPress!', 'image-sizes' ); ?>
             </p>

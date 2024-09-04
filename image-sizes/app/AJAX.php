@@ -123,4 +123,22 @@ class Ajax extends Base {
 			update_option( "{$this->slug}_dismiss", 1 );
 		}
 	}
+
+	public function image_sizes_dismiss_notice_callback() {
+		
+		if (! wp_verify_nonce($_POST['_wpnonce'], $this->slug )) {
+			$response['status'] 	= 0;
+			$response['message'] = __('Unauthorized!', 'image-sizes');
+			wp_send_json($response);
+		}
+		$notice_type 	= sanitize_text_field( $_POST[ 'notice_type' ] );
+		$url 			= image_sizes_notices_values()[$notice_type]['url'];
+
+		delete_transient( sanitize_text_field( $notice_type ) );
+
+		$response['status'] 	= 1;
+		$response['message'] 	= __('Notice Removed!', 'image-sizes');
+		$response['url'] 		= $url;
+		wp_send_json($response);
+	}
 }

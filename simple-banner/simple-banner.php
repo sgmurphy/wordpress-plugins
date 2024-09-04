@@ -3,16 +3,16 @@
  * Plugin Name: Simple Banner
  * Plugin URI: https://github.com/rpetersen29/simple-banner
  * Description: Display a simple banner at the top or bottom of your website. Now with multi-banner support
- * Version: 3.0.2
+ * Version: 3.0.3
  * Author: Ryan Petersen
  * Author URI: http://rpetersen29.github.io/
  * License: GPLv3
  *
  * @package Simple Banner
- * @version 3.0.2
+ * @version 3.0.3
  * @author Ryan Petersen <rpetersen.dev@gmail.com>
  */
-define ('SB_VERSION', '3.0.2');
+define ('SB_VERSION', '3.0.3');
 
 register_activation_hook( __FILE__, 'simple_banner_activate' );
 function simple_banner_activate() {
@@ -95,6 +95,8 @@ function simple_banner() {
 			'simple_banner_position' => get_option('simple_banner_position' . $banner_id),
 			'header_margin' => $i === 1 ? get_option('header_margin' . $banner_id) : '',
 			'header_padding' => $i === 1 ? get_option('header_padding' . $banner_id) : '',
+			'wp_body_open_enabled' => $i === 1 ? get_option('wp_body_open_enabled' . $banner_id) : '',
+			'wp_body_open' => function_exists('wp_body_open'),
 			'simple_banner_z_index' => get_option('simple_banner_z_index' . $banner_id),
 			'simple_banner_text' => get_option('simple_banner_text' . $banner_id),
 			'disabled_on_current_page' => $disabled_on_current_page,
@@ -133,6 +135,30 @@ function simple_banner() {
     wp_add_inline_script('simple-banner-script', 'const simpleBannerScriptParams = ' . wp_json_encode($script_params), 'before');
     wp_enqueue_script('simple-banner-script');
 }
+
+// Use `wp_body_open` action
+// For now only enabled on Banner #1
+if ( function_exists( 'wp_body_open' ) && get_option('wp_body_open_enabled') ) {
+	add_action( 'wp_body_open', 'simple_banner_body_open' );
+}
+function simple_banner_body_open() {
+	// Forcing the banner id concept for refactoring later with multiple ids
+	$banner_id = get_banner_id(1);
+	// if not disabled use wp_body_open
+	$disabled_on_current_page = get_disabled_on_current_page($banner_id);
+	$close_button_enabled = get_option('close_button_enabled' . $banner_id);
+	$closed_cookie = $close_button_enabled && isset($_COOKIE['simplebannerclosed']);
+	$closed_button = $close_button_enabled ? '<button id="simple-banner-close-button" class="simple-banner-button">&#x2715;</button>' : '';
+
+	if (!$disabled_on_current_page && !$closed_cookie) {
+		echo '<div id="simple-banner" class="simple-banner"><div class="simple-banner-text"><span>' 
+		. get_option('simple_banner_text' . $banner_id) 
+		. '</span></div>' 
+		. $closed_button 
+		. '</div>';
+	}
+}
+
 
 // Prevent CSS removal from optimizer plugins by putting a dummy item in the DOM
 add_action( 'wp_footer', 'prevent_css_removal');
@@ -322,6 +348,11 @@ function simple_banner_settings() {
 		)
     );
 	register_setting( 'simple-banner-settings-group', 'header_padding',
+		array(
+	    	'sanitize_callback' => 'wp_filter_nohtml_kses'
+		)
+    );
+	register_setting( 'simple-banner-settings-group', 'wp_body_open_enabled',
 		array(
 	    	'sanitize_callback' => 'wp_filter_nohtml_kses'
 		)

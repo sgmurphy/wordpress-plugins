@@ -83,10 +83,19 @@ class ProductMetaExtension extends ExtensionHandler{
 					'_subscription_trial_period' => '_subscription_trial_period',
 					'_subscription_trial_length' => '_subscription_trial_length',
 					'_subscription_price' => '_subscription_price',
-					'Bundle Sells' =>'_wc_pb_bundle_sell_ids',
-					'Bundle Sells Title' => '_wc_pb_bundle_sells_title',
-					'Bundle Sells Discount' => '_wc_pb_bundle_sells_discount',
                 );
+				if ( is_plugin_active( 'yith-woocommerce-barcodes-premium/init.php' ) && $import_type == 'WooCommerce') {
+					$pro_meta_fields['Barcode Protocol'] = '_ywbc_barcode_protocol';
+					$pro_meta_fields['Barcode Value'] = '_ywbc_barcode_value';
+					$pro_meta_fields['Barcode Display Value'] = '_ywbc_barcode_display_value';
+				}
+				if(is_plugin_active('woocommerce-product-bundles/woocommerce-product-bundles.php')&& $import_type == 'WooCommerce'){
+					$pro_meta_fields['Bundle Sells'] = '_wc_pb_bundle_sell_ids';
+					$pro_meta_fields['Bundle Sells Title'] = '_wc_pb_bundle_sells_title';
+					$pro_meta_fields['Bundle Sells Discount'] = '_wc_pb_bundle_sells_discount';
+				}
+
+
                 if (is_plugin_active('variation-swatches-for-woocommerce/variation-swatches-for-woocommerce.php')) {
                         $pro_meta_fields['Product Attribute Type'] = 'product_attribute_type';
                 }

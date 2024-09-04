@@ -133,6 +133,7 @@ class TaxonomiesImport {
 			        	$date = date("Y-m-d H:i:s");
 
 						if(isset($_image)){
+							$media_instance->store_image_ids($i=1);
 							$imageid = $media_instance->media_handling($_image , $termID ,$data_array ,'','','',$header_array ,$value_array);
 							//$imageid = $media_instance->image_meta_table_entry('', $termID, 'thumbnail_id', $_image, $hash_key, 'term', 'term',$templatekey);
 							

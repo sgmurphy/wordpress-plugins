@@ -367,7 +367,7 @@ if ( ! class_exists( 'SP_PC_Field_typography' ) ) {
 			// Font Color.
 			if ( ! empty( $args['color'] ) ) {
 				echo '<div class="spf--blocks spf--blocks-color">';
-				$default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="' . $default_value['color'] . '"' : '';
+				$default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="' . esc_attr( $default_value['color'] ) . '"' : '';
 				echo '<div class="spf--block spf--block-font-color">';
 				echo '<div class="spf--title">' . esc_html__( 'Font Color', 'post-carousel' ) . '</div>';
 				echo '<div class="spf-field-color">';
@@ -378,7 +378,7 @@ if ( ! class_exists( 'SP_PC_Field_typography' ) ) {
 				//
 				// Font Hover Color.
 				if ( ! empty( $args['hover_color'] ) ) {
-					$default_hover_color_attr = ( ! empty( $default_value['hover_color'] ) ) ? ' data-default-color="' . $default_value['hover_color'] . '"' : '';
+					$default_hover_color_attr = ( ! empty( $default_value['hover_color'] ) ) ? ' data-default-color="' . esc_attr( $default_value['hover_color'] ) . '"' : '';
 					echo '<div class="spf--block spf--block-font-color">';
 					echo '<div class="spf--title">' . esc_html__( 'Hover Color', 'post-carousel' ) . '</div>';
 					echo '<div class="spf-field-color">';

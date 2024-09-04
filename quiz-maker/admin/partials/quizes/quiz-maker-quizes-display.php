@@ -34,6 +34,15 @@ $question = array(
     'options'                   => json_encode($options),
 );
 
+$quiz_accordion_svg_html = '
+<div class="ays-quiz-accordion-arrow-box">
+    <svg class="ays-quiz-accordion-arrow ays-quiz-accordion-arrow-down" version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="visible" preserveAspectRatio="none" viewBox="0 0 24 24" width="32" height="32">
+        <g>
+            <path xmlns:default="http://www.w3.org/2000/svg" d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z" fill="#008cff" vector-effect="non-scaling-stroke" />
+        </g>
+    </svg>
+</div>';
+
 $question_categories = $this->quizes_obj->get_question_categories();
 $quiz_categories = $this->quizes_obj->get_quiz_categories();
 
@@ -247,794 +256,815 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                 <input type="checkbox" class="ays-enable-timerl ays_toggle_checkbox" id="ays_quick_quiz_enable_options" name="ays_quick_quiz_enable_options" value="on" />
                             </div>
                             <div class="col-sm-9 ays_toggle_target ays_divider_left display_none">
-                                <p class="ays-subtitle" style="margin-top: 0;"><?php echo __('Settings',$this->plugin_name); ?></p>
-                                <hr class="ays-quiz-bolder-hr"/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_randomize_questions">
-                                           <?php echo __('Enable randomize questions',$this->plugin_name)?>
-                                        </label>
+                                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                                    <div class="ays-quiz-accordion-container">
+                                        <?php echo $quiz_accordion_svg_html; ?>
+                                        <p class="ays-subtitle" style="margin-top: 0;"><?php echo __('Settings',$this->plugin_name); ?></p>
                                     </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_randomize_questions" name="ays_quick_quiz_enable_randomize_questions" value="on" />
-                                    </div>
-                                </div> <!-- Enable randomize questions -->
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_randomize_answers">
-                                           <?php echo __('Enable randomize answers',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_randomize_answers" name="ays_quick_quiz_enable_randomize_answers" value="on" />
-                                    </div>
-                                </div> <!-- Enable randomize answers -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_display_all_questions">
-                                            <?php echo __('Display all questions on one page',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_display_all_questions" name="ays_quick_quiz_display_all_questions" value="on" />
-                                    </div>
-                                </div> <!-- Display all questions on one page -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_correction">
-                                            <?php echo __('Show correct answers',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_correction" name="ays_quick_quiz_enable_correction" value="on" checked />
-                                    </div>
-                                </div> <!-- Show correct answers -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_show_question_category">
-                                            <?php echo __('Show question category',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_quick_quiz_show_question_category" name="ays_quick_quiz_show_question_category" value="on" />
-                                    </div>
-                                </div> <!-- Show question category -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_pass_count">
-                                            <?php echo __('Show passed users count',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_enable_pass_count" name="ays_quick_quiz_enable_pass_count" value="on" />
-                                    </div>
-                                </div> <!-- Show passed users count -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_show_category">
-                                            <?php echo __('Show quiz category',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_show_category" name="ays_quick_quiz_show_category" value="on" />
-                                    </div>
-                                </div> <!-- Show quiz category -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_rate_avg">
-                                            <?php echo __('Show average rate',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_enable_rate_avg" name="ays_quick_quiz_enable_rate_avg" value="on" />
-                                    </div>
-                                </div> <!-- Show average rate -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_show_author">
-                                            <?php echo __('Show quiz author',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_show_author" name="ays_quick_quiz_show_author" value="on" />
-                                    </div>
-                                </div> <!-- Show quiz author -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_show_create_date">
-                                            <?php echo __('Show creation date',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_show_create_date" name="ays_quick_quiz_show_create_date" value="on" />
-                                    </div>
-                                </div> <!-- Show creation date -->
-                                <hr />
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_next_button">
-                                            <?php echo __('Enable next button',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_enable_next_button" value="on" name="ays_quick_quiz_enable_next_button" checked>
-                                    </div>
-                                </div> <!-- Enable next button -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_previous_button">
-                                            <?php echo __('Enable previous button',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_enable_previous_button" value="on" name="ays_quick_quiz_enable_previous_button" checked>
-                                    </div>
-                                </div> <!-- Enable previous button -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_early_finish">
-                                            <?php echo __('Enable finish button',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_early_finish" name="ays_quick_quiz_enable_early_finish" value="on"/>
-                                    </div>
-                                </div> <!-- Enable finish button -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_clear_answer">
-                                            <?php echo __('Enable clear answer button',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_clear_answer" name="ays_quick_quiz_enable_clear_answer" value="on" />
-                                    </div>
-                                </div> <!-- Enable clear answer button -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_enter_key">
-                                            <?php echo __('Enable to go next by pressing Enter key',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_enter_key" name="ays_quick_quiz_enable_enter_key" value="on" checked/>
-                                    </div>
-                                </div> <!-- Enable to go next by pressing Enter key -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_display_messages_before_buttons">
-                                            <?php echo __('Display messages before the buttons',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_display_messages_before_buttons" name="ays_quick_quiz_display_messages_before_buttons" value="on" />
-                                    </div>
-                                </div> <!-- Display messages before the buttons -->
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_audio_autoplay">
-                                            <?php echo __('Enable audio autoplay',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_audio_autoplay" name="ays_quick_quiz_enable_audio_autoplay" value="on" />
-                                    </div>
-                                </div> <!-- Enable audio autoplay -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_rtl_direction">
-                                            <?php echo __('Use RTL Direction',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_rtl_direction" name="ays_quick_quiz_enable_rtl_direction" value="on" />
-                                    </div>
-                                </div> <!-- Use RTL Direction -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_questions_counter">
-                                            <?php echo __('Show questions counter',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_questions_counter" name="ays_quick_quiz_enable_questions_counter" value="on" checked/>
-                                    </div>
-                                </div> <!-- Show questions counter -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_question_image_zoom">
-                                            <?php echo __('Question Image Zoom',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_question_image_zoom" name="ays_quick_quiz_enable_question_image_zoom" value="on" />
-                                    </div>
-                                </div> <!-- Question Image Zoom -->
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_leave_page">
-                                            <?php echo __('Enable confirmation box for leaving the page',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_leave_page" name="ays_quick_quiz_enable_leave_page" value="on" checked/>
-                                    </div>
-                                </div> <!-- Enable confirmation box for leaving the page -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_see_result_confirm_box">
-                                            <?php echo __('Enable confirmation box for the See Result button',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_see_result_confirm_box" name="ays_quick_quiz_enable_see_result_confirm_box" value="on" />
-                                    </div>
-                                </div> <!-- Enable confirmation box for the See Result button  -->
-                                <hr/>
-                                <div class="form-group row ays_toggle_parent">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_rw_asnwers_sounds">
-                                            <?php echo __('Enable sounds for right/wrong answers',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" id="ays_quick_quiz_enable_rw_asnwers_sounds" name="ays_quick_quiz_enable_rw_asnwers_sounds" class="ays_toggle_checkbox" value="on"/>
-                                    </div>
-                                </div> <!-- Enable sounds for right/wrong answers -->
-                                <hr>
-                                <div class="form-group row ays_toggle_parent">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_custom_texts_for_buttons">
-                                            <?php echo __('Enable custom texts for buttons',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_quick_quiz_enable_custom_texts_for_buttons" name="ays_quick_quiz_enable_custom_texts_for_buttons" value="on" />
-                                    </div>
-                                    <div class="col-sm-7 ays_toggle_target ays_divider_left display_none">
+                                    <hr class="ays-quiz-bolder-hr"/>
+                                    <div class="ays-quiz-accordion-options-box">
                                         <div class="form-group row">
                                             <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_start_button">
-                                                    <?php echo __('Start button',$this->plugin_name); ?>
-                                                </label> 
+                                                <label for="ays_quick_quiz_enable_randomize_questions">
+                                                   <?php echo __('Enable randomize questions',$this->plugin_name)?>
+                                                </label>
                                             </div>
                                             <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_start_button" id="ays_quick_quiz_custom_texts_start_button" value="<?php echo esc_attr($quiz_custom_texts_start_button); ?>"/>
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_randomize_questions" name="ays_quick_quiz_enable_randomize_questions" value="on" />
                                             </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_next_button">
-                                                    <?php echo __('Next button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_next_button" id="ays_quick_quiz_custom_texts_next_button" value="<?php echo esc_attr($quiz_custom_texts_next_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_prev_button">
-                                                    <?php echo __('Previous button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_prev_button" id="ays_quick_quiz_custom_texts_prev_button" value="<?php echo esc_attr($quiz_custom_texts_prev_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_clear_button">
-                                                    <?php echo __('Clear button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_clear_button" id="ays_quick_quiz_custom_texts_clear_button" value="<?php echo esc_attr($quiz_custom_texts_clear_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_finish_button">
-                                                    <?php echo __('Finish button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_finish_button" id="ays_quick_quiz_custom_texts_finish_button" value="<?php echo esc_attr($quiz_custom_texts_finish_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_see_results_button">
-                                                    <?php echo __('See Result button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_see_results_button" id="ays_quick_quiz_custom_texts_see_results_button" value="<?php echo esc_attr($quiz_custom_texts_see_results_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_restart_quiz_button">
-                                                    <?php echo __('Restart quiz button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_restart_quiz_button" id="ays_quick_quiz_custom_texts_restart_quiz_button" value="<?php echo esc_attr($quiz_custom_texts_restart_quiz_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_send_feedback_button">
-                                                    <?php echo __('Send feedback button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_send_feedback_button" id="ays_quick_quiz_custom_texts_send_feedback_button" value="<?php echo esc_attr($quiz_custom_texts_send_feedback_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_load_more_button">
-                                                    <?php echo __('Load more button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_load_more_button" id="ays_quick_quiz_custom_texts_load_more_button" value="<?php echo esc_attr($quiz_custom_texts_load_more_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_exit_button">
-                                                    <?php echo __('Exit button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_exit_button" id="ays_quick_quiz_custom_texts_exit_button" value="<?php echo esc_attr($quiz_custom_texts_exit_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_check_button">
-                                                    <?php echo __('Check button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_check_button" id="ays_quick_quiz_custom_texts_check_button" value="<?php echo esc_attr($quiz_custom_texts_check_button); ?>"/>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="form-group row">
-                                            <div class="col-sm-4">
-                                                <label for="ays_quick_quiz_custom_texts_login_button">
-                                                    <?php echo __('Log In button',$this->plugin_name); ?>
-                                                </label> 
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_login_button" id="ays_quick_quiz_custom_texts_login_button" value="<?php echo esc_attr($quiz_custom_texts_login_button); ?>"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- Enable custom texts for buttons -->
-                                <p class="ays-subtitle"><?php echo __('Results Settings',$this->plugin_name); ?></p>
-                                <hr class="ays-quiz-bolder-hr"/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_hide_score">
-                                            <?php echo __('Hide score',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_hide_score" name="ays_quick_quiz_hide_score" value="on" />
-                                    </div>
-                                </div><!-- Hide score -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_restart_button">
-                                            <?php echo __('Enable restart button',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_restart_button" name="ays_quick_quiz_enable_restart_button" value="on" checked />
-                                    </div>
-                                </div><!-- Enable restart button -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_progress_bar">
-                                            <?php echo __('Enable progress bar',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_progress_bar" name="ays_quick_quiz_enable_progress_bar" value="on" checked />
-                                    </div>
-                                </div><!-- Enable progress bar -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_enable_average_statistical">
-                                            <?php echo __('Show the statistical average',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_average_statistical" name="ays_quick_quiz_enable_average_statistical" value="on" checked />
-                                    </div>
-                                </div><!-- Show the statistical average -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_disable_store_data">
-                                            <?php echo __('Disable data storing in database',$this->plugin_name); ?>
-                                        </label>
-                                        <p class="ays_quiz_small_hint_text_for_not_recommended">
-                                            <span><?php echo __( "Not recommended" , $this->plugin_name ); ?></span>
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_disable_store_data" name="ays_quick_quiz_disable_store_data" value="on" />
-                                    </div>
-                                </div><!-- Disable data storing in database -->
-                                <p class="ays-subtitle"><?php echo __('User Data',$this->plugin_name); ?></p>
-                                <hr class="ays-quiz-bolder-hr"/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_show_information_form">
-                                            <?php echo __('Show Information Form to logged-in users', $this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="information_form_settings">
-                                            <input type="checkbox" id="ays_quick_quiz_show_information_form" name="ays_quick_quiz_show_information_form" value="on" checked />
-                                        </div>
-                                    </div>
-                                </div><!-- Show Information Form to logged-in users -->
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_autofill_user_data">
-                                            <?php echo __('Autofill logged-in user data',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="information_form_settings">
-                                            <input type="checkbox" id="ays_quick_quiz_autofill_user_data" name="ays_quick_quiz_autofill_user_data" value="on" />
-                                        </div>
-                                    </div>
-                                </div><!-- Autofill logged-in user data -->
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_display_fields_labels">
-                                            <?php echo __('Display form fields with labels',"quiz-maker"); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="information_form_settings">
-                                            <input type="checkbox" id="ays_quick_quiz_display_fields_labels" name="ays_quick_quiz_display_fields_labels" value="on" />
-                                        </div>
-                                    </div>
-                                </div><!-- Display form fields with labels -->
-                                <p class="ays-subtitle"><?php echo __('Styles',$this->plugin_name); ?></p>
-                                <hr class="ays-quiz-bolder-hr"/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_width">
-                                            <?php echo __('Quiz width',"quiz-maker"); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="ays_quiz_display_flex_width">
-                                            <div>
-                                                <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_width' name='ays_quick_quiz_width' value="800"/>
-                                                <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", "quiz-maker");?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!-- Quiz width -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for='ays_quick_quiz_height'>
-                                            <?php echo __('Quiz min-height', "quiz-maker"); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8 ays_quiz_display_flex_width">
-                                        <div>
-                                            <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_height' name='ays_quick_quiz_height' value="450"/>
-                                        </div>
-                                        <div class="ays_quiz_dropdown_max_width">
-                                            <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
-                                        </div>
-                                    </div>
-                                </div><!-- Quiz min-height -->
-                                <hr/> 
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_border_radius">
-                                            <?php echo __('Border radius',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8 ays_quiz_display_flex_width">
-                                        <div>
-                                            <input type="number" class="ays-text-input ays-text-input-short" id="ays_quick_quiz_border_radius" name="ays_quick_quiz_border_radius" value="8"/>
-                                        </div>
-                                        <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: end;">
-                                            <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
-                                        </div>
-                                    </div>
-                                </div><!-- Border radius -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for='ays_quick_quiz_image_height'>
-                                            <?php echo __('Quiz image height', $this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8 ays_quiz_display_flex_width">
-                                        <div>
-                                            <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_image_height' name='ays_quick_quiz_image_height' value=""/>
-                                        </div>
-                                        <div class="ays_quiz_dropdown_max_width">
-                                            <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
-                                        </div>
-                                    </div>
-                                </div><!-- Quiz image height -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_progress_bar_style">
-                                            <?php echo __('Progress bar style',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <select id="ays_quick_quiz_progress_bar_style" name="ays_quick_quiz_progress_bar_style" class="ays-text-input ays-text-input-short">
-                                            <option value="first"><?php echo __( 'Rounded', $this->plugin_name); ?></option>
-                                            <option value="second"><?php echo __( 'Rectangle', $this->plugin_name); ?></option>
-                                            <option selected value="third"><?php echo __( 'With stripes', $this->plugin_name); ?></option>
-                                            <option value="fourth"><?php echo __( 'With stripes and animation', $this->plugin_name); ?></option>
-                                        </select>
-                                    </div>
-                                </div><!-- Progress bar style -->
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_progress_live_bar_style">
-                                            <?php echo __('Progress live bar style',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <select id="ays_quick_quiz_progress_live_bar_style" name="ays_quick_quiz_progress_live_bar_style" class="ays-text-input ays-text-input-short">
-                                            <option selected value="default"><?php echo __( 'Default', $this->plugin_name); ?></option>
-                                            <option value="second"><?php echo __( 'Rectangle', $this->plugin_name); ?></option>
-                                            <option value="third"><?php echo __( 'With stripes', $this->plugin_name); ?></option>
-                                            <option value="fourth"><?php echo __( 'With stripes and animation', $this->plugin_name); ?></option>
-                                        </select>
-                                    </div>
-                                </div><!-- Progress live bar style -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_buttons_position">
-                                            <?php echo __('Buttons position',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <select id="ays_quick_quiz_buttons_position" name="ays_quick_quiz_buttons_position" class="ays-text-input ays-text-input-short">
-                                            <option selected value="center"><?php echo __( 'Center', $this->plugin_name); ?></option>
-                                            <option value="flex-start"><?php echo __( 'Left', $this->plugin_name); ?></option>
-                                            <option value="flex-end"><?php echo __( 'Right', $this->plugin_name); ?></option>
-                                            <option value="space-between"><?php echo __( 'Space Between', $this->plugin_name); ?></option>
-                                        </select>
-                                    </div>
-                                </div><!-- Buttons position -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_title_transformation">
-                                            <?php echo __('Quiz title transformation', $this->plugin_name ); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <select name="ays_quick_quiz_title_transformation" id="ays_quick_quiz_title_transformation" class="ays-text-input ays-text-input-short" style="display:block;">
-                                            <option value="uppercase" selected><?php echo __( "Uppercase", $this->plugin_name ); ?></option>
-                                            <option value="lowercase"><?php echo __( "Lowercase", $this->plugin_name ); ?></option>
-                                            <option value="capitalize"><?php echo __( "Capitalize", $this->plugin_name ); ?></option>
-                                            <option value="none"><?php echo __( "None", $this->plugin_name ); ?></option>
-                                        </select>
-                                    </div>
-                                </div><!-- Quiz title transformation -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for='ays_quick_quiz_title_font_size'>
-                                            <?php echo __('Quiz title font size', $this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div style="margin-bottom: 10px;">
-                                                    <label for='ays_quick_quiz_title_font_size'>
-                                                        <?php echo __('On desktop', $this->plugin_name); ?>
-                                                    </label>
-                                                </div>
-                                                <div class="ays_quiz_display_flex_width">
-                                                    <div>
-                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_title_font_size' name='ays_quick_quiz_title_font_size' value="28"/>
-                                                    </div>
-                                                    <div class="ays_quiz_dropdown_max_width">
-                                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div> <!-- Enable randomize questions -->
                                         <hr>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div style="margin-bottom: 10px;">
-                                                    <label for='ays_quick_quiz_title_mobile_font_size'>
-                                                        <?php echo __('On mobile', $this->plugin_name); ?>
-                                                    </label>
-                                                </div>
-                                                <div class="ays_quiz_display_flex_width">
-                                                    <div>
-                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_title_mobile_font_size' name='ays_quick_quiz_title_mobile_font_size' value="20"/>
-                                                    </div>
-                                                    <div class="ays_quiz_dropdown_max_width">
-                                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
-                                                    </div>
-                                                </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_randomize_answers">
+                                                   <?php echo __('Enable randomize answers',$this->plugin_name)?>
+                                                </label>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div><!-- Quiz title font size -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_custom_class">
-                                            <?php echo __('Custom class for quiz container',$this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="ays-text-input ays-text-input-short" name="ays_quick_quiz_custom_class" id="ays_quick_quiz_custom_class" placeholder="myClass myAnotherClass..." value="">
-                                    </div>
-                                </div><!-- Custom class for quiz container -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for='ays_quick_quiz_quest_animation'>
-                                            <?php echo __('Animation effect', $this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <select class="ays-text-input ays-text-input-short" name="ays_quick_quiz_quest_animation" id="ays_quick_quiz_quest_animation">
-                                            <option value="none"><?php echo __('None', $this->plugin_name); ?></option>
-                                            <option value="fade"><?php echo __('Fade', $this->plugin_name); ?></option>
-                                            <option value="shake" selected><?php echo __('Shake', $this->plugin_name); ?></option>
-                                        </select>
-                                    </div>
-                                </div><!-- Animation effect -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for='ays_quick_quiz_question_font_size'>
-                                            <?php echo __('Question font size', $this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div style="margin-bottom: 10px;">
-                                                    <label for='ays_quick_quiz_question_font_size'>
-                                                        <?php echo __('On desktop', $this->plugin_name); ?>
-                                                    </label>
-                                                </div>
-                                                <div class="ays_quiz_display_flex_width">
-                                                    <div>
-                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_question_font_size' name='ays_quick_quiz_question_font_size' value="16"/>
-                                                    </div>
-                                                    <div class="ays_quiz_dropdown_max_width">
-                                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
-                                                    </div>
-                                                </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_randomize_answers" name="ays_quick_quiz_enable_randomize_answers" value="on" />
                                             </div>
-                                        </div>
+                                        </div> <!-- Enable randomize answers -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_display_all_questions">
+                                                    <?php echo __('Display all questions on one page',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_display_all_questions" name="ays_quick_quiz_display_all_questions" value="on" />
+                                            </div>
+                                        </div> <!-- Display all questions on one page -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_correction">
+                                                    <?php echo __('Show correct answers',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_correction" name="ays_quick_quiz_enable_correction" value="on" checked />
+                                            </div>
+                                        </div> <!-- Show correct answers -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_show_question_category">
+                                                    <?php echo __('Show question category',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_quick_quiz_show_question_category" name="ays_quick_quiz_show_question_category" value="on" />
+                                            </div>
+                                        </div> <!-- Show question category -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_pass_count">
+                                                    <?php echo __('Show passed users count',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_enable_pass_count" name="ays_quick_quiz_enable_pass_count" value="on" />
+                                            </div>
+                                        </div> <!-- Show passed users count -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_show_category">
+                                                    <?php echo __('Show quiz category',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_show_category" name="ays_quick_quiz_show_category" value="on" />
+                                            </div>
+                                        </div> <!-- Show quiz category -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_rate_avg">
+                                                    <?php echo __('Show average rate',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_enable_rate_avg" name="ays_quick_quiz_enable_rate_avg" value="on" />
+                                            </div>
+                                        </div> <!-- Show average rate -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_show_author">
+                                                    <?php echo __('Show quiz author',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_show_author" name="ays_quick_quiz_show_author" value="on" />
+                                            </div>
+                                        </div> <!-- Show quiz author -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_show_create_date">
+                                                    <?php echo __('Show creation date',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_show_create_date" name="ays_quick_quiz_show_create_date" value="on" />
+                                            </div>
+                                        </div> <!-- Show creation date -->
+                                        <hr />
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_next_button">
+                                                    <?php echo __('Enable next button',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_enable_next_button" value="on" name="ays_quick_quiz_enable_next_button" checked>
+                                            </div>
+                                        </div> <!-- Enable next button -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_previous_button">
+                                                    <?php echo __('Enable previous button',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_enable_previous_button" value="on" name="ays_quick_quiz_enable_previous_button" checked>
+                                            </div>
+                                        </div> <!-- Enable previous button -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_early_finish">
+                                                    <?php echo __('Enable finish button',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_early_finish" name="ays_quick_quiz_enable_early_finish" value="on"/>
+                                            </div>
+                                        </div> <!-- Enable finish button -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_clear_answer">
+                                                    <?php echo __('Enable clear answer button',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_clear_answer" name="ays_quick_quiz_enable_clear_answer" value="on" />
+                                            </div>
+                                        </div> <!-- Enable clear answer button -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_enter_key">
+                                                    <?php echo __('Enable to go next by pressing Enter key',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_enter_key" name="ays_quick_quiz_enable_enter_key" value="on" checked/>
+                                            </div>
+                                        </div> <!-- Enable to go next by pressing Enter key -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_display_messages_before_buttons">
+                                                    <?php echo __('Display messages before the buttons',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_display_messages_before_buttons" name="ays_quick_quiz_display_messages_before_buttons" value="on" />
+                                            </div>
+                                        </div> <!-- Display messages before the buttons -->
                                         <hr>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div style="margin-bottom: 10px;">
-                                                    <label for='ays_quick_quiz_question_mobile_font_size'>
-                                                        <?php echo __('On mobile', $this->plugin_name); ?>
-                                                    </label>
-                                                </div>
-                                                <div class="ays_quiz_display_flex_width">
-                                                    <div>
-                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_question_mobile_font_size' name='ays_quick_quiz_question_mobile_font_size' value="16"/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_audio_autoplay">
+                                                    <?php echo __('Enable audio autoplay',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_audio_autoplay" name="ays_quick_quiz_enable_audio_autoplay" value="on" />
+                                            </div>
+                                        </div> <!-- Enable audio autoplay -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_rtl_direction">
+                                                    <?php echo __('Use RTL Direction',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_rtl_direction" name="ays_quick_quiz_enable_rtl_direction" value="on" />
+                                            </div>
+                                        </div> <!-- Use RTL Direction -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_questions_counter">
+                                                    <?php echo __('Show questions counter',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_quick_quiz_enable_questions_counter" name="ays_quick_quiz_enable_questions_counter" value="on" checked/>
+                                            </div>
+                                        </div> <!-- Show questions counter -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_question_image_zoom">
+                                                    <?php echo __('Question Image Zoom',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_question_image_zoom" name="ays_quick_quiz_enable_question_image_zoom" value="on" />
+                                            </div>
+                                        </div> <!-- Question Image Zoom -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_leave_page">
+                                                    <?php echo __('Enable confirmation box for leaving the page',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_leave_page" name="ays_quick_quiz_enable_leave_page" value="on" checked/>
+                                            </div>
+                                        </div> <!-- Enable confirmation box for leaving the page -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_see_result_confirm_box">
+                                                    <?php echo __('Enable confirmation box for the See Result button',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_see_result_confirm_box" name="ays_quick_quiz_enable_see_result_confirm_box" value="on" />
+                                            </div>
+                                        </div> <!-- Enable confirmation box for the See Result button  -->
+                                        <hr/>
+                                        <div class="form-group row ays_toggle_parent">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_rw_asnwers_sounds">
+                                                    <?php echo __('Enable sounds for right/wrong answers',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" id="ays_quick_quiz_enable_rw_asnwers_sounds" name="ays_quick_quiz_enable_rw_asnwers_sounds" class="ays_toggle_checkbox" value="on"/>
+                                            </div>
+                                        </div> <!-- Enable sounds for right/wrong answers -->
+                                        <hr>
+                                        <div class="form-group row ays_toggle_parent">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_custom_texts_for_buttons">
+                                                    <?php echo __('Enable custom texts for buttons',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <input type="checkbox" class="ays-enable-timer1 ays_toggle_checkbox" id="ays_quick_quiz_enable_custom_texts_for_buttons" name="ays_quick_quiz_enable_custom_texts_for_buttons" value="on" />
+                                            </div>
+                                            <div class="col-sm-7 ays_toggle_target ays_divider_left display_none">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_start_button">
+                                                            <?php echo __('Start button',$this->plugin_name); ?>
+                                                        </label> 
                                                     </div>
-                                                    <div class="ays_quiz_dropdown_max_width">
-                                                        <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_start_button" id="ays_quick_quiz_custom_texts_start_button" value="<?php echo esc_attr($quiz_custom_texts_start_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_next_button">
+                                                            <?php echo __('Next button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_next_button" id="ays_quick_quiz_custom_texts_next_button" value="<?php echo esc_attr($quiz_custom_texts_next_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_prev_button">
+                                                            <?php echo __('Previous button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_prev_button" id="ays_quick_quiz_custom_texts_prev_button" value="<?php echo esc_attr($quiz_custom_texts_prev_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_clear_button">
+                                                            <?php echo __('Clear button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_clear_button" id="ays_quick_quiz_custom_texts_clear_button" value="<?php echo esc_attr($quiz_custom_texts_clear_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_finish_button">
+                                                            <?php echo __('Finish button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_finish_button" id="ays_quick_quiz_custom_texts_finish_button" value="<?php echo esc_attr($quiz_custom_texts_finish_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_see_results_button">
+                                                            <?php echo __('See Result button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_see_results_button" id="ays_quick_quiz_custom_texts_see_results_button" value="<?php echo esc_attr($quiz_custom_texts_see_results_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_restart_quiz_button">
+                                                            <?php echo __('Restart quiz button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_restart_quiz_button" id="ays_quick_quiz_custom_texts_restart_quiz_button" value="<?php echo esc_attr($quiz_custom_texts_restart_quiz_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_send_feedback_button">
+                                                            <?php echo __('Send feedback button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_send_feedback_button" id="ays_quick_quiz_custom_texts_send_feedback_button" value="<?php echo esc_attr($quiz_custom_texts_send_feedback_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_load_more_button">
+                                                            <?php echo __('Load more button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_load_more_button" id="ays_quick_quiz_custom_texts_load_more_button" value="<?php echo esc_attr($quiz_custom_texts_load_more_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_exit_button">
+                                                            <?php echo __('Exit button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_exit_button" id="ays_quick_quiz_custom_texts_exit_button" value="<?php echo esc_attr($quiz_custom_texts_exit_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_check_button">
+                                                            <?php echo __('Check button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_check_button" id="ays_quick_quiz_custom_texts_check_button" value="<?php echo esc_attr($quiz_custom_texts_check_button); ?>"/>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-4">
+                                                        <label for="ays_quick_quiz_custom_texts_login_button">
+                                                            <?php echo __('Log In button',$this->plugin_name); ?>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="ays-text-input" name="ays_quick_quiz_custom_texts_login_button" id="ays_quick_quiz_custom_texts_login_button" value="<?php echo esc_attr($quiz_custom_texts_login_button); ?>"/>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> <!-- Enable custom texts for buttons -->
                                     </div>
-                                </div><!-- Question font size -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for="ays_quick_quiz_question_text_alignment">
-                                            <?php echo __( 'Question text alignment', $this->plugin_name ); ?>
-                                        </label>
+                                </div>
+                                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                                    <div class="ays-quiz-accordion-container">
+                                        <?php echo $quiz_accordion_svg_html; ?>
+                                        <p class="ays-subtitle"><?php echo __('Results Settings',$this->plugin_name); ?></p>
                                     </div>
-                                    <div class="col-sm-8">
-                                        <select name="ays_quick_quiz_question_text_alignment" id="ays_quick_quiz_question_text_alignment" class="ays-text-input ays-text-input-short" style="display:block;">
-                                            <option value="left"><?php echo __( "Left", $this->plugin_name ); ?></option>
-                                            <option value="center" selected><?php echo __( "Center", $this->plugin_name ); ?></option>
-                                            <option value="right"><?php echo __( "Right", $this->plugin_name ); ?></option>
-                                        </select>
-                                    </div>
-                                </div><!-- Question text alignment -->
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <label for='ays_quick_quiz_image_width'>
-                                            <?php echo __('Question image styles', $this->plugin_name); ?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div style="margin-bottom: 10px;">
-                                                    <label for='ays_quick_quiz_image_width'>
-                                                        <?php echo __('Image Width', $this->plugin_name); ?>
-                                                    </label>
+                                    <hr class="ays-quiz-bolder-hr"/>
+                                    <div class="ays-quiz-accordion-options-box">
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_hide_score">
+                                                    <?php echo __('Hide score',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_hide_score" name="ays_quick_quiz_hide_score" value="on" />
+                                            </div>
+                                        </div><!-- Hide score -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_restart_button">
+                                                    <?php echo __('Enable restart button',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_restart_button" name="ays_quick_quiz_enable_restart_button" value="on" checked />
+                                            </div>
+                                        </div><!-- Enable restart button -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_progress_bar">
+                                                    <?php echo __('Enable progress bar',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_progress_bar" name="ays_quick_quiz_enable_progress_bar" value="on" checked />
+                                            </div>
+                                        </div><!-- Enable progress bar -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_enable_average_statistical">
+                                                    <?php echo __('Show the statistical average',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_enable_average_statistical" name="ays_quick_quiz_enable_average_statistical" value="on" checked />
+                                            </div>
+                                        </div><!-- Show the statistical average -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_disable_store_data">
+                                                    <?php echo __('Disable data storing in database',$this->plugin_name); ?>
+                                                </label>
+                                                <p class="ays_quiz_small_hint_text_for_not_recommended">
+                                                    <span><?php echo __( "Not recommended" , $this->plugin_name ); ?></span>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="checkbox" class="ays-enable-timer1" id="ays_quick_quiz_disable_store_data" name="ays_quick_quiz_disable_store_data" value="on" />
+                                            </div>
+                                        </div><!-- Disable data storing in database -->
+                                        <p class="ays-subtitle"><?php echo __('User Data',$this->plugin_name); ?></p>
+                                        <hr class="ays-quiz-bolder-hr"/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_show_information_form">
+                                                    <?php echo __('Show Information Form to logged-in users', $this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="information_form_settings">
+                                                    <input type="checkbox" id="ays_quick_quiz_show_information_form" name="ays_quick_quiz_show_information_form" value="on" checked />
                                                 </div>
+                                            </div>
+                                        </div><!-- Show Information Form to logged-in users -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_autofill_user_data">
+                                                    <?php echo __('Autofill logged-in user data',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="information_form_settings">
+                                                    <input type="checkbox" id="ays_quick_quiz_autofill_user_data" name="ays_quick_quiz_autofill_user_data" value="on" />
+                                                </div>
+                                            </div>
+                                        </div><!-- Autofill logged-in user data -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_display_fields_labels">
+                                                    <?php echo __('Display form fields with labels',"quiz-maker"); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="information_form_settings">
+                                                    <input type="checkbox" id="ays_quick_quiz_display_fields_labels" name="ays_quick_quiz_display_fields_labels" value="on" />
+                                                </div>
+                                            </div>
+                                        </div><!-- Display form fields with labels -->
+                                    </div>
+                                </div>
+                                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                                    <div class="ays-quiz-accordion-container">
+                                        <?php echo $quiz_accordion_svg_html; ?>
+                                        <p class="ays-subtitle"><?php echo __('Styles',$this->plugin_name); ?></p>
+                                    </div>
+                                    <hr class="ays-quiz-bolder-hr"/>
+                                    <div class="ays-quiz-accordion-options-box">
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_width">
+                                                    <?php echo __('Quiz width',"quiz-maker"); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
                                                 <div class="ays_quiz_display_flex_width">
                                                     <div>
-                                                        <input type="number" class="ays-text-input" id='ays_quick_quiz_image_width' name='ays_quick_quiz_image_width' value=""/>
-                                                        <span class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
-                                                    </div>
-                                                    <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: flex-start;">
-                                                        <select id="ays_quick_quiz_image_width_by_percentage_px" name="ays_quick_quiz_image_width_by_percentage_px" class="ays-text-input ays-text-input-short" style="display:inline-block; width: 60px;">
-                                                            <option value="pixels" selected><?php echo __( "px", $this->plugin_name ); ?></option>
-                                                            <option value="percentage"><?php echo __( "%", $this->plugin_name ); ?></option>
-                                                        </select>
+                                                        <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_width' name='ays_quick_quiz_width' value="800"/>
+                                                        <span style="display:block;" class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", "quiz-maker");?></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div><!-- Quiz width -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for='ays_quick_quiz_height'>
+                                                    <?php echo __('Quiz min-height', "quiz-maker"); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 ays_quiz_display_flex_width">
+                                                <div>
+                                                    <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_height' name='ays_quick_quiz_height' value="450"/>
+                                                </div>
+                                                <div class="ays_quiz_dropdown_max_width">
+                                                    <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                </div>
+                                            </div>
+                                        </div><!-- Quiz min-height -->
+                                        <hr/> 
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_border_radius">
+                                                    <?php echo __('Border radius',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 ays_quiz_display_flex_width">
+                                                <div>
+                                                    <input type="number" class="ays-text-input ays-text-input-short" id="ays_quick_quiz_border_radius" name="ays_quick_quiz_border_radius" value="8"/>
+                                                </div>
+                                                <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: end;">
+                                                    <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                </div>
+                                            </div>
+                                        </div><!-- Border radius -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for='ays_quick_quiz_image_height'>
+                                                    <?php echo __('Quiz image height', $this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8 ays_quiz_display_flex_width">
+                                                <div>
+                                                    <input type="number" class="ays-text-input ays-text-input-short" id='ays_quick_quiz_image_height' name='ays_quick_quiz_image_height' value=""/>
+                                                </div>
+                                                <div class="ays_quiz_dropdown_max_width">
+                                                    <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                </div>
+                                            </div>
+                                        </div><!-- Quiz image height -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_progress_bar_style">
+                                                    <?php echo __('Progress bar style',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <select id="ays_quick_quiz_progress_bar_style" name="ays_quick_quiz_progress_bar_style" class="ays-text-input ays-text-input-short">
+                                                    <option value="first"><?php echo __( 'Rounded', $this->plugin_name); ?></option>
+                                                    <option value="second"><?php echo __( 'Rectangle', $this->plugin_name); ?></option>
+                                                    <option selected value="third"><?php echo __( 'With stripes', $this->plugin_name); ?></option>
+                                                    <option value="fourth"><?php echo __( 'With stripes and animation', $this->plugin_name); ?></option>
+                                                </select>
+                                            </div>
+                                        </div><!-- Progress bar style -->
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_progress_live_bar_style">
+                                                    <?php echo __('Progress live bar style',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <select id="ays_quick_quiz_progress_live_bar_style" name="ays_quick_quiz_progress_live_bar_style" class="ays-text-input ays-text-input-short">
+                                                    <option selected value="default"><?php echo __( 'Default', $this->plugin_name); ?></option>
+                                                    <option value="second"><?php echo __( 'Rectangle', $this->plugin_name); ?></option>
+                                                    <option value="third"><?php echo __( 'With stripes', $this->plugin_name); ?></option>
+                                                    <option value="fourth"><?php echo __( 'With stripes and animation', $this->plugin_name); ?></option>
+                                                </select>
+                                            </div>
+                                        </div><!-- Progress live bar style -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_buttons_position">
+                                                    <?php echo __('Buttons position',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <select id="ays_quick_quiz_buttons_position" name="ays_quick_quiz_buttons_position" class="ays-text-input ays-text-input-short">
+                                                    <option selected value="center"><?php echo __( 'Center', $this->plugin_name); ?></option>
+                                                    <option value="flex-start"><?php echo __( 'Left', $this->plugin_name); ?></option>
+                                                    <option value="flex-end"><?php echo __( 'Right', $this->plugin_name); ?></option>
+                                                    <option value="space-between"><?php echo __( 'Space Between', $this->plugin_name); ?></option>
+                                                </select>
+                                            </div>
+                                        </div><!-- Buttons position -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_title_transformation">
+                                                    <?php echo __('Quiz title transformation', $this->plugin_name ); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <select name="ays_quick_quiz_title_transformation" id="ays_quick_quiz_title_transformation" class="ays-text-input ays-text-input-short" style="display:block;">
+                                                    <option value="uppercase" selected><?php echo __( "Uppercase", $this->plugin_name ); ?></option>
+                                                    <option value="lowercase"><?php echo __( "Lowercase", $this->plugin_name ); ?></option>
+                                                    <option value="capitalize"><?php echo __( "Capitalize", $this->plugin_name ); ?></option>
+                                                    <option value="none"><?php echo __( "None", $this->plugin_name ); ?></option>
+                                                </select>
+                                            </div>
+                                        </div><!-- Quiz title transformation -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for='ays_quick_quiz_title_font_size'>
+                                                    <?php echo __('Quiz title font size', $this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for='ays_quick_quiz_title_font_size'>
+                                                                <?php echo __('On desktop', $this->plugin_name); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="ays_quiz_display_flex_width">
+                                                            <div>
+                                                                <input type="number" class="ays-text-input" id='ays_quick_quiz_title_font_size' name='ays_quick_quiz_title_font_size' value="28"/>
+                                                            </div>
+                                                            <div class="ays_quiz_dropdown_max_width">
+                                                                <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for='ays_quick_quiz_title_mobile_font_size'>
+                                                                <?php echo __('On mobile', $this->plugin_name); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="ays_quiz_display_flex_width">
+                                                            <div>
+                                                                <input type="number" class="ays-text-input" id='ays_quick_quiz_title_mobile_font_size' name='ays_quick_quiz_title_mobile_font_size' value="20"/>
+                                                            </div>
+                                                            <div class="ays_quiz_dropdown_max_width">
+                                                                <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- Quiz title font size -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_custom_class">
+                                                    <?php echo __('Custom class for quiz container',$this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="ays-text-input ays-text-input-short" name="ays_quick_quiz_custom_class" id="ays_quick_quiz_custom_class" placeholder="myClass myAnotherClass..." value="">
+                                            </div>
+                                        </div><!-- Custom class for quiz container -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for='ays_quick_quiz_quest_animation'>
+                                                    <?php echo __('Animation effect', $this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <select class="ays-text-input ays-text-input-short" name="ays_quick_quiz_quest_animation" id="ays_quick_quiz_quest_animation">
+                                                    <option value="none"><?php echo __('None', $this->plugin_name); ?></option>
+                                                    <option value="fade"><?php echo __('Fade', $this->plugin_name); ?></option>
+                                                    <option value="shake" selected><?php echo __('Shake', $this->plugin_name); ?></option>
+                                                </select>
+                                            </div>
+                                        </div><!-- Animation effect -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for='ays_quick_quiz_question_font_size'>
+                                                    <?php echo __('Question font size', $this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for='ays_quick_quiz_question_font_size'>
+                                                                <?php echo __('On desktop', $this->plugin_name); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="ays_quiz_display_flex_width">
+                                                            <div>
+                                                                <input type="number" class="ays-text-input" id='ays_quick_quiz_question_font_size' name='ays_quick_quiz_question_font_size' value="16"/>
+                                                            </div>
+                                                            <div class="ays_quiz_dropdown_max_width">
+                                                                <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for='ays_quick_quiz_question_mobile_font_size'>
+                                                                <?php echo __('On mobile', $this->plugin_name); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="ays_quiz_display_flex_width">
+                                                            <div>
+                                                                <input type="number" class="ays-text-input" id='ays_quick_quiz_question_mobile_font_size' name='ays_quick_quiz_question_mobile_font_size' value="16"/>
+                                                            </div>
+                                                            <div class="ays_quiz_dropdown_max_width">
+                                                                <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- Question font size -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for="ays_quick_quiz_question_text_alignment">
+                                                    <?php echo __( 'Question text alignment', $this->plugin_name ); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <select name="ays_quick_quiz_question_text_alignment" id="ays_quick_quiz_question_text_alignment" class="ays-text-input ays-text-input-short" style="display:block;">
+                                                    <option value="left"><?php echo __( "Left", $this->plugin_name ); ?></option>
+                                                    <option value="center" selected><?php echo __( "Center", $this->plugin_name ); ?></option>
+                                                    <option value="right"><?php echo __( "Right", $this->plugin_name ); ?></option>
+                                                </select>
+                                            </div>
+                                        </div><!-- Question text alignment -->
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4">
+                                                <label for='ays_quick_quiz_image_width'>
+                                                    <?php echo __('Question image styles', $this->plugin_name); ?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for='ays_quick_quiz_image_width'>
+                                                                <?php echo __('Image Width', $this->plugin_name); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="ays_quiz_display_flex_width">
+                                                            <div>
+                                                                <input type="number" class="ays-text-input" id='ays_quick_quiz_image_width' name='ays_quick_quiz_image_width' value=""/>
+                                                                <span class="ays_quiz_small_hint_text"><?php echo __("For 100% leave blank", $this->plugin_name);?></span>
+                                                            </div>
+                                                            <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: flex-start;">
+                                                                <select id="ays_quick_quiz_image_width_by_percentage_px" name="ays_quick_quiz_image_width_by_percentage_px" class="ays-text-input ays-text-input-short" style="display:inline-block; width: 60px;">
+                                                                    <option value="pixels" selected><?php echo __( "px", $this->plugin_name ); ?></option>
+                                                                    <option value="percentage"><?php echo __( "%", $this->plugin_name ); ?></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- Question image styles -->
                                     </div>
-                                </div><!-- Question image styles -->
+                                </div>
                             </div>
                         </div> <!-- Quiz Options -->
                     </div>

@@ -90,6 +90,7 @@ class PodsImport {
 				$indexs= 0;
 				foreach($exploded_file_items as $file) {	
 					$file = trim($file);
+					$media_instance->store_image_ids($i=1);
 					$ext = pathinfo($file, PATHINFO_EXTENSION);
 					if(preg_match_all( '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $file)){
 						$get_file_id = $media_instance->image_meta_table_entry($line_number ,'', $pID ,$custom_key, $file, $hash_key,'pods',$import_type,'','',$header_array, $value_array,'','',$indexs);

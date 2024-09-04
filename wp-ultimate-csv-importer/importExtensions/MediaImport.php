@@ -42,12 +42,19 @@ class MediaImport {
 		$updated_count = $updated_row_counts['updated'];
 		$skipped_count = $updated_row_counts['skipped'];
 		$failed_count = $updated_row_counts['failed'];
-		$file_name = isset($data_array['file_name']) ? $data_array['file_name'] : '';
 		$title = isset($data_array['title']) ? $data_array['title'] : '';
 		$caption = isset($data_array['caption']) ? $data_array['caption'] : '';
 		$alt_text = isset($data_array['alt_text']) ? $data_array['alt_text'] : '';
 		$description = isset($data_array['description']) ? $data_array['description'] : '';
 		$actual_url = isset($data_array['actual_url']) ? $data_array['actual_url'] : '';
+		if(!empty($data_array['file_name'])){
+			$sanitized_filename = str_replace(' ', '-', basename($data_array['file_name']));
+			$img = preg_replace('/[^a-zA-Z0-9._\-\s]/', '', $sanitized_filename);
+			$file_name = $img;
+		}
+		if($media_type == 'External'){
+			$img = isset($data_array['actual_url']) ? $data_array['actual_url'] : '';
+		}
 		if($media_handle['media_settings']['media_handle_option'] == 'true'){
 			$media_handle['media_settings']['title'] = $title ;
 			$media_handle['media_settings']['caption'] = $caption ;
@@ -57,12 +64,6 @@ class MediaImport {
 
 			update_option('smack_image_options', $media_handle); 
 		}
-		if($media_type == 'Local'){
-			$img = isset($data_array['file_name']) ? $data_array['file_name'] : '';
-		}else{
-			$img = isset($data_array['actual_url']) ? $data_array['actual_url'] : '';
-		}
-
 		if ($mode == 'Insert') {
 			$mode_of_affect = 'Inserted';
 			if(!empty($img)){
@@ -75,7 +76,6 @@ class MediaImport {
 			}		
 			if(!empty($attachment_id)) {
 				if($media_type == 'Local'){
-					$file_name = isset($data_array['file_name']) ? $data_array['file_name'] : '';
 					$data = array('media_id'   => $attach_id,'file_url'   => wp_get_attachment_url($attach_id),'file_name' => $file_name,'title' => $title,'caption' => $caption,'alt_text'=> $alt_text,'description' => $description,'status' => 'failed');
 					$core_instance->detailed_log[$line_number]['Message'] = "Unable to detect the image in your import file. Please check and try again.";
 				}else if($media_type == 'External'){
@@ -88,7 +88,7 @@ class MediaImport {
 				return array('MODE' => $mode, 'ERROR_MSG' =>"Can't insert this Image" );
 			}else{
 				if($media_type == 'Local'){
-					$data = $this->imageImport($attach_id,$data_array,$media_type);
+					$data = $this->imageMetaImport($attach_id,$data_array,$media_type);
 					$core_instance->media_log[$line_number] = $data;
 					$core_instance->detailed_log[$line_number]['Message'] = 'Inserted Image ID: ' . $attach_id .' FileName: '.$file_name;
 				}else if($media_type == 'External'){
@@ -113,7 +113,11 @@ class MediaImport {
 		$returnArr['MODE'] = $mode_of_affect;
 		return $returnArr;
 	}
-	public function imageImport($attach_id,$data_array,$media_type){
+	public function imageMetaImport($attach_id,$data_array,$media_type){
+		if(!empty($data_array['file_name'])){
+			$sanitized_filename = str_replace(' ', '-', basename($data_array['file_name']));
+			$file_name = preg_replace('/[^a-zA-Z0-9._\-\s]/', '', $sanitized_filename);
+		}
 		$title = isset($data_array['title']) ? $data_array['title'] : '';
 		$caption = isset($data_array['caption']) ? $data_array['caption'] : '';
 		$alt_text = isset($data_array['alt_text']) ? $data_array['alt_text'] : '';
@@ -134,7 +138,7 @@ class MediaImport {
 		if(isset($alt_text)){  
 			$updated = update_post_meta($attach_id, '_wp_attachment_image_alt', $alt_text);
 		}
-			$attachment_data = array('media_id'   => $attach_id,'file_url'   => wp_get_attachment_url($attach_id),'file_name' => $data_array['file_name'],'title'  => $title,'caption'  => $caption,'alt_text'    => $alt_text,'description' => $description,'status' => 'success');
+			$attachment_data = array('media_id'   => $attach_id,'file_url'   => wp_get_attachment_url($attach_id),'file_name' => $file_name,'title'  => $title,'caption'  => $caption,'alt_text'    => $alt_text,'description' => $description,'status' => 'success');
 			return $attachment_data;
 	}
 }

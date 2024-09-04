@@ -22,7 +22,8 @@ class CommentsImport {
 		return CommentsImport::$comments_instance;
     }
 
-    public function comments_import_function($data_array , $mode , $unikey_value,$unikey_name , $line_number) {
+    public function comments_import_function($data_array , $mode , $unikey_value,$unikey_name , $line_number, $type) {
+
 		global $wpdb;
 		$core_instance = CoreFieldsImport::getInstance();
 		global $core_instance;
@@ -90,7 +91,10 @@ class CommentsImport {
 				$data_array['user_id']=$users;
 			}
 			}
-		if ($post_exists) {
+			if($type == 'WooCommerce Reviews'){
+				$data_array['comment_type'] = 'review';
+			}
+			if ($post_exists) {
 			if($mode == 'Insert'){
 				$retID = wp_insert_comment($data_array);
 				$mode_of_affect = 'Inserted';

@@ -82,8 +82,8 @@ class ExportExtension {
 			echo wp_json_encode(count($query));
 			wp_die();
 		}
-		elseif($module == 'Comments'){
-			$get_all_comments = $this->commentsCount();	
+		elseif($module == 'Comments' || $module == 'WooCommerceReviews'){
+			$get_all_comments = $this->commentsCount($module);	
 			echo wp_json_encode($get_all_comments);
 			wp_die();
 		}
@@ -235,6 +235,11 @@ class ExportExtension {
 			}
 		}
 		}
+	
+		if($mode == 'WooCommerceReviews'){
+			$get_comments .= " and comment_type = 'review'";
+	    }
+	
 		$get_comments .= " order by comment_ID";
 		$comments = $wpdb->get_results( $get_comments );
 		$totalRowCount = count($comments);

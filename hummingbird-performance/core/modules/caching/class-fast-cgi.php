@@ -53,7 +53,7 @@ class Fast_CGI {
 			return false;
 		}
 
-		if ( ! isset( $_SERVER['WPMUDEV_HOSTING_ENV'] ) ) {
+		if ( ! isset( $_SERVER['WPMUDEV_HOSTING_ENV'] ) || 'production' !== $_SERVER['WPMUDEV_HOSTING_ENV'] ) {
 			return false;
 		}
 

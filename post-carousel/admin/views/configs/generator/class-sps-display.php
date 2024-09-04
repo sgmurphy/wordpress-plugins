@@ -64,7 +64,7 @@ class SPS_Display {
 										),
 										'min'        => '1',
 										'decimal'    => true,
-										'title_info' => '<i class="fa fa-television"></i> Large Desktop - is larger than 1200px,<br><i class="fa fa-desktop"></i> Desktop - size is larger than 992px,<br> <i class="fa fa-tablet"></i> Tablet - Size is larger than 768,<br> <i class="fa fa-mobile"></i> Mobile Landscape- size is larger than 576px.,<br> <i class="fa fa-mobile"></i> Mobile - size is smaller than 576px.',
+										'title_info' => '<i class="fa fa-television"></i> ' . __( 'Large Desktop - is larger than 1200px', 'post-carousel' ) . ',<br><i class="fa fa-desktop"></i> ' . __( 'Desktop - size is larger than 992px', 'post-carousel' ) . ',<br> <i class="fa fa-tablet"></i> ' . __( 'Tablet - Size is larger than 768', 'post-carousel' ) . ',<br> <i class="fa fa-mobile"></i> ' . __( 'Mobile Landscape- size is larger than 576px.', 'post-carousel' ) . ',<br> <i class="fa fa-mobile"></i> ' . __( 'Mobile - size is smaller than 576px.', 'post-carousel' ),
 										'dependency' => array( 'pcp_layout_preset', 'any', 'carousel_layout,thumbnails_slider,grid_layout,masonry_layout,glossary_layout,filter_layout,large_with_small', true ),
 									),
 									// array(
@@ -106,7 +106,12 @@ class SPS_Display {
 										'type'       => 'layout_preset',
 										'title'      => __( 'Content Orientation ', 'post-carousel' ),
 										'subtitle'   => __( 'Set a position for the item content.', 'post-carousel' ),
-										'desc'       => __( 'To unlock more amazing Content Orientation and Layout based Settings, <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><strong>Upgrade To Pro!</strong></a>', 'post-carousel' ),
+										'desc'       => sprintf(
+											/* translators: 1: start link and strong tag, 2: close tags. */
+											__( 'To unlock more amazing Content Orientation and Layout based Settings, %1$sUpgrade To Pro!%2$s', 'post-carousel' ),
+											'<a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><strong>',
+											'</strong></a>',
+										),
 										'class'      => 'pcp-content-orientation',
 										'options'    => array(
 											'default'     => array(
@@ -674,7 +679,12 @@ class SPS_Display {
 																			'name_with_icon' => __( 'Author name with an icon', 'post-carousel' ),
 
 																		),
-																		'desc' => __( 'To show gravatar, you must <a href="https://wordpress.org/support/article/how-to-use-gravatars/" target="_blank" rel="noopener noreferrer nofollow"><em>enable it</em></a>.', 'post-carousel' ),
+																		'desc' => sprintf(
+																			/* translators: 1: start link and em tag, 2: close tags. */
+																			__( 'To show gravatar, you must %1$senable it%2$s.', 'post-carousel' ),
+																			'<a href="https://wordpress.org/support/article/how-to-use-gravatars/" target="_blank" rel="noopener noreferrer nofollow"><em>',
+																			'</em></a>',
+																		),
 																		'default' => 'name_with_icon',
 																		'dependency' => array( 'select_post_meta', '==', 'author' ),
 																	),
@@ -698,7 +708,12 @@ class SPS_Display {
 																		'class' => 'pcp_custom_meta_date_format',
 																		'placeholder' => __( 'F j, Y', 'post-carousel' ),
 																		'default'   => __( 'F j, Y', 'post-carousel' ),
-																		'desc' => __( 'To define format, check <a href="https://wordpress.org/support/article/formatting-date-and-time/" target="_blank" rel="noopener noreferrer nofollow"><em>this doc</em></a>.', 'post-carousel' ),
+																		'desc' => sprintf(
+																			/* translators: 1: start link and em tag, 2: close tags. */
+																			__( 'To define format, check %1$sthis doc%2$s.', 'post-carousel' ),
+																			'<a href="https://wordpress.org/support/article/formatting-date-and-time/" target="_blank" rel="noopener noreferrer nofollow"><em>',
+																			'</em></a>',
+																		),
 																		'dependency' => array( 'select_post_meta|post_meta_date_format', '==|==', 'date|custom' ),
 																	),
 																	array(
@@ -1056,7 +1071,12 @@ class SPS_Display {
 										'type'       => 'radio',
 										'title'      => __( 'Pagination Type', 'post-carousel' ),
 										'subtitle'   => __( 'Choose a pagination type.', 'post-carousel' ),
-										'desc'       => __( 'More amazing Ajax Pagination Settings are available in <a href="https://smartpostshow.com/" target="_blank"><strong>Pro</strong></a>!', 'post-carousel' ),
+										'desc'       => sprintf(
+											/* translators: 1: start link and strong tag, 2: close tags. */
+											__( 'More amazing Ajax Pagination Settings are available in %1$sPro%2$s', 'post-carousel' ),
+											'<a href="https://smartpostshow.com/" target="_blank"><strong>',
+											'</strong></a>!',
+										),
 										'class'      => 'pcp-pagination-type',
 										'options'    => array(
 											'no_ajax' => __( 'Normal Pagination', 'post-carousel' ),
@@ -1072,7 +1092,12 @@ class SPS_Display {
 										'type'       => 'spinner',
 										'title'      => __( 'Items Per Page', 'post-carousel' ),
 										'subtitle'   => __( 'Set number of items to show per page.', 'post-carousel' ),
-										'title_info' => __( 'This value should be lesser than that <strong> Limit </strong> from <strong>Filter Content  </strong> tab.', 'post-carousel' ),
+										'title_info' => sprintf(
+											/* translators: 1: start strong tag, 2: close tags. */
+											__( 'This value should be lesser than that %1$s Limit %2$s from %1$sFilter Content  %2$s tab.', 'post-carousel' ),
+											'<strong>',
+											'</strong>',
+										),
 										'default'    => 12,
 										'dependency' => array( 'pcp_layout_preset|show_post_pagination', 'not-any|==', 'carousel_layout|true', true ),
 									),
@@ -1089,6 +1114,7 @@ class SPS_Display {
 									array(
 										'id'         => 'pcp_pagination_btn_color',
 										'type'       => 'color_group',
+										'sanitize'   => 'spf_pcp_sanitize_color_group_field',
 										'title'      => __( 'Color', 'post-carousel' ),
 										'subtitle'   => __( 'Set Pagination color', 'post-carousel' ),
 										'options'    => array(
@@ -1119,6 +1145,7 @@ class SPS_Display {
 										'hover_color'   => true,
 										'show_units'    => true,
 										'units'         => array( 'px', '%' ),
+										'sanitize'      => 'spf_pcp_sanitize_border_field',
 										'default'       => array(
 											'all'         => '2',
 											'style'       => 'solid',
@@ -1151,7 +1178,12 @@ class SPS_Display {
 									array(
 										'type'    => 'notice',
 										'class'   => 'taxonomy-ajax-filter-notice',
-										'content' => __( 'To earn money from your website by displaying Google AdSense, banners, and more in your posts,', 'post-carousel' ) . ' <a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>' . __( 'Upgrade To Pro!', 'post-carousel' ) . '</b></a>',
+										'content' => sprintf(
+											/* translators: 1: start link and bold tag, 2: close tags. */
+											__( 'To earn money from your website by displaying Google AdSense, banners, and more in your posts, %1$sUpgrade To Pro!%2$s', 'post-carousel' ),
+											'<a href="https://smartpostshow.com/pricing/?ref=1" target="_blank"><b>',
+											'</b></a>',
+										),
 									),
 									array(
 										'id'       => 'pcp_set_adv',

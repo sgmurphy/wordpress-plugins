@@ -24,7 +24,7 @@ class ExtensionHandler{
 
 	public function import_post_types($import_type) {	
 		$import_type = trim($import_type);	
-		$module = array('Posts' => 'post', 'Pages' => 'page', 'Users' => 'user', 'Comments' => 'comments', 'Taxonomies' => $import_type, 'CustomerReviews' =>'wpcr3_review', 'Categories' => 'categories', 'Tags' => 'tags', 'WooCommerce' => 'product', 'WooCommerce Product' => 'product', 'WPeCommerce' => 'wpsc-product','WPeCommerceCoupons' => 'wpsc-product','WooCommerceVariations' => 'product', 'WooCommerceOrders' => 'product', 'WooCommerceCoupons' => 'product', 'WooCommerceRefunds' => 'product', 'CustomPosts' => $import_type);
+		$module = array('Posts' => 'post', 'Pages' => 'page', 'Users' => 'user', 'Comments' => 'comments', 'Taxonomies' => $import_type, 'CustomerReviews' =>'wpcr3_review', 'Categories' => 'categories', 'Tags' => 'tags', 'WooCommerce' => 'product', 'WooCommerce Product' => 'product', 'WPeCommerce' => 'wpsc-product','WPeCommerceCoupons' => 'wpsc-product','WooCommerceVariations' => 'product', 'WooCommerceOrders' => 'product', 'WooCommerceCoupons' => 'product', 'WooCommerceRefunds' => 'product', 'CustomPosts' => $import_type,'WooCommerceReviews' => 'reviews');
 		foreach (get_taxonomies() as $key => $taxonomy) {
 			$module[$taxonomy] = $taxonomy;
 		}
@@ -132,6 +132,7 @@ class ExtensionHandler{
 		if(is_plugin_active('woocommerce/woocommerce.php') && is_plugin_active('import-woocommerce/import-woocommerce.php')){
 			$importas['WooCommerce Product'] ='WooCommerce';
 			$importas['WooCommerce Product Variations'] ='WooCommerceVariations';
+			$importas['WooCommerce Reviews'] ='WooCommerceReviews';
 			//$importas['WooCommerce Orders'] = 'WooCommerceOrders';
 			//$importas['WooCommerce Coupons'] = 'WooCommerceCoupons';
 			//$importas['WooCommerce Refunds'] = 'WooCommerceRefunds';
@@ -200,8 +201,10 @@ class ExtensionHandler{
 			$file_extension = 'xml';
 		}
 		if($file_extension == 'csv' || $file_extension == 'txt'){
-			if (!ini_get("auto_detect_line_endings")) {
-				ini_set("auto_detect_line_endings", true);
+			if (version_compare(PHP_VERSION, '8.1.0', '<')) {  // Only do this if PHP version is less than 8.1.0
+				if (!ini_get("auto_detect_line_endings")) {
+					ini_set("auto_detect_line_endings", true);
+				}
 			}
 			$info = [];
 			if (($h = fopen($upload_dir.$hashkey.'/'.$hashkey, "r")) !== FALSE) 

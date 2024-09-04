@@ -266,5 +266,27 @@
                                 value="<?php echo esc_attr( get_option('simple_banner_z_index' . $banner_id) ); ?>" />
             </td>
         </tr>
+        <!-- wp_body_open -->
+        <?php if ( function_exists( 'wp_body_open' ) ): ?>
+            <tr valign="top">
+                <th scope="row">
+                    wp_body_open enabled
+                    <div>
+                        If enabled, will use the <a href="https://developer.wordpress.org/reference/functions/wp_body_open/">wp_body_open</a> action to insert the banner to your site. This can be used to eliminate Cumulative Layout Shift issues. It will also disable the <code>Prepend element</code> and <code>Insert Inside Element</code> setting.
+                    </div>
+                </th>
+                <td>
+                    <?php
+                        if ($i === 1) {
+                            $checked = get_option('wp_body_open_enabled') ? 'checked ' : '';
+                            echo '<input type="checkbox" id="wp_body_open_enabled" '. $checked . ' name="wp_body_open_enabled" />';
+                        } else {
+                            echo '<b>Only available on Banner #1.</b>';
+                        }
+                    ?>
+                </td>
+            </tr>
+        <?php endif; ?>
+
     </table>
 </div>

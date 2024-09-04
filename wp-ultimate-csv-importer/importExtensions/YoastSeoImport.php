@@ -84,6 +84,7 @@ class YoastSeoImport {
 				}
 				if(isset($data_array['opengraph-image'])) {
 					$yoastData['wpseo_opengraph-image'] = urldecode($data_array['opengraph-image']);
+					$media_instance->store_image_ids($i=1);
 					$image_id = $media_instance->image_meta_table_entry($line_number,'', $pID, 'opengraph-image', $data_array['opengraph-image'], $hash_key, 'yoast_opengraph','post',$templatekey,$gmode);
 					$yoastData['wpseo_opengraph-image-id'] = $image_id;
 				}
@@ -95,6 +96,7 @@ class YoastSeoImport {
 				}
 				if(isset($data_array['twitter-image'])) {
 					$yoastData['wpseo_twitter-image'] = urldecode($data_array['twitter-image']);
+					$media_instance->store_image_ids($i=1);
 					$imageid = $media_instance->image_meta_table_entry($line_number,'', $pID, 'twitter-image', $data_array['twitter-image'], $hash_key, 'twitter-image','post',$templatekey,$gmode);
 					$yoastData['wpseo_twitter-image-id'] = $imageid;
 				}
@@ -172,6 +174,7 @@ class YoastSeoImport {
 		}
 		if (isset($data_array['opengraph-image'])) {
 			$custom_array['_yoast_wpseo_opengraph-image'] = urldecode($data_array['opengraph-image']);
+			$media_instance->store_image_ids($i=1);
 			$image_id = $media_instance->image_meta_table_entry($line_number,'', $pID, 'opengraph-image', $data_array['opengraph-image'], $hash_key, 'yoast_opengraph','post',$templatekey,$gmode);
 			$custom_array['_yoast_wpseo_opengraph-image-id'] = $image_id;
 		}
@@ -183,6 +186,7 @@ class YoastSeoImport {
 		}
 		if (isset($data_array['twitter-image'])) {
 			$custom_array['_yoast_wpseo_twitter-image'] = urldecode($data_array['twitter-image']);
+			$media_instance->store_image_ids($i=1);
 			$imageid = $media_instance->image_meta_table_entry($line_number,'', $pID, 'twitter-image', $data_array['twitter-image'], $hash_key, 'twitter-image','post',$templatekey,$gmode);
 			$custom_array['_yoast_wpseo_twitter-image-id'] = $imageid;	
 		}

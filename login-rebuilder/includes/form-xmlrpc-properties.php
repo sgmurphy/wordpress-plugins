@@ -9,7 +9,7 @@
  * require login_rebuilder::xmlrpc_properties()
  */
 
-if ( !( isset( $this ) && is_a( $this, 'login_rebuilder' ) ) ) die( 0 );
+if ( !( isset( $this ) && is_a( $this, 'jp12net\login_rebuilder' ) ) ) die( 0 );
 ?>
 <div id="<?php echo self::XMLRPC_PROPERTIES_NAME; ?>" class="wrap">
 <div id="icon-options-general" class="icon32"><br /></div>

@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hummingbird 3.9.3\n"
+"Project-Id-Version: Hummingbird 3.9.4\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
-"POT-Creation-Date: 2024-08-19 11:05:55+00:00\n"
+"POT-Creation-Date: 2024-09-03 14:17:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -44,7 +44,7 @@ msgid "Error removing asset file."
 msgstr ""
 
 #: admin/ajax/class-minify.php:535 admin/class-ajax.php:1563
-#: admin/class-ajax.php:2222 admin/class-ajax.php:2664 core/class-utils.php:190
+#: admin/class-ajax.php:2224 admin/class-ajax.php:2666 core/class-utils.php:190
 #: core/modules/class-minify.php:1701
 msgid "Settings updated"
 msgstr ""
@@ -234,55 +234,55 @@ msgstr ""
 msgid "Log file purged"
 msgstr ""
 
-#: admin/class-ajax.php:2335
+#: admin/class-ajax.php:2337
 msgid "Import failed - No settings file has been submitted."
 msgstr ""
 
-#: admin/class-ajax.php:2344
+#: admin/class-ajax.php:2346
 msgid "Import failed - Something went wrong on uploading settings file."
 msgstr ""
 
-#: admin/class-ajax.php:2352 admin/class-ajax.php:2360
+#: admin/class-ajax.php:2354 admin/class-ajax.php:2362
 msgid "Import failed - You selected wrong settings file."
 msgstr ""
 
-#: admin/class-ajax.php:2369
+#: admin/class-ajax.php:2371
 msgid "Import failed - Settings data is empty."
 msgstr ""
 
-#: admin/class-ajax.php:2378
+#: admin/class-ajax.php:2380
 msgid "Import failed - Asset optimization settings data not found."
 msgstr ""
 
-#: admin/class-ajax.php:2387
+#: admin/class-ajax.php:2389
 msgid "Settings imported and configured successfully."
 msgstr ""
 
-#: admin/class-ajax.php:2454
+#: admin/class-ajax.php:2456
 msgid "Missing config ID"
 msgstr ""
 
-#: admin/class-ajax.php:2515 admin/class-ajax.php:2555
+#: admin/class-ajax.php:2517 admin/class-ajax.php:2557
 msgid "There was some error in generating Critical CSS"
 msgstr ""
 
-#: admin/class-ajax.php:2517
+#: admin/class-ajax.php:2519
 msgid "Critical CSS is being generated"
 msgstr ""
 
-#: admin/class-ajax.php:2519
+#: admin/class-ajax.php:2521
 msgid "Critical CSS generated"
 msgstr ""
 
-#: admin/class-ajax.php:2551
+#: admin/class-ajax.php:2553
 msgid "Critical CSS is being re-generated"
 msgstr ""
 
-#: admin/class-ajax.php:2557
+#: admin/class-ajax.php:2559
 msgid "Critical CSS re-generated"
 msgstr ""
 
-#: admin/class-ajax.php:2587
+#: admin/class-ajax.php:2589
 msgid "Critical CSS file deleted successfully"
 msgstr ""
 
@@ -1656,7 +1656,7 @@ msgstr ""
 #: admin/pages/class-caching.php:106 admin/pages/class-caching.php:115
 #: admin/pages/class-caching.php:324
 #: admin/views/dashboard/welcome/subsite-meta-box.php:112
-#: core/class-utils.php:1613 languages/react.php:363
+#: core/class-utils.php:1601 languages/react.php:363
 msgid "Page Caching"
 msgstr ""
 
@@ -3421,7 +3421,7 @@ msgstr ""
 #: admin/views/dashboard/minification/network-module-meta-box.php:59
 #: admin/views/performance/summary-meta-box.php:176
 #: admin/views/uptime/summary-meta-box.php:103
-#: admin/views/uptime/summary-meta-box.php:118 core/class-utils.php:552
+#: admin/views/uptime/summary-meta-box.php:118 core/class-utils.php:540
 #: languages/react.php:951
 msgid "Disabled"
 msgstr ""
@@ -7063,93 +7063,93 @@ msgid ""
 "generate once someone visits your homepage."
 msgstr ""
 
-#: core/class-utils.php:601
+#: core/class-utils.php:589
 #. translators: %d: year
 msgid "%d year"
 msgid_plural "%d years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-utils.php:604
+#: core/class-utils.php:592
 #. translators: %d: month
 msgid "%d month"
 msgid_plural "%d months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-utils.php:607
+#: core/class-utils.php:595
 #. translators: %d: day
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-utils.php:610
+#: core/class-utils.php:598
 #. translators: %d: hour
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-utils.php:613
+#: core/class-utils.php:601
 #. translators: %d: minute
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-utils.php:616
+#: core/class-utils.php:604
 #. translators: %d: second
 msgid "%d second"
 msgid_plural "%d seconds"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/class-utils.php:870
+#: core/class-utils.php:858
 msgid "Still having trouble? "
 msgstr ""
 
-#: core/class-utils.php:874 languages/react.php:178
+#: core/class-utils.php:862 languages/react.php:178
 msgid "Start a live chat."
 msgstr ""
 
-#: core/class-utils.php:878 languages/react.php:181
+#: core/class-utils.php:866 languages/react.php:181
 msgid "Open a support ticket."
 msgstr ""
 
-#: core/class-utils.php:995
+#: core/class-utils.php:983
 msgid "Page Cache"
 msgstr ""
 
-#: core/class-utils.php:996 languages/react.php:203
+#: core/class-utils.php:984 languages/react.php:203
 msgid "Cloudflare"
 msgstr ""
 
-#: core/class-utils.php:997
+#: core/class-utils.php:985
 msgid "Gravatar Cache"
 msgstr ""
 
-#: core/class-utils.php:998
+#: core/class-utils.php:986
 msgid "Asset Optimization Cache"
 msgstr ""
 
-#: core/class-utils.php:999
+#: core/class-utils.php:987
 msgid "Redis Cache"
 msgstr ""
 
-#: core/class-utils.php:1452
+#: core/class-utils.php:1440
 msgid "Unlock now for Peak Performance  ️⚡️ - 80% Off!"
 msgstr ""
 
-#: core/class-utils.php:1452
+#: core/class-utils.php:1440
 msgid "Unlock now"
 msgstr ""
 
-#: core/class-utils.php:1610
+#: core/class-utils.php:1598
 msgid "Page Caching - Static Server Cache"
 msgstr ""
 
-#: core/class-utils.php:1613
+#: core/class-utils.php:1601
 msgid "Page Caching - Local Page Cache"
 msgstr ""
 

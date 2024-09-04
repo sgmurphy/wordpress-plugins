@@ -2773,6 +2773,10 @@ $defaultValues = array(
                 'type' => 'string',
                 'default' => ''
             ),
+            'linkToDivider' => array(
+                'type' => 'boolean',
+                'default' => false
+            ),
             'allowToCHiding' => array(
                 'type' => 'boolean',
                 'default' => false
@@ -3008,6 +3012,22 @@ $defaultValues = array(
 					'type' => 'string',
 					'default' => ''
 				),
+				'counterFontFamily' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'labelFontFamily' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'counterDecoration' => array(
+					'type' => 'string',
+					'default' => ''
+				),
+				'labelDecoration' => array(
+					'type' => 'string',
+					'default' => ''
+				),
 				'startNumber' => array(
 					'type' => 'string',
 					'default' => '0'
@@ -3059,6 +3079,20 @@ $defaultValues = array(
 				'margin' => array(
 					'type' 	=> 'array',
 					'default' => array()
+				),
+				'counterFontAppearance' => array(
+					'type' 	=> 'array',
+					'default' => array(
+						'fontStyle'	=> '',
+						'fontWeight'	=> ''
+					)
+				),
+				'labelFontAppearance' => array(
+					'type' 	=> 'array',
+					'default' => array(
+						'fontStyle'	=> '',
+						'fontWeight'	=> ''
+					)
 				),
 			)
 		)
