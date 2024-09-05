@@ -822,7 +822,17 @@ endforeach;
 						</th>
 						<td>
 							<input id="soliloquy-config-duration" type="number" name="_soliloquy[duration]" value="<?php echo esc_attr( $this->get_config( 'duration', $this->get_config_default( 'duration' ) ) ); ?>" /> <span class="soliloquy-unit"><?php esc_html_e( 'ms', 'soliloquy' ); ?></span>
-							<p class="description"><?php esc_html_e( 'Sets the amount of time between each slide transition <strong>(in milliseconds)</strong>.', 'soliloquy' ); ?></p>
+							<p class="description">
+								<?php
+									$text = __( 'Sets the amount of time between each slide transition <strong>(in milliseconds)</strong>.', 'soliloquy' );
+									echo wp_kses(
+										$text,
+										[
+											'strong' => [], // Allow only the <strong> tag.
+										]
+									);
+								?>
+							</p>
 						</td>
 					</tr>
 					<tr id="soliloquy-config-slider-speed-box">
@@ -831,7 +841,17 @@ endforeach;
 						</th>
 						<td>
 							<input id="soliloquy-config-speed" type="number" name="_soliloquy[speed]" value="<?php echo esc_attr( $this->get_config( 'speed', $this->get_config_default( 'speed' ) ) ); ?>" /> <span class="soliloquy-unit"><?php esc_html_e( 'ms', 'soliloquy' ); ?></span>
-							<p class="description"><?php esc_html_e( 'Sets the transition speed when moving from one slide to the next <strong>(in milliseconds)</strong>.', 'soliloquy' ); ?></p>
+							<p class="description">
+								<?php
+									$text = __( 'Sets the transition speed when moving from one slide to the next <strong>(in milliseconds)</strong>.', 'soliloquy' );
+									echo wp_kses(
+										$text,
+										[
+											'strong' => [], // Allow only the <strong> tag.
+										]
+									);
+								?>
+							</p>
 						</td>
 					</tr>
 					<tr id="soliloquy-config-gutter-box">
@@ -851,7 +871,17 @@ endforeach;
 						<label class="soliloquy-toggle">
 							<input id="soliloquy-config-slider" type="checkbox" name="_soliloquy[slider]" value="<?php echo esc_attr( $this->get_config( 'slider', $this->get_config_default( 'slider' ) ) ); ?>" <?php checked( $this->get_config( 'slider', $this->get_config_default( 'slider' ) ), 1 ); ?> />
 							<span class="soliloquy-switch"></span>
-							<span class="description"><?php esc_html_e( 'Enables or disables image cropping based on slider dimensions <strong>(recommended)</strong>.', 'soliloquy' ); ?></span>
+							<span class="description">
+								<?php
+									$text = __( 'Enables or disables image cropping based on slider dimensions <strong>(recommended)</strong>.', 'soliloquy' );
+									echo wp_kses(
+										$text,
+										[
+											'strong' => [], // Allow only the <strong> tag.
+										]
+									);
+								?>
+							</span>
 						</label>
 						</td>
 					</tr>
@@ -916,7 +946,17 @@ endforeach;
 						</th>
 						<td>
 							<input id="soliloquy-config-slug" type="text" name="_soliloquy[slug]" value="<?php echo esc_attr( $this->get_config( 'slug', $this->get_config_default( 'slug' ) ) ); ?>" />
-							<p class="description"><?php esc_html_e( '<strong>Unique</strong> internal slider slug for identification and advanced slider queries.', 'soliloquy' ); ?></p>
+							<p class="description">
+								<?php
+									$text = __( '<strong>Unique</strong> internal slider slug for identification and advanced slider queries.', 'soliloquy' );
+									echo wp_kses(
+										$text,
+										[
+											'strong' => [], // Allow only the <strong> tag.
+										]
+									);
+								?>
+							</p>
 						</td>
 					</tr>
 					<tr id="soliloquy-config-classes-box">

@@ -10,8 +10,6 @@
 	<div class="calc-range" :class="['calc_' + rangeField.alias]">
 		<div class="calc-item__title ccb-range-field">
 			<div class="ccb-range-label">
-				{{ rangeField.label }}
-				<span class="ccb-required-mark" v-if="rangeField.required">*</span>
 				<span v-if="rangeField.required" class="calc-required-field">
 					<div class="ccb-field-required-tooltip">
 						<span class="ccb-field-required-tooltip-text" :class="{active: requiredActive}" style="display: none;">
@@ -19,6 +17,8 @@
 						</span>
 					</div>
 				</span>
+				{{ rangeField.label }}
+				<span class="ccb-required-mark" v-if="rangeField.required">*</span>
 			</div>
 			<div class="ccb-range-value"> {{ getFormatedValue }}</div>
 		</div>

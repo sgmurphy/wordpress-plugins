@@ -57,6 +57,7 @@ class CCBCalculatorTemplates {
 
 			if ( ! empty( $title ) && ! empty( $calc_id ) ) {
 				$temp_data = array(
+					'template_id' => self::get_post_id_by_meta_key_and_value( 'calc_id', $calc_id ),
 					'calc_id'     => $calc_id,
 					'title'       => $title,
 					'type'        => 'default',
@@ -66,7 +67,7 @@ class CCBCalculatorTemplates {
 					'link'        => '',
 					'info'        => '',
 				);
-				self::create_and_save_template( $temp_data );
+				self::create_or_update_template( $temp_data );
 
 				$result['success'] = true;
 				$result['message'] = 'Template saved successfully';
@@ -76,13 +77,18 @@ class CCBCalculatorTemplates {
 		wp_send_json( $result );
 	}
 
-	public static function create_and_save_template( $data ) {
-		$id = wp_insert_post(
-			array(
-				'post_type'   => self::CALC_TEMPLATES_POST_TYPE,
-				'post_status' => 'publish',
-			)
-		);
+	public static function create_or_update_template( $data ) {
+		if ( empty( $data['template_id'] ) ) {
+			$id = wp_insert_post(
+				array(
+					'post_type'   => self::CALC_TEMPLATES_POST_TYPE,
+					'post_status' => 'publish',
+				)
+			);
+		} else {
+			$id = $data['template_id'];
+		}
+
 		update_post_meta( $id, 'calc_id', apply_filters( 'calc_id', $data['calc_id'] ) );
 		update_post_meta( $data['calc_id'], 'plugin_type', $data['type'] );
 		update_post_meta( $data['calc_id'], 'icon', $data['icon'] );
@@ -656,5 +662,23 @@ class CCBCalculatorTemplates {
 
 			return $contents['calculators'][ $key ];
 		}
+	}
+
+	public static function get_post_id_by_meta_key_and_value( $meta_key, $meta_value ) {
+		$args = array(
+			'meta_key'    => $meta_key,
+			'meta_value'  => $meta_value,
+			'post_type'   => self::CALC_TEMPLATES_POST_TYPE,
+			'fields'      => 'ids',
+			'numberposts' => 1,
+		);
+
+		$post_ids = get_posts( $args );
+
+		if ( ! empty( $post_ids ) ) {
+			return $post_ids[0];
+		}
+
+		return null;
 	}
 }

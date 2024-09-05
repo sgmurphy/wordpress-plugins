@@ -76,7 +76,7 @@ if ( ! class_exists(__NAMESPACE__ . 'Shortcode') ) {
 			}
 
 			return wp_sprintf(
-				'<div class="wp-dark-mode-switch %s" 
+				'<div class="wp-dark-mode-switch %s" tabindex="0" 
 				data-style="%s" data-size="%s" data-text-light="%s" data-text-dark="%s" data-icon-light="%s" data-icon-dark="%s"
 				></div>',
 				esc_attr($classes),

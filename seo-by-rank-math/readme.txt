@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.6
 Requires at least: 6.3
 Requires PHP: 7.4
-Stable tag: 1.0.227
+Stable tag: 1.0.227.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -593,6 +593,10 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 - Fixed: PHP error on the [Analytics page](https://rankmath.com/kb/analytics/) when a site had no Analytics data
 - Fixed: Missing Analytics tables error on some setups
 - Fixed: PHP warning on the Page list after searching for a page
+
+= 1.0.227.1 [Sept 05, 2024] =
+- Fixed: [Rank Math SEO Meta Box](https://rankmath.com/kb/optimize-a-category-page/) was not working on taxonomy pages after the last update
+- Fixed: [Updating the Prompts Library](https://rankmath.com/kb/how-to-use-rankbot-ai/#how-to-use-the-prompts-library) was not working
 
 
 Full changelog can be found here - **[Rank Math changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

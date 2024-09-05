@@ -517,7 +517,7 @@ if ( ! class_exists( __NAMESPACE__ . 'Config' ) ) {
 				'analytics' => array(
 					'enabled' => array(
 						'type' => 'boolean',
-						'default' => false,
+						'default' => true,
 					),
 					'enabled_dashboard_widget' => array(
 						'type' => 'boolean',

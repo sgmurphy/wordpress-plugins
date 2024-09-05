@@ -11,7 +11,7 @@ License: GPLv2 or later
 
 add_action('template_redirect', function() {
 	
-	if ( wp_doing_ajax() || wp_doing_cron() || is_admin() || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ) return;
+	if (wp_doing_ajax() || wp_doing_cron() || is_admin() || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST)) return;
 	
 	if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'sitemap.xml') !== false) return;
 	

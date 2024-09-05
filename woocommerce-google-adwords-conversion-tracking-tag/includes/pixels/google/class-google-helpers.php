@@ -76,6 +76,13 @@ class Google_Helpers {
         return (string) apply_filters( 'pmw_product_id_type_for_google_analytics', $ga_id_type );
     }
 
+    /**
+     * Get the price of an order item.
+     *
+     * @param $order_item
+     *
+     * @return float
+     */
     public static function pmw_get_order_item_price( $order_item ) {
         if ( Environment::is_woo_discount_rules_active() ) {
             $item_value = $order_item->get_meta( '_advanced_woo_discount_item_total_discount' );

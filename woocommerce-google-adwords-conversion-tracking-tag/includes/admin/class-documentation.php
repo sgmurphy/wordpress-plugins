@@ -170,7 +170,7 @@ class Documentation {
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/pmw-plugin-configuration/google-ads/#section-4',
 			],
 			'explicit_consent_mode'                                  => [
-				'default' => '//docs/wpm/consent-management/overview#explicit-consent-mode',
+				'default' => '/docs/wpm/consent-management/overview#explicit-consent-mode',
 				'wcm'     => '/document/pixel-manager-pro-for-woocommerce/consent-management/overview/#section-1',
 			],
 			'facebook_capi_token'                                    => [

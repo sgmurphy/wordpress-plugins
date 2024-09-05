@@ -10,6 +10,7 @@ namespace NotificationX\Admin;
 use NotificationX\NotificationX;
 use NotificationX\Admin\Reports\ReportEmail;
 use NotificationX\Core\Analytics;
+use NotificationX\Core\Dashboard;
 use NotificationX\Core\Database;
 use NotificationX\Core\PostType;
 use NotificationX\Core\Upgrader;
@@ -74,6 +75,7 @@ class Admin {
         }
         add_action('admin_init', [$this, 'admin_init']);
         add_action('admin_menu', [$this, 'menu'], 10);
+        Dashboard::get_instance();
         PostType::get_instance();
         Settings::get_instance()->init();
         Entries::get_instance();
@@ -170,7 +172,7 @@ class Admin {
     }
 
 
-    
+
     public function admin_notices(){
         self::$cache_bank = CacheBank::get_instance();
 		try {
@@ -183,10 +185,10 @@ class Admin {
     }
 
 
-    public function hide_others_plugin_admin_notice() 
+    public function hide_others_plugin_admin_notice()
     {
         $current_screen = get_current_screen();
-        $hide_on = ['toplevel_page_nx-admin','notificationx_page_nx-edit','notificationx_page_nx-settings','notificationx_page_nx-analytics','notificationx_page_nx-builder'];
+        $hide_on = ['toplevel_page_nx-admin', 'notificationx_page_nx-dashboard', 'notificationx_page_nx-edit','notificationx_page_nx-settings','notificationx_page_nx-analytics','notificationx_page_nx-builder'];
         if ( $current_screen && isset( $current_screen->base ) &&  in_array($current_screen->base, $hide_on) ) {
             remove_all_actions('user_admin_notices');
             remove_all_actions('admin_notices');
@@ -203,6 +205,7 @@ class Admin {
 			'stylesheet_url' => '',
 			'styles'         => self::ASSET_URL . 'css/wpdeveloper-review-notice.css',
 			'priority'       => 5,
+            // 'dev_mode'       => true
         ]);
 
         $_review_notice = [
@@ -286,22 +289,25 @@ class Admin {
                 'display_if'  => ! is_array( $notices->is_installed( 'notificationx-pro/notificationx-pro.php' ) )
             ]
         );
-        $b_message            = '<p style="margin-top: 0; margin-bottom: 10px;">Black Friday Sale: Get up to 40% discounts & <strong>boost your sales</strong> with advanced marketing campaigns ⚡</p><a class="button button-primary" href="https://wpdeveloper.com/upgrade/notificationx-bfcm" target="_blank">Upgrade to pro</a> <button data-dismiss="true" class="dismiss-btn button button-link">I don’t want to save money</button>';
+
+
+        // New Notice
+        $b_message            = '<p>6th Anniversary Sale: Unlock premium features with <strong>up to 25% discounts</strong> & skyrocket your conversions 🚀</p><a class="button button-primary" href="https://wpdeveloper.com/upgrade/notificationx-bfcm" target="_blank">Upgrade to PRO</a>';
 		$_black_friday_notice = [
 			'thumbnail' => self::ASSET_URL . 'images/full-logo.svg',
 			'html'      => $b_message,
 		];
 
 		$notices->add(
-			'black_friday_notice',
+			'6th_anniversary',
 			$_black_friday_notice,
 			[
 				'start'       => $notices->time(),
 				'recurrence'  => false,
 				'dismissible' => true,
 				'refresh'     => NOTIFICATIONX_VERSION,
-				"expire"      => strtotime( '11:59:59pm 2nd December, 2023' ),
-				'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
+				"expire"      => strtotime( '11:59:59pm 20th September, 2024' ),
+				// 'display_if'  => ! is_plugin_active( 'notificationx-pro/notificationx-pro.php' )
 			]
 		);
         // $notices->init();

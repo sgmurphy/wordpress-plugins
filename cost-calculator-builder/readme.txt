@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 3.2.28
+Stable tag: 3.2.29
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,12 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.29 =
+- Fix: Calculator in Breakdance Popup is not displayed on pages without a calculator.
+- Fix: Value from the “Name of value” field in Basic slider is not shown when enabling Currency.
+- Fix: Calculator templates are saved and displayed incorrectly in the template list.
+- Fix: Calculators from the Templates library saved as Custom Templates appear in both Custom and Popular Templates at the same time.
 
 = 3.2.28 =
 - Enhancement: Added Discounts information to the hook where orders are received by ID (Pro).

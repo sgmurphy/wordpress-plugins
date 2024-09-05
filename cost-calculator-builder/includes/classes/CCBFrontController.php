@@ -450,7 +450,7 @@ class CCBFrontController {
 			}
 		}
 
-		if ( ! empty( $sticky ) || $is_elementor ) {
+		if ( ! empty( $sticky ) || $is_elementor || defined( '__BREAKDANCE_VERSION' ) ) {
 			echo '<script type="text/javascript">window["ccb_front_template_' . $calc_id . '"] = ' . json_encode( $template_variables ) . ';</script>'; // phpcs:ignore
 		} else {
 			add_action( 'wp_footer', function () use ( $calc_id, $template_params, $template_variables ) { // phpcs:ignore

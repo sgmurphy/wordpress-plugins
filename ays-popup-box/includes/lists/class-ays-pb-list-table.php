@@ -1492,6 +1492,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 text transformation
         $notification_button_1_text_transformation = (isset($data['ays_pb_notification_button_1_text_transformation']) && $data['ays_pb_notification_button_1_text_transformation'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_transformation']) ) : 'none';
 
+        // Notification type | Button 1 text decoration
+        $notification_button_1_text_decoration = (isset($data['ays_pb_notification_button_1_text_decoration']) && $data['ays_pb_notification_button_1_text_decoration'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text_decoration']) ) : 'none';
+
         // Notification type | Button 1 letter spacing
         $notification_button_1_letter_spacing = (isset($data['ays_pb_notification_button_1_letter_spacing']) && $data['ays_pb_notification_button_1_letter_spacing'] != '') ? absint( intval($data['ays_pb_notification_button_1_letter_spacing']) ) : 0;
 
@@ -1647,9 +1650,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Change the author of the current pb
         $pb_create_author = ( isset($data['ays_pb_create_author']) && $data['ays_pb_create_author'] != "" ) ? absint( sanitize_text_field( $data['ays_pb_create_author'] ) ) : '';
 
-        //PB creation date
-        // $pb_create_date  = !isset($data['ays_pb_create_date']) ? '0000-00-00 00:00:00' : sanitize_text_field( $data['ays_pb_create_date'] );
-
+        // PB creation date
         $pb_create_date = (isset($data['ays_pb_change_creation_date']) && $data['ays_pb_change_creation_date'] != '') ? sanitize_text_field($data['ays_pb_change_creation_date']) : current_time( 'mysql' ) ;
 
         // Change the author of the current pb
@@ -1838,6 +1839,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_button_1_text_color' => $notification_button_1_text_color,
             'notification_button_1_text_hover_color' => $notification_button_1_text_hover_color,
             'notification_button_1_text_transformation' => $notification_button_1_text_transformation,
+            'notification_button_1_text_decoration' => $notification_button_1_text_decoration,
             'notification_button_1_letter_spacing' => $notification_button_1_letter_spacing,
             'notification_button_1_font_size' => $notification_button_1_font_size,
             'notification_button_1_border_radius' => $notification_button_1_border_radius,

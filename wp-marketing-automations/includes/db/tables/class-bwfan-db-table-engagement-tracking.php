@@ -83,7 +83,7 @@ if ( ! class_exists( 'BWFAN_DB_Table_Engagement_Tracking' ) && BWFAN_Common::is_
 			KEY `day` (`day`),
 			KEY `hour` (`hour`),
 			KEY `c_status` (`c_status`),
-			UNIQUE `hash_code` (`hash_code`)
+			UNIQUE KEY `hash_code` (`hash_code`)
 		) $collate;";
 		}
 	}

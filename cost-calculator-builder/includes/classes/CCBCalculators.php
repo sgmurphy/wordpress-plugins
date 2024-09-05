@@ -814,6 +814,7 @@ class CCBCalculators {
 		$page      = ! empty( $data['page'] ) ? (int) sanitize_text_field( $data['page'] ) : 1;
 		$limit     = ! empty( $data['limit'] ) ? sanitize_text_field( $data['limit'] ) : 5;
 		$offset    = 1 === $page ? 0 : ( $page - 1 ) * $limit;
+		$direction = 'desc' === strtolower( $direction ) ? $direction : 'asc';
 
 		return array(
 			'page'      => $page,

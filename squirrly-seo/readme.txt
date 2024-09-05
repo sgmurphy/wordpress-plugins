@@ -233,6 +233,8 @@ Type a keyword to the right of the screen and start using Squirrly Seo. Enjoy!
 = 12.3.22 =
 Update - Sitemap Compatibility with WPML
 Update - Update plugin security on SEO Snippet
+Update - Add the option to remove Posts from Sitemap News in Google News
+Update - Add the option to set SEO Automation for each language with WPML plugin
 
 = 12.3.21 =
 Update - Compatibility with EWWW Image Optimizer

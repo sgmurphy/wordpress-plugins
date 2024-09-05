@@ -1043,6 +1043,11 @@ class Pixel_Manager {
                 'customer_id'      => $order->get_customer_id(),
                 'user_id'          => $order->get_user_id(),
             ];
+            // Filter to add custom order parameters
+            $custom_parameters = Shop::get_custom_order_parameters( $order );
+            if ( !empty( $custom_parameters ) ) {
+                $data['order']['custom_parameters'] = $custom_parameters;
+            }
             // Process customer lifetime value
             if ( Shop::can_ltv_be_processed_on_order( $order ) ) {
                 if ( !LTV::are_all_pmw_order_values_set( $order ) ) {

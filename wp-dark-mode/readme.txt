@@ -4,7 +4,7 @@ Tags: dark, dark mode, night mode, dark theme, accessibility
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.0.9
+Stable tag: 5.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,7 @@ Check what popular WordPress expert Matt (WPress Doctor) thinks about WP Dark Mo
 16. **Social Share** - Social share icons allow your website visitors to share your content with ease. With plenty of cool social media icon templates and share count displays, this is the only dark mode plugin that supports dedicated social share buttons.
 17. **Exclude WP Dark Mode from Caching** - Enable this feature to exclude WP Dark Mode from server-side caching and ensure a seamless dark mode transition.
 18. **Device-wise Dark Mode Toggle** - Easily choose where to display the dark mode switch: Desktop, Mobile, or Tablet.
+19. **Dark Mode Analytics** - Track how many times site visitors have used dark mode in a certain period from the analytics menu and your WordPress Admin Dashboard.
 
 👁️ [View Demo](https://go.wppool.dev/fuUK) | 🚀  [Get the Premium Version](https://go.wppool.dev/TtP)
 
@@ -65,12 +66,11 @@ Check what popular WordPress expert Matt (WPress Doctor) thinks about WP Dark Mo
 16. **Exclude Post Tags & Categories** - Exclude all the post tags from dark mode. Keep only the specific tags whitelisted for dark mode.
 17. **Include Dark Mode on Custom Post Types** - You can also enable dark mode only for specific post types, excluding all.
 18. **Exclude WooCommerce Products & Categories** - Exclude all the products and categories on your WooCommerce site from dark mode except the specific ones.
-19. **Dark Mode Usage Analytics** -  Learn how many users are using dark mode from your admin dashboard.
-20. **Dark Mode Switch in Website Menu** – You can display the dark mode switch as a menu item on any menu on your website.
-21. **Font Size Toggle for Better Accessibility** Make your WordPress website more accessible by resizing your font size (increase/decrease).
-22. **Plenty of Performance Options** - WP Dark Mode now comes with multiple performance settings, putting complete control at your fingertips. By using these features, you can improve page loading performance and track dynamic content.
-23. **Choose Dark Mode Behavior** - You can choose between loading dark mode or website content first by selecting these options.
-24. **Usage Analytics Email Reporting** - Get daily/ weekly reports via email on the dark mode usage analytics of your website.
+19. **Dark Mode Switch in Website Menu** – You can display the dark mode switch as a menu item on any menu on your website.
+20. **Font Size Toggle for Better Accessibility** Make your WordPress website more accessible by resizing your font size (increase/decrease).
+21. **Plenty of Performance Options** - WP Dark Mode now comes with multiple performance settings, putting complete control at your fingertips. By using these features, you can improve page loading performance and track dynamic content.
+22. **Choose Dark Mode Behavior** - You can choose between loading dark mode or website content first by selecting these options.
+23. **Scheduled Email Reporting on Dark Mode Usage** - Get daily/weekly reports via email on the dark mode analytics of your website.
 
 👁️ [View Demo](https://go.wppool.dev/fuUK) | 🚀  [Get the Premium Version](https://go.wppool.dev/TtP)
 
@@ -156,6 +156,17 @@ Yes, You can toggle the dark mode/ light mode by keyboard shortcut `(Ctrl + Alt 
 7. Dark Mode color presets
 
 == Changelog == 
+
+= 5.1.0 – 05 SEP 2024 =
+
+* **New:** Introduced 2 brand new switches
+* **New:** Added Tab-key accessibility for Dark Mode switches
+* **Improvement:** Improved Elementor Switch selection mode: removed dropdown and added Switch Preview
+* **Improvement:** Unlocked Last 24 hours Analytics report for Free users
+* **Fix:** Conflict with Dokan Pro Plugin resolved
+* **Fix:** Block Editor Dark Mode switches not appearing issue fixed
+* **Fix:** Minor typo corrections
+
 
 = 5.0.9 – 8 AUG 2024 =
 * **New (Device-wise Dark Mode Toggle):** Control the switch visibility on different devices - easily choose where to display the dark mode switch: Desktop, Mobile, or Tablet.

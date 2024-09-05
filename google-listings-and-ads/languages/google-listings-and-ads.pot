@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Google for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Google for WooCommerce 2.8.4\n"
+"Project-Id-Version: Google for WooCommerce 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-listings-and-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-28T01:10:03+02:00\n"
+"POT-Creation-Date: 2024-09-05T16:24:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: google-listings-and-ads\n"
@@ -17,12 +17,8 @@ msgstr ""
 #. Plugin Name of the plugin
 #: src/Admin/ProductBlocksService.php:148
 #: src/Internal/DependencyManagement/ThirdPartyServiceProvider.php:58
-#: src/Menu/Dashboard.php:41
-#: src/Menu/Dashboard.php:58
-#: src/Menu/Dashboard.php:62
-#: src/Menu/GetStarted.php:41
-#: src/Menu/GetStarted.php:58
-#: src/Menu/GetStarted.php:62
+#: src/Menu/Dashboard.php:37
+#: src/Menu/GetStarted.php:37
 #: src/MultichannelMarketing/GLAChannel.php:104
 #: views/attributes/variations-form.php:22
 #: views/meta-box/channel_visibility.php:63
@@ -470,7 +466,7 @@ msgstr ""
 
 #: src/API/Google/Middleware.php:107
 #: src/API/Google/SiteVerification.php:59
-#: src/MerchantCenter/AccountService.php:445
+#: src/MerchantCenter/AccountService.php:453
 msgid "Invalid site URL."
 msgstr ""
 
@@ -1506,12 +1502,6 @@ msgstr ""
 msgid "Attribute Mapping"
 msgstr ""
 
-#: src/Menu/Dashboard.php:73
-#: js/build/commons.js:48
-#: js/build/index.js:25
-msgid "Dashboard"
-msgstr ""
-
 #: src/Menu/ProductFeed.php:25
 #: js/build/commons.js:48
 #: js/build/index.js:25
@@ -1533,42 +1523,42 @@ msgstr ""
 msgid "MC Setup Wizard"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:187
+#: src/MerchantCenter/AccountService.php:189
 msgid "Attempting invalid URL switch."
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:210
+#: src/MerchantCenter/AccountService.php:212
 msgid "Attempting invalid claim overwrite."
 msgstr ""
 
 #. translators: 1: is a string representing an unknown step name
-#: src/MerchantCenter/AccountService.php:360
+#: src/MerchantCenter/AccountService.php:368
 msgid "Unknown merchant account creation step %1$s"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:392
+#: src/MerchantCenter/AccountService.php:400
 msgid "Unable to claim website URL with this Merchant Center Account."
 msgstr ""
 
 #. translators: 1: is a numeric account ID
-#: src/MerchantCenter/AccountService.php:424
+#: src/MerchantCenter/AccountService.php:432
 msgid "Merchant Center account already connected: %d"
 msgstr ""
 
 #. translators: 1: is a website URL (without the protocol)
-#: src/MerchantCenter/AccountService.php:473
+#: src/MerchantCenter/AccountService.php:481
 msgid "This Merchant Center account already has a verified and claimed URL, %1$s"
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:560
+#: src/MerchantCenter/AccountService.php:569
 msgid "No stored nonce found in the database, skip updating auth status."
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:566
+#: src/MerchantCenter/AccountService.php:575
 msgid "Nonce is not provided, skip updating auth status."
 msgstr ""
 
-#: src/MerchantCenter/AccountService.php:573
+#: src/MerchantCenter/AccountService.php:582
 msgid "Nonces mismatch, skip updating auth status."
 msgstr ""
 
@@ -3081,6 +3071,11 @@ msgstr ""
 
 #: js/build/commons.js:48
 msgid "Open popover"
+msgstr ""
+
+#: js/build/commons.js:48
+#: js/build/index.js:25
+msgid "Dashboard"
 msgstr ""
 
 #: js/build/commons.js:48

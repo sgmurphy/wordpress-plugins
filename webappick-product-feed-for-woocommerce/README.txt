@@ -1,160 +1,450 @@
 === CTX Feed – WooCommerce Product Feed Manager Plugin ===
 Contributors: wahid0003, webappick
 Donate link: https://webappick.com
-Tags: WooCommerce Product Feed, WooCommerce, Google Shopping, Google Merchant, Facebook Catalog
+Tags: WooCommerce Product Feed, Google Shopping feed,Facebook Catalog feed, XML product Feed, CSV product feed
 Requires at least: 4.4
 Tested Up To: 6.5
 Requires PHP: 5.6
-Stable tag: 6.5.16
+Stable tag: 6.5.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Generate error-free woocommerce product feed plugin for Google Shopping, Facebook Catalog, Pinterest Catalog, Skroutz, TikTok & 100+ more channels.
+Best WooCommerce Product Feed Plugin to create Google Shopping (Google Merchant), Facebook/Instagram Catalog (Meta ), Pinterest feed & 100+ channels.
 
 == Description ==
 
-Easily create the most optimized and error-free Google Shopping Product Feed or Google Merchant Feed, Facebook Catalog Feed, Pinterest Shopping Feed, InstagramCatalog Feed, TikTok Catalog, Snapchat Catalog, eBay Ads, Bing Ads, PriceRunner, Rakuten, PriceSpy, Kelko, & 100+ more channels for your WooCommerce Store.
+**🔥 The Best WooCommerce Product Feed Management Plugin to Generate feeds for 100+ Product Marketing Channels**
 
-This **WooCommerce product feed Manager Plugin** supports over 100+ recognized channels. Hence, you can reach out to any marketplaces, search engines, affiliate sites, or price comparison sites to extensively promote your products to the customers.
+CTX feed plugin is the **most optimized** and error-free product feed plugin to generate Custom product feeds, Google Shopping product feeds **(Google Merchant)**, Facebook/Instagram Product Feeds **(Meta)**, Pinterest Product Feeds, and for other marketplaces in **CSV, XML, TXT, or TSV** file format.
 
-Creating a WooCommerce product feed using CTX Feed – a WooCommerce Product Feed Manager Plugin – has become easier than ever. Struggle no more in creating the most perfect and subtle product feed for your designated and preferred marketing channels for internationally prominent marketplaces, along with other notable ones as well.
+Our top-rated product feed plugin includes over **100 pre-defined templates** for a wide range of marketplaces, search engines, affiliate sites, and price comparison platforms. Plus, you can easily create your custom feed templates.
 
-It aims to reduce your hardship on marketing efforts to create product feeds and distribute them in multiple marketing/shopping channels. There are flexible options to update product information according to your given schedule and sync the update to the right channel via HTTP or FTP/SFTP. Stay at ease knowing that your customers will automatically get the latest product information.
+This plugin also includes features to create custom attributes and **auto-update** the product feeds. Overall, if you aim to develop top-quality product feeds for your store, the CTX Feed plugin is your go-to solution.
 
-== WooCommerce Google Shopping Product Feed - Video Tutorial ==
-[youtube https://www.youtube.com/watch?v=QRTvrDJm4mI]
+<h3>Why CTX Feed is the Best Free WooCommerce Product Feed Generator Plugin?</h3>
+
+CTX Feed is a free feed plugin that has everything you need to succeed. Say goodbye to the frustration of dealing with product feed problems!
+
+The CTX Feed plugin makes it easy to **fix common issues** and streamlines the whole feed creation process.
+
+**Here’s what makes it the best:**
+
+* Product FeedGenerate unlimited error-free product feeds for any number of products in your store in just a few minutes.
+* User-friendly interface and no need for any technical knowledge to use it.
+* The CTX Feed ensures your product Information/Attribute (titles, descriptions, prices, images) is always complete and up-to-date.
+* This product feed manager plugin takes care of consistent formatting, preventing errors during feed processing.
+* No more worrying about confusing the platforms you sell on - CTX eliminates duplicate entries in your feed.
+* This WooCommerce feed plugin handles complex issues like invalid XML structure, incorrect tags, and encoding problems, ensuring your feed is technically sound.
+* It understands the unique requirements of different platforms, so you don't have to worry about mapping attributes or following specific rules.
+
+**🔗 Read our full guide on <a target="_blank" href="https://webappick.com/ctx-feed-benefits-and-advanced-features-for-businesses/">How CTX Feed can boost your revenue and give you an edge over the competition</a>**
+
+<h3>How to Generate Google Shopping Product Feed - Video Tutorial</h3>
+[youtube https://www.youtube.com/watch?v=QRTvrDJm4mI&t=24s]
+
+<h3>How to Generate Facebook/Instagram Product Feed - Video Tutorial</h3>
+[youtube https://www.youtube.com/watch?v=TH1lcA1uiM8]
+
+**📌 Get <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">CTX Feed Pro - WooCommerce Product Feed Manager Plugin</a> Now!**
+
+We offer a ***30-day money-back guarantee*** also you will get an industry expert ***24/7 technical support team*** ready to assist you.
 
 <blockquote>
-<h4>Read Step by Step <a target="_blank" href="https://webappick.com/docs/woo-feed/">Documentation</a> and <a target="_blank" href="https://www.youtube.com/playlist?list=PLapCcXJAoEenI-35wc6YnnsAAgoYRxDr7">Video Tutorial</a></h4>
-<br/>
 <h4>For Support Email to <a href="mailto:support@webappick.com">support[@]webappick.com</a> </h4>
 <br/>
 <h4>Request New Feature <a target="_blank" href="https://webappick.com/contact/">Here</a></h4>
 <br/>
-<h4>Try Premium Version: <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">CTX Feed Pro</a></h4>
+<h4>Read Step by Step <a target="_blank" href="https://webappick.com/docs/woo-feed/">Documentation</a> and <a target="_blank" href="https://www.youtube.com/playlist?list=PLapCcXJAoEenI-35wc6YnnsAAgoYRxDr7">Video Tutorial</a></h4>
 <br/>
 </blockquote>
 
-== WHY SHOULD YOU USE THIS WOOCOMMERCE PRODUCT FEED PLUGIN? ==
+<h3>Check out the Most Popular Merchants Supported by CTX Feed</h3>
 
-CTX Feed is the best WooCommerce product feed plugin, and we proclaim it because we are the first pioneering plugin builder when it comes to creating a Product Feed for WooCommerce. We have been in the industry long enough to understand how WooCommerce feed works. That’s why we have introduced all the WordPress-Goers with our robust and revolutionary features that could facilitate your product uploading experience and get you rid of any trouble you face, such as uploading rejection or lack of necessary marketing channels’ attributes or inability to translate into a correct language or currency, etc.
+* <a target="_blank" href="https://webappick.com/generate-google-shopping-product-data-feed-for-woocommerce/">Google Shopping data feed</a>
+* Google Local Inventory Ads Feed
+* <a target="_blank" href="https://webappick.com/generate-google-local-inventory-feed/">Google Local Product Inventory Feed</a>
+* <a target="_blank" href="https://webappick.com/google-product-review-feed/">Google Product Review Feed Feed </a>
+* Google Shopping Action Feed
+* Google Dynamic Search Ads feed
+* Google Ads feed
+* Google Ads Local Product feed
+* <a target="_blank" href="https://webappick.com/facebook-product-feed-template-ultimate-guide/">Facebook Catalog feed</a>
+* <a target="_blank" href="https://webappick.com/how-to-set-up-instagram-shopping-for-woocommerce/">Instagram Catalog feed</a>
+* <a target="_blank" href="https://webappick.com/how-to-generate-woocommerce-pinterest-product-feed/comment-page-1/">Pinterest product feed</a>
+* Bing Shopping feed
+* <a target="_blank" href="https://webappick.com/snapchat-product-feed/">Snapchat</a>
+* <a target="_blank" href="https://webappick.com/create-and-customize-a-tiktok-product-feed/">TikTok product feed</a>
+* <a target="_blank" href="https://webappick.com/rakuten-product-feed/">Rakuten Marketplace feed</a>
+* Kelko and many more
 
-Over the years of experience and expertise, we have curated all the factors that most online vendors face while creating the feed. You may not customize the product’s description or title properly. Also, the image links for the multiple variations of the same products may not function properly. Besides, making the feed in CSV format requires you to enter the data in the spreadsheet, resulting in a massive draining of your energy. If you need to create two feed files using CSV and XML format, the immediate transitions do not happen concurrently.
+<h3>CTX Feed - WooCommerce Product Feed Free Version Features</h3>
 
-Here, our CTX Feed – WooCommerce Product Feed Plugin solves all the problems by giving you an ad-hoc solution. You can also format any attributes based on the output type that we have provided. We didn’t create those outputs by accident; we got them created from the feedback you all raised once encountering the issues. Hence, our tailored solutions can solve simple problems like formatting the price listing from two decimal to any decimals while giving the option to apply an integer. At the same time, this user-friendly plugin provides valuable identifiers add-on options to avoid any mismatch between the same brand’s products.
+CTX Feed offers all the essential features to create WooCommerce data feeds quickly and effortlessly.
 
-Let’s jump deeper into the ample features this mighty plugin has to offer:
+<h4>➢ Unlimited Products</h4>
 
-= ☞ UNLIMITED PRODUCTS =
+CTX Feed supports ***an unlimited number of products.*** So, you can upload all the products of your store to the product feeds.
 
-No matter what the size of your inventory is, you can upload all of your products with no restriction imposed. From hundreds to thousands, you can upload unlimited products of your online store into any of the channels mentioned above, and that too with subtlety.
+<h4>➢ Unlimited Feeds</h4>
 
-= ☞ UNLIMITED FEED =
+There are ***no restrictions on the number of feeds*** either. This WooCommerce feed plugin enables you to create an unlimited number of product feeds.
 
-Like unlimited products uploading, you can make an infinite number of feeds containing any number of products of any sized store. You can access all the product feed files from the Manage Feeds option. To find the right feed out of a massive collection of feeds, you can look at the unique name of the feed instead of looking at the URL for your convenience.
+<h4>➢ 100+ Pre-configured Templates for Major Marketplaces</h4>
 
-= 💯100+ PRE-CONFIGURED TEMPLATES 💯 =
+The plugin comes with ***more than 100 pre-configured templates*** for different marketplaces. It lets you create product feeds quickly and easily, without the hassle of researching individual attribute requirements for each channel.
 
-With our pre-configured 100+ built-in templates, you can make product feed within minutes without having to take excess pressure in researching every individual attribute or necessary field requirements of the known channels. It is time-consuming and bothersome to some extent. Besides, it is of no guarantee that your gleaned attributes will match precisely with the channels’ requirement, as some might change or some might turn from optional to compulsory.
+<h4>➢ Supports any product feed file type</h4>
 
-Therefore, it is worth playing it safe to take advantage of our ready-made templates crafted extensively for the desired marketplaces.
+This stellar WooCommerce product feed manager creates the Product Feed for WooCommerce into ***7 different feed file formats.*** The types are:
 
-= ☞ SUPPORTS ANY PRODUCT FEED FILE TYPE =
-
-This stellar WooCommerce product feed manager create the Product Feed for WooCommerce into 5 different feed file formats, the highest compared to any WooCommerce feed generator out there. The types are;
-
-* **XML** Product Feed
+* <a target="_blank" href="https://webappick.com/xml-feed-generator-woocommerce/">**XML** Product Feed</a>
 * **CSV** Product Feed
 * **TSV** Product Feed
 * **XLS** Product Feed
+* **XLSX** Product Feed
 * **TXT** Product Feed
 * **JSON** Product Feed
 
-These 5 types ensure that you create a product feed that appears differently yet uniquely to various marketing channels that they are destined to be promoting the products. They contain product information, including title, description, image URL, price, identifiers, and other attributes. Hence their appearance in the feed file entirely depends on how the channel wants to add them based on the type that you have selected. CTX Feed does them automatically once you select the type.
+So, you can make sure that your feed is compatible with various marketplaces - each requiring specific feed types.
 
-= ☞ CREATE WOOCOMMERCE PRODUCT FEED USING USER-FRIENDLY INTERFACE =
+<h4>➢  Auto-update of Product Feeds</h4>
+CTX feed free version has a feature where you can automatically update the Woo product feeds according to your schedule. That is why whenever you update product information in your store the feeds will be updated too after a given time. The available intervals are ***1 Hour, 6 Hours, 12 Hours, 24 Hours, and 1 week.***
 
-The purpose of creating the feed is to carry out the information & attributes of the products, which the designated channels can upload rightly and aptly. It allows the customers to find your products without missing any crucial information. Likewise, the marketing-based rejection rate drops significantly as the merchant meets all the requirements of that particular channel. The CTX Feed has all the elements rightly aligned on the same page to create or customize the right channels.
+<h4>➢  User-Friendly Interface</h4>
 
-You don’t have to create any separate window to find, amend or modify any attributes or mandatory fields as all of them are in the same window. It makes your uploading process way easier without requiring any prior technical knowledge, making it less mistakable as you don’t have to hover in and out of the window too often.
+One of the best things about CTX Feed is its user-friendliness. Everything you need - Necessary Attributes and mandatory fields are all in one window. So, even if you are a newbie or don’t have any technical knowledge, you can generate WooCommerce product feeds easily.
 
-= ☞ SUPPORTS ANY WOOCOMMERCE PRODUCT TYPES =
+<h4>➢ Supports any WooCommerce Product Types</h4>
 
-We value your concern, and to reduce any unnecessary nuisances of finding the relevant products, CTX Feed enables your WooCommerce feed to fully incorporate by supporting all the plugins that help you provide options for Bundle products, composite products, mix and match products, and finally, subscription product. The reason being CTX Feed the best WooCommerce product feed plugin is because it supports some of the top-notch plugins like the following;
+CTX Feed supports all WooCommerce products, from physical goods to digital downloads. It also integrates with major plugins, offering flexible product options like variations, bundles, and subscriptions.
 
-* <a target="_blank" href="https://woocommerce.com/products/composite-products/">WooCommerce Composite Products</a>: This is a kit-builder plugin that is supported by CTX Feed, which allows the customers to customize or tweak their products from all the small accessories found on the product page to enhance the use of that specific product
-*  <a target="_blank" href="https://yithemes.com/themes/plugins/yith-woocommerce-composite-products/">YITH Composite Products</a>
+* Simple Products
+* Bundle Products
+* Subscription Products
+* Composite Products
+* Mix and Match Products
+
+<h4>➢ Category Mapping</h4>
+
+Sometimes you need to <a target="_blank" href="https://webappick.com/docs/ctx-feed/configuration/how-to-map-store-category-with-merchant-category/">map your product categories</a> with the marketing channel’s categories. For instance, Google Shopping. Well, with this WooCommerce feed manager, category mapping is easier than ever. You can complete it in three steps:
+
+* Go to ***“CTX Feed>>Category Mapping”*** and click ***Add New Mapping.***
+* Select a merchant, enter the mapping name, and assign the categories.
+* Click ***“Save Mapping.”***
+
+<h4>➢ Creating Custom Templates for Any Channel</h4>
+
+This free product feed plugin lets you easily <a target="_blank" href="https://webappick.com/custom-product-feed/">create custom templates for any channel.</a> This ensures your product feeds meet the specific requirements of each platform. Also, if you intend to create a template for a more complex feed file, that is possible too with this plugin.
+
+**Quick Reminder!** If you want us to focus on your marketing channels and include its template in our CTX Feed plugin, you are requested to send your feed requirements to the <a target="_blank" href="https://webappick.com/contact/">CTX Feed Support Team.</a>
+
+<h4>➢ Product Attributes</h4>
+
+Attributes are key for WooCommerce product feeds. CTX Feed simplifies attribute creation and customization. Choose pre-configured options or create custom ones for Product ID, Title, Description, Price, Availability, Size, and more. This ensures your products stand out on marketplaces.
+
+CTX Feed makes it easy to **create and customize attributes** for any channel. You can use pre-configured options or create custom attributes, covering everything from Product ID, Title, and Description to Price, Availability, Size, and more.
+
+<h4>➢ Prefix & Suffix</h4>
+
+Prefixes and suffixes are character strings added to WooCommerce product feed attributes. Add symbols like £ or $ as prefixes, or **"GBP"** as a suffix to meet marketplace requirements
+
+How To Use Prefix and Suffix In WooCommerce Feed Configuration - <a target="_blank" href="https://youtu.be/8EFXXp0w-XM">Video Documentation</a>
+
+<h4>➢ Use Output Types to Avoid any Errors</h4>
+
+Output types in CTX Feed prevent feed errors. Avoid unwanted HTML tags, incorrect shortcodes, and improper numbering formats. This ensures accurate and efficient feed generation.
+
+CTX Feed offers over ***20 output types*** to help you avoid these errors.
+
+* **Strip Tags:** If you have any HTML code like <p>string </p> in any attributes, a strip tag will remove it and leave it as only a String
+
+* **Remove Special Characters:** Using this, you can get rid of any unnecessary non-UTF-8 characters of product descriptions derived from any source when copied.
+
+* **Google Date Format:** You can easily set your date as per Google’s required Merchant required format like [Date and time, ISO 8601 compliant (YYYY-MM-DD, YYYY-MM-DDThh:mm: ss, or YYYY-MM-DDThh:mm: ss Z)].
+
+<h3>CTX Feed Pro - WooCommerce Product Feed Paid Version Features</h3>
+
+<h4>➢ Filtering/Advanced Filtering System</h4>
+
+With the CTX Feed Pro version you can-
+
+* Exclude non-profitable products
+* Exclude out-of-season products
+* Include or exclude hidden products
+* Remove the empty description, image, or price products
+* Include or exclude different product categories
+* Filter products based on titles, price, stock availability, and other attributes
+
+<h4>➢ Attribute Mapping</h4>
+
+Merge and combine multiple product attributes into one easily.
+
+<h4>➢ Multi-language Support</h4>
+
+CTX Feed Pro provides multi-language support. It is ***ompatible with different multi-language plugins.*** So you can save products in different languages using the plugins and generate a separate feed for each language.
+
+<h4>➢ Multi-vendor Support</h4>
+
+This product feed pro allows you to create a product feed for specific or multiple vendors.
+
+<h4>➢ Multi-Currency Feed Generation</h4>
+
+This product feed manager for WooCommerce lets you effortlessly create product feeds in specific currencies.
+
+<h4>➢ Dynamic Attribute</h4>
+
+The Dynamic Attribute feature enables you to meet various channel requirements efficiently by dynamically enhancing missing product information.
+
+<h4>➢ Advanced Feed Customization</h4>
+
+Using the premium version, you can fully customize your feeds to meet specific channel needs.
+
+<h4>➢ 8 Update Intervals in the “Auto Feed Update” Feature</h4>
+
+In the free version, you get to set the auto-update schedule between 5 intervals. However, in CTX Feed Pro there are 8 update intervals available.
+
+**Learn More about <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">CTX Feed Pro</a> !!**
+
+<h3>Most Popular Marketplaces For Which you can generate Product Feed using CTX feed</h3>
+
+* <a target="_blank" href="https://shopping.google.com/">Google Shopping</a>
+* Google Local Inventory Ads
+* Google Local Product Inventory
+* Google Product Review
+* Google Shopping Action
+* Google Promotions
+* Google Dynamic Search Ads
+* <a target="_blank" href="https://ads.google.com/intl/en/home/">Google Ads</a>
+* Google Ads Local Product
+* Facebook Catalog / Instagram
+* <a target="_blank" href="https://www.pinterest.com/">Pinterest Catalog</a>
+* Pinterest RSS Board
+* <a target="_blank" href="https://www.bing.com/shop?cc=us&setlang=en">Bing Shopping</a>
+* Bing Local Inventory
+* <a target="_blank" href="https://businesshelp.snapchat.com/s/article/product-catalog-specs?language=en_US">Snapchat</a>
+* <a target="_blank" href="https://www.tiktok.com/business/en/solutions/ads-manager?ab_version=experiment_1">TikTok Ads Manager</a>
+* <a target="_blank" href="https://www.idealo.de/">Idealo</a>
+* <a target="_blank" href="https://pricespy.co.uk/">PriceSpy</a>
+* Price Runner
+* Yandex (CSV)
+* <a target="_blank" href="https://yandex.com/">Yandex (XML)</a>
+* AdForm
+* AdRoll
+* Avantlink
+* Become
+* <a target="_blank" href="http://Beslist.nl">Beslist.nl</a>
+* Bestprice
+* <a target="_blank" href="http://Billiger.de">Billiger.de</a>
+* <a target="_blank" href="http://Bol.com">Bol.com</a>
+* Bonanza
+* <a target="_blank" href="http://Catch.com.au">Catch.com.au</a>
+* CDiscount.fr
+* <a target="_blank" href="http://Comparer.be">Comparer.be</a>
+* Connexity
+* <a target="_blank" href="https://www.criteo.com/">Criteo</a>
+* Crowdfox
+* Daisycon Advertiser (General)
+* Daisycon Advertiser (Automotive)
+* Daisycon Advertiser (Books)
+* <a target="_blank" href="https://faq-advertiser.daisycon.com/hc/en-us/articles/115001435825-Productfeed-standard-Cosmetics">Daisycon Advertiser (Cosmetics)</a>
+* Daisycon Advertiser (Daily Offers)
+* Daisycon Advertiser (Electronics)
+* <a target="_blank" href="https://faq-advertiser.daisycon.com/hc/en-us/articles/115001410905-Productfeed-standard-Fashion">Daisycon Advertiser (Fashion) </a>
+* Daisycon Advertiser (Food & Drinks)
+* Daisycon Advertiser (Holidays: Accommodations and transport)
+* Daisycon Advertiser (Holidays: Accommodations)
+* Daisycon Advertiser (Holidays: Trips)
+* Daisycon Advertiser (Home & Garden)
+* Daisycon Advertiser (Housing)
+* Daisycon Advertiser (Magazines)
+* Daisycon Advertiser (Studies & Trainings)
+* Daisycon Advertiser (Telecom: Accessories)
+* Daisycon Advertiser (Telecom: All-in-one)
+* Daisycon Advertiser (Telecom: GSM + Subscription)
+* Daisycon Advertiser (Telecom: GSM only)
+* Daisycon Advertiser (Telecom: Sim only)
+* Daisycon Advertiser (Work & Jobs)
+* Dooyoo
+* <a target="_blank" href="http://Ecommerce.it">Ecommerce.it</a>
+* Etsy
+* Fruugo
+* <a target="_blank" href="http://Fashionchick.nl">Fashionchick.nl</a>
+* <a target="_blank" href="http://Fruugoaustralia.com">Fruugoaustralia.com</a>
+* <a target="_blank" href="http://Fyndiq.se">Fyndiq.se</a>
+* <a target="_blank" href="http://GoedGeplaatst.nl">GoedGeplaatst.nl</a>
+* <a target="_blank" href="http://Heureka.sk">Heureka.sk</a>
+* <a target="_blank" href="http://Hintaseuranta.fi">Hintaseuranta.fi</a>
+* Incurvy
+* <a target="_blank" href="https://www.kelkoo.co.uk/">Kelkoo</a>
+* <a target="_blank" href="http://Kieskeurig.nl">Kieskeurig.nl</a>
+* <a target="_blank" href="http://Kijiji.ca">Kijiji.ca</a>
+* LeGuide
+* <a target="_blank" href="http://Marktplaats.nl">Marktplaats.nl</a>
+* <a target="_blank" href="http://Miinto.de">Miinto.de</a>
+* <a target="_blank" href="http://Miinto.nl">Miinto.nl</a>
+* Modalova
+* <a target="_blank" href="http://Modina.de">Modina.de</a>
+* <a target="_blank" href="http://Moebel.de">Moebel.de</a>
+* TheNextAd
+* Nextag
+* Polyvore
+* Price Grabber
+* Prisjakt
+* Profit Share
+* <a target="_blank" href="http://Rakuten.de">Rakuten.de</a>
+* Real
+* ShareASale
+* <a target="_blank" href="http://Shopalike.fr">Shopalike.fr (Idealo)</a>
+* Shopbot
+* Shopmania
+* <a target="_blank" href="http://Shopping.com">Shopping.com</a>
+* Shopflix (WellComm)
+* Shopzilla
+* <a target="_blank" href="http://SkinFlint.co.uk">SkinFlint.co.uk</a>
+* <a target="_blank" href="http://Skroutz.gr">Skroutz.gr</a>
+* <a target="_blank" href="http://Smartly.io">Smartly.io</a>
+* <a target="_blank" href="http://Spartoo.fi">Spartoo.fi</a>
+* Shopee
+* <a target="_blank" href="http://Stylight.com">Stylight.com</a>
+* <a target="_blank" href="http://TrovaPrezzi.it">TrovaPrezzi.it</a>
+* Twenga
+* Tweakers (XML)
+* Tweakers (CSV)
+* <a target="_blank" href="http://Vertaa.fi">Vertaa.fi</a>
+* <a target="_blank" href="https://www.walmart.com/">Walmart</a>
+* Webmarchand
+* Wine Searcher
+* <a target="_blank" href="http://Wish.com">Wish.com</a>
+* Yahoo NFA
+* <a target="_blank" href="http://Zap.co.il">Zap.co.il</a>
+* <a target="_blank" href="http://Zbozi.cz">Zbozi.cz</a>
+* Zalando
+* Admarkt (marktplaats)
+* GLAMI
+
+<h3>CTX Feed Compatible/ Supported Plugin</h3>
+
+<h4>Multi-Language</h4>
+
+* <a target="_blank" href="https://wpml.org/">WPML</a>
+* <a target="_blank" href="https://polylang.pro/downloads/polylang-pro/">Polylang Pro</a>
+* <a target="_blank" href="https://wordpress.org/plugins/polylang/">Polylang</a>
+* <a target="_blank" href="https://wordpress.org/plugins/translatepress-multilingual/">TranslatePress</a>
+
+<h4>Multi-Currency</h4>
+
+* <a target="_blank" href="https://aelia.co/shop/currency-switcher-woocommerce/">Currency Switcher for WooCommerce by Aelia</a>
+* <a target="_blank" href="https://wordpress.org/plugins/woocommerce-currency-switcher/">FOX – Currency Switcher Professional for WooCommerce by Realmag777</a>
+* <a target="_blank" href="https://wordpress.org/plugins/currency-switcher-woocommerce/">Currency Switcher for WooCommerce by WP Wham</a>
+* <a target="_blank" href="https://wordpress.org/plugins/woo-multi-currency/">Multi-Currency for WooCommerce by VillaTheme</a>
+* <a target="_blank" href="https://woocommerce.com/products/multi-currency/">WooCommerce Multi-Currency</a>
+* <a target="_blank" href="https://wordpress.org/plugins/woocommerce-multilingual/">WooCommerce Multilingual & Multicurrency with WPML by OnTheGoSystems</a>
+
+<h4>Subscription Product</h4>
+
+* <a target="_blank" href="https://woocommerce.com/products/woocommerce-subscriptions/">WooCommerce Subscriptions</a>
+* <a target="_blank" href="https://wordpress.org/plugins/yith-woocommerce-subscription/">YITH WooCommerce Subscription</a>
+
+<h4>Composite Products</h4>
+
+* <a target="_blank" href="https://woocommerce.com/products/composite-products/">Composite Products</a>
 * <a target="_blank" href="https://wordpress.org/plugins/wpc-composite-products/">WPC Composite Products for WooCommerce</a>
-* <a target="_blank" href="https://woocommerce.com/products/product-bundles/">WooCommerce Product Bundles</a>: When you create a deal containing some of the relevant products in bulk quantity together and give an offer on the whole deal, you need a plugin to support that personalized deal. CTX Feed readily endorses all of those plugins to create a Product Feed for WooCommerce in a perfect way.
-* <a target="_blank" href="https://wordpress.org/plugins/yith-woocommerce-product-bundles/">YITH WooCommerce Product Bundles</a>
+* <a target="_blank" href="https://yithemes.com/themes/plugins/yith-woocommerce-composite-products/">YITH COMPOSITE PRODUCTS FOR WOOCOMMERCE</a>
+* <a target="_blank" href="https://codecanyon.net/item/woocommerce-composite-products-plugin/24497062">WooCommerce Composite Products Plugin</a>
+
+<h4>Bundle Product</h4>
+
+* <a target="_blank" href="https://woocommerce.com/products/product-bundles/">Product Bundles</a>
 * <a target="_blank" href="https://wordpress.org/plugins/woo-product-bundle/">WPC Product Bundles for WooCommerce</a>
-* <a target="_blank" href="https://woocommerce.com/products/woocommerce-subscriptions/">WooCommerce Subscription</a>: If you cover any subscription-based products, it will be easy for you to have a plugin that will give you an estimation of your residual revenue. Whatever money you make from the weekly, monthly, or annual subscription from the recurrent fees can be easily monitored using the WooCommerce Subscription plugin. CTX Feed boosts the outstanding experience by supporting the pertinent plugins needed for this effect to take place.
+* <a target="_blank" href="https://wordpress.org/plugins/yith-woocommerce-product-bundles/">YITH WooCommerce Product Bundles</a>
+* <a target="_blank" href="https://iconicwp.com/products/woocommerce-bundled-products/">WooCommerce Bundled Products by Iconic</a>
 
-= ☞ VARIABLE AND VARIATION FEATURES ALL-INCLUSIVE =
+<h4>Dynamic Discounted Price</h4>
 
-Having multiple variable child products is no longer a hassle; you can now include any variations that a product might possess.
+* <a target="_blank" href="https://wordpress.org/plugins/woo-discount-rules/">Discount Rules for WooCommerce</a>
+* <a target="_blank" href="https://codecanyon.net/item/woocommerce-dynamic-pricing-discounts/7119279">Pricepep - WooCommerce Dynamic Pricing, Discounts & Fees</a>
+* <a target="_blank" href="https://wordpress.org/plugins/aco-woo-dynamic-pricing/">Dynamic Pricing With Discount Rules for WooCommerce</a>
+* <a target="_blank" href="https://wordpress.org/plugins/woo-advanced-discounts/">Conditional Discounts for WooCommerce</a>
 
-**Bear In Mind** - with the help of <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">CTX Feed Pro</a>  - you get six options where you can decide whether you wish to have all the products along with variations by selecting variable + variations or only variations by choosing all variations. You can also decide if you wish to go for parent product only or just any specific variant. Just set the instruction, and our WooCommerce-WP product feed manager will automatically include or exclude the variable and variations.
+<h4>Variation Gallery</h4>
 
-= ☞ CREATING CUSTOM TEMPLATES FOR ANY CHANNELS =
+* <a target="_blank" href="https://wordpress.org/plugins/woo-variation-swatches/">Variation Swatches for WooCommerce</a>
+* <a target="_blank" href="https://wordpress.org/plugins/product-variations-swatches-for-woocommerce/">Product Variations Swatches for WooCommerce by VillaTheme</a>
+* <a target="_blank" href="https://themeforest.net/item/woodmart-woocommerce-wordpress-theme/20264492">Woodmart-Multipurpose WooCommerce Theme</a>
 
-This free version allows you to make any template for your personalized marketplace. If you intend to create a template for a more complex XML feed file, that is possible too. Using Custom Template 2 a premium feature of CTX Feed Pro, the developers can easily play around with the coding system to make any attributes you need for your channels. Also, if you want us to focus on your marketing channels and include its template in our CTX Feed plugin, you are requested to send your feed requirements to the <a target="_blank" href="https://webappick.com/contact/">CTX Feed Support Team</a>.
+<h3>How to Install CTX Feed Pro?</h3>
 
-= ☞ PRODUCT ATTRIBUTES: =
+**Step 1:** First, you have to purchase the <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">CTX Feed Pro version</a>. After completing the Checkout process, go to the <a target="_blank" href="https://webappick.com/my-account/">My Account</a> section on our site. Then after creating an account, purchase and <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">download the CTX Feed premium Version</a>.
 
-Attributes are the mainstay of the product feed. The purpose to create a product feed for WooCommerce is to get as much information as possible regarding the inventory products. Based on that, your products will be highlighted on your preferred marketplace.
+**Step 2:** Go to ***“Plugins>>Add New Plugin”*** from your WordPress Dashboard.
 
-CTX Feed – a powerful WooCommerce product feed plugin, that helps you create any attributes into any channels alongside the pre-configured attributes. These attributes can range from product ID, Title, Description, Image link, Brand, Price, MPN to Tax, Shipping, Gender, Height, Material, Availability, Stock Availability, Size, Delivery Cost, and many more. You can either avail them directly from the drop-down menu or make your bespoke one.
+**Step 3:** Then click the Upload Plugin button at the top of the page.
 
-= ☞ USE OUTPUT TYPES TO AVOID ANY ERRORS =
+**Step 4:** Click on the ***“Choose file”*** button and then select the downloaded plugin file from your Computer.
 
-Output types are the one that makes this plugin the best plugin to create Product Feed for WooCommerce. When you create a Product Feed for WooCommerce, it is most likely that mistakes continue without your acknowledgment. Remember, not all your merchants require all of the information, such as when it comes to adding HTML tags, manipulation of shortcodes, or wrong exploitation of the numbering format.
+**Step 5:** After activation of the plugin you’ll be redirected to the license activation page. There, enter your <a target="_blank" href="https://webappick.com/my-account/api-keys/">API key</a> and set your Subscription Type.
 
-To use them correctly in your attributes, the use of correct output is a prerequisite. You have an option to change or apply any output types for any given attributes for any channels. We have over 20 output types, and take a look at how it works;
+To know more, read the documentation on <a target="_blank" href="https://webappick.com/docs/ctx-feed/installation/activate-license/">CTX Feed Pro License Activation</a>.
 
-* **Strip Tags**: If you any HTML code like `<p>string </p>` in any attributes, strip tag will remove it and leave it as only String
+That’s it! <a target="_blank" href="https://webappick.com/plugin/woocommerce-product-feed-pro/">***CTX Feed Pro***</a> will be successfully installed.
 
-* **Remove Special Characters**: Using this, you can get rid of any unnecessary non-UTF-8 characters of product description derived from any source when copied.
+== FAQ ==
 
-* **CDATA**: Your XML feed file will show up as an error if there is a contradiction between the XML element and only element. It generally happens when the words of the XML attributes, such as Title, Description, etc., match exactly with the main words in the description, title, or other attributes’ boxes.
-This plugin can remove this issue when applied CDATA as it sets the code into every attribute like the following <g:description> <![CDATA[description]]> </g:description>
+**Does the plugin support multiple product feeds required formats (XML, CSV, etc.)?**
 
-* **Remove Shortcodes**: Shortcodes are the small codes that take to you the page where you have added any specific elements, such as slides, images, tables, etc. Having them in the description or title can cause trouble when they are made using different plugins; it can be possible that you no longer have those plugins. Also, you may not want to see an image’s shortcode in the description when you already have a link to that image.
-Therefore, Remove Shortcodes will remove that particular code from those sections, freeing you from any hassles.
+Yes, the CTX Feed plugin supports a total of 7 product feeds required (XML, CSV, TXT, XLS, XLSX, JSON ) file formats.
 
-* **Price**: Your pricing format is essential, especially if it is still not tweaked. If you use the price format on WooCommerce, which doesn’t fit into the standard format, don’t worry! The CTX Feed’s default pricing mode will apply to your price. Still, you can customize your pricing format using our plugin.
-Remove Space: If you accidentally put double space between any words or texts, or characters, you can remove them in any attributes using Remove Space.
+**Can you schedule automatic feed generation and updates?**
 
-* **Parent**: If the product has variations, then the main product is called the variable, and the child products are called the variations. In this instance, if the information like the description of the variable is not empty, then the variable (parent) is given more priority and adds the description of that parent. Whereas the variations (child products) value will be selected when the variable description is empty
+With this product feed plugin’s Auto-update feature you can schedule to update your Woo product automatically feeds from time to time.
 
-* **Parent_if_empty**: It means, when the variations information, such as description, is empty, it will only add the value of the parent (variable)
-Google Date Format: You can easily set your date as per Google’s required Merchant required format like [Date and time, ISO 8601 compliant (YYYY-MM-DD, YYYY-MM-DDThh:mm:ss, or YYYY-MM-DDThh:mm:ss Z)].
+**Is the plugin's interface intuitive and easy to navigate?**
 
-If you want to know more about how the output type and other bits work, check out our <a target="_blank" href="https://webappick.com/docs/ctx-feed/basic/make-woocommerce-product-feed/">documentation</a> on CTX Feed.
+Absolutely! CTX Feed’s interface is completely beginner-friendly and easy to navigate. Even as a newbie, you will be able to easily use the plugin and generate feeds.
 
-= ☞ PREFIX & SUFFIX: =
+**Does the plugin provide clear instructions and support?**
 
-Both prefix and suffix are a series of letter, or more precisely, characters that describe the pattern of the Value of the attributes within the Product Feed for WooCommerce. Prefix sits just before the value, whereas the suffix sits after the value. One such example is the currency code, which is an important factor in deciding whether the plugin used to generate it is the best WooCommerce product feed plugin. You can use the currency symbol such as £ or $ as a prefix before the amount (the value) or the USD or GBP as a suffix right after the amount.
+Yes, it does! The plugin comes with clear instructions and dedicated support from experts.
 
-= ☞ STATIC VALUE: =
+**How quickly does the plugin generate feeds?**
 
-This is one of the most distinctive features that CTX Feed users can take advantage of when dealing with an enormous number of products. You get to choose whether you wish to apply the same value for all the products in the Merchant center or individual value. Attribute and pattern are the two types; the Attribute denotes the individual value for all the products, and the Static implies the same value for all.
+This product feed plugin for WooCommerce generates feeds in just a couple of minutes.
 
-For instance, if you have hundreds of products that refer to the same brand, in that case, you will choose a Pattern type that will decide the same value for all of them. However, in the case of a unique identifier like SKU, you will choose the Attribute type as the SKU is unique for each product.
+**Is there a product feed limit?**
 
-= ☞ CATEGORY MAPPING: =
+No, there isn’t a product feed limit in CTX Feed.
 
-Categories are the essential key to get products into search results. It is best practice to assign the most matching shopping engine category to your WooCommerce store category for each product.
+**How do I set up a product feed for Google Shopping with CTX Feed?**
 
+[https://www.youtube.com/watch?v=QRTvrDJm4mI]
+
+**Does it integrate seamlessly with my existing themes and plugins?**
+
+If your themes and plugins are updated, then CTX Feed will undoubtedly integrate with them seamlessly.
+
+**Can I customize the product attributes and data fields included in the feed?**
+
+Of Course! While generating the feeds you get to easily customize the product attributes and data fields included in the feed.
+
+**Are there any known issues or bugs reported by other users?**
+
+Currently, there aren’t any issues or bugs. We regularly update both the free and paid versions to keep it up-to-date and issue-free. If you encounter any problems, simply contact us, and our support team will resolve them ASAP. You can check out the <a target="_blank" href="https://wordpress.org/plugins/webappick-product-feed-for-woocommerce/#developers">CTX feed changelog</a> to know more about the regular updates.
 
 == Screenshots ==
 
 1. Manage Feed
-2. Make Feed
-3. Output Types
+2. Feed Configuration
+3. Feed output types
 4. Category Mapping
 
 == Changelog ==
+
+= 6.5.18 (2024-09-05) =
+* Updated: Plugin Description
+
+= 6.5.17 (2024-09-05) =
+* Updated: Plugin Description
+* Updated: Plugin Screenshots
 
 = 6.5.16 (2024-09-02) =
 * Updated: Code refactor
@@ -686,5 +976,5 @@ Categories are the essential key to get products into search results. It is best
 * Added: .xlsx file type for Bol.com feed format template
 
 == Upgrade Notice ==
-= 1.5.3 =
-This is a major release. Please update to version 1.5.3 . Lots of issue solved and some modification added. If any problem occurred while update then reactivate the plugin. Its a good practice to make a backup of your database before update.
+= 6.0.0 =
+This is a major release. Please update to version 6.0.0. Lots of issues were solved and a new UX/UI was added. Also, we frequently update the CTX feed plugin as our users need it. If any problem occurs while updating then reactivate the plugin. It's a good practice to make a backup of your database before updating.

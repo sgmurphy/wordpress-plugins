@@ -2,9 +2,9 @@
 Contributors: alekv, wolfbaer
 Tags: woocommerce, google analytics, google ads, facebook pixel, conversion tracking
 Requires at least: 3.7
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.3
-Stable tag: 1.43.5
+Stable tag: 1.44.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -277,7 +277,7 @@ You probably have some script or ad blocker activated. Deactivate it and the iss
 
 Our plugin injects tracking pixels on the front end of WooCommerce shops. As a consequence scripts of our plugin have been added to some privacy filter lists. The idea is to prevent the scripts running if a shop visitor has some ad blocker enabled and wants to visit the front end of the shop. This is totally ok for visitors of the front end of the shop. But, it becomes an issue for admins of the shop who have a blocker activated in their browser and visit the backend of the shop.
 
-Unfortunately there is no way for us to generally approve our scripts in all blockers for the WooCommerce back end.
+Unfortunately, there is no way for us to generally approve our scripts in all blockers for the WooCommerce back end.
 
 Therefore, we recommend admins of the shop to exclude their own shop from the blocker in their browser.
 
@@ -295,6 +295,17 @@ We are committed to ensuring the security of our customers and their data. If yo
 1. Settings page
 
 == Changelog ==
+
+= 1.44.0  =
+*Release date - XX.XX.2024*
+
+* New: Filters to add custom parameters for Google Analytics orders and order items.
+* Tweak: Bumped up WP version compatibility to 6.6
+* Tweak: Updated vendor packages.
+* Tweak: Update the translation file.
+* Tweak: Improved the logic to detect a preselected variation on the product page on page load, especially with Lazy Loading enabled.
+* Tweak: Added safeguards to prevent warnings when generating the payment gateway accuracy report for the UX.
+* Fix: Fixed a documentation link.
 
 = 1.43.5  =
 *Release date - 16.07.2024*

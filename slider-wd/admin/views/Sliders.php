@@ -2019,7 +2019,10 @@ class SlidersView_wds extends AdminView_wds {
                                           <p class="description"></p>
                                         </div>
                                         <div class="wd-group" id="trlink<?php echo $slide_row->id; ?>" <?php echo $slide_row->type == 'image' ? '' : 'style="display: none;"'; ?>>
-                                          <label class="wd-label" for="link<?php echo $slide_row->id; ?>"><?php _e('Link the slide to:', WDS()->prefix); ?></label><input class="wds_external_link" id="link<?php echo $slide_row->id; ?>" type="text" value="<?php echo esc_attr($slide_row->link); ?>" name="link<?php echo $slide_row->id; ?>" /><input id="target_attr_slide<?php echo $slide_row->id; ?>" type="checkbox" name="target_attr_slide<?php echo $slide_row->id; ?>" <?php echo (($slide_row->target_attr_slide) ? 'checked="checked"' : ''); ?> value="1" /><label for="target_attr_slide<?php echo $slide_row->id; ?>"><?php _e('Open in a new window', WDS()->prefix); ?></label>
+                                          <label class="wd-label" for="link<?php echo intval($slide_row->id); ?>">
+                                              <?php _e('Link the slide to:', WDS()->prefix); ?>
+                                          </label>
+                                          <input class="wds_external_link" id="link<?php echo intval($slide_row->id); ?>" type="text" value="<?php echo esc_url($slide_row->link); ?>" name="link<?php echo intval($slide_row->id); ?>" /><input id="target_attr_slide<?php echo $slide_row->id; ?>" type="checkbox" name="target_attr_slide<?php echo $slide_row->id; ?>" <?php echo (($slide_row->target_attr_slide) ? 'checked="checked"' : ''); ?> value="1" /><label for="target_attr_slide<?php echo $slide_row->id; ?>"><?php _e('Open in a new window', WDS()->prefix); ?></label>
                                           <p class="description"><?php _e('You can add a URL, to which the users will be redirected upon clicking on the slide. Use http:// and https:// for external links.', WDS()->prefix); ?></p>
                                        </div>
 									                     <div class="wd-group">

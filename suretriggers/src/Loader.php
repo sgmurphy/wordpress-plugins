@@ -180,8 +180,8 @@ class Loader {
 		define( 'SURE_TRIGGERS_BASE', plugin_basename( SURE_TRIGGERS_FILE ) );
 		define( 'SURE_TRIGGERS_DIR', plugin_dir_path( SURE_TRIGGERS_FILE ) );
 		define( 'SURE_TRIGGERS_URL', plugins_url( '/', SURE_TRIGGERS_FILE ) );
-		define( 'SURE_TRIGGERS_VER', '1.0.58' );
-		define( 'SURE_TRIGGERS_DB_VER', '1.0.58' );
+		define( 'SURE_TRIGGERS_VER', '1.0.59' );
+		define( 'SURE_TRIGGERS_DB_VER', '1.0.59' );
 		define( 'SURE_TRIGGERS_REST_NAMESPACE', 'sure-triggers/v1' );
 		define( 'SURE_TRIGGERS_SASS_URL', $sass_url . '/wp-json/wp-plugs/v1/' );
 		define( 'SURE_TRIGGERS_SITE_URL', $sass_url );
@@ -323,7 +323,7 @@ class Loader {
 	}
 
 	/**
-	 * Menu callback
+	 * Menu callback.
 	 *
 	 * @since x.x.x
 	 *
@@ -437,6 +437,7 @@ class Loader {
 		}
 		return esc_url_raw( $iframe_url );
 	}
+	
 
 	/**
 	 * Custom Filter data to check if user is logged in iframe.
@@ -449,7 +450,7 @@ class Loader {
 		}
 		$token = SaasApiToken::get();
 
-		if ( '' === $token || false === $token || 'connection-denied' === $token ) {
+		if ( '' === $token || null === $token || false === $token || 'connection-denied' === $token ) {
 			$logged_in = false;
 		} else {
 			$logged_in = true;

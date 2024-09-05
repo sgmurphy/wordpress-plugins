@@ -250,45 +250,8 @@
 		//if creating a slider than we need to split into chunks for each slider
 		$totalreviewschunked = array_chunk($totalreviews, $reviewsperpage);
 		
-		//if making slide show then add it here
-		if($currentform[0]->createslider == "yes"){
-			//make sure we have enough to create a show here
-			if($totalreviews>$reviewsperpage){
-				$makingslideshow = true;
-				$oneonmobile = "";
-				if($currentform[0]->slidermobileview == "one"){
-					$oneonmobile = "yes";
-				}
-				$sliderautoplay = "";
-				$slidespeed = "";
-				$slideautodelay = "";
-				$sliderhideprevnext = "";
-				$sliderhidedots = "";
-				$sliderfixedheight = "";
-				
-				
-				
-				if(isset($template_misc_array['sliderautoplay'])){ $sliderautoplay = $template_misc_array['sliderautoplay'];}
-				if(isset($template_misc_array['slidespeed'])){ $slidespeed = $template_misc_array['slidespeed'];}
-				if(isset($template_misc_array['slideautodelay'])){ $slideautodelay = $template_misc_array['slideautodelay'];}
-				if(isset($template_misc_array['sliderhideprevnext'])){ $sliderhideprevnext = $template_misc_array['sliderhideprevnext'];}
-				if(isset($template_misc_array['sliderhidedots'])){ $sliderhidedots = $template_misc_array['sliderhidedots'];}
-				if(isset($template_misc_array['sliderfixedheight'])){ $sliderfixedheight = $template_misc_array['sliderfixedheight'];}
-				
-				//force static height if we are setting reviews same height
-				if($revsameheight=="yes"){
-					$sliderfixedheight = "yes";
-				}
-				
-				//sliderautoplay,slidespeed,slideautodelay
-				echo '<div class="wprev-slider '.$notsameheight.'" id="wprev-slider-'.esc_html($currentform[0]->id).'" data-revsameheight="'.$revsameheight.'" data-onemobil="'.$oneonmobile.'" data-sliderautoplay="'.esc_html($sliderautoplay).'"  data-slidespeed="'.esc_html($slidespeed).'" data-slideautodelay="'.esc_html($slideautodelay).'" data-sliderhideprevnext="'.esc_html($sliderhideprevnext).'" data-sliderhidedots="'.esc_html($sliderhidedots).'" data-sliderfixedheight="'.esc_html($sliderfixedheight).'"><ul>';
-			}
-		} else {
-			echo '<div class="wprev-no-slider '.$notsameheight.'" id="wprev-slider-'.esc_html($currentform[0]->id).'">';
-		}
 		
-					
-			//add styles from template misc here
+//add styles from template misc here
 			if(is_array($template_misc_array)){
 				$misc_style ="";
 				
@@ -335,6 +298,50 @@
 
 			//print out user style added
 			echo "<style>".$currentform[0]->template_css."</style>";
+		
+		
+		
+		
+		
+		//if making slide show then add it here
+		if($currentform[0]->createslider == "yes"){
+			//make sure we have enough to create a show here
+			if($totalreviews>$reviewsperpage){
+				$makingslideshow = true;
+				$oneonmobile = "";
+				if($currentform[0]->slidermobileview == "one"){
+					$oneonmobile = "yes";
+				}
+				$sliderautoplay = "";
+				$slidespeed = "";
+				$slideautodelay = "";
+				$sliderhideprevnext = "";
+				$sliderhidedots = "";
+				$sliderfixedheight = "";
+				
+				
+				
+				if(isset($template_misc_array['sliderautoplay'])){ $sliderautoplay = $template_misc_array['sliderautoplay'];}
+				if(isset($template_misc_array['slidespeed'])){ $slidespeed = $template_misc_array['slidespeed'];}
+				if(isset($template_misc_array['slideautodelay'])){ $slideautodelay = $template_misc_array['slideautodelay'];}
+				if(isset($template_misc_array['sliderhideprevnext'])){ $sliderhideprevnext = $template_misc_array['sliderhideprevnext'];}
+				if(isset($template_misc_array['sliderhidedots'])){ $sliderhidedots = $template_misc_array['sliderhidedots'];}
+				if(isset($template_misc_array['sliderfixedheight'])){ $sliderfixedheight = $template_misc_array['sliderfixedheight'];}
+				
+				//force static height if we are setting reviews same height
+				if($revsameheight=="yes"){
+					$sliderfixedheight = "yes";
+				}
+				
+				//sliderautoplay,slidespeed,slideautodelay
+				echo '<div class="wprev-slider '.$notsameheight.'" id="wprev-slider-'.esc_html($currentform[0]->id).'" data-revsameheight="'.$revsameheight.'" data-onemobil="'.$oneonmobile.'" data-sliderautoplay="'.esc_html($sliderautoplay).'"  data-slidespeed="'.esc_html($slidespeed).'" data-slideautodelay="'.esc_html($slideautodelay).'" data-sliderhideprevnext="'.esc_html($sliderhideprevnext).'" data-sliderhidedots="'.esc_html($sliderhidedots).'" data-sliderfixedheight="'.esc_html($sliderfixedheight).'"><ul>';
+			}
+		} else {
+			echo '<div class="wprev-no-slider '.$notsameheight.'" id="wprev-slider-'.esc_html($currentform[0]->id).'">';
+		}
+		
+					
+			
 		
 		$loopnum = 1;
 		foreach ( $totalreviewschunked as $reviewschunked ){

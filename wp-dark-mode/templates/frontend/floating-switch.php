@@ -106,6 +106,21 @@ if ( $args['enabled_custom_icons'] ) {
 		$config_attrs .= esc_attr( $key ) . '="' . esc_attr( $value ) . '" ';
 	}
 
-	echo wp_kses_post( do_shortcode( '[wp-dark-mode-switch ' . $config_attrs . ']' ) );
+	$allowed_tags = array_merge(
+		wp_kses_allowed_html( 'post' ),
+		[
+			'div' => [
+				'class' => [],
+				'tabindex' => [],
+				'data-style' => [],
+				'data-size' => [],
+				'data-text-light' => [],
+				'data-text-dark' => [],
+				'data-icon-light' => [],
+				'data-icon-dark' => [],
+			],
+		]
+	);
+	echo wp_kses( do_shortcode( '[wp-dark-mode-switch ' . $config_attrs . ']' ), $allowed_tags );
 	?>
 </div>

@@ -74,11 +74,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 				return;
 			}
 
-			// Bail, if current screen is elementor editor
-			if ( $this->is_elementor_editor_mode() ) {
-				return;
-			}
-
 			// Enqueue styles.
 			wp_enqueue_style( 'wp-dark-mode', WP_DARK_MODE_ASSETS . 'css/app.min.css', array(), WP_DARK_MODE_VERSION );
 
@@ -108,6 +103,9 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 					'assets' => WP_DARK_MODE_ASSETS,
 				],
 				'debug' => defined( 'WP_DEBUG' ) && WP_DEBUG,
+				'additional' => [
+					'is_elementor_editor' => class_exists( 'Elementor\Plugin' ) && \Elementor\Plugin::$instance->editor->is_edit_mode(),
+				],
 			);
 
 			wp_localize_script( 'wp-dark-mode', 'wp_dark_mode_json', apply_filters( 'wp_dark_mode_json', $localize_scripts ) );

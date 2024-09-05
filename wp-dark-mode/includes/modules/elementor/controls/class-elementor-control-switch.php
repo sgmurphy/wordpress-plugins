@@ -63,6 +63,7 @@ class DarkModeSwitch extends \Elementor\Base_Data_Control {
 		);
 
 		wp_enqueue_script( 'wp-dark-mode-js-elementor-switcher' );
+		wp_enqueue_script( 'wp-dark-mode-js-elementor-switcher-additional' );
 	}
 
 	/**
@@ -79,30 +80,33 @@ class DarkModeSwitch extends \Elementor\Base_Data_Control {
 	public function content_template() {
 		$control_uid = $this->get_control_uid( '{{value}}' );
 
-		$enabled = true;
-		if ( $control_uid > 3 ) {
-			$enabled = false;
+		if ( ! $this->is_ultimate() && $control_uid > 3 ) {
+			$control_uid = '1';
 		}
+
 		?>
 		<div class="elementor-control-field">
-			<label class="elementor-control-title">{{{ data.label }}}</label>
-			<div class="elementor-control-input-wrapper">
-				<div class="elementor-image-choices">
-					<# _.each( data.options, function( options, value ) { #>
-						<div class="image-choose-label-block {{value}}">
-							<input id="<?php echo esc_attr( $control_uid ); ?>" type="radio" name="elementor-choose-{{ data.name }}-{{ data._cid }}" value="{{ value }}">
-							<label class="elementor-image-choices-label" for="<?php echo esc_attr( $control_uid ); ?>" title="{{ options }}">
-								<?php echo wp_kses_post( do_shortcode( '[wp-dark-mode-switch style="{{ value }}" size="0.8"][/wp-dark-mode-switch]' ) ); ?>
-							</label>
-						</div>
-						<# } ); #>
-				</div>
+		<label class="elementor-control-title">{{{ data.label }}}</label>
+		<div class="_wp-dark-mode-elementor">
+			<div class="_wp-dark-mode-elementor-switches">
+				<# _.each( data.options, function( switchId ) { #>
+					<div class="_wp-dark-mode-elementor-switches-item elementor-control-input-wrapper 
+					<# if ( switchId > 3 && !data.is_ultimate ) { #> wp-dark-mode-locked <# } #>">
+						<input id="{{ data.name }}-{{ switchId }}" type="radio" name="{{ data.name }}" data-setting="{{ data.name }}" value="{{ switchId }}"
+						<# if ( switchId > 3 && !data.is_ultimate ) { #> disabled <# } #>
+						<# if ( switchId == data.controlValue ) { #> checked="checked" <# } #> />
+						<label for="{{ data.name }}-{{ switchId }}" title="Style {{ switchId }}">
+							<img src="{{ data.assets_url }}/switch-{{ switchId }}.svg" alt="Style {{ switchId }}">
+						</label>
+					</div>
+				<# }); #>
 			</div>
 		</div>
+	</div>
 
 		<# if ( data.description ) { #>
 			<div class="elementor-control-field-description">{{{ data.description }}}</div>
-			<# } #>
+		<# } #>
 		<?php
 	}
 

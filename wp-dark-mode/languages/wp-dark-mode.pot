@@ -1185,7 +1185,7 @@ msgid "Background Color"
 msgstr ""
 
 #: src/admin/views/settings/PresetCustomization.vue:103
-msgid "Input Text Colo"
+msgid "Input Text Color"
 msgstr ""
 
 #: src/admin/views/settings/PresetCustomization.vue:106

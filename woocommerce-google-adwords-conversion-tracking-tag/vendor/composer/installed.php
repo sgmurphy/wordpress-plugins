@@ -3,7 +3,7 @@
         'name' => 'sweetcode/pixel-manager-for-woocommerce',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'f6540622492eae96d4c533f82479901ce9afad73',
+        'reference' => 'eb0d0be58193602ac4df3b5a514e839409c36114',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.7.3',
-            'version' => '2.7.3.0',
-            'reference' => 'dad8c4f268f826d1f5a98737d26216d6dede5b03',
+            'pretty_version' => '2.7.4',
+            'version' => '2.7.4.0',
+            'reference' => '2741ba2b4f819b5018f68529036e505ef1e7c349',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'giggsey/libphonenumber-for-php' => array(
-            'pretty_version' => '8.13.40',
-            'version' => '8.13.40.0',
-            'reference' => '795e0b760e5c439b6fa1ffa787c1d90c2face1ff',
+            'pretty_version' => '8.13.43',
+            'version' => '8.13.43.0',
+            'reference' => '62250ef492ea8afedf534381844194f43ff1f7f2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../giggsey/libphonenumber-for-php',
             'aliases' => array(),
@@ -31,7 +31,7 @@
         'giggsey/libphonenumber-for-php-lite' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => '8.13.40',
+                0 => '8.13.43',
             ),
         ),
         'giggsey/locale' => array(
@@ -55,7 +55,7 @@
         'sweetcode/pixel-manager-for-woocommerce' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'f6540622492eae96d4c533f82479901ce9afad73',
+            'reference' => 'eb0d0be58193602ac4df3b5a514e839409c36114',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

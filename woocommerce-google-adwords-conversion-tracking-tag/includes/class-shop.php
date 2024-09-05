@@ -43,12 +43,17 @@ class Shop {
         return !self::track_user( $user_id );
     }
 
+    /**
+     * Get the user ID from the order.
+     *
+     * @param $order
+     * @return int
+     */
     public static function get_order_user_id( $order ) {
         if ( $order->meta_exists( '_wpm_customer_user' ) ) {
             return (int) $order->get_meta( '_wpm_customer_user', true );
-        } else {
-            return (int) $order->get_meta( '_customer_user', true );
         }
+        return (int) $order->get_meta( '_customer_user', true );
     }
 
     /**
@@ -806,6 +811,43 @@ class Shop {
 
     public static function get_transient_identifiers_key() {
         return 'pmw_transient_session_identifiers';
+    }
+
+    /**
+     * Retrieves the custom order parameters for a given order.
+     *
+     * This function retrieves and returns the custom order parameters for a given order.
+     * These parameters are filtered through the 'pmw_custom_order_parameters'
+     * filter hook which allows for modification or addition of custom parameters.
+     *
+     * @param $order
+     * @return array
+     *
+     * @since 1.44.0
+     */
+    public static function get_custom_order_parameters( $order ) {
+        return (array) apply_filters( 'pmw_custom_order_parameters', [], $order );
+    }
+
+    /**
+     * Retrieves the custom order item parameters for a given order item.
+     * This function retrieves and returns the custom order item parameters for a given order item.
+     * These parameters are filtered through the 'pmw_custom_order_item_parameters' filter hook
+     * which allows for modification or addition of custom parameters.
+     *
+     * @param $order_item
+     * @param $order
+     * @return array
+     *
+     * @since 1.44.0
+     */
+    public static function get_custom_order_item_parameters( $order_item, $order ) {
+        return (array) apply_filters(
+            'pmw_custom_order_item_parameters',
+            [],
+            $order_item,
+            $order
+        );
     }
 
 }

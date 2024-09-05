@@ -3284,6 +3284,34 @@ class GlobalSearchController {
 	}
 
 	/**
+	 * Prepare buddyboss private groups.
+	 *
+	 * @param array $data Search Params.
+	 *
+	 * @return array<string, array<int, array<string, mixed>>|false>
+	 */
+	public function search_buddyboss_private_groups( $data ) {
+		global $wpdb;
+
+		$groups = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}bp_groups WHERE status = 'private'" );
+
+		$options = [];
+		if ( $groups ) {
+			foreach ( $groups as $group ) {
+				$options[] = [
+					'label' => $group->name,
+					'value' => $group->id,
+				];
+			}
+		}
+
+		return [
+			'options' => $options,
+			'hasMore' => false,
+		];
+	}
+
+	/**
 	 * Prepare buddyboss profile types list.
 	 *
 	 * @param array $data Search Params.
@@ -11932,7 +11960,7 @@ class GlobalSearchController {
 					foreach ( $field_groups as $field_group ) {
 						$options[] = [
 							'value' => $field_group['name'],
-							'label' => $field_group['label'],
+							'label' => ! empty( $field_group['label'] ) ? $field_group['label'] : $field_group['name'],
 						];
 					}
 				}
@@ -15038,7 +15066,15 @@ class GlobalSearchController {
 			$context['group_url']                = get_permalink( $group_id );
 			$context['group_featured_image_id']  = get_post_meta( $group_id, '_thumbnail_id', true );
 			$context['group_featured_image_url'] = get_the_post_thumbnail_url( $group_id );
-			$context['response_type']            = 'live';
+			if ( 'user_added_group' == $term && function_exists( 'learndash_group_enrolled_courses' ) ) {
+				$group_courses_id = learndash_group_enrolled_courses( $group_id );
+				if ( ! empty( $group_courses_id ) ) {
+					foreach ( $group_courses_id as $key => $course_id ) {
+						$context['group_courses'][ $key ] = LearnDash::get_course_pluggable_data( $course_id );
+					}
+				}
+			}
+			$context['response_type'] = 'live';
 		} else {
 			$context                             = WordPress::get_sample_user_context();
 			$context['group_title']              = 'Test Group';
@@ -15735,37 +15771,9 @@ class GlobalSearchController {
 	 * @return array|void|mixed
 	 */
 	public function search_pfd_feedback_last_data( $data ) {
-		global $wpdb;
-		$post_type = $data['post_type'];
-		$trigger   = $data['search_term'];
-		$context   = [];
+		$sample_data = '{"pluggable_data":{"feedback": "no","questions": "- I need help with something else...","comment": "help me out!!","doc_id": "2409","time": "2024-09-11 11:56:48","doc_name": "Sample doc","doc_link": "https://example.com","doc_author_email": "john@example.com"},"response_type":"sample"}';
+		$context     = json_decode( $sample_data, true );
 
-		$post_id = $data['filter']['doc_id']['value'];
-
-		if ( -1 === $post_id ) {
-			$result = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}pfd_feedbacks order by id DESC LIMIT 1" );
-		} else {
-			$result = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}pfd_feedbacks WHERE doc_id=%s order by id DESC LIMIT 1", $post_id ) );
-		}
-
-		if ( ! empty( $result ) ) {
-			$context_data                     = [
-				'feedback' => $result[0]->feedback,
-				'comment'  => $result[0]->comment,
-				'doc_id'   => $result[0]->doc_id,
-				'time'     => $result[0]->time,
-			];
-			$context_data['doc_name']         = get_the_title( $result[0]->doc_id );
-			$context_data['doc_link']         = get_the_permalink( $result[0]->doc_id );
-			$author_id                        = get_post_field( 'post_author', $result[0]->doc_id );
-			$email                            = get_the_author_meta( 'user_email', intval( '"' . $author_id . '"' ) );
-			$context_data['doc_author_email'] = $email;
-			$context['pluggable_data']        = $context_data;
-			$context['response_type']         = 'live';
-		} elseif ( empty( $result ) ) {
-			$sample_data = '{"pluggable_data":{"feedback": "yes","comment": "helped me out!!","doc_id": "6689","time": "2023-11-09 11:56:48","doc_name": "First doc","doc_link": "https://example.com","doc_author_email": "john@example.com"},"response_type":"sample"}';
-			$context     = json_decode( $sample_data, true );
-		}
 		return $context;
 	}
 

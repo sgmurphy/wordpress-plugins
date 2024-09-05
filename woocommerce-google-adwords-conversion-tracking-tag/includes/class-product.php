@@ -323,7 +323,7 @@ class Product {
 				return [];
 			}
 
-			$order_items_formatted[] = [
+			$product_data = [
 				'id'           => $order_item_data['product_id'],
 				'variation_id' => $order_item_data['variation_id'],
 				'name'         => $order_item_data['name'],
@@ -334,6 +334,16 @@ class Product {
 				'total'        => (float) Helpers::format_decimal($order_item_data['total'], 2),
 				'total_tax'    => (float) Helpers::format_decimal($order_item_data['total_tax'], 2),
 			];
+
+			// Filter to add custom item parameters
+			// that will be added to $product_data['custom_parameters']
+			// if the filter returns a non-empty array
+			$custom_parameters = Shop::get_custom_order_item_parameters($order_item, $order);
+			if (!empty($custom_parameters)) {
+				$product_data['custom_parameters'] = $custom_parameters;
+			}
+
+			$order_items_formatted[] = $product_data;
 		}
 
 		return $order_items_formatted;

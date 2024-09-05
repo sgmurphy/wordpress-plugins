@@ -1366,6 +1366,9 @@ class Ays_Pb_Public {
             // Notification type | Button 1 text transformation
             $notification_button_1_text_transformation = (isset($options['notification_button_1_text_transformation']) && $options['notification_button_1_text_transformation'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_transformation']) ) : 'none';
 
+            // Notification type | Button 1 text decoration
+            $notification_button_1_text_decoration = (isset($options['notification_button_1_text_decoration']) && $options['notification_button_1_text_decoration'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_decoration']) ) : 'none';
+
             // Notification type | Button 1 letter spacing
             $notification_button_1_letter_spacing = (isset($options['notification_button_1_letter_spacing']) && $options['notification_button_1_letter_spacing'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing']) ) . 'px' : 0;
 
@@ -1448,6 +1451,7 @@ class Ays_Pb_Public {
                             box-shadow: " . $notification_button_1_box_shadow . ";
                             letter-spacing: " . $notification_button_1_letter_spacing . ";
                             text-transform: " . $notification_button_1_text_transformation . ";
+                            text-decoration: " . $notification_button_1_text_decoration . ";
                         }
 
                         .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button:hover {

@@ -333,9 +333,15 @@ class SQ_Controllers_Sitemaps extends SQ_Classes_FrontController {
 
 					if ( ! empty( $patterns ) ) {
 						foreach ( $patterns as $pattern => $pattern_type ) {
-							if ( isset( $pattern_type['google_news'] ) && $pattern_type['google_news'] == 1 ) {
-								$sq_query['post_type'][] = $pattern;
-								$sq_query['post_type']   = array_unique( $sq_query['post_type'] );
+							if ( isset( $pattern_type['google_news'] ) ) {
+								if( $pattern_type['google_news'] ){
+									$sq_query['post_type'][] = $pattern;
+									$sq_query['post_type']   = array_unique( $sq_query['post_type'] );
+								}elseif( false !== in_array($pattern, $sq_query['post_type'] ) ){
+									$index = array_search($pattern, $sq_query['post_type']);
+									unset( $sq_query['post_type'][$index] );
+								}
+
 							}
 						}
 					}

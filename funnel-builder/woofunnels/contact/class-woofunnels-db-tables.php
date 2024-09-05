@@ -66,7 +66,7 @@ class WooFunnels_DB_Tables {
 					KEY `id` (`id`),
 					KEY `wpid` (`wpid`),
 					KEY `uid` (`uid`),
-					UNIQUE `email` (`email`)
+					KEY `email` (`email`)
 					
 	                ) {table_collate};",
 			];
@@ -101,7 +101,7 @@ class WooFunnels_DB_Tables {
 	                `used_coupons` longtext,
 	                PRIMARY KEY (`id`),
 	                KEY `id` (`id`),
-	                UNIQUE `cid` (`cid`)               
+	                KEY `cid` (`cid`)               
 	                )  {table_collate};",
 			];
 		}

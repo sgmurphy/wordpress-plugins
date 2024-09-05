@@ -265,6 +265,7 @@ class CCBExportImport {
 
 		if ( 'draft' === $status ) {
 			$temp_data = array(
+				'template_id' => CCBCalculatorTemplates::get_post_id_by_meta_key_and_value( 'calc_id', $calculator_id ),
 				'calc_id'     => $calculator_id,
 				'icon'        => $data['ccb_icon'],
 				'title'       => $data['ccb_name'],
@@ -275,7 +276,7 @@ class CCBExportImport {
 				'type'        => isset( $data['ccb_type'] ) ? sanitize_text_field( $data['ccb_type'] ) : 'default',
 			);
 
-			CCBCalculatorTemplates::create_and_save_template( $temp_data );
+			CCBCalculatorTemplates::create_or_update_template( $temp_data );
 		}
 
 		if ( ! empty( $result ) ) {

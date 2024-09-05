@@ -113,9 +113,9 @@ class GlobalFields {
                                         'required' => true,
                                         'label'    => "Type",
                                     ],
-                                    'trigger' => [
-                                        'defaults' => apply_filters( 'nx_type_trigger', [] ),
-                                    ]
+                                    // 'trigger' => [
+                                    //     'defaults' => apply_filters( 'nx_type_trigger', [] ),
+                                    // ]
                                 ],
                             ]
                         ],
@@ -1459,6 +1459,7 @@ class GlobalFields {
                 ],
             ],
             'instructions' => apply_filters( 'nx_instructions', [] ),
+            'pro_popup'    => apply_filters( 'nx_popup_alert', [] ),
         ];
 
         $tabs['tabs'] = apply_filters('nx_metabox_tabs', $tabs['tabs']);

@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.58
+Stable tag: 1.0.59
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,11 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.59 - Thursday, 5th September 2024 =
+* Improvement: "BuddyBoss" - Added new Triggers
+* Improvement: "Powerful Docs" - Added improvements in "Feedback Received" Trigger and removed deprecated Action
+* Improvement: "LearnDash" - Added improvements in "User Added to Group" Trigger and added new "List User Enrolled Courses" Action
 
 = Version 1.0.58 - Tuesday, 3rd September 2024 =
 * New: Added "Services For SureCart" Integration

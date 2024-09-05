@@ -67,6 +67,13 @@ $text_transform_options = array(
     'lowercase' => __('Lowercase', "ays-popup-box"),
 );
 
+$text_decoration_options = array(
+    'none' => __('None', "ays-popup-box"),
+    'overline' => __('Overline', "ays-popup-box"),
+    'line-through' => __('Line through', "ays-popup-box"),
+    'underline' => __('Underline', "ays-popup-box"),
+);
+
 $border_styles = array(
     'solid' => __('Solid',"ays-popup-box"),
     'dotted' => __('Dotted',"ays-popup-box"),
@@ -119,6 +126,7 @@ $options = array(
     'notification_button_1_text_color' => '#FFFFFF',
     'notification_button_1_text_hover_color' => '#FFFFFF',
     'notification_button_1_text_transformation' => 'none',
+    'notification_button_1_text_decoration' => 'none',
     'notification_button_1_letter_spacing' => 0,
     'notification_button_1_font_size' => 15,
     'notification_button_1_border_radius' => 6,
@@ -348,13 +356,14 @@ $pb_wp_editor_height = (isset($gen_options['pb_wp_editor_height']) && $gen_optio
 $options = (isset($popupbox['options']) && $popupbox['options'] != '') ? json_decode($popupbox['options'], true) : array();
 
 // Change the popup creation date
-$pb_create_date = (isset($options['create_date']) && $options['create_date'] != '') ? $options['create_date'] : current_time( 'mysql' );
+$pb_create_date = (isset($options['create_date']) && Ays_Pb_Admin::validateDate($options['create_date'])) ? $options['create_date'] : current_time( 'mysql' );
 
 // Popup author
 if (isset($options['author']) && $options['author'] != '') {
     if ( !is_array($options['author']) ) {
         $options['author'] = json_decode($options['author'], true);
     }
+
     $pb_author = array_map( 'stripslashes', $options['author'] );
 } else {
     $pb_author = array('name' => 'Unknown');
@@ -485,6 +494,9 @@ $notification_button_1_text_hover_color = (isset($options['notification_button_1
 
 // Notification type | Button 1 text transformation
 $notification_button_1_text_transformation = (isset($options['notification_button_1_text_transformation']) && $options['notification_button_1_text_transformation'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_transformation']) ) : 'none';
+
+// Notification type | Button 1 text decoration
+$notification_button_1_text_decoration = (isset($options['notification_button_1_text_decoration']) && $options['notification_button_1_text_decoration'] != '') ? stripslashes( esc_attr($options['notification_button_1_text_decoration']) ) : 'none';
 
 // Notification type | Button 1 letter spacing
 $notification_button_1_letter_spacing = (isset($options['notification_button_1_letter_spacing']) && $options['notification_button_1_letter_spacing'] != '') ? absint( esc_attr($options['notification_button_1_letter_spacing']) ) : 0;
@@ -1955,6 +1967,34 @@ $ays_users_roles = $wp_roles->roles;
                                                 ?>
                                                 <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
                                                     <?php echo $text_transform; ?>
+                                                </option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_text_decoration">
+                                                <?php  echo __('Text decoration', "ays-popup-box") ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Choose the line position for the button on the front end. Note: It is set as None by default.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select name="ays_pb_notification_button_1_text_decoration" id="ays_pb_notification_button_1_text_decoration" class="ays_pb_aysDropdown">
+                                                <?php
+                                                    foreach ($text_decoration_options as $key => $text_decoration) {
+                                                        $selected = '';
+                                                        if ($key == $notification_button_1_text_decoration) {
+                                                            $selected = 'selected';
+                                                        }
+                                                ?>
+                                                <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
+                                                    <?php echo $text_decoration; ?>
                                                 </option>
                                                 <?php
                                                     }

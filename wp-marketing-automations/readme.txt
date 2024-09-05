@@ -4,7 +4,7 @@ Tags: cart abandonment, follow up emails, email marketing, email customizer, crm
 Requires at least: 5.0
 Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -415,6 +415,9 @@ FunnelKit Automations is 100% self-hosted and fully GDPR compliant.
 
 
 == Change log ==
+
+= 3.2.2 (Sep 5, 2024) =
+* Fixed: Issue with unique columns during table creation. (#3407)
 
 = 3.2.1 (Sep 3, 2024) =
 * Fixed: Added a function exists check to prevent errors during updates on some setups. (#3395)

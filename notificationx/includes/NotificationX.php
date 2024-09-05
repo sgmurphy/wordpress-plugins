@@ -112,7 +112,7 @@ class NotificationX {
         if ( ! is_multisite() ) {
             // Redirect to the welcome page.
             wp_safe_redirect( add_query_arg( array(
-                'page'		=> 'nx-builder'
+                'page'		=> 'nx-dashboard'
             ), admin_url( 'admin.php' ) ) );
         }
     }
@@ -173,7 +173,7 @@ class NotificationX {
 			$links['deactivate'] = $deactivate_link;
 		}
         if( ! is_plugin_active('notificationx-pro/notificationx-pro.php' ) ) {
-            $links['pro'] = '<a href="' . esc_url('http://wpdeveloper.com/in/upgrade-notificationx') . '" target="_blank" style="color: #349e34;"><b>' . __('Go Pro','notificationx') .'</b></a>';
+            $links['pro'] = '<a href="' . esc_url('https://notificationx.com/#pricing') . '" target="_blank" style="color: #349e34;"><b>' . __('Go Pro','notificationx') .'</b></a>';
         }
         return $links;
     }

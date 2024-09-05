@@ -255,7 +255,7 @@ class WDSViewSlider {
                           ?>
                         <span data-img-id="wds_slideshow_image<?php echo $image_div_num; ?>_<?php echo $wds; ?>"
                              class="wds_slideshow_image_<?php echo $wds; ?>"
-                             onclick="<?php echo $slide_row->link ? 'wds_slide_redirect_link(event, \'' . $slide_row->link . '\', \'' . ($slide_row->target_attr_slide ? '_blank' : '_self') . '\')' : ''; ?>"
+                             onclick="<?php echo $slide_row->link ? 'wds_slide_redirect_link(event, \'' . esc_js(esc_url($slide_row->link)) . '\', \'' . (intval($slide_row->target_attr_slide)? '_blank' : '_self') . '\')' : ''; ?>"
                               <?php if($slider_row->effect === 'zoomFade') { ?>
                               style="<?php echo $slide_row->link ? 'cursor: pointer;' : ''; ?>"
                               <?php } else { ?>
@@ -272,7 +272,7 @@ class WDSViewSlider {
                              class="wds_slideshow_image_<?php echo $wds; ?>"
                              data-image-id="<?php echo $slide_row->id; ?>"
                              data-image-key="<?php echo $key; ?>">
-                          <span style="display:<?php echo ($slide_row->link)?'block':'none'; ?> " class="wds_play_btn_cont" onclick="wds_video_play_pause(<?php echo $wds; ?>, wds_slide_<?php echo $wds; ?>_<?php echo $slide_row->id; ?>)" >
+                          <span style="display:<?php echo ($slide_row->link)?'block':'none'; ?> " class="wds_play_btn_cont" onclick="wds_video_play_pause(<?php echo intval($wds); ?>, wds_slide_<?php echo intval($wds); ?>_<?php echo intval($slide_row->id); ?>)" >
                               <span class="wds_bigplay_<?php echo $wds; ?> <?php echo ($slide_row->target_attr_slide)? 'wds_hide':'' ?>"></span>
                           </span>
                           <video poster="<?php echo WDS()->plugin_url . '/images/blank.gif' ?>" style="background-image: url('<?php echo !empty($thumb_url) ? $thumb_url : $no_video_image ?>');" <?php echo isset($slide_row->video_loop) && $slide_row->video_loop == 1 ? 'loop' : ''; ?> <?php echo $slide_row->link == '1' ? "controls": ""; ?> <?php if(isset($slide_row->mute)) { echo $slide_row->mute == '1' ? 'muted' : ''; }?> id="wds_slide_<?php echo $wds; ?>_<?php echo $slide_row->id; ?>">
@@ -348,7 +348,7 @@ class WDSViewSlider {
                                              border-radius: <?php echo $layer->border_radius; ?>;
                                              box-shadow: <?php echo $layer->shadow; ?>;
                                              text-align: <?php echo $layer->text_alignment; ?>"
-                                      onclick="<?php echo $layer->link ? 'window.open(\'' . $layer->link . '\', \'' . ($layer->target_attr_layer ? '_blank' : '_self') . '\');' : $layer_callback_list; ?>event.stopPropagation();"><?php echo str_replace(array("\r\n", "\r", "\n"), "<br>", $from_shortcode ? do_shortcode($layer->text) : $layer->text); ?></span>
+                                      onclick="<?php echo $layer->link ? 'window.open(\'' . esc_js(esc_url($layer->link)) . '\', \'' . (intval($layer->target_attr_layer) ? '_blank' : '_self') . '\');' : esc_html($layer_callback_list); ?>event.stopPropagation();"><?php echo str_replace(array("\r\n", "\r", "\n"), "<br>", $from_shortcode ? do_shortcode($layer->text) : $layer->text); ?></span>
                                   <?php
                                   break;
                                 }
@@ -368,7 +368,7 @@ class WDSViewSlider {
                                             border: <?php echo $layer->border_width; ?>px <?php echo $layer->border_style; ?> #<?php echo $layer->border_color; ?>;
                                             border-radius: <?php echo $layer->border_radius; ?>;
                                             box-shadow: <?php echo $layer->shadow; ?>"
-                                     onclick="<?php echo $layer->link ? 'window.open(\'' . $layer->link . '\', \'' . ($layer->target_attr_layer ? '_blank' : '_self') . '\');' : $layer_callback_list; ?>event.stopPropagation();"
+                                     onclick="<?php echo $layer->link ? 'window.open(\'' . esc_js(esc_url($layer->link)) . '\', \'' . (intval($layer->target_attr_layer) ? '_blank' : '_self') . '\');' : esc_html($layer_callback_list); ?>event.stopPropagation();"
                                      data-wds-scale="<?php echo $layer->image_scale; ?>"
                                      data-wds-image-width="<?php echo $layer->image_width; ?>"
                                      data-wds-image-height="<?php echo $layer->image_height; ?>"
@@ -431,8 +431,8 @@ class WDSViewSlider {
                                              border: <?php echo $layer->border_width; ?>px <?php echo $layer->border_style; ?> #<?php echo $layer->border_color; ?>;
                                              border-radius: <?php echo $layer->border_radius; ?>;
                                              box-shadow: <?php echo $layer->shadow; ?>">
-								   <span style="display:<?php echo ($layer->target_attr_layer) ? 'block' : 'none'; ?> " class="wds_play_btn_cont" onclick="wds_video_play_pause_layer(event,<?php echo  $wds ; ?>,<?php echo $slide_row->id ; ?>,<?php echo  $layer->id; ?>)">
-								   <span style="display:<?php echo ($layer->image_scale == 'on') ? 'none' : 'block'; ?> " class="wds_bigplay_layer" id="wds_bigplay_layer_<?php echo $wds . '_' . $slide_row->id . '_layer_' . $layer->id; ?>" onclick="wds_video_play_pause_layer(event,<?php echo  $wds ; ?>,<?php echo $slide_row->id ; ?>,<?php echo  $layer->id; ?>)"></span>
+								   <span style="display:<?php echo ($layer->target_attr_layer) ? 'block' : 'none'; ?> " class="wds_play_btn_cont" onclick="wds_video_play_pause_layer(event,<?php echo  intval($wds) ; ?>,<?php echo intval($slide_row->id) ; ?>,<?php echo  intval($layer->id); ?>)">
+								   <span style="display:<?php echo ($layer->image_scale == 'on') ? 'none' : 'block'; ?> " class="wds_bigplay_layer" id="wds_bigplay_layer_<?php echo $wds . '_' . $slide_row->id . '_layer_' . $layer->id; ?>" onclick="wds_video_play_pause_layer(event,<?php echo  intval($wds) ; ?>,<?php echo intval($slide_row->id) ; ?>,<?php echo  intval($layer->id); ?>)"></span>
 								   </span>
                                   <video poster="<?php echo WDS()->plugin_url . '/images/blank.gif' ?>"
                                     style="background-image: url('<?php echo $layer->image_scale != 'on' ? $layer_image_url : ''; ?>'); -webkit-background-size: cover; -moz-background-size: cover;  -o-background-size: cover; background-size: cover;"
@@ -528,7 +528,7 @@ class WDSViewSlider {
                                                  position: absolute;
                                                  display: block;
                                                  opacity: 1 !important;"
-                                          onclick="<?php echo $layer->link ? 'window.open(\'' . $layer->link . '\', \'' . ($layer->target_attr_layer ? '_blank' : '_self') . '\');' : $layer_callback_list; ?>event.stopPropagation();">	
+                                          onclick="<?php echo $layer->link ? 'window.open(\'' . esc_js(esc_url($layer->link)) . '\', \'' . (intval($layer->target_attr_layer) ? '_blank' : '_self') . '\');' : esc_html($layer_callback_list); ?>event.stopPropagation();">
                                     </span> 
                                     <span class="wds_layer_<?php echo $layer->id; ?>"
                                           id="<?php echo $prefix; ?>_round_effect"
@@ -605,7 +605,7 @@ class WDSViewSlider {
                 <div class="wds_btn_cont wds_contTable">
                   <span class="wds_btn_cont wds_contTableCell" style="position: relative; text-align: left;">
                     <span class="wds_left_btn_cont">
-                      <span class="wds_left-ico_<?php echo $wds; ?>" onclick="wds_change_image('<?php echo $wds; ?>', parseInt(jQuery('#wds_current_image_key_<?php echo $wds; ?>').val()), 0 <= (parseInt(jQuery('#wds_current_image_key_<?php echo $wds; ?>').val()) - wds_iterator_wds(<?php echo $wds; ?>)) ? (parseInt(jQuery('#wds_current_image_key_<?php echo $wds; ?>').val()) - wds_iterator_wds(<?php echo $wds; ?>)) % wds_params[<?php echo $wds; ?>].wds_data.length : wds_params[<?php echo $wds; ?>].wds_data.length - 1, wds_data_<?php echo $wds; ?>, false, 'left'); return false;">
+                      <span class="wds_left-ico_<?php echo $wds; ?>" onclick="wds_change_image('<?php echo intval($wds); ?>', parseInt(jQuery('#wds_current_image_key_<?php echo $wds; ?>').val()), 0 <= (parseInt(jQuery('#wds_current_image_key_<?php echo $wds; ?>').val()) - wds_iterator_wds(<?php echo $wds; ?>)) ? (parseInt(jQuery('#wds_current_image_key_<?php echo $wds; ?>').val()) - wds_iterator_wds(<?php echo $wds; ?>)) % wds_params[<?php echo $wds; ?>].wds_data.length : wds_params[<?php echo $wds; ?>].wds_data.length - 1, wds_data_<?php echo $wds; ?>, false, 'left'); return false;">
                         <?php
                         if ($slider_row->rl_butt_img_or_not == 'style') {
                           ?>
@@ -676,7 +676,7 @@ class WDSViewSlider {
 		$script = WDW_S_Library::create_js( $slider_row, $slide_rows, $layers_rows, $wds, $current_key );
 		if ( ! WDW_S_Library::elementor_is_active() ) {
 			if ( function_exists('wp_add_inline_script') && ! $minify_plugin ) { // Since WordPress 4.5.0
-        $included = wp_add_inline_script('wds_frontend', $script, 'before');
+				$included = wp_add_inline_script('wds_frontend', $script, 'before');
         if ( !$included ) {
           wp_add_inline_script('jquery', $script, 'before');
         }

@@ -683,7 +683,8 @@ class SlidersController_wds {
         $order = WDW_S_Library::esc_sanitize_data($params_array, 'order' . $slide_id, 'sanitize_text_field');
         $published = (int) WDW_S_Library::esc_sanitize_data($params_array, 'published' . $slide_id, '', 0);
         $target_attr_slide = (int) WDW_S_Library::esc_sanitize_data($params_array, 'target_attr_slide' . $slide_id, '', 0);
-        $link = ((isset($params_array['link' . $slide_id])) ? WDW_S_Library::esc_sanitize_data($params_array, 'link' . $slide_id, 'sanitize_text_field') : ( ($type == 'video') ? 0 : '') );
+        $link = ((isset($params_array['link' . $slide_id])) ? WDW_S_Library::esc_sanitize_data($params_array, 'link' . $slide_id, 'sanitize_url') : ( ($type == 'video') ? 0 : '') );
+        $link = str_replace([')', '(', '\''], ['', '', ''], $link);
         $image_url = WDW_S_Library::esc_sanitize_data($params_array, 'image_url' . $slide_id, 'sanitize_text_field');
         $image_url = str_replace(site_url(), '{site_url}', $image_url);
         $thumb_url = WDW_S_Library::esc_sanitize_data($params_array, 'thumb_url' . $slide_id, 'esc_url');

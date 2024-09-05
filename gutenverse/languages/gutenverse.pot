@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gutenverse 2.0.3\n"
+"Project-Id-Version: Gutenverse 2.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gutenverse\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-29T06:54:58+00:00\n"
+"POT-Creation-Date: 2024-09-05T06:37:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: gutenverse\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Post Author"
 msgstr ""
 
-#: includes/block/class-post-block.php:355
+#: includes/block/class-post-block.php:360
 msgid "edit post"
 msgstr ""
 
@@ -238,12 +238,22 @@ msgstr ""
 msgid "%s ago"
 msgstr ""
 
-#: lib/framework/includes/block/class-block-abstract.php:211
+#: lib/framework/includes/block/class-block-abstract.php:216
 msgid "This content is password protected. To view it please enter this post password below:"
 msgstr ""
 
-#: lib/framework/includes/block/class-block-abstract.php:214
+#: lib/framework/includes/block/class-block-abstract.php:219
 msgid "Enter"
+msgstr ""
+
+#: lib/framework/includes/block/class-post-abstract.php:734
+#: lib/framework/assets/js/dashboard.js:2
+msgid "Prev"
+msgstr ""
+
+#: lib/framework/includes/block/class-post-abstract.php:769
+#: lib/framework/assets/js/dashboard.js:2
+msgid "Next"
 msgstr ""
 
 #: lib/framework/includes/class-api.php:894
@@ -2461,6 +2471,18 @@ msgid "Note: Auto Load on Scroll effect is disabled in editor mode, but it can b
 msgstr ""
 
 #: assets/js/blocks.js:2
+msgid "Show Text"
+msgstr ""
+
+#: assets/js/blocks.js:2
+msgid "\"Previous\" Text"
+msgstr ""
+
+#: assets/js/blocks.js:2
+msgid "\"Next\" Text"
+msgstr ""
+
+#: assets/js/blocks.js:2
 msgid "\"Load More\" Text"
 msgstr ""
 
@@ -2489,7 +2511,19 @@ msgid "Normal color"
 msgstr ""
 
 #: assets/js/blocks.js:2
+msgid "Active color"
+msgstr ""
+
+#: assets/js/blocks.js:2
+msgid "Disabled color"
+msgstr ""
+
+#: assets/js/blocks.js:2
 msgid "Hover color"
+msgstr ""
+
+#: assets/js/blocks.js:2
+msgid "Disabled Background"
 msgstr ""
 
 #: assets/js/blocks.js:2
@@ -2634,7 +2668,7 @@ msgid "Excerpt"
 msgstr ""
 
 #: assets/js/blocks.js:2
-msgid "Readmore"
+msgid "Read More"
 msgstr ""
 
 #: assets/js/blocks.js:2
@@ -6484,14 +6518,6 @@ msgstr ""
 
 #: lib/framework/assets/js/dashboard.js:2
 msgid "Version History"
-msgstr ""
-
-#: lib/framework/assets/js/dashboard.js:2
-msgid "Prev"
-msgstr ""
-
-#: lib/framework/assets/js/dashboard.js:2
-msgid "Next"
 msgstr ""
 
 #: lib/framework/assets/js/dashboard.js:2

@@ -26,6 +26,9 @@ if ( ! class_exists( __NAMESPACE__ . 'DarkModeWidget' ) ) {
 	 */
 	class DarkModeWidget extends \Elementor\Widget_Base {
 
+		// Dark Mode Utility.
+		use \WP_Dark_Mode\Traits\Utility;
+
 		/**
 		 * Get dark mode switch name
 		 *
@@ -113,33 +116,20 @@ if ( ! class_exists( __NAMESPACE__ . 'DarkModeWidget' ) ) {
 
 			$this->add_control(
 				'style', [
-					// 'type'        => 'wp_dark_mode_switch',
-					'type'        => \Elementor\Controls_Manager::SELECT,
-					'options' => [
-						1 => __( 'Style 1', 'wp-dark-mode' ),
-						2 => __( 'Style 2', 'wp-dark-mode' ),
-						3 => __( 'Style 3', 'wp-dark-mode' ),
-						4 => __( 'Style 4', 'wp-dark-mode' ),
-						5 => __( 'Style 5', 'wp-dark-mode' ),
-						6 => __( 'Style 6', 'wp-dark-mode' ),
-						7 => __( 'Style 7', 'wp-dark-mode' ),
-						8 => __( 'Style 8', 'wp-dark-mode' ),
-						9 => __( 'Style 9', 'wp-dark-mode' ),
-						10 => __( 'Style 10', 'wp-dark-mode' ),
-						11 => __( 'Style 11', 'wp-dark-mode' ),
-						12 => __( 'Style 12', 'wp-dark-mode' ),
-						13 => __( 'Style 13', 'wp-dark-mode' ),
-					],
+					'type'        => 'wp_dark_mode_switch',
+					'options' => array_merge([ 1, 2, 3, 20, 21 ], range(4, 19)),
 					'description' => 'Select the Dark Mode Switch Style',
 					'default'     => 1,
 					'id'          => 'wp-dark-mode-switch',
 					'classes' => 'wp-dark-mode-switch-style-elementor',
-
+					'assets_url' => WP_DARK_MODE_ASSETS . '/images/switches/',
+					'is_ultimate' => $this->is_ultimate(),
 				]
 			);
 
 			$this->add_control(
 				'size', [
+					'label' => __( 'Switch Size', 'wp-dark-mode' ),
 					'type' => \Elementor\Controls_Manager::SELECT,
 					'options' => [
 						'0.6' => __( 'XS', 'wp-dark-mode' ),
@@ -149,8 +139,7 @@ if ( ! class_exists( __NAMESPACE__ . 'DarkModeWidget' ) ) {
 						'1.4' => __( '2XL', 'wp-dark-mode' ),
 						'1.6' => __( '3XL', 'wp-dark-mode' ),
 					],
-					'description' => 'Select the Dark Mode Switch Size',
-					'default'     => 1,
+					'default'     => '1.0',
 				]
 			);
 

@@ -195,7 +195,7 @@ return [
 	__( 'Link Color', 'wp-dark-mode' ),
 	__( 'Link Hover Color', 'wp-dark-mode' ),
 	__( 'Background Color', 'wp-dark-mode' ),
-	__( 'Input Text Colo', 'wp-dark-mode' ),
+	__( 'Input Text Color', 'wp-dark-mode' ),
 	__( 'Placeholder Color', 'wp-dark-mode' ),
 	__( 'Button Text Color', 'wp-dark-mode' ),
 	__( 'Button Hover Text Color', 'wp-dark-mode' ),

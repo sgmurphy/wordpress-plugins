@@ -4515,7 +4515,18 @@ html[dir='rtl'] .toast-message:not(.bottom-pos) .active {
 .first-chaty-popup-data {
     position: relative;
     padding: 20px;
-    text-align: center
+    text-align: center;
+    background: url(../images/first-widget-before.png) no-repeat top left;
+}
+.first-chaty-popup-data:after {
+    content: '';
+    background: url(../images/first-widget-after.png) no-repeat bottom right;
+    width: 92px;
+    height: 77px;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 160px;
 }
 .first-chaty-popup-data img {
     margin: 0 auto;
@@ -5178,6 +5189,12 @@ span.device-view-txt {
 .view-pro-btn a:hover {
     box-shadow: 0 12px 12px -6px rgba(143, 89, 211, 0.52);
 }
+.chaty-primary-btn {
+    box-shadow: 0 12px 12px -6px rgba(183, 141, 235, 0.52);
+}
+.chaty-primary-btn:hover {
+    box-shadow: 0 12px 12px -6px rgba(143, 89, 211, 0.52);
+}
 .view-pro-bottom span svg {
     width: 12px;
     height: 12px;
@@ -5449,15 +5466,6 @@ a.close-dashboard-pro-box svg {
 }
 .text-center {
     text-align: center;
-}
-.first-widget-title {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 36px;
-    padding: 25px 0 0;
-}
-.first-widget-desc {
-    font-size: 16px;
 }
 .upgrade-features {
     background: rgba(248, 247, 255, 1);

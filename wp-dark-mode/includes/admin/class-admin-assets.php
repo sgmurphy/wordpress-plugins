@@ -166,6 +166,7 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 					'show_affiliate_notice' => 'hide' !== $this->get_value( 'affiliate_notice' ),
 					'installed_at' => $this->get_option( 'installed_at', null ),
 					'is_multisite' => is_multisite(),
+					'is_elementor_editor' => class_exists( 'Elementor\Plugin' ) && \Elementor\Plugin::$instance->editor->is_edit_mode(),
 				),
 
 				'is_excluded' => $this->is_excluded (),

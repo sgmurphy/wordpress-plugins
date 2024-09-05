@@ -392,7 +392,6 @@ return array(
     'Automattic\\WooCommerce\\GoogleListingsAndAds\\Menu\\Settings' => $baseDir . '/src/Menu/Settings.php',
     'Automattic\\WooCommerce\\GoogleListingsAndAds\\Menu\\SetupAds' => $baseDir . '/src/Menu/SetupAds.php',
     'Automattic\\WooCommerce\\GoogleListingsAndAds\\Menu\\SetupMerchantCenter' => $baseDir . '/src/Menu/SetupMerchantCenter.php',
-    'Automattic\\WooCommerce\\GoogleListingsAndAds\\Menu\\WooAdminNavigationTrait' => $baseDir . '/src/Menu/WooAdminNavigationTrait.php',
     'Automattic\\WooCommerce\\GoogleListingsAndAds\\MerchantCenter\\AccountService' => $baseDir . '/src/MerchantCenter/AccountService.php',
     'Automattic\\WooCommerce\\GoogleListingsAndAds\\MerchantCenter\\ContactInformation' => $baseDir . '/src/MerchantCenter/ContactInformation.php',
     'Automattic\\WooCommerce\\GoogleListingsAndAds\\MerchantCenter\\MerchantCenterAwareInterface' => $baseDir . '/src/MerchantCenter/MerchantCenterAwareInterface.php',
