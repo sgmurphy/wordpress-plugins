@@ -58,6 +58,15 @@ class WoofiltersWpf extends ModuleWpf {
 		add_filter( 'query_loop_block_query_vars', array( $this, 'addFilterToWoocommerceBlocksAgrs' ), 999, 3 ); 
 
 		add_action( 'woocommerce_shortcode_products_query', array( $this, 'loadShortcodeProductsFilter' ), 999, 3 );
+		
+		//for Beaver Builder block Posts
+		add_filter( 'fl_builder_loop_query_args', function( $args ) {
+			if (!empty($args['fl_builder_loop']) && !empty($args['post_type']) && ((is_array($args['post_type']) && in_array('product', $args['post_type'])) || ( 'product' == $args['post_type'] ))) {
+				$args = $this->loadShortcodeProductsFilter( $args );
+			}
+			return $args;
+		});
+
 		add_filter( 'uael_woo_product_query_args', array(
 			$this,
 			'loadShortcodeProductsFilter'
@@ -333,7 +342,7 @@ class WoofiltersWpf extends ModuleWpf {
 					}
 					if ( ! $found ) {
 						$functionList = array_column( $backtrace, 'function' );
-						$functionSearch = array('dnwoo_query_products');
+						$functionSearch = array('dnwoo_query_products', 'thegem_extended_products_get_posts');
 						foreach ( $functionSearch as $f ) {
 							if ( array_search($f, $functionList) > 5 ) {
 								$found = true;
@@ -4115,10 +4124,15 @@ class WoofiltersWpf extends ModuleWpf {
 			}
 		} else {
 			$i ++;
-			$clauses['join'][ $i ]  = ' INNER JOIN ' . DbWpf::getTableName( 'meta_data' ) . ' AS wpf_meta__#i ON (wpf_meta__#i.product_id=' . $wpdb->posts . '.ID AND wpf_meta__#i.key_id' . ( is_array( $keyId ) ? ' IN (' . implode( ',', $keyId ) . ')' : '=' . $keyId ) . ')' .
-				' INNER JOIN ' . DbWpf::getTableName( 'meta_values' ) . ' AS wpf_meta_values__#i ON (wpf_meta_values__#i.id=wpf_meta__#i.val_id)';
-			$clauses['where'][$i] = ' AND wpf_meta_values__#i.value+0' . $params['searchLogic'] . $params['values'][0];
-				
+			$keyDec = !empty($params['keyName']) && $this->getMetaKeyId($params['keyName'], 'meta_type') == 1;
+
+			$clauses['join'][ $i ] = ' INNER JOIN ' . DbWpf::getTableName( 'meta_data' ) . ' AS wpf_meta__#i ON (wpf_meta__#i.product_id=' . $wpdb->posts . '.ID AND wpf_meta__#i.key_id' . ( is_array( $keyId ) ? ' IN (' . implode( ',', $keyId ) . ')' : '=' . $keyId ) . ')';
+			if ($keyDec) {
+				$clauses['where'][$i] = ' AND wpf_meta__#i.val_dec' . $params['searchLogic'] . $params['values'][0];
+			} else {
+				$clauses['join'][ $i ] .= ' INNER JOIN ' . DbWpf::getTableName( 'meta_values' ) . ' AS wpf_meta_values__#i ON (wpf_meta_values__#i.id=wpf_meta__#i.val_id)';
+				$clauses['where'][$i] = ' AND wpf_meta_values__#i.value+0' . $params['searchLogic'] . $params['values'][0];
+			}
 		}
 		$this->addFilterClauses( $clauses, $isLight, $params['urlParam'] );
 

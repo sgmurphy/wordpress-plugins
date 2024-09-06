@@ -58,12 +58,12 @@ class Module {
 	 * @return array|mixed
 	 */
 	public function get_event_logs_data() {
+		if (! Permissions::check_permission( Permissions::$CAP_LOGS ) ) {
+			die( 'Sorry, you are not allowed to do this action!' );
+		}
+		
 		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
 			die( 'Sorry, your nonce did not verify!' );
-		}
-
-		if ( Utils::is_pro() && ! Permissions::check_permission( Permissions::$CAP_LOGS ) ) {
-			die( 'Sorry, you are not allowed to do this action!' );
 		}
 
 		$params = (array) json_decode( stripslashes( sanitize_text_field( $_POST['params'] ) ) );

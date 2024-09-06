@@ -1255,7 +1255,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 						if ( ! empty( $style ) ) {
 
 							ob_start();
-							include L_THEPLUS_PATH . 'includes/client/client-' . sanitize_file_name( $style ) . '.php';
+							include L_THEPLUS_WSTYLES . 'client/client-' . sanitize_file_name( $style ) . '.php';
 							$output .= ob_get_contents();
 							ob_end_clean();
 
@@ -1288,7 +1288,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 
 				if ( ! empty( $style ) ) {
 					ob_start();
-					include L_THEPLUS_PATH . 'includes/client/client-' . sanitize_file_name( $style ) . '.php';
+					include L_THEPLUS_WSTYLES . 'client/client-' . sanitize_file_name( $style ) . '.php';
 					$output .= ob_get_contents();
 					ob_end_clean();
 				}

@@ -187,8 +187,15 @@ final class L_Theplus_Element_Load {
 	 * @since 5.1.18
 	 */
 	public function tp_manage_files() {
+
+		require_once L_THEPLUS_PATH . 'includes/admin/tpae_hooks/class-tpae-hooks.php';
+		do_action( 'tpae_db_widget_default' );
+
 		include L_THEPLUS_PATH . 'includes/notices/class-tp-notices-main.php';
 		include L_THEPLUS_PATH . 'includes/user-experience/class-tp-user-experience-main.php';
+
+		// Front or Elementor Editor
+		require_once L_THEPLUS_PATH . 'includes/tp-lazy-function.php';
 	}
 
 	/**
@@ -232,34 +239,12 @@ final class L_Theplus_Element_Load {
 	 */
 	private function includes() {
 
-		require_once L_THEPLUS_INCLUDES_URL . 'tp-lazy-function.php';
-
 		if ( ! class_exists( 'CMB2' ) ) {
 			require_once L_THEPLUS_INCLUDES_URL . 'plus-options/metabox/init.php';
 		}
 
-		$option_name = 'default_plus_options';
-
-		$value = '1';
-
-		if ( is_admin() && false === get_option( $option_name ) ) {
-			$default_load = get_option( 'theplus_options' );
-
-			$autoload = 'no';
-
-			if ( ! empty( $default_load ) ) {
-				add_option( $option_name, $value, '', $autoload );
-			} else {
-				$theplus_options = get_option( 'theplus_options' );
-
-				$theplus_options['check_elements'] = array( 'tp_accordion', 'tp_adv_text_block', 'tp_blockquote', 'tp_blog_listout', 'tp_button', 'tp_contact_form_7', 'tp_countdown', 'tp_clients_listout', 'tp_gallery_listout', 'tp_flip_box', 'tp_heading_animation', 'tp_header_extras', 'tp_heading_title', 'tp_info_box', 'tp_navigation_menu_lite', 'tp_page_scroll', 'tp_progress_bar', 'tp_number_counter', 'tp_pricing_table', 'tp_scroll_navigation', 'tp_social_icon', 'tp_tabs_tours', 'tp_team_member_listout', 'tp_testimonial_listout', 'tp_video_player' );
-
-				add_option( 'theplus_options', $theplus_options, '', $autoload );
-				add_option( $option_name, $value, '', $autoload );
-			}
-		}
-
 		require_once L_THEPLUS_INCLUDES_URL . 'plus_addon.php';
+		require_once L_THEPLUS_PATH . 'modules/widgets-feature/class-tp-widgets-feature-main.php';
 
 		if ( file_exists( L_THEPLUS_INCLUDES_URL . 'plus-options/metabox/init.php' ) ) {
 			require_once L_THEPLUS_INCLUDES_URL . 'plus-options/includes.php';

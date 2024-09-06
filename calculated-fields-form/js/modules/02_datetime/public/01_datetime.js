@@ -360,10 +360,10 @@
 			if( /h/i.test( return_format ) ) r.hours = Math.floor( diff/3600000 );
 			else r.hours = Math.floor( diff%86400000/3600000 );
 
-			if( /i/i.test( return_format ) ) r.minutes = Math.floor( diff/60000 );
+			if( /i/i.test( return_format ) ) { r.hours = -1; r.minutes = Math.floor( diff/60000 ); }
 			else r.minutes = Math.floor( diff%86400000%3600000/60000 );
 
-			if( /s/i.test( return_format ) ) r.seconds = Math.floor( diff/1000);
+			if( /s/i.test( return_format ) ) { r.hours = -1; r.minutes = -1; r.seconds = Math.floor( diff/1000); }
 			else r.seconds = Math.floor( diff%86400000%3600000%60000/1000);
 		}
 		return r;

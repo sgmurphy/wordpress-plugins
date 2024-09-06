@@ -469,7 +469,7 @@ class HMWP_Controllers_Overview extends HMWP_Classes_FrontController
                 'connection' => false,
                 'logo' => 'dashicons-before dashicons-admin-plugins',
                 'link' => false,
-                'details' => HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/hide-my-wp-compatibility-plugins-list/',
+                'details' => HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/use-hide-my-wp-ghost-with-litespeed/',
                 'show' => HMWP_Classes_Tools::isPluginActive('litespeed-cache/litespeed-cache.php'),
             ),
             array(

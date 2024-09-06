@@ -87,7 +87,7 @@ echo '<div class="theplus-panel-welcome-page">';
 				echo '<div class="theplus-sec-subtitle">'.esc_html__('Notable additions made to The Plus Addons for Elementor.','tpebl').'</div>';
 				echo '<div class="theplus-sec-border"></div>';
 				echo '<div class="theplus-changelog-list">';
-					echo '<div class="changelog-date">August 23 , 2024 <span class="changelog-version">Lite Version 5.6.6</span></div>';
+					echo '<div class="changelog-date">September 06 , 2024 <span class="changelog-version">Lite Version 5.6.7</span></div>';
 						echo '<ul class="changelog-list">';
 							echo '<li>'.esc_html__('Update : Plus Extras : Advanced shadow Document Link Update', 'tpebl').'</li>';
 							echo '<li>'.esc_html__('Fix : Info Box : Backend ( Elementor Editor ) style 4 load Issue', 'tpebl').'</li>';
@@ -98,7 +98,7 @@ echo '<div class="theplus-panel-welcome-page">';
 
 				echo '<div class="theplus-sec-border" style="width:100%;height:1px;background:#DBDBDB;"></div>';
 				echo '<div class="theplus-changelog-list">';
-					echo '<div class="changelog-date">June 26 , 2024 <span class="changelog-version">Pro Version 5.6.2</span></div>';
+					echo '<div class="changelog-date">August 23 , 2024 <span class="changelog-version">Pro Version 5.6.2</span></div>';
 						echo '<ul class="changelog-list">';
 							echo '<li>'.esc_html__('Add : Social Sharing : Add Instagram Option', 'tpebl').'</li>';
 							echo '<li>'.esc_html__('Add : Table : Google Sheet New Align Option Added', 'tpebl').'</li>';

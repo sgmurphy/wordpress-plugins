@@ -1056,7 +1056,7 @@ class SSA_Support {
 				$notifications,
 				function( $notification ) {
 					return (
-						! empty( $notification['active'] ) &&
+						( !isset( $notification['active'] ) || true == $notification['active'] ) &&
 						'appointment_booked' === $notification['trigger'] &&
 						strpos( implode( ';', $notification['sent_to'] ), 'customer_email' ) !== false
 					);

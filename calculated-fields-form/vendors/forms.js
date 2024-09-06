@@ -85,6 +85,11 @@ cff_forms_templates = {
             "description": "Calculates the working days between two dates, excluding specific days of the week.",
             "id": 8
         }, {
+            "title": "Dates Difference",
+            "category": "Dates Operations",
+            "description": "It calculates the difference between two dates using the DATEDIFF operation.",
+            "id": 55
+        }, {
             "title": "Increasing Dates",
             "category": "Dates Operations",
             "description": "Adds X days to a date by excluding specific days of the week.",

@@ -10,6 +10,7 @@ use Curl\ArrayUtil;
 use Curl\Decoder;
 use Curl\Url;
 
+#[\AllowDynamicProperties]
 class Curl
 {
     const VERSION = '8.9.0';
@@ -924,7 +925,7 @@ class Curl
      */
     public function setDefaultUserAgent()
     {
-        $user_agent = 'PHP-Curl-Class/' . self::VERSION . ' (+https://github.com/php-curl-class/php-curl-class)';
+        $user_agent = 'PHP-Curl-Class/' . self::VERSION;
         $user_agent .= ' PHP/' . PHP_VERSION;
         $curl_version = curl_version();
         $user_agent .= ' curl/' . $curl_version['version'];

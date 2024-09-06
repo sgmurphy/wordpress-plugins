@@ -4,7 +4,7 @@ Tags: elementor form db, contact form 7 db, contact form db, contact form 7, ele
 Requires at least: 5.0
 Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 1.4.12
+Stable tag: 1.4.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ Yes, it's pretty simple; just click on the Quick Export option on the Form Vibes
 5. **Export submission into a CSV file**
 
 == Changelog ==
+= 1.4.13 =
+* Fixed: Code improved and current user validation added.
+
 = 1.4.12 =
 * Fixed: User role permissions validation check added.
 

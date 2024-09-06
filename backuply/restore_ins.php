@@ -5,8 +5,21 @@
 * (c) Backuply Team
 */
 
+if(empty($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST' || !backuply_verify_self()){
+	die('HACKING ATTEMPT!');
+}
+
 if(!set_time_limit(300)){
 	set_time_limit(60);
+}
+
+$keepalive = 25;
+if(function_exists('ini_get')){
+	$max_execution_time = (int) ini_get('max_execution_time');
+
+	if(!empty($max_execution_time) && $max_execution_time > 180){
+		$keepalive = 60;
+	}
 }
 
 ignore_user_abort(true); // Dont abort if user aborts
@@ -15,10 +28,6 @@ ignore_user_abort(true); // Dont abort if user aborts
 //Constants
 define('ARCHIVE_TAR_ATT_SEPARATOR', 90001);
 define('ARCHIVE_TAR_END_BLOCK', pack('a512', ''));
-
-if(empty($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST' || !backuply_verify_self()){
-	die('HACKING ATTEMPT!');
-}
 
 include_once __DIR__ .'/lib/Curl/Curl.php';
 use Curl\Curl;
@@ -1414,6 +1423,15 @@ class softtar{
 		}
 
 		clearstatcache();
+		
+		// We will just to the last byte we read in the previous loop.
+		if(!empty($GLOBALS['last_byte']) && empty($p_file_list)){
+			$did_jump = $this->_jumpBlock(ceil(($GLOBALS['last_byte']/512)));
+
+			if(!empty($did_jump)){
+				$GLOBALS['start'] = 1;
+			}
+		}
 
 		while(strlen($v_binary_data = $this->_readBlock()) != 0){
 			$v_extract_file = FALSE;
@@ -1671,6 +1689,7 @@ class softtar{
 			// We can run the scripts for the end time already set
 			if(time() >= $GLOBALS['end']){
 				$GLOBALS['end_file'] = $last_file; // set end file so that we know where to start from
+				$GLOBALS['end_byte'] = ftell($this->_file);
 				break;
 			}
 		}
@@ -2866,6 +2885,7 @@ function final_restore_response($output, $error_str = '') {
 	$curl->setTimeout(5);
 	$curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
 	$curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
+	$curl->setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36');
 	$curl->get($url);
 
 	die();
@@ -2895,12 +2915,13 @@ function restore_curl($data) {
 	handle_restore_status($data);
 	
 	$curl = new Curl();
-	
+
 	$curl->setConnectTimeout(5);
 	$curl->setTimeout(5);
 	$curl->setOpt(CURLOPT_SSL_VERIFYPEER, FALSE);
 	$curl->setOpt(CURLOPT_SSL_VERIFYHOST, FALSE);
 	$curl->setReferer((!empty($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http') .'://'. $_SERVER['SERVER_NAME']);
+	$curl->setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36');
 	
 	$curl->post(backuply_optPOST('restore_curl_url'), $data);
 	
@@ -3235,7 +3256,6 @@ if(empty($can_write)){
 
 // We need to stop execution in 25 secs.. We will be called again if the process is incomplete
 // Set default value
-$keepalive = 25;
 $GLOBALS['end'] = (int) time() + $keepalive;
 
 // Empty last file everytime as a precaution
@@ -3244,6 +3264,9 @@ $GLOBALS['last_file'] = backuply_optPOST('last_file');
 if(!empty($GLOBALS['last_file'])){			
 	$GLOBALS['last_file'] = rawurldecode($GLOBALS['last_file']);
 }
+
+$GLOBALS['last_byte'] = 0;
+$GLOBALS['last_byte'] = (int) backuply_optPOST('last_byte', 0);
 
 $GLOBALS['current_status'] = 0;
 $GLOBALS['current_status'] = (int) backuply_optPOST('current_status');
@@ -3288,6 +3311,7 @@ if(!empty($data['restore_dir']) && empty($GLOBALS['current_status'])){
 	// Is the backup process INCOMPLETE ?
 	if(!empty($GLOBALS['end_file'])){
 		$data['last_file'] = $GLOBALS['end_file'];
+		$data['last_byte'] = $GLOBALS['end_byte'];
 		$data['status'] = 1;
 		backuply_status_log('Restoring: ' .$GLOBALS['end_file']);
 		backuply_die('INCOMPLETE', $GLOBALS['end_file']);

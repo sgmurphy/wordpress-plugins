@@ -116,6 +116,18 @@ class ABH_Core_UserSettings extends ABH_Classes_BlockController {
 				$settings['abh_youtube']    = ABH_CLasses_Tools::getValue( 'abh_youtube' );
 				$settings['abh_vimeo']      = ABH_CLasses_Tools::getValue( 'abh_vimeo' );
 
+				$urlregex = '/[^a-zA-Z\/:\?&.\-_]/';
+				$settings['abh_twitter'] = preg_replace($urlregex,'', $settings['abh_twitter']);
+				$settings['abh_facebook'] = preg_replace($urlregex,'', $settings['abh_facebook']);
+				$settings['abh_google'] = preg_replace($urlregex,'', $settings['abh_google']);
+				$settings['abh_linkedin'] = preg_replace($urlregex,'', $settings['abh_linkedin']);
+				$settings['abh_instagram'] = preg_replace($urlregex,'', $settings['abh_instagram']);
+				$settings['abh_flickr'] = preg_replace($urlregex,'', $settings['abh_flickr']);
+				$settings['abh_pinterest'] = preg_replace($urlregex,'', $settings['abh_pinterest']);
+				$settings['abh_tumblr'] = preg_replace($urlregex,'', $settings['abh_tumblr']);
+				$settings['abh_youtube'] = preg_replace($urlregex,'', $settings['abh_youtube']);
+				$settings['abh_vimeo'] = preg_replace($urlregex,'', $settings['abh_vimeo']);
+
 				// --
 				$settings['abh_theme']    = ABH_CLasses_Tools::getValue( 'abh_theme' );
 				$settings['abh_position'] = ABH_CLasses_Tools::getValue( 'abh_position' );

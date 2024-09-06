@@ -1150,7 +1150,7 @@ $quiz_message_before_redirect_timer = (isset($options['quiz_message_before_redir
 $buttons_mobile_font_size = (isset($options['buttons_mobile_font_size']) && $options['buttons_mobile_font_size'] != '') ? absint( esc_attr( $options['buttons_mobile_font_size'] ) ) : 18;
 
 // Change current quiz creation date
-$change_creation_date = (isset($options['create_date']) && $options['create_date'] != '') ? $options['create_date'] : current_time( 'mysql' );
+$change_creation_date = ( isset($options['create_date']) && Quiz_Maker_Admin::validateDate($options['create_date']) ) ? esc_attr( stripslashes($options['create_date']) ) : current_time( 'mysql' );
 
 // Answers box shadow
 $options['answers_box_shadow'] = isset($options['answers_box_shadow']) ? esc_attr($options['answers_box_shadow']) : 'off';
@@ -1377,7 +1377,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
     <div class="container-fluid">
         <form class="ays-quiz-category-form" id="ays-quiz-category-form" method="post">
             <input type="hidden" name="ays_quiz_tab" value="<?php echo esc_attr($ays_quiz_tab); ?>">
-            <input type="hidden" name="ays_quiz_ctrate_date" value="<?php echo $quiz_create_date; ?>">
+            <input type="hidden" name="ays_quiz_ctrate_date" value="<?php echo esc_attr($quiz_create_date); ?>">
             <input type="hidden" name="ays_quiz_author" value="<?php echo esc_attr(json_encode($quiz_author, JSON_UNESCAPED_SLASHES)); ?>">
             <input type="hidden" class="quiz_wp_editor_height" value="<?php echo $quiz_wp_editor_height; ?>">
             <div class="ays-quiz-heading-box">
@@ -8062,208 +8062,208 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
             
             <div id="tab6" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab6') ? 'ays-quiz-tab-content-active' : ''; ?>">
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_accordion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('User Information',$this->plugin_name)?></p>
-                </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <div class="form-group row ays-quiz-result-message-vars-parent">
-                    <div class="col-sm-4">
-                        <label for="ays_form_title">
-                            <?php echo __('Information Form title',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Description of the Information Form which will be shown at the top of the Form Fields.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('User Information',$this->plugin_name)?></p>
                     </div>
-                    <div class="col-sm-8" style="border-left: 1px solid #ccc">
-                        <?php
-                        echo $quiz_message_vars_information_form_html;
-                        $content = wpautop(stripslashes((isset($options['form_title'])) ? $options['form_title'] : ''));
-                        $editor_id = 'ays_form_title';
-                        $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_form_title', 'editor_class' => 'ays-textarea', 'media_elements' => false);
-                        wp_editor($content, $editor_id, $settings);
-                        ?>
-                    </div>
-                </div>
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-2">
-                        <label for="ays_information_form">
-                            <?php echo __('Information form',$this->plugin_name)?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Data form for the user personal information. You can choose when the Information Form will be shown for completion.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="information_form_settings">
-                            <select name="ays_information_form" id="ays_information_form">
-                                <option value="after" <?php echo (isset($options['information_form']) && $options['information_form'] == 'after') ? 'selected' : ''; ?>>
-                                    <?php echo __('After Quiz',$this->plugin_name)?>
-                                </option>
-                                <option value="before" <?php echo (isset($options['information_form']) && $options['information_form'] == 'before') ? 'selected' : ''; ?>>
-                                    <?php echo __('Before Quiz',$this->plugin_name)?>
-                                </option>
-                                <option value="disable" <?php echo (isset($options['information_form']) && $options['information_form'] == 'disable') ? 'selected' : ''; ?>>
-                                    <?php echo __('Disable',$this->plugin_name)?>
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-8" style="border-left: 1px solid #ccc">
-                        <div class="information_form_options" <?php echo (!isset($options['information_form']) || $options['information_form'] == "disable") ? 'style="display:none"' : ''; ?>>
-                            <p class="ays_required_field_title"><?php echo __('Form Fields',$this->plugin_name)?></p>
-                            <hr>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="ays_form_name" name="ays_form_name"
-                                       value="on" <?php echo (isset($options['form_name']) && $options['form_name'] !== '') ? 'checked' : ''; ?>/>
-                                <label class="form-check-label" for="ays_form_name"><?php echo __('Name',$this->plugin_name)?></label>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
+                        <div class="form-group row ays-quiz-result-message-vars-parent">
+                            <div class="col-sm-4">
+                                <label for="ays_form_title">
+                                    <?php echo __('Information Form title',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Description of the Information Form which will be shown at the top of the Form Fields.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="ays_form_email"
-                                       name="ays_form_email"
-                                       value="on" <?php echo (isset($options['form_email']) && $options['form_email'] !== '') ? 'checked' : ''; ?>/>
-                                <label class="form-check-label" for="ays_form_email"><?php echo __('Email',$this->plugin_name)?></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="ays_form_phone"
-                                       name="ays_form_phone"
-                                       value="on" <?php echo (isset($options['form_phone']) && $options['form_phone'] !== '') ? 'checked' : ''; ?>/>
-                                <label class="form-check-label" for="ays_form_phone"><?php echo __('Phone',$this->plugin_name)?></label>
-                            </div>
-                            <hr>
-                            <p class="ays_required_field_title"><?php echo __('Required Fields',$this->plugin_name)?></p>
-                            <hr>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="ays_form_name_required"
-                                       name="ays_required_field[]"
-                                       value="ays_user_name" <?php echo (in_array('ays_user_name', $required_fields)) ? 'checked' : ''; ?>/>
-                                <label class="form-check-label" for="ays_form_name_required"><?php echo __('Name',$this->plugin_name)?></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="ays_form_email_required"
-                                       name="ays_required_field[]"
-                                       value="ays_user_email" <?php echo (in_array('ays_user_email', $required_fields)) ? 'checked' : ''; ?>/>
-                                <label class="form-check-label" for="ays_form_email_required"><?php echo __('Email',$this->plugin_name)?></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="ays_form_phone_required"
-                                       name="ays_required_field[]"
-                                       value="ays_user_phone" <?php echo (in_array('ays_user_phone', $required_fields)) ? 'checked' : ''; ?>/>
-                                <label class="form-check-label" for="ays_form_phone_required"><?php echo __('Phone',$this->plugin_name)?></label>
+                            <div class="col-sm-8" style="border-left: 1px solid #ccc">
+                                <?php
+                                echo $quiz_message_vars_information_form_html;
+                                $content = wpautop(stripslashes((isset($options['form_title'])) ? $options['form_title'] : ''));
+                                $editor_id = 'ays_form_title';
+                                $settings = array('editor_height' => $quiz_wp_editor_height, 'textarea_name' => 'ays_form_title', 'editor_class' => 'ays-textarea', 'media_elements' => false);
+                                wp_editor($content, $editor_id, $settings);
+                                ?>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row only_pro" style="position:relative;padding:15px;">
-                    <div class="pro_features pro_features_popup">
-                        <div class="pro-features-popup-conteiner">
-                            <div class="pro-features-popup-title">
-                                <?php echo __("Custom Field", $this->plugin_name); ?>
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="ays_information_form">
+                                    <?php echo __('Information form',$this->plugin_name)?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Data form for the user personal information. You can choose when the Information Form will be shown for completion.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
                             </div>
-                            <div class="pro-features-popup-content" data-link="https://youtu.be/SEv7ZY7idtE">
-                                <p>
-                                    <?php echo sprintf( __("Custom Fields will allow you to create various fields with %s 8 available field types, %s including text, number, telephone. With just two simple steps, you can get any information you wish from the Quiz takers and add  %s GDPR %s checkbox as well. Get personal data, such as gender, country, age etc.", $this->plugin_name),
-                                        "<strong>",
-                                        "</strong>",
-                                        "<strong>",
-                                        "</strong>"
-                                    ); ?>
-                                </p>
-                                <div>
-                                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                            <div class="col-sm-2">
+                                <div class="information_form_settings">
+                                    <select name="ays_information_form" id="ays_information_form">
+                                        <option value="after" <?php echo (isset($options['information_form']) && $options['information_form'] == 'after') ? 'selected' : ''; ?>>
+                                            <?php echo __('After Quiz',$this->plugin_name)?>
+                                        </option>
+                                        <option value="before" <?php echo (isset($options['information_form']) && $options['information_form'] == 'before') ? 'selected' : ''; ?>>
+                                            <?php echo __('Before Quiz',$this->plugin_name)?>
+                                        </option>
+                                        <option value="disable" <?php echo (isset($options['information_form']) && $options['information_form'] == 'disable') ? 'selected' : ''; ?>>
+                                            <?php echo __('Disable',$this->plugin_name)?>
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-custom-field-option">
-                                <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                            <div class="col-sm-8" style="border-left: 1px solid #ccc">
+                                <div class="information_form_options" <?php echo (!isset($options['information_form']) || $options['information_form'] == "disable") ? 'style="display:none"' : ''; ?>>
+                                    <p class="ays_required_field_title"><?php echo __('Form Fields',$this->plugin_name)?></p>
+                                    <hr>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="ays_form_name" name="ays_form_name"
+                                               value="on" <?php echo (isset($options['form_name']) && $options['form_name'] !== '') ? 'checked' : ''; ?>/>
+                                        <label class="form-check-label" for="ays_form_name"><?php echo __('Name',$this->plugin_name)?></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="ays_form_email"
+                                               name="ays_form_email"
+                                               value="on" <?php echo (isset($options['form_email']) && $options['form_email'] !== '') ? 'checked' : ''; ?>/>
+                                        <label class="form-check-label" for="ays_form_email"><?php echo __('Email',$this->plugin_name)?></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="ays_form_phone"
+                                               name="ays_form_phone"
+                                               value="on" <?php echo (isset($options['form_phone']) && $options['form_phone'] !== '') ? 'checked' : ''; ?>/>
+                                        <label class="form-check-label" for="ays_form_phone"><?php echo __('Phone',$this->plugin_name)?></label>
+                                    </div>
+                                    <hr>
+                                    <p class="ays_required_field_title"><?php echo __('Required Fields',$this->plugin_name)?></p>
+                                    <hr>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="ays_form_name_required"
+                                               name="ays_required_field[]"
+                                               value="ays_user_name" <?php echo (in_array('ays_user_name', $required_fields)) ? 'checked' : ''; ?>/>
+                                        <label class="form-check-label" for="ays_form_name_required"><?php echo __('Name',$this->plugin_name)?></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="ays_form_email_required"
+                                               name="ays_required_field[]"
+                                               value="ays_user_email" <?php echo (in_array('ays_user_email', $required_fields)) ? 'checked' : ''; ?>/>
+                                        <label class="form-check-label" for="ays_form_email_required"><?php echo __('Email',$this->plugin_name)?></label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" id="ays_form_phone_required"
+                                               name="ays_required_field[]"
+                                               value="ays_user_phone" <?php echo (in_array('ays_user_phone', $required_fields)) ? 'checked' : ''; ?>/>
+                                        <label class="form-check-label" for="ays_form_phone_required"><?php echo __('Phone',$this->plugin_name)?></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row only_pro" style="position:relative;padding:15px;">
+                            <div class="pro_features pro_features_popup">
+                                <div class="pro-features-popup-conteiner">
+                                    <div class="pro-features-popup-title">
+                                        <?php echo __("Custom Field", $this->plugin_name); ?>
+                                    </div>
+                                    <div class="pro-features-popup-content" data-link="https://youtu.be/SEv7ZY7idtE">
+                                        <p>
+                                            <?php echo sprintf( __("Custom Fields will allow you to create various fields with %s 8 available field types, %s including text, number, telephone. With just two simple steps, you can get any information you wish from the Quiz takers and add  %s GDPR %s checkbox as well. Get personal data, such as gender, country, age etc.", $this->plugin_name),
+                                                "<strong>",
+                                                "</strong>",
+                                                "<strong>",
+                                                "</strong>"
+                                            ); ?>
+                                        </p>
+                                        <div>
+                                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                        </div>
+                                    </div>
+                                    <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-custom-field-option">
+                                        <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>
+                                    <?php echo __('Add custom fields',$this->plugin_name); ?>
+                                    <a class="ays_help" tabindex="-1" data-toggle="tooltip" title="<?php echo __('You can add form custom fields from “Custom fields” page in Quiz Maker menu.  (text, textarea, checkbox, select, URL etc.)',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8 ays_divider_left">
+                                <blockquote>
+                                    <?php echo __("For creating custom fields click", $this->plugin_name); ?>
+                                    <a href="?page=<?php echo $this->plugin_name; ?>-quiz-attributes" target="_blank" ><?php echo __("here", $this->plugin_name); ?></a>
+                                </blockquote>
+                            </div>
+                            <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-custom-field-option" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                <div class="ays-quiz-new-upgrade-button-box">
+                                    <div>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                </div>
+                            </a>
+                            <div class="ays-quiz-new-watch-video-button-box">
+                                <div>
+                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                </div>
+                                <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_show_information_form">
+                                    <?php echo __('Show Information Form to logged-in users',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Enable the option if you want to show the Information Form to logged-in users as well. If the option is disabled, then logged-in users will not see the Information Form before or after the quiz, but the system will collect the Name and Email info from their WP accounts and store in the Name and Email fields in the database.',$this->plugin_name)?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="information_form_settings">
+                                    <input type="checkbox" id="ays_show_information_form" name="ays_show_information_form" value="on" <?php echo $show_information_form ? "checked" : ""; ?>>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_autofill_user_data">
+                                    <?php echo __('Autofill logged-in user data',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('After enabling this option, logged in  user’s name and email will be autofilled in Information Form.',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="information_form_settings">
+                                    <input type="checkbox" id="ays_autofill_user_data" name="ays_autofill_user_data" value="on" <?php echo $autofill_user_data ? "checked" : ""; ?>>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label for="ays_display_fields_labels">
+                                    <?php echo __('Display form fields with labels',$this->plugin_name); ?>
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr__('Show labels of form fields on the top of each field. Texts of labels will be taken from the "Fields placeholder" section on the General setting page.',$this->plugin_name); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="information_form_settings">
+                                    <input type="checkbox" id="ays_display_fields_labels" name="ays_display_fields_labels" value="on" <?php echo $display_fields_labels ? "checked" : ""; ?>>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <label>
-                            <?php echo __('Add custom fields',$this->plugin_name); ?>
-                            <a class="ays_help" tabindex="-1" data-toggle="tooltip" title="<?php echo __('You can add form custom fields from “Custom fields” page in Quiz Maker menu.  (text, textarea, checkbox, select, URL etc.)',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8 ays_divider_left">
-                        <blockquote>
-                            <?php echo __("For creating custom fields click", $this->plugin_name); ?>
-                            <a href="?page=<?php echo $this->plugin_name; ?>-quiz-attributes" target="_blank" ><?php echo __("here", $this->plugin_name); ?></a>
-                        </blockquote>
-                    </div>
-                    <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-custom-field-option" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                        <div class="ays-quiz-new-upgrade-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                        </div>
-                    </a>
-                    <div class="ays-quiz-new-watch-video-button-box">
-                        <div>
-                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                        </div>
-                        <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                    </div>
                 </div>
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_show_information_form">
-                            <?php echo __('Show Information Form to logged-in users',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Enable the option if you want to show the Information Form to logged-in users as well. If the option is disabled, then logged-in users will not see the Information Form before or after the quiz, but the system will collect the Name and Email info from their WP accounts and store in the Name and Email fields in the database.',$this->plugin_name)?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="information_form_settings">
-                            <input type="checkbox" id="ays_show_information_form" name="ays_show_information_form" value="on" <?php echo $show_information_form ? "checked" : ""; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_autofill_user_data">
-                            <?php echo __('Autofill logged-in user data',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('After enabling this option, logged in  user’s name and email will be autofilled in Information Form.',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="information_form_settings">
-                            <input type="checkbox" id="ays_autofill_user_data" name="ays_autofill_user_data" value="on" <?php echo $autofill_user_data ? "checked" : ""; ?>>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-4">
-                        <label for="ays_display_fields_labels">
-                            <?php echo __('Display form fields with labels',$this->plugin_name); ?>
-                            <a class="ays_help" data-toggle="tooltip" title="<?php echo esc_attr__('Show labels of form fields on the top of each field. Texts of labels will be taken from the "Fields placeholder" section on the General setting page.',$this->plugin_name); ?>">
-                                <i class="ays_fa ays_fa_info_circle"></i>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="information_form_settings">
-                            <input type="checkbox" id="ays_display_fields_labels" name="ays_display_fields_labels" value="on" <?php echo $display_fields_labels ? "checked" : ""; ?>>
-                        </div>
-                    </div>
-                </div>
-               </div>
-              </div>
             </div>
             
             <div id="tab7" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab7') ? 'ays-quiz-tab-content-active' : ''; ?>">
@@ -9642,7 +9642,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 if ( isset( $question['options']) && !is_null( $question['options'] ) ) {
                                     $question_options = json_decode($question['options'], true);
                                 }
-                                $date = isset($question['create_date']) && $question['create_date'] != '' ? $question['create_date'] : "0000-00-00 00:00:00";
+                                $date = isset($question['create_date']) && Quiz_Maker_Admin::validateDate($question['create_date']) ? esc_attr( stripslashes($question['create_date']) ) : "0000-00-00 00:00:00";
                                 if(isset($question_options['author'])){
                                     if(is_array($question_options['author'])){
                                         $author = $question_options['author'];

@@ -112,6 +112,12 @@ Download it from the Wordpress directory and try it out. Having an author box af
 16. Author Box with Drop-Down Theme
 
 == Changelog ==
+= 3.5.3 =
+* Update the social URL validation
+* Change call to static in tools
+* Add the option to remove Posts from Sitemap News in Google News
+* Add the option to set SEO Automation for each language with WPML plugin
+
 = 3.5.2 =
 * Update plugin style and layouts
 * Fixed compatibility with default WP Themes like Twenty Twenty-Four

@@ -157,7 +157,8 @@ function backuply_backup_request(){
 		'timeout' => 0.01,
 		'blocking' => false,
 		'cookies' => array(LOGGED_IN_COOKIE => $_COOKIE[LOGGED_IN_COOKIE]),
-		'sslverify' => false
+		'sslverify' => false,
+		'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
 	));
 
 	if(empty($res) || is_wp_error($res)){
@@ -480,7 +481,8 @@ function backuply_update_serialization($keepalive, $options = array(), $i = null
 	wp_remote_post($url, array(
 		'body' => $body,
 		'timeout' => 2,
-		'sslverify' => false
+		'sslverify' => false,
+		'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
 	));
 	
 	die();

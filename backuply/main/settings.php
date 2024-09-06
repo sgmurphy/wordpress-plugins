@@ -898,7 +898,7 @@ function backuply_page_backup(){
 		$remote_backup_locs[$location_id]['name'] = $loc_name;
 		$remote_backup_locs[$location_id]['protocol'] = $protocol;
 		$remote_backup_locs[$location_id]['backup_loc'] = $backup_loc;
-		$remote_backup_locs[$location_id]['full_backup_loc'] = $full_backup_loc;
+		$remote_backup_locs[$location_id]['full_backup_loc'] = !empty($full_backup_loc) ? $full_backup_loc : '';
 
 		if($protocol == 'dropbox'){
 			$remote_backup_locs[$location_id]['dropbox_token'] = $dropbox_access_token;

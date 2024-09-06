@@ -832,7 +832,7 @@ function backuply_license(){
 		return;
 	}
 
-	$resp = wp_remote_get(BACKUPLY_API.'/license.php?license='.$license.'&url='.rawurlencode(esc_url_raw(home_url())), array('timeout' => 30));
+	$resp = wp_remote_get(BACKUPLY_API.'/license.php?license='.$license.'&url='.rawurlencode(esc_url_raw(home_url())), array('timeout' => 30, 'sslverify' => false));
 
 	if(is_array($resp)){
 		$json = json_decode($resp['body'], true);
@@ -1528,8 +1528,13 @@ function backuply_wp_clone_sql($table, $field_prefix, $keepalive, $i = null){
 			if(preg_match('/^a:(.*?):{/is', $rv[$field_prefix.'_value']) || preg_match('/^O:(.*?):{/is', $rv[$field_prefix.'_value'])){
 				
 				if(preg_match('/^utf8(.*?)/is', $wpdb->charset) && empty($conn)){
-					$_unserialize = backuply_unserialize(mb_convert_encoding($rv[$field_prefix.'_value'], 'UTF-8', 'ISO-8859-1'));
-					$updated_data = (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) ? addslashes(mb_convert_encoding(serialize($_unserialize), 'ISO-8859-1', 'UTF-8')) : mb_convert_encoding(serialize($_unserialize), 'ISO-8859-1', 'UTF-8');
+					$encoding = mb_detect_encoding($rv[$field_prefix.'_value']);
+					if(empty($encoding)){
+						$encoding = 'ISO-8859-1';
+					}
+
+					$_unserialize = backuply_unserialize(mb_convert_encoding($rv[$field_prefix.'_value'], 'UTF-8', 'auto'));
+					$updated_data = (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) ? addslashes(mb_convert_encoding(serialize($_unserialize), $encoding, 'UTF-8')) : mb_convert_encoding(serialize($_unserialize), $encoding, 'UTF-8');
 				}else{
 					$_unserialize = backuply_unserialize($rv[$field_prefix.'_value']);
 					$updated_data = (!function_exists('get_magic_quotes_gpc') || !get_magic_quotes_gpc()) ? addslashes(serialize($_unserialize)) : serialize($_unserialize);
@@ -1704,7 +1709,8 @@ function backuply_restore_curl($info = array()) {
 		'sslverify' => false,
 		'headers' => [
 			'Referer' => (!empty($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME'] : 'http') .'://'. $_SERVER['SERVER_NAME'],
-		]
+		],
+		'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
 	);
 
 	wp_remote_post($info['restore_curl_url'], $args);

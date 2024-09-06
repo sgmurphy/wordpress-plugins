@@ -66,6 +66,11 @@ class Settings {
 			]`
 	 */
 	public function save_columns_settings() {
+
+		if ( ! Permissions::check_permission( Permissions::$CAP_SUBMISSIONS ) ) {
+			die( 'Sorry, you are not allowed to do this action!' );
+		}
+		
 		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
 			die( 'Sorry, your nonce did not verify!' );
 		}
@@ -155,13 +160,14 @@ class Settings {
 				]
 			`
 	 */
+	// Check Done
 	public function reset_settings() {
+		if(!current_user_can('manage_options')){
+			die('Sorry, you are not allowed to do this action!');
+		}
+		
 		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
 			die( 'Sorry, your nonce did not verify!' );
-		}
-
-		if ( Utils::is_pro() && ! Permissions::check_permission( '' ) ) {
-			die( 'Sorry, you are not allowed to do this action!' );
 		}
 
 		$is_saved = update_option( 'fvSettings', $this->get_default_settings_value(), false );
@@ -241,12 +247,13 @@ class Settings {
 				]`
 	 */
 	public function save_settings() {
-		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
-			die( 'Sorry, your nonce did not verify!' );
+		
+		if(! current_user_can('manage_options')){
+			die('Sorry, you are not allowed to do this action!');
 		}
 
-		if ( Utils::is_pro() && ! Permissions::check_permission( '' ) ) {
-			die( 'Sorry, you are not allowed to do this action!' );
+		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
+			die( 'Sorry, your nonce did not verify!' );
 		}
 
 		$settings = (array) json_decode( stripslashes( sanitize_text_field( $_POST['params'] ) ) );

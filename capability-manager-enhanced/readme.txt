@@ -3,10 +3,10 @@
 Contributors: publishpress, kevinB, stevejburge, andergmartins, olatechpro
 Author: PublishPress
 Author URI: https://publishpress.com
-Tags: capabilities, permissions, admin menus, user roles, user role editor, access control, members, edit capabilities, publishpress capabilities, multisite capabilities, roles access, post editing screen, taxonomy capabilities, post permissions, user testing, user switching, hide metaboxes, hide editor features, media library capabilities, post type permissions, user role capabilities, edit user roles, administrator, editor, subscriber, contributor, author, shop manager
+Tags: capabilities, permissions, admin menus, user roles, user role editor
 Requires at least: 5.5
 Requires PHP: 7.2.5
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.13.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -15,7 +15,7 @@ PublishPress Capabilities is the access control plugin. You can manage permissio
 
 == Description ==
 
-PublishPress Capabilities is the access control plugin. You can control all the capabilities and permissions on your WordPress site. We built this user role editor plugin so you have an EASY and POWERFUL way to manage users.
+PublishPress Capabilities is the access control plugin for WordPress. You can control all the capabilities and permissions on your WordPress site. We built this user role editor plugin so you have an EASY and POWERFUL way to manage users.
 
 You can use PublishPress Capabilities **manage all your WordPress user roles**, from Administrators and Editors to Authors, Contributors, Subscribers and custom roles. Each use role can have the exact capabilities that your site needs.
 
@@ -26,7 +26,7 @@ The Pro version of PublishPress Capabilities has many extra features, including 
 ## PublishPress Capabilities Pro ##
 
 > <strong>Upgrade to Capabilities Pro</strong><br />
-> This plugin is the free version of PublishPress Capabilities. The Pro version of Capabilities has all the features you need to control permissions for your WordPress users. With Capabilities Pro you can manage access to posts, pages, media and custom post types. <a href="https://publishpress.com/capabilities" title="Capabilities Pro">Click here to control access to your WordPress site with Capabilities Pro!</a>
+This plugin is the free version of PublishPress Capabilities. The Pro version of Capabilities has all the features you need to control permissions for your WordPress users. With Capabilities Pro you can manage access to posts, pages, media and custom post types. <a href="https://publishpress.com/capabilities" title="Capabilities Pro">Click here to control access to your WordPress site with Capabilities Pro!</a>
 
 ## The Key Features of PublishPress Capabilities ##
 
@@ -36,7 +36,7 @@ The Pro version of PublishPress Capabilities has many extra features, including 
 4. **Admin Features**: You can remove items from the WordPress admin, toolbar, and even dashboard widgets.
 5. **Frontend Features**: This feature allows you to modify the site's frontend by hiding or adding CSS.
 5. **Profile Features**: You can hide features for users in the "Profile" screen.
-7. **Admin menus**: You can stop users from accessing any admin menu link.
+7. **Admin Menus (Pro version)**: You can stop users from accessing any admin menu link.
 8. **Nav Menus**: You can restrict access to navigation menus by user role, or logged in status.
 
 ## Feature 1. Roles##

@@ -4,7 +4,7 @@ Tags: backup, restore, database backup, cloud backup, wordpress backup, migratio
 Requires at least: 4.7
 Tested up to: 6.6
 Requires PHP: 5.5
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: LGPL v2.1
 License URI: http://www.gnu.org/licenses/lgpl-2.1.html
 
@@ -84,6 +84,11 @@ Go To your WordPress install -> Plugins -> Add New Button -> In Search Box searc
 7. **Backup Process** easy to understand backup progress.
 
 == Changelog ==
+
+= 1.3.4 (September 6th 2024) =
+* [Improvement] Restores are now faster.
+* [Bug-Fix] There was an issue with serialization fix, that has been fixed.
+* [Bug-Fix] On some servers backup request was getting blocked as WordPress's default User Agent add url too in it which some servers and firewalls sees to be suspicious, this has been fixed.
 
 = 1.3.3 (July 27th 2024) =
 * [Improvement] Restore timeouts have been improved to handle restores easily on the slow servers.

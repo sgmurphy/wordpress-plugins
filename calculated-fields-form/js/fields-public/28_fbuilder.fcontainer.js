@@ -9,8 +9,8 @@
 					to_ignore = 0; // Ignores the RecordSet DS and Hidden fields.
                 for(var i = 0, h = this.fields.length; i < h; i++)
 				{
-					f = $('.fields.'+this.fields[i]+this.form_identifier+':not(.cff-hidden-field)');
-					if( ! f.length ) { to_ignore++; continue; }
+					f = $('.fields.'+this.fields[i]+this.form_identifier);
+					if( f.hasClass('cff-hidden-field') ) { to_ignore++; continue; }
 					f = f.detach();
 					if(this.columns > 1)
 					{

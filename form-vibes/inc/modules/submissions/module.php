@@ -46,7 +46,6 @@ class Module {
 	private function __construct() {
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ], 10, 1 );
 		add_action( 'admin_menu', [ $this, 'admin_menu' ], 9 );
-
 		// ajax
 		add_action( 'wp_ajax_fv_get_submissions', [ $this, 'get_submissions' ], 10, 3 );
 		add_action( 'wp_ajax_fv_delete_submissions', [ $this, 'delete_submissions' ], 10, 3 );
@@ -63,6 +62,11 @@ class Module {
 	 * @return array|mixed
 	 */
 	public function get_columns() {
+
+		if ( ! Permissions::check_permission( Permissions::$CAP_SUBMISSIONS ) ) {
+			die( 'Sorry, you are not allowed to do this action!' );
+		}
+
 		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
 			die( 'Sorry, your nonce did not verify!' );
 		}
@@ -72,7 +76,6 @@ class Module {
 		$form_id = $params['formId'];
 
 		$columns = Utils::get_table_columns( $plugin, $form_id );
-
 		return wp_send_json( $columns );
 	}
 
@@ -88,12 +91,12 @@ class Module {
 	 * @return array|mixed
 	 */
 	public function delete_submissions() {
+		
+		if (! Permissions::check_permission( Permissions::$CAP_DELETE ) ) {
+			die( 'Sorry, you are not allowed to do this action!' );
+		}
 		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
 			die( 'Sorry, your nonce did not verify!' );
-		}
-
-		if ( Utils::is_pro() && ! Permissions::check_permission( Permissions::$CAP_DELETE ) ) {
-			die( 'Sorry, you are not allowed to do this action!' );
 		}
 
 		$params = (array) json_decode( stripslashes( sanitize_text_field( $_POST['params'] ) ) );
@@ -110,15 +113,18 @@ class Module {
 	 * @since 1.4.4
 	 * @return array|mixed
 	 */
+	
 	public function get_submissions( $params ) {
 
+		if ( ! Permissions::check_permission( Permissions::$CAP_SUBMISSIONS ) ) {
+			die( 'Sorry, you are not allowed to do this action!' );
+		}
+		
 		if ( ! wp_verify_nonce( $_POST['ajaxNonce'], 'fv_ajax_nonce' ) ) {
 			die( 'Sorry, your nonce did not verify!' );
 		}
 
-		if ( Utils::is_pro() && ! Permissions::check_permission( Permissions::$CAP_SUBMISSIONS ) ) {
-			die( 'Sorry, you are not allowed to do this action!' );
-		}
+		
 
 		$params = (array) json_decode( stripslashes( sanitize_text_field( $_POST['params'] ) ) );
 

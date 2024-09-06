@@ -216,7 +216,6 @@ class ABH_Classes_Tools extends ABH_Classes_FrontController {
 		}
 
 		if ( is_string( $value ) && $value <> '' ) {
-
 			$search = array(
 				"'<!--(.*?)-->'is",
 				"'<script[^>]*?>.*?<\/script>'si", // strip out javascript
@@ -230,10 +229,16 @@ class ABH_Classes_Tools extends ABH_Classes_FrontController {
 			$value  = preg_replace( $search, "", $value );
 
 			$search = array(
-				"/&nbsp;/si",
+				"'(&quot;|\")'i",
+				"/&nbsp;/i",
 				"/\s{2,}/",
 			);
-			$value  = preg_replace( $search, " ", $value );
+			$replace = array(
+				"'",
+				" ",
+				" ",
+			);
+			$value  = preg_replace( $search, $replace, $value );
 
 			//more sanitization
 			$value = wp_strip_all_tags( $value );

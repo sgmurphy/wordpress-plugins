@@ -3,8 +3,8 @@ Contributors:      croixhaug, nataliemac, simplyscheduleappointments
 Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
-Tested up to:      6.6
-Stable tag:        1.6.7.45
+Tested up to:      6.7
+Stable tag:        1.6.7.46
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html

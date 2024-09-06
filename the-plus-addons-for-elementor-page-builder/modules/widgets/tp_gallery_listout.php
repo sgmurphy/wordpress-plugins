@@ -1507,7 +1507,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 					$output .= '<div class="grid-item metro-item' . esc_attr( $ij ) . ' ' . $desktop_class . ' ' . $tablet_class . ' ' . $mobile_class . ' ' . esc_attr( $animated_columns ) . '" >';
 					if ( ! empty( $style ) ) {
 						ob_start();
-							include L_THEPLUS_PATH . 'includes/gallery/gallery-' . sanitize_file_name( $style ) . '.php';
+							include L_THEPLUS_WSTYLES . 'gallery/gallery-' . sanitize_file_name( $style ) . '.php';
 							$output .= ob_get_contents();
 						ob_end_clean();
 					}

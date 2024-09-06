@@ -1907,7 +1907,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 
 				if ( ! empty( $style ) ) {
 					ob_start();
-					include L_THEPLUS_PATH . 'includes/blog/blog-style-1.php';
+					include L_THEPLUS_WSTYLES . 'blog/blog-style-1.php';
 					$output .= ob_get_contents();
 					ob_end_clean();
 				}

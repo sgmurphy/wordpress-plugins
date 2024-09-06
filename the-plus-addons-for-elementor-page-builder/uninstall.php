@@ -12,3 +12,5 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// delete_option('default_plus_options');

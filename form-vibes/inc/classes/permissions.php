@@ -88,31 +88,27 @@ class Permissions {
 	 * @since 1.4.4
 	 * @return bool
 	 */
-	public static function check_permission( $permission, $user_id = null ) {
+	public static function check_permission($permission, $user_id = null) {
 		$user = wp_get_current_user();
-
-		if ( ! $user_id ) {
-			$user_id = $user->ID;
-		}
-
-		if ( user_can( $user_id, 'administrator' )) {
-			// user is admins
+		
+		// NOt USE Furter
+		// if (!$user_id) {
+		// 	$user_id = $user->ID;
+		// }
+	
+		// Use current_user_can() to check for capabilities instead of user_can()
+		if (current_user_can('manage_options')) { // Check a suitable capability for admin users
 			return true;
 		}
-
-		if(Utils::is_pro()){
-			$can = user_can( $user_id, $permission );
-			if ( $can ) {
+	
+		if (Utils::is_pro()) {
+			if (current_user_can($permission)) {
 				return true;
 			}
-		}else{
-			return false; 
 		}
 		
 		return false;
 	}
-
-
 
 	/**
 	 * Gets all the permissions

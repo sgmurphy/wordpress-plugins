@@ -398,7 +398,7 @@ class SSA_Templates {
 	public function getCustomTwigSandboxExtension()
 	{
 		$tags = array('if', 'else', 'elseif', 'endif', 'include', 'import', 'block', 'set', 'for');
-		$filters = array( 'internationalize', 'trim', 'join', 'number_format', 'date', 'escape', 'trans', 'split', 'length', 'slice', 'lower', 'raw', 'filter', 'date', 'upper', 'link');
+		$filters = array( 'internationalize', 'trim', 'join', 'number_format', 'date', 'escape', 'trans', 'split', 'length', 'slice', 'lower', 'raw', 'filter', 'date', 'upper', 'link', 'nl2br', 'replace');
 		$methods = array();
 		$properties = array();
 		$functions = array('include', 'path', 'absolute_url', 'asset', 'is_granted', 'attribute');

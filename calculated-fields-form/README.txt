@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.33
+Stable tag: 5.2.34
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,13 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.34 =
+
+* Implements new predefined form template.
+* Modifies the time calculation modules of DATEDIFF operation.
+* Implements new changes in the Phone control.
+* Modifies the Google Analytics add-on (Platinum plugin version).
+
 = 5.2.33 =
 
 * Implements the two decimals format in number controls.
@@ -487,11 +494,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the Equations Advanced Editor to allow the sidebar to collapse to give more space to the code editor.
 * Moves the calculated-fields-form-bk directory for forms backup to the /wp-content/uploads directory.
 * Adds a new predefined template.
-
-= 5.2.28 =
-
-* Fixes an issue in the calculated fields conditional rules.
-* Modifies the GOTOPAGE operation to prevent users from attempting to jump to non-existent page indexes.
-* Modifies the validation module to display the validation error associated with hidden fields.
-* Modifies the DS fields in the Developer and Platinum plugin versions.
-* Modifies the Stripe Checkout add-on to prevent it affects the WooCommerce integration add-on.

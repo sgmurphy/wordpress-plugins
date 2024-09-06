@@ -1534,11 +1534,12 @@ function backuply_backup_curl($action) {
 	$url = site_url() . '/?action='.$action.'&security='. $nonce;
 	
 	backuply_status_log('About to call self to prevent timeout', 'info');
-	
+
 	$args = array(
 		'timeout' => 5,
 		'blocking' => false,
-		'sslverify' => false
+		'sslverify' => false,
+		'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
 	);
 
 	if(!empty($_COOKIE[LOGGED_IN_COOKIE])){

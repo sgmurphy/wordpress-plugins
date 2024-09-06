@@ -1124,6 +1124,7 @@ class Quiz_Maker_Admin
         $quick_quiz_question_text_alignment                 = "center";
         $quick_quiz_image_width                             = "";
         $quiz_image_width_by_percentage_px                  = "pixels";
+        $quick_quiz_image_height                            = "";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1252,6 +1253,8 @@ class Quiz_Maker_Admin
             // Quiz image width percentage/px
             $quick_quiz_image_width_by_percentage_px = (isset($_REQUEST['ays_quick_quiz_image_width_by_percentage_px']) && $_REQUEST['ays_quick_quiz_image_width_by_percentage_px'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_image_width_by_percentage_px'] ) ) : 'pixels';
 
+            // Question image Height
+            $quick_quiz_image_height = (isset($_REQUEST['ays_quick_quiz_image_height']) && $_REQUEST['ays_quick_quiz_image_height'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_image_height'] ) ) : "";
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1311,7 +1314,7 @@ class Quiz_Maker_Admin
             'form_phone'                                    => '',
             'enable_logged_users'                           => 'off',
             'image_width'                                   => $quick_quiz_image_width,
-            'image_height'                                  => '',
+            'image_height'                                  => $quick_quiz_image_height,
             'quiz_image_width_by_percentage_px'             => $quick_quiz_image_width_by_percentage_px,
             'quiz_image_height'                             => $quick_quiz_image_height,
             'enable_correction'                             => $quick_quiz_enable_correction,

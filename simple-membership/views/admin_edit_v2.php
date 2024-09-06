@@ -2,17 +2,22 @@
 //This file is used to edit member's profile from the admin dashboard of the plugin.
 
 $form_id = "swpm-edit-user";
-
+$member_id = filter_input(INPUT_GET, 'member_id', FILTER_SANITIZE_NUMBER_INT);
 SimpleWpMembership::enqueue_validation_scripts_v2(
     "swpm-profile-form-validator",
     array(
         'query_args' => array(
-            'member_id' => filter_input(INPUT_GET, 'member_id', FILTER_SANITIZE_NUMBER_INT),
+            'member_id' => $member_id,
             'nonce' => wp_create_nonce('swpm-rego-form-ajax-nonce'),
         ),
         'form_id' => $form_id,
     )
 );
+
+$is_attached_subscription_canceled = SwpmMemberUtils::get_subscription_data_extra_info($member_id, 'subscription_status') === 'inactive';
+
+//Get the current expiry date based on the membership level of this member.
+$member_current_expiry_date = SwpmMemberUtils::get_formatted_expiry_date_by_user_id($member_id);
 ?>
 <div class="wrap" id="swpm-profile-page" type="edit">
     <form action="" method="post" name="swpm-edit-user" id="<?php echo $form_id ?>" enctype="multipart/form-data" class="swpm-form" <?php do_action('user_new_form_tag'); ?>>
@@ -127,11 +132,27 @@ SimpleWpMembership::enqueue_validation_scripts_v2(
                 <th scope="row"><label for="subscr_id"><?php _e('Subscriber ID/Reference', 'simple-membership') ?> </label></th>
                 <td><input class="regular-text" name="subscr_id" type="text" id="subscr_id" value="<?php echo esc_attr($subscr_id); ?>" /></td>
             </tr>
+
+            <?php if ($is_attached_subscription_canceled) { ?>
+            <tr class="swpm-form-row swpm-subscription-status-row">
+                <th scope="row"><label for="subscr_id"><?php _e('Subscription Payment Status', 'simple-membership') ?> </label></th>
+                <td>
+                    <span style="color: #CC0000">
+                        <b><?php _e('Canceled or Expired', 'simple-membership') ?></b>
+                    </span>
+                    <p class="description">
+                        <?php _e('The subscription associated with this member profile has been canceled or expired. The member may purchase a new subscription when needed.', 'simple-membership') ?>
+                        <?php _e(' The account will expire based on the membership level settings. To learn more about the membership level settings, refer to ', 'simple-membership') ?>
+                        <a href="https://simple-membership-plugin.com/adding-membership-access-levels-site/" target="_blank"><?php _e('this documentation', 'simple-membership') ?></a>.
+                    </p>
+                </td>
+            </tr>
+	        <?php } ?>
+
             <tr class="swpm-form-row swpm-expiry-date-row">
                 <th scope="row"><label for="member_expiry_date"><?php _e('Expiry Date', 'simple-membership') ?> </label></th>
                 <td>
                     <?php
-                    $member_current_expiry_date = SwpmMemberUtils::get_formatted_expiry_date_by_user_id($member_id);
                     echo esc_attr($member_current_expiry_date);
                     ?>
                     <p class="description indicator-hint">
@@ -158,10 +179,18 @@ SimpleWpMembership::enqueue_validation_scripts_v2(
                 </td>
             </tr>
             <?php if (isset($extra_info) && !empty($extra_info)) { ?>
+                <!-- This system related extra info row is hidden by default to reduce clutter. -->
                 <tr class="swpm-form-row swpm-any-extra-info-row">
-                    <th scope="row"><label for="extra_info"><?php _e('System-related Additional Data', 'simple-membership') ?> </label></th>
-                    <td>
-                        <?php echo esc_attr($extra_info); ?>
+                    <th scope="row"><label for="extra_info"><?php _e('System-Related Additional Data', 'simple-membership') ?> </label></th>
+                    <td class="spwm-system-info-td">
+                        <a href="#" onclick="document.getElementById('swpm-system-info-value').classList.toggle('swpm-hidden'); return false;"><?php _e('Show/Hide Data', 'simple-membership'); ?></a>
+                        <?php 
+                        $unserialized_extra_info = maybe_unserialize($extra_info);
+                        echo '<div id="swpm-system-info-value" class="swpm-hidden">';
+                        print_r($unserialized_extra_info);
+                        echo '</div>';
+                        //echo esc_attr($extra_info); 
+                        ?>
                         <p class="description indicator-hint"><?php _e('The plugin saves this information for system purposes for some profiles. There is no need for you to take any action regarding this value.', 'simple-membership') ?></p>
                     </td>
                 </tr>

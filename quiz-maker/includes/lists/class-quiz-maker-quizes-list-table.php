@@ -360,7 +360,7 @@ class Quizes_List_Table extends WP_List_Table{
             // $quiz_create_date           = !isset($_POST['ays_quiz_ctrate_date']) ? '0000-00-00 00:00:00' : sanitize_text_field( $_POST['ays_quiz_ctrate_date'] );
 
             // Change current quiz creation date
-            $quiz_create_date           = (isset($_POST['ays_quiz_change_creation_date']) && $_POST['ays_quiz_change_creation_date'] != '') ? sanitize_text_field($_POST['ays_quiz_change_creation_date']) : current_time( 'mysql' ) ;
+            $quiz_create_date           = (isset($_POST['ays_quiz_change_creation_date']) && Quiz_Maker_Admin::validateDate($_POST['ays_quiz_change_creation_date']) ) ? sanitize_text_field( stripslashes($_POST['ays_quiz_change_creation_date']) ) : current_time( 'mysql' ) ;
 
             $quest_animation            = !isset($_POST['ays_quest_animation']) ? 'shake' : sanitize_text_field( $_POST['ays_quest_animation'] );
             $author = ( isset($_POST['ays_quiz_author']) && $_POST['ays_quiz_author'] != "" ) ? stripcslashes( sanitize_text_field( $_POST['ays_quiz_author'] ) ) : '';
@@ -1637,7 +1637,7 @@ class Quizes_List_Table extends WP_List_Table{
     function column_create_date( $item ) {
         
         $options = json_decode($item['options'], true);
-        $date = isset($options['create_date']) && $options['create_date'] != '' ? $options['create_date'] : "0000-00-00 00:00:00";
+        $date = isset($options['create_date']) && Quiz_Maker_Admin::validateDate($options['create_date']) ? esc_attr( stripslashes($options['create_date']) ) : "0000-00-00 00:00:00";
         if(isset($options['author'])){
             if(is_array($options['author'])){
                 $author = $options['author'];

@@ -20,11 +20,7 @@ class Export {
 	 * @return void
 	 *
 	 */
-	public function __construct( $params ) {
-		if ( '' !== $params ) {
-			$this->export_file( $params );
-		}
-
+	public function __construct( ) {
 		$uploads_dir = trailingslashit( wp_upload_dir()['basedir'] ) . 'form-vibes';
 		if ( ! file_exists( $uploads_dir ) ) {
 			wp_mkdir_p( $uploads_dir );
@@ -39,17 +35,21 @@ class Export {
 	 * @return void
 	 */
 	public function fv_export_csv() {
-		if(isset( $_POST['btnExport'])){
-			if (!Permissions::check_permission( Permissions::$CAP_EXPORT ) ) {
-				die( 'Sorry, you are not allowed to do this action!' );
-				return;
+		if (isset($_POST['btnExport'])) {
+			// Check if the current user has the capability to export
+			if ( !Permissions::check_permission(Permissions::$CAP_EXPORT) ) {
+				die('Sorry, you are not allowed to do this action!!!!!!');
 			}
-			if ( ! wp_verify_nonce( $_POST['fv_nonce'], 'fv_ajax_nonce' ) ) {
-				die( 'Sorry, your nonce did not verify!' );
+			
+			// Verify the nonce
+			if (!wp_verify_nonce($_POST['fv_nonce'], 'fv_ajax_nonce')) {
+				die('Sorry, your nonce did not verify!');
 			}
-			$params = (array) json_decode( stripslashes( $_REQUEST['fv_export_data'] ) );
-			new Export( $params );
-		}	
+			
+			$params = (array) json_decode(stripslashes($_REQUEST['fv_export_data']));
+			// new Export($params);
+			$this->export_file($params);
+		}
 	}
 
 	/**
@@ -61,9 +61,9 @@ class Export {
 	 * @return void
 	 */
 	private function export_file( $params ) {
-		if ( Utils::is_pro() && ! Permissions::check_permission( Permissions::$CAP_EXPORT ) ) {
-			die( 'Sorry, you are not allowed to do this action!' );
-		}	
+		if (!Permissions::check_permission(Permissions::$CAP_EXPORT)) {
+			die('Sorry, you are not allowed to do this action!!!!!!');
+		}
 
 		$fv_settings = get_option( 'fvSettings' );
 

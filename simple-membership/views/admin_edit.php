@@ -3,6 +3,11 @@
 
 //The admin ajax causes an issue with the JS validation if done on form submission. The edit profile doesn't need JS validation on email. There is PHP validation which will catch any email error.
 //SimpleWpMembership::enqueue_validation_scripts(array('ajaxEmailCall' => array('extraData'=>'&action=swpm_validate_email&member_id='.$member_id)));
+
+$is_attached_subscription_canceled = SwpmMemberUtils::get_subscription_data_extra_info($member_id, 'subscription_status') === 'inactive';
+
+//Get the current expiry date based on the membership level of this member.
+$member_current_expiry_date = SwpmMemberUtils::get_formatted_expiry_date_by_user_id($member_id);
 ?>
 <div class="wrap" id="swpm-profile-page" type="edit">
     <form action="" method="post" name="swpm-edit-user" id="swpm-edit-user" enctype="multipart/form-data" class="validate swpm-validate-form"<?php do_action('user_new_form_tag');?>>
@@ -99,15 +104,29 @@
             </td>
         </tr>
     <?php include('admin_member_form_common_part.php');?>
-        <tr class="swpm-admin-edit-subscriber-id">
+    <tr class="swpm-admin-edit-subscriber-id">
 		<th scope="row"><label for="subscr_id"><?php echo  SwpmUtils::_('Subscriber ID/Reference') ?> </label></th>
 		<td><input class="regular-text" name="subscr_id" type="text" id="subscr_id" value="<?php echo esc_attr($subscr_id); ?>" /></td>
 	</tr>
-        <tr class="swpm-admin-edit-expiry-date">
+    <?php if ($is_attached_subscription_canceled) { ?>
+        <tr class="swpm-form-row swpm-subscription-status-row">
+            <th scope="row"><label for="subscr_id"><?php _e('Subscription Status', 'simple-membership') ?> </label></th>
+            <td>
+                    <span style="color: #CC0000">
+                        <b><?php _e('Canceled or Expired', 'simple-membership') ?></b>
+                    </span>
+                    <p class="description">
+                        <?php _e('The subscription associated with this member profile has been canceled or expired. The member may purchase a new subscription when needed.', 'simple-membership') ?>
+                        <?php _e(' The account will expire based on the membership level settings. To learn more about the membership level settings, refer to ', 'simple-membership') ?>
+                        <a href="https://simple-membership-plugin.com/adding-membership-access-levels-site/" target="_blank"><?php _e('this documentation', 'simple-membership') ?></a>.
+                    </p>
+            </td>
+        </tr>
+    <?php } ?>
+    <tr class="swpm-admin-edit-expiry-date">
 		<th scope="row"><label for="member_expiry_date"><?php echo SwpmUtils::_('Expiry Date') ?> </label></th>
 		<td>
                     <?php
-                    $member_current_expiry_date = SwpmMemberUtils::get_formatted_expiry_date_by_user_id($member_id);
                     echo esc_attr($member_current_expiry_date);
                     ?>
                     <p class="description indicator-hint">
@@ -136,7 +155,7 @@
 
     <?php if( isset($extra_info) && !empty($extra_info) ){ ?>
     <tr class="swpm-admin-edit-any-extra-info">
-		<th scope="row"><label for="extra_info"><?php echo  SwpmUtils::_('System-related Additional Data') ?> </label></th>
+		<th scope="row"><label for="extra_info"><?php echo  SwpmUtils::_('System-Related Additional Data') ?> </label></th>
 		<td>
                     <?php echo esc_attr($extra_info); ?>
                     <p class="description indicator-hint"><?php echo SwpmUtils::_('The plugin saves this information for system purposes for some profiles. There is no need for you to take any action regarding this value.') ?></p>

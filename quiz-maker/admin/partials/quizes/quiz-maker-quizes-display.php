@@ -1061,6 +1061,24 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <hr/>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for="ays_quick_quiz_image_height">
+                                                                <?php echo __('Image Height',$this->plugin_name); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="ays_quiz_display_flex_width">
+                                                            <div>
+                                                                <input type="number" class="ays-text-input ays-text-input-short" id="ays_quick_quiz_image_height" name="ays_quick_quiz_image_height" value=""/>
+                                                            </div>
+                                                            <div class="ays_quiz_dropdown_max_width ays-display-flex" style="align-items: end;">
+                                                                <input type="text" value="px" class='ays-quiz-form-hint-for-size' disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div><!-- Question image styles -->
                                     </div>

@@ -2044,6 +2044,10 @@
 							jQuery(paginationSelector, productContainerElem).attr('class', _thisObj.paginationClasses);
 						}
 						_thisObj.currentProductBlock = loopContainer.selector;
+						if (!_thisObj.currentProductBlock) {
+							loopContainer.addClass('wpfCurrentProductBlock');
+							_thisObj.currentProductBlock = '.wpfCurrentProductBlock';
+						}
 					}
 					_thisObj.afterAjaxFiltering($wrapperSettings);
 					jQuery('.wpfLoaderLayout').hide();

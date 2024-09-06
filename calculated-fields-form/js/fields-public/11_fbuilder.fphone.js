@@ -182,7 +182,7 @@
 					me._on_change_events();
                     $('#'+me.name+'_0').trigger('change');
 					if (me.countryComponent && me.dynamic) {
-						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); }).trigger('change');
+						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); });//.trigger('change');
 					}
 				},
 			val:function(raw, no_quotes)
