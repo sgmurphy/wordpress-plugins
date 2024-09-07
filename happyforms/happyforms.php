@@ -5,7 +5,7 @@
  * Plugin URI:  https://happyforms.io
  * Description: Form builder to get in touch with visitors, grow your email list and collect payments.
  * Author:      Happyforms
- * Version:     1.26.1
+ * Version:     1.26.2
  * Author URI:  https://happyforms.io
  * Upgrade URI: https://happyforms.io/upgrade
  */
@@ -22,7 +22,7 @@ if ( defined( 'HAPPYFORMS_UPGRADE_VERSION' ) ) {
 /**
  * The current version of the plugin.
  */
-define( 'HAPPYFORMS_VERSION', '1.26.1' );
+define( 'HAPPYFORMS_VERSION', '1.26.2' );
 
 if ( ! function_exists( 'happyforms_get_version' ) ):
 

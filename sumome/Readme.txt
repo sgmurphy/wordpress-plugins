@@ -1,9 +1,9 @@
-===  Sumo - Boost Conversion and Sales  ===
+===  Website Pop-up Builder by BDOW! (formerly Sumo): Pop-ups + forms for email opt-ins and lead generation ===
 Contributors: SumoMe
-Tags: ecommerce, marketing, WooCommerce, email marketing, marketing strategies, analytics, campaign monitor, click to tweet, contact form, content analytics, convertkit, drip, email form, ExactTarget, exit-intent, Facebook, facebook share, FeedBlitz, floating social buttons, growth, heat map, heatmaps, Hubspot, image sharing, inbound marketing, Inbox First, infusionsoft, landing page, lightbox, links, mailchimp, mailerlite, mailing list, mailjet, MyEmma, MyNewsletterBuilder, newsletter, Ontraport, pardot, popup, sailthru, scroll box, share, share buttons, share image, sharebar, sharing, site traffic, sms, social, social bookmarking, social media buttons, social plugin, social sharing, subscribers, subscription, traffic growth, tweet button, twitter, twitter share, vero, vertical response, welcome mat, WhatCounts, widget, zapier
+Tags: ecommerce, marketing, email, analytics, leads
 Requires at least: 4.7
 Tested up to: 6.4.1
-Stable tag: 1.41
+Stable tag: 1.42
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,102 +12,113 @@ Sumo is trusted by over 600,000 businesses — small and large — in growing th
 
 == Description ==
 
-#&#9888; Recently Acquired: Stay Tuned for Updates - Q1 2024
+BDOW! (formerly Sumo) is the best, free pop-up and form tool for WordPress websites. Over 30,000 online businesses use BDOW! (formerly Sumo) to grow a bigger email list and turn leads into conversions.
 
-We just updated our pricing! Use Sumo for FREE and only pay when you get more customers.
+Use BDOW! to create stunning, intelligent forms and pop-ups and…
 
-Sumo is the most powerful tool to grow your email list, increase conversions, and generate more sales for online businesses. More than 37,000 online businesses use Sumo to convert more purchases and delight their customers.
+- Use advanced targeting rules to display the right offer to the right visitors.
+- Easily increase conversion rates using our built-in A/B testing.
+- Choose from professionally designed templates and get started quickly.
+- Integrate with your favorite tools like ConvertKit, Flodesk, Mailerlite, and many others.
+- Create autoresponders to deliver content upgrades and connect with your audience.
+- Integrate with WooCommerce and supercharge your bottom line using BDOW!’s monetization features.
 
-Here's what Sumo can do for you:
+Create your free BDOW! account today and build a bigger list, faster.
 
-* Grow your email list with timed popups across your site
-* Schedule one-off marketing emails or email drips to communicate with your subscribers
-* Ecommerce integrations and features to win back customers who abandon their cart and increase average order value
-* See the ROI from every email subscriber and sale you make
+## Latest Updates
+
+- Performance updates: 35%+ faster script
+- New integrations: Webhooks, Flodesk, Mailerlite, Klaviyo
+- Enhanced integrations: ConvertKit, ActiveCampaign
+- Updated BDOW! User Interface
+
+[See more at bdow.com!](https://bdow.com/?src=wordpress_bottom)
+
+## What Customers Are Saying About BDOW! (formerly Sumo)
+
+“An extra $4000 we wouldn’t have made in the first week alone? HOLY BDOW!, BATMAN!” - Jen Olmstead, TONIC
+
+“Since implementing BDOW! into our live launches, we've been able to capitalize on leads we'd normally be losing with an exit intent pop up.” - Jon Hayes, Erica + Jon
+
+“I love the A/B testing and the data. BDOW! makes it so easy to create tests and choose a winner!” - Liz, UAV Coach
 
 
-### What Customers Are Saying About Sumo ######
+## Core Features Overview
 
-"Quick update after two months using Sumo - it has helped me generate $20k+ in sales already, and it’s only been live for a few weeks! That’s almost $500 A DAY extra!" — Love Aroma
-
-"Sumo is a great platform. ROIs are transparent, and it provides great flexibility for advanced campaign strategies." — Loly in the Sky
-
-"I am actually mad at myself for not buying this sooner. My email signups are now around 8% (it used to be 1.3%), and people have bought after signing up!" — JJ Caprices
-
-
-### Core Features Overview ######
-
-= Grow your email list =
+### Grow your email list with super speed!
 
 Grow your email list by collecting email addresses with high-converting opt-in forms as visitors browse your site, so you can follow up with them later and turn them into customers.
 
-= Email your subscribers =
+Create pop-ups, scroll-boxes, inline forms, click triggers, welcome mats, and smart bars.
 
-Send a welcome email to your subscriber as they join your email list and further build the relationship with them by sending them a one-off campaign or automated email drips.
+### Advanced targeting rules make it easy to target the right visitors with the right message.
 
-= Share your content and product =
+Show or don’t show pop-ups and forms based on factors like URLs, Pages, Devices, Referrer, Visitor Behavior, Exit Intent, Cookies, Parameters, and more.
 
-Add share buttons on your website effortlessly and allow your visitors to share your content and products with their circles on social media.
+### Manage all your websites from a single dashboard.
 
-= Ecommerce features =
+BDOW! (formerly Sumo) makes it easy for agencies and designers to manage their own sites and client sites from one place.
 
-Sumo seamlessly integrates with WooCommerce to create unique offers and discounts along with beautiful forms that help you increase your average order value and reduce cart abandonment.
+- Fast set-up + installation
+- User management controls
+- Easy to add + remove sites
 
-= Free customer support =
+= Easily set-up A/B tests to increase conversion rates. =
+Set-up A/B tests with a single click and test headlines, form fields, and messaging. Control how often each variation is seen, and choose a winner with one-click!
 
-Have questions on how to increase conversions and sales for your online business? Your success is our success. Our dedicated Customer Experience team will make sure your business is growing and you’re getting the most out of Sumo.
+= Earn more using BDOW!’s integration with WooCommerce. =
+BDOW! seamlessly integrates with WooCommerce to create unique offers and discounts along with beautiful forms that help you increase your average order value and reduce cart abandonment.
 
-= Secure and SEO-friendly =
+= Fast and friendly customer support. =
+Have questions on how to increase conversions and sales for your online business? Your success is our success. Our dedicated Customer Experience team will make sure your business is growing and you’re getting the most out of BDOW!.
 
-Compliant with GDPR and the latest SEO guidelines from Google so you can convert more visitors and make more sales.
+= Fast, Secure, and SEO-friendly! =
+Compliant with GDPR and the latest SEO guidelines from Google so you can convert more visitors and make more sales. 
 
-= Easy to get started =
+= Easy to get started using dozens of professionally designed templates. =
+Get set up in minutes and use BDOW! (formerly Sumo) for FREE.
 
-Get set up in minutes and use Sumo completely FREE.
-
-= Latest Updates =
-
-* Added Grow Email List shortcut
-* Added Reduce Cart Abandonment shortcut
-* Updated Sumo dashboard
-
-[See more at Sumome.com](http://sumome.com/?src=wordpress_bottom)
+See more at [https://bdow.com](https://bdow.com)! 
 
 == Installation ==
-
 1. Upload folder wp-sumome.zip to the `/wp-content/plugins/` directory
 1. Activate the plugin through the `Plugins` menu in WordPress
-1. Click on the blue thingy in the top right.
-1. Register and follow the onboarding instructions to install Sumo on your site.
-1. Eat a taco and enjoy the increased traffic to your site.
+1. Click "Connect" to create a free BDOW! account or login if you already have one.
+1. Enjoy the increased traffic to your site.
 
 == Frequently Asked Questions ==
 
 = Does this plugin slow down my site? =
 
-Not at all. This plugin loads asynchronously so it won't down your site at all.
+No, this plugin loads asynchronously to have minimal impact on website performance.
 
-= Where do I login to Sumo? =
+= Where do I login to BDOW!? =
+You can login via the plugin or at [https://bdow.com](https://bdow.com).
 
-Once you install the plugin and activate it. Go to any page on your site and you'll see a little blue thing in the top right, click on it and then the crown icon to login.
+= Am I able to customize the look and feel of the popup?
+Yes! It’s easy to create forms and pop-ups that reflect your brand. Choose from our professionally designed templates for an easy head-start.
 
-= Can I customize the look and feel of the popup? =
+= Do you integrate with any Email Service Providers (ESPs)? =
 
-You can use our default options or fully control the CSS in the advanced section.
+Yes, we provide instant integration with Flodesk MailChimp, Aweber, Constant Contact, Campaign Monitor, GetResponse, ActiveCampaign, MyEmma, Mad Mimi, Infusionsoft, Feedblitz, HubSpot, MyNewsletterBuilder, Inbox First, Sailthru, Klaviyo, Vero, Pardot, Zapier, Ontraport, ExactTarget, Vertical Response, Drip, MailerLite, WhatCounts, ConvertKit, MailJet, and Maropost. Alternatively, you can simply download a CSV list of your newsletter subscribers.
 
-= Do you provide instant connections to any email providers? =
+= Do you integrate with Zapier? =
+Yes, we integrate with Zapier so you have the flexibility to integrate with additional apps for a seamless workflow.
 
-Yes, we provide instant integration with MailChimp, Aweber, Constant Contact, Campaign Monitor, GetResponse, ActiveCampaign, MyEmma, Mad Mimi, Infusionsoft, Feedblitz, HubSpot, MyNewsletterBuilder, Inbox First, Sailthru, Klaviyo, Vero, Pardot, Zapier, Ontraport, ExactTarget, Vertical Response, Drip, MailerLite, WhatCounts, ConvertKit, MailJet, and Maropost.  When a user joins, their email is automatically subscribed to your MailChimp, Aweber, or other newsletter list. Alternately, you can simply download a CSV list of your newsletter subscribers.
+= Who should use BDOW! forms and pop-ups? =
+Anyone interested in building a bigger email list, faster! BDOW! is the perfect pop-up and form tool for those interested in improving the conversion rate of their website. Our dashboard makes it easy for agencies and designers to manage multiple sites from a single account!
+
+= Where can I get support? =
+The fastest place to receive support is emailing help[at]bdow[dot]com.
 
 
 == Screenshots ==
-
-[See all of our screenshots at bdow.com](http://bdow.com/?src=wordpress_ss)
-
 1. Reduce Cart Abandonment Shortcut
 2. Grow Email List Shortcut
 3. Track how your forms perform
 4. See conversions and get Sumo Insights
+
+[See all of our screenshots at bdow.com](http://bdow.com/?src=wordpress_ss)
 
 
 == Changelog ==

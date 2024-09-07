@@ -102,6 +102,9 @@ class WC_Email_PW_Gift_Card extends WC_Email {
                     }
                 }
 
+                // Remove blank values from $notifications
+                $notifications = array_filter( $notifications );
+
                 wc_update_order_item_meta( $order_item_id, PWGC_GIFT_CARD_NOTIFICATIONS_META_KEY, $notifications );
             }
         }

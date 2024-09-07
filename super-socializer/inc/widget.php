@@ -1019,6 +1019,15 @@ class TheChampFollowWidget extends WP_Widget {
 			$numFollowIcons++;
 			$html .= '<a aria-label="Mastodon" class="the_champ_mastodon" href="' . $instance['mastodon'] . '" title="Mastodon" rel="noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle;"><span style="background-color:#6364FF;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;'. $iconStyle .'" class="the_champ_svg"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-3.5 -3.5 39 39"><path d="M27 12c0-5.12-3.35-6.62-3.35-6.62C22 4.56 19.05 4.23 16 4.21c-3 0-5.92.35-7.61 1.12C8.36 5.33 5 6.83 5 12v4c.12 5 .92 9.93 5.54 11.16a17.67 17.67 0 005.44.6 10.88 10.88 0 004.18-.95l-.09-1.95a13.36 13.36 0 01-4.07.54c-2.12-.07-4.37-.23-4.71-2.84a5.58 5.58 0 01-.05-.73 27.46 27.46 0 004.73.63 26.76 26.76 0 004.68-.28c3-.35 5.53-2.17 5.85-3.83A39.25 39.25 0 0027 12zm-3.95 6.59h-2.46v-6c0-1.27-.53-1.91-1.6-1.91s-1.77.76-1.77 2.27v3.29h-2.44v-3.35c0-1.51-.59-2.27-1.77-2.27s-1.6.64-1.6 1.91v6H9v-6.18a4.49 4.49 0 011-3 3.39 3.39 0 012.63-1.12 3.17 3.17 0 012.84 1.44l.61 1 .61-1a3.17 3.17 0 012.84-1.44 3.39 3.39 0 012.63 1.12 4.49 4.49 0 011 3z" fill="' . $logoColor . '"></path></svg></span></a>';
 		}
+		if ( isset( $instance['bluesky'] ) && $instance['bluesky'] ) {
+			$numFollowIcons++;
+			$html .= '<a aria-label="Bluesky" class="the_champ_bluesky" href="' . $instance['bluesky'] . '" title="Bluesky" rel="noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle;"><span style="background-color:#0085ff;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;'. $iconStyle .'" class="the_champ_svg"><svg width="100%" height="100%" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="-3 -3 38 38"><path d="M16 14.903c-.996-1.928-3.709-5.521-6.231-7.293C7.353 5.912 6.43 6.206 5.827 6.478 5.127 6.793 5 7.861 5 8.49s.346 5.155.572 5.91c.747 2.496 3.404 3.34 5.851 3.07.125-.02.252-.036.38-.052-.126.02-.253.037-.38.051-3.586.529-6.771 1.83-2.594 6.457 4.595 4.735 6.297-1.015 7.171-3.93.874 2.915 1.88 8.458 7.089 3.93 3.911-3.93 1.074-5.928-2.512-6.457a8.122 8.122 0 0 1-.38-.051c.128.016.255.033.38.051 2.447.271 5.104-.573 5.85-3.069.227-.755.573-5.281.573-5.91 0-.629-.127-1.697-.827-2.012-.604-.271-1.526-.566-3.942 1.132-2.522 1.772-5.235 5.365-6.231 7.293Z" fill="#fff"/></svg></span></a>';
+		}
+
+		if ( isset( $instance['micro.blog'] ) && $instance['micro.blog'] ) {
+			$numFollowIcons++;
+			$html .= '<a aria-label="Micro.blog" class="the_champ_micro_blog" href="' . $instance['micro.blog'] . '" title="Micro.blog" rel="noopener" target="_blank" style="font-size:32px!important;box-shadow:none;display:inline-block;vertical-align:middle;"><span style="background-color:#ff8800;display:inline-block;opacity:1;float:left;font-size:32px;box-shadow:none;display:inline-block;font-size:16px;padding:0 4px;vertical-align:middle;background-repeat:repeat;overflow:hidden;padding:0;cursor:pointer;'. $iconStyle .'" class="the_champ_svg"><svg width="100%" height="100%" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="#fff" d="M25.46 21.73c1.59-1.87 2.54-4.225 2.54-6.785 0-6.093-5.373-11.028-12-11.028S4 8.852 4 14.945c0 6.092 5.373 11.027 12 11.027a12.9 12.9 0 0 0 4.285-.724.39.39 0 0 1 .438.137c1.003 1.354 2.569 2.306 4.31 2.693a.238.238 0 0 0 .235-.38 4.69 4.69 0 0 1 .2-5.97l-.009.002Zm-3.768-8.082-3.09 2.346 1.12 3.714a.35.35 0 0 1-.536.39L16 17.884l-3.186 2.214a.352.352 0 0 1-.536-.39l1.121-3.714-3.09-2.346a.35.35 0 0 1 .204-.63l3.877-.081 1.276-3.664a.351.351 0 0 1 .663 0l1.276 3.664 3.878.08a.351.351 0 0 1 .209.631"></path></svg></span></a>';
+		}
 
 		$html = apply_filters('the_champ_follow_icons', $html, $instance, $iconStyle);
 		$html .= '</div>';
@@ -1080,6 +1089,8 @@ class TheChampFollowWidget extends WP_Widget {
 		$instance['gettr'] = $new_instance['gettr'];
 		$instance['line'] = $new_instance['line'];
 		$instance['mastodon'] = $new_instance['mastodon'];
+		$instance['bluesky'] = $new_instance['bluesky'];
+		$instance['micro.blog'] = $new_instance['micro.blog'];
 		$instance['threads'] = $new_instance['threads'];
 		$instance['tiktok'] = $new_instance['tiktok'];
 		$instance['x'] = $new_instance['x'];
@@ -1095,7 +1106,7 @@ class TheChampFollowWidget extends WP_Widget {
 	/** Widget options in admin panel */ 
 	public function form($instance){ 
 		/* Set up default widget settings. */ 
-		$defaults = array('alignment' => 'left', 'hor_alignment' => 'left', 'title' => '', 'type' => 'standard', 'alignment' => 'right', 'size' => '32', 'icon_shape' => 'round', 'custom_color' => '', 'facebook' => '', 'threads' => '', 'twitter' => '', 'tiktok' => '', 'instagram' => '', 'gettr' => '', 'line' => '', 'mastodon' => '', 'x' => '', 'gab' => '', 'parler' => '', 'pinterest' => '', 'behance' => '', 'flickr' => '', 'foursquare' => '', 'github' => '', 'gitlab' => '', 'linkedin' => '', 'linkedin_company' => '', 'medium' => '', 'mewe' => '', 'odnoklassniki' => '', 'telegram' => '', 'tumblr' => '', 'vimeo' => '', 'vkontakte' => '', 'google_maps' => '', 'yelp' => '', 'whatsapp' => '', 'xing' => '', 'youtube' => '', 'youtube_channel' => '', 'rss_feed' => '', 'google_news' => '', 'before_widget_content' => '', 'after_widget_content' => '', 'top_offset' => '200', 'alignment_value' => '0', 'mobile_sharing' => '1', 'bottom_mobile_sharing' => '1', 'vertical_screen_width' => '783', 'horizontal_screen_width' => '783', 'bottom_sharing_alignment' => 'left', 'bottom_sharing_position_radio' => 'responsive', 'bottom_sharing_position' => '0');  
+		$defaults = array('alignment' => 'left', 'hor_alignment' => 'left', 'title' => '', 'type' => 'standard', 'alignment' => 'right', 'size' => '32', 'icon_shape' => 'round', 'custom_color' => '', 'facebook' => '', 'threads' => '', 'bluesky' => '', 'micro.blog' => '', 'twitter' => '', 'tiktok' => '', 'instagram' => '', 'gettr' => '', 'line' => '', 'mastodon' => '', 'x' => '', 'gab' => '', 'parler' => '', 'pinterest' => '', 'behance' => '', 'flickr' => '', 'foursquare' => '', 'github' => '', 'gitlab' => '', 'linkedin' => '', 'linkedin_company' => '', 'medium' => '', 'mewe' => '', 'odnoklassniki' => '', 'telegram' => '', 'tumblr' => '', 'vimeo' => '', 'vkontakte' => '', 'google_maps' => '', 'yelp' => '', 'whatsapp' => '', 'xing' => '', 'youtube' => '', 'youtube_channel' => '', 'rss_feed' => '', 'google_news' => '', 'before_widget_content' => '', 'after_widget_content' => '', 'top_offset' => '200', 'alignment_value' => '0', 'mobile_sharing' => '1', 'bottom_mobile_sharing' => '1', 'vertical_screen_width' => '783', 'horizontal_screen_width' => '783', 'bottom_sharing_alignment' => 'left', 'bottom_sharing_position_radio' => 'responsive', 'bottom_sharing_position' => '0');  
 
 		foreach($instance as $key => $value){  
 			if(is_string($value)){
@@ -1186,6 +1197,9 @@ class TheChampFollowWidget extends WP_Widget {
 			<label for="<?php echo esc_attr($this->get_field_id('behance')); ?>"><?php _e('Behance URL:', 'super-socializer'); ?></label> 
 			<input style="width: 95%" class="widefat" id="<?php echo esc_attr($this->get_field_id('behance')); ?>" name="<?php echo esc_attr($this->get_field_name('behance')); ?>" type="text" value="<?php echo esc_attr(wp_strip_all_tags($instance['behance'])); ?>" /><br/>
 			<span>https://www.behance.net/ID</span><br/><br/>
+			<label for="<?php echo $this->get_field_id( 'bluesky' ); ?>"><?php _e( 'Bluesky URL:', 'super-socializer' ); ?></label>
+			<input style="width: 95%" class="widefat" id="<?php echo $this->get_field_id( 'bluesky' ); ?>" name="<?php echo $this->get_field_name( 'bluesky' ); ?>" type="text" value="<?php echo $instance['bluesky']; ?>" /><br/>
+			<span>https://bsky.app/profile/ID.bsky.social</span><br/><br/>
 			<label for="<?php echo esc_attr($this->get_field_id('facebook')); ?>"><?php _e('Facebook URL:', 'super-socializer'); ?></label> 
 			<input style="width: 95%" class="widefat" id="<?php echo esc_attr($this->get_field_id('facebook')); ?>" name="<?php echo esc_attr($this->get_field_name('facebook')); ?>" type="text" value="<?php echo esc_attr(wp_strip_all_tags($instance['facebook'])); ?>" /><br/>
 			<span>https://www.facebook.com/ID</span><br/><br/>
@@ -1227,6 +1241,9 @@ class TheChampFollowWidget extends WP_Widget {
 			<label for="<?php echo esc_attr($this->get_field_id('mewe')); ?>"><?php _e('MeWe URL:', 'super-socializer'); ?></label> 
 			<input style="width: 95%" class="widefat" id="<?php echo esc_attr($this->get_field_id('mewe')); ?>" name="<?php echo esc_attr($this->get_field_name('mewe')); ?>" type="text" value="<?php echo esc_attr(wp_strip_all_tags($instance['mewe'])); ?>" /><br/>
 			<span>https://mewe.com/profile/ID</span><br/><br/>
+			<label for="<?php echo $this->get_field_id( 'micro.blog' ); ?>"><?php _e( 'Micro.blog URL:', 'super-socializer' ); ?></label> 
+			<input style="width: 95%" class="widefat" id="<?php echo $this->get_field_id( 'micro.blog' ); ?>" name="<?php echo $this->get_field_name( 'micro.blog' ); ?>" type="text" value="<?php echo $instance['micro.blog']; ?>" /><br/>
+			<span>https://micro.blog/ID</span><br/><br/>
 			<label for="<?php echo esc_attr($this->get_field_id('odnoklassniki'));	 ?>"><?php _e('Odnoklassniki URL:', 'super-socializer'); ?></label> 
 			<input style="width: 95%" class="widefat" id="<?php echo esc_attr($this->get_field_id('odnoklassniki')); ?>" name="<?php echo esc_attr($this->get_field_name('odnoklassniki')); ?>" type="text" value="<?php echo esc_attr(wp_strip_all_tags($instance['odnoklassniki'])); ?>" /><br/>
 			<span>https://ok.ru/profile/ID</span><br/><br/>

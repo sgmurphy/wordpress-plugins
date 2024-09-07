@@ -15,7 +15,7 @@ class APIClass
     /**
      * @var string
      */
-    protected $api_url_base = 'https://api.sendinblue.com/';
+    protected $api_url_base = 'https://api.brevo.com/';
 
 
     public function __construct($api_key)

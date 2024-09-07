@@ -1,3 +1,6 @@
+= 2.3 =
+* Added new hooks pwgc_admin_search_results_row_before_number, pwgc_admin_search_results_row_after_number. Remove blank values from notifications array. Compatibility with WooCommerce 9.3.
+
 = 2.2 =
 * Fixed an issue when using the WP Optimize plugin with Minify and Merge Javascript enabled.
 

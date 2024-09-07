@@ -263,7 +263,7 @@ class google_business_reviews_rating
 		
 		if (!$this->translation_exists())
 		{
-			$language_code = preg_replace('/^[^a-z]*([a-z]{2}l?).*$/', '$1', strtolower(get_option('WPLANG')));
+			$language_code = preg_replace('/^[^a-z]*([a-z]{2}l?).*$/', '$1', mb_strtolower(get_option('WPLANG')));
 			
 			switch ($language_code)
 			{
@@ -345,6 +345,19 @@ class google_business_reviews_rating
 				$this->relative_times['year']['text'] = 'il y a un an';
 				$this->relative_times['years']['text'] = 'il y a %u années';
 				break;
+			case 'hu':
+				$this->relative_times['hour']['text'] = 'éppen most';
+				$this->relative_times['hours']['text'] = '%u órája';
+				$this->relative_times['day']['text'] = '%u napja';
+				$this->relative_times['days']['text'] = '%u napja';
+				$this->relative_times['within_week']['text'] = 'előző héten';
+				$this->relative_times['week']['text'] = 'egy hete';
+				$this->relative_times['weeks']['text'] = '%u hete';
+				$this->relative_times['month']['text'] = 'egy hónapja';
+				$this->relative_times['months']['text'] = '%u hónapja';
+				$this->relative_times['year']['text'] = 'egy éve';
+				$this->relative_times['years']['text'] = '%u éve';
+				break;
 			case 'it':
 				$this->relative_times['hour']['text'] = 'proprio adesso';
 				$this->relative_times['hours']['text'] = '%u ore fa';
@@ -371,6 +384,18 @@ class google_business_reviews_rating
 				$this->relative_times['year']['text'] = 'לפני שנה';
 				$this->relative_times['years']['text'] = 'לפני %u שנים';
 				break;
+			case 'ja':
+				$this->relative_times['hour']['text'] = 'ちょうど今';
+				$this->relative_times['hours']['text'] = '%u 時間前';
+				$this->relative_times['day']['text'] = '%u 日前';
+				$this->relative_times['days']['text'] = '%u 日前';
+				$this->relative_times['within_week']['text'] = '過去 %u 週間以内';
+				$this->relative_times['week']['text'] = '一週間前';
+				$this->relative_times['weeks']['text'] = '%u 週間前';
+				$this->relative_times['month']['text'] = '%u か月前';
+				$this->relative_times['months']['text'] = '%u か月前';
+				$this->relative_times['year']['text'] = '%u 年前';
+				$this->relative_times['years']['text'] = '%u 年前';
 			case 'nl':
 				$this->relative_times['hour']['text'] = 'net nu';
 				$this->relative_times['hours']['text'] = '%u uur geleden';
@@ -1630,7 +1655,7 @@ class google_business_reviews_rating
 			wp_die();
 		}
 		
-		$type = (isset($_POST['type']) && is_string($_POST['type'])) ? preg_replace('/[^\w_]/', '', strtolower($this->sanitize_input($_POST['type']))) : NULL;
+		$type = (isset($_POST['type']) && is_string($_POST['type'])) ? preg_replace('/[^\w_]/', '', mb_strtolower($this->sanitize_input($_POST['type']))) : NULL;
 		
 		if ($this->editor && !preg_match('/^(?:delete|language|remove|section|sort|status|submitted)$/', $type))
 		{
@@ -1638,12 +1663,12 @@ class google_business_reviews_rating
 			wp_die();
 		}
 		
-		$section = (isset($_POST['section']) && is_string($_POST['section']) && !preg_match('/^(?:general|setup)$/i', $_POST['section'])) ? preg_replace('/[^\w_-]/', '', strtolower($this->sanitize_input($_POST['section']))) : NULL;
+		$section = (isset($_POST['section']) && is_string($_POST['section']) && !preg_match('/^(?:general|setup)$/i', $_POST['section'])) ? preg_replace('/[^\w_-]/', '', mb_strtolower($this->sanitize_input($_POST['section']))) : NULL;
 		$notification_action = (isset($_POST['notification_action']) && is_string($_POST['notification_action']) && mb_strlen($_POST['notification_action']) >= 2 && mb_strlen($_POST['notification_action']) <= 255) ? mb_strtolower($this->sanitize_input($_POST['notification_action'])) : NULL;
 		$review = (isset($_POST['review']) && is_string($_POST['review'])) ? preg_replace('/[^\w_]/', '', $this->sanitize_input($_POST['review'])) : NULL;
 		$reviews = (isset($_POST['reviews']) && is_array($_POST['reviews'])) ? array_unique(stripslashes_deep($_POST['reviews']), SORT_REGULAR) : array();
 		$order = (isset($_POST['order']) && is_array($_POST['order'])) ? array_unique(stripslashes_deep($_POST['order'])) : array();
-		$sort = (isset($_POST['sort']) && is_string($_POST['sort']) && is_string($section) && preg_match('/^reviews$/i', $section) && !preg_match('/^relevance(?:[_-]desc)?$/', $_POST['sort'])) ? preg_replace('/[^\w_-]/', '', strtolower($this->sanitize_input($_POST['sort']))) : NULL;
+		$sort = (isset($_POST['sort']) && is_string($_POST['sort']) && is_string($section) && preg_match('/^reviews$/i', $section) && !preg_match('/^relevance(?:[_-]desc)?$/', $_POST['sort'])) ? preg_replace('/[^\w_-]/', '', mb_strtolower($this->sanitize_input($_POST['sort']))) : NULL;
 		$submitted = (isset($_POST['submitted']) && is_string($_POST['submitted']) && is_string($_POST['submitted'])) ? $this->sanitize_input($_POST['submitted']) : NULL;
 		$status = (isset($_POST['status']) && (is_bool($_POST['status']) && $_POST['status'] || is_string($_POST['status']) && preg_match('/^true$/i', $_POST['status'])));
 		$api_key = (isset($_POST['api_key']) && is_string($_POST['api_key']) && mb_strlen($_POST['api_key']) >= 10 && mb_strlen($_POST['api_key']) <= 255) ? $this->sanitize_input($_POST['api_key']) : NULL;
@@ -4503,7 +4528,7 @@ class google_business_reviews_rating
 				
 				if (preg_match($ip_regex, $a[1]))
 				{
-					$string = trim(strtolower($a[1]));
+					$string = trim(mb_strtolower($a[1]));
 					wp_cache_set('server_ip', $string, __CLASS__, HOUR_IN_SECONDS);
 					return $string;
 				}
@@ -4525,7 +4550,7 @@ class google_business_reviews_rating
 			
 				if (preg_match($ip_regex, $string))
 				{
-					$string = trim(strtolower($string));
+					$string = trim(mb_strtolower($string));
 					wp_cache_set('server_ip', $string, __CLASS__, HOUR_IN_SECONDS);
 					return $string;
 				}
@@ -4538,7 +4563,7 @@ class google_business_reviews_rating
 
 			if (is_string($string) && preg_match($ip_regex, $string))
 			{
-				$string = trim(strtolower($string));
+				$string = trim(mb_strtolower($string));
 				wp_cache_set('server_ip', $string, __CLASS__, HOUR_IN_SECONDS);
 				return $string;
 			}
@@ -4768,7 +4793,7 @@ class google_business_reviews_rating
 		$ids = (array_key_exists('id', $filters) && is_numeric($filters['id']) && $filters['id'] > 0) ? array(intval($filters['id'])) : ((array_key_exists('id', $filters) && is_string($filters['id']) && preg_match('/^(?:\d+)(?:,\s*(?:\d+))+$/', $filters['id'])) ? array_unique(preg_split('/[^\d]+/', $filters['id'])) : array());
 		$id = (!empty($ids)) ? $ids[0] : NULL;
 		$place_id = (!$this->demo && array_key_exists('place_id', $filters) && is_string($filters['place_id']) && mb_strlen($filters['place_id']) >= 20) ? $filters['place_id'] : NULL;
-		$language = (array_key_exists('language', $filters) && is_string($filters['language']) && mb_strlen($filters['language']) >= 2 && mb_strlen($filters['language']) <= 16) ? preg_replace('/^([a-z]{2,3}).*$/i', '$1', strtolower($filters['language'])) : NULL;
+		$language = (array_key_exists('language', $filters) && is_string($filters['language']) && mb_strlen($filters['language']) >= 2 && mb_strlen($filters['language']) <= 16) ? preg_replace('/^([a-z]{2,3}).*$/i', '$1', mb_strtolower($filters['language'])) : NULL;
 		$min = ($id == NULL && array_key_exists('min', $filters) && is_numeric($filters['min']) && $filters['min'] >= 1 && $filters['min'] <= 5) ? intval($filters['min']) : NULL;
 		$max = ($id == NULL && array_key_exists('max', $filters) && is_numeric($filters['max']) && $filters['max'] >= 1 && $filters['max'] <= 5) ? intval($filters['max']) : NULL;
 		$offset = ($id == NULL && array_key_exists('offset', $filters) && is_numeric($filters['offset']) && $filters['offset'] >= 0) ? intval($filters['offset']) : 0;
@@ -4952,7 +4977,7 @@ class google_business_reviews_rating
 				continue;
 			}
 			
-			if ($language != NULL && isset($a['language']) && ($a['language'] == NULL || preg_replace('/^([a-z]{2,3}).*$/i', '$1', strtolower($a['language'])) != $language))
+			if ($language != NULL && isset($a['language']) && ($a['language'] == NULL || preg_replace('/^([a-z]{2,3}).*$/i', '$1', mb_strtolower($a['language'])) != $language))
 			{
 				unset($this->reviews_filtered[$key]);
 				continue;
@@ -5083,12 +5108,12 @@ class google_business_reviews_rating
 							return round($v) - round($w);
 						}
 						
-						if (strtolower($v) == strtolower($w))
+						if (mb_strtolower($v) == mb_strtolower($w))
 						{
 							return 0;
 						}
 						
-						$c = $d = array(strtolower($v), strtolower($w));
+						$c = $d = array(mb_strtolower($v), mb_strtolower($w));
 						arsort($c, SORT_REGULAR);
 						return (array_keys($c) === array_keys($d)) ? 1 : -1;
 					}
@@ -5378,7 +5403,7 @@ class google_business_reviews_rating
 		case 'author_name':
 			uksort($this->reviews, function ($b, $a)
 				{
-					$c = $d = array(strtolower($this->reviews[$b]['author_name']), strtolower($this->reviews[$a]['author_name']));
+					$c = $d = array(mb_strtolower($this->reviews[$b]['author_name']), mb_strtolower($this->reviews[$a]['author_name']));
 					arsort($c, SORT_REGULAR);
 					return (array_keys($c) === array_keys($d)) ? 1 : -1;
 				}
@@ -5392,7 +5417,7 @@ class google_business_reviews_rating
 						return 0;
 					}
 					
-					$c = $d = array(strtolower($this->reviews[$b]['language']), strtolower($this->reviews[$a]['language']));
+					$c = $d = array(mb_strtolower($this->reviews[$b]['language']), mb_strtolower($this->reviews[$a]['language']));
 					arsort($c, SORT_REGULAR);
 					return (array_keys($c) === array_keys($d)) ? 1 : -1;
 				}
@@ -5401,7 +5426,7 @@ class google_business_reviews_rating
 		case 'place_id':
 			uksort($this->reviews, function ($b, $a)
 				{
-					$c = $d = array(strtolower($this->reviews[$b]['place_id']), strtolower($this->reviews[$a]['place_id']));
+					$c = $d = array(mb_strtolower($this->reviews[$b]['place_id']), mb_strtolower($this->reviews[$a]['place_id']));
 					arsort($c, SORT_REGULAR);
 					return (array_keys($c) === array_keys($d)) ? 1 : -1;
 				}
@@ -5417,7 +5442,7 @@ class google_business_reviews_rating
 						return 0;
 					}
 					
-					$c = $d = array(strtolower($this->reviews[$b]['text']), strtolower($this->reviews[$a]['text']));
+					$c = $d = array(mb_strtolower($this->reviews[$b]['text']), mb_strtolower($this->reviews[$a]['text']));
 					arsort($c, SORT_REGULAR);
 					return (array_keys($c) === array_keys($d)) ? 1 : -1;
 				}
@@ -5747,23 +5772,23 @@ class google_business_reviews_rating
 		extract($args, EXTR_SKIP);
 		
 		$admin_preview = ($this->dashboard && is_array($atts) && array_key_exists('admin_preview', $atts) && is_bool($atts['admin_preview']) && $atts['admin_preview']);
-		$id_name = (is_string($id) && preg_match('/^[a-z][0-9a-z_-]*[0-9a-z]$/i', $id)) ? strtolower($id) : NULL;
+		$id_name = (is_string($id) && preg_match('/^[a-z][0-9a-z_-]*[0-9a-z]$/i', $id)) ? mb_strtolower($id) : NULL;
 		$place_id = (is_string($place_id) && mb_strlen($place_id) >= 20) ? $place_id : NULL;
-		$type = (is_string($type)) ? preg_replace('/[^\w_]/', '_', trim(strtolower($type))) : $type_check;
-		$target = (is_string($target)) ? preg_replace('/[^\w_-]/', '-', trim(strtolower($target))) : NULL;
-		$rel = (is_string($rel) && preg_match('/^\s*(?:author|bookmark|external|no(?:follow|referrer|opener))\s*$/i', $rel)) ? strtolower($rel) : ((is_string($rel) && preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $rel) || !is_string($rel) && array_key_exists('rel', $atts)) ? NULL : 'nofollow');
-		$theme = (is_string($theme)) ? preg_replace('/[^\w _-]/', '-', trim(strtolower($theme))) : NULL;
-		$class = (is_string($class)) ? preg_replace('/[^\w _-]/', '-', trim(strtolower($class))) : NULL;
-		$color_scheme = (is_string($color_scheme) && array_key_exists(preg_replace('/[^\w_]/', '', trim(strtolower($color_scheme))), $this->color_schemes)) ? preg_replace('/[^\w_]/', '', trim(strtolower($color_scheme))) : ((array_key_exists('color_scheme', $atts)) ? NULL : get_option(__CLASS__ . '_color_scheme', NULL));
+		$type = (is_string($type)) ? preg_replace('/[^\w_]/', '_', trim(mb_strtolower($type))) : $type_check;
+		$target = (is_string($target)) ? preg_replace('/[^\w_-]/', '-', trim(mb_strtolower($target))) : NULL;
+		$rel = (is_string($rel) && preg_match('/^\s*(?:author|bookmark|external|no(?:follow|referrer|opener))\s*$/i', $rel)) ? mb_strtolower($rel) : ((is_string($rel) && preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $rel) || !is_string($rel) && array_key_exists('rel', $atts)) ? NULL : 'nofollow');
+		$theme = (is_string($theme)) ? preg_replace('/[^\w _-]/', '-', trim(mb_strtolower($theme))) : NULL;
+		$class = (is_string($class)) ? preg_replace('/[^\w _-]/', '-', trim(mb_strtolower($class))) : NULL;
+		$color_scheme = (is_string($color_scheme) && array_key_exists(preg_replace('/[^\w_]/', '', trim(mb_strtolower($color_scheme))), $this->color_schemes)) ? preg_replace('/[^\w_]/', '', trim(mb_strtolower($color_scheme))) : ((array_key_exists('color_scheme', $atts)) ? NULL : get_option(__CLASS__ . '_color_scheme', NULL));
 		$stylesheet = (is_bool($stylesheet) || is_string($stylesheet) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $stylesheet)) ? (is_bool($stylesheet) && $stylesheet || is_numeric($stylesheet) && $stylesheet > 0 || is_string($stylesheet) && $stylesheet != NULL) : ((!array_key_exists('stylesheet', $atts)) ? get_option(__CLASS__ . '_stylesheet', NULL) : TRUE);
-		$summary = (is_null($summary) || is_bool($summary) && $summary || is_string($summary) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $summary)) ? TRUE : ((is_string($summary) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $summary)) ? preg_split('/,\s*/', preg_replace('/[^\w ,_-]/', '-', trim(strtolower($summary))), 8, PREG_SPLIT_NO_EMPTY) : FALSE);
+		$summary = (is_null($summary) || is_bool($summary) && $summary || is_string($summary) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $summary)) ? TRUE : ((is_string($summary) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $summary)) ? preg_split('/,\s*/', preg_replace('/[^\w ,_-]/', '-', trim(mb_strtolower($summary))), 8, PREG_SPLIT_NO_EMPTY) : FALSE);
 		$icon = (is_null($icon) || is_bool($icon) && $icon || is_string($icon) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/', $icon)) ? (is_bool($summary) || is_array($summary) && in_array('icon', $summary)) : ((is_string($icon) && preg_match('/.+\.(?:jpe?g|png|svg|gif)/i', $icon)) ? $icon : FALSE);
 		$name = (is_null($name) || is_bool($name) && $name || is_string($name) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $name)) ? (is_bool($summary) || is_array($summary) && in_array('name', $summary)) : ((is_string($name) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $name)) ? $name : FALSE);
 		$vicinity = (is_null($vicinity) || is_bool($vicinity) && $vicinity || is_string($vicinity) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $vicinity)) ? (is_bool($summary) || is_array($summary) && in_array('vicinity', $summary)) : ((is_string($vicinity) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $vicinity)) ? $vicinity : FALSE);
 		$rating_display = ((!is_array($summary) && (!array_key_exists('rating', $atts) || is_null($rating) || is_bool($rating) && $rating || is_string($rating) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $rating))) || is_array($summary) && in_array('rating', $summary));
-		$stars = (is_null($stars) || is_bool($stars) && $stars || is_string($stars) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show|svg|vector)$/i', $stars)) ? ((is_bool($summary) || is_array($summary) && (in_array('stars', $summary))) ? ((!array_key_exists('stars', $atts) && $color_scheme != NULL) ? 'css' : (is_bool($summary) && $summary || is_array($summary) && in_array('stars', $summary))) : FALSE) : ((!array_key_exists('stars', $atts) && $color_scheme != NULL || is_string($stars) && preg_match('/(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))/i', $stars)) ? ((!array_key_exists('stars', $atts) && $color_scheme != NULL) ? 'css' : $stars) : ((is_string($stars) && preg_match('/^(?:html|css)$/i', $stars)) ? strtolower($stars) : FALSE));
-		$stars_grey = ((is_string($stars_grey) && preg_match('/(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))/i', $stars_grey)) ? $stars_grey : ((is_string($stars_grey) && preg_match('/^(?:html|css)$/i', $stars_grey)) ? strtolower($stars_grey) : NULL));
-		$stars_gray = ((is_string($stars_gray) && preg_match('/(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))/i', $stars_gray)) ? $stars_gray : ((is_string($stars_gray) && preg_match('/^(?:html|css)$/i', $stars_gray)) ? strtolower($stars_gray) : $stars_grey));
+		$stars = (is_null($stars) || is_bool($stars) && $stars || is_string($stars) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show|svg|vector)$/i', $stars)) ? ((is_bool($summary) || is_array($summary) && (in_array('stars', $summary))) ? ((!array_key_exists('stars', $atts) && $color_scheme != NULL) ? 'css' : (is_bool($summary) && $summary || is_array($summary) && in_array('stars', $summary))) : FALSE) : ((!array_key_exists('stars', $atts) && $color_scheme != NULL || is_string($stars) && preg_match('/(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))/i', $stars)) ? ((!array_key_exists('stars', $atts) && $color_scheme != NULL) ? 'css' : $stars) : ((is_string($stars) && preg_match('/^(?:html|css|(?:inline[\s_-]+(?:svg|vector)|(?:svg|vector)[\s_-]+inline))$/i', $stars)) ? preg_replace('/[\s_-]+/', ' ', mb_strtolower($stars)) : FALSE));
+		$stars_grey = ((is_string($stars_grey) && preg_match('/(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))/i', $stars_grey)) ? $stars_grey : ((is_string($stars_grey) && preg_match('/^(?:html|css)$/i', $stars_grey)) ? mb_strtolower($stars_grey) : NULL));
+		$stars_gray = ((is_string($stars_gray) && preg_match('/(#(?:[0-9a-f]{2}){2,4}|#[0-9a-f]{3}|(?:rgba?|hsla?)\((?:\d+%?(?:deg|rad|grad|turn)?(?:,|\s)+){2,3}[\s\/]*[\d\.]+%?\))/i', $stars_gray)) ? $stars_gray : ((is_string($stars_gray) && preg_match('/^(?:html|css)$/i', $stars_gray)) ? mb_strtolower($stars_gray) : $stars_grey));
 		$count = (!is_array($summary) && (is_null($count) || is_bool($count) && $count || is_string($count) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $count)) || is_array($summary) && in_array('count', $summary));
 		$limit = (array_key_exists('limit', $atts)) ? ((is_numeric($limit) && $limit >= 0) ? intval($limit) : NULL) : get_option(__CLASS__ . '_review_limit', NULL);
 		$view = (is_numeric($view) && $view >= 1 && $view <= 50 && (is_numeric($limit) && $limit > 0 || !is_numeric($limit))) ? ((is_numeric($limit) && $limit > 0 && $view > $limit) ? intval($limit) : intval($view)) : get_option(__CLASS__ . '_view', NULL);
@@ -5779,25 +5804,25 @@ class google_business_reviews_rating
 		$name_format = (is_bool($name_format) && !$name_format || is_string($name_format) && preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $name_format)) ? FALSE : ((is_string($name_format) && preg_match('/first|last|initials?|capitali[sz]e|uc(?:first|words)|(?:(?:lower|upper|title)(?:case)?)/i', $name_format)) ? $name_format : NULL);
 		$date = (is_null($date) || is_bool($date) && $date || is_string($date) && preg_match('/^(?:true|yes|1|on|show|relative)$/', $date)) ? TRUE : ((is_string($date) && preg_match('/^[aABcdDeFgGhHiIjLlmMNnoOPrSstTuUvwWYyzZ ,.;:()\[\]\/_-]{1,20}$/', $date) && !preg_match('/^(?:false|no(?:ne)?|0|off|hide)$/i', $date)) ? $date : FALSE);
 		$link = (is_bool($link) && $link || is_string($link) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $link)) ? TRUE : ((is_string($link) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $link)) ? $link : FALSE);
-		$link_class = (is_string($link_class)) ? preg_replace('/[^\w _-]/', '-', trim(strtolower($link_class))) : NULL;
-		$link_disable = (is_bool($link_disable) && $link_disable || is_string($link_disable) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $link_disable)) ? TRUE : ((is_string($link_disable) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $link_disable)) ? preg_split('/,\s*/', preg_replace('/[^\w ,_-]/', '-', trim(strtolower($link_disable))), 3, PREG_SPLIT_NO_EMPTY) : FALSE);
+		$link_class = (is_string($link_class)) ? preg_replace('/[^\w _-]/', '-', trim(mb_strtolower($link_class))) : NULL;
+		$link_disable = (is_bool($link_disable) && $link_disable || is_string($link_disable) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $link_disable)) ? TRUE : ((is_string($link_disable) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $link_disable)) ? preg_split('/,\s*/', preg_replace('/[^\w ,_-]/', '-', trim(mb_strtolower($link_disable))), 3, PREG_SPLIT_NO_EMPTY) : FALSE);
 		$reviews_link = (is_bool($reviews_link) && $reviews_link || is_string($reviews_link) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $reviews_link)) ? TRUE : ((is_string($reviews_link) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $reviews_link)) ? $reviews_link : FALSE);
 		$write_review_link = (is_bool($write_review_link) && $write_review_link || is_string($write_review_link) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $write_review_link)) ? TRUE : ((is_string($write_review_link) && !preg_match('/^(?:f(?:alse)?|no?|0|off|hide)$/i', $write_review_link)) ? $write_review_link : FALSE);
 		$reviews_url = (is_string($reviews_url) && preg_match('#^((https?:)?//[^/]{4,150}/?.*|/.*)$#i', $reviews_url)) ? $reviews_url : (($this->demo) ? 'https://search.google.com/local/reviews?placeid=ChIJq6pqZz2uEmsRaQAMbAl0RW0' : 'https://search.google.com/local/reviews?placeid=' . esc_attr((is_string($place_id)) ? $place_id : get_option(__CLASS__ . '_place_id')));			
 		$write_review_url = (is_string($write_review_url) && preg_match('#^((https?:)?//[^/]{4,150}/?.*|/.*)$#i', $write_review_url)) ? $write_review_url : (($this->demo) ? 'https://search.google.com/local/writereview?placeid=ChIJq6pqZz2uEmsRaQAMbAl0RW0' : 'https://search.google.com/local/writereview?placeid=' . esc_attr((is_string($place_id)) ? $place_id : get_option(__CLASS__ . '_place_id')));			
-		$reviews_link_class = (is_string($reviews_link_class)) ? preg_replace('/[^\w _-]/', '-', trim(strtolower($reviews_link_class))) : $link_class;
-		$write_review_link_class = (is_string($write_review_link_class)) ? preg_replace('/[^\w _-]/', '-', trim(strtolower($write_review_link_class))) : $link_class;
+		$reviews_link_class = (is_string($reviews_link_class)) ? preg_replace('/[^\w _-]/', '-', trim(mb_strtolower($reviews_link_class))) : $link_class;
+		$write_review_link_class = (is_string($write_review_link_class)) ? preg_replace('/[^\w _-]/', '-', trim(mb_strtolower($write_review_link_class))) : $link_class;
 		$animate = (is_null($animate) || is_bool($animate) && $animate || is_string($summary) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show|animate|animation)$/i', $animate));
 		$review_text = (is_null($review_text) || is_bool($review_text) && $review_text || is_string($review_text) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show)$/i', $review_text));
-		$attribution = (is_null($attribution) || is_bool($attribution) && $attribution || is_string($attribution) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show|light|dark)$/i', $attribution)) ? ((is_string($attribution) && preg_match('/^(?:light|dark)$/i', $attribution)) ? strtolower($attribution) : TRUE) : ((is_string($attribution) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $attribution)) ? $attribution : FALSE);
+		$attribution = (is_null($attribution) || is_bool($attribution) && $attribution || is_string($attribution) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show|light|dark)$/i', $attribution)) ? ((is_string($attribution) && preg_match('/^(?:light|dark)$/i', $attribution)) ? mb_strtolower($attribution) : TRUE) : ((is_string($attribution) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $attribution)) ? $attribution : FALSE);
 		$review_text_excerpt_length = (is_numeric($excerpt) && $excerpt >= 20) ? intval($excerpt) : ((!array_key_exists('excerpt', $atts)) ? get_option(__CLASS__ . '_review_text_excerpt_length', NULL) : NULL);
-		$review_text_height = (is_string($review_text_height) && preg_match('/^(?:\d+(?:\.\d+)?|\.\d+)(?:px|r?em|%|ch|ex)|(?:calc|clamp)\((?:(?:\d+(?:\.\d+)?|\.\d+)(?:px|r?em|%|ch|ex)[,\s\/*+-]*){1,3}\)$/i', $review_text_height)) ? strtolower($review_text_height) : NULL;
-		$review_text_format = (is_string($review_text_format) && $review_text_format != NULL) ? strtolower($review_text_format) : NULL;
+		$review_text_height = (is_string($review_text_height) && preg_match('/^(?:\d+(?:\.\d+)?|\.\d+)(?:px|r?em|%|ch|ex)|(?:calc|clamp)\((?:(?:\d+(?:\.\d+)?|\.\d+)(?:px|r?em|%|ch|ex)[,\s\/*+-]*){1,3}\)$/i', $review_text_height)) ? mb_strtolower($review_text_height) : NULL;
+		$review_text_format = (is_string($review_text_format) && $review_text_format != NULL) ? mb_strtolower($review_text_format) : NULL;
 		$review_word = (is_string($review_word) && mb_strlen($review_word) >= 2) ? preg_split('#[/,]\s*#', $review_word, 2) : array(__('review', 'g-business-reviews-rating'), __('reviews', 'g-business-reviews-rating'));
 		$more = (is_string($more)) ? $more : __('More', 'g-business-reviews-rating');
 		$language = (is_string($language) && mb_strlen($language) >= 2 && mb_strlen($language) <= 16) ? substr($language, 0, 2) : NULL;
 		$local_images = (array_key_exists('local_images', $atts)) ? (is_bool($local_images) && $local_images || is_string($local_images) && preg_match('/^(?:t(?:rue)?|y(?:es)?|1|on|show|local)$/i', $local_images)) : NULL;
-		$loading = (is_string($loading) && preg_match('/^(eager|lazy)(?:\s?loading)?$/i', $loading, $m)) ? strtolower($m[1]) : NULL;
+		$loading = (is_string($loading) && preg_match('/^(eager|lazy)(?:\s?loading)?$/i', $loading, $m)) ? mb_strtolower($m[1]) : NULL;
 		$html_tags = (is_string($html_tags) && mb_strlen($html_tags) >= 1) ? preg_split('/,+/', preg_replace('/^,+|,+$|[^0-9a-z,]/', '', $html_tags), 8, PREG_SPLIT_NO_EMPTY) : ((is_string($html_tag) && mb_strlen($html_tag) >= 1) ? preg_split('/,+/', preg_replace('/^,+|,+$|[^0-9a-z,]/', '', $html_tag), 8, PREG_SPLIT_NO_EMPTY) : array());
 		$outer_tag = (!array_key_exists('outer_tag', $atts) || (is_null($outer_tag) || is_bool($outer_tag) && $outer_tag || is_string($outer_tag) && !preg_match('/^(?:f(?:alse)?|no?(?:ne)?|0|off|hide)$/i', $outer_tag)));
 		$multiplier = (is_numeric($multiplier) && $multiplier > 0 && $multiplier < 10) ? floatval($multiplier) : 0.196;
@@ -5885,7 +5910,7 @@ class google_business_reviews_rating
 				}
 				else
 				{
-					$theme = preg_replace('/[^0-9a-z -]/', '-', strtolower($theme));
+					$theme = preg_replace('/[^0-9a-z -]/', '-', mb_strtolower($theme));
 				}
 				
 				if (preg_match('/^light(?:\s+([^\s].+))?$/i', $theme, $m))
@@ -5936,6 +5961,10 @@ class google_business_reviews_rating
 			if (is_bool($stylesheet) && !$stylesheet)
 			{
 				$classes[] = 'no-styles';
+			}
+			elseif (is_string($stars) && preg_match('/^inline|inline$/i', $stars))
+			{
+				$classes[] = 'inline-svg';
 			}
 			else
 			{
@@ -6009,7 +6038,7 @@ class google_business_reviews_rating
 			. ((is_numeric($view)) ? ' data-view="' . esc_attr($view) . '"' . ((is_numeric($loop) || is_bool($loop) && $loop) ? ' data-loop="' . esc_attr((!is_numeric($loop)) ? '-1' : $loop) . '"' : '') . ((is_numeric($iterations)) ? ' data-iterations="' . esc_attr($iterations) . '"' : '') . ((is_numeric($interval)) ? ' data-interval="' . esc_attr($interval) . '"' : '') . ((is_string($transition)) ? ' data-transition="' . esc_attr($transition) . '"' . ((is_numeric($transition_duration)) ? ' data-transition-duration="' . esc_attr($transition_duration) . '"' : '') : '') . ((is_bool($cursor) && !$cursor) ? ' data-cursor="0"' : '') . ((is_bool($draggable) && !$draggable) ? ' data-draggable="0"' : '') : '')
 			. '>
 ';
-			
+
 			if ($summary)
 			{
 				if ((!is_bool($icon) || is_bool($icon) && $icon || is_string($icon)) || (!is_bool($name) || is_bool($name) && $name) || (!is_bool($vicinity) || is_bool($vicinity) && $vicinity))
@@ -6046,7 +6075,34 @@ class google_business_reviews_rating
 
 				if (is_bool($stars) && $stars || is_string($stars))
 				{
-					if ($stylesheet && ((!is_string($stars) || is_string($stars) && $stars != 'html') && !preg_match('/\bversion[_-]?1\b/i', $class)))
+					if (preg_match('/^inline|inline$/i', $stars))
+					{
+						$partial = (round($rating * 10, 0, PHP_ROUND_HALF_UP) - floor($rating) * 10) * 10;
+						$html .= '<span class="all-stars inline-svg' . (($animate) ? ' animate' : '') . '">' . PHP_EOL;
+
+						for ($star = 1; $star <= 5; $star++)
+						{
+							$html .= '	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" class="star' . (($star > ceil($rating)) ? ' gray' : (($star > floor($rating) && $partial > 0) ? ' mask-' . $partial . '-' . (100 - $partial) : '')) . '" width="100" height="100" viewBox="0 0 100 100">' . PHP_EOL
+		. (($star <= ceil($rating)) ? '	    <defs>
+	        <filter id="' . esc_attr('gmbrr-star-blur-' . $this->instance_count . '-' . $star) . '" color-interpolation-filters="linear" x="-50%" y="-50%" width="200%" height="200%">
+				<feGaussianBlur in="SourceGraphic" stdDeviation="14"></feGaussianBlur>
+	        </filter>
+	    </defs>	    <clipPath id="' . esc_attr('gmbrr-star-mask-shape-' . $this->instance_count . '-' . $star) . '">
+	        <rect class="mask-shape" />
+	    </clipPath>' . PHP_EOL : '')
+		. '	    <clipPath id="' . esc_attr('gmbrr-star-mask-shape-' . $this->instance_count . '-' . ($star + 5)) . '">
+	        <rect class="mask-shape static" />
+	    </clipPath>
+	    <path class="gray" d="m50 2.447 11.743 36.411L100 38.774l-31 22.42 11.902 36.359L50 74.998 19.098 97.553 31 61.194 0 38.774l38.257.084z" />' . PHP_EOL
+		. (($star <= ceil($rating)) ? '	    <path class="yellow" clip-path="url(' . esc_attr('#gmbrr-star-mask-shape-' . $this->instance_count . '-' . $star) . ')" d="m50 2.447 11.743 36.411L100 38.774l-31 22.42 11.902 36.359L50 74.998 19.098 97.553 31 61.194 0 38.774l38.257.084z" />
+	    <circle class="glow" clip-path="url(' . esc_attr('#gmbrr-star-mask-shape-' . $this->instance_count . '-' . $star) . ')" filter="url(' . esc_attr('#gmbrr-star-blur-' . $this->instance_count . '-' . $star) . ')" cx="-100%" cy="50%" r="60"></circle>' . PHP_EOL : '')
+		. '	    <path class="outline" fill="none" stroke="#F7B704" stroke-miterlimit="10" stroke-width="1.937" d="M96.975 39.754 67.85 60.817l11.182 34.159L50 73.786l-29.032 21.19L32.15 60.817 3.025 39.753l35.943.079L50 5.624l11.032 34.208 35.943-.079v.001l-.61.441" />
+	</svg>' . PHP_EOL;
+						}
+
+						$html .= '</span> ';
+					}
+					elseif ($stylesheet && ((!is_string($stars) || is_string($stars) && $stars != 'html') && !preg_match('/\bversion[_-]?1\b/i', $class)))
 					{
 						$partial = (round($rating * 10, 0, PHP_ROUND_HALF_UP) - floor($rating) * 10) * 10;
 						$html .= '<span class="all-stars' . (($animate) ? ' animate' : '') . '">'
@@ -6135,13 +6191,13 @@ class google_business_reviews_rating
 					if (is_string($name_format) && preg_match('/^(?:capitali[sz]e|uc(?:first|words)|(?:(?:lower|upper|title)(?:case)?))?\s*(?:(?:(first|last)\s+)?initials?(?:\s+(only)?)?(?:\s+(?:with\s+)?(dot|(?:full)?stop|point|space)s?(?:\s+(?:and\s+)?(dot|(?:full)?stop|point|space)s?)?)?|(first|last)(?:\s+name)?(?:\s+only)?)\s*(?:capitali[sz]e|uc(?:first|words)|(?:(?:lower|upper|title)(?:case)?))?$/i', $name_format, $name_format_match))
 					{
 						$options['name_format_match'] = $name_format_match;
-						$options['author_name_first'] = (isset($name_format_match[5]) && is_string($name_format_match[5]) && strtolower($name_format_match[5]) == 'first');
-						$options['author_name_last'] = (!$options['author_name_first'] && isset($name_format_match[5]) && is_string($name_format_match[5]) && strtolower($name_format_match[5]) == 'last');
-						$options['author_name_first_initials'] = (!$options['author_name_first'] && !$options['author_name_last'] && isset($name_format_match[1]) && is_string($name_format_match[1]) && strtolower($name_format_match[1]) == 'first');
-						$options['author_name_last_initials'] = (!$options['author_name_first'] && !$options['author_name_last'] && !$options['author_name_first_initials'] && isset($name_format_match[1]) && is_string($name_format_match[1]) && strtolower($name_format_match[1]) == 'last');
+						$options['author_name_first'] = (isset($name_format_match[5]) && is_string($name_format_match[5]) && mb_strtolower($name_format_match[5]) == 'first');
+						$options['author_name_last'] = (!$options['author_name_first'] && isset($name_format_match[5]) && is_string($name_format_match[5]) && mb_strtolower($name_format_match[5]) == 'last');
+						$options['author_name_first_initials'] = (!$options['author_name_first'] && !$options['author_name_last'] && isset($name_format_match[1]) && is_string($name_format_match[1]) && mb_strtolower($name_format_match[1]) == 'first');
+						$options['author_name_last_initials'] = (!$options['author_name_first'] && !$options['author_name_last'] && !$options['author_name_first_initials'] && isset($name_format_match[1]) && is_string($name_format_match[1]) && mb_strtolower($name_format_match[1]) == 'last');
 						$options['author_name_only'] = (isset($name_format_match[2]) && is_string($name_format_match[2]) && $name_format_match[2] != NULL);
-						$options['author_name_dot'] = ((isset($name_format_match[3]) && is_string($name_format_match[3]) && $name_format_match[3] != NULL && strtolower($name_format_match[3]) != 'space') || (isset($name_format_match[4]) && is_string($name_format_match[4]) && $name_format_match[4] != NULL && strtolower($name_format_match[4]) != 'space'));
-						$options['author_name_space'] = ((isset($name_format_match[3]) && is_string($name_format_match[3]) && strtolower($name_format_match[3]) == 'space') || (isset($name_format_match[4]) && is_string($name_format_match[4]) && strtolower($name_format_match[4]) == 'space'));
+						$options['author_name_dot'] = ((isset($name_format_match[3]) && is_string($name_format_match[3]) && $name_format_match[3] != NULL && mb_strtolower($name_format_match[3]) != 'space') || (isset($name_format_match[4]) && is_string($name_format_match[4]) && $name_format_match[4] != NULL && mb_strtolower($name_format_match[4]) != 'space'));
+						$options['author_name_space'] = ((isset($name_format_match[3]) && is_string($name_format_match[3]) && mb_strtolower($name_format_match[3]) == 'space') || (isset($name_format_match[4]) && is_string($name_format_match[4]) && mb_strtolower($name_format_match[4]) == 'space'));
 					}
 					
 					$check_key = NULL;
@@ -6157,7 +6213,7 @@ class google_business_reviews_rating
 						
 						if (!$options['review_item_text_first'] && !$options['review_item_author_switch'] && preg_match('/^(?:(?:author(?:[_-]?name)?|avatar|date|inline|name|rating|review|text)[,\s]*){2,6}$/i', $review_item_order))
 						{
-							$review_item_order = preg_split('/,\s*/', strtolower($review_item_order), 6, PREG_SPLIT_NO_EMPTY);
+							$review_item_order = preg_split('/,\s*/', mb_strtolower($review_item_order), 6, PREG_SPLIT_NO_EMPTY);
 						}
 						
 						if (is_array($review_item_order))
@@ -6526,7 +6582,7 @@ class google_business_reviews_rating
 				{
 					if (count($author_name_array) == 1 || $author_name_first || $author_name_first_initials)
 					{
-						$author_name = ($author_name_first) ? $author_name_array[0] : strtoupper(mb_substr($author_name_array[0], 0, 1) . (($author_name_dot) ? '.' : ''));
+						$author_name = ($author_name_first) ? $author_name_array[0] : mb_strtoupper(mb_substr($author_name_array[0], 0, 1) . (($author_name_dot) ? '.' : ''));
 			
 						if (!$author_name_first && !$author_name_only && count($author_name_array) > 1)
 						{
@@ -6540,12 +6596,12 @@ class google_business_reviews_rating
 							$author_name = implode(' ', array_slice($author_name_array, 0, -1));
 						}
 						
-						$author_name .= ($author_name_last) ? end($author_name_array) : ' ' . strtoupper(mb_substr(end($author_name_array), 0, 1) . (($author_name_dot) ? '.' : ''));
+						$author_name .= ($author_name_last) ? end($author_name_array) : ' ' . mb_strtoupper(mb_substr(end($author_name_array), 0, 1) . (($author_name_dot) ? '.' : ''));
 					}
 				}
 				else
 				{
-					$author_name = ($author_name_last) ? end($author_name_array) : strtoupper(mb_substr($author_name_array[0], 0, 1) . (($author_name_dot) ? '.' : '') . (($author_name_space) ? ' ' : '') . mb_substr(end($author_name_array), 0, 1) . (($author_name_dot) ? '.' : ''));
+					$author_name = ($author_name_last) ? end($author_name_array) : mb_strtoupper(mb_substr($author_name_array[0], 0, 1) . (($author_name_dot) ? '.' : '') . (($author_name_space) ? ' ' : '') . mb_substr(end($author_name_array), 0, 1) . (($author_name_dot) ? '.' : ''));
 				}
 				
 				$author_name = trim($author_name);
@@ -6558,12 +6614,12 @@ class google_business_reviews_rating
 			
 			if ($author_name_lowercase)
 			{
-				$author_name = strtolower(trim($author_name));
+				$author_name = mb_strtolower(trim($author_name));
 			}
 			
 			if ($author_name_uppercase)
 			{
-				$author_name = strtoupper(trim($author_name));
+				$author_name = mb_strtoupper(trim($author_name));
 			}
 			
 			$html .= '				<span class="author-name">' . ((isset($data['author_url']) && $data['author_url'] != NULL && (is_bool($link_disable) && !$link_disable || is_array($link_disable) && !in_array('author', $link_disable))) ? '<a href="' . esc_attr($data['author_url']) . '" target="_blank"' . (($rel != NULL) ? ' rel="' . esc_attr($rel) . '"' : '') . '>' : '') . esc_html($author_name) . ((isset($data['author_url']) && $data['author_url'] != NULL && (is_bool($link_disable) && !$link_disable || is_array($link_disable) && !in_array('author', $link_disable))) ? '</a>' : '') . '</span>

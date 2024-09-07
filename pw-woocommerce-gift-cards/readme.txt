@@ -5,7 +5,7 @@ Tags: woocommerce, gift cards, gift certificates, vouchers, store credit
 Requires at least: 4.5
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 2.2
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,9 @@ The following currency switcher plugins are supported:
 
 == Changelog ==
 
+= 2.3 =
+* Added new hooks pwgc_admin_search_results_row_before_number, pwgc_admin_search_results_row_after_number. Remove blank values from notifications array. Compatibility with WooCommerce 9.3.
+
 = 2.2 =
 * Fixed an issue when using the WP Optimize plugin with Minify and Merge Javascript enabled.
 
@@ -116,15 +119,12 @@ The following currency switcher plugins are supported:
 = 1.250 =
 * Confirmed compatibility with WooCommerce 8.3
 
-= 1.249 =
-* Confirmed compatibility with WordPress 6.4
-
 = Previous versions =
 * See changelog.txt
 
 == Upgrade Notice ==
 
-= 2.2 =
-* Fixed an issue when using the WP Optimize plugin with Minify and Merge Javascript enabled.
+= 2.3 =
+* Added new hooks pwgc_admin_search_results_row_before_number, pwgc_admin_search_results_row_after_number. Remove blank values from notifications array. Compatibility with WooCommerce 9.3.
 
 

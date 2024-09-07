@@ -1,5 +1,12 @@
 ﻿== Changelog ==
 
+= 1.2.70.3 =
+* Updated Brevo API from sendinblue.com to brevo.com.
+* Improved Paid Memberships Pro checkout integration.
+* Enhancement: Automatically display price in emails when Woo is active and post is a product.
+* Fixed bug where Zoho Campaigns Canada DC accounts didn't work.
+* Fixed incompatibility with OceanWP theme.
+
 = 1.2.70.2 =
 * Added content-type header to PATCH webhook request
 * Stop AWeber retry if 401 error is detected.

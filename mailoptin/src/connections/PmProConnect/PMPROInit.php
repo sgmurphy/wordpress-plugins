@@ -25,7 +25,7 @@ class PMPROInit
         add_action('pmpro_checkout_before_submit_button', [$this, 'display_signup_field']);
 
         add_action('pmpro_checkout_before_change_membership_level', [$this, 'save_optin_checkbox_state'], 10, 2);
-        add_action('pmpro_order_status_success', [$this, 'process_signup']);
+        add_action('pmpro_after_checkout', [$this, 'process_signup'], 1, 2);
     }
 
     public function enqueue_scripts()
@@ -78,7 +78,7 @@ class PMPROInit
     }
 
 
-    public function process_signup($morder)
+    public function process_signup($user_id, $morder)
     {
         if ($this->is_auto_subscribe_enabled() || get_option(sprintf('mo_pmpro_subscribed_checked_%s', $morder->code)) == 'yes') {
 

@@ -3,18 +3,18 @@
  * Plugin Name: PW WooCommerce Bulk Edit
  * Plugin URI: https://www.pimwick.com/pw-bulk-edit/
  * Description: A powerful way to update your WooCommerce product catalog. Finally, no more tedious clicking through countless pages making the same change to all products!
- * Version: 2.127
+ * Version: 2.128
  * Author: Pimwick, LLC
  * Author URI: https://www.pimwick.com
  * Text Domain: pw-bulk-edit
  * Domain Path: /languages
  *
  * WC requires at least: 4.0
- * WC tested up to: 9.1
+ * WC tested up to: 9.3
  * Requires Plugins: woocommerce
  *
 */
-define('PWBE_VERSION', '2.127');
+define('PWBE_VERSION', '2.128');
 
 /*
 Copyright (C) Pimwick, LLC
@@ -44,10 +44,6 @@ if ( !is_admin() ) {
 
 // Increase the available memory since returning lots of data can often exhaust typical memory allocation amounts.
 defined( 'PWBE_MEMORY_LIMIT' ) or define( 'PWBE_MEMORY_LIMIT', '1024M' );
-if ( PWBE_MEMORY_LIMIT !== false ) {
-    ini_set( 'memory_limit', PWBE_MEMORY_LIMIT );
-    defined( 'WP_MEMORY_LIMIT' ) or define( 'WP_MEMORY_LIMIT', PWBE_MEMORY_LIMIT );
-}
 
 // Only change this if you are comfortable with possible unexpected behavior!
 defined( 'PWBE_MAX_RESULTS' ) or define( 'PWBE_MAX_RESULTS', '1000' );
@@ -460,8 +456,44 @@ final class PW_Bulk_Edit {
 
         return $output;
     }
+
+    function increase_memory_limit() {
+        if ( !defined( 'PWBE_MEMORY_LIMIT' ) || PWBE_MEMORY_LIMIT === false ) {
+            return;
+        }
+
+        // Get the current memory_limit
+        $current_limit = ini_get( 'memory_limit' );
+
+        if ( !empty( $current_limit ) ) {
+            $current_limit = $this->string_to_bytes( $current_limit );
+        }
+
+        $new_limit = $this->string_to_bytes( PWBE_MEMORY_LIMIT );
+
+        if ( $current_limit >= $new_limit ) {
+            return;
+        }
+
+        if ( !ini_get( 'safe_mode' ) ) {
+            ini_set( 'memory_limit', PWBE_MEMORY_LIMIT );
+        }
+    }
+
+    function string_to_bytes( $string ) {
+        return preg_replace_callback('/^\s*(\d+)\s*(?:([kmgt]?)b?)?\s*$/i', function ($m) {
+            switch (strtolower($m[2])) {
+                case 't': $m[1] *= 1024;
+                case 'g': $m[1] *= 1024;
+                case 'm': $m[1] *= 1024;
+                case 'k': $m[1] *= 1024;
+            }
+            return $m[1];
+        }, $string );
+    }
 }
 
-new PW_Bulk_Edit();
+global $pw_bulk_edit;
+$pw_bulk_edit = new PW_Bulk_Edit();
 
 endif;

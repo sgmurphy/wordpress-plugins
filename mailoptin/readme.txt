@@ -5,7 +5,7 @@ Tags: popup, popup maker, popups, newsletter, mailchimp
 Requires at least: 5.8
 Requires PHP: 7.3
 Tested up to: 6.6
-Stable tag: 1.2.70.2
+Stable tag: 1.2.70.3
 License: GPL-2.0+
 
 Create popup, optin forms using easy form builder & popup maker. Send automated email to subscribers — Mailchimp, ActiveCampaign, Campaign Monitor etc
@@ -184,6 +184,13 @@ Yes, MailOptin has complete translation and localization support. All .mo and .p
 
 == Changelog ==
 
+= 1.2.70.3 =
+* Updated Brevo API from sendinblue.com to brevo.com.
+* Improved Paid Memberships Pro checkout integration.
+* Enhancement: Automatically display price in emails when Woo is active and post is a product.
+* Fixed bug where Zoho Campaigns Canada DC accounts didn't work.
+* Fixed incompatibility with OceanWP theme.
+
 = 1.2.70.2 =
 * Added content-type header to PATCH webhook request
 * Stop AWeber retry if 401 error is detected.
@@ -197,15 +204,5 @@ Yes, MailOptin has complete translation and localization support. All .mo and .p
 = 1.2.70.0 =
 * Added [Elastic Email integration](https://mailoptin.io/article/connect-wordpress-elastic-email/).
 * Improved Block Editor support.
-
-= 1.2.69.1 =
-* Fixed bug where Beehiiv integration without selected tier didn't work.
-* Fixed bug where Contact Form 7 integration with acceptance checkbox didn’t work.
-* Fixed bug where popup triggered JS error.
-
-= 1.2.69.0 =
-* Added [Beehiiv integration](https://mailoptin.io/article/connect-wordpress-beehiiv/).
-* Added compatibility support for Forminator 1.31
-* FB Connection API now defaults to v19.0.
 
 See the [changelog file](https://plugins.svn.wordpress.org/mailoptin/trunk/changelog.txt) for complete change log information.

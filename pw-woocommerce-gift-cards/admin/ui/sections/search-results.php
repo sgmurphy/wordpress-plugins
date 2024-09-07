@@ -39,7 +39,13 @@ if ( count( $gift_cards ) == 0 ) {
                 ?>
                 <tr data-gift-card-number="<?php echo esc_html( $gift_card->get_number() ); ?>">
                     <td class="pwgc-search-result-card-number">
-                        <?php echo esc_html( $gift_card->get_number() ); ?>
+                        <?php
+                            do_action( 'pwgc_admin_search_results_row_before_number', $gift_card );
+
+                            esc_html_e( $gift_card->get_number() );
+
+                            do_action( 'pwgc_admin_search_results_row_after_number', $gift_card );
+                        ?>
                         <div class="pwgc-inactive-card pwgc-balance-error <?php if ( $gift_card->get_active() ) { echo 'pwgc-hidden'; } ?>">
                             <?php _e( 'Card has been deleted.', 'pw-woocommerce-gift-cards' ); ?>
                         </div>

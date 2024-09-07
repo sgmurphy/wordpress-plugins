@@ -1,3 +1,6 @@
+= 2.128 =
+* Improved how PWBE_MEMORY_LIMIT can be used to increase available memory when returning results. Confirmed compatibility with WooCommerce 9.3
+
 = 2.127 =
 * Performance improvements.
 

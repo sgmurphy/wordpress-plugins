@@ -6,8 +6,8 @@ Contributors: designextreme
 Donate link: https://paypal.me/designextreme
 Tags: google reviews, google rating, google my business, gmb reviews, structured data
 Requires at least: 4.6
-Tested up to: 6.5
-Stable tag: 5.4
+Tested up to: 6.6.1
+Stable tag: 5.5
 Requires PHP: 5.2.4
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -243,6 +243,13 @@ There’s a comprehensive list in the Shortcodes section in Dashboard→Settings
 10. Dashboard view of advanced import with 9 new reviews
 
 == Changelog ==
+
+= 5.5 =
+
+* Added support for inline SVG stars
+* Added Hungarian and Japanese language support for relative times (Thanks to Örs and Kevin)
+* Improved rating star animation: initiating when in view
+* Restricted effect of avatar dimension variables in CSS
 
 = 5.4 =
 

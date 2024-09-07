@@ -52,7 +52,7 @@ if (!defined('ABSPATH'))
                             <input type="text" id="welcome-api-key" class="regular-text code" name="google_business_reviews_rating_api_key" placeholder="<?php echo esc_attr(str_repeat('x', 40)); ?>" value="<?php echo esc_attr(get_option('google_business_reviews_rating_api_key')); ?>">
                         </p>
                         <p class="description<?php echo ((get_option('google_business_reviews_rating_api_key') == NULL) ? ' unset' : ''); ?>"><?php /* translators: 1: URL of Place ID Finder, 2: IP of the web server, 3: Help icon and reveal toggle link */ 
-						echo sprintf(__('To retrieve data from Google My Business, you’ll need your <a href="%1$s" class="components-external-link" target="_blank">API Key</a> restricted to the API: <span class="highlight">Places API</span> and IP address:<span class="highlight">%2$s</span> %3$s', 'g-business-reviews-rating'), 'https://developers.google.com/maps/documentation/javascript/get-api-key', esc_html($this->server_ip()), ' <a id="welcome-google-credentials-help" href="#welcome-google-credentials-steps"><span class="dashicons dashicons-editor-help"></span></a>'); ?></p>
+						echo sprintf(__('To retrieve data from Google My Business, you’ll need your <a href="%1$s" class="components-external-link" target="_blank">API Key</a> restricted to the API: <span class="highlight">Places API</span> and IP address: <span class="highlight">%2$s</span> %3$s', 'g-business-reviews-rating'), 'https://developers.google.com/maps/documentation/javascript/get-api-key', esc_html($this->server_ip()), ' <a id="welcome-google-credentials-help" href="#welcome-google-credentials-steps"><span class="dashicons dashicons-editor-help"></span></a>'); ?></p>
                         <ol id="welcome-google-credentials-steps">
 							<li>
                         <?php /* translators: 1: URL of Google Developer Console, 2: URL of Place API, 3: URL of Google Developer Console, 4: IP of web server, 5: URL for Google billing account */
@@ -398,7 +398,7 @@ if ($this->valid()): ?>
                             <input type="text" id="api-key" class="regular-text code" name="google_business_reviews_rating_api_key" placeholder="<?php echo esc_attr(str_repeat('x', 40)); ?>" value="<?php echo esc_attr(get_option('google_business_reviews_rating_api_key')); ?>">
                         </p>
                         <p class="description<?php echo ((get_option('google_business_reviews_rating_api_key') == NULL) ? ' unset' : ''); ?>"><?php /* translators: 1: URL of Place ID Finder, 2: IP of the web server, 3: Help icon and reveal toggle link */ 
-						echo sprintf(__('To retrieve data from Google My Business, you’ll need your <a href="%1$s" class="components-external-link" target="_blank">API Key</a> restricted to the API: <span class="highlight">Places API</span> and IP address:<span class="highlight">%2$s</span> %3$s', 'g-business-reviews-rating'), 'https://developers.google.com/maps/documentation/javascript/get-api-key', esc_html($this->server_ip()), ' <a id="google-credentials-help" href="#google-credentials-steps"><span class="dashicons dashicons-editor-help"></span></a>'); ?></p>
+						echo sprintf(__('To retrieve data from Google My Business, you’ll need your <a href="%1$s" class="components-external-link" target="_blank">API Key</a> restricted to the API: <span class="highlight">Places API</span> and IP address: <span class="highlight">%2$s</span> %3$s', 'g-business-reviews-rating'), 'https://developers.google.com/maps/documentation/javascript/get-api-key', esc_html($this->server_ip()), ' <a id="google-credentials-help" href="#google-credentials-steps"><span class="dashicons dashicons-editor-help"></span></a>'); ?></p>
                         <ol id="google-credentials-steps">
 							<li><?php /* translators: 1: URL of Google Developer Console, 2: URL of Place API, 3: URL of Google Developer Console, 4: IP of web server, 5: URL for Google billing account */
 						echo preg_replace('/[\r\n]+/', '</li>' . PHP_EOL . str_repeat("\t", 7) . '<li>', sprintf(__('Create a new project or open an existing project in <a href="%1$s" class="components-external-link" target="_blank">Google Developer’s Console</a>
@@ -429,13 +429,13 @@ Finally for regular requests, please <a href="%5$s" class="components-external-l
 <?php elseif (is_array($this->places) && count($this->places) > 1): ?>
                             <ul id="google-places" class="google-places">
                                 <li class="header">
-                                    <span class="current"><?php echo esc_html('Current', 'g-business-reviews-rating'); ?></span>
-                                    <span class="name"><?php echo esc_html('Name', 'g-business-reviews-rating'); ?></span>
+                                    <span class="current"><?php esc_html_e('Current', 'g-business-reviews-rating'); ?></span>
+                                    <span class="name"><?php esc_html_e('Name', 'g-business-reviews-rating'); ?></span>
                                     <span class="delete empty"></span>
-                                    <span class="place-id"><?php echo esc_html('Place ID', 'g-business-reviews-rating'); ?></span>
-                                    <span class="rating"><?php echo esc_html('Rating', 'g-business-reviews-rating'); ?></span>
-                                    <span class="reviews"><?php echo esc_html('Reviews', 'g-business-reviews-rating'); ?></span>
-                                    <span class="added"><?php echo esc_html('Added', 'g-business-reviews-rating'); ?></span>
+                                    <span class="place-id"><?php esc_html_e('Place ID', 'g-business-reviews-rating'); ?></span>
+                                    <span class="rating"><?php esc_html_e('Rating', 'g-business-reviews-rating'); ?></span>
+                                    <span class="reviews"><?php esc_html_e('Reviews', 'g-business-reviews-rating'); ?></span>
+                                    <span class="added"><?php esc_html_e('Added', 'g-business-reviews-rating'); ?></span>
                                 </li>
 <?php foreach ($this->places as $i => $a) : ?>
 <?php if ((!isset($a['name']) || $a['name'] == NULL) && get_option('google_business_reviews_rating_place_id') != $a['place_id']) : ?>
@@ -478,7 +478,7 @@ Finally for regular requests, please <a href="%5$s" class="components-external-l
                             <p id="google-places-delete" class="google-places-delete hide">
                                 <label>
                                     <input type="checkbox" id="<?php echo esc_attr('place-delete-' . ($i + 1)); ?>" name="google_business_reviews_rating_place_delete[]" value="confirm">
-                                    <?php echo esc_html('Delete selected places and reviews', 'g-business-reviews-rating'); ?>
+                                    <?php esc_html_e('Delete selected places and reviews', 'g-business-reviews-rating'); ?>
                                 </label>
                             </p>
                         </div>
@@ -1512,17 +1512,17 @@ Finally for regular requests, please <a href="%5$s" class="components-external-l
             <p class="html-import">
                 <textarea id="html-import" class="html-import-hide" name="html-import" data-relative-times="<?php echo esc_attr(json_encode($this->relative_times)); ?>" data-languages="<?php echo esc_attr(json_encode($this->languages)); ?>" placeholder="<?php echo '&lt;div class=&quot;c9QyIf&quot;&gt;&lt;div class=&quot;review-dialog-top&quot;&gt;' . esc_attr(__('HTML from your Reviews on Google', 'g-business-reviews-rating')) . '&lt;/div&gt;&lt;/div&gt;'; ?>"></textarea>
                 <select id="html-import-review-text" name="html-import-review-text" class="html-import-hide">
-                    <option value="original" selected><?php echo esc_html__('Only import original', 'g-business-reviews-rating'); ?></option>
-                    <option value="translation"><?php echo esc_html__('Only import translation', 'g-business-reviews-rating'); ?></option>
-                    <option value=""><?php echo esc_html__('Import full review text', 'g-business-reviews-rating'); ?></option>
+                    <option value="original" selected><?php esc_html_e('Only import original', 'g-business-reviews-rating'); ?></option>
+                    <option value="translation"><?php esc_html_e('Only import translation', 'g-business-reviews-rating'); ?></option>
+                    <option value=""><?php esc_html_e('Import full review text', 'g-business-reviews-rating'); ?></option>
                 </select>
                 <label id="html-import-empty-label" class="html-import-hide" for="html-import-empty"><input type="checkbox" id="html-import-empty" name="html-import-empty" value="1" checked="checked"> <?php esc_html_e('Import empty reviews', 'g-business-reviews-rating') ?></label>
                 <label id="html-import-existing-label" class="html-import-hide" for="html-import-existing"><input type="checkbox" id="html-import-existing" name="html-import-existing" value="1"> <?php esc_html_e('Show existing entries', 'g-business-reviews-rating') ?></label>
             </p>
             <p class="submit">
-                <button type="button" name="import-process" id="import-process-button" class="button button-primary html-import-hide"><?php echo esc_html__('Process', 'g-business-reviews-rating'); ?></button>
-                <button type="button" name="import" id="import-button" class="button button-primary"><?php echo esc_html__('Import', 'g-business-reviews-rating'); ?></button>
-                <button type="button" name="import-clear" id="import-clear-button" class="button button-secondary"><?php echo esc_html__('Clear', 'g-business-reviews-rating'); ?></button>
+                <button type="button" name="import-process" id="import-process-button" class="button button-primary html-import-hide"><?php esc_html_e('Process', 'g-business-reviews-rating'); ?></button>
+                <button type="button" name="import" id="import-button" class="button button-primary"><?php esc_html_e('Import', 'g-business-reviews-rating'); ?></button>
+                <button type="button" name="import-clear" id="import-clear-button" class="button button-secondary"><?php esc_html_e('Clear', 'g-business-reviews-rating'); ?></button>
             </p>
         </form>
 <?php else: ?>

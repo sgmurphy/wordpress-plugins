@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Reviews and Rating - Google Reviews 5.3\n"
+"Project-Id-Version: Reviews and Rating - Google Reviews 5.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/g-business-reviews-rating\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-09T13:16:58+00:00\n"
+"POT-Creation-Date: 2024-09-07T17:14:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: g-business-reviews-rating\n"
 
 #. Plugin Name of the plugin
-#: index.php:922
-#: index.php:6812
+#: index.php:947
+#: index.php:6868
 #: templates/settings.php:10
 #: widget.php:41
 msgid "Reviews and Rating - Google Reviews"
@@ -207,1402 +207,1402 @@ msgstr ""
 msgid "%u years ago"
 msgstr ""
 
-#: index.php:417
+#: index.php:442
 msgid "Cranberry"
 msgstr ""
 
-#: index.php:418
+#: index.php:443
 msgid "Coral"
 msgstr ""
 
-#: index.php:419
+#: index.php:444
 msgid "Pumpkin"
 msgstr ""
 
-#: index.php:420
+#: index.php:445
 msgid "Mustard"
 msgstr ""
 
-#: index.php:421
+#: index.php:446
 msgid "Forest"
 msgstr ""
 
-#: index.php:422
+#: index.php:447
 msgid "Turquoise"
 msgstr ""
 
-#: index.php:423
+#: index.php:448
 msgid "Ocean"
 msgstr ""
 
-#: index.php:424
+#: index.php:449
 msgid "Amethyst"
 msgstr ""
 
-#: index.php:425
+#: index.php:450
 msgid "Magenta"
 msgstr ""
 
-#: index.php:426
+#: index.php:451
 msgid "Slate"
 msgstr ""
 
-#: index.php:427
+#: index.php:452
 msgid "Carbon"
 msgstr ""
 
-#: index.php:428
+#: index.php:453
 msgid "Copper"
 msgstr ""
 
-#: index.php:429
+#: index.php:454
 msgid "Coffee"
 msgstr ""
 
-#: index.php:430
+#: index.php:455
 msgid "High Contrast"
 msgstr ""
 
-#: index.php:927
+#: index.php:952
 msgid "Google Reviews"
 msgstr ""
 
-#: index.php:1155
+#: index.php:1180
 msgid "You do not have sufficient permission to access this page."
 msgstr ""
 
-#: index.php:1242
+#: index.php:1267
 msgid "Light Background"
 msgstr ""
 
-#: index.php:1243
+#: index.php:1268
 msgid "Light Background with Fonts"
 msgstr ""
 
-#: index.php:1244
+#: index.php:1269
 msgid "Tiled, Light Background"
 msgstr ""
 
-#: index.php:1245
+#: index.php:1270
 msgid "Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1246
+#: index.php:1271
 msgid "Centered, Light Background"
 msgstr ""
 
-#: index.php:1247
+#: index.php:1272
 msgid "Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1248
+#: index.php:1273
 msgid "Centered, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1249
+#: index.php:1274
 msgid "Centered, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1250
+#: index.php:1275
 msgid "Narrow, Light Background"
 msgstr ""
 
-#: index.php:1251
+#: index.php:1276
 msgid "Narrow, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1252
+#: index.php:1277
 msgid "Narrow, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1253
+#: index.php:1278
 msgid "Narrow, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1254
+#: index.php:1279
 msgid "Narrow, Centered, Light Background"
 msgstr ""
 
-#: index.php:1255
+#: index.php:1280
 msgid "Narrow, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1256
+#: index.php:1281
 msgid "Narrow, Centered, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1257
+#: index.php:1282
 msgid "Narrow, Centered, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1258
+#: index.php:1283
 msgid "Dark Background"
 msgstr ""
 
-#: index.php:1259
+#: index.php:1284
 msgid "Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1260
+#: index.php:1285
 msgid "Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1261
+#: index.php:1286
 msgid "Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1262
+#: index.php:1287
 msgid "Centered, Dark Background"
 msgstr ""
 
-#: index.php:1263
+#: index.php:1288
 msgid "Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1264
+#: index.php:1289
 msgid "Centered, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1265
+#: index.php:1290
 msgid "Centered, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1266
+#: index.php:1291
 msgid "Narrow, Dark Background"
 msgstr ""
 
-#: index.php:1267
+#: index.php:1292
 msgid "Narrow, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1268
+#: index.php:1293
 msgid "Narrow, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1269
+#: index.php:1294
 msgid "Narrow, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1270
+#: index.php:1295
 msgid "Narrow, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1271
+#: index.php:1296
 msgid "Narrow, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1272
+#: index.php:1297
 msgid "Narrow, Centered, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1273
+#: index.php:1298
 msgid "Narrow, Centered, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1274
+#: index.php:1299
 msgid "Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1275
+#: index.php:1300
 msgid "Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1276
+#: index.php:1301
 msgid "Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1277
+#: index.php:1302
 msgid "Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1278
+#: index.php:1303
 msgid "Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1279
+#: index.php:1304
 msgid "Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1280
+#: index.php:1305
 msgid "Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1281
+#: index.php:1306
 msgid "Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1282
+#: index.php:1307
 msgid "Centered, Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1283
+#: index.php:1308
 msgid "Centered, Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1284
+#: index.php:1309
 msgid "Centered, Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1285
+#: index.php:1310
 msgid "Centered, Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1286
+#: index.php:1311
 msgid "Centered, Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1287
+#: index.php:1312
 msgid "Centered, Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1288
+#: index.php:1313
 msgid "Centered, Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1289
+#: index.php:1314
 msgid "Centered, Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1290
+#: index.php:1315
 msgid "Narrow, Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1291
+#: index.php:1316
 msgid "Narrow, Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1292
+#: index.php:1317
 msgid "Narrow, Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1293
+#: index.php:1318
 msgid "Narrow, Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1294
+#: index.php:1319
 msgid "Narrow, Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1295
+#: index.php:1320
 msgid "Narrow, Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1296
+#: index.php:1321
 msgid "Narrow, Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1297
+#: index.php:1322
 msgid "Narrow, Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1298
+#: index.php:1323
 msgid "Narrow, Centered, Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1299
+#: index.php:1324
 msgid "Narrow, Centered, Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1300
+#: index.php:1325
 msgid "Narrow, Centered, Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1301
+#: index.php:1326
 msgid "Narrow, Centered, Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1302
+#: index.php:1327
 msgid "Narrow, Centered, Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1303
+#: index.php:1328
 msgid "Narrow, Centered, Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1304
+#: index.php:1329
 msgid "Narrow, Centered, Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1305
+#: index.php:1330
 msgid "Narrow, Centered, Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1306
+#: index.php:1331
 msgid "Dark, Bubble Outline"
 msgstr ""
 
-#: index.php:1307
+#: index.php:1332
 msgid "Dark, Bubble Outline with Fonts"
 msgstr ""
 
-#: index.php:1308
+#: index.php:1333
 msgid "Dark, Bubble Outline, Tiled"
 msgstr ""
 
-#: index.php:1309
+#: index.php:1334
 msgid "Dark, Bubble Outline, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1310
+#: index.php:1335
 msgid "Dark, Bubble Filled"
 msgstr ""
 
-#: index.php:1311
+#: index.php:1336
 msgid "Dark, Bubble Filled with Fonts"
 msgstr ""
 
-#: index.php:1312
+#: index.php:1337
 msgid "Dark, Bubble Filled, Tiled"
 msgstr ""
 
-#: index.php:1313
+#: index.php:1338
 msgid "Dark, Bubble Filled, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1314
+#: index.php:1339
 msgid "Centered, Dark, Bubble Outline"
 msgstr ""
 
-#: index.php:1315
+#: index.php:1340
 msgid "Centered, Dark, Bubble Outline with Fonts"
 msgstr ""
 
-#: index.php:1316
+#: index.php:1341
 msgid "Centered, Dark, Bubble Outline, Tiled"
 msgstr ""
 
-#: index.php:1317
+#: index.php:1342
 msgid "Centered, Dark, Bubble Outline, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1318
+#: index.php:1343
 msgid "Centered, Dark, Bubble Filled"
 msgstr ""
 
-#: index.php:1319
+#: index.php:1344
 msgid "Centered, Dark, Bubble Filled with Fonts"
 msgstr ""
 
-#: index.php:1320
+#: index.php:1345
 msgid "Centered, Dark, Bubble Filled, Tiled"
 msgstr ""
 
-#: index.php:1321
+#: index.php:1346
 msgid "Centered, Dark, Bubble Filled, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1322
+#: index.php:1347
 msgid "Narrow, Dark, Bubble Outline"
 msgstr ""
 
-#: index.php:1323
+#: index.php:1348
 msgid "Narrow, Dark, Bubble Outline with Fonts"
 msgstr ""
 
-#: index.php:1324
+#: index.php:1349
 msgid "Narrow, Dark, Bubble Outline, Tiled"
 msgstr ""
 
-#: index.php:1325
+#: index.php:1350
 msgid "Narrow, Dark, Bubble Outline, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1326
+#: index.php:1351
 msgid "Narrow, Dark, Bubble Filled"
 msgstr ""
 
-#: index.php:1327
+#: index.php:1352
 msgid "Narrow, Dark, Bubble Filled with Fonts"
 msgstr ""
 
-#: index.php:1328
+#: index.php:1353
 msgid "Narrow, Dark, Bubble Filled, Tiled"
 msgstr ""
 
-#: index.php:1329
+#: index.php:1354
 msgid "Narrow, Dark, Bubble Filled, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1330
+#: index.php:1355
 msgid "Narrow, Centered, Dark, Bubble Outline"
 msgstr ""
 
-#: index.php:1331
+#: index.php:1356
 msgid "Narrow, Centered, Dark, Bubble Outline with Fonts"
 msgstr ""
 
-#: index.php:1332
+#: index.php:1357
 msgid "Narrow, Centered, Dark, Bubble Outline, Tiled"
 msgstr ""
 
-#: index.php:1333
+#: index.php:1358
 msgid "Narrow, Centered, Dark, Bubble Outline, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1334
+#: index.php:1359
 msgid "Narrow, Centered, Dark, Bubble Filled"
 msgstr ""
 
-#: index.php:1335
+#: index.php:1360
 msgid "Narrow, Centered, Dark, Bubble Filled with Fonts"
 msgstr ""
 
-#: index.php:1336
+#: index.php:1361
 msgid "Narrow, Centered, Dark, Bubble Filled, Tiled"
 msgstr ""
 
-#: index.php:1337
+#: index.php:1362
 msgid "Narrow, Centered, Dark, Bubble Filled, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1338
+#: index.php:1363
 msgid "Badge, Light Background"
 msgstr ""
 
-#: index.php:1339
+#: index.php:1364
 msgid "Badge, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1340
+#: index.php:1365
 msgid "Narrow Badge, Light Background"
 msgstr ""
 
-#: index.php:1341
+#: index.php:1366
 msgid "Narrow Badge, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1342
+#: index.php:1367
 msgid "Badge, Dark Background"
 msgstr ""
 
-#: index.php:1343
+#: index.php:1368
 msgid "Badge, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1344
+#: index.php:1369
 msgid "Narrow Badge, Dark Background"
 msgstr ""
 
-#: index.php:1345
+#: index.php:1370
 msgid "Narrow Badge, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1346
+#: index.php:1371
 msgid "Tiny Badge, Light Background"
 msgstr ""
 
-#: index.php:1347
+#: index.php:1372
 msgid "Tiny Badge, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1348
+#: index.php:1373
 msgid "Tiny Badge, Dark Background"
 msgstr ""
 
-#: index.php:1349
+#: index.php:1374
 msgid "Tiny Badge, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1350
+#: index.php:1375
 msgid "Two Columns, Light Background"
 msgstr ""
 
-#: index.php:1351
+#: index.php:1376
 msgid "Two Columns, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1352
+#: index.php:1377
 msgid "Two Columns, Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1353
+#: index.php:1378
 msgid "Two Columns, Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1354
+#: index.php:1379
 msgid "Two Columns, Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1355
+#: index.php:1380
 msgid "Two Columns, Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1356
+#: index.php:1381
 msgid "Two Columns, Centered, Light Background"
 msgstr ""
 
-#: index.php:1357
+#: index.php:1382
 msgid "Two Columns, Centered, Light Background, Tiled"
 msgstr ""
 
-#: index.php:1358
+#: index.php:1383
 msgid "Two Columns, Bubble Outline, Centered, Light Background"
 msgstr ""
 
-#: index.php:1359
+#: index.php:1384
 msgid "Two Columns, Bubble Outline, Tiled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1360
+#: index.php:1385
 msgid "Two Columns, Bubble Filled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1361
+#: index.php:1386
 msgid "Two Columns, Bubble Filled, Tiled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1362
+#: index.php:1387
 msgid "Two Columns, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1363
+#: index.php:1388
 msgid "Two Columns, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1364
+#: index.php:1389
 msgid "Two Columns, Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1365
+#: index.php:1390
 msgid "Two Columns, Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1366
+#: index.php:1391
 msgid "Two Columns, Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1367
+#: index.php:1392
 msgid "Two Columns, Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1368
+#: index.php:1393
 msgid "Two Columns, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1369
+#: index.php:1394
 msgid "Two Columns, Centered, Light Background, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1370
+#: index.php:1395
 msgid "Two Columns, Bubble Outline, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1371
+#: index.php:1396
 msgid "Two Columns, Bubble Outline, Tiled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1372
+#: index.php:1397
 msgid "Two Columns, Bubble Filled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1373
+#: index.php:1398
 msgid "Two Columns, Bubble Filled, Tiled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1374
+#: index.php:1399
 msgid "Two Columns, Dark Background"
 msgstr ""
 
-#: index.php:1375
+#: index.php:1400
 msgid "Two Columns, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1376
+#: index.php:1401
 msgid "Two Columns, Bubble Outline, Dark Background"
 msgstr ""
 
-#: index.php:1377
+#: index.php:1402
 msgid "Two Columns, Bubble Outline, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1378
+#: index.php:1403
 msgid "Two Columns, Bubble Filled, Dark Background"
 msgstr ""
 
-#: index.php:1379
+#: index.php:1404
 msgid "Two Columns, Bubble Filled, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1380
+#: index.php:1405
 msgid "Two Columns, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1381
+#: index.php:1406
 msgid "Two Columns, Centered, Dark Background, Tiled"
 msgstr ""
 
-#: index.php:1382
+#: index.php:1407
 msgid "Two Columns, Bubble Outline, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1383
+#: index.php:1408
 msgid "Two Columns, Bubble Outline, Tiled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1384
+#: index.php:1409
 msgid "Two Columns, Bubble Filled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1385
+#: index.php:1410
 msgid "Two Columns, Bubble Filled, Tiled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1386
+#: index.php:1411
 msgid "Two Columns, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1387
+#: index.php:1412
 msgid "Two Columns, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1388
+#: index.php:1413
 msgid "Two Columns, Bubble Outline, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1389
+#: index.php:1414
 msgid "Two Columns, Bubble Outline, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1390
+#: index.php:1415
 msgid "Two Columns, Bubble Filled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1391
+#: index.php:1416
 msgid "Two Columns, Bubble Filled, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1392
+#: index.php:1417
 msgid "Two Columns, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1393
+#: index.php:1418
 msgid "Two Columns, Centered, Dark Background, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1394
+#: index.php:1419
 msgid "Two Columns, Bubble Outline, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1395
+#: index.php:1420
 msgid "Two Columns, Bubble Outline, Tiled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1396
+#: index.php:1421
 msgid "Two Columns, Bubble Filled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1397
+#: index.php:1422
 msgid "Two Columns, Bubble Filled, Tiled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1398
+#: index.php:1423
 msgid "Three Columns, Light Background"
 msgstr ""
 
-#: index.php:1399
+#: index.php:1424
 msgid "Three Columns, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1400
+#: index.php:1425
 msgid "Three Columns, Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1401
+#: index.php:1426
 msgid "Three Columns, Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1402
+#: index.php:1427
 msgid "Three Columns, Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1403
+#: index.php:1428
 msgid "Three Columns, Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1404
+#: index.php:1429
 msgid "Three Columns, Centered, Light Background"
 msgstr ""
 
-#: index.php:1405
+#: index.php:1430
 msgid "Three Columns, Centered, Light Background, Tiled"
 msgstr ""
 
-#: index.php:1406
+#: index.php:1431
 msgid "Three Columns, Bubble Outline, Centered, Light Background"
 msgstr ""
 
-#: index.php:1407
+#: index.php:1432
 msgid "Three Columns, Bubble Outline, Tiled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1408
+#: index.php:1433
 msgid "Three Columns, Bubble Filled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1409
+#: index.php:1434
 msgid "Three Columns, Bubble Filled, Tiled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1410
+#: index.php:1435
 msgid "Three Columns, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1411
+#: index.php:1436
 msgid "Three Columns, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1412
+#: index.php:1437
 msgid "Three Columns, Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1413
+#: index.php:1438
 msgid "Three Columns, Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1414
+#: index.php:1439
 msgid "Three Columns, Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1415
+#: index.php:1440
 msgid "Three Columns, Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1416
+#: index.php:1441
 msgid "Three Columns, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1417
+#: index.php:1442
 msgid "Three Columns, Centered, Light Background, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1418
+#: index.php:1443
 msgid "Three Columns, Bubble Outline, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1419
+#: index.php:1444
 msgid "Three Columns, Bubble Outline, Tiled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1420
+#: index.php:1445
 msgid "Three Columns, Bubble Filled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1421
+#: index.php:1446
 msgid "Three Columns, Bubble Filled, Tiled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1422
+#: index.php:1447
 msgid "Three Columns, Dark Background"
 msgstr ""
 
-#: index.php:1423
+#: index.php:1448
 msgid "Three Columns, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1424
+#: index.php:1449
 msgid "Three Columns, Bubble Outline, Dark Background"
 msgstr ""
 
-#: index.php:1425
+#: index.php:1450
 msgid "Three Columns, Bubble Outline, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1426
+#: index.php:1451
 msgid "Three Columns, Bubble Filled, Dark Background"
 msgstr ""
 
-#: index.php:1427
+#: index.php:1452
 msgid "Three Columns, Bubble Filled, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1428
+#: index.php:1453
 msgid "Three Columns, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1429
+#: index.php:1454
 msgid "Three Columns, Centered, Dark Background, Tiled"
 msgstr ""
 
-#: index.php:1430
+#: index.php:1455
 msgid "Three Columns, Bubble Outline, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1431
+#: index.php:1456
 msgid "Three Columns, Bubble Outline, Tiled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1432
+#: index.php:1457
 msgid "Three Columns, Bubble Filled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1433
+#: index.php:1458
 msgid "Three Columns, Bubble Filled, Tiled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1434
+#: index.php:1459
 msgid "Three Columns, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1435
+#: index.php:1460
 msgid "Three Columns, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1436
+#: index.php:1461
 msgid "Three Columns, Bubble Outline, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1437
+#: index.php:1462
 msgid "Three Columns, Bubble Outline, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1438
+#: index.php:1463
 msgid "Three Columns, Bubble Filled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1439
+#: index.php:1464
 msgid "Three Columns, Bubble Filled, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1440
+#: index.php:1465
 msgid "Three Columns, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1441
+#: index.php:1466
 msgid "Three Columns, Centered, Dark Background, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1442
+#: index.php:1467
 msgid "Three Columns, Bubble Outline, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1443
+#: index.php:1468
 msgid "Three Columns, Bubble Outline, Tiled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1444
+#: index.php:1469
 msgid "Three Columns, Bubble Filled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1445
+#: index.php:1470
 msgid "Three Columns, Bubble Filled, Tiled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1446
+#: index.php:1471
 msgid "Four Columns, Light Background"
 msgstr ""
 
-#: index.php:1447
+#: index.php:1472
 msgid "Four Columns, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1448
+#: index.php:1473
 msgid "Four Columns, Bubble Outline, Light Background"
 msgstr ""
 
-#: index.php:1449
+#: index.php:1474
 msgid "Four Columns, Bubble Outline, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1450
+#: index.php:1475
 msgid "Four Columns, Bubble Filled, Light Background"
 msgstr ""
 
-#: index.php:1451
+#: index.php:1476
 msgid "Four Columns, Bubble Filled, Tiled, Light Background"
 msgstr ""
 
-#: index.php:1452
+#: index.php:1477
 msgid "Four Columns, Centered, Light Background"
 msgstr ""
 
-#: index.php:1453
+#: index.php:1478
 msgid "Four Columns, Centered, Light Background, Tiled"
 msgstr ""
 
-#: index.php:1454
+#: index.php:1479
 msgid "Four Columns, Bubble Outline, Centered, Light Background"
 msgstr ""
 
-#: index.php:1455
+#: index.php:1480
 msgid "Four Columns, Bubble Outline, Tiled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1456
+#: index.php:1481
 msgid "Four Columns, Bubble Filled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1457
+#: index.php:1482
 msgid "Four Columns, Bubble Filled, Tiled, Centered, Light Background"
 msgstr ""
 
-#: index.php:1458
+#: index.php:1483
 msgid "Four Columns, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1459
+#: index.php:1484
 msgid "Four Columns, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1460
+#: index.php:1485
 msgid "Four Columns, Bubble Outline, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1461
+#: index.php:1486
 msgid "Four Columns, Bubble Outline, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1462
+#: index.php:1487
 msgid "Four Columns, Bubble Filled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1463
+#: index.php:1488
 msgid "Four Columns, Bubble Filled, Tiled, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1464
+#: index.php:1489
 msgid "Four Columns, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1465
+#: index.php:1490
 msgid "Four Columns, Centered, Light Background, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1466
+#: index.php:1491
 msgid "Four Columns, Bubble Outline, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1467
+#: index.php:1492
 msgid "Four Columns, Bubble Outline, Tiled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1468
+#: index.php:1493
 msgid "Four Columns, Bubble Filled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1469
+#: index.php:1494
 msgid "Four Columns, Bubble Filled, Tiled, Centered, Light Background with Fonts"
 msgstr ""
 
-#: index.php:1470
+#: index.php:1495
 msgid "Four Columns, Dark Background"
 msgstr ""
 
-#: index.php:1471
+#: index.php:1496
 msgid "Four Columns, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1472
+#: index.php:1497
 msgid "Four Columns, Bubble Outline, Dark Background"
 msgstr ""
 
-#: index.php:1473
+#: index.php:1498
 msgid "Four Columns, Bubble Outline, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1474
+#: index.php:1499
 msgid "Four Columns, Bubble Filled, Dark Background"
 msgstr ""
 
-#: index.php:1475
+#: index.php:1500
 msgid "Four Columns, Bubble Filled, Tiled, Dark Background"
 msgstr ""
 
-#: index.php:1476
+#: index.php:1501
 msgid "Four Columns, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1477
+#: index.php:1502
 msgid "Four Columns, Centered, Dark Background, Tiled"
 msgstr ""
 
-#: index.php:1478
+#: index.php:1503
 msgid "Four Columns, Bubble Outline, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1479
+#: index.php:1504
 msgid "Four Columns, Bubble Outline, Tiled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1480
+#: index.php:1505
 msgid "Four Columns, Bubble Filled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1481
+#: index.php:1506
 msgid "Four Columns, Bubble Filled, Tiled, Centered, Dark Background"
 msgstr ""
 
-#: index.php:1482
+#: index.php:1507
 msgid "Four Columns, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1483
+#: index.php:1508
 msgid "Four Columns, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1484
+#: index.php:1509
 msgid "Four Columns, Bubble Outline, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1485
+#: index.php:1510
 msgid "Four Columns, Bubble Outline, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1486
+#: index.php:1511
 msgid "Four Columns, Bubble Filled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1487
+#: index.php:1512
 msgid "Four Columns, Bubble Filled, Tiled, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1488
+#: index.php:1513
 msgid "Four Columns, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1489
+#: index.php:1514
 msgid "Four Columns, Centered, Dark Background, Tiled with Fonts"
 msgstr ""
 
-#: index.php:1490
+#: index.php:1515
 msgid "Four Columns, Bubble Outline, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1491
+#: index.php:1516
 msgid "Four Columns, Bubble Outline, Tiled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1492
+#: index.php:1517
 msgid "Four Columns, Bubble Filled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1493
+#: index.php:1518
 msgid "Four Columns, Bubble Filled, Tiled, Centered, Dark Background with Fonts"
 msgstr ""
 
-#: index.php:1496
+#: index.php:1521
 msgid "Animal Shelter"
 msgstr ""
 
-#: index.php:1497
+#: index.php:1522
 msgid "Archive Organization"
 msgstr ""
 
-#: index.php:1498
+#: index.php:1523
 msgid "Automotive Business"
 msgstr ""
 
-#: index.php:1499
+#: index.php:1524
 msgid "Child Care"
 msgstr ""
 
-#: index.php:1500
+#: index.php:1525
 msgid "Dentist"
 msgstr ""
 
-#: index.php:1501
+#: index.php:1526
 msgid "Dry Cleaning or Laundry"
 msgstr ""
 
-#: index.php:1502
+#: index.php:1527
 msgid "Emergency Service"
 msgstr ""
 
-#: index.php:1503
+#: index.php:1528
 msgid "Employment Agency"
 msgstr ""
 
-#: index.php:1504
+#: index.php:1529
 msgid "Entertainment Business"
 msgstr ""
 
-#: index.php:1505
+#: index.php:1530
 msgid "Financial Service"
 msgstr ""
 
-#: index.php:1506
+#: index.php:1531
 msgid "Food Establishment"
 msgstr ""
 
-#: index.php:1507
+#: index.php:1532
 msgid "Government Office"
 msgstr ""
 
-#: index.php:1508
+#: index.php:1533
 msgid "Health and Beauty Business"
 msgstr ""
 
-#: index.php:1509
+#: index.php:1534
 msgid "Home and Construction Business"
 msgstr ""
 
-#: index.php:1510
+#: index.php:1535
 msgid "Internet Café"
 msgstr ""
 
-#: index.php:1511
+#: index.php:1536
 msgid "Legal Service"
 msgstr ""
 
-#: index.php:1512
+#: index.php:1537
 msgid "Library"
 msgstr ""
 
-#: index.php:1513
+#: index.php:1538
 msgid "Lodging Business"
 msgstr ""
 
-#: index.php:1514
+#: index.php:1539
 msgid "Medical Business"
 msgstr ""
 
-#: index.php:1515
+#: index.php:1540
 msgid "Professional Service"
 msgstr ""
 
-#: index.php:1516
+#: index.php:1541
 msgid "Radio Station"
 msgstr ""
 
-#: index.php:1517
+#: index.php:1542
 msgid "Real Estate Agent"
 msgstr ""
 
-#: index.php:1518
+#: index.php:1543
 msgid "Recycling Center"
 msgstr ""
 
-#: index.php:1519
+#: index.php:1544
 msgid "Self Storage"
 msgstr ""
 
-#: index.php:1520
+#: index.php:1545
 msgid "Shopping Center"
 msgstr ""
 
-#: index.php:1521
+#: index.php:1546
 msgid "Sports Activity Location"
 msgstr ""
 
-#: index.php:1522
+#: index.php:1547
 msgid "Store"
 msgstr ""
 
-#: index.php:1523
+#: index.php:1548
 msgid "Television Station"
 msgstr ""
 
-#: index.php:1524
+#: index.php:1549
 msgid "Tourist Information Center"
 msgstr ""
 
-#: index.php:1525
+#: index.php:1550
 msgid "Travel Agency"
 msgstr ""
 
-#: index.php:1529
+#: index.php:1554
 msgid "Inexpensive $"
 msgstr ""
 
-#: index.php:1533
+#: index.php:1558
 msgid "Moderate $$"
 msgstr ""
 
-#: index.php:1537
+#: index.php:1562
 msgid "Expensive $$$"
 msgstr ""
 
-#: index.php:1541
+#: index.php:1566
 msgid "Very Expensive $$$$"
 msgstr ""
 
 #. translators: %s refers to useful URLs to resolve errors and should remain untouched
-#: index.php:1579
+#: index.php:1604
 msgid "<strong>Error:</strong> Your Google API Key is not valid for this request and permission is denied. Please check your Google <a href=\"%s\" target=\"_blank\">API Key</a>."
 msgstr ""
 
 #. translators: %s refers to useful URLs to resolve errors and should remain untouched
-#: index.php:1588
+#: index.php:1613
 msgid "<strong>Error:</strong> Google has returned an invalid request error. Please check your <a href=\"%s\" target=\"_blank\">Place ID</a>."
 msgstr ""
 
 #. translators: %s refers to useful URLs to resolve errors and should remain untouched
-#: index.php:1597
+#: index.php:1622
 msgid "<strong>Error:</strong> Google has not found data for the current Place ID. Please ensure you search for a specific business location; not a region or coordinates using the <a href=\"%s\" target=\"_blank\">Place ID Finder</a>."
 msgstr ""
 
-#: index.php:1604
+#: index.php:1629
 msgid "Error:"
 msgstr ""
 
-#: index.php:1604
+#: index.php:1629
 msgid "<strong>Error:</strong> Unknown — Please check Retrieved data to find out more information."
 msgstr ""
 
-#: index.php:1762
-#: index.php:1797
-#: index.php:1818
-#: index.php:2112
-#: index.php:2152
-#: index.php:2194
-#: index.php:2214
-#: index.php:2262
-#: index.php:2282
-#: index.php:2326
-#: index.php:2344
-#: index.php:2383
-#: index.php:2423
-#: index.php:2529
-#: index.php:2603
-#: index.php:2655
-#: index.php:2689
-#: index.php:2720
-#: index.php:2768
-#: index.php:2834
+#: index.php:1787
+#: index.php:1822
+#: index.php:1843
+#: index.php:2137
+#: index.php:2177
+#: index.php:2219
+#: index.php:2239
+#: index.php:2287
+#: index.php:2307
+#: index.php:2351
+#: index.php:2369
+#: index.php:2408
+#: index.php:2448
+#: index.php:2554
+#: index.php:2628
+#: index.php:2680
+#: index.php:2714
+#: index.php:2745
+#: index.php:2793
+#: index.php:2859
 msgid "Your session has expired, please refresh this page."
 msgstr ""
 
-#: index.php:1779
+#: index.php:1804
 msgid "Successfully set Google Places credentials."
 msgstr ""
 
-#: index.php:1829
+#: index.php:1854
 msgid "No reviews imported."
 msgstr ""
 
-#: index.php:1958
+#: index.php:1983
 msgid "No reviews imported"
 msgstr ""
 
 #. translators: %u: number of reviews and should remain untouched; mid-sentence phrase
-#: index.php:1965
-#: index.php:2079
+#: index.php:1990
+#: index.php:2104
 msgid "%u review did not have a valid author URL"
 msgid_plural "%u reviews did not have valid author URLs"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %u: number of reviews and should remain untouched; mid-sentence phrase
-#: index.php:1971
-#: index.php:2085
+#: index.php:1996
+#: index.php:2110
 msgid "%u review was missing a date"
 msgid_plural "%u reviews were missing dates"
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: separator character and spacing between multiple message elements; spacing is important
-#: index.php:1979
-#: index.php:2102
+#: index.php:2004
+#: index.php:2127
 msgid "; "
 msgstr ""
 
 #. translators: %u: number of reviews and should remain untouched
-#: index.php:2010
+#: index.php:2035
 msgid "Review import failed. Please select a smaller number of reviews, less than %u."
 msgstr ""
 
-#: index.php:2019
+#: index.php:2044
 msgid "Review import failed."
 msgstr ""
 
 #. translators: %u: number of reviews and should remain untouched
-#: index.php:2051
+#: index.php:2076
 msgid "Review import failed due the handling of serialized data by WordPress. Please select a smaller number of reviews, less than %u."
 msgstr ""
 
-#: index.php:2061
+#: index.php:2086
 msgid "Review import failed due the handling of serialized data by WordPress."
 msgstr ""
 
 #. translators: %u: number of reviews and should remain untouched
-#: index.php:2072
+#: index.php:2097
 msgid "Successfully imported %u review."
 msgid_plural "Successfully imported %u reviews."
 msgstr[0] ""
 msgstr[1] ""
 
-#: index.php:2442
+#: index.php:2467
 msgid "Successfully saved style and script preference."
 msgstr ""
 
 #. translators: %s: file directory and should remain untouched
-#: index.php:2457
+#: index.php:2482
 msgid "Cannot create a new file in plugin directory: %s"
 msgstr ""
 
 #. translators: %s: file name and should remain untouched
-#: index.php:2474
+#: index.php:2499
 msgid "Cannot create a new file: %s"
 msgstr ""
 
 #. translators: %s: file name and should remain untouched
-#: index.php:2485
+#: index.php:2510
 msgid "File at: %s is not writable."
 msgstr ""
 
 #. translators: %s: file name and should remain untouched
-#: index.php:2500
+#: index.php:2525
 msgid "Cannot write new data to file at: %s"
 msgstr ""
 
-#: index.php:2518
+#: index.php:2543
 msgid "Successfully updated styles and scripts."
 msgstr ""
 
-#: index.php:2549
+#: index.php:2574
 msgid "Unable to reset data."
 msgstr ""
 
-#: index.php:2560
+#: index.php:2585
 msgid "Unable to save data, consider enabling additional sanitization of retrieved data."
 msgstr ""
 
-#: index.php:2567
+#: index.php:2592
 msgid "Unable to save data."
 msgstr ""
 
-#: index.php:2574
+#: index.php:2599
 msgid "Unable to clear cache."
 msgstr ""
 
-#: index.php:2585
+#: index.php:2610
 msgid "Cache cleared."
 msgstr ""
 
-#: index.php:2594
-#: index.php:2825
+#: index.php:2619
+#: index.php:2850
 msgid "You do not have sufficient permission to perform this action."
 msgstr ""
 
-#: index.php:2673
+#: index.php:2698
 msgid "Permission for editors is enabled."
 msgstr ""
 
-#: index.php:2673
+#: index.php:2698
 msgid "Permission for editors is disabled."
 msgstr ""
 
-#: index.php:2704
+#: index.php:2729
 msgid "Notifications successfully reset."
 msgstr ""
 
-#: index.php:2760
+#: index.php:2785
 msgid "Places successfully cleared."
 msgstr ""
 
-#: index.php:2810
+#: index.php:2835
 msgid "Places cleared and review archive successfully reset."
 msgstr ""
 
-#: index.php:2817
+#: index.php:2842
 msgid "Review archive successfully reset."
 msgstr ""
 
-#: index.php:2846
+#: index.php:2871
 msgid "Plugin successfully reset."
 msgstr ""
 
-#: index.php:2867
-#: index.php:5492
+#: index.php:2892
+#: index.php:5517
 #: templates/widget.php:110
 #: widget.php:1073
 #: widget.php:1079
@@ -1611,72 +1611,73 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: index.php:2883
+#: index.php:2908
 msgid "Like our plugin? Please leave a review!"
 msgstr ""
 
-#: index.php:2884
+#: index.php:2909
 #: templates/settings.php:1605
 #: templates/settings.php:1647
 msgid "Support"
 msgstr ""
 
-#: index.php:3485
-#: index.php:3561
+#: index.php:3510
+#: index.php:3586
 msgid "Error: Place ID and Google API Key are required."
 msgstr ""
 
-#: index.php:3489
 #: index.php:3514
-#: index.php:3565
+#: index.php:3539
+#: index.php:3590
 msgid "Error: Place ID is required."
 msgstr ""
 
-#: index.php:3493
-#: index.php:3521
-#: index.php:3569
+#: index.php:3518
+#: index.php:3546
+#: index.php:3594
 msgid "Error: Google API Key is required."
 msgstr ""
 
-#: index.php:3507
+#: index.php:3532
 msgid "Place ID and Google API Key are required."
 msgstr ""
 
-#: index.php:3586
+#: index.php:3611
 msgid "Request count exceeded"
 msgstr ""
 
 #. translators: %s: WordPress function name should remain untouched
-#: index.php:3669
-#: index.php:3676
-#: index.php:3717
+#: index.php:3694
+#: index.php:3701
+#: index.php:3742
 msgid "Error: Required remote collection function not available: <em>%s</em>"
 msgstr ""
 
 #. translators: %s: WordPress function name should remain untouched
-#: index.php:3724
+#: index.php:3749
 msgid "Error: Unable to collect remote data from URL: <em>%s</em>"
 msgstr ""
 
-#: index.php:3912
+#: index.php:3937
 msgid "Error: Empty result."
 msgstr ""
 
-#: index.php:3924
+#: index.php:3949
 msgid "Empty result"
 msgstr ""
 
 #. translators: %s refers to the Settings URL and should remain untouched
-#: index.php:5457
+#: index.php:5482
 msgid "No reviews found, please check your <a href=\"%s\">settings</a>."
 msgstr ""
 
-#: index.php:5465
+#: index.php:5490
 msgid "Recent Reviews"
 msgstr ""
 
-#: index.php:5491
+#: index.php:5516
 #: templates/settings.php:23
+#: templates/settings.php:437
 #: templates/settings.php:567
 #: templates/settings.php:682
 #: templates/settings.php:1168
@@ -1685,67 +1686,69 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
-#: index.php:5493
+#: index.php:5518
 #: templates/settings.php:34
 #: templates/settings.php:1603
 #: templates/settings.php:1612
 msgid "About"
 msgstr ""
 
-#: index.php:5494
+#: index.php:5519
 msgid "Rate Plugin"
 msgstr ""
 
-#: index.php:5514
+#: index.php:5539
 msgid "ID"
 msgstr ""
 
-#: index.php:5515
+#: index.php:5540
 msgid "Submitted"
 msgstr ""
 
-#: index.php:5516
+#: index.php:5541
 msgid "Author"
 msgstr ""
 
-#: index.php:5517
+#: index.php:5542
+#: templates/settings.php:436
 msgid "Rating"
 msgstr ""
 
-#: index.php:5518
+#: index.php:5543
 #: templates/settings.php:648
 msgid "Text"
 msgstr ""
 
-#: index.php:5519
+#: index.php:5544
 msgid "Language"
 msgstr ""
 
-#: index.php:5520
+#: index.php:5545
 msgid "Retrieved"
 msgstr ""
 
-#: index.php:5524
+#: index.php:5549
+#: templates/settings.php:435
 #: templates/settings.php:473
 msgid "Place ID"
 msgstr ""
 
-#: index.php:5535
+#: index.php:5560
 msgid "Hide"
 msgstr ""
 
-#: index.php:5535
+#: index.php:5560
 #: templates/settings.php:745
 msgid "Show"
 msgstr ""
 
-#: index.php:5535
+#: index.php:5560
 msgid "Remove"
 msgstr ""
 
-#: index.php:5542
-#: index.php:5543
-#: index.php:5544
+#: index.php:5567
+#: index.php:5568
+#: index.php:5569
 #: templates/settings.php:236
 #: templates/settings.php:508
 #: templates/settings.php:1547
@@ -1753,97 +1756,97 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: index.php:5544
+#: index.php:5569
 msgid "Imported"
 msgstr ""
 
-#: index.php:5557
-#: index.php:6099
+#: index.php:5582
+#: index.php:6155
 msgid "No reviews found."
 msgstr ""
 
-#: index.php:5796
+#: index.php:5821
 #: templates/settings.php:850
 #: templates/settings.php:1385
 msgid "review"
 msgstr ""
 
-#: index.php:5796
+#: index.php:5821
 #: templates/settings.php:850
 #: templates/settings.php:1385
 msgid "reviews"
 msgstr ""
 
-#: index.php:5797
+#: index.php:5822
 #: templates/settings.php:934
 #: widget.php:423
 msgid "More"
 msgstr ""
 
-#: index.php:5829
-#: index.php:5850
-#: index.php:5871
-#: index.php:6382
+#: index.php:5854
+#: index.php:5875
+#: index.php:5896
+#: index.php:6438
 msgid "Error"
 msgstr ""
 
-#: index.php:6021
+#: index.php:6050
 #: templates/settings.php:243
 msgid "Icon"
 msgstr ""
 
-#: index.php:6104
+#: index.php:6160
 msgid "No reviews found, offset too high or another restriction."
 msgstr ""
 
-#: index.php:6284
+#: index.php:6340
 msgid "View Reviews"
 msgstr ""
 
-#: index.php:6294
+#: index.php:6350
 msgid "Write Review"
 msgstr ""
 
-#: index.php:6845
-#: index.php:6851
+#: index.php:6901
+#: index.php:6907
 msgid "Remind me later"
 msgstr ""
 
-#: index.php:6852
+#: index.php:6908
 msgid "Dismiss for a year"
 msgstr ""
 
-#: index.php:6853
+#: index.php:6909
 msgid "I’ve already left a review"
 msgstr ""
 
 #. translators: 1: The initial version of this plugin, 2: refers to review URL at wordpress.org, 3: string to handle notification data
-#: index.php:6877
+#: index.php:6933
 msgid "You have used this plugin for quite a while, since version %1$s. We’d love to hear what you think about its design, features, support… So, please consider <a href=\"%2$s\" target=\"_blank\" %3$s>leaving a review</a>!"
 msgstr ""
 
 #. translators: 1: The initial version of this plugin, 2: refers to review URL at wordpress.org, 3: string to handle notification data
-#: index.php:6877
+#: index.php:6933
 msgid "You’ve experienced using this plugin"
 msgstr ""
 
 #. translators: 1: The plugin installation date, 2: refers to review URL at wordpress.org, 3: string to handle notification data
-#: index.php:6972
+#: index.php:7028
 msgid "You have used this plugin for quite a while, since %1$s. We’d love to hear what you think about its design, features, support… So, please consider <a href=\"%2$s\" target=\"_blank\" %3$s>leaving a review</a>!"
 msgstr ""
 
 #. translators: 1: The plugin installation date, 2: refers to review URL at wordpress.org, 3: string to handle notification data
-#: index.php:6972
+#: index.php:7028
 msgid "You’ve experienced this plugin"
 msgstr ""
 
 #. translators: 1: refers to review URL at wordpress.org, 2: string to handle notification data
-#: index.php:6976
+#: index.php:7032
 msgid "We’d love to hear what you think about its design, features, support… So, please consider <a href=\"%1$s\" target=\"_blank\" %2$s>leaving a review</a>!"
 msgstr ""
 
 #. translators: 1: refers to review URL at wordpress.org, 2: string to handle notification data
-#: index.php:6976
+#: index.php:7032
 msgid "Please review our Google Reviews plugin"
 msgstr ""
 
@@ -1918,7 +1921,7 @@ msgstr ""
 #. translators: 1: URL of Place ID Finder, 2: IP of the web server, 3: Help icon and reveal toggle link
 #: templates/settings.php:55
 #: templates/settings.php:401
-msgid "To retrieve data from Google My Business, you’ll need your <a href=\"%1$s\" class=\"components-external-link\" target=\"_blank\">API Key</a> restricted to the API: <span class=\"highlight\">Places API</span> and IP address:<span class=\"highlight\">%2$s</span> %3$s"
+msgid "To retrieve data from Google My Business, you’ll need your <a href=\"%1$s\" class=\"components-external-link\" target=\"_blank\">API Key</a> restricted to the API: <span class=\"highlight\">Places API</span> and IP address: <span class=\"highlight\">%2$s</span> %3$s"
 msgstr ""
 
 #. translators: 1: URL of Google Developer Console, 2: URL of Place API, 3: URL of Google Developer Console, 4: IP of web server, 5: URL for Google billing account
@@ -2227,6 +2230,18 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
+#: templates/settings.php:432
+msgid "Current"
+msgstr ""
+
+#: templates/settings.php:433
+msgid "Name"
+msgstr ""
+
+#: templates/settings.php:438
+msgid "Added"
+msgstr ""
+
 #: templates/settings.php:448
 #: templates/settings.php:449
 msgid "Unknown Place"
@@ -2234,6 +2249,10 @@ msgstr ""
 
 #: templates/settings.php:450
 msgid "Current Place ID"
+msgstr ""
+
+#: templates/settings.php:481
+msgid "Delete selected places and reviews"
 msgstr ""
 
 #. translators: %s: the Google Place Finder URL

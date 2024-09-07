@@ -4,6 +4,8 @@ namespace MailOptin\Core\Admin\Customizer;
 
 use MailOptin\Core\PluginSettings\Settings;
 
+use function MailOptin\Core\_remove_class_action;
+
 trait CustomizerTrait
 {
     public function modify_customizer_publish_button()
@@ -213,6 +215,11 @@ trait CustomizerTrait
                 remove_action('customize_controls_print_footer_scripts', 'td_customize_js');
             }
 
+            if (class_exists('\OceanWP_Customizer')) {
+                _remove_class_action('customize_controls_print_footer_scripts', 'OceanWP_Customizer', 'customize_panel_init');
+                _remove_class_action('customize_controls_enqueue_scripts', 'OceanWP_Customizer', 'custom_customize_enqueue');
+            }
+
             // compatibility with easy google font plugin
             if (class_exists('EGF_Customize_Manager')) {
                 remove_action('customize_controls_enqueue_scripts', [
@@ -268,7 +275,6 @@ trait CustomizerTrait
         $ck_label          = __('Select ConvertKit Form', 'mailoptin');
         $beehiiv_label     = __('Select beehiiv Tier', 'mailoptin');
         $drip_label        = __('Select Drip Campaign', 'mailoptin');
-        $gr_label          = __('Select GetResponse Campaign', 'mailoptin');
         $zohocrm_label     = __('Select ZohoCRM Module', 'mailoptin');
         $fbca_label        = __('Select Custom Audience', 'mailoptin');
         $webhook_label     = __('Request Method', 'mailoptin');
@@ -282,10 +288,6 @@ trait CustomizerTrait
                         }
 
                         var title_obj = $('li[id*="connection_email_list"] .customize-control-title');
-
-                        if (connection_service === 'GetResponseConnect') {
-                            title_obj.text('<?php echo $gr_label; ?>');
-                        }
 
                         if (connection_service === 'ConvertKitConnect') {
                             title_obj.text('<?php echo $ck_label; ?>');
@@ -328,10 +330,6 @@ trait CustomizerTrait
 
                                 var title_obj = $(".connection_email_list label.customize-control-title", parent);
 
-                                if (connection_service === 'GetResponseConnect') {
-                                    title_obj.text('<?php echo $gr_label; ?>');
-                                }
-
                                 if (connection_service === 'ConvertKitConnect') {
                                     title_obj.text('<?php echo $ck_label; ?>');
                                 }
@@ -369,10 +367,6 @@ trait CustomizerTrait
                             connection_service = $("select[name='connection_service']", parent).val();
 
                             var title_obj = $(".connection_email_list label.customize-control-title", parent);
-
-                            if (connection_service === 'GetResponseConnect') {
-                                title_obj.text('<?php echo $gr_label; ?>');
-                            }
 
                             if (connection_service === 'ConvertKitConnect') {
                                 title_obj.text('<?php echo $ck_label; ?>');

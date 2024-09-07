@@ -131,6 +131,7 @@ class Connect extends AbstractSalesforceConnect implements ConnectionInterface
                 'Product2'    => esc_html__('Product', 'mailoptin'),
             ];
 
+            // https://developer.salesforce.com/docs/atlas.en-us.244.0.api_rest.meta/api_rest/dome_describeGlobal.htm
             $response = $this->makeRequest('sobjects');
 
             $objectBucket = [];

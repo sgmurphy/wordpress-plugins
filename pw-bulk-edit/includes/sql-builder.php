@@ -28,7 +28,9 @@ if ( ! class_exists( 'PWBE_SQL_Builder' ) ) :
 final class PWBE_SQL_Builder {
 
 	public function get_products( $post ) {
-		global $wpdb;
+		global $wpdb, $pw_bulk_edit;
+
+		$pw_bulk_edit->increase_memory_limit();
 
 		$wpdb->show_errors();
 

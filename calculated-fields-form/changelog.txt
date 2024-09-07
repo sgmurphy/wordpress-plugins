@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 5.2.35 =
+
+* Modifies the container fields.
+
 = 5.2.34 =
 
 * Implements new predefined form template.

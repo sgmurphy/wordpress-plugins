@@ -2,14 +2,14 @@
 # This file is distributed under the GPL2.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailOptin - Lite 1.2.70.2\n"
+"Project-Id-Version: MailOptin - Lite 1.2.70.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailoptin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-21T09:43:16+00:00\n"
+"POT-Creation-Date: 2024-09-06T18:15:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: mailoptin\n"
@@ -2390,7 +2390,7 @@ msgstr ""
 
 #: src/connections/ElementorConnect/Elementor.php:90
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Integration_Repeater_Control.php:554
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:275
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:281
 #: src/core/src/Admin/Customizer/EmailCampaign/CustomizerControls.php:319
 msgid "Select Email List"
 msgstr ""
@@ -5753,7 +5753,7 @@ msgstr ""
 msgid "Learn more about our %slead generation and email automation features%s"
 msgstr ""
 
-#: src/connections/ZohoCampaignsConnect/AbstractZohoCampaignsConnect.php:65
+#: src/connections/ZohoCampaignsConnect/AbstractZohoCampaignsConnect.php:68
 msgid "Zoho Campaigns access token not found."
 msgstr ""
 
@@ -6388,7 +6388,7 @@ msgstr ""
 
 #: src/core/src/Admin/Customizer/CustomControls/EmailContentBuilder/Elements/Text.php:22
 #: src/core/src/Admin/Customizer/CustomControls/WP_Customize_Fields_Repeater_Control.php:600
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:255
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:262
 msgid "Text"
 msgstr ""
 
@@ -6882,56 +6882,52 @@ msgstr ""
 msgid "Close content editor"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:13
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:15
 #: src/core/src/Functions/custom-settings-api.php:1015
 msgid "Save Changes"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:16
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:18
 msgid "Saved"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:256
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:263
 msgid "Visual"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:257
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:264
 msgid "Add Media"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:266
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:273
 msgid "Select User Role (Required)"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:267
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:274
 msgid "Select Salesforce Object"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:268
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:275
 msgid "Select ConvertKit Form"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:269
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:276
 msgid "Select beehiiv Tier"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:270
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:277
 msgid "Select Drip Campaign"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:271
-msgid "Select GetResponse Campaign"
-msgstr ""
-
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:272
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:278
 msgid "Select ZohoCRM Module"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:273
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:279
 msgid "Select Custom Audience"
 msgstr ""
 
-#: src/core/src/Admin/Customizer/CustomizerTrait.php:274
+#: src/core/src/Admin/Customizer/CustomizerTrait.php:280
 msgid "Request Method"
 msgstr ""
 

@@ -10,7 +10,7 @@
                 for(var i = 0, h = this.fields.length; i < h; i++)
 				{
 					f = $('.fields.'+this.fields[i]+this.form_identifier);
-					if( f.hasClass('cff-hidden-field') ) { to_ignore++; continue; }
+					if( f.hasClass('cff-hidden-field') ) { to_ignore++; }
 					f = f.detach();
 					if(this.columns > 1)
 					{

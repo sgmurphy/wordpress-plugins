@@ -3,8 +3,8 @@ Contributors: Heateor, kamirkhan, mohammadfarhankhan, the_champ
 Donate link: https://www.heateor.com/donate?action=Super+Socializer
 Tags: social login, social share, facebook comments, single sign-on, social media, facebook login, twitter login, linkedin login, google login, vkontakte login, Windows Live Login, Microsoft Login, Wordpress login, Yahoo login, Spotify login, Dribbble login, Kakao login, Github login, Twitch login, Instagram login, dropbox login, foursquare login, disqus login, reddit login, amazon login, stackoverflow login, stack overflow login, discord login, mail.ru login, mailru login, mail ru login, gettr share, parler share, odnoklassniki login, yandex login, odnoklassniki, yandex, odnoklassniki login button, yandex login button, Rutube, Rutube share, Rutube sharing, youtube login, x, x login, x share, yelp, tiktok, threads, Google Maps, Google Translate, RSS Feed, line, mastodon, mastodon share
 Requires at least: 2.5.0
-Tested up to: 6.5.5
-Stable tag: 7.13.65
+Tested up to: 6.6.1
+Stable tag: 7.13.66
 License: GPLv2 or later
 
 The unique Social Plugin to let you integrate Social Login, Social Share, Social Comments and Social Media follow at your website
@@ -41,11 +41,12 @@ Integrate Social Login, Social Share and Social Comments at your website easiest
 * Enable/Disable sharing on default/custom post types
 * Enable/Disable sharing on individual pages/posts
 * Enable/Disable total/individual share count(s)
-* Mobile responsive sharing interface
+* Mobile responsive social share bar
 * Compatible with AMP
 * Enable/Disable vertical/floating sharing interface on mobile device
 * Social Login from 27 Social Networks - Facebook, Google, Linkedin, Twitter, Vkontakte, Line, Windows Live (Microsoft), Yahoo, WordPress, Dribbble, Kakao, Spotify, Github, Twitch, Instagram, Steam, Dropbox, Foursquare, Disqus, Reddit, Stack Overflow, Discord, Mail.ru, Amazon, Odnoklassniki, Youtube and Yandex
-* Enable Social Login interface at WordPress Login, Register pages and comment form
+* Enable double opt-in for the users using social login
+* Enable Social Login icons at WordPress Login, Register pages and comment form
 * Syncs user's basic social profile data with WordPress profile
 * Enable Social Login at WooCommerce checkout page and customer login form
 * Enable Sharing at WooCommerce products
@@ -213,6 +214,20 @@ Yes, we can help you with it. Just drop an email at support[ at ]heateor[ dot ]c
 8. **Social Commenting**: Disqus Commenting selected
 
 == Changelog ==
+= 7.13.66 [7 September 2024] =
+* [New] Added an option in the Advanced Configuration section to enable Double Opt-in for Social Login
+* [New] Added an option in the Miscellaneous section to control the behavior of the More social share icon
+* [New] Added Micro.blog social share icon
+* [New] Added Micro.blog social follow icon
+* [New] Added Raindrop.io social share icon
+* [New] Added Threads social share icon
+* [New] Added Bluesky social share icon
+* [New] Added Bluesky social follow icon
+* [Bugfix] Option to delete social profile data was appearing in the Users table in the admin area even when social login was disabled
+* [Bugfix] Mastodon share in the More popup was not functioning properly if "Load all Javascript files in single file" was disabled in the General Options section in the admin area
+* [Improvement] Custom Login and Register redirection URL cannot be a URL out of the website where the plugin is installed
+* [Improvement] Minor improvements
+
 = 7.13.65 [13 July 2024] =
 * [Bugfix] Social Login wasn't working on a multilingual site that had different versions as the language codes appended to the URL of the home page
 * [Improvement] Updated the Facebook SDK being used throughout the plugin to the latest version 20.0
@@ -2799,4 +2814,18 @@ Yes, we can help you with it. Just drop an email at support[ at ]heateor[ dot ]c
 = 7.13.65 [13 July 2024] =
 * [Bugfix] Social Login wasn't working on a multilingual site that had different versions as the language codes appended to the URL of the home page
 * [Improvement] Updated the Facebook SDK being used throughout the plugin to the latest version 20.0
+* [Improvement] Minor improvements
+
+= 7.13.66 [7 September 2024] =
+* [New] Added an option in the Advanced Configuration section to enable Double Opt-in for Social Login
+* [New] Added an option in the Miscellaneous section to control the behavior of the More social share icon
+* [New] Added Micro.blog social share icon
+* [New] Added Micro.blog social follow icon
+* [New] Added Raindrop.io social share icon
+* [New] Added Threads social share icon
+* [New] Added Bluesky social share icon
+* [New] Added Bluesky social follow icon
+* [Bugfix] Option to delete social profile data was appearing in the Users table in the admin area even when social login was disabled
+* [Bugfix] Mastodon share in the More popup was not functioning properly if "Load all Javascript files in single file" was disabled in the General Options section in the admin area
+* [Improvement] Custom Login and Register redirection URL cannot be a URL out of the website where the plugin is installed
 * [Improvement] Minor improvements

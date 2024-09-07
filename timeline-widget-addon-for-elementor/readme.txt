@@ -25,6 +25,7 @@ With this **Elementor Timeline Widget** , you can easily create a stunning timel
 
 https://youtu.be/YGpTusgTQJc
 
+https://www.youtube.com/watch?v=_WYTT0iBvyo
 
 It is really important to let your audience know about your brand history. Our timeline plugin will help you to highlight your company history or life story. You can show history/future stories, events, appointments, and many other cool things using this timeline widget. 
 
