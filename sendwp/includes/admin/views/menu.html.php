@@ -24,7 +24,7 @@ $forwarding = sendwp_forwarding_enabled();
 	<?php } else { ?>
 	<div id="sendwp-enabled">
 		<label class="switch" id="sendwp-enabled-button">
-			<input type="checkbox" id="sendwp-enabled-checkbox" <?php print $forwarding ? 'checked' : ''; ?>/>
+			<input type="checkbox" id="sendwp-enabled-checkbox" <?php print $forwarding ? 'checked' : ''; ?> />
 			<span class="slider round"></span>
 		</label>
 		<span id="sendwp-enabled-status"><?php print $forwarding ? $vars['enabled'] : $vars['disabled']; ?></span>
@@ -33,7 +33,8 @@ $forwarding = sendwp_forwarding_enabled();
 	<hr />
 
 	<p>
-		<strong>Questions?</strong> Get help at <a href="https://sendwp.com/support">https://sendwp.com/support</a>
+		<strong>Questions?</strong> Get help at <a
+			href="https://sendwp.com/support?utm_source=sendwp&utm_medium=plugin&utm_campaign=support-help&utm_content=questions-cta">https://sendwp.com/support</a>
 	</p>
 
 	<!-- spoiler -->
@@ -62,7 +63,8 @@ $forwarding = sendwp_forwarding_enabled();
 		<input class="button button-link" style="margin: 8px 0 0;" type="submit" value="Reset Security Hash">
 	</form>
 
-	<a class="button button-link" href="<?php echo esc_url( add_query_arg( [ 'grant-access' => 1 ] ) ); ?>">Grant Support Access</a>
+	<a class="button button-link" href="<?php echo esc_url( add_query_arg( [ 'grant-access' => 1 ] ) ); ?>">Grant
+		Support Access</a>
 
 </div>
 <!-- end of main content -->

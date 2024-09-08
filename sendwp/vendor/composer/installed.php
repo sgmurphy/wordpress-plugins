@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'sendwp/sendwp',
-        'pretty_version' => '1.4.6',
-        'version' => '1.4.6.0',
-        'reference' => 'c72144198bda2e2d16bfbee8a952a8eb2feab39a',
+        'pretty_version' => '1.4.8',
+        'version' => '1.4.8.0',
+        'reference' => 'b0a3ee44d9b9c351f48b758e346d1acec88a54fd',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'sendwp/sendwp' => array(
-            'pretty_version' => '1.4.6',
-            'version' => '1.4.6.0',
-            'reference' => 'c72144198bda2e2d16bfbee8a952a8eb2feab39a',
+            'pretty_version' => '1.4.8',
+            'version' => '1.4.8.0',
+            'reference' => 'b0a3ee44d9b9c351f48b758e346d1acec88a54fd',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -80,6 +80,9 @@ Shortcode example:
 We do web development and if you need a developer or if you think you have found a bug in Read more plugin, if you have any question, please feel free to contact us by this email <b>edmon.parker@gmail.com</b>.
 
 == Changelog ==
+= 3.3.9.5 =
+* Added PHP Warnings fix
+
 = 3.3.9.4 =
 * Added accordion content type Video
 

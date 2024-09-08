@@ -3,8 +3,8 @@ Contributors: infornweb, pluginandplay
 Tags: blog, news, post grid, post slider, post carousel
 Requires at least: 4.7
 Requires PHP: 5.4
-Tested up to: 6.6
-Stable tag: 3.4.7
+Tested up to: 6.6.1
+Stable tag: 3.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Create News, Magazine or Blog with post grid, slider, carousel, list, masonry, t
 
 == Description ==
 
-News & Blog Designer Pack – WordPress Blog Plugin can be used as a news & blog page builder to create a news page or blog page with post grid, post slider, post carousel, post list, post masonry, recent posts, popular posts, post ticker, post grid box, post timeline, featured posts etc.
+News & Blog Designer Pack - Everything you need to build a beautiful magazine, news, blog website or blog page.
 
-News & Blog Designer Pack is also useful to create a news magazine website.
+News & Blog Designer Pack – WordPress Blog Plugin can be used as a news & blog page builder to create a news page or blog page with post grid, post slider, post carousel, post list, post masonry, post filter, recent posts, popular posts, post ticker, post grid box, post timeline, featured posts etc.
 
 = ✅ Blog Designer Pack having 7 blog layouts/shortcodes: =
 
@@ -26,7 +26,7 @@ View [FREE DEMO](https://demo.infornweb.com/blog-designer-pack-demo/) for more d
 
 Checkout [Premium Version Demo](https://premium.infornweb.com/news-blog-designer-pack-pro/) | [Buy Premium Version](https://premium.infornweb.com/news-blog-designer-pack-pro/)  for more designs and options.
 
-> <strong>Premium Version</strong> supports custom post type, custom taxonomy, custom tags, featured post, trending post, timeline, category grid, category slider as well as many cool features.
+> 🌟 <strong>Premium Version</strong> supports Custom Post Type, Custom Taxonomy, Custom Tags, Featured Posts, Trending Posts, Timeline, Post Filtering with Categories Or Tags, Category Grid, Category Slider as well as many cool features.
 > You can get [News & Blog Designer Pack Premium here](https://premium.infornweb.com/news-blog-designer-pack-pro/)!
 
 = ✅ Blog Designer Pack is perfect for: =
@@ -39,6 +39,7 @@ Checkout [Premium Version Demo](https://premium.infornweb.com/news-blog-designer
 * Post Grid Box, News Grid Box or Blog Grid Box
 * Post Ticker, News Ticker or Blog Ticker
 * Post Vertical Scrolling, News Vertical Scrolling or Blog Vertical Scrolling
+* Post Filtering with Categories Or Tags.
 
 News & Blog Designer Pack is the #1 plugin for creating fully customized News, Magazines, Review Websites, Personal Blogs, Travel Blogs, Fashion Blogs, Viral News, Food Reviews, Recipes Blogs, etc.
 
@@ -218,7 +219,8 @@ However, using Blog Designer Pack plugin you can design your blog page as per yo
 
 = ✅ PRO Features Include : =
 > <strong>Premium Version</strong>
-> * 90+ News and Blog Designs
+> * 90+ News and Blog Designs.
+> * Post Filtering with Categories Or Tags.
 > * Create multiple news and blog layout.
 > * Works with any Custom Post Type.
 > * Works with any Custom Taxonomy.
@@ -246,6 +248,10 @@ However, using Blog Designer Pack plugin you can design your blog page as per yo
 > View [PRO DEMO and Features](https://premium.infornweb.com/news-blog-designer-pack-pro/) for additional information.
 >
 
+= ✅ Post Filtering with Categories Or Tags =
+
+Post Filter is an option where you can choose the category, tag or taxonomy to filter the posts. You can also use 6 different types of pagination. Category ajax filter is fully responsive and come with 3 position i.e. top, left and right. You can also align them to left, center and right when position will be top.
+
 = ✅ Ajax Pagination =
 
 Ajax Pagination is similar to the Ajax filter that helps to explore posts or blog without reloading the whole page. Blog Designer Pack offers 6 types of pagination, which include:
@@ -260,8 +266,9 @@ Ajax Pagination is similar to the Ajax filter that helps to explore posts or blo
 = ✅ Where Blog Designer Pack plugin is useful ? =
 
 * Blog section or blog page of website.
-* Blogging website.
 * News section or news page of website.
+* Post Filtering with Categories Or Tags.
+* Blogging website.
 * News magazine website.
 * Business & Technology idea sharing.
 * Your company story timeline.
@@ -346,6 +353,10 @@ Yes, Blog Designer Pack will work with any WordPress themes, but may require som
 6. Blog Designer Pack - Grid Box Layout
 
 == Changelog ==
+
+= 3.4.8 (08 Sep, 2024) =
+* [*] Check compatibility with WordPress 6.6.1
+* [*] Update Freemius SDK to latest version 2.7.4
 
 = 3.4.7 (23 July, 2024) =
 * [*] Update Freemius SDK to latest version 2.7.3

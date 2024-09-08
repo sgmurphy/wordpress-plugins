@@ -279,10 +279,17 @@ $upgrade_link		= add_query_arg( array('page' => 'bdp-about-pricing'), admin_url(
 									<a href="<?php echo esc_url($shortcode_page_url); ?>&shortcode=bdp_ticker"><img src="<?php echo BDP_URL; ?>/assets/images/getinstarted/ticker.png" /></a>
 									<label>Post Ticker</label>
 								</div>
-							</div>
+							</div>							
 							<div class="bdp-layout-box">
 								<div class="bdp-layout-box-inner">
 									<span class="bdp-pro-tag">PRO (New)</span>
+									<a class="bdp-upgrade-pro" href="<?php echo esc_url($upgrade_link); ?>"><img src="<?php echo BDP_URL; ?>/assets/images/getinstarted/category-filter.png" /></a>
+									<label>Ajax Post Filter</label>
+								</div>
+							</div>
+							<div class="bdp-layout-box">
+								<div class="bdp-layout-box-inner">
+									<span class="bdp-pro-tag">PRO </span>
 									<a class="bdp-upgrade-pro" href="<?php echo esc_url($upgrade_link); ?>"><img src="<?php echo BDP_URL; ?>/assets/images/getinstarted/ticker.png" /></a>
 									<label>Category Ticker</label>
 								</div>
@@ -331,6 +338,20 @@ $upgrade_link		= add_query_arg( array('page' => 'bdp-about-pricing'), admin_url(
 							</div>
 							<div class="bdp-layout-box">
 								<div class="bdp-layout-box-inner">
+									<span class="bdp-pro-tag">PRO (New)</span>
+									<a class="bdp-upgrade-pro" href="<?php echo esc_url($upgrade_link); ?>"><img src="<?php echo BDP_URL; ?>/assets/images/getinstarted/simple-list.png" /></a>
+									<label>Simple List</label>
+								</div>
+							</div>
+							<div class="bdp-layout-box">
+								<div class="bdp-layout-box-inner">
+									<span class="bdp-pro-tag">PRO (New)</span>
+									<a class="bdp-upgrade-pro" href="<?php echo esc_url($upgrade_link); ?>"><img src="<?php echo BDP_URL; ?>/assets/images/getinstarted/archive-list.png" /></a>
+									<label>Archive Listing</label>
+								</div>
+							</div>
+							<div class="bdp-layout-box">
+								<div class="bdp-layout-box-inner">
 									<span class="bdp-pro-tag">PRO</span>
 									<a class="bdp-upgrade-pro" href="<?php echo esc_url($upgrade_link); ?>"><img src="<?php echo BDP_URL; ?>/assets/images/getinstarted/timeline.png" /></a>
 									<label>Timeline</label>
@@ -366,6 +387,7 @@ $upgrade_link		= add_query_arg( array('page' => 'bdp-about-pricing'), admin_url(
 								<h3 class="text-center"><span class="dashicons dashicons-yes-alt"></span> Premium Features Highlights</h3>
 								<ul>
 									<li><strong>90+ Designs and 9+ Layouts - </strong> Grid, Slider, Carousel, List, Masonry , Gridbox, Gridbox Slider, Timeline, Partial Slide, Slider with Thumbnails, Category Grid & Slider, Creative etc </li>
+									<li><strong>Post Filtering with Categories Or Tags</strong> - Ajax Post Filter is an option where you can choose the category, tag or taxonomy to filter the posts.</li>
 									<li><strong>5 Type of Pagination -</strong> Infinite Scroll, Load More, Prev & Next with Ajax, Numeric etc</li>
 									<li><strong>3 Widgets with 10+ Designs -</strong> Slider, List, Vertical Scrolling</li>
 									<li><strong>Style Manager - </strong>Manage post title, content, meta and read more button color and fount size</li>

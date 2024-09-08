@@ -3,7 +3,7 @@
 /**
  * Plugin Name: SendWP
  * Description: The easy solution to transactional email in WordPress.
- * Version: 1.4.6
+ * Version: 1.4.9
  * Requires PHP: 5.6
  */
 

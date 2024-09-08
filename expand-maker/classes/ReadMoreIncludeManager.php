@@ -151,8 +151,8 @@ class ReadMoreIncludeManager {
 		$moreTitle = @$data['more-title'];
 		$lessTitle = @$data['less-title'];
 
-		$enableTooltip = @$data['enable-tooltip'];
-		$tooltipText = @$data['enable-tooltip-text'];
+		$enableTooltip = (!empty($data['enable-tooltip'])) ? $data['enable-tooltip']: '';
+		$tooltipText = (!empty($data['enable-tooltip-text'])) ? $data['enable-tooltip-text']: '';
 
 		$buttonLabel = $more;
 		if(!empty($data['default-show-hidden-content'])) {

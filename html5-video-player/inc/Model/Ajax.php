@@ -82,7 +82,7 @@ class Ajax{
             wp_send_json_error('invalid request');
         }
 
-        if(!current_user_can('edit_posts')){
+        if(!current_user_can('manage_options')){
             return false;
         }
 
