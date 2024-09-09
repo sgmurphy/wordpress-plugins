@@ -29,7 +29,7 @@ $button_description = empty( $button_description ) ? '' : $button_description;
 
 		<?php if ( $button_description ) : ?>
 			<p class="sui-description">
-				<?php echo esc_html( $button_description ); ?>
+				<?php echo wp_kses_post( $button_description ); ?>
 			</p>
 		<?php endif; ?>
 	</div>

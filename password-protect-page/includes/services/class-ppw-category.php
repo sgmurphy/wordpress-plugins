@@ -138,7 +138,11 @@ class PPW_Category_Service {
 		}
 
 		$validated_cookie = apply_filters( 'ppw_category_is_valid_cookie', $this->is_valid_cookie(), $post_id, $post, $required );
-		if ( $validated_cookie ) {
+
+		$ppw_tag_service_instance = PPW_Tag_Service::get_instance();
+		$tag_validated_cookie = $ppw_tag_service_instance->is_valid_cookie();
+
+		if ( $validated_cookie || $tag_validated_cookie ) {
 			return false;
 		}
 

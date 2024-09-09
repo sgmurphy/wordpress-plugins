@@ -2,13 +2,21 @@ import React from 'react';
 import ConfigValues from '../../../es6/config-values';
 import Toggle from '../../../components/toggle';
 import Checkbox from '../../../components/checkbox';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Notice from '../../../components/notices/notice';
 
 const tooltips = {
-	autolinks: __(
-		'SmartCrawl will look for keywords that match posts/pages around your website and automatically link them.',
-		'smartcrawl-seo'
+	autolinks: createInterpolateElement(
+		sprintf(
+			// translators: %s: plugin title
+			__(
+				'<strong>%s</strong> will look for keywords that match posts/pages around your website and automatically link them.',
+				'smartcrawl-seo'
+			),
+			ConfigValues.get('plugin_title', 'admin')
+		),
+		{ strong: <strong /> }
 	),
 	redirects: __(
 		'Automatically redirect traffic from one URL to another. Use this tool if you have changed a page’s URL and wish to keep traffic flowing to the new page.',

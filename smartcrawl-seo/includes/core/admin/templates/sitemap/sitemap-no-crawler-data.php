@@ -8,9 +8,11 @@ $this->render_view(
 	'disabled-component-inner',
 	array(
 		'content'         => sprintf(
-			'%s<br/>%s',
-			esc_html__( 'Have SmartCrawl check for broken URLs, 404s, multiple redirections and other harmful', 'smartcrawl-seo' ),
-			esc_html__( 'issues that can reduce your ability to rank in search engines.', 'smartcrawl-seo' )
+			/* translators: 1,2: strong tag, 3: plugin title */
+			esc_html__( 'Have %1$s%3$s%2$s check for broken URLs, 404s, multiple redirections and other harmful issues that can reduce your ability to rank in search engines.', 'smartcrawl-seo' ),
+			'<strong>',
+			'</strong>',
+			esc_html( \smartcrawl_get_plugin_title() )
 		),
 		'button_text'     => esc_html__( 'Begin Crawl', 'smartcrawl-seo' ),
 		'button_url'      => $action_url,

@@ -177,10 +177,6 @@ class HMWP_Models_Menu
                     'tab' =>'api',
                 ),
                 array(
-                    'title' => esc_html__("Firewall & Headers", 'hide-my-wp'),
-                    'tab' =>'firewall',
-                ),
-                array(
                     'title' => esc_html__("Other Options", 'hide-my-wp'),
                     'tab' =>'more',
                 )

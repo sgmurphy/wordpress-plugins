@@ -6,6 +6,7 @@ import Notice from '../../notices/notice';
 import LighthouseUtil from '../utils/lighthouse-util';
 import LighthouseTable from '../tables/lighthouse-table';
 import Button from '../../button';
+import ConfigValues from '../../../es6/config-values';
 
 export default class LighthouseCheckIsCrawlable extends React.Component {
 	static defaultProps = {
@@ -117,9 +118,13 @@ export default class LighthouseCheckIsCrawlable extends React.Component {
 			);
 		} else if (LighthouseUtil.isHomeNoindex()) {
 			return createInterpolateElement(
-				__(
-					'Your SmartCrawl Settings are currently set to <strong>No Index</strong>.',
-					'smartcrawl-seo'
+				sprintf(
+					// translators: %s: plugin title
+					__(
+						'Your <strong>%s</strong> Settings are currently set to <strong>No Index</strong>.',
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
 				),
 				{
 					strong: <strong />,
@@ -134,9 +139,13 @@ export default class LighthouseCheckIsCrawlable extends React.Component {
 			<React.Fragment>
 				<p>
 					{createInterpolateElement(
-						__(
-							'Go to <strong>SmartCrawl > Titles & Meta</strong> and enable the indexing option for your Homepage. Indexing enables you to configure how you want your website to appear in search results.',
-							'smartcrawl-seo'
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'Go to <strong>%s > Titles & Meta</strong> and enable the indexing option for your Homepage. Indexing enables you to configure how you want your website to appear in search results.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
 						),
 						{ strong: <strong /> }
 					)}
@@ -247,9 +256,16 @@ export default class LighthouseCheckIsCrawlable extends React.Component {
 				'smartcrawl-seo'
 			) +
 			'\n\n' +
-			__(
-				'For more information please check the SEO Audits section in SmartCrawl plugin.',
-				'smartcrawl-seo'
+			createInterpolateElement(
+				sprintf(
+					// translators: %s: plugin title
+					__(
+						'For more information please check the SEO Audits section in <strong>%s</strong> plugin.',
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
+				),
+				{ strong: <strong /> }
 			)
 		);
 	}

@@ -8,7 +8,8 @@ import CrawlItemSitemap from './crawl-item-sitemap';
 import CrawlItem from './crawl-item';
 import CrawlRequest from './crawl-request';
 import CrawlItemRedirectModal from './crawl-item-redirect-modal';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Button from '../button';
 import ConfigValues from '../../es6/config-values';
 import FloatingNoticePlaceholder from '../floating-notice-placeholder';
@@ -62,9 +63,16 @@ export default class CrawlReport extends React.Component {
 				{allActiveIssueKeys.length > 0 && this.getIgnoreAllButton()}
 
 				<p>
-					{__(
-						'Here are potential issues SmartCrawl has picked up. We recommend fixing them up to ensure you aren’t penalized by search engines - you can however ignore any of these warnings.',
-						'smartcrawl-seo'
+					{createInterpolateElement(
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'Here are potential issues <strong>%s</strong> has picked up. We recommend fixing them up to ensure you aren’t penalized by search engines - you can however ignore any of these warnings.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
+						),
+						{ strong: <strong /> }
 					)}
 				</p>
 

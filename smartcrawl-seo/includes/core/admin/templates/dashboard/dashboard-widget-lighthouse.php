@@ -25,9 +25,10 @@ $is_member         = $service->is_member();
 $reporting_enabled = Options::is_cron_enabled() && $is_member;
 $tooltip_text      = $lighthouse_report && $lighthouse_report->is_cooling_down()
 	? sprintf(
-		/* translators: %s: Remaining cool down minutes */
-		esc_attr__( 'SmartCrawl is just catching her breath, you can run another test in %s minutes.', 'smartcrawl-seo' ),
-		$lighthouse_report->get_remaining_cooldown_minutes()
+		/* translators: 1: Remaining cool down minutes, 2: plugin title */
+		esc_attr__( '%2$s is just catching her breath, you can run another test in %1$s minutes.', 'smartcrawl-seo' ),
+		$lighthouse_report->get_remaining_cooldown_minutes(),
+		\smartcrawl_get_plugin_title()
 	)
 	: '';
 ?>

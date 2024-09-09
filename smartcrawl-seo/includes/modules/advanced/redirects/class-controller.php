@@ -50,6 +50,8 @@ class Controller extends Controllers\Submodule_Controller {
 	 * @since 3.3.0
 	 */
 	protected function __construct() {
+		parent::__construct();
+
 		$this->submodules = array(
 			Maxmind\Controller::get(),
 			Maxmind\Cron::get(),
@@ -168,7 +170,15 @@ class Controller extends Controllers\Submodule_Controller {
 			data-message-key="<?php echo esc_attr( $key ); ?>"
 		>
 			<p>
-				<strong><?php esc_html_e( 'SmartCrawl URL redirects have been upgraded', 'smartcrawl-seo' ); ?></strong>
+				<strong>
+					<?php
+					printf(
+						/* translators: %s: plugin title */
+						esc_html__( '%s URL redirects have been upgraded', 'smartcrawl-seo' ),
+						\smartcrawl_get_plugin_title()
+					);
+					?>
+				</strong>
 			</p>
 			<p style="margin-bottom: 15px;">
 				<?php esc_html_e( "We've changed how URL redirects are stored, and your existing redirects have been upgraded accordingly. Please check your existing redirects to ensure they work as expected.", 'smartcrawl-seo' ); ?>

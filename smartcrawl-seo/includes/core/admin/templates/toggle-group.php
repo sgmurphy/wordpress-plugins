@@ -9,7 +9,7 @@ $view_option_name = empty( $_view['option_name'] ) ? '' : $_view['option_name'];
 	<div class="sui-box-settings-col-1">
 		<label class="sui-settings-label"><?php echo esc_html( $label ); ?></label>
 		<p class="sui-description">
-			<?php echo esc_html( $description ); ?>
+			<?php echo wp_kses( $description, wp_kses_allowed_html() ); ?>
 		</p>
 	</div>
 

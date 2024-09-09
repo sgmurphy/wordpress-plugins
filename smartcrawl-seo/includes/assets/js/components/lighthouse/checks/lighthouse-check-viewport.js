@@ -5,6 +5,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import LighthouseUtil from '../utils/lighthouse-util';
 import LighthouseCheckItem from '../lighthouse-check-item';
 import LighthouseTag from '../lighthouse-tag';
+import ConfigValues from '../../../es6/config-values';
 
 export default class LighthouseCheckViewport extends React.Component {
 	static defaultProps = {
@@ -253,9 +254,16 @@ export default class LighthouseCheckViewport extends React.Component {
 				'smartcrawl-seo'
 			) +
 			'\n\n' +
-			__(
-				'For more information please check the SEO Audits section in SmartCrawl plugin.',
-				'smartcrawl-seo'
+			createInterpolateElement(
+				sprintf(
+					// translators: %s: plugin title
+					__(
+						'For more information please check the SEO Audits section in <strong>%s</strong> plugin.',
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
+				),
+				{ strong: <strong /> }
 			)
 		);
 	}

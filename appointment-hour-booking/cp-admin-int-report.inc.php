@@ -223,6 +223,8 @@ else
 
 <br />
 
+<div id="full_dex_printable_contents">
+
 <div class="ahb-statssection-container" style="background:#f6f6f6;">
 	<div class="ahb-statssection-header">
         <form action="admin.php" name="cfm_formrep" method="get">
@@ -283,19 +285,12 @@ else
 </div>
 
 
-
-<div class="ahb-buttons-container">
-	<input type="button" value="<?php _e('Print Stats','appointment-hour-booking'); ?>" onclick="do_dexapp_print();" class="button button-primary" />
-	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php _e('Return to the calendars list','appointment-hour-booking'); ?></a>
-	<div class="clear"></div>
-</div>
-
 <script type="text/javascript">
 
  function do_dexapp_print()
  {
       w=window.open();
-      w.document.write("<style>.cpnopr{display:none;};table{border:2px solid black;width:100%;}th{border-bottom:2px solid black;text-align:left}td{padding-left:10px;border-bottom:1px solid black;}</style>"+document.getElementById('dex_printable_contents').innerHTML);
+      w.document.write("<style>.cpnopr{display:none;};table{border:2px solid black;width:100%;}th{border-bottom:2px solid black;text-align:left}td{padding-left:10px;border-bottom:1px solid black;}</style>"+document.getElementById('full_dex_printable_contents').innerHTML);
       w.print();
       w.close();
  }
@@ -402,3 +397,18 @@ $j(document).ready(function(){
 		    ////////////////////////end canvas///////////////////////
 });
 </script>
+
+
+
+<?php do_action("cp_apphourbooking_do_action_reportstats"); ?>
+
+<?php require_once dirname( __FILE__ ).'/cp-full-stats.inc.php'; ?>
+
+</div>
+
+<div class="ahb-buttons-container">
+	<input type="button" value="<?php _e('Print Stats','appointment-hour-booking'); ?>" onclick="do_dexapp_print();" class="button button-primary" />
+	<a href="<?php print esc_attr(admin_url('admin.php?page='.$this->menu_parameter));?>" class="ahb-return-link">&larr;<?php _e('Return to the calendars list','appointment-hour-booking'); ?></a>
+	<div class="clear"></div>
+</div>
+

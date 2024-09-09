@@ -9,11 +9,11 @@
 /**
  * Internal constants, not to be overridden
  */
-define( 'SMARTCRAWL_VERSION', '3.10.9' );
-define( 'SMARTCRAWL_BUILD', '1720535253898' );
-define( 'SMARTCRAWL_BUILD_TYPE', 'free' );
-define( 'SMARTCRAWL_SUI_VERSION', '2.12.23' );
-define( 'SMARTCRAWL_PACKAGE_ID', 167 );
+const SMARTCRAWL_VERSION     = '3.11.0';
+const SMARTCRAWL_BUILD       = '1725348890916';
+const SMARTCRAWL_BUILD_TYPE  = 'free';
+const SMARTCRAWL_SUI_VERSION = '2.12.23';
+const SMARTCRAWL_PACKAGE_ID  = 167;
 define( 'SMARTCRAWL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) . 'includes/' );
 define( 'SMARTCRAWL_PLUGIN_URL', plugin_dir_url( __FILE__ ) . 'includes/' );
 define( 'SMARTCRAWL_VENDOR_PREFIXED_DIR', plugin_dir_path( __FILE__ ) . 'vendor_prefixed/' );

@@ -132,9 +132,12 @@ class Troubleshooting extends Controllers\Controller {
 		}
 
 		$message = sprintf(
-			/* translators: %s: User display name */
-			esc_html__( 'Hey, %s! A problem on your site is preventing sitemaps from functioning properly. Identify and resolve any issues with SmartCrawl’s Sitemap Troubleshooting feature.', 'smartcrawl-seo' ),
-			User::current()->get_display_name()
+			/* translators: 1: User display name, 2,3: strong tag, 4: plugin title */
+			esc_html__( 'Hey, %1$s! A problem on your site is preventing sitemaps from functioning properly. Identify and resolve any issues with %2$s%4$s%3$s’s Sitemap Troubleshooting feature.', 'smartcrawl-seo' ),
+			User::current()->get_display_name(),
+			'<strong>',
+			'</strong>',
+			\smartcrawl_get_plugin_title()
 		);
 		$action_url = Admin_Settings::admin_url( Settings::TAB_SITEMAP ) . '&tab=tab_settings#wds-troubleshooting-sitemap-placeholder';
 
@@ -295,12 +298,6 @@ class Troubleshooting extends Controllers\Controller {
 			? 'https://wpmudev.com/hub2/support'
 			: 'https://wordpress.org/support/plugin/smartcrawl-seo/';
 
-		$permalink_problem_description = $this->is_nginx_server()
-			/* translators: %s: Sitemap */
-			? __( "Pretty permalinks are not working for your sitemap %s. Since you are hosting your website on an Nginx server, you may have to manually include some rewrite rules to your server's configuration files. Check our documentation for details on how to fix this issue.", 'smartcrawl-seo' )
-			/* translators: %s: Sitemap */
-			: __( "Pretty permalinks are not working for your sitemap %s. You may have to manually include some rewrite rules to your server's configuration files. Visit SmartCrawl's documentation for details on how to fix this issue.", 'smartcrawl-seo' );
-
 		$wp_error_message = $this->wp_error ? $this->wp_error->get_error_message() : '';
 		$request_error    = $wp_error_message
 			/* translators: %s: Error message */
@@ -315,8 +312,13 @@ class Troubleshooting extends Controllers\Controller {
 			case self::SITEMAP_FOREIGN:
 				return array(
 					__( 'Plugin Conflict', 'smartcrawl-seo' ),
-					/* translators: %s: Sitemap */
-					__( "You have another sitemap plugin conflicting with SmartCrawl's sitemap %s. Please deactivate the conflicting plugin and try again.", 'smartcrawl-seo' ),
+					sprintf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						__( 'You have another sitemap plugin conflicting with %1$s%3$s%2$s\'s sitemap###SITEMAP_URL###. Please deactivate the conflicting plugin and try again.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						\smartcrawl_get_plugin_title()
+					),
 					'',
 					__( 'Go to the Plugins Screen', 'smartcrawl-seo' ),
 					admin_url( 'plugins.php' ),
@@ -325,8 +327,13 @@ class Troubleshooting extends Controllers\Controller {
 			case self::SITEMAP_PHYSICAL:
 				return array(
 					__( 'File Conflict', 'smartcrawl-seo' ),
-					/* translators: %s: Sitemap */
-					esc_html__( 'You have a physical file named %s on your server that is conflicting with SmartCrawl. Please delete the file and try again.', 'smartcrawl-seo' ),
+					sprintf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						esc_html__( 'You have a physical file named###SITEMAP_URL### on your server that is conflicting with %1$s%3$s%2$s. Please delete the file and try again.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						esc_html( \smartcrawl_get_plugin_title() )
+					),
 					'',
 					'',
 					'',
@@ -335,7 +342,15 @@ class Troubleshooting extends Controllers\Controller {
 			case self::SITEMAP_FAULTY_PERMALINK:
 				return array(
 					__( 'Permalink Problem', 'smartcrawl-seo' ),
-					$permalink_problem_description,
+					$this->is_nginx_server()
+						? __( "Pretty permalinks are not working for your sitemap###SITEMAP_URL###. Since you are hosting your website on an Nginx server, you may have to manually include some rewrite rules to your server's configuration files. Check our documentation for details on how to fix this issue.", 'smartcrawl-seo' )
+						: sprintf(
+								/* translators: 1,2: strong tag, 3: plugin title */
+								__( 'Pretty permalinks are not working for your sitemap###SITEMAP_URL###. You may have to manually include some rewrite rules to your server\'s configuration files. Visit %1$s%3$s%2$s\'s documentation for details on how to fix this issue.', 'smartcrawl-seo' ),
+							'<strong>',
+							'</strong>',
+							\smartcrawl_get_plugin_title()
+						),
 					__( 'Pretty permalinks were not working for your sitemap. Flushing the rewrite rules fixed the issue.', 'smartcrawl-seo' ),
 					__( 'Visit Documentation', 'smartcrawl-seo' ),
 					'https://wpmudev.com/docs/wpmu-dev-plugins/smartcrawl/#additional-troubleshooting-options-sitemap',
@@ -344,7 +359,13 @@ class Troubleshooting extends Controllers\Controller {
 			case self::PERMALINKS_SETTING_PLAIN:
 				return array(
 					__( 'Incorrect Permalink Settings', 'smartcrawl-seo' ),
-					__( 'You are using <code>plain</code> permalinks on this site. Change your permalink structure to anything else for the SmartCrawl sitemap to work.', 'smartcrawl-seo' ),
+					sprintf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						__( 'You are using <code>plain</code> permalinks on this site. Change your permalink structure to anything else for the %1$s%3$s%2$s sitemap to work.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						\smartcrawl_get_plugin_title()
+					),
 					'',
 					__( 'Go to Permalink Settings', 'smartcrawl-seo' ),
 					admin_url( 'options-permalink.php' ),
@@ -381,10 +402,8 @@ class Troubleshooting extends Controllers\Controller {
 			case self::SITEMAP_INVALID:
 				return array(
 					__( 'Unknown Error', 'smartcrawl-seo' ),
-					/* translators: %s: Sitemap */
-					__( "We found an issue with your sitemap %s, but unfortunately, we couldn't fix it. Please contact our support.", 'smartcrawl-seo' ),
-					/* translators: %s: Sitemap */
-					__( 'We found an unknown issue with your sitemap %s, but clearing the cache seems to have fixed it.', 'smartcrawl-seo' ),
+					__( "We found an issue with your sitemap###SITEMAP_URL###, but unfortunately, we couldn't fix it. Please contact our support.", 'smartcrawl-seo' ),
+					__( 'We found an unknown issue with your sitemap###SITEMAP_URL###, but clearing the cache seems to have fixed it.', 'smartcrawl-seo' ),
 					__( 'Contact Support' ),
 					$support_url,
 				);
@@ -398,9 +417,7 @@ class Troubleshooting extends Controllers\Controller {
 	 * @return string
 	 */
 	private function include_sitemap_name( $message, $sitemap_name ) {
-		return empty( $sitemap_name )
-			? $message
-			: sprintf( $message, "<code>$sitemap_name</code>" );
+		return str_replace('###SITEMAP_URL###', empty( $sitemap_name )? " <code>$sitemap_name</code>" : '', $message );
 	}
 
 	/**

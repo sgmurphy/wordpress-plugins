@@ -4,7 +4,7 @@ namespace SmartCrawl;
 
 class Youtube_Data_Fetcher {
 
-	static $api_base = 'https://www.googleapis.com/youtube/v3/videos';
+	static $api_base = 'https://www.googleapis.com/youtube/v3';
 
 	static $thumbnail_base = 'https://i.ytimg.com/vi/';
 
@@ -17,36 +17,47 @@ class Youtube_Data_Fetcher {
 			return false;
 		}
 
-		$vid = self::get_video_id( $url );
+		$playlist = self::get_playlist_id( $url );
+
+		if ( $playlist ) {
+			$result = self::remote_get(
+				self::$api_base . '/playlistItems?' . http_build_query(
+					array(
+						'part'       => 'snippet',
+						'playlistId' => $playlist,
+						'key'        => $api_key,
+						'maxResults' => 1,
+					)
+				)
+			);
+
+			if ( empty( $result['items'][0]['snippet']['resourceId']['videoId'] ) ) {
+				return null;
+			}
+
+			$vid = $result['items'][0]['snippet']['resourceId']['videoId'];
+		} else {
+			$vid = self::get_video_id( $url );
+		}
+
 		if ( ! $vid ) {
 			return false;
 		}
 
-		// Get duration.
-		$params = array(
-			'part' => 'contentDetails,snippet',
-			'id'   => $vid,
-			'key'  => $api_key,
+		$result = self::remote_get(
+			self::$api_base . '/videos?' . http_build_query(
+				array(
+					'part' => 'contentDetails,snippet',
+					'id'   => $vid,
+					'key'  => $api_key,
+				)
+			)
 		);
-
-		$api_url  = self::$api_base . '?' . http_build_query( $params );
-		$response = wp_remote_get( $api_url );
-		if ( is_wp_error( $response ) ) {
-			Logger::error( $response->get_error_message() );
-
-			return null;
-		}
-
-		$result = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( false === $result ) {
-			Logger::error( "YouTube API response incorrect for video: {$vid}" );
-
-			return null;
-		}
 
 		if ( empty( $result['items'][0]['contentDetails'] ) ) {
 			return null;
 		}
+
 		$video_details = $result['items'][0]['contentDetails'];
 
 		$interval                      = new \DateInterval( $video_details['duration'] );
@@ -68,6 +79,33 @@ class Youtube_Data_Fetcher {
 		return array_merge( $video_details, $snippet );
 	}
 
+	/**
+	 * Performs an HTTP request using the GET method and returns its response from Youtube.
+	 *
+	 * @param string $url Youtube API url.
+	 *
+	 * @return array|false
+	 */
+	private static function remote_get( $url ) {
+		$response = wp_remote_get( $url );
+
+		if ( is_wp_error( $response ) ) {
+			Logger::error( $response->get_error_message() );
+
+			return;
+		}
+
+		$result = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( false === $result ) {
+			Logger::error( "Failed to retrieve data from YouTube API for {$url}" );
+
+			return false;
+		}
+
+		return $result;
+	}
+
 	private static function get_api_key() {
 		$options    = Settings::get_component_options( Settings::COMP_SCHEMA );
 		$connect_yt = (bool) \smartcrawl_get_array_value( $options, 'schema_enable_yt_api' );
@@ -81,6 +119,23 @@ class Youtube_Data_Fetcher {
 
 	private static function is_short_url( $url ) {
 		return wp_parse_url( $url, PHP_URL_HOST ) === 'youtu.be';
+	}
+
+	/**
+	 * Retrieves playlist id from YouTube url.
+	 *
+	 * @param string $url YouTube url.
+	 *
+	 * @return string|false Playlist ID i
+	 */
+	private static function get_playlist_id( $url ) {
+		if ( wp_parse_url( $url, PHP_URL_PATH ) === '/playlist' ) {
+			parse_str( wp_parse_url( $url, PHP_URL_QUERY ), $playlist_id );
+
+			return \smartcrawl_get_array_value( $playlist_id, 'list' );
+		}
+
+		return false;
 	}
 
 	private static function get_video_id( $url ) {

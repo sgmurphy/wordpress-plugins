@@ -1,6 +1,1 @@
-(function ($) {
-	function init() {
-	}
-
-	$(init);
-})(jQuery);
+(function () {})();

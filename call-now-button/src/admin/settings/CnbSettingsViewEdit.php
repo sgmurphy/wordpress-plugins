@@ -415,9 +415,9 @@ class CnbSettingsViewEdit {
      *
      * @return void
      */
-    private function render_promos( $use_cloud, $cnb_domain ) {
+    private function render_promos( $use_cloud, $cnb_domain, $status ) {
         echo '<div class="cnb-postbox-container cnb-side-column">';
-        if ( ! $use_cloud ) {
+        if ( ! $use_cloud && $status != 'cloud' ) {
             ( new CnbAdminFunctions() )->cnb_promobox(
                 'green',
                 'Enable NowButtons features!',
@@ -548,13 +548,24 @@ class CnbSettingsViewEdit {
                 <?php } ?>
 
                 <?php if ( $cnb_options['cloud_enabled'] == 1 && $cloud_successful ) {
-                    $friends_image = plugins_url('resources/images/coworkers.png', CNB_PLUGINS_URL_BASE ); ?>
+                    ?>
+                    
                     <div id="cnb_not_working_tips" class="cnb_inpage_notice">
-                        <div>
-                            <img src="<?php echo esc_url( $friends_image ) ?>" alt="Friends offering help">
-                        </div>
-                        <p><strong>Is it not working?</strong><br>
-                        The NowButtons.com integration works on 99.9% of all websites. Let's fix the issue for you! <a class="button button-primary button-green" target="_blank" href="<?php echo esc_url( $cnb_utils->get_support_url( 'wordpress/implementation/not-working-fix/', 'turning-off-cloud', 'not-working-fix' ) ) ?>"><strong>Fix it!</strong></a></p>
+                        <h3>👋 Plugin not playing nice?</h3>
+                        <p>No worries—we've got your back. Before you hit that off switch, let's try a couple of quick fixes:</p>
+                        <ol style="list-style:none">
+                            <li>
+                                <p><strong>🧹 Sweep out that cache!</strong><br>
+                                <i>Caching plugins can be sneaky and hide our button. Give your cache a good flush, then check if our button pops back up.</i></p>
+                            </li>
+                            <li>
+                                <p><strong>👀 Double-check those visibility settings</strong><br>
+                                <i>Make sure our button's set to shine on both desktop and mobile. Hop into the "Visibility" tab when you're editing your button to check.</i></p>
+                            </li>
+                        </ol>
+                        <p>Still no luck? Don't sweat it! <a
+                        href="<?php echo esc_url( $cnb_utils->get_support_url( 'contact/contact-support/', 'Settings_page', 'Cloud_disable_toggle' ) ) ?>" target="_blank">Drop us a line</a>, and we'll get you sorted in no time.</p>
+                        <p>We're here to help you succeed! 🚀</p>
                     </div>
                 <?php } ?>
             </td>
@@ -636,7 +647,7 @@ class CnbSettingsViewEdit {
                     </form>
                 </div>
             </div>
-            <?php $this->render_promos( $use_cloud, $cnb_domain ); ?>
+            <?php $this->render_promos( $use_cloud, $cnb_domain, $status ); ?>
         </div>
 
         <?php

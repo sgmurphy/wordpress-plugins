@@ -257,6 +257,7 @@ export default class SitemapTroubleshootModal extends React.Component {
 		return createInterpolateElement(message || '', {
 			code: <code />,
 			br: <br />,
+			strong: <strong />,
 		});
 	}
 

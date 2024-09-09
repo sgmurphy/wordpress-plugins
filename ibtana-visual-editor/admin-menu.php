@@ -110,7 +110,7 @@ class Ibtana_Visual_Editor_Menu_Class
 						<div class="name column-name">
 							<h3>
 								<a href="<?php echo esc_url($plugin->permalink); ?>" target="_blank" class="plugin-name">
-									<?php esc_html($plugin->name); ?>
+									<?php echo esc_html($plugin->name); ?>
 									<img class="plugin-icon" src="<?php if (isset($plugin->image) && ($plugin->image != '')) {
 										echo esc_url($plugin->image);
 									} else {
@@ -169,7 +169,7 @@ class Ibtana_Visual_Editor_Menu_Class
 						</div>
 						<div class="desc column-description">
 							<p>
-								<?php esc_html($plugin->description, 'ibtana-visual-editor'); ?>
+								<?php echo esc_html($plugin->description, 'ibtana-visual-editor'); ?>
 							</p>
 							<p class="authors"> <cite><?php esc_html_e('By', 'ibtana-visual-editor') ?> <a href="https://www.vwthemes.com/" target="_blank">
 										<?php esc_html_e('VW Themes', 'ibtana-visual-editor'); ?></a></cite>
@@ -186,7 +186,7 @@ class Ibtana_Visual_Editor_Menu_Class
 										<br>
 										<?php if (isset($get_plugins[$ibtana_addon_file_path])) : ?>
 											<?php esc_html_e(' or '); ?>
-											<a target="_blank" href="<?php echo esc_url(admin_url('admin.php?page=ibtana-visual-editor-license')); ?>" type="button" class="">
+											<a target="_blank" href="#" type="button" class="plugin-activate-license">
 												<?php esc_html_e('Activate License', 'ibtana-visual-editor'); ?>
 											</a>
 										<?php endif; ?>
@@ -1209,6 +1209,11 @@ class Ibtana_Visual_Editor_Menu_Class
 	<?php
 	}
 
+	function ibtana_visual_editor_dashboard_page($hook){
+
+		include IVE_DIR . 'classes/dashboard.php';
+	}
+
 	function ibtana_visual_editor_settings_page($hook)
 	{
 		if ($hook == "same_admin_page") {
@@ -1269,8 +1274,8 @@ class Ibtana_Visual_Editor_Menu_Class
 						<a href="<?php echo esc_url(admin_url() . 'admin.php?page=ibtana-visual-editor-templates') ?>">
 							<?php esc_html_e('See Demos »', 'ibtana-visual-editor'); ?>
 						</a>
-
 					</div>
+
 					<div class="ive-get-started-sidebar-css-gen">
 						<h4><span class="dashicons dashicons-admin-page"></span><?php esc_html_e('CSS File Generation', 'ibtana-visual-editor'); ?></h4>
 						<p>
@@ -1601,6 +1606,7 @@ class Ibtana_Visual_Editor_Menu_Class
 				'wpnonce' 										=>	wp_create_nonce('ive_whizzie_nonce'),
 				'verify_text'									=>	esc_html__('verifying', 'ibtana-visual-editor'),
 				'IBTANA_LICENSE_API_ENDPOINT' =>	IBTANA_LICENSE_API_ENDPOINT,
+				'SHOPIFY_LICENSE_API_ENDPOINT' =>	SHOPIFY_LICENSE_API_ENDPOINT,
 				'ive_license_key' 						=>	get_option('vw_pro_theme_key'),
 				'ive_add_on_keys'							=>	$ive_add_on_license_info,
 				'ive_domain_name' 						=>	get_home_url(),
@@ -1621,7 +1627,7 @@ class Ibtana_Visual_Editor_Menu_Class
 		wp_enqueue_style('ive-admin-menu');
 
 
-		if ('ibtana-settings_page_ibtana-visual-editor-addons' == $hook) {
+		if ('ibtana-settings_page_ibtana-visual-editor-addons' == $hook || $hook == 'toplevel_page_ibtana-visual-editor-dashboard' ) {
 			wp_register_script(
 				'ive-ibtana-addons-script',
 				IBTANA_PLUGIN_URI . 'dist/js/addons.js',
@@ -1638,6 +1644,40 @@ class Ibtana_Visual_Editor_Menu_Class
 			);
 
 			wp_enqueue_script('ive-ibtana-addons-script');
+		}
+
+
+		if ( $hook == 'toplevel_page_ibtana-visual-editor-dashboard' ) {
+			wp_register_style(
+				'ive-admin-bootstrap-css',
+				plugin_dir_url(__FILE__) . 'dist/css/bootstrap/css/bootstrap.min.css',
+				false,
+				IVE_VER
+			);
+			wp_enqueue_style('ive-admin-bootstrap-css');
+
+			wp_register_style(
+				'ive-admin-fontawesome-css',
+				plugin_dir_url(__FILE__) . 'dist/css/fontawesome/fontawesome-all.min.css',
+				false,
+				IVE_VER
+			);
+			wp_enqueue_style('ive-admin-fontawesome-css');
+
+			wp_register_style(
+				'ive-admin-dashboard-css',
+				plugin_dir_url(__FILE__) . 'dist/css/ive-admin-dashboard.css',
+				false,
+				IVE_VER
+			);
+			wp_enqueue_style('ive-admin-dashboard-css');
+
+			wp_enqueue_script(
+				'ive-admin-bootstrap-js',
+				IBTANA_PLUGIN_URI . 'dist/js/bootstrap.min.js',
+				array('jquery'),
+				IVE_VER
+			);
 		}
 	}
 }
@@ -1791,6 +1831,11 @@ class Ibtana_Visual_Editor_Menu_Creator extends Ibtana_Visual_Editor_Menu_Class
 	 */
 	function ibtana_visual_editor_page_load_scripts()
 	{
+		$screen = get_current_screen();
+
+		if ( $screen->id === 'toplevel_page_ibtana-visual-editor-dashboard' ) {
+			echo '<style>.notice { display: none !important; }</style>';
+		}
 	?>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
@@ -2425,138 +2470,16 @@ class Ibtana_Visual_Editor_Menu_Creator extends Ibtana_Visual_Editor_Menu_Class
 //main menu of ibtana settings
 $ibtana_visual_editor_settings = array(
 	'page_type'				=>	'menu_page',
-	'page_title'			=>	'Ibtana Settings',
-	'menu_title'			=>	'Ibtana Settings',
+	'page_title'			=>	'Ibtana',
+	'menu_title'			=>	'Ibtana',
 	'capability'			=>	'edit_theme_options',
-	'menu_slug'				=>	'ibtana-visual-editor',
+	'menu_slug'				=>	'ibtana-visual-editor-dashboard',
 	'icon_url'				=>	apply_filters(
 		'ive:dashboard:icon-url',
 		IBTANA_PLUGIN_URI . 'dist/images/ibtana-setting-icon.svg'
 	),
-	'page_functions'	=>	'ibtana_visual_editor_settings_page',
+	'page_functions'	=>	'ibtana_visual_editor_dashboard_page',
 	'position' 				=>	30,
 	'priority' 				=>	7,
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
-
-
-//main menu of ibtana settings
-$ibtana_visual_editor_settings = array(
-	'page_type'				=>	'same_admin_page',
-	'page_title' 			=>	'Getting Started',
-	'menu_title' 			=>	'Getting Started',
-	'capability' 			=>	'edit_theme_options',
-	'menu_slug' 			=>	'ibtana-visual-editor',
-	'icon_url' 				=>	'',
-	'parent_slug' 		=>	'ibtana-visual-editor',
-	'page_functions'	=>	'ibtana_visual_editor_settings_page',
-	// 'priority'				=>	0
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
-
-
-/*$ibtana_visual_editor_settings = array(
-	'page_type' => 'submenu_page',
-	'page_title' => 'Templates',
-	'menu_title' => 'Templates',
-	'capability' => 'edit_theme_options',
-	'menu_slug' => 'ibtana-visual-editor-templates',
-	'icon_url' => '',
-	'parent_slug' => 'ibtana-visual-editor',
-	'page_functions' => 'ibtana_visual_editor_templates_page'
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);*/
-
-
-$ibtana_visual_editor_settings = array(
-	'page_type' 			=>	'submenu_page',
-	'page_title' 			=>	'Templates',
-	'menu_title' 			=>	'Templates',
-	'capability' 			=>	'edit_theme_options',
-	'menu_slug' 			=>	'ibtana-visual-editor-templates',
-	'icon_url' 				=>	'',
-	'parent_slug' 		=>	'ibtana-visual-editor',
-	'page_functions'	=>	'ibtana_visual_editor_ive_templates_page',
-	// 'priority'				=>	1
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
-
-$ibtana_visual_editor_settings = array(
-	'page_type' 			=>	'submenu_page',
-	'page_title' 			=>	'Woocommerce Templates',
-	'menu_title' 			=>	'Woocommerce Templates',
-	'capability' 			=>	'edit_theme_options',
-	'menu_slug' 			=>	'ibtana-visual-editor-woocommerce-templates',
-	'icon_url' 				=>	'',
-	'parent_slug' 		=>	'ibtana-visual-editor',
-	'page_functions'	=>	'ibtana_visual_editor_ive_woocommerce_templates_page',
-	// 'priority'				=>	1
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
-
-$ibtana_visual_editor_settings = array(
-	'page_type'				=> 'submenu_page',
-	'page_title'			=> 'Settings',
-	'menu_title'			=> 'Settings',
-	'capability'			=> 'edit_theme_options',
-	'menu_slug'				=> 'ibtana-visual-editor-general-settings',
-	'icon_url'				=> '',
-	'parent_slug'			=> 'ibtana-visual-editor',
-	'page_functions'	=> 'ibtana_visual_editor_general_settings_page'
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
-
-
-$ibtana_visual_editor_saved_templates = array(
-	'page_type' 			=>	'submenu_page',
-	'page_title'			=>	'Saved Templates',
-	'menu_title'			=>	'Saved Templates',
-	'capability'			=>	'edit_theme_options',
-	'menu_slug'				=>	'ibtana-visual-editor-saved-templates',
-	'icon_url'				=>	'',
-	'parent_slug' 		=>	'ibtana-visual-editor',
-	'page_functions'	=>	'ibtana_visual_editor_ive_saved_templates_page'
-	// 'priority'		=>	2,
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_saved_templates);
-
-
-$ibtana_visual_editor_settings = array(
-	'page_type'				=> 'submenu_page',
-	'page_title'			=> 'License',
-	'menu_title'			=> 'License',
-	'capability'			=> 'edit_theme_options',
-	'menu_slug'				=> 'ibtana-visual-editor-license',
-	'icon_url'				=> '',
-	'parent_slug'			=> 'ibtana-visual-editor',
-	'page_functions'	=> 'ibtana_visual_editor_ive_license_page',
-	'priority'				=>	99
-);
-new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
-
-
-// $ibtana_visual_editor_settings = array(
-// 	'page_type'				=> 'submenu_page',
-// 	'page_title'			=> 'Envato License',
-// 	'menu_title'			=> 'Envato License',
-// 	'capability'			=> 'edit_theme_options',
-// 	'menu_slug'				=> 'ibtana-visual-editor-envato',
-// 	'icon_url'				=> '',
-// 	'parent_slug'			=> 'ibtana-visual-editor',
-// 	'page_functions'	=> 'ibtana_visual_editor_ive_envato_page',
-// 	'priority'				=>	100
-// );
-// new Ibtana_Visual_Editor_Menu_Creator( $ibtana_visual_editor_settings );
-
-$ibtana_visual_editor_settings = array(
-	'page_type'				=>	'submenu_page',
-	'page_title'			=>	'Addons',
-	'menu_title'			=>	'Addons',
-	'capability'			=>	'edit_theme_options',
-	'menu_slug'				=>	'ibtana-visual-editor-addons',
-	'icon_url'				=>	'',
-	'parent_slug'			=>	'ibtana-visual-editor',
-	'page_functions'	=>	'ibtana_visual_editor_ive_addons_page',
-	'priority'				=>	101
 );
 new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);

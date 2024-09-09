@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-05T14:12:35+00:00\n"
+"POT-Creation-Date: 2024-09-09T09:01:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: wp-marketing-automations\n"
@@ -1256,7 +1256,7 @@ msgid "This automation is migrated hence not editable."
 msgstr ""
 
 #: admin/view/section-automation.php:62
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Submit"
 msgstr ""
 
@@ -11371,7 +11371,7 @@ msgstr ""
 #: admin/frontend/dist/contacts.7999b1a203abcdf2da59.js:1
 #: admin/frontend/dist/main-3.2.2.js:9
 #: admin/frontend/dist/main-3.2.2.js:11
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:2
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:2
 msgid "Back"
 msgstr ""
 
@@ -18415,89 +18415,89 @@ msgstr ""
 msgid "Edit Tag"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid " Welcome! Thank you for choosing Funnelkit Automations"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Create and manage broadcasts and automations seamlessly within WordPress with FunnelKit."
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Get Started"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "I want updates! Opt in for security, features updates and non sensitive diagnostic tracking. "
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Learn More."
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Please wait! We will autoredirect to next step…"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Fantastic! Get essential plugins installed with one-click"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Enables automated customer journeys, from abandoned cart recovery to targeted email sequences. Boost engagement with post-purchase"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid " upsells and seamless integrations with top marketing tools, all effortlessly managed within your WordPress dashboard."
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Essential Plugins"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "There is some technical error to install. Please retry"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:2
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:2
 msgid "Skip"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Install and Activate"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Retry"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "You're Almost Done!"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "We will sent out helpful video tutorials and guides to create effective automations and broadcasts."
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Enter you email"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid " Congratulations! Lets Explore"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "You’re all set to maximize your growth with FunnelKit Automations"
 msgstr ""
 
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:1
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:1
 msgid "Start with Dashboard"
 msgstr ""
 
 #. translators: completed steps count
-#: admin/frontend/dist/UserSetup.92ae775419cda118c78a.js:2
+#: admin/frontend/dist/UserSetup.828ab6db088eacecb1a1.js:2
 msgid "%1$d/%2$d Completed"
 msgstr ""
 

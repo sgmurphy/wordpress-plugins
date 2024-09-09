@@ -252,7 +252,11 @@ class Settings extends Admin_Settings {
 		$this->name        = 'settings';
 		$this->slug        = SC_Settings::TAB_SETTINGS;
 		$this->action_url  = admin_url( 'options.php' );
-		$this->page_title  = __( 'SmartCrawl Wizard: Settings', 'smartcrawl-seo' );
+		$this->page_title  = sprintf(
+		/* translators: %s: plugin title */
+			__( '%s Wizard: Settings', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'admin_init', array( $this, 'activate_component' ) );
 		add_action( 'admin_footer', array( $this, 'add_native_dismissible_notice_javascript' ) );
@@ -551,10 +555,13 @@ class Settings extends Admin_Settings {
 			esc_html__( 'auto-import', 'smartcrawl-seo' )
 		);
 		$message = sprintf(
-			/* translators: 1: Plugin name, 2: Anchor tag to Import/Export page */
-			esc_html__( "We've detected you have %1\$s settings. Do you want to %2\$s your configuration into SmartCrawl?", 'smartcrawl-seo' ),
+			/* translators: 1: Plugin name, 2: Anchor tag to Import/Export page, 3,4: strong tag, 5: plugin title */
+			esc_html__( 'We\'ve detected you have %1$s settings. Do you want to %2$s your configuration into %3$s%5$s%4$s?', 'smartcrawl-seo' ),
 			$plugin_name,
-			$auto_import_url
+			$auto_import_url,
+			'<strong>',
+			'</strong>',
+			\smartcrawl_get_plugin_title()
 		);
 		$message_key          = sprintf( '%s-import', $plugin_key );
 		$dismissed_messages   = get_user_meta( get_current_user_id(), 'wds_dismissed_messages', true );
@@ -617,7 +624,17 @@ class Settings extends Admin_Settings {
 			class="notice-info notice is-dismissible wds-native-dismissible-notice"
 			data-message-key="<?php echo esc_attr( $key ); ?>"
 		>
-			<p><?php esc_html_e( "Excellent! You've been using SmartCrawl for over a week. Hope you are enjoying it so far. We have spent countless hours developing this free plugin for you, and we would really appreciate it if you could drop us a rating on wp.org to help us spread the word and boost our motivation.", 'smartcrawl-seo' ); ?></p>
+			<p>
+				<?php
+				printf(
+					/* translators: 1,2: strong tag, 3: plugin title */
+					esc_html__( 'Excellent! You\'ve been using %1$s%3$s%2$s for over a week. Hope you are enjoying it so far. We have spent countless hours developing this free plugin for you, and we would really appreciate it if you could drop us a rating on wp.org to help us spread the word and boost our motivation.', 'smartcrawl-seo' ),
+					'<strong>',
+					'</strong>',
+					esc_html( \smartcrawl_get_plugin_title() )
+				);
+				?>
+			</p>
 			<a
 				target="_blank" href="https://wordpress.org/plugins/smartcrawl-seo#reviews"
 				class="button button-primary"

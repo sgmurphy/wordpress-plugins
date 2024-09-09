@@ -5,7 +5,6 @@
 
 namespace SmartCrawl;
 
-use SmartCrawl\Lighthouse\Report;
 use SmartCrawl\Lighthouse\Options;
 use SmartCrawl\Services\Service;
 

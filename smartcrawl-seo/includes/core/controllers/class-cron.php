@@ -481,28 +481,32 @@ class Cron {
 
 		if ( ! isset( $intervals['hourly'] ) ) {
 			$intervals['hourly'] = array(
-				'display'  => __( 'SmartCrawl Hourly', 'smartcrawl-seo' ),
+				/* translators: %s: plugin title */
+				'display'  => sprintf( __( '%s Hourly', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title() ),
 				'interval' => HOUR_IN_SECONDS,
 			);
 		}
 
 		if ( ! isset( $intervals['daily'] ) ) {
 			$intervals['daily'] = array(
-				'display'  => __( 'SmartCrawl Daily', 'smartcrawl-seo' ),
+				/* translators: %s: plugin title */
+				'display'  => sprintf( __( '%s Daily', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title() ),
 				'interval' => DAY_IN_SECONDS,
 			);
 		}
 
 		if ( ! isset( $intervals['weekly'] ) ) {
 			$intervals['weekly'] = array(
-				'display'  => __( 'SmartCrawl Weekly', 'smartcrawl-seo' ),
+				/* translators: %s: plugin title */
+				'display'  => sprintf( __( '%s Weekly', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title() ),
 				'interval' => 7 * DAY_IN_SECONDS,
 			);
 		}
 
 		if ( ! isset( $intervals['monthly'] ) ) {
 			$intervals['monthly'] = array(
-				'display'  => __( 'SmartCrawl Monthly', 'smartcrawl-seo' ),
+				/* translators: %s: plugin title */
+				'display'  => sprintf( __( '%s Monthly', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title() ),
 				'interval' => 30 * DAY_IN_SECONDS,
 			);
 		}

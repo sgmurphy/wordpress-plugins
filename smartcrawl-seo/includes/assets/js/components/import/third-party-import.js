@@ -1,7 +1,9 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Button from '../button';
 import ImportModal from './import-modal';
+import ConfigValues from '../../es6/config-values';
 
 export default class ThirdPartyImport extends React.Component {
 	static defaultProps = {
@@ -34,9 +36,16 @@ export default class ThirdPartyImport extends React.Component {
 							{__('Import', 'wds-texdomain')}
 						</label>
 						<p className="sui-description">
-							{__(
-								'Use this tool to import your SmartCrawl settings from another site.',
-								'wds-texdomain'
+							{createInterpolateElement(
+								sprintf(
+									// translators: %s: plugin title
+									__(
+										'Use this tool to import your <strong>%s</strong> settings from another site.',
+										'wds-texdomain'
+									),
+									ConfigValues.get('plugin_title', 'admin')
+								),
+								{ strong: <strong /> }
 							)}
 						</p>
 					</div>

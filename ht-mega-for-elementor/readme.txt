@@ -3,16 +3,16 @@ Contributors: hasthemes, htplugins, devitemsllc, tarekht, zenaulislam, aslamhasi
 Tags: elementor, elementor addons, elementor widgets, elementor templates, addons, elementor slider, elementor page builder, mega menu, addons for elementor, post grid, elements, header footer builder
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 The HT Mega is an Elementor addons package for WordPress. It is a complete package of widgets, pre-designed templates, forms, tables, and so on. It empowers you to build a professional website in WordPress, one of the most popular WordPress page builder. From blog widget, slider widget, accordion widget, or whatever widget you like, this plugin will deliver you all.
 
 == Description of HT Mega ==
-HT Mega includes **84+ widgets**, **360+ ready-made Blocks**, and plenty of **Pre-built Templates** for various pages. This excellent WordPress plugin brings limitless possibilities. With HT Mega, you can easily add accordions, post grids, sliders, carousels, mega menus, forms, tables, and more to your pages. This all-in-one solution gives you everything you need to create a custom website that looks great and functions perfectly.
+HT Mega includes **100+ widgets**, **360+ ready-made Blocks**, and plenty of **Pre-built Templates** for various pages. This excellent WordPress plugin brings limitless possibilities. With HT Mega, you can easily add accordions, post grids, sliders, carousels, mega menus, forms, tables, and more to your pages. This all-in-one solution gives you everything you need to create a custom website that looks great and functions perfectly.
 
-**HT Mega is one of the best free Elementor add-ons to supercharge your Elementor page builder and design your WordPress website more creatively with over 84+ free widgets. It has more than 100,000+ active installations! 🙂**
+**HT Mega is one of the best free Elementor add-ons to supercharge your Elementor page builder and design your WordPress website more creatively with over 100+ free widgets. It has more than 90,000+ active installations! 🙂**
 
 If you want to view the demo templates available in this plugin, you can check the multiple demo content templates from the link down below.
 
@@ -79,7 +79,7 @@ In addition, the plugin comes with a number of other templates, such as a coming
 [youtube https://youtu.be/z_9Z9VWhaEQ]
 
 
-== 🔥 84+ Free Widgets ==
+== 🔥 100+ Free Widgets ==
 
 When it comes to customizing your WordPress site, there are a lot of different elements that you can change. One of the most important elements is the widget. They allow you to add content and features to your site, and they come in a variety of different shapes and sizes. However, one of the most frustrating things about widgets is that they can be very tricky to customize. But with HT Mega widgets, you can easily change the widget skin, icons, CSS, and even import or hide widgets. So if you're looking for an easy way to change the look and feel of your site, then HT Mega is definitely worth checking out.
 
@@ -529,6 +529,12 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 
 == Changelog ==
 
+= Version 2.6.3 - Date: 2024-09-09 =
+* Added: Current post hide option in Post Carousel Widget.
+* Fixed: Enabled Modules settings icon active color issue.
+* Fixed: Default Template select issue in Module Setting Popup.
+* Fixed: A few minor issues.
+
 = Version 2.6.2 - Date: 2024-08-27 =
 * Fixed: Issue with theme builder widgets not functioning.
 * Fixed: Compatibility with WP Rocket and LiteSpeed Cache plugins.
@@ -901,7 +907,7 @@ Yes, the HT Mega Addons plugin is well responsive for various devices.
  
 = How Many Free Widgets Does HT Mega Addons Offer? =
  
-The HT Mega Add-ons plugin offers over 84+ free widgets including WooCommerce widgets, 360+ ready blocks, 15+ landing pages, etc.
+The HT Mega Add-ons plugin offers over 100+ free widgets including WooCommerce widgets, 360+ ready blocks, 15+ landing pages, etc.
  
 = How many free templates are available in HT Mega? =
  
@@ -949,7 +955,7 @@ The pro version of HT Mega gives you access to numerous incredible features that
 
 == Screenshots ==
 1. HT Mega Absolute Addons for Elementor Page Builder
-2. 84+ Widgets
+2. 100+ Widgets
 3. 360+ Ready Blocks
 4. 15+ Landing Pages
 5. Settings Panel

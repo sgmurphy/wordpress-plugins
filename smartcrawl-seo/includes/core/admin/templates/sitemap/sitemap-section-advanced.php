@@ -36,7 +36,15 @@ $this->render_view(
 		</label>
 
 		<span class="sui-description">
-			<?php esc_html_e( 'By default, SmartCrawl will auto-notify Google and Bing whenever your sitemap changes. Alternatively, you can manually notify search engines.', 'smartcrawl-seo' ); ?>
+			<?php
+			printf(
+				/* translators: 1,2: strong tag, 3: plugin title */
+				esc_html__( 'By default, %1$s%3$s%2$s will auto-notify Google and Bing whenever your sitemap changes. Alternatively, you can manually notify search engines.', 'smartcrawl-seo' ),
+				'<strong>',
+				'</strong>',
+				esc_html( \smartcrawl_get_plugin_title() )
+			);
+			?>
 		</span>
 	</div>
 	<div class="sui-box-settings-col-2">

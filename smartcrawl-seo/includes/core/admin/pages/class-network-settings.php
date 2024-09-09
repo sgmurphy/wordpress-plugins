@@ -111,7 +111,11 @@ class Network_Settings extends Page {
 	private function add_network_settings_page( $parent ) {
 		$submenu_page = add_submenu_page(
 			$parent,
-			esc_html__( 'SmartCrawl Network Settings', 'smartcrawl-seo' ),
+			sprintf(
+				/* translators: %s: plugin title */
+				esc_html__( '%s Network Settings', 'smartcrawl-seo' ),
+				\smartcrawl_get_plugin_title()
+			),
 			esc_html__( 'Network Settings', 'smartcrawl-seo' ),
 			$this->capability(),
 			self::MENU_SLUG,

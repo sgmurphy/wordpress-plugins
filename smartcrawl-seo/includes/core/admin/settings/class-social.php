@@ -180,7 +180,11 @@ class Social extends Admin_Settings {
 		$this->name        = Settings::COMP_SOCIAL;
 		$this->slug        = Settings::TAB_SOCIAL;
 		$this->action_url  = admin_url( 'options.php' );
-		$this->page_title  = __( 'SmartCrawl Wizard: Social', 'smartcrawl-seo' );
+		$this->page_title  = sprintf(
+		/* translators: %s: plugin title */
+			__( '%s Wizard: Social', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'wp_ajax_wds_change_social_status', array( $this, 'change_social_component_status' ) );
 

@@ -9,6 +9,7 @@ namespace SmartCrawl\Configs;
 
 use SmartCrawl\Logger;
 use SmartCrawl\Singleton;
+use function smartcrawl_get_array_value;
 
 /**
  * Config Collection class.
@@ -53,7 +54,7 @@ class Collection {
 	/**
 	 * Syncs data with hub.
 	 *
-	 * Works under the assumption that the HUB has the most up to date version of the data.
+	 * Works under the assumption that the HUB has the most up-to-date version of the data.
 	 *
 	 * @return bool
 	 */
@@ -73,17 +74,21 @@ class Collection {
 	 */
 	private function push_local_changes() {
 		$success = true;
+
 		foreach ( $this->get_configs() as $local_config ) {
 			if ( $local_config->get_hub_id() ) {
 				// The local config already exists on hub, nothing to do.
 				continue;
 			}
+
 			$saved_to_hub = $this->service->publish_config( $local_config );
+
 			if ( ! empty( $saved_to_hub['id'] ) ) {
 				$local_config->set_hub_id( $saved_to_hub['id'] );
 			} else {
 				Logger::error( 'There was an error while publishing a local config to remote' );
 			}
+
 			$success = $success && $saved_to_hub;
 		}
 
@@ -111,7 +116,7 @@ class Collection {
 	}
 
 	/**
-	 * Add config.
+	 * Adds config.
 	 *
 	 * @param Model $config Config model.
 	 */
@@ -122,7 +127,7 @@ class Collection {
 	/**
 	 * Removes a config.
 	 *
-	 * @param string $config Config to be removed.
+	 * @param Model $config Config to be removed.
 	 *
 	 * @return void
 	 */
@@ -164,9 +169,11 @@ class Collection {
 	 */
 	private function load_from_storage() {
 		$config_ids = $this->get_stored_config_ids();
+
 		foreach ( $config_ids as $config_id ) {
 			$config_data = $this->get_stored_config_data( $config_id );
 			$config      = Model::inflate( $config_data );
+
 			if ( $config->get_id() ) {
 				$this->add( $config );
 			}
@@ -235,7 +242,7 @@ class Collection {
 	/**
 	 * Deletes a config from database.
 	 *
-	 * @param array $config Config data.
+	 * @param Model $config Config data.
 	 *
 	 * @return bool
 	 */
@@ -247,6 +254,7 @@ class Collection {
 	 * Returns config option id.
 	 *
 	 * @param string $config_id Config ID.
+	 *
 	 * @return string
 	 */
 	private function config_option_id( $config_id ) {
@@ -256,7 +264,7 @@ class Collection {
 	/**
 	 * Returns configs.
 	 *
-	 * @return array|Model[]
+	 * @return Model[]
 	 */
 	public function get_configs() {
 		return empty( $this->configs ) ? array() : $this->configs;
@@ -277,7 +285,7 @@ class Collection {
 	/**
 	 * Comparison function.
 	 *
-	 * @param Model $first  Config model.
+	 * @param Model $first Config model.
 	 * @param Model $second Config model.
 	 *
 	 * @return int
@@ -309,16 +317,16 @@ class Collection {
 	 *
 	 * @param string $config_id Config ID.
 	 *
-	 * @return Model
+	 * @return Model|null
 	 */
 	public function get_by_id( $config_id ) {
-		return \smartcrawl_get_array_value( $this->configs, $this->id_to_key( $config_id ) );
+		return smartcrawl_get_array_value( $this->configs, $this->id_to_key( $config_id ) );
 	}
 
 	/**
 	 * Retrieves config by hub ID.
 	 *
-	 * @param string $hub_id Hub ID.
+	 * @param int $hub_id Hub ID.
 	 *
 	 * @return Model|null
 	 */
@@ -378,7 +386,7 @@ class Collection {
 	}
 
 	/**
-	 * User could update name and description of configs or add brand new configs on the hub side.
+	 * User could update name and description of configs or add brand-new configs on the hub side.
 	 * This method applies those changes to local.
 	 *
 	 * @param Model[] $hub_configs Hub configs.
@@ -388,6 +396,7 @@ class Collection {
 	private function apply_remote_changes_to_local( $hub_configs ) {
 		foreach ( $hub_configs as $hub_config ) {
 			$local_config = $this->get_by_hub_id( $hub_config->get_hub_id() );
+
 			if ( $local_config ) {
 				$local_config
 					->set_name( $hub_config->get_name() )
@@ -417,7 +426,7 @@ class Collection {
 
 				return false;
 			}
-			$hub_config = \smartcrawl_get_array_value(
+			$hub_config = smartcrawl_get_array_value(
 				$hub_configs,
 				$this->id_to_key( $local_config->get_hub_id() )
 			);
@@ -433,12 +442,12 @@ class Collection {
 	/**
 	 * Update config option wds_blog_tabs settings.
 	 *
-	 * @param $config_id
-	 * @param $config_data
+	 * @param string $config_id Config Model ID.
+	 * @param array  $config_data Config Data.
 	 *
 	 * @return void
 	 */
-	public function update_config_blog_tabs_settings( $config_id, $config_data ): void {
+	public function update_config_blog_tabs_settings( $config_id, $config_data ) {
 		update_option( $this->config_option_id( $config_id ), $config_data, false );
 	}
 }

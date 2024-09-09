@@ -133,6 +133,23 @@ class installerGmp {
 					'description' => 'mail',
 			));
 		}
+
+		$tableName = $wpdb->prefix . "gmp_modules";
+		$markerGroupTabIsExist = $wpdb->get_var("SELECT id FROM `".$wpPrefix."gmp_modules` WHERE code = 'marker_groups'");
+		if (!empty($markerGroupTabIsExist)) {
+			$wpdb->update($tableName, array('active' => 1), array('code' => 'marker_groups'));
+		} else {
+			$wpdb->insert($tableName, array(
+				'code' => 'marker_groups',
+				'active' => 1,
+				'type_id' => 1,
+				'params' => '',
+				'has_tab' => 0,
+				'label' => 'Marker Groups',
+				'description' => 'Marker Groups',
+			));
+		}
+		
 		/**
 		 *  modules_type
 		 */

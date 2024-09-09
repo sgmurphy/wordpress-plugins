@@ -42,6 +42,7 @@ class PGBlockAccordionNested
     }
 
     global $postGridCssY;
+    global $postGridLdJson;
 
 
 
@@ -116,12 +117,13 @@ class PGBlockAccordionNested
       $json['mainEntity'][$i]['name'] = isset($block['attrs']['headerLabel']['options']['text']) ? _wp_specialchars($block['attrs']['headerLabel']['options']['text'], ENT_QUOTES)  : '';
       $json['mainEntity'][$i]['acceptedAnswer']['@type'] = "Answer";
       $json['mainEntity'][$i]['acceptedAnswer']['text'] = _wp_specialchars(render_block($block), ENT_QUOTES);
-
-
-
-
       $i++;
     }
+    if ($schemaEnable) {
+      $postGridLdJson[$blockId] = $json;
+    }
+
+
 
     // //* Visible condition
     $visible = isset($attributes['visible']) ? $attributes['visible'] : [];
@@ -148,24 +150,8 @@ class PGBlockAccordionNested
 
 
     <div id="<?php echo esc_attr($blockId); ?>" class="pg-accordion-nested <?php echo esc_attr($blockId); ?> <?php echo esc_attr($blockAlign); ?>" data-pgaccordion="<?php echo esc_attr(json_encode($accordionData)) ?>" role="tablist">
-      <?php echo $content; ?>
+      <?php echo wp_kses_post($content); ?>
     </div>
-
-
-
-    <?php
-    if ($schemaEnable) :
-    ?>
-      <script type="application/ld+json">
-        <?php echo wp_unslash(json_encode($json)); ?>
-      </script>
-    <?php
-    endif;
-    ?>
-
-
-
-
 
 <?php
 

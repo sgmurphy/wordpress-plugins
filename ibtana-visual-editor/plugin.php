@@ -3,7 +3,7 @@
  * Plugin Name:       Ibtana - WordPress Website Builder
  * Plugin URI:        https://www.vwthemes.com/products/wordpress-website-builder/
  * Description:       Build your dream WordPress website with Ibtana, a powerful website builder with customizable templates and drag-and-drop elements for customization.
- * Version:           1.2.3.9
+ * Version:           1.2.4.1
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            VowelWeb
@@ -36,6 +36,7 @@ if( ! function_exists('get_plugin_data') ) {
 $plugin_data = get_plugin_data( __FILE__ );
 define( 'IVE_VER', $plugin_data['Version'] );
 define( 'IBTANA_LICENSE_API_ENDPOINT', 'https://preview.vwthemesdemo.com/old_website/wp-json/ibtana-licence/v2/' );
+define( 'SHOPIFY_LICENSE_API_ENDPOINT', 'https://license.vwthemes.com/api/public/' );
 define( 'IBTANA_THEME_URL', 'https://www.vwthemes.com/' );
 
 // Add the links on the Plugins administration screen

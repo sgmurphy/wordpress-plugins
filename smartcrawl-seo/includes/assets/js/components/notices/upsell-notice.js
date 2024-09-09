@@ -50,13 +50,7 @@ export default class UpsellNotice extends React.Component {
 									</span>
 								)}
 
-								<p>
-									<span
-										dangerouslySetInnerHTML={{
-											__html: message,
-										}}
-									/>
-								</p>
+								<p>{message}</p>
 
 								{button && <p>{button}</p>}
 							</div>

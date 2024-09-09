@@ -127,7 +127,10 @@ class Controller extends Controllers\Submodule_Controller {
 			if ( $show ) {
 				add_meta_box(
 					'wds_seomoz_urlmetrics',
-					__( 'Moz URL Metrics - SmartCrawl', 'smartcrawl-seo' ),
+					sprintf(
+						__( 'Moz URL Metrics - %s', 'smartcrawl-seo' ),
+						\smartcrawl_get_plugin_title()
+					),
 					array( $this, 'urlmetrics_box' ),
 					$post_type,
 					'normal',

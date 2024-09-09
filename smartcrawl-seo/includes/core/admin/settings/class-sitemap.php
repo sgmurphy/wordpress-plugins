@@ -373,7 +373,11 @@ class Sitemap extends Admin_Settings {
 		$this->name        = Settings::COMP_SITEMAP;
 		$this->slug        = Settings::TAB_SITEMAP;
 		$this->action_url  = admin_url( 'options.php' );
-		$this->page_title  = __( 'SmartCrawl Wizard: Sitemap', 'smartcrawl-seo' );
+		$this->page_title  = sprintf(
+		/* translators: %s: plugin title */
+			__( '%s Wizard: Sitemap', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'wds-component-activated-sitemap', array( $this, 'trigger_crawl_after_activation' ) );
 		add_action( 'all_admin_notices', array( $this, 'add_crawl_status_message' ), 10 );
@@ -435,22 +439,36 @@ class Sitemap extends Admin_Settings {
 	 * Runs SEO Audit crawl
 	 */
 	public function run_crawl() {
-		$error = '';
+		$message     = '';
+		$in_progress = false;
+
 		if ( current_user_can( 'manage_options' ) ) {
-			$service  = Service::get( Service::SERVICE_SEO );
-			$response = $service->start();
-			$error    = is_wp_error( $response )
-				? $response->get_error_message()
-				: '';
+			$service = Service::get( Service::SERVICE_SEO );
+
+			$remaining_minutes = $service->get_cooldown_remaining();
+
+			if ( ! $remaining_minutes ) {
+				$response = $service->start();
+
+				if ( is_wp_error( $response ) ) {
+					$message = $response->get_error_message();
+				} elseif ( false !== $response ) {
+					$in_progress = true;
+				}
+			}
+		} else {
+			$message = __( 'You don\'t have permission to run crawl.', 'smartcrawl-seo' );
 		}
+
 		$url = add_query_arg(
 			array(
 				'tab'               => 'tab_url_crawler',
-				'crawl-in-progress' => empty( $error ) ? '1' : '0',
-				'message'           => $error,
+				'crawl-in-progress' => $in_progress ? '1' : '0',
+				'message'           => $message,
 			),
 			Admin_Settings::admin_url( Settings::TAB_SITEMAP )
 		);
+
 		wp_safe_redirect( esc_url_raw( $url ) );
 		die;
 	}
@@ -467,7 +485,10 @@ class Sitemap extends Admin_Settings {
 		$crawl_in_progress = (bool) $crawl_in_progress;
 		if ( ! $crawl_in_progress ) {
 			$message = (string) \smartcrawl_get_array_value( $_GET, 'message' ); // phpcs:ignore -- Sanitized below.
-			add_settings_error( $this->option_name, 'wds-crawl-not-started', wp_strip_all_tags( $message ) );
+
+			if ( ! empty( $message ) ) {
+				add_settings_error( $this->option_name, 'wds-crawl-not-started', wp_strip_all_tags( $message ) );
+			}
 		}
 	}
 
@@ -744,4 +765,3 @@ class Sitemap extends Admin_Settings {
 		return $value;
 	}
 }
-

@@ -7,21 +7,36 @@
 
 namespace SmartCrawl\Controllers;
 
+use SmartCrawl\Admin\Pages\Network_Settings;
 use SmartCrawl\Admin\Settings\Admin_Settings;
 use SmartCrawl\Admin\Settings\Onpage as Onpage_Settings;
 use SmartCrawl\Admin\Settings\Sitemap;
-use SmartCrawl\Modules\Advanced\Redirects\Utils;
 use SmartCrawl\Cache\Post_Cache;
 use SmartCrawl\Configs;
 use SmartCrawl\Entities;
-use SmartCrawl\Integration\Maxmind\GeoDB;
 use SmartCrawl\Lighthouse;
 use SmartCrawl\Schema;
 use SmartCrawl\Services\Service;
 use SmartCrawl\Settings;
 use SmartCrawl\Simple_Renderer;
 use SmartCrawl\Singleton;
+use SmartCrawl\SmartCrawl;
 use SmartCrawl\Third_Party_Import\AIOSEOP;
+use WP_Post;
+use WP_Taxonomy;
+use function smartcrawl_frontend_post_types;
+use function smartcrawl_frontend_taxonomies;
+use function smartcrawl_get_array_value;
+use function smartcrawl_get_news_sitemap_url;
+use function smartcrawl_get_sitemap_url;
+use function smartcrawl_get_value;
+use function smartcrawl_is_switch_active;
+use function smartcrawl_metadesc_max_length;
+use function smartcrawl_metadesc_min_length;
+use function smartcrawl_title_max_length;
+use function smartcrawl_title_min_length;
+use function smartcrawl_woocommerce_active;
+use function user_can_see_seo_metabox_301_redirect;
 
 /**
  * Assets controller.
@@ -39,8 +54,6 @@ class Assets extends Controller {
 	const QTIP2_JS = 'wds-qtip2-script';
 
 	const MACRO_REPLACEMENT = 'wds-macro-replacement';
-
-	const AUTOLINKS_PAGE_JS = 'wds-admin-autolinks';
 
 	const ONPAGE_COMPONENTS = 'wds-onpage-components';
 
@@ -95,14 +108,10 @@ class Assets extends Controller {
 	const LIGHTHOUSE_JS = 'wds-admin-lighthouse';
 
 	/**
-	 * Bind listening actions
-	 *
-	 * @return bool
+	 * Binds listening actions.
 	 */
 	public function init() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_assets' ), - 10 );
-
-		return true;
 	}
 
 	/**
@@ -113,7 +122,7 @@ class Assets extends Controller {
 	 * @return bool
 	 */
 	private function is_page( $page ) {
-		return $this->is_smartcrawl_page() && \smartcrawl_get_array_value( $_GET, 'page' ) === $page; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return $this->is_smartcrawl_page() && smartcrawl_get_array_value( $_GET, 'page' ) === $page; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -123,9 +132,9 @@ class Assets extends Controller {
 	 */
 	private function is_smartcrawl_page() {
 		global $pagenow;
-		$page = (string) \smartcrawl_get_array_value( $_GET, 'page' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$page = (string) smartcrawl_get_array_value( $_GET, 'page' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		return 'admin.php' === $pagenow && ( strpos( $page, 'wds_' ) === 0 || strpos( $page, 'wds-' ) === 0 );
+		return 'admin.php' === $pagenow && ( str_starts_with( $page, 'wds_' ) || str_starts_with( $page, 'wds-' ) );
 	}
 
 	/**
@@ -163,7 +172,7 @@ class Assets extends Controller {
 	 * @return string
 	 */
 	private function get_version() {
-		$value = \SmartCrawl\SmartCrawl::get_version();
+		$value = SmartCrawl::get_version();
 		if ( defined( 'SMARTCRAWL_BUILD' ) ) {
 			$value = sprintf( '%s-%s', $value, SMARTCRAWL_BUILD );
 		}
@@ -174,9 +183,9 @@ class Assets extends Controller {
 	/**
 	 * Register Javascript.
 	 *
-	 * @param string       $handle Name of the script. Should be unique.
-	 * @param string|false $src    Relative URL of the script.
-	 * @param string[]     $deps   Optional. An array of registered script handles this script depends on. Default empty array.
+	 * @param string      $handle Name of the script. Should be unique.
+	 * @param bool|string $src    Relative URL of the script.
+	 * @param string[]    $deps   Optional. An array of registered script handles this script depends on. Default empty array.
 	 *
 	 * @return void
 	 */
@@ -187,9 +196,9 @@ class Assets extends Controller {
 	/**
 	 * Register a CSS stylesheet.
 	 *
-	 * @param string       $handle Name of the stylesheet. Should be unique.
-	 * @param string|false $src    Relative URL of the stylesheet.
-	 * @param string[]     $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
+	 * @param string      $handle Name of the stylesheet. Should be unique.
+	 * @param bool|string $src    Relative URL of the stylesheet.
+	 * @param string[]    $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
 	 *
 	 * @return void
 	 */
@@ -253,7 +262,7 @@ class Assets extends Controller {
 		$empty_box_img = White_Label::get()->get_wpmudev_hero_image( $empty_box_img );
 
 		/* translators: %s: Heart icon */
-		$footer_text = \SmartCrawl\Controllers\White_Label::get()->get_wpmudev_footer_text( sprintf( esc_html__( 'Made with %s by WPMU DEV', 'smartcrawl-seo' ), '<span class="sui-icon-heart" aria-hidden="true" aria-label="love"></span>' ) );
+		$footer_text = White_Label::get()->get_wpmudev_footer_text( sprintf( esc_html__( 'Made with %s by WPMU DEV', 'smartcrawl-seo' ), '<span class="sui-icon-heart" aria-hidden="true" aria-label="love"></span>' ) );
 
 		wp_localize_script(
 			self::ADMIN_JS,
@@ -267,6 +276,7 @@ class Assets extends Controller {
 				),
 				'home_url'           => trailingslashit( home_url() ),
 				'plugin_url'         => untrailingslashit( SMARTCRAWL_PLUGIN_URL ),
+				'plugin_title'       => \smartcrawl_get_plugin_title(),
 				'nonce'              => wp_create_nonce( 'wds-admin-nonce' ),
 				'referer'            => remove_query_arg( '_wp_http_referer' ),
 				'version'            => str_replace( '.', '-', SMARTCRAWL_SUI_VERSION ),
@@ -280,7 +290,7 @@ class Assets extends Controller {
 					function ( $post_type ) {
 						return get_post_type_object( $post_type )->labels->singular_name;
 					},
-					\smartcrawl_frontend_post_types()
+					smartcrawl_frontend_post_types()
 				),
 				'new_feature_status' => Settings::get_specific_options( 'wds-features-viewed', 0 ),
 				'empty_box_logo'     => $empty_box_img,
@@ -307,55 +317,7 @@ class Assets extends Controller {
 			return;
 		}
 
-		$this->register_opengraph_script();
-		$this->register_macro_replacement_script();
-
-		$onpage_deps = $this->dynamic_dependencies(
-			self::ONPAGE_COMPONENTS,
-			array(
-				'jquery',
-				'underscore',
-			)
-		);
-		$this->register_js( self::ONPAGE_COMPONENTS, 'js/build/wds-onpage-components.min.js', $onpage_deps );
-		wp_localize_script(
-			self::ONPAGE_COMPONENTS,
-			'_wds_onpage_components',
-			array(
-				'random_posts' => Onpage_Settings::get_random_post_data(),
-				'random_terms' => Onpage_Settings::get_random_terms(),
-			)
-		);
-
-		$this->register_js(
-			self::ONPAGE_JS,
-			'js/wds-admin-onpage.js',
-			array(
-				'jquery',
-				self::ADMIN_JS,
-				self::OPENGRAPH_JS,
-				self::ONPAGE_COMPONENTS,
-				self::MACRO_REPLACEMENT,
-			)
-		);
-		wp_localize_script(
-			self::ONPAGE_JS,
-			'_wds_onpage',
-			array(
-				'templates'         => array(
-					'notice'  => Simple_Renderer::load( 'notice', array( 'message' => '{{- message }}' ) ),
-					'preview' => Simple_Renderer::load( 'onpage/underscore-onpage-preview' ),
-				),
-				'home_url'          => home_url( '/' ),
-				'nonce'             => wp_create_nonce( 'wds-onpage-nonce' ),
-				'title_min'         => \smartcrawl_title_min_length(),
-				'title_max'         => \smartcrawl_title_max_length(),
-				'metadesc_min'      => \smartcrawl_metadesc_min_length(),
-				'metadesc_max'      => \smartcrawl_metadesc_max_length(),
-				'random_archives'   => Onpage_Settings::get_random_archives(),
-				'random_buddypress' => Onpage_Settings::get_random_buddypress(),
-			)
-		);
+		$this->register_common_scripts();
 	}
 
 	/**
@@ -397,7 +359,7 @@ class Assets extends Controller {
 			'_wds_sitemaps',
 			array(
 				'nonce'       => wp_create_nonce( 'wds-nonce' ),
-				'sitemap_url' => \smartcrawl_get_sitemap_url(),
+				'sitemap_url' => smartcrawl_get_sitemap_url(),
 				'strings'     => array(
 					'manually_updated'          => esc_html__( 'Your sitemap has been updated.', 'smartcrawl-seo' ),
 					'manually_notified_engines' => esc_html__( 'Search Engines are being notified with changes.', 'smartcrawl-seo' ),
@@ -426,7 +388,7 @@ class Assets extends Controller {
 			'_wds_news',
 			array_merge(
 				array(
-					'news_sitemap_url' => \smartcrawl_get_news_sitemap_url(),
+					'news_sitemap_url' => smartcrawl_get_news_sitemap_url(),
 					'schema_enabled'   => ! $schema_disabled,
 				),
 				$this->get_news_sitemap_data()
@@ -599,8 +561,8 @@ class Assets extends Controller {
 			'_wds_import',
 			array(
 				'nonce'               => wp_create_nonce( 'wds-io-nonce' ),
-				'aioseop_data_exists' => ! ! $aioseo_importer->data_exists(),
-				'is_multisite'        => ! ! is_multisite(),
+				'aioseop_data_exists' => (bool) $aioseo_importer->data_exists(),
+				'is_multisite'        => (bool) is_multisite(),
 				'index_settings_url'  => admin_url( 'admin.php?page=wds_onpage' ),
 			)
 		);
@@ -687,18 +649,18 @@ class Assets extends Controller {
 					'title_length'       => esc_html__( '{TOTAL_LEFT} characters left', 'smartcrawl-seo' ),
 					'title_longer'       => esc_html__( 'Over {MAX_COUNT} characters ({CURRENT_COUNT})', 'smartcrawl-seo' ),
 					'main_title_longer'  => esc_html__( 'Over {MAX_COUNT} characters ({CURRENT_COUNT}) - make sure your SEO title is shorter', 'smartcrawl-seo' ),
-					'title_min'          => \smartcrawl_title_min_length(),
-					'title_max'          => \smartcrawl_title_max_length(),
-					'metadesc_min'       => \smartcrawl_metadesc_min_length(),
-					'metadesc_max'       => \smartcrawl_metadesc_max_length(),
-					'main_title_warning' => ! ( defined( 'SMARTCRAWL_MAIN_TITLE_LENGTH_WARNING_HIDE' ) && \SMARTCRAWL_MAIN_TITLE_LENGTH_WARNING_HIDE ),
+					'title_min'          => smartcrawl_title_min_length(),
+					'title_max'          => smartcrawl_title_max_length(),
+					'metadesc_min'       => smartcrawl_metadesc_min_length(),
+					'metadesc_max'       => smartcrawl_metadesc_max_length(),
+					'main_title_warning' => ! defined( 'SMARTCRAWL_MAIN_TITLE_LENGTH_WARNING_HIDE' ) || ! \SMARTCRAWL_MAIN_TITLE_LENGTH_WARNING_HIDE,
 				)
 			);
 		}
 
 		$post_type   = $this->get_post_type();
-		$title       = (string) \smartcrawl_get_array_value( $options, 'title-' . $post_type );
-		$description = (string) \smartcrawl_get_array_value( $options, 'metadesc-' . $post_type );
+		$title       = (string) smartcrawl_get_array_value( $options, 'title-' . $post_type );
+		$description = (string) smartcrawl_get_array_value( $options, 'metadesc-' . $post_type );
 		$post_id     = $this->get_post_id_query_var();
 
 		$metabox_deps = $this->dynamic_dependencies(
@@ -716,7 +678,7 @@ class Assets extends Controller {
 		);
 
 		if ( $this->is_block_editor_active() ) {
-			if ( \smartcrawl_is_switch_active( 'SMARTCRAWL_SHOW_GUTENBERG_LINK_FORMAT_BUTTON' ) ) {
+			if ( smartcrawl_is_switch_active( 'SMARTCRAWL_SHOW_GUTENBERG_LINK_FORMAT_BUTTON' ) ) {
 				$metabox_deps[] = self::METABOX_LINK_FORMAT_BUTTON;
 			}
 		} else {
@@ -739,10 +701,10 @@ class Assets extends Controller {
 			'seo_desc'             => smartcrawl_get_value( 'metadesc', $post_id ),
 			'home_url'             => home_url( '/' ),
 			'post_url'             => $post_id ? get_permalink( $post_id ) : '',
-			'title_min_length'     => \smartcrawl_title_min_length(),
-			'title_max_length'     => \smartcrawl_title_max_length(),
-			'metadesc_min_length'  => \smartcrawl_metadesc_min_length(),
-			'metadesc_max_length'  => \smartcrawl_metadesc_max_length(),
+			'title_min_length'     => smartcrawl_title_min_length(),
+			'title_max_length'     => smartcrawl_title_max_length(),
+			'metadesc_min_length'  => smartcrawl_metadesc_min_length(),
+			'metadesc_max_length'  => smartcrawl_metadesc_max_length(),
 			'post_type'            => $this->get_post_type(),
 			'taxonomies'           => $this->get_taxonomies(),
 			'gutenberg_active'     => $this->is_block_editor_active(),
@@ -750,7 +712,7 @@ class Assets extends Controller {
 			'onpage_active'        => Settings::get_setting( 'onpage' ) && Admin_Settings::is_tab_allowed( Settings::TAB_ONPAGE ),
 			'readability_active'   => Settings::get_setting( 'analysis-readability' ),
 			'seo_active'           => Settings::get_setting( 'analysis-seo' ),
-			'enforce_limits'       => ( isset( $options['metabox-lax_enforcement'] ) && ! ! $options['metabox-lax_enforcement'] ),
+			'enforce_limits'       => isset( $options['metabox-lax_enforcement'] ) && (bool) $options['metabox-lax_enforcement'],
 			'macros'               => array_merge(
 				Onpage_Settings::get_singular_macros( $this->get_post_type() ),
 				Onpage_Settings::get_general_macros()
@@ -760,21 +722,21 @@ class Assets extends Controller {
 			'social_active'        => Settings::get_setting( Settings::COMP_SOCIAL ) && Admin_Settings::is_tab_allowed( Settings::TAB_SOCIAL ),
 		);
 
-		$og_setting_enabled   = (bool) \smartcrawl_get_array_value( $options, 'og-enable' );
-		$og_post_type_enabled = (bool) \smartcrawl_get_array_value( $options, 'og-active-' . get_post_type( $post_id ) );
+		$og_setting_enabled   = (bool) smartcrawl_get_array_value( $options, 'og-enable' );
+		$og_post_type_enabled = (bool) smartcrawl_get_array_value( $options, 'og-active-' . get_post_type( $post_id ) );
 
 		if ( $og_setting_enabled && $og_post_type_enabled ) {
 			$cached_post = Post_Cache::get()->get_post( $post_id );
 
 			if ( $cached_post ) {
-				$og = \smartcrawl_get_value( 'opengraph', $cached_post->get_post_id() );
+				$og = smartcrawl_get_value( 'opengraph', $cached_post->get_post_id() );
 
 				if ( ! is_array( $og ) ) {
 					$og = array();
 				}
 
 				$og_args = array(
-					'disabled' => (bool) \smartcrawl_get_array_value( $og, 'disabled' ),
+					'disabled' => (bool) smartcrawl_get_array_value( $og, 'disabled' ),
 				);
 
 				if ( ! empty( $og['title'] ) ) {
@@ -801,10 +763,14 @@ class Assets extends Controller {
 					$og_args['images'] = array();
 
 					foreach ( $og['images'] as $img_id ) {
-						$og_args['images'][] = array(
-							'id'  => $img_id,
-							'url' => \smartcrawl_get_array_value( wp_get_attachment_image_src( $img_id, 'thumbnail' ), 0 ),
-						);
+						$img_src = wp_get_attachment_image_src( $img_id );
+
+						if ( $img_src ) {
+							$og_args['images'][] = array(
+								'id'  => $img_id,
+								'url' => $img_src[0],
+							);
+						}
 					}
 				}
 
@@ -814,20 +780,20 @@ class Assets extends Controller {
 			}
 		}
 
-		$twitter_post_type_enabled = (bool) \smartcrawl_get_array_value( $options, 'twitter-active-' . get_post_type( $post_id ) );
-		$twitter_setting_enabled   = (bool) \smartcrawl_get_array_value( $options, 'twitter-card-enable' );
+		$twitter_post_type_enabled = (bool) smartcrawl_get_array_value( $options, 'twitter-active-' . get_post_type( $post_id ) );
+		$twitter_setting_enabled   = (bool) smartcrawl_get_array_value( $options, 'twitter-card-enable' );
 		if ( $twitter_post_type_enabled && $twitter_setting_enabled ) {
 			$cached_post = Post_Cache::get()->get_post( $post_id );
 
 			if ( $cached_post ) {
-				$twitter = \smartcrawl_get_value( 'twitter', $post_id );
+				$twitter = smartcrawl_get_value( 'twitter', $post_id );
 
 				if ( ! is_array( $twitter ) ) {
 					$twitter = array();
 				}
 
 				$twt_args = array(
-					'disabled' => (bool) \smartcrawl_get_array_value( $twitter, 'disabled' ),
+					'disabled' => (bool) smartcrawl_get_array_value( $twitter, 'disabled' ),
 				);
 
 				if ( ! empty( $twitter['title'] ) ) {
@@ -854,10 +820,14 @@ class Assets extends Controller {
 					$twt_args['images'] = array();
 
 					foreach ( $twitter['images'] as $img_id ) {
-						$twt_args['images'][] = array(
-							'id'  => $img_id,
-							'url' => \smartcrawl_get_array_value( wp_get_attachment_image_src( $img_id, 'thumbnail' ), 0 ),
-						);
+						$img_src = wp_get_attachment_image_src( $img_id );
+
+						if ( $img_src ) {
+							$twt_args['images'][] = array(
+								'id'  => $img_id,
+								'url' => $img_src[0],
+							);
+						}
 					}
 				}
 
@@ -885,10 +855,10 @@ class Assets extends Controller {
 		if ( \SmartCrawl\Modules\Advanced\Controller::get()->should_run() ) {
 			if ( \SmartCrawl\Modules\Advanced\Redirects\Controller::get()->should_run() ) {
 				$args['advanced']['redirect'] = array(
-					'has_permission' => \user_can_see_seo_metabox_301_redirect(),
+					'has_permission' => user_can_see_seo_metabox_301_redirect(),
 				);
 
-				$redirect_url = \smartcrawl_get_value( 'redirect', $post_id );
+				$redirect_url = smartcrawl_get_value( 'redirect', $post_id );
 
 				if ( $redirect_url ) {
 					$args['advanced']['redirect']['url'] = $redirect_url;
@@ -897,7 +867,7 @@ class Assets extends Controller {
 
 			if ( \SmartCrawl\Modules\Advanced\Autolinks\Controller::get()->should_run() ) {
 				$args['advanced']['autolinks'] = array(
-					'exclude' => \smartcrawl_get_value( 'autolinks-exclude', $post_id ),
+					'exclude' => smartcrawl_get_value( 'autolinks-exclude', $post_id ),
 				);
 			}
 		}
@@ -1009,55 +979,7 @@ class Assets extends Controller {
 			return;
 		}
 
-		$this->register_opengraph_script();
-		$this->register_macro_replacement_script();
-
-		$onpage_deps = $this->dynamic_dependencies(
-			self::ONPAGE_COMPONENTS,
-			array(
-				'jquery',
-				'underscore',
-			)
-		);
-		$this->register_js( self::ONPAGE_COMPONENTS, 'js/build/wds-onpage-components.min.js', $onpage_deps );
-		wp_localize_script(
-			self::ONPAGE_COMPONENTS,
-			'_wds_onpage_components',
-			array(
-				'random_posts' => Onpage_Settings::get_random_post_data(),
-				'random_terms' => Onpage_Settings::get_random_terms(),
-			)
-		);
-
-		$this->register_js(
-			self::ONPAGE_JS,
-			'js/wds-admin-onpage.js',
-			array(
-				'jquery',
-				self::ADMIN_JS,
-				self::OPENGRAPH_JS,
-				self::ONPAGE_COMPONENTS,
-				self::MACRO_REPLACEMENT,
-			)
-		);
-		wp_localize_script(
-			self::ONPAGE_JS,
-			'_wds_onpage',
-			array(
-				'templates'         => array(
-					'notice'  => Simple_Renderer::load( 'notice', array( 'message' => '{{- message }}' ) ),
-					'preview' => Simple_Renderer::load( 'onpage/underscore-onpage-preview' ),
-				),
-				'home_url'          => home_url( '/' ),
-				'nonce'             => wp_create_nonce( 'wds-onpage-nonce' ),
-				'title_min'         => \smartcrawl_title_min_length(),
-				'title_max'         => \smartcrawl_title_max_length(),
-				'metadesc_min'      => \smartcrawl_metadesc_min_length(),
-				'metadesc_max'      => \smartcrawl_metadesc_max_length(),
-				'random_archives'   => Onpage_Settings::get_random_archives(),
-				'random_buddypress' => Onpage_Settings::get_random_buddypress(),
-			)
-		);
+		$this->register_common_scripts();
 
 		$this->register_js(
 			self::TERM_FORM_JS,
@@ -1103,7 +1025,7 @@ class Assets extends Controller {
 	 * @return void
 	 */
 	private function register_wp_dashboard_styles() {
-		$this->register_css( self::WP_DASHBOARD_CSS, 'css/wp-dashboard.min.css', array() );
+		$this->register_css( self::WP_DASHBOARD_CSS, 'css/wp-dashboard.min.css' );
 	}
 
 	/**
@@ -1125,7 +1047,7 @@ class Assets extends Controller {
 	 * @return void
 	 */
 	private function register_network_settings_page_scripts() {
-		if ( ! $this->is_page( \SmartCrawl\Admin\Pages\Network_Settings::MENU_SLUG ) ) {
+		if ( ! $this->is_page( Network_Settings::MENU_SLUG ) ) {
 			return;
 		}
 
@@ -1156,7 +1078,7 @@ class Assets extends Controller {
 	 * @return mixed|null
 	 */
 	private function get_post_id_query_var() {
-		return \smartcrawl_get_array_value( $_GET, 'post' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return smartcrawl_get_array_value( $_GET, 'post' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -1167,13 +1089,13 @@ class Assets extends Controller {
 	private function get_post_type() {
 		$post = get_post();
 
-		return ( $post instanceof \WP_Post ) ? $post->post_type : 'post';
+		return ( $post instanceof WP_Post ) ? $post->post_type : 'post';
 	}
 
 	/**
 	 * Get taxonomies for current post type.
 	 *
-	 * @return string[]|\WP_Taxonomy[]
+	 * @return string[]|WP_Taxonomy[]
 	 */
 	private function get_taxonomies() {
 		$post_type = $this->get_post_type();
@@ -1214,13 +1136,13 @@ class Assets extends Controller {
 			function ( $post_type ) {
 				return get_post_type_object( $post_type )->labels->singular_name;
 			},
-			\smartcrawl_frontend_post_types()
+			smartcrawl_frontend_post_types()
 		);
 		$post_formats   = $this->get_post_formats();
 		$page_templates = wp_get_theme()->get_page_templates();
 		$user_roles     = array_map(
 			function ( $role ) {
-				return \smartcrawl_get_array_value( $role, 'name' );
+				return smartcrawl_get_array_value( $role, 'name' );
 			},
 			wp_roles()->roles
 		);
@@ -1228,7 +1150,7 @@ class Assets extends Controller {
 			function ( $taxonomy ) {
 				return $taxonomy->label;
 			},
-			\smartcrawl_frontend_taxonomies()
+			smartcrawl_frontend_taxonomies()
 		);
 
 		$schema_types_deps = $this->dynamic_dependencies(
@@ -1254,8 +1176,8 @@ class Assets extends Controller {
 				'user_roles'           => $user_roles,
 				'ajax_url'             => admin_url( 'admin-ajax.php' ),
 				'types'                => Schema\Types::get()->get_schema_types(),
-				'woocommerce'          => \smartcrawl_woocommerce_active(),
-				'settings_updated'     => \smartcrawl_get_array_value( $_GET, 'settings-updated' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				'woocommerce'          => smartcrawl_woocommerce_active(),
+				'settings_updated'     => smartcrawl_get_array_value( $_GET, 'settings-updated' ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			)
 		);
 	}
@@ -1266,8 +1188,8 @@ class Assets extends Controller {
 	 * @return array
 	 */
 	private function get_post_type_taxonomies() {
-		$post_types           = \smartcrawl_frontend_post_types();
-		$available_taxonomies = \smartcrawl_frontend_taxonomies();
+		$post_types           = smartcrawl_frontend_post_types();
+		$available_taxonomies = smartcrawl_frontend_taxonomies();
 		$post_type_taxonomies = array();
 
 		foreach ( $post_types as $post_type ) {
@@ -1293,9 +1215,7 @@ class Assets extends Controller {
 					),
 					array_map(
 						function ( $taxonomy ) {
-							return isset( $taxonomy->labels->singular_name )
-								? $taxonomy->labels->singular_name
-								: $taxonomy->label;
+							return isset( $taxonomy->labels->singular_name ) ? $taxonomy->labels->singular_name : $taxonomy->label;
 						},
 						$taxonomies
 					)
@@ -1312,7 +1232,7 @@ class Assets extends Controller {
 	 * @return array
 	 */
 	private function get_post_formats() {
-		$post_formats = \smartcrawl_get_array_value( get_theme_support( 'post-formats' ), 0 );
+		$post_formats = smartcrawl_get_array_value( get_theme_support( 'post-formats' ), 0 );
 		$post_formats = empty( $post_formats ) ? array() : $post_formats;
 
 		return array_combine( $post_formats, $post_formats );
@@ -1393,15 +1313,11 @@ class Assets extends Controller {
 				'start_time' => $lighthouse->get_start_time(),
 				'nonce'      => wp_create_nonce( 'wds-lighthouse-nonce' ),
 				'strings'    => array(
-					'analyzing'                 => esc_html__( 'Analyzing data and preparing report...', 'smartcrawl-seo' ),
-					'running'                   => esc_html__( 'Running SEO test...', 'smartcrawl-seo' ),
-					'refreshing'                => esc_html__( 'Refreshing data. Please wait...', 'smartcrawl-seo' ),
-					'audit_copied'              => esc_html__( 'The audit has been copied successfully.', 'smartcrawl-seo' ),
-					'audit_copy_failed'         => esc_html__( 'Audit could not be copied to clipboard.', 'smartcrawl-seo' ),
-					/* translators: %s: Remaining cool down minutes */
-					'cooldown_message'          => esc_html__( 'SmartCrawl is just catching her breath - you can run another test in %s minutes.', 'smartcrawl-seo' ),
-					/* translators: %s: Remaining cool down minutes */
-					'cooldown_message_singular' => esc_html__( 'SmartCrawl is just catching her breath - you can run another test in %s minute.', 'smartcrawl-seo' ),
+					'analyzing'         => esc_html__( 'Analyzing data and preparing report...', 'smartcrawl-seo' ),
+					'running'           => esc_html__( 'Running SEO test...', 'smartcrawl-seo' ),
+					'refreshing'        => esc_html__( 'Refreshing data. Please wait...', 'smartcrawl-seo' ),
+					'audit_copied'      => esc_html__( 'The audit has been copied successfully.', 'smartcrawl-seo' ),
+					'audit_copy_failed' => esc_html__( 'Audit could not be copied to clipboard.', 'smartcrawl-seo' ),
 				),
 			)
 		);
@@ -1438,14 +1354,14 @@ class Assets extends Controller {
 		}
 
 		$assets     = require $assets_path;
-		$key        = "{$file_name}.min.js";
-		$asset_data = \smartcrawl_get_array_value( $assets, $key );
+		$key        = "$file_name.min.js";
+		$asset_data = smartcrawl_get_array_value( $assets, $key );
 
 		if ( ! $asset_data ) {
 			return $extra_deps;
 		}
 
-		$dependencies = \smartcrawl_get_array_value( $asset_data, 'dependencies' );
+		$dependencies = smartcrawl_get_array_value( $asset_data, 'dependencies' );
 		$dependencies = empty( $dependencies ) ? array() : $dependencies;
 
 		return array_merge(
@@ -1512,7 +1428,7 @@ class Assets extends Controller {
 			array(
 				'date_format'         => get_option( 'date_format' ),
 				'time_format'         => get_option( 'time_format' ),
-				'metadesc_max_length' => \smartcrawl_metadesc_max_length(),
+				'metadesc_max_length' => smartcrawl_metadesc_max_length(),
 				'taxonomies'          => $this->get_taxonomies(),
 				'replacements'        => $this->get_replacements(),
 				'omitted_shortcodes'  => apply_filters( 'wds-omitted-shortcodes', array() ), // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
@@ -1548,6 +1464,63 @@ class Assets extends Controller {
 				'timezone'     => $this->get_timezone(),
 				'manage_url'   => Admin_Settings::admin_url( Settings::TAB_SETTINGS ) . '&tab=tab_configs',
 				'default_icon' => sprintf( '%s/assets/images/default-config.svg', SMARTCRAWL_PLUGIN_URL ),
+			)
+		);
+	}
+
+	/**
+	 * Registers script that are commonly used in Onpage and term form.
+	 *
+	 * @return void
+	 */
+	private function register_common_scripts() {
+		$this->register_opengraph_script();
+		$this->register_macro_replacement_script();
+
+		$onpage_deps = $this->dynamic_dependencies(
+			self::ONPAGE_COMPONENTS,
+			array(
+				'jquery',
+				'underscore',
+			)
+		);
+		$this->register_js( self::ONPAGE_COMPONENTS, 'js/build/wds-onpage-components.min.js', $onpage_deps );
+		wp_localize_script(
+			self::ONPAGE_COMPONENTS,
+			'_wds_onpage_components',
+			array(
+				'random_posts' => Onpage_Settings::get_random_post_data(),
+				'random_terms' => Onpage_Settings::get_random_terms(),
+			)
+		);
+
+		$this->register_js(
+			self::ONPAGE_JS,
+			'js/wds-admin-onpage.js',
+			array(
+				'jquery',
+				self::ADMIN_JS,
+				self::OPENGRAPH_JS,
+				self::ONPAGE_COMPONENTS,
+				self::MACRO_REPLACEMENT,
+			)
+		);
+		wp_localize_script(
+			self::ONPAGE_JS,
+			'_wds_onpage',
+			array(
+				'templates'         => array(
+					'notice'  => Simple_Renderer::load( 'notice', array( 'message' => '{{- message }}' ) ),
+					'preview' => Simple_Renderer::load( 'onpage/underscore-onpage-preview' ),
+				),
+				'home_url'          => home_url( '/' ),
+				'nonce'             => wp_create_nonce( 'wds-onpage-nonce' ),
+				'title_min'         => smartcrawl_title_min_length(),
+				'title_max'         => smartcrawl_title_max_length(),
+				'metadesc_min'      => smartcrawl_metadesc_min_length(),
+				'metadesc_max'      => smartcrawl_metadesc_max_length(),
+				'random_archives'   => Onpage_Settings::get_random_archives(),
+				'random_buddypress' => Onpage_Settings::get_random_buddypress(),
 			)
 		);
 	}

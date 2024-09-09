@@ -103,7 +103,11 @@ class Schema extends Admin_Settings {
 		$this->name        = Settings::COMP_SCHEMA;
 		$this->slug        = Settings::TAB_SCHEMA;
 		$this->action_url  = admin_url( 'options.php' );
-		$this->page_title  = __( 'SmartCrawl Wizard: Schema', 'smartcrawl-seo' );
+		$this->page_title  = sprintf(
+		/* translators: %s: plugin title */
+			__( '%s Wizard: Schema', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'wp_ajax_wds-change-schema-status', array( $this, 'change_schema_component_status' ) );
 		add_action( 'wp_ajax_wds-authorize-yt-api-key', array( $this, 'authorize_youtube_api_key' ) );

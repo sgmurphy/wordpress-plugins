@@ -232,6 +232,11 @@ class Password_Protect_Page {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/services/class-ppw-category.php';
 
 		/**
+		 * The class responsible for defining protect tag.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/services/class-ppw-post-tag.php';
+
+		/**
 		 * The class responsible for defining protect category.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/services/class-ppw-content-protection.php';
@@ -341,14 +346,17 @@ class Password_Protect_Page {
 				$this->loader->add_action( 'manage_' . $post_type . '_posts_custom_column', $plugin_admin, 'render_content_custom_column', 10, 2 );
 			}
 			PPW_Category_Service::get_instance()->register( false );
+			PPW_Tag_Service::get_instance()->register( false );
 		} else {
 			$this->loader->add_action( 'plugins_loaded', $plugin_admin, 'handle_plugin_loaded' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'update_column_for_ppwp_pro' );
 			PPW_Category_Service::get_instance()->register( true );
+			PPW_Tag_Service::get_instance()->register( true );
 		}
 		PPW_Customizer_Sitewide::get_instance()->register_sitewide_style();
 		$this->loader->add_action( 'wp_ajax_ppw_free_update_misc_settings', $plugin_admin, 'ppw_free_update_misc_settings' );
 		$this->loader->add_action( 'wp_ajax_ppw_free_update_category_settings', $plugin_admin, 'ppw_free_update_category_settings' );
+		$this->loader->add_action( 'wp_ajax_ppw_free_update_tag_settings', $plugin_admin, 'ppw_free_update_tag_settings' );
 		$this->loader->add_action( 'wp_ajax_ppw_free_update_shortcode_settings', $plugin_admin, 'ppw_free_update_shortcode_settings' );
 		$this->loader->add_action( 'wp_ajax_ppw_free_update_external_settings', $plugin_admin, 'ppw_free_update_external_settings' );
 		$this->loader->add_action( 'wp_ajax_ppw_free_restore_wp_passwords', $plugin_admin, 'ppw_free_restore_wp_passwords' );

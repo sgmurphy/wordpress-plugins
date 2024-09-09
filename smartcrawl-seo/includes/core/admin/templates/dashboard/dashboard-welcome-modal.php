@@ -24,7 +24,8 @@ $options = Settings::get_specific_options( 'wds_settings_options' );
 		<div class="sui-box" role="document">
 			<div class="sui-box-header sui-flatten sui-content-center sui-spacing-top--40">
 				<div class="sui-box-banner" role="banner" aria-hidden="true">
-					<img src="<?php echo esc_attr( SMARTCRAWL_PLUGIN_URL ); ?>assets/images/upgrade-welcome-header.svg" alt="<?php esc_html_e( 'SmartCrawl works with other SEO Plugins.', 'smartcrawl-seo' ); ?>"/>
+					<?php /* translators: %s: plugin title */ ?>
+					<img src="<?php echo esc_attr( SMARTCRAWL_PLUGIN_URL ); ?>assets/images/upgrade-welcome-header.svg" alt="<?php printf( esc_html__( '%s works with other SEO Plugins.', 'smartcrawl-seo' ), esc_attr( \smartcrawl_get_plugin_title() ) ); ?>"/>
 				</div>
 				<button
 					class="sui-button-icon sui-button-float--right" data-modal-close
@@ -35,7 +36,15 @@ $options = Settings::get_specific_options( 'wds_settings_options' );
 					<span class="sui-screen-reader-text"><?php esc_html_e( 'Close this dialog window', 'smartcrawl-seo' ); ?></span>
 				</button>
 				<h3 class="sui-box-title sui-lg" id="<?php echo esc_attr( $modal_id ); ?>-dialog-title">
-					<?php esc_html_e( 'SmartCrawl works with other SEO Plugins.', 'smartcrawl-seo' ); ?>
+					<?php
+					printf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						esc_html__( '%1$s%3$s%2$s works with other SEO Plugins.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						esc_html( \smartcrawl_get_plugin_title() )
+					);
+					?>
 				</h3>
 
 				<div class="sui-box-body">
@@ -43,7 +52,7 @@ $options = Settings::get_specific_options( 'wds_settings_options' );
 						<?php
 						$user = wp_get_current_user();
 
-						echo sprintf(
+						printf(
 							/* translators: %s: current user display name */
 							esc_html__(
 								'Hey there! %s, if are you tired of managing multiple SEO plugins, then say hello to SmartCrawl\'s new superpower: seamless compatibility with your favorite SEO plugins!',

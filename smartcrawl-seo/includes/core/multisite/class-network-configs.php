@@ -50,7 +50,7 @@ class Network_Configs extends Controllers\Controller {
 		}
 
 		switch_to_blog( $blog_id );
-		Configs\Controller::get()->apply_config( $config->get_configs() );
+		Configs\Controller::get()->apply_handler( $config->get_configs() );
 		restore_current_blog();
 	}
 }

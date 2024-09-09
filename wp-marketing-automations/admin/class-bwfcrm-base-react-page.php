@@ -225,10 +225,8 @@ abstract class BWFCRM_Base_React_Page {
 			'content' => '',
 			'term'    => '',
 		] );
-		$this->page_data['wizard_status']      = get_option( '_bwfan_onboarding_completed', false );
-
-		$this->page_data['user_email']                 = get_user_by( 'id', get_current_user_id() )->user_email;
-		$this->page_data['bwfan_onboarding_completed'] = get_option( '_bwfan_onboarding_completed' );
+		$this->page_data['wizard_status']      = get_option( '_bwfan_onboarding_completed', false ) || get_option( '_wffn_onboarding_completed', false );
+		$this->page_data['user_email']         = get_user_by( 'id', get_current_user_id() )->user_email;
 		do_action( 'bwfan_admin_view_localize_data', $this );
 	}
 

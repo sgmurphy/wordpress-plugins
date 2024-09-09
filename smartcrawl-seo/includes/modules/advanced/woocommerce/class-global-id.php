@@ -69,8 +69,12 @@ class Global_Id extends Controllers\Controller {
 					'id'          => self::GLOBAL_ID_META_KEY,
 					'label'       => $label,
 					'desc_tip'    => true,
-					/* translators: %s: Meta key label */
-					'description' => sprintf( esc_html__( '%s value to use in the SmartCrawl Product schema.', 'smartcrawl-seo' ), $label ),
+					'description' => sprintf(
+						/* translators: 1: Meta key label, 2: plugin title */
+						esc_html__( '%1$s value to use in the $2%s Product schema.', 'smartcrawl-seo' ),
+						$label,
+						\smartcrawl_get_plugin_title()
+					),
 				)
 			);
 			?>
@@ -116,8 +120,12 @@ class Global_Id extends Controllers\Controller {
 				'value'         => $value,
 				'label'         => $label,
 				'desc_tip'      => true,
-				/* translators: %s: Variation name */
-				'description'   => sprintf( esc_html__( '%s value to use in SmartCrawl Product schema.', 'smartcrawl-seo' ), $label ),
+				'description'   => sprintf(
+					/* translators: 1: Variation name, 2: plugin title */
+					esc_html__( '%1$s value to use in $2$s Product schema.', 'smartcrawl-seo' ),
+					$label,
+					\smartcrawl_get_plugin_title()
+				),
 				'wrapper_class' => 'form-row',
 			)
 		);

@@ -194,9 +194,19 @@ class Robots extends React.Component {
 								{!!overrideNative && (
 									<Notice
 										type=""
-										message={__(
-											"We've detected you're using SmartCrawl's built in sitemap and will output this for you automatically.",
-											'smartcrawl-seo'
+										message={createInterpolateElement(
+											sprintf(
+												// translators: %s: plugin title
+												__(
+													"We've detected you're using <strong>%s</strong>'s built in sitemap and will output this for you automatically.",
+													'smartcrawl-seo'
+												),
+												ConfigValues.get(
+													'plugin_title',
+													'admin'
+												)
+											),
+											{ strong: <strong /> }
 										)}
 									/>
 								)}

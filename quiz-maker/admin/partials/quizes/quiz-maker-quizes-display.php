@@ -1079,6 +1079,22 @@ $quiz_custom_texts_login_button = (isset($options['quiz_custom_texts_login_butto
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <hr/>
+                                                <div class="form-group row">
+                                                    <div class="col-sm-12">
+                                                        <div style="margin-bottom: 10px;">
+                                                            <label for="ays_quick_quiz_image_sizing">
+                                                                <?php echo __('Image sizing', $this->plugin_name ); ?>
+                                                            </label>
+                                                        </div>
+                                                        <select name="ays_quick_quiz_image_sizing" id="ays_quick_quiz_image_sizing" class="ays-text-input ays-text-input-short" style="display:block;">
+                                                            <option value="cover" selected><?php echo __( "Cover", $this->plugin_name ); ?></option>
+                                                            <option value="contain"><?php echo __( "Contain", $this->plugin_name ); ?></option>
+                                                            <option value="none"><?php echo __( "None", $this->plugin_name ); ?></option>
+                                                            <option value="unset"><?php echo __( "Unset", $this->plugin_name ); ?></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div><!-- Question image styles -->
                                     </div>

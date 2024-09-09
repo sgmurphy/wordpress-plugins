@@ -638,11 +638,7 @@ class HMWP_Classes_Tools
      */
     public static function loadMultilanguage()
     {
-        if (!defined('WP_PLUGIN_DIR') ) {
-            load_plugin_textdomain(dirname(HMWP_BASENAME), dirname(HMWP_BASENAME) . '/languages/');
-        } else {
-            load_plugin_textdomain(dirname(HMWP_BASENAME), false, dirname(HMWP_BASENAME) . '/languages/');
-        }
+	    load_plugin_textdomain(dirname(HMWP_BASENAME), false, dirname(HMWP_BASENAME) . '/languages/');
     }
 
     /**

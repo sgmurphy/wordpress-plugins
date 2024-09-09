@@ -4,6 +4,9 @@ import Button from '../button';
 import Modal from '../modal';
 import ProgressBar from '../progress-bar';
 import MascotMessage from '../mascot-message';
+import ConfigValues from '../../es6/config-values';
+
+const isMember = ConfigValues.get('is_member', 'admin') === '1';
 
 export default class LighthouseProgressModal extends React.Component {
 	static defaultProps = {
@@ -14,7 +17,7 @@ export default class LighthouseProgressModal extends React.Component {
 	};
 
 	render() {
-		const { isMember, progress, statusMessage, onClose } = this.props;
+		const { progress, statusMessage, onClose } = this.props;
 
 		return (
 			<Modal

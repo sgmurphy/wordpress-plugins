@@ -13,7 +13,7 @@
 	<div class="inline-edit-col long-label">
 		<h4>
 			<?php if ( $show_title ) : ?>
-				<?php esc_html_e( 'SmartCrawl', 'smartcrawl-seo' ); ?>
+				<?php echo \smartcrawl_get_plugin_title(); ?>
 			<?php endif; ?>
 		</h4>
 		<label>

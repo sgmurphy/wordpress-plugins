@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from '../modal';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Button from '../button';
 import {
 	hasWhitelistCharactersOnly,
@@ -11,6 +12,7 @@ import {
 import fieldWithValidation from '../field-with-validation';
 import TextInputField from '../form-fields/text-input-field';
 import TextField from '../form-fields/text-field';
+import ConfigValues from '../../es6/config-values';
 
 const configNameValidator = new Validator(
 	hasWhitelistCharactersOnly,
@@ -77,9 +79,16 @@ export default class ConfigSaveModal extends React.Component {
 			nameFieldLabel = __('New Config Name', 'smartcrawl-seo');
 		} else {
 			modalTitle = __('Save Config', 'smartcrawl-seo');
-			modalDescription = __(
-				"Save your current SmartCrawl settings configurations. You'll be able to then download and apply it to your other sites with SmartCrawl installed.",
-				'smartcrawl-seo'
+			modalDescription = createInterpolateElement(
+				sprintf(
+					// translators: 1: plugin title
+					__(
+						"Save your current <strong>%1$s</strong> settings configurations. You'll be able to then download and apply it to your other sites with <strong>%1$s</strong> installed.",
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
+				),
+				{ strong: <strong /> }
 			);
 			nameFieldLabel = __('Config Name', 'smartcrawl-seo');
 		}

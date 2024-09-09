@@ -10,8 +10,13 @@ $hide_branding       = \SmartCrawl\Controllers\White_Label::get()->is_hide_wpmud
 $plugin_url          = untrailingslashit( SMARTCRAWL_PLUGIN_URL );
 $header_image_url    = sprintf( '%s/assets/images/graphic-seo-report.png', $plugin_url );
 $header_image_url_2x = sprintf( '%s/assets/images/graphic-seo-report@2x.png', $plugin_url );
-$alt_text            = esc_html__( 'SmartCrawl Report', 'wphb' );
+$alt_text            = sprintf(
+	/* translators: %s: plugin title */
+	__( '%s Report', 'smartcrawl-seo' ),
+	\smartcrawl_get_plugin_title()
+);
 ?>
+
 <link href="https://fonts.bunny.net/css?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" type="text/css">
 <table
 	class="wrapper hero" align="left"

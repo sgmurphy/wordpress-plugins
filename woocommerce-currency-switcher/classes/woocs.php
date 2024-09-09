@@ -4596,15 +4596,19 @@ final class WOOCS {
             $this->init_geo_currency();
 //***
             $custom_prices = wc_clean($_REQUEST['custom_prices']);
+            $currencies = $this->get_currencies();
             $_REQUEST['get_product_price_by_ajax'] = 1;
             if (!empty($custom_prices) AND is_array($custom_prices)) {
                 $custom_prices = array_unique($custom_prices);
                 foreach ($custom_prices as $p) {
-
+                    if (!isset($currencies[$p['currency']])) {
+                        $p['currency'] = $this->default_currency;
+                    }
+                    
                     $result[$p['value']] = do_shortcode("[woocs_show_custom_price "
                             . "value=" . sanitize_text_field($p['value'])
-                            . " decimals=" . $p['decimals']
-                            . " currency=" . $p['currency']
+                            . " decimals=" . intval($p['decimals'])
+                            . " currency=" . sanitize_text_field($p['currency'])
                             . " ]");
                 }
             }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
 import UrlUtil from '../../../utils/url-util';
 import Notice from '../../../components/notices/notice';
@@ -43,9 +43,16 @@ export default class Autolinks extends React.Component {
 				title={__('Automatic Linking', 'smartcrawl-seo')}
 				headerLeft={this.renderTag()}
 				activateProps={{
-					message: __(
-						'Configure SmartCrawl to automatically link certain key words to a page on your blog or even a whole new site all together. Internal linking can help boost SEO by giving search engines ample ways to index your site.',
-						'smartcrawl-seo'
+					message: createInterpolateElement(
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'Configure <strong>%s</strong> to automatically link certain keywords to a page on your blog or even a whole new site all together. Internal linking can help boost SEO by giving search engines ample ways to index your site.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
+						),
+						{ strong: <strong /> }
 					),
 					premium: true,
 					upgradeTag: 'smartcrawl_autolinking_upgrade_button',
@@ -58,9 +65,16 @@ export default class Autolinks extends React.Component {
 				}}
 			>
 				<p>
-					{__(
-						'SmartCrawl will look for keywords that match posts/pages around your website and automatically link them. Specify what post types you want to include in this tool, and what post types you want those to automatically link to.',
-						'smartcrawl-seo'
+					{createInterpolateElement(
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'<strong>%s</strong> will look for keywords that match posts/pages around your website and automatically link them. Specify what post types you want to include in this tool, and what post types you want those to automatically link to.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
+						),
+						{ strong: <strong /> }
 					)}
 				</p>
 				<Notice

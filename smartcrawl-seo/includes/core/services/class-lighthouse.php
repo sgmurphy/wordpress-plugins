@@ -348,7 +348,11 @@ class Lighthouse extends Service {
 			$email_content  = stripslashes( $email_content );
 			$no_reply_email = 'noreply@' . wp_parse_url( get_site_url(), PHP_URL_HOST );
 			$headers        = array(
-				'From: SmartCrawl <' . $no_reply_email . '>',
+				sprintf(
+					/* translators: %s: plugin title */
+					'From: %s <' . $no_reply_email . '>',
+					\smartcrawl_get_plugin_title()
+				),
 				'Content-Type: text/html; charset=UTF-8',
 			);
 

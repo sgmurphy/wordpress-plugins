@@ -8267,523 +8267,523 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
             
             <div id="tab7" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab7') ? 'ays-quiz-tab-content-active' : ''; ?>">
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_accordion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('E-mail and Certificate settings',$this->plugin_name)?></p>
-                </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
-                            <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                                <a href="https://www.youtube.com/watch?v=LoQw1wxkj6k" target="_blank">
-                                    <?php echo __("How to create certifiication test - video", $this->plugin_name); ?>
-                                </a>
-                            </div>
-                        </div>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('E-mail and Certificate settings',$this->plugin_name)?></p>
                     </div>
-                    <div class="col-sm-12 only_pro ays-quiz-margin-top-20">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Send email to user", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/tHKiu-AOvYw">
-                                    <p>
-                                        <?php echo sprintf( __("Get in touch with the Quiz takers directly. %s Generate more leads %s and use their email address to send the quiz results and build relationships with your website visitors. Generate a Certificate for each user and send it to their email, so they can easily install and keep it.", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("To be sure that the users will share their email addresses with you, here we have a little hack for you! Activate the %s Hide Score option (Results Settings > Hide Score) %s and display the score only in the email message. Now, you are ready to generate leads, so start thinking about your email campaigns.", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <div>
-                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
-                                    </div>
-                                </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-user">
-                                    <?php echo __("Use this Feature", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
                         <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label class="ays-disable-setting"><?php echo __('Send Mail To User',$this->plugin_name)?></label>
+                            <div class="col-sm-12">
+                                <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
+                                    <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                        <a href="https://www.youtube.com/watch?v=LoQw1wxkj6k" target="_blank">
+                                            <?php echo __("How to create certifiication test - video", $this->plugin_name); ?>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 only_pro ays-quiz-margin-top-20">
+                                <div class="pro_features pro_features_popup">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Send email to user", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/tHKiu-AOvYw">
+                                            <p>
+                                                <?php echo sprintf( __("Get in touch with the Quiz takers directly. %s Generate more leads %s and use their email address to send the quiz results and build relationships with your website visitors. Generate a Certificate for each user and send it to their email, so they can easily install and keep it.", $this->plugin_name),
+                                                    "<strong>",
+                                                    "</strong>"
+                                                ); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("To be sure that the users will share their email addresses with you, here we have a little hack for you! Activate the %s Hide Score option (Results Settings > Hide Score) %s and display the score only in the email message. Now, you are ready to generate leads, so start thinking about your email campaigns.", $this->plugin_name),
+                                                    "<strong>",
+                                                    "</strong>"
+                                                ); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-user">
+                                            <?php echo __("Use this Feature", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-2">
+                                        <label class="ays-disable-setting"><?php echo __('Send Mail To User',$this->plugin_name)?></label>
 
-                            </div>
-                            <div class="col-sm-2">
-                                <input type="checkbox" class="ays-enable-timerl ays-disable-setting"
-                                       id="ays_enable_mail_user"
-                                       disabled/>
-                            </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="checkbox" class="ays-enable-timerl ays-disable-setting"
+                                               id="ays_enable_mail_user"
+                                               disabled/>
+                                    </div>
 
-                            <div class="col-sm-8 ays_divider_left" id="ays_mail_message_div">
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_enable_send_mail_to_user_by_pass_score">
-                                            <?php echo __('Pass score (%)', $this->plugin_name); ?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('If the option is enabled, then the user will receive the email only if he/she has passed the minimum score required. It will take the value of the general pass score of the quiz. Please specify it in the Result Settings tab.',$this->plugin_name); ?>">
-                                                <i class=""></i>
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="checkbox" class="ays-enable-timerl" value="on" />
+                                    <div class="col-sm-8 ays_divider_left" id="ays_mail_message_div">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_enable_send_mail_to_user_by_pass_score">
+                                                    <?php echo __('Pass score (%)', $this->plugin_name); ?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('If the option is enabled, then the user will receive the email only if he/she has passed the minimum score required. It will take the value of the general pass score of the quiz. Please specify it in the Result Settings tab.',$this->plugin_name); ?>">
+                                                        <i class=""></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="checkbox" class="ays-enable-timerl" value="on" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <blockquote><?php echo __( 'Tick the checkbox, and the user will receive the email only if he/she has passed the minimum score required.', $this->plugin_name ); ?></blockquote>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label class="ays-disable-setting"><?php echo __('Mail message',$this->plugin_name)?></label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                            <textarea type="text" id="ays_mail_message" class="ays-textarea ays-disable-setting"
+                                                      disabled></textarea>
+                                            </div>
+                                        </div>
+                                        <hr/>                              
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_send_results_user">
+                                                    <?php echo __('Send Results to User',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_send_results_user" value="on"/>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_send_interval_msg">
+                                                    <?php echo __('Send Interval message to User',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_send_interval_msg"/>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <blockquote><?php echo __( 'Tick the checkbox, and the user will receive the email only if he/she has passed the minimum score required.', $this->plugin_name ); ?></blockquote>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label class="ays-disable-setting"><?php echo __('Mail message',$this->plugin_name)?></label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                    <textarea type="text" id="ays_mail_message" class="ays-textarea ays-disable-setting"
-                                              disabled></textarea>
-                                    </div>
-                                </div>
-                                <hr/>                              
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_send_results_user">
-                                            <?php echo __('Send Results to User',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_send_results_user" value="on"/>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_send_interval_msg">
-                                            <?php echo __('Send Interval message to User',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_send_interval_msg"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-                        <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
-                            <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
-                                <div class="ays-quiz-center-new-watch-video-demo-button">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                                    <?php echo __("Watch Video", "quiz-maker"); ?>
-                                </div>
-                            </div>
-                            <div class="ays-quiz-center-big-upgrade-button-box">
                                 <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-center-new-big-upgrade-button">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
-                                        <?php echo __("Upgrade", "quiz-maker"); ?>
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
                                     </div>
                                 </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="form-group row">
-                    <div class="col-sm-12 only_pro">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Send Certificate to user", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/Av9HVaP3CdY">
-                                    <p>
-                                        <?php echo __("If you want to create an online exam and send a certificate to the users after the quiz completion, then, you can make use of the Send Certificate to user option.", $this->plugin_name); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("By enabling this option, you can send fully customized Certificates to your users by inserting your preferred message variables into the %s Certificate title %s and the %s Certificate body %s options.", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>",
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo __("Also, set a passing score, so that the users who got the minimum required score can receive the Certificate.", $this->plugin_name); ?>
-                                    </p>
+                                <div class="ays-quiz-new-watch-video-button-box">
                                     <div>
-                                        <a href="https://quiz-plugin.com/english-exam-with-certificate/" target="_blank"><?php echo __("PRO Demo", $this->plugin_name); ?></a>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
                                     </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
                                 </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-certificate-to-user">
-                                    <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-2">
-                                <label class="ays-disable-setting"><?php echo __('Send Certificate To User',$this->plugin_name)?></label>
-                                <hr>
-                                <label for="ays_enable_certificate_without_send"><?php echo __('Generate certificate without sending to user',$this->plugin_name)?></label>
-                                <hr>
-                                <div class="ays_generate_cert_preview_wrap">
-                                <div class="ays_generate_cert_preview_button_wrap">
-                                    <button class="button-primary" type="button"><?php echo __( 'Generate Certificate preview', $this->plugin_name ); ?></button>
-                                    <a class="ays_help" data-html="true" data-toggle="tooltip" title="<?php echo __("This is a just preview of the certificate and some message variables will not work on preview mode. Please be understanding.", $this->plugin_name ); ?>">
-                                        <i class=""></i>
-                                    </a>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="col-sm-2">
-                               <div style="display:inline-block;margin-bottom:.5rem;">
-                                     <input type="checkbox" class="ays-enable-timerl ays-disable-setting"
-                                       id="ays_enable_certificate"
-                                       value="on" disabled/>
-                                </div>
-                                <hr>
-                                <div style="display:inline-block;margin-bottom:.5rem;">
-                                    <input type="checkbox" class="ays-enable-timerl ays-disable-setting"
-                                       value="on" disabled/>
-                                </div>
-                            </div>
-                            <div class="col-sm-8 ays_divider_left" id="ays_certificate_pass_div">
-
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio" class="ays-enable-timer1"/>
-                                            <span><?php echo __( "Percentage", $this->plugin_name ); ?></span>
-                                        </label>
-                                        <label class="ays_quiz_loader">
-                                            <input type="radio" class="ays-enable-timer1" />
-                                            <span><?php echo __( "Points", $this->plugin_name ); ?></span>
-                                        </label>
+                                <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
+                                    <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
+                                        <div class="ays-quiz-center-new-watch-video-demo-button">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                            <?php echo __("Watch Video", "quiz-maker"); ?>
+                                        </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label class="ays-disable-setting"><?php echo __('Certificate pass score',$this->plugin_name)?></label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="number" id="ays_certificate_pass" class="ays-text-input ays-disable-setting" disabled>
-                                    </div>    
-                                </div>   
-                                <hr/>                         
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label class="ays-disable-setting"><?php echo __('Certificate title',$this->plugin_name)?></label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <textarea disabled class="ays-textarea ays-disable-setting">Certificate of Completion</textarea>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label class="ays-disable-setting"><?php echo __('Certificate body',$this->plugin_name)?></label>
-                                    </div>
-                                    <div class="col-sm-9">  
-                                        <textarea disabled class="ays-textarea ays-disable-setting" style="height:320px;"><?php echo $certificate_body_html;?>
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-certificate-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-                        <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
-                            <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
-                                <div class="ays-quiz-center-new-watch-video-demo-button">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                                    <?php echo __("Watch Video", "quiz-maker"); ?>
-                                </div>
-                            </div>
-                            <div class="ays-quiz-center-big-upgrade-button-box">
-                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-certificate-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-center-new-big-upgrade-button">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
-                                        <?php echo __("Upgrade", "quiz-maker"); ?>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-12 only_pro">
-                        <div class="pro_features pro_features_popup">
-                            <div class="pro-features-popup-conteiner">
-                                <div class="pro-features-popup-title">
-                                    <?php echo __("Send email to admin", $this->plugin_name); ?>
-                                </div>
-                                <div class="pro-features-popup-content" data-link="https://youtu.be/YUGTj9zJVeE">
-                                    <p>
-                                        <?php echo sprintf( __("The Quiz Maker plugin gives the opportunity not only to send the email to the users after the quiz completion but also to %s the admin. %s", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("By enabling this option, you can send a %s Certificate and results report %s to the admin. You can set a passing score so that the admin can receive the email only if the user has passed the minimum required score.", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <p>
-                                        <?php echo sprintf( __("Also, you can %s fully customize %s the Email Message option, by inserting your desired %s message variables %s in the WP Editor from the %s General Settings %s page.", $this->plugin_name),
-                                            "<strong>",
-                                            "</strong>",
-                                            "<strong>",
-                                            "</strong>",
-                                            "<strong>",
-                                            "</strong>"
-                                        ); ?>
-                                    </p>
-                                    <div>
-                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
-                                    </div>
-                                </div>
-                                <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin">
-                                    <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label class="ays-disable-setting"><?php echo __('Send Mail To Admin',$this->plugin_name)?></label>
-                            </div>
-                            <div class="col-sm-1">
-                                <input type="checkbox" class="ays-enable-timerl" id="ays_enable_mail_admin" value="on"/>
-                            </div>
-                            <div class="col-sm-8 ays_divider_left">
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_enable_send_mail_to_admin_by_pass_score">
-                                            <?php echo __('Pass score (%)', $this->plugin_name); ?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('If the option is enabled, then the admin will receive the email only if the user has passed the minimum score required. It will take the value of the general pass score of the quiz. Please specify it in the Result Settings tab.',$this->plugin_name); ?>">
-                                                <i class=""></i>
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="checkbox" class="ays-enable-timerl" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <blockquote><?php echo __( 'Tick the checkbox, and admin will receive the email only if the user has passed the minimum score required.', $this->plugin_name ); ?></blockquote>
-                                    </div>
-                                </div>
-                                <hr>
-                                <!-- ................ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_send_mail_to_site_admin">
-                                            <?php echo __('Admin', $this->plugin_name)?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('Disable this feature, if you want to make it possible not to send emails to the registered Mail of the site Admin, but only to additional emails.',$this->plugin_name)?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_send_mail_to_site_admin" value="on" />
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="ays-text-input ays-enable-timerl" value="example@gmail.com" disabled />
-                                    </div>
-                                </div>
-                                <hr/>
-                                <!-- ................ -->
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_additional_emails">
-                                            <?php echo __('Additional Emails',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="ays-text-input" id="ays_additional_emails" value="example1@gmail.com, example2@gmail.com, ..."/>
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-5">
-                                        <label for="ays_send_results_admin">
-                                            <?php echo __('Send Report table to Admin',$this->plugin_name)?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('You can send results to the admin after the quiz is completed',$this->plugin_name)?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_send_results_admin"
-                                               value="on" />
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-5">
-                                        <label for="ays_send_interval_msg_to_admin">
-                                            <?php echo __('Send Interval message to Admin',$this->plugin_name)?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('If this option is enabled then the admin will get the Email with Interval message.',$this->plugin_name)?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_send_interval_msg_to_admin"
-                                               value="on" />
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-5">
-                                        <label for="ays_send_certificate_to_admin">
-                                            <?php echo __('Send Certificate to Admin too',$this->plugin_name)?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo htmlentities(__('If this option is enabled then the admin will get the Email with an attached PDF file that gets the user. If the "Send Certificate To User" option is disabled admin does not get a certificate too.',$this->plugin_name)); ?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <input type="checkbox" class="ays-enable-timerl" id="ays_send_certificate_to_admin"
-                                               value="on" />
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_mail_message_admin">
-                                            <?php echo __('Mail message',$this->plugin_name)?>
-                                            <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('Provide the message text for sending to the Admin by email. You can use Variables from General Settings page to insert data. (name, score, date etc.)',$this->plugin_name)?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <textarea type="text" id="ays_mail_message_admin" class="ays-textarea ays-disable-setting" disabled=""></textarea>
+                                    <div class="ays-quiz-center-big-upgrade-button-box">
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-center-new-big-upgrade-button">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
+                                                <?php echo __("Upgrade", "quiz-maker"); ?>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <hr/>
                         <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label>
-                                    <?php echo __('Email Configuration',$this->plugin_name)?>
-                                </label>
-                            </div>
-                            <div class="col-sm-8 ays_divider_left">
+                            <div class="col-sm-12 only_pro">
+                                <div class="pro_features pro_features_popup">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Send Certificate to user", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/Av9HVaP3CdY">
+                                            <p>
+                                                <?php echo __("If you want to create an online exam and send a certificate to the users after the quiz completion, then, you can make use of the Send Certificate to user option.", $this->plugin_name); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("By enabling this option, you can send fully customized Certificates to your users by inserting your preferred message variables into the %s Certificate title %s and the %s Certificate body %s options.", $this->plugin_name),
+                                                    "<strong>",
+                                                    "</strong>",
+                                                    "<strong>",
+                                                    "</strong>"
+                                                ); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo __("Also, set a passing score, so that the users who got the minimum required score can receive the Certificate.", $this->plugin_name); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://quiz-plugin.com/english-exam-with-certificate/" target="_blank"><?php echo __("PRO Demo", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-certificate-to-user">
+                                            <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_email_configuration_from_email">
-                                            <?php echo __('From Email',$this->plugin_name)?>
-                                        </label>
+                                    <div class="col-sm-2">
+                                        <label class="ays-disable-setting"><?php echo __('Send Certificate To User',$this->plugin_name)?></label>
+                                        <hr>
+                                        <label for="ays_enable_certificate_without_send"><?php echo __('Generate certificate without sending to user',$this->plugin_name)?></label>
+                                        <hr>
+                                        <div class="ays_generate_cert_preview_wrap">
+                                        <div class="ays_generate_cert_preview_button_wrap">
+                                            <button class="button-primary" type="button"><?php echo __( 'Generate Certificate preview', $this->plugin_name ); ?></button>
+                                            <a class="ays_help" data-html="true" data-toggle="tooltip" title="<?php echo __("This is a just preview of the certificate and some message variables will not work on preview mode. Please be understanding.", $this->plugin_name ); ?>">
+                                                <i class=""></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="ays-text-input" id="ays_email_configuration_from_email"/>
+                                    </div>
+                                    <div class="col-sm-2">
+                                       <div style="display:inline-block;margin-bottom:.5rem;">
+                                             <input type="checkbox" class="ays-enable-timerl ays-disable-setting"
+                                               id="ays_enable_certificate"
+                                               value="on" disabled/>
+                                        </div>
+                                        <hr>
+                                        <div style="display:inline-block;margin-bottom:.5rem;">
+                                            <input type="checkbox" class="ays-enable-timerl ays-disable-setting"
+                                               value="on" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8 ays_divider_left" id="ays_certificate_pass_div">
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio" class="ays-enable-timer1"/>
+                                                    <span><?php echo __( "Percentage", $this->plugin_name ); ?></span>
+                                                </label>
+                                                <label class="ays_quiz_loader">
+                                                    <input type="radio" class="ays-enable-timer1" />
+                                                    <span><?php echo __( "Points", $this->plugin_name ); ?></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label class="ays-disable-setting"><?php echo __('Certificate pass score',$this->plugin_name)?></label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="number" id="ays_certificate_pass" class="ays-text-input ays-disable-setting" disabled>
+                                            </div>    
+                                        </div>   
+                                        <hr/>                         
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label class="ays-disable-setting"><?php echo __('Certificate title',$this->plugin_name)?></label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <textarea disabled class="ays-textarea ays-disable-setting">Certificate of Completion</textarea>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label class="ays-disable-setting"><?php echo __('Certificate body',$this->plugin_name)?></label>
+                                            </div>
+                                            <div class="col-sm-9">  
+                                                <textarea disabled class="ays-textarea ays-disable-setting" style="height:320px;"><?php echo $certificate_body_html;?>
+                                                </textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_email_configuration_from_name">
-                                            <?php echo __('From Name',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="ays-text-input" id="ays_email_configuration_from_name"/>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_email_configuration_from_subject">
-                                            <?php echo __('From Subject',$this->plugin_name)?>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="ays-text-input" id="ays_email_configuration_from_subject"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                        <div class="ays-quiz-new-watch-video-button-box">
-                            <div>
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
-                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                            </div>
-                            <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
-                        </div>
-                        <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
-                            <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
-                                <div class="ays-quiz-center-new-watch-video-demo-button">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
-                                    <?php echo __("Watch Video", "quiz-maker"); ?>
-                                </div>
-                            </div>
-                            <div class="ays-quiz-center-big-upgrade-button-box">
-                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                    <div class="ays-quiz-center-new-big-upgrade-button">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
-                                        <?php echo __("Upgrade", "quiz-maker"); ?>
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-certificate-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
                                     </div>
                                 </a>
+                                <div class="ays-quiz-new-watch-video-button-box">
+                                    <div>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                </div>
+                                <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
+                                    <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
+                                        <div class="ays-quiz-center-new-watch-video-demo-button">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                            <?php echo __("Watch Video", "quiz-maker"); ?>
+                                        </div>
+                                    </div>
+                                    <div class="ays-quiz-center-big-upgrade-button-box">
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-certificate-to-user" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-center-new-big-upgrade-button">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
+                                                <?php echo __("Upgrade", "quiz-maker"); ?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-sm-12 only_pro">
+                                <div class="pro_features pro_features_popup">
+                                    <div class="pro-features-popup-conteiner">
+                                        <div class="pro-features-popup-title">
+                                            <?php echo __("Send email to admin", $this->plugin_name); ?>
+                                        </div>
+                                        <div class="pro-features-popup-content" data-link="https://youtu.be/YUGTj9zJVeE">
+                                            <p>
+                                                <?php echo sprintf( __("The Quiz Maker plugin gives the opportunity not only to send the email to the users after the quiz completion but also to %s the admin. %s", $this->plugin_name),
+                                                    "<strong>",
+                                                    "</strong>"
+                                                ); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("By enabling this option, you can send a %s Certificate and results report %s to the admin. You can set a passing score so that the admin can receive the email only if the user has passed the minimum required score.", $this->plugin_name),
+                                                    "<strong>",
+                                                    "</strong>"
+                                                ); ?>
+                                            </p>
+                                            <p>
+                                                <?php echo sprintf( __("Also, you can %s fully customize %s the Email Message option, by inserting your desired %s message variables %s in the WP Editor from the %s General Settings %s page.", $this->plugin_name),
+                                                    "<strong>",
+                                                    "</strong>",
+                                                    "<strong>",
+                                                    "</strong>",
+                                                    "<strong>",
+                                                    "</strong>"
+                                                ); ?>
+                                            </p>
+                                            <div>
+                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                            </div>
+                                        </div>
+                                        <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin">
+                                            <?php echo __("Upgrade PRO NOW", $this->plugin_name); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label class="ays-disable-setting"><?php echo __('Send Mail To Admin',$this->plugin_name)?></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="checkbox" class="ays-enable-timerl" id="ays_enable_mail_admin" value="on"/>
+                                    </div>
+                                    <div class="col-sm-8 ays_divider_left">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_enable_send_mail_to_admin_by_pass_score">
+                                                    <?php echo __('Pass score (%)', $this->plugin_name); ?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('If the option is enabled, then the admin will receive the email only if the user has passed the minimum score required. It will take the value of the general pass score of the quiz. Please specify it in the Result Settings tab.',$this->plugin_name); ?>">
+                                                        <i class=""></i>
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="checkbox" class="ays-enable-timerl" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <blockquote><?php echo __( 'Tick the checkbox, and admin will receive the email only if the user has passed the minimum score required.', $this->plugin_name ); ?></blockquote>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- ................ -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_send_mail_to_site_admin">
+                                                    <?php echo __('Admin', $this->plugin_name)?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('Disable this feature, if you want to make it possible not to send emails to the registered Mail of the site Admin, but only to additional emails.',$this->plugin_name)?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_send_mail_to_site_admin" value="on" />
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="ays-text-input ays-enable-timerl" value="example@gmail.com" disabled />
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <!-- ................ -->
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_additional_emails">
+                                                    <?php echo __('Additional Emails',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="ays-text-input" id="ays_additional_emails" value="example1@gmail.com, example2@gmail.com, ..."/>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-5">
+                                                <label for="ays_send_results_admin">
+                                                    <?php echo __('Send Report table to Admin',$this->plugin_name)?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('You can send results to the admin after the quiz is completed',$this->plugin_name)?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_send_results_admin"
+                                                       value="on" />
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-5">
+                                                <label for="ays_send_interval_msg_to_admin">
+                                                    <?php echo __('Send Interval message to Admin',$this->plugin_name)?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('If this option is enabled then the admin will get the Email with Interval message.',$this->plugin_name)?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_send_interval_msg_to_admin"
+                                                       value="on" />
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-5">
+                                                <label for="ays_send_certificate_to_admin">
+                                                    <?php echo __('Send Certificate to Admin too',$this->plugin_name)?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo htmlentities(__('If this option is enabled then the admin will get the Email with an attached PDF file that gets the user. If the "Send Certificate To User" option is disabled admin does not get a certificate too.',$this->plugin_name)); ?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                <input type="checkbox" class="ays-enable-timerl" id="ays_send_certificate_to_admin"
+                                                       value="on" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_mail_message_admin">
+                                                    <?php echo __('Mail message',$this->plugin_name)?>
+                                                    <a  class="ays_help" data-toggle="tooltip" title="<?php echo __('Provide the message text for sending to the Admin by email. You can use Variables from General Settings page to insert data. (name, score, date etc.)',$this->plugin_name)?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <textarea type="text" id="ays_mail_message_admin" class="ays-textarea ays-disable-setting" disabled=""></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label>
+                                            <?php echo __('Email Configuration',$this->plugin_name)?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8 ays_divider_left">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_email_configuration_from_email">
+                                                    <?php echo __('From Email',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="ays-text-input" id="ays_email_configuration_from_email"/>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_email_configuration_from_name">
+                                                    <?php echo __('From Name',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="ays-text-input" id="ays_email_configuration_from_name"/>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_email_configuration_from_subject">
+                                                    <?php echo __('From Subject',$this->plugin_name)?>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="ays-text-input" id="ays_email_configuration_from_subject"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                    </div>
+                                </a>
+                                <div class="ays-quiz-new-watch-video-button-box">
+                                    <div>
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>">
+                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                    </div>
+                                    <div class="ays-quiz-new-watch-video-button"><?php echo __("Watch Video", "quiz-maker"); ?></div>
+                                </div>
+                                <div class="ays-quiz-center-big-main-button-box ays-quiz-new-big-button-flex">
+                                    <div class="ays-quiz-center-big-watch-video-button-box ays-quiz-big-upgrade-margin-right-10">
+                                        <div class="ays-quiz-center-new-watch-video-demo-button">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/video_24x24_hover.svg'?>" class="ays-quiz-new-watch-video-button-hover">
+                                            <?php echo __("Watch Video", "quiz-maker"); ?>
+                                        </div>
+                                    </div>
+                                    <div class="ays-quiz-center-big-upgrade-button-box">
+                                        <a href="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                            <div class="ays-quiz-center-new-big-upgrade-button">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>" class="ays-quiz-new-button-img-hide">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">  
+                                                <?php echo __("Upgrade", "quiz-maker"); ?>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-               </div>
-              </div>
             </div>
             
             <div id="tab8" class="ays-integrations-tab ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab8') ? 'ays-quiz-tab-content-active' : ''; ?>">

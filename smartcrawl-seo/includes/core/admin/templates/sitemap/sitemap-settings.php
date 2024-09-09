@@ -3,17 +3,15 @@
 namespace SmartCrawl;
 
 use SmartCrawl\Admin\Settings\Sitemap;
+use SmartCrawl\Services\Service;
 use SmartCrawl\Sitemaps\Utils;
 
-$crawl_url                 = Sitemap::crawl_url();
-$is_member                 = empty( $_view['is_member'] ) ? false : true;
+$is_member                 = ! empty( $_view['is_member'] );
 $active_tab                = empty( $active_tab ) ? '' : $active_tab;
 $crawl_report              = empty( $_view['crawl_report'] ) ? null : $_view['crawl_report'];
 $smartcrawl_buddypress     = empty( $smartcrawl_buddypress ) ? array() : $smartcrawl_buddypress;
 $sitemaps_enabled          = Settings::get_setting( 'sitemap' );
 $sitemap_crawler_available = Utils::crawler_available();
-$automatically_switched    = empty( $automatically_switched ) ? false : $automatically_switched;
-$total_post_count          = empty( $total_post_count ) ? 0 : $total_post_count;
 $email_recipients          = Sitemap::get_email_recipients();
 $override_native           = empty( $override_native ) ? false : $override_native;
 $ping_google               = ! empty( $_view['options']['ping-google'] );
@@ -54,8 +52,10 @@ $ping_bing                 = ! empty( $_view['options']['ping-bing'] );
 
 	<?php
 	if ( $sitemaps_enabled ) {
-
+		$service            = Service::get( Service::SERVICE_SEO );
+		$cooldown_remaining = $service->get_cooldown_remaining();
 		?>
+
 		<form action='<?php echo esc_attr( $_view['action_url'] ); ?>' method='post' class="wds-form">
 			<?php $this->settings_fields( $_view['option_name'] ); ?>
 
@@ -78,6 +78,27 @@ $ping_bing                 = ! empty( $_view['options']['ping-bing'] );
 				</div>
 			<?php endif; ?>
 
+			<?php if ( $cooldown_remaining && ! $service->in_progress() ) : ?>
+
+				<div class="sui-notice sui-notice-grey">
+					<div class="sui-notice-content">
+						<div class="sui-notice-message">
+							<span class="sui-notice-icon sui-md sui-icon-clock" aria-hidden="true"></span>
+							<p>
+								<?php
+								printf(
+								/* translators: %s: remaining time in hours and minutes */
+									esc_html__( 'SEO Crawler is cooling down. Please wait for %s before initiating another scan.', 'smartcrawl-seo' ),
+									esc_html( $cooldown_remaining )
+								);
+								?>
+							</p>
+						</div>
+					</div>
+				</div>
+
+			<?php endif; ?>
+
 			<div class="wds-vertical-tabs-container sui-row-with-sidenav" id="sitemap-settings-tabs">
 
 				<?php
@@ -89,9 +110,7 @@ $ping_bing                 = ! empty( $_view['options']['ping-bing'] );
 						'override_native'           => $override_native,
 					)
 				);
-				?>
 
-				<?php
 				// The last tab is on top in the markup because we want the item-per-sitemap setting in the native sitemap tab to override the regular field.
 				$settings_tab = $this->load_view(
 					'vertical-tab',

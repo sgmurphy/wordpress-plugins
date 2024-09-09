@@ -486,7 +486,12 @@ class Post extends Entity {
 		}
 
 		// Checks meta in post metabox.
-		$images = \smartcrawl_get_array_value( call_user_func( $load_post_meta ), 'images' );
+		$images = array_filter(
+			\smartcrawl_get_array_value( call_user_func( $load_post_meta ), 'images', array() ),
+			function ( $image ) {
+				return wp_get_attachment_image_src( $image );
+			}
+		);
 
 		// Includes post thumbnail, if available.
 		if ( empty( $images ) && $this->get_thumbnail_id() ) {

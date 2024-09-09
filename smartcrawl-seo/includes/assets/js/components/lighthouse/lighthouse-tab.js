@@ -11,7 +11,6 @@ export default class LighthouseTab extends React.Component {
 		if (report.no_data) {
 			return (
 				<LighthouseNoData
-					isMember={ConfigValues.get('is_member', 'lighthouse')}
 					startTime={ConfigValues.get('start_time', 'lighthouse')}
 					image={report.image}
 				/>
@@ -24,7 +23,6 @@ export default class LighthouseTab extends React.Component {
 
 		return (
 			<LighthouseReport
-				isMember={ConfigValues.get('is_member', 'lighthouse')}
 				startTime={ConfigValues.get('start_time', 'lighthouse')}
 			/>
 		);

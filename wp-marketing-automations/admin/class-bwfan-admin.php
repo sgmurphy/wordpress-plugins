@@ -1822,7 +1822,7 @@ class BWFAN_Admin {
 		}
 
 		$new_user = get_option( 'bwfan_new_user', '' );
-		if ( $new_user !== 'yes' ) {
+		if ( $new_user !== 'yes' || get_option( '_wffn_onboarding_completed' ) ) {
 			return;
 		}
 

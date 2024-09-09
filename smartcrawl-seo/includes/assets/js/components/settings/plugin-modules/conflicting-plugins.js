@@ -102,9 +102,13 @@ export default class ConflictingPlugins extends React.Component {
 					<Notice
 						type="warning"
 						message={createInterpolateElement(
-							__(
-								'<strong>We’ve detected one or more SEO plugins on your site.</strong> To avoid SEO issues, please disable the following conflicting plugin(s) or select specific SmartCrawl modules to use alongside the other plugins below.',
-								'smartcrawl-seo'
+							sprintf(
+								// translators: %s: plugin title.
+								__(
+									'<strong>We’ve detected one or more SEO plugins on your site.</strong> To avoid SEO issues, please disable the following conflicting plugin(s) or select specific <strong>%s</strong> modules to use alongside the other plugins below.',
+									'smartcrawl-seo'
+								),
+								ConfigValues.get('plugin_title', 'admin')
 							),
 							{ strong: <strong /> }
 						)}
@@ -126,13 +130,17 @@ export default class ConflictingPlugins extends React.Component {
 						id="wds-confl-plugs"
 						small={true}
 						title={__('Conflicting Plugins', 'smartcrawl-seo')}
-						description={sprintf(
-							// translators: %d: number of plugins conflicting.
-							__(
-								'We detected %d plugins conflicting with SmartCrawl on your site. For best SEO performance, please deactivate the plugins listed below or activate specific SmartCrawl modules to use alongside these listed plugins.',
-								'smartcrawl-seo'
+						description={createInterpolateElement(
+							sprintf(
+								// translators: 1: number of plugins conflicting, 2: plugin_title
+								__(
+									'We detected %1$d plugins conflicting with <strong>%2$s</strong> on your site. For best SEO performance, please deactivate the plugins listed below or activate specific <strong>%2$s</strong> modules to use alongside these listed plugins.',
+									'smartcrawl-seo'
+								),
+								Object.keys(plugins).length,
+								ConfigValues.get('plugin_title', 'admin')
 							),
-							Object.keys(plugins).length
+							{ strong: <strong /> }
 						)}
 						onClose={() => this.hideModal()}
 						footer={

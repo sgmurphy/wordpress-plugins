@@ -117,9 +117,6 @@ class Report {
 				$passed = null === $score || 1 === $score; // Set passed to true when score is either not available or is 1.
 				$check->set_passed( $passed );
 
-				$details = \smartcrawl_get_array_value( $metric, 'details' );
-				$check->set_raw_details( $details );
-
 				$weight = \smartcrawl_get_array_value( $metric, 'weight' );
 				$check->set_weight( $weight );
 
@@ -146,7 +143,6 @@ class Report {
 			self::GROUP_CONTENT,
 			esc_html__( 'Content audits', 'smartcrawl-seo' ),
 			esc_html__( 'Make sure search engines understand your content.', 'smartcrawl-seo' ),
-			$this,
 			array(
 				Checks\Document_Title::ID,
 				Checks\Meta_Description::ID,
@@ -161,7 +157,6 @@ class Report {
 			self::GROUP_VISIBILITY,
 			esc_html__( 'Crawling and indexing audits', 'smartcrawl-seo' ),
 			esc_html__( 'Make sure search engines can crawl and index your page.', 'smartcrawl-seo' ),
-			$this,
 			array(
 				Checks\Http_Status_Code::ID,
 				Checks\Is_Crawlable::ID,
@@ -175,7 +170,6 @@ class Report {
 			self::GROUP_RESPONSIVE,
 			esc_html__( 'Responsive audits', 'smartcrawl-seo' ),
 			esc_html__( 'Make your page mobile friendly.', 'smartcrawl-seo' ),
-			$this,
 			array(
 				Checks\Viewport::ID,
 				Checks\Font_Size::ID,
@@ -187,7 +181,6 @@ class Report {
 			self::GROUP_MANUAL,
 			esc_html__( 'Manual audits', 'smartcrawl-seo' ),
 			esc_html__( 'The Lighthouse structured data audit is manual, so it does not affect your Lighthouse SEO score.', 'smartcrawl-seo' ),
-			$this,
 			array( Checks\Structured_Data::ID )
 		);
 	}

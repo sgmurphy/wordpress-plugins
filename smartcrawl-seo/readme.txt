@@ -5,10 +5,10 @@ Plugin URI: https://wpmudev.com/project/smartcrawl-wordpress-seo/
 Tags: seo optimization, seo, sitemap, google search console, pagerank, keywords, search engine optimization, content analysis, meta title, meta description, redirect, redirection, 301 redirect, auto-notify search engines, best seo plugin wordpress, website ranking, breadcrumbs, breadcrumb navigation, schema types
 Author URI: https://wpmudev.com/
 Author: WPMU DEV
-Requires at least: 5.5
+Requires at least: 6.4
 Requires PHP: 7.4
-Tested up to: 6.5
-Stable tag: 3.10.9
+Tested up to: 6.6
+Stable tag: 3.11.0
 
 SEO checker, content analysis & SEO optimizer. Rank higher on search engines with 301 redirects, XML sitemaps & one-click setup.
 
@@ -113,7 +113,7 @@ Hey! This is SmartCrawl, your trusted Search Engine Optimizer for WordPress. Iâ€
 - [Hustle](https://wordpress.org/plugins/wordpress-popup/) - Pop-ups, Slide-ins and Email Opt-ins
 - [Defender](https://wordpress.org/plugins/defender-security/) - Security, Monitoring and Hack Protection
 
-And if you need ALL our Pro plugins, services, AND 24/7 WordPress support, get WPMU DEV membership!: [wpmudev.com](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=smartcrawl-readme&utm_content=link_wpmudev#trial)
+And if you need ALL our Pro plugins AND 24/7 WordPress support, get [WPMU DEV membership](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=smartcrawl-readme&utm_content=link_wpmudev)!
 
 My superhero friends run the WPMU DEV Blog, your source of the very best WordPress tutorials. If you need to be in the know about WordPress, check it out.
 
@@ -843,4 +843,4 @@ WPMU DEV is a premium supplier of quality WordPress plugins, services and suppor
 Don't forget to stay up to date on everything WordPress from the Internet's number one resource:
 [WPMU DEV Blog](https://wpmudev.com/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=smartcrawl-readme&utm_content=wpmu_dev_blog_link)
 
-Hey, one more thing... we hope you enjoy our [free offerings](http://profiles.wordpress.org/WPMUDEV/) as much as we've loved making them for you!
+Hey, one more thing... we hope you enjoy our [free offerings](https://profiles.wordpress.org/wpmudev/#content-plugins) as much as we've loved making them for you!

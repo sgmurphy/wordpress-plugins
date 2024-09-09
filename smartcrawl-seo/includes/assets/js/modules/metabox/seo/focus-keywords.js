@@ -34,6 +34,7 @@ export default class FocusKeywords extends React.Component {
 		};
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	componentDidUpdate(prevProps, prevState) {
 		const { loading } = this.props;
 
@@ -76,7 +77,7 @@ export default class FocusKeywords extends React.Component {
 			ConfigValues.get('nonce', 'metabox'),
 			{
 				post_id: this.editor.get_data().get_id(),
-				keyword: keyword,
+				keyword,
 			}
 		).then((resp) => {
 			onUpdateKeywords(resp.split(',').filter((kw) => kw));

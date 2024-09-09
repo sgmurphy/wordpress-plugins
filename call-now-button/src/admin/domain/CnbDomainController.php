@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || die( '-1' );
 
 use cnb\admin\api\CnbAdminCloud;
 use cnb\admin\models\CnbPlan;
+use cnb\CnbHeaderNotices;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
 
@@ -35,26 +36,38 @@ class CnbDomainController {
             // do the processing
             $result = CnbAdminCloud::cnb_create_domain( $cnb_cloud_notifications, $processed_domain );
 
-            // redirect the user to the appropriate page
-            $transient_id = 'cnb-' . wp_generate_uuid4();
-            set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
+	        // Create link
+	        $url = admin_url( 'admin.php' );
+	        // redirect the user to the appropriate page
+			if ( is_wp_error( $result ) ) {
+				$transient_id = (new CnbHeaderNotices())->generate_notice_id();
+				$notice = CnbAdminCloud::cnb_admin_get_error_message('create', 'domain', $result);
+				set_transient( $transient_id, array( $notice ), HOUR_IN_SECONDS );
 
-            // Create link
-            $url = admin_url( 'admin.php' );
-
-            $redirect_link =
-                add_query_arg(
-                    array(
-                        'page'   => CNB_SLUG . '-domains',
-                        'action' => 'edit',
-                        'id'     => $result->id,
-                        'tid'    => $transient_id,
-                    ),
-                    $url );
-            $redirect_url  = esc_url_raw( $redirect_link );
-            do_action( 'cnb_finish' );
-            wp_safe_redirect( $redirect_url );
-            exit;
+				$redirect_link = add_query_arg(
+					array(
+						'page' => CNB_SLUG . '-domains',
+						'tid'  => $transient_id,
+					),
+					$url );
+				$redirect_url = esc_url_raw( $redirect_link );
+				do_action( 'cnb_finish' );
+				wp_safe_redirect( $redirect_url );
+				exit;
+			} else {
+				$redirect_link =
+					add_query_arg(
+						array(
+							'page'   => CNB_SLUG . '-domains',
+							'action' => 'edit',
+							'id'     => $result->id,
+						),
+						$url );
+				$redirect_url  = esc_url_raw( $redirect_link );
+				do_action( 'cnb_finish' );
+				wp_safe_redirect( $redirect_url );
+				exit;
+			}
         } else {
             do_action( 'cnb_finish' );
             wp_die( esc_html__( 'Invalid nonce specified' ), esc_html__( 'Error' ), array(
@@ -76,7 +89,7 @@ class CnbDomainController {
             $result                  = CnbAdminCloud::cnb_update_domain( $cnb_cloud_notifications, $domain );
 
             // redirect the user to the appropriate page
-            $transient_id = 'cnb-' . wp_generate_uuid4();
+            $transient_id = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
             // Create link
@@ -138,7 +151,7 @@ class CnbDomainController {
 
                 // Create notice for link (and yes - we ignore the content of $cnb_cloud_notifications here, we just use it to count)
                 $notice       = new CnbNotice( 'success', '<p>' . count( $cnb_cloud_notifications ) . ' Domain(s) deleted.</p>' );
-                $transient_id = 'cnb-' . wp_generate_uuid4();
+                $transient_id = (new CnbHeaderNotices())->generate_notice_id();
                 set_transient( $transient_id, array( $notice ), HOUR_IN_SECONDS );
 
                 // Create link
@@ -258,7 +271,7 @@ class CnbDomainController {
 		CnbAdminCloud::cnb_delete_domain( $cnb_cloud_notifications, $domain );
 
 		// Save notices
-		$transient_id = 'cnb-' . wp_generate_uuid4();
+		$transient_id = (new CnbHeaderNotices())->generate_notice_id();
 		set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
 		// Create link

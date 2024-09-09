@@ -39,13 +39,6 @@ abstract class Module_Controller extends Controller {
 	public $module_title;
 
 	/**
-	 * Capability required for this page
-	 *
-	 * @var string
-	 */
-	public $capability = 'manage_options';
-
-	/**
 	 * Page title.
 	 *
 	 * @var string
@@ -110,8 +103,8 @@ abstract class Module_Controller extends Controller {
 			$handler->set_options( empty( $this->options[ $submodule_name ] ) ? array() : $this->options[ $submodule_name ] );
 		}
 
-		/* translators: %s: menu title. */
-		$this->page_title = sprintf( __( 'SmartCrawl Wizard: %s', 'smartcrawl-seo' ), $this->module_title );
+		/* translators: 1: plugin title, 2: menu title. */
+		$this->page_title = sprintf( __( '%1$s Wizard: %2$s', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title(), $this->module_title );
 		$this->module_id  = str_replace( array( 'wds-', '-' ), array( '', '_' ), $this->module_name );
 
 		$this->settings_opts = Settings::get_specific_options( Settings::SETTINGS_MODULE . '_options' );
@@ -240,7 +233,7 @@ abstract class Module_Controller extends Controller {
 			'wds_wizard',
 			$page_title,
 			$menu_title,
-			$this->capability,
+			is_multisite() && \smartcrawl_subsite_manager_role() === 'superadmin' ? 'manage_network_options' : 'manage_options',
 			$this->module_name,
 			array( $this, 'output_page' ),
 			$this->position

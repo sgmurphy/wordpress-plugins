@@ -1,10 +1,12 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Button from '../../../components/button';
 import MascotMessage from '../../../components/mascot-message';
 import FocusKeywords from './focus-keywords';
 import SeoAnalysisContent from './seo-analysis-content';
 import Notice from '../../../components/notices/notice';
+import ConfigValues from '../../../es6/config-values';
 
 export default class SeoAnalysisContainer extends React.Component {
 	static defaultProps = {
@@ -37,9 +39,16 @@ export default class SeoAnalysisContainer extends React.Component {
 				<div className="sui-box-body">
 					<MascotMessage
 						msgKey="metabox-seo-analysis"
-						message={__(
-							'This tool helps you optimize your content to give it the best chance of being found in search engines when people are looking for it. Start by choosing a few focus keywords that best describe your article, then SmartCrawl will give you recommendations to make sure your content is highly optimized.',
-							'smartcrawl-seo'
+						message={createInterpolateElement(
+							sprintf(
+								// translators: %s: plugin title
+								__(
+									'This tool helps you optimize your content to give it the best chance of being found in search engines when people are looking for it. Start by choosing a few focus keywords that best describe your article, then <strong>%s</strong> will give you recommendations to make sure your content is highly optimized.',
+									'smartcrawl-seo'
+								),
+								ConfigValues.get('plugin_title', 'admin')
+							),
+							{ strong: <strong /> }
 						)}
 					></MascotMessage>
 				</div>

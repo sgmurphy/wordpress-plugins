@@ -206,6 +206,9 @@ class Utils {
 			'?',
 		);
 
+		// Below is just a trick to fix double encoding issue in URL handling.
+		$path = rawurldecode( $path );
+
 		// URL encode everything - this converts any i10n to the proper encoding.
 		$path = rawurlencode( $path );
 

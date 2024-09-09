@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles export
+ * Handles config export.
  *
  * @package SmartCrawl
  */
@@ -13,7 +13,7 @@ use SmartCrawl\Settings;
 use SmartCrawl\Sitemaps\Utils;
 
 /**
- * Settings export class
+ * Config Export class
  */
 class Export {
 
@@ -54,7 +54,7 @@ class Export {
 		$this->model->set_url( home_url() );
 
 		foreach ( $this->model->get_sections() as $section ) {
-			$method = array( $this, "load_{$section}" );
+			$method = array( $this, "load_$section" );
 			if ( ! is_callable( $method ) ) {
 				continue;
 			}
@@ -74,11 +74,17 @@ class Export {
 		$options = array();
 
 		$components = Settings::get_all_components();
+
 		foreach ( $components as $component ) {
-			$options[ $this->get_option_name( $component ) ] = Settings::get_component_options( $component );
+			$option_name = $this->get_option_name( $component );
+
+			if ( $option_name ) {
+				$options[ $option_name ] = Settings::get_component_options( $component );
+			}
 		}
 
-		$options['wds_settings_options'] = Settings::get_local_settings();
+		$options[ Settings::ADVANCED_MODULE ] = get_option( Settings::ADVANCED_MODULE );
+		$options['wds_settings_options']      = Settings::get_local_settings();
 
 		$options['wds_blog_tabs'] = get_site_option( 'wds_blog_tabs' );
 
@@ -92,12 +98,14 @@ class Export {
 	 *
 	 * @param string $comp Partial.
 	 *
-	 * @return string Options key
+	 * @return string|false Options key
 	 */
 	public function get_option_name( $comp ) {
 		if ( in_array( $comp, Settings::get_all_components(), true ) ) {
 			return "wds_{$comp}_options";
 		}
+
+		return false;
 	}
 
 	/**
@@ -124,7 +132,9 @@ class Export {
 	}
 
 	/**
-	 * Loads ignore sitemap URLs
+	 * Loads ignore sitemap URLs.
+	 *
+	 * This is used in `load_all` method.
 	 *
 	 * @return Model_IO instance
 	 */
@@ -135,7 +145,9 @@ class Export {
 	}
 
 	/**
-	 * Loads extra sitemap post IDs
+	 * Loads extra sitemap post IDs.
+	 *
+	 * This is used in `load_all` method.
 	 *
 	 * @return Model_IO instance
 	 */
@@ -146,7 +158,9 @@ class Export {
 	}
 
 	/**
-	 * Loads all stored postmeta
+	 * Loads all stored postmeta.
+	 *
+	 * This is used in `load_all` method.
 	 *
 	 * @return Model_IO instance
 	 */
@@ -157,6 +171,8 @@ class Export {
 	/**
 	 * Loads all stored taxmeta for the current site
 	 *
+	 * This is used in `load_all` method.
+	 *
 	 * @return Model_IO instance
 	 */
 	public function load_taxmeta() {
@@ -166,10 +182,13 @@ class Export {
 	/**
 	 * Loads all stored redirects for the current site
 	 *
+	 * This is used in `load_all` method.
+	 *
 	 * @return Model_IO instance
 	 */
 	public function load_redirects() {
 		$table = Database_Table::get();
+
 		$this->model->set( Model_IO::REDIRECTS, $table->get_deflated_redirects() );
 
 		return $this->model;

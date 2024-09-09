@@ -50,7 +50,7 @@ $override_native  = empty( $override_native ) ? false : $override_native;
 					<span class="sui-tag">
 						<?php
 						echo $override_native
-							? esc_html__( 'SmartCrawl', 'smartcrawl-seo' )
+							? esc_html( \smartcrawl_get_plugin_title() )
 							: esc_html__( 'WordPress Core', 'smartcrawl-seo' );
 						?>
 					</span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfigItem from './config-item';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Button from '../button';
 import ConfigValues from '../../es6/config-values';
 import Notice from '../notices/notice';
@@ -51,9 +52,19 @@ export default class ConfigsWidget extends React.Component {
 							{!configsExist && (
 								<Notice
 									type="info"
-									message={__(
-										'You don’t have any available config. Save preset configurations of SmartCrawl’s settings, then upload and apply them to your other sites in just a few clicks!',
-										'smartcrawl-seo'
+									message={createInterpolateElement(
+										sprintf(
+											// translators: %s: plugin title
+											__(
+												'You don’t have any available config. Save preset configurations of <strong>%s</strong>’s settings, then upload and apply them to your other sites in just a few clicks!',
+												'smartcrawl-seo'
+											),
+											ConfigValues.get(
+												'plugin_title',
+												'admin'
+											)
+										),
+										{ strong: <strong /> }
 									)}
 								/>
 							)}

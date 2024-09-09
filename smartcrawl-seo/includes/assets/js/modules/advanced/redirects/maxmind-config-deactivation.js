@@ -1,5 +1,6 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import Notice from '../../../components/notices/notice';
 import Button from '../../../components/button';
 import ConfigValues from '../../../es6/config-values';
@@ -58,9 +59,16 @@ class MaxmindConfigDeactivation extends React.Component {
 							</span>
 						</>
 					}
-					description={__(
-						'Your site is connected to above Maxmind license key. SmartCrawl automatically downloads latest GeoLite2 data weekly. You can use the disconnect button above to change the license key.',
-						'smartcrawl-seo'
+					description={createInterpolateElement(
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'Your site is connected to above Maxmind license key. <strong>%s</strong> automatically downloads latest GeoLite2 data weekly. You can use the disconnect button above to change the license key.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
+						),
+						{ strong: <strong /> }
 					)}
 					prefix={
 						<span className="sui-icon-key" aria-hidden="true" />

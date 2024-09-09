@@ -42,7 +42,8 @@ if ( ! $schema_enabled && $hide_disables ) {
 				<small><strong><?php esc_html_e( 'Default Markup', 'smartcrawl-seo' ); ?></strong></small>
 				<span
 					class="sui-tooltip sui-tooltip-constrained"
-					data-tooltip="<?php esc_html_e( 'SmartCrawl automatically computes a schema structure for your pages based on your schema settings. By default, Article type is printed for all post types. You can replace this automatically-generated schema type by configuring types in the schema type builder.', 'smartcrawl-seo' ); ?>">
+					<?php /* translators: 1: plugin title */ ?>
+					data-tooltip="<?php printf( esc_html__( '%s automatically computes a schema structure for your pages based on your schema settings. By default, Article type is printed for all post types. You can replace this automatically-generated schema type by configuring types in the schema type builder.', 'smartcrawl-seo' ), esc_html( \smartcrawl_get_plugin_title() ) ); ?>">
 					<span class="sui-notice-icon sui-icon-info sui-sm" aria-hidden="true"></span>
 				</span>
 				<span class="sui-tag wds-right sui-tag-sm sui-tag-blue">

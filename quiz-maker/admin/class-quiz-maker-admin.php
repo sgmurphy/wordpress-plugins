@@ -1125,6 +1125,7 @@ class Quiz_Maker_Admin
         $quick_quiz_image_width                             = "";
         $quiz_image_width_by_percentage_px                  = "pixels";
         $quick_quiz_image_height                            = "";
+        $quick_quiz_image_sizing                            = "cover";
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1255,6 +1256,9 @@ class Quiz_Maker_Admin
 
             // Question image Height
             $quick_quiz_image_height = (isset($_REQUEST['ays_quick_quiz_image_height']) && $_REQUEST['ays_quick_quiz_image_height'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_image_height'] ) ) : "";
+
+            // Question image sizing
+            $quick_quiz_image_sizing = (isset($_REQUEST['ays_quick_quiz_image_sizing']) && $_REQUEST['ays_quick_quiz_image_sizing'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_image_sizing'] ) ) : 'cover';
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1379,7 +1383,7 @@ class Quiz_Maker_Admin
             'progress_live_bar_style'                       => $quick_quiz_progress_live_bar_style,
             'enable_exit_button'                            => 'off',
             'exit_redirect_url'                             => '',
-            'image_sizing'                                  => 'cover',
+            'image_sizing'                                  => $quick_quiz_image_sizing,
             'quiz_bg_image_position'                        => 'center center',
             'custom_class'                                  => $quick_quiz_custom_class,
             'enable_social_buttons'                         => 'off',

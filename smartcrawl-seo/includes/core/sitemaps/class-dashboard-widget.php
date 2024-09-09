@@ -55,7 +55,11 @@ class Dashboard_Widget extends Controllers\Controller {
 
 		wp_add_dashboard_widget(
 			'wds_sitemaps_dashboard_widget',
-			__( 'Sitemaps - SmartCrawl', 'smartcrawl-seo' ),
+			sprintf(
+				/* translators: %s: plugin title */
+				__( 'Sitemaps - %s', 'smartcrawl-seo' ),
+				\smartcrawl_get_plugin_title()
+			),
 			array(
 				&$this,
 				'widget',

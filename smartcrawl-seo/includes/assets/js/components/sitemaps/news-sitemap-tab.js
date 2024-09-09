@@ -1,13 +1,14 @@
 import React from 'react';
 import { createInterpolateElement } from '@wordpress/element';
 import SettingsRow from '../settings-row';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import SideTabs from '../side-tabs';
 import TextInputField from '../form-fields/text-input-field';
 import NewsPostType from './news-post-type';
 import update from 'immutability-helper';
 import FloatingNoticePlaceholder from '../floating-notice-placeholder';
 import Notice from '../notices/notice';
+import ConfigValues from '../../es6/config-values';
 
 export default class NewsSitemapTab extends React.Component {
 	static defaultProps = {
@@ -112,9 +113,16 @@ export default class NewsSitemapTab extends React.Component {
 							<Notice
 								type=""
 								message={createInterpolateElement(
-									__(
-										'SmartCrawl automatically changes the schema to <strong>NewsArticle</strong> for all included posts/pages to ensure your newsworthy content is properly crawled and indexed. Note that if some schema types have been added using the Types Builder, the <strong>NewsArticle</strong> schema will not be displayed.',
-										'smartcrawl-seo'
+									sprintf(
+										// translators: %s: plugin title
+										__(
+											'<strong>%s</strong> automatically changes the schema to <strong>NewsArticle</strong> for all included posts/pages to ensure your newsworthy content is properly crawled and indexed. Note that if some schema types have been added using the Types Builder, the <strong>NewsArticle</strong> schema will not be displayed.',
+											'smartcrawl-seo'
+										),
+										ConfigValues.get(
+											'plugin_title',
+											'admin'
+										)
 									),
 									{ strong: <strong /> }
 								)}

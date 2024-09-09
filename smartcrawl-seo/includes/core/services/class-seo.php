@@ -127,6 +127,15 @@ class Seo extends Service {
 	}
 
 	/**
+	 * Retrieves cooldown timer.
+	 *
+	 * @return false
+	 */
+	public function get_cooldown_remaining() {
+		return false;
+	}
+
+	/**
 	 * Sets result to new value.
 	 *
 	 * Sets both cache and permanent result.

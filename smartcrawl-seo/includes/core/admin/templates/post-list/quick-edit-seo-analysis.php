@@ -9,7 +9,7 @@
 
 <fieldset class="inline-edit-col-left" style="clear:left">
 	<div class="inline-edit-col long-label">
-		<h4><?php esc_html_e( 'SmartCrawl', 'smartcrawl-seo' ); ?></h4>
+		<h4><?php echo \smartcrawl_get_plugin_title(); ?></h4>
 		<label>
 			<span class="title"><?php esc_html_e( 'Focus keywords', 'smartcrawl-seo' ); ?></span>
 			<span class="input-text-wrap">

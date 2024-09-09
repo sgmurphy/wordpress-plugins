@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || die( '-1' );
 
 use cnb\admin\api\CnbAdminCloud;
 use cnb\admin\api\CnbAppRemote;
+use cnb\CnbHeaderNotices;
 use cnb\notices\CnbAdminNotices;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
@@ -35,7 +36,7 @@ class CnbApiKeyController {
             CnbAdminCloud::cnb_create_apikey( $cnb_cloud_notifications, $apikey );
 
             // redirect the user to the appropriate page
-            $transient_id = 'cnb-' . wp_generate_uuid4();
+            $transient_id = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
             // Create link
@@ -102,7 +103,7 @@ class CnbApiKeyController {
 
 			$cnb_cloud_notifications = array();
 			$cnb_cloud_notifications[] = $message;
-			$transient_id = 'cnb-' . wp_generate_uuid4();
+			$transient_id = (new CnbHeaderNotices())->generate_notice_id();
 			set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 		}
 
@@ -193,7 +194,7 @@ class CnbApiKeyController {
 
 				// Create notice for link
 				$notice       = new CnbNotice( 'success', '<p>' . count( $entityIds ) . ' Api key(s) deleted.</p>' );
-				$transient_id = 'cnb-' . wp_generate_uuid4();
+				$transient_id = (new CnbHeaderNotices())->generate_notice_id();
 				set_transient( $transient_id, array( $notice ), HOUR_IN_SECONDS );
 
 				// Create link

@@ -17,11 +17,17 @@ $smartcrawl_term = \SmartCrawl\Cache\Term_Cache::get()->get_term( $term->term_id
 if ( ! $smartcrawl_term ) {
 	return;
 }
-$default_settings_message = \smartcrawl_format_link(
-	/* translators: %s: Link to Title & Meta page */
-	esc_html__( "Customize this term's title, description and featured images for social shares. You can also configure the default settings for this taxonomy in SmartCrawl's %s area.", 'smartcrawl-seo' ),
-	\SmartCrawl\Admin\Settings\Admin_Settings::admin_url( Settings::TAB_ONPAGE ),
-	esc_html__( 'Titles & Meta', 'smartcrawl-seo' )
+$default_settings_message = sprintf(
+	/* translators: 1,2: strong tag, 3: plugin title, 4: link to Title & Meta page */
+	esc_html__( 'Customize this term\'s title, description and featured images for social shares. You can also configure the default settings for this taxonomy in %1$s%3$s%2$s\'s %4$s area.', 'smartcrawl-seo' ),
+	'<strong>',
+	'</strong>',
+	\smartcrawl_get_plugin_title(),
+	\smartcrawl_format_link(
+		'%s',
+		\SmartCrawl\Admin\Settings\Admin_Settings::admin_url( Settings::TAB_ONPAGE ),
+		esc_html__( 'Titles & Meta', 'smartcrawl-seo' )
+	)
 );
 $is_active = empty( $is_active ) ? false : $is_active;
 ?>

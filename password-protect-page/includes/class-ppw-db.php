@@ -278,12 +278,36 @@ if ( ! class_exists( 'PPW_Repository_Passwords' ) ) {
 		}
 
 		/**
+		 * Find shared tag password.
+		 *
+		 * @param string $password Password.
+		 *
+		 * @return array|object|void|null Database query result in format specified by $output or null on failure
+		 */
+		public function find_by_shared_tag_password( $password ) {
+			$sql = $this->wpdb->prepare( "SELECT * FROM {$this->tbl_name} WHERE BINARY password = %s AND post_id = 0 AND campaign_app_type = %s", $password, PPW_Tag_Service::SHARED_TAG_TYPE ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- We don't want to set table name as placeholder
+
+			return $this->wpdb->get_row( $sql ); // phpcs:ignore -- we already prepared above
+		}
+
+		/**
 		 * Get all shared categories password.
 		 *
 		 * @return array|object|void|null Database query result in format specified by $output or null on failure
 		 */
 		public function get_all_shared_categories_password() {
 			$sql = $this->wpdb->prepare( "SELECT * FROM {$this->tbl_name} WHERE post_id = 0 AND campaign_app_type = %s", PPW_Category_Service::SHARED_CATEGORY_TYPE ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- We don't want to set table name as placeholder
+
+			return $this->wpdb->get_results( $sql ); // phpcs:ignore -- we already prepared above
+		}
+
+		/**
+		 * Get all shared tags password.
+		 *
+		 * @return array|object|void|null Database query result in format specified by $output or null on failure
+		 */
+		public function get_all_shared_tags_password() {
+			$sql = $this->wpdb->prepare( "SELECT * FROM {$this->tbl_name} WHERE post_id = 0 AND campaign_app_type = %s", PPW_Tag_Service::SHARED_TAG_TYPE ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- We don't want to set table name as placeholder
 
 			return $this->wpdb->get_results( $sql ); // phpcs:ignore -- we already prepared above
 		}
@@ -329,6 +353,19 @@ if ( ! class_exists( 'PPW_Repository_Passwords' ) ) {
 		 */
 		public function get_shared_category_password( $password_id ) {
 			$sql = $this->wpdb->prepare( "SELECT * FROM {$this->tbl_name} WHERE BINARY id = %d AND campaign_app_type = %s", $password_id, PPW_Category_Service::SHARED_CATEGORY_TYPE ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- We don't want to set table name as placeholder
+
+			return $this->wpdb->get_row( $sql ); // phpcs:ignore -- we already prepared above
+		}
+
+		/**
+		 * Get shared tag password by password ID.
+		 *
+		 * @param int $password_id Password ID.
+		 *
+		 * @return array|object|void|null Database query result in format specified by $output or null on failure
+		 */
+		public function get_shared_tag_password( $password_id ) {
+			$sql = $this->wpdb->prepare( "SELECT * FROM {$this->tbl_name} WHERE BINARY id = %d AND campaign_app_type = %s", $password_id, PPW_Tag_Service::SHARED_TAG_TYPE ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- We don't want to set table name as placeholder
 
 			return $this->wpdb->get_row( $sql ); // phpcs:ignore -- we already prepared above
 		}

@@ -18,7 +18,17 @@ $email_recipients     = empty( $email_recipients ) ? array() : $email_recipients
 
 <div class="wds-upsell-tab-description">
 	<div>
-		<p><?php esc_html_e( 'Set up SmartCrawl to automatically crawl your URLs daily, weekly or monthly and send an email report to your inbox.', 'smartcrawl-seo' ); ?></p>
+		<p>
+			<?php
+			printf(
+				/* translators: 1,2: strong tag, 3: plugin title */
+				esc_html__( 'Set up %1$s%3$s%2$s to automatically crawl your URLs daily, weekly or monthly and send an email report to your inbox.', 'smartcrawl-seo' ),
+				'<strong>',
+				'</strong>',
+				esc_html( \smartcrawl_get_plugin_title() )
+			);
+			?>
+			</p>
 	</div>
 
 	<?php if ( $crawler_cron_enabled && $dash_profile_data && $crawler_freq ) : ?>

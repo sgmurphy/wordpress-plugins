@@ -6,7 +6,14 @@ $title_key       = empty( $title_key ) ? '' : $title_key;
 $description_key = empty( $description_key ) ? '' : $description_key;
 
 $title_label_desc = empty( $title_label_desc )
-	? esc_html__( 'Choose the variables from which SmartCrawl will automatically generate your SEO title from.', 'smartcrawl-seo' ) : $title_label_desc;
+	? sprintf(
+		/* translators: 1,2: strong tag, 3: plugin title */
+		esc_html__( 'Choose the variables from which %1$s%3$s%2$s will automatically generate your SEO title from.', 'smartcrawl-seo' ),
+		'<strong>',
+		'</strong>',
+		\smartcrawl_get_plugin_title()
+	)
+	: $title_label_desc;
 $title_field_desc = empty( $title_field_desc )
 	? '' : $title_field_desc;
 $meta_label_desc  = empty( $meta_label_desc )

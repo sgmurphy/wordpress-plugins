@@ -7,6 +7,7 @@ import LighthouseCheckItem from '../lighthouse-check-item';
 import LighthouseTable from '../tables/lighthouse-table';
 import Button from '../../button';
 import LighthouseToggle from '../lighthouse-toggle';
+import ConfigValues from '../../../es6/config-values';
 
 export default class LighthouseCheckHreflang extends React.Component {
 	static defaultProps = {
@@ -270,9 +271,16 @@ export default class LighthouseCheckHreflang extends React.Component {
 				'smartcrawl-seo'
 			) +
 			'\n\n' +
-			__(
-				'For more information please check the SEO Audits section in SmartCrawl plugin.',
-				'smartcrawl-seo'
+			createInterpolateElement(
+				sprintf(
+					// translators: %s: plugin title
+					__(
+						'For more information please check the SEO Audits section in <strong>%s</strong> plugin.',
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
+				),
+				{ strong: <strong /> }
 			)
 		);
 	}

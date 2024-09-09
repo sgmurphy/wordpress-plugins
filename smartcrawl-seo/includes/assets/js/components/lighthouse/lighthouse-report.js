@@ -16,17 +16,14 @@ import LighthouseCheckImageAlt from './checks/lighthouse-check-image-alt';
 import LighthouseCheckHttpStatusCode from './checks/lighthouse-check-http-status-code';
 import LighthouseCheckIsCrawlable from './checks/lighthouse-check-is-crawlable';
 import LighthouseCheckRobotsTxt from './checks/lighthouse-check-robots-txt';
-import LighthouseCheckPlugins from './checks/lighthouse-check-plugins';
 import LighthouseCheckCrawlableAnchors from './checks/lighthouse-check-crawlable-anchors';
-import LighthouseCheckViewport from './checks/lighthouse-check-viewport';
-import LighthouseCheckFontSize from './checks/lighthouse-check-font-size';
-import LighthouseCheckTapTargets from './checks/lighthouse-check-tap-targets';
 import LighthouseCheckStructuredData from './checks/lighthouse-check-structured-data';
+
+const isMember = ConfigValues.get('is_member', 'admin') === '1';
 
 export default class LighthouseReport extends React.Component {
 	static defaultProps = {
 		startTime: false,
-		isMember: false,
 	};
 
 	constructor(props) {
@@ -50,7 +47,6 @@ export default class LighthouseReport extends React.Component {
 	}
 
 	render() {
-		const { isMember } = this.props;
 		const { remainingMinutes } = this.state;
 
 		const isActive =
@@ -162,14 +158,18 @@ export default class LighthouseReport extends React.Component {
 	}
 
 	getCooldownMessage() {
-		return sprintf(
-			// translators: %s: Minutes.
-			_n(
-				'SmartCrawl is just catching her breath - you can run another test in %s minute.',
-				'SmartCrawl is just catching her breath - you can run another test in %s minutes.',
+		return createInterpolateElement(
+			sprintf(
+				// translators: %1$s: plugin title, %2$s: minutes.
+				_n(
+					'<strong>%1$s</strong> is just catching her breath - you can run another test in %2$s minute.',
+					'<strong>%1$s</strong> is just catching her breath - you can run another test in %2$s minutes.',
+					this.state.remainingMinutes
+				),
+				ConfigValues.get('plugin_title', 'admin'),
 				this.state.remainingMinutes
 			),
-			this.state.remainingMinutes
+			{ strong: <strong /> }
 		);
 	}
 

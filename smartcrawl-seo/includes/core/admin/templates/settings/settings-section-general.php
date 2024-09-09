@@ -68,12 +68,17 @@ $this->render_view(
 	'toggle-group',
 	array(
 		'label'       => esc_html__( 'Admin Bar', 'smartcrawl-seo' ),
-		/* translators: %s: SmartCrawl plugin name */
-		'description' => sprintf( esc_html__( 'Add a shortcut to %s settings in the top WordPress Admin bar.', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title() ),
+		'description' => sprintf(
+			/* translators: 1,2: strong tag, 3: plugin title */
+			esc_html__( 'Add a shortcut to %1$s%3$s%2$s settings in the top WordPress Admin bar.', 'smartcrawl-seo' ),
+			'<strong>',
+			'</strong>',
+			\smartcrawl_get_plugin_title()
+		),
 		'separator'   => true,
 		'items'       => array(
 			'extras-admin_bar' => array(
-				/* translators: %s: SmartCrawl plugin name */
+				/* translators: %s: plugin title */
 				'label' => sprintf( esc_html__( 'Enable %s shortcut', 'smartcrawl-seo' ), \smartcrawl_get_plugin_title() ),
 			),
 		),
@@ -86,7 +91,13 @@ $this->render_view(
 	'toggle-group',
 	array(
 		'label'       => __( 'Meta Tags', 'smartcrawl-seo' ),
-		'description' => __( 'Choose what SmartCrawl modules you want available to use.', 'smartcrawl-seo' ),
+		'description' => sprintf(
+			/* translators: 1,2: strong tag, 3: plugin title */
+			__( 'Choose what %1$s%3$s%2$s modules you want available to use.', 'smartcrawl-seo' ),
+			'<strong>',
+			'</strong>',
+			\smartcrawl_get_plugin_title()
+		),
 		'separator'   => true,
 		'items'       => array(
 			'general-suppress-generator'           => array(
@@ -214,41 +225,55 @@ $this->render_view(
 	</div>
 </div>
 
-<div class="sui-box-settings-row">
-	<div class="sui-box-settings-col-1">
-		<label class="sui-settings-label"><?php esc_html_e( 'Usage Tracking', 'smartcrawl-seo' ); ?></label>
-		<p class="sui-description">
-			<?php
-			$hide_branding = \SmartCrawl\Controllers\White_Label::get()->is_hide_wpmudev_branding();
+<?php if ( \smartcrawl_is_tracking_allowed() ) : ?>
 
-			if ( $hide_branding ) :
-				esc_html_e( 'Help us improve SmartCrawl, by sharing anonymous, and non-sensitive usage data.', 'smartcrawl-seo' );
-			else :
-				echo sprintf(
-				/* translators: 1, 2: opening/closing span tag */
-					esc_html__( 'Help us improve SmartCrawl by sharing anonymous, and non-sensitive usage data. See %1$smore info%2$s about the data we collect.', 'smartcrawl-seo' ),
-					'<a href="https://wpmudev.com/docs/privacy/our-plugins/#usage-tracking" target="_blank">',
-					'</a>'
-				);
-			endif;
-			?>
-		</p>
-	</div>
-	<div class="sui-box-settings-col-2">
-		<div class="sui-form-field">
-			<label for="usage-tracking" class="sui-toggle">
-				<input
-					type="checkbox"
-					id="usage-tracking"
-					name="<?php echo esc_attr( $option_name ); ?>[usage_tracking]"
-					aria-labelledby="usage-tracking-label"
-					aria-describedby="usage-tracking-description"
-					<?php checked( $usage_tracking ); ?>
-				/>
-				<span class="sui-toggle-slider" aria-hidden="true"></span>
-				<span id="usage-tracking-label" class="sui-toggle-label"><?php esc_html_e( 'Allow Usage Tracking', 'smartcrawl-seo' ); ?></span>
-				<span id="usage-tracking-description" class="sui-description"><?php esc_html_e( 'Note: Usage tracking is completely anonymous and non-sensitive, and we only track features you are/aren’t using to make more informed feature decisions.', 'smartcrawl-seo' ); ?></span>
-			</label>
+	<div class="sui-box-settings-row">
+		<div class="sui-box-settings-col-1">
+			<label class="sui-settings-label"><?php esc_html_e( 'Usage Tracking', 'smartcrawl-seo' ); ?></label>
+			<p class="sui-description">
+				<?php
+				$show_doc_link = \smartcrawl_is_doc_link_enabled();
+
+				if ( $show_doc_link ) :
+					printf(
+					/* translators: 1, 2: opening/closing anchor tag, 3,4: strong tag, 5: plugin title */
+						esc_html__( 'Help us improve %3$s%5$s%4$s by sharing anonymous, and non-sensitive usage data. See %1$smore info%2$s about the data we collect.', 'smartcrawl-seo' ),
+						'<a href="https://wpmudev.com/docs/privacy/our-plugins/#usage-tracking" target="_blank">',
+						'</a>',
+						'<strong>',
+						'</strong>',
+						esc_html( \smartcrawl_get_plugin_title() )
+					);
+				else :
+					printf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						esc_html__( 'Help us improve %1$s%3$s%2$s, by sharing anonymous, and non-sensitive usage data.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						esc_html( \smartcrawl_get_plugin_title() )
+					);
+				endif;
+				?>
+			</p>
+		</div>
+		<div class="sui-box-settings-col-2">
+			<div class="sui-form-field">
+				<label for="usage-tracking" class="sui-toggle">
+					<input
+						type="checkbox"
+						id="usage-tracking"
+						name="<?php echo esc_attr( $option_name ); ?>[usage_tracking]"
+						aria-labelledby="usage-tracking-label"
+						aria-describedby="usage-tracking-description"
+						<?php checked( $usage_tracking ); ?>
+					/>
+					<span class="sui-toggle-slider" aria-hidden="true"></span>
+					<span id="usage-tracking-label" class="sui-toggle-label"><?php esc_html_e( 'Allow Usage Tracking', 'smartcrawl-seo' ); ?></span>
+					<span id="usage-tracking-description" class="sui-description"><?php esc_html_e( 'Note: Usage tracking is completely anonymous and non-sensitive, and we only track features you are/aren’t using to make more informed feature decisions.', 'smartcrawl-seo' ); ?></span>
+				</label>
+			</div>
 		</div>
 	</div>
-</div>
+
+	<?php
+endif;

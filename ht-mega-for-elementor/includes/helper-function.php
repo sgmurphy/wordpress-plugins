@@ -94,14 +94,14 @@ if( !function_exists('htmega_elementor_template') ){
                     $templates[$post->ID] = $post->post_title . '(' . $template_instance::get_template_type( $post->ID ). ')';
                 }
             }else{
-                $templates = [ '0' => __( 'Do not Saved Templates.', 'htmega-addons' ) ];
+                $templates = [ '0' => __( 'No saved templates found!', 'htmega-addons' ) ];
             }
             wp_reset_postdata();
 
             return $templates;
 
         }else{
-            return array( '0' => __( 'Do not Saved Templates.', 'htmega-addons' ) );
+            return array( '0' => __( 'No saved templates found!', 'htmega-addons' ) );
         }
     }
 }

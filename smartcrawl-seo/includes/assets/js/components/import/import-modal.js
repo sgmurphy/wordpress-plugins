@@ -1,11 +1,13 @@
 import React from 'react';
 import Modal from '../modal';
 import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import ImportOptions from './import-options';
 import ImportProgress from './import-progress';
 import ImportSuccess from './import-success';
 import ImportError from './import-error';
 import RequestUtil from '../../utils/request-util';
+import ConfigValues from '../../es6/config-values';
 
 export default class ImportModal extends React.Component {
 	static defaultProps = {
@@ -32,13 +34,17 @@ export default class ImportModal extends React.Component {
 					name: 'import-options',
 					checked: true,
 					label: __('Plugin Options', 'wds-texdomain'),
-					description: sprintf(
-						/* translators: %s: source plugin name. */
-						__(
-							'Import %s settings that are relevant to SmartCrawl.',
-							'wds-texdomain'
+					description: createInterpolateElement(
+						sprintf(
+							// translators: 1: source plugin name, 2: plugin title
+							__(
+								'Import <strong>%1$s</strong> settings that are relevant to <strong>%2$s</strong>.',
+								'wds-texdomain'
+							),
+							this.props.sourceName,
+							ConfigValues.get('plugin_title', 'admin')
 						),
-						this.props.sourceName
+						{ strong: <strong /> }
 					),
 				},
 				{
@@ -68,9 +74,16 @@ export default class ImportModal extends React.Component {
 						'Keep Existing Post Meta & Focus Keywords',
 						'wds-texdomain'
 					),
-					description: __(
-						'If you have already set up SmartCrawl on some posts and pages then enable this option to keep those values from getting overwritten.',
-						'wds-texdomain'
+					description: createInterpolateElement(
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'If you have already set up <strong>%s</strong> on some posts and pages then enable this option to keep those values from getting overwritten.',
+								'wds-texdomain'
+							),
+							ConfigValues.get('plugin_title', 'admin')
+						),
+						{ strong: <strong /> }
 					),
 				},
 			],

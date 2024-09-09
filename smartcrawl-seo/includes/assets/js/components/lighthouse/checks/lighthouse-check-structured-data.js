@@ -1,10 +1,11 @@
 import React from 'react';
 import Notice from '../../notices/notice';
+import { __, sprintf } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 import LighthouseUtil from '../utils/lighthouse-util';
 import LighthouseCheckItem from '../lighthouse-check-item';
 import Button from '../../button';
+import ConfigValues from '../../../es6/config-values';
 
 export default class LighthouseCheckStructuredData extends React.Component {
 	static defaultProps = {
@@ -73,11 +74,18 @@ export default class LighthouseCheckStructuredData extends React.Component {
 						</li>
 						<li>
 							{createInterpolateElement(
-								__(
-									"Create the structured data markup using SmartCrawl's <a>Schema Types Builder</a>, and ensure location rules are configured for the content types you want to make available to search engines.",
-									'smartcrawl-seo'
+								sprintf(
+									// translators: %s: plugin title
+									__(
+										"Create the structured data markup using <strong>%s</strong>'s <a>Schema Types Builder</a>, and ensure location rules are configured for the content types you want to make available to search engines.",
+										'smartcrawl-seo'
+									),
+									ConfigValues.get('plugin_title', 'admin')
 								),
-								{ a: <a href={schemaBuilderUrl} /> }
+								{
+									a: <a href={schemaBuilderUrl} />,
+									strong: <strong />,
+								}
 							)}
 						</li>
 						<li>

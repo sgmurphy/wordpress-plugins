@@ -955,7 +955,7 @@ function smartcrawl_file_put_contents( $file, $contents, $flags = 0 ) {
 
 	return ! is_null( $pre )
 		? $pre
-		: ! ! file_put_contents( $file, $contents, $flags ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		: (bool) file_put_contents( $file, $contents, $flags ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
 }
 
 /**
@@ -1052,16 +1052,23 @@ function smartcrawl_get_plugin_title() {
 }
 
 /**
+ * Determines if White Label is enabled.
+ *
+ * @return bool
+ */
+function smartcrawl_is_white_label_enabled() {
+	return class_exists( '\WPMUDEV_Dashboard' ) &&
+		isset( \WPMUDEV_Dashboard::$whitelabel ) &&
+		( ! method_exists( \WPMUDEV_Dashboard::$whitelabel, 'can_whitelabel' ) || \WPMUDEV_Dashboard::$whitelabel->can_whitelabel() );
+}
+
+/**
  * Retrieves white labeled title.
  *
  * @return string|false
  */
 function smartcrawl_get_white_labeled_title() {
-	if (
-		! class_exists( '\WPMUDEV_Dashboard' ) ||
-		! isset( \WPMUDEV_Dashboard::$whitelabel ) ||
-		( method_exists( \WPMUDEV_Dashboard::$whitelabel, 'can_whitelabel' ) && ! \WPMUDEV_Dashboard::$whitelabel->can_whitelabel() )
-	) {
+	if ( ! \smartcrawl_is_white_label_enabled() ) {
 		return false;
 	}
 
@@ -1090,6 +1097,43 @@ function smartcrawl_get_white_labeled_title() {
 	}
 
 	return false;
+}
+
+/**
+ * Retrieves docs link enabled status from white label.
+ *
+ * @return bool
+ */
+function smartcrawl_is_doc_link_enabled() {
+	if ( ! \smartcrawl_is_white_label_enabled() ) {
+		return true;
+	}
+
+	if ( ! method_exists( \WPMUDEV_Dashboard::$whitelabel, 'get_branding_hide_doc_link' ) ) {
+		return true;
+	}
+
+	return ! \WPMUDEV_Dashboard::$whitelabel->get_branding_hide_doc_link();
+}
+
+/**
+ * Checks if current user is allowed to manage Usage Tracking setting.
+ *
+ * @return bool
+ */
+function smartcrawl_is_tracking_allowed() {
+	if ( ! \smartcrawl_is_white_label_enabled() ) {
+		return true;
+	}
+
+	if (
+		isset( \WPMUDEV_Dashboard::$site ) &&
+		method_exists( \WPMUDEV_Dashboard::$site, 'allowed_user' )
+	) {
+		return \WPMUDEV_Dashboard::$site->allowed_user();
+	}
+
+	return true;
 }
 
 /**
@@ -1543,7 +1587,7 @@ function smartcrawl_print_admin_notice( $key, $title, $message, $action_url, $bu
 		<?php endif; ?>
 
 		<p style="margin-bottom:15px;">
-			<?php echo esc_html( $message ); ?>
+			<?php echo wp_kses( $message, wp_kses_allowed_html() ); ?>
 		</p>
 		<a
 			href="<?php echo esc_attr( $action_url ); ?>"
@@ -1738,4 +1782,33 @@ function smartcrawl_array_diff( $array1, $array2 ) {
 	}
 
 	return false;
+}
+
+/**
+ * Returns the admin email for the plugin.
+ *
+ * @return string The admin email HTML if available, otherwise "your DEV account email" HTML.
+ *
+ * @global \WPMUDEV_Dashboard $site
+ */
+function smartcrawl_get_admin_email() {
+	$admin_email = false;
+	$dash_email  = false;
+
+	if ( class_exists( '\WPMUDEV_Dashboard' ) && ! empty( \WPMUDEV_Dashboard::$site ) ) {
+		if ( is_callable( array( \WPMUDEV_Dashboard::$site, 'get_option' ) ) ) {
+			$dash_email = \WPMUDEV_Dashboard::$site->get_option( 'auth_user' );
+			if ( false !== strpos( $dash_email, '@' ) ) {
+				$admin_email = $dash_email;
+			}
+		}
+	}
+
+	if ( ! empty( $dash_email ) && ! empty( $admin_email ) ) {
+		$admin_email = sprintf( '<a href="mailto: %1$s"><strong>%1$s</strong></a>', $admin_email );
+	} else {
+		$admin_email = sprintf( '<strong>%1$s</strong>', esc_html__( 'your DEV account email', 'smartcrawl-seo' ) );
+	}
+
+	return $admin_email;
 }

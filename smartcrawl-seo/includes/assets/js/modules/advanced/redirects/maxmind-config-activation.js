@@ -1,5 +1,5 @@
 import React from 'react';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import Notice from '../../../components/notices/notice';
 import Button from '../../../components/button';
 import ConfigValues from '../../../es6/config-values';
@@ -82,14 +82,20 @@ class MaxmindConfigActivation extends React.Component {
 		if (!isMember) {
 			return (
 				<UpsellNotice
-					message={sprintf(
-						// translators: 1, 2: opening and closing anchor tags.
+					message={createInterpolateElement(
 						__(
-							'%1$sUnlock with SmartCrawl Pro%2$s to unlock the Location-Based Redirects feature.',
+							'<a>Unlock with SmartCrawl Pro</a> to unlock the Location-Based Redirects feature.',
 							'smartcrawl-seo'
 						),
-						'<a target="_blank" class="wds-maxmind-upsell-notice" href="https://wpmudev.com/project/smartcrawl-wordpress-seo/?utm_source=smartcrawl&utm_medium=plugin&utm_campaign=smartcrawl_redirect_location_based_settings_upsell">',
-						'</a>'
+						{
+							a: (
+								<a
+									target="_blank"
+									className="wds-maxmind-upsell-notice"
+									href="https://wpmudev.com/project/smartcrawl-wordpress-seo/?utm_source=smartcrawl&utm_medium=plugin&utm_campaign=smartcrawl_redirect_location_based_settings_upsell"
+								/>
+							),
+						}
 					)}
 				/>
 			);

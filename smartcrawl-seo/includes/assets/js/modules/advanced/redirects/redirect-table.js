@@ -557,7 +557,8 @@ class RedirectTable extends React.Component {
 			Object.values(this.state.redirects).filter((redirect) => {
 				return (
 					(!data.id || redirect.id !== data.id) &&
-					getFullUrl(redirect.source) === getFullUrl(source)
+					getFullUrl(redirect.source) ===
+						getFullUrl(encodeURI(decodeURI(source)))
 				);
 			}).length > 0
 		) {

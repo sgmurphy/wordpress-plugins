@@ -57,7 +57,11 @@ class Dashboard extends Admin_Settings {
 	 */
 	public function init() {
 		$this->slug       = Settings::TAB_DASHBOARD;
-		$this->page_title = __( 'SmartCrawl Wizard: Dashboard', 'smartcrawl-seo' );
+		$this->page_title = sprintf(
+			/* translators: %s: plugin title */
+			__( '%s Wizard: Dashboard', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'wp_ajax_wds-activate-component', array( $this, 'json_activate_component' ) );
 		add_action( 'wp_ajax_wds-reload-box', array( $this, 'json_reload_component' ) );

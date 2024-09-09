@@ -2,17 +2,18 @@ import React from 'react';
 import LighthouseProgressModal from './lighthouse-progress-modal';
 import { createInterpolateElement } from '@wordpress/element';
 import DisabledComponent from '../disabled-component';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import Button from '../button';
 import RequestUtil from '../../utils/request-util';
 import ConfigValues from '../../es6/config-values';
 import VerticalTab from '../vertical-tab';
 import UrlUtil from '../../utils/url-util';
 
+const isMember = ConfigValues.get('is_member', 'admin') === '1';
+
 export default class LighthouseNoData extends React.Component {
 	static defaultProps = {
 		startTime: '',
-		isMember: false,
 		image: '',
 	};
 
@@ -33,7 +34,7 @@ export default class LighthouseNoData extends React.Component {
 	}
 
 	render() {
-		const { startTime, image, isMember } = this.props;
+		const { startTime, image } = this.props;
 		const { openDialog, progress, statusMessage } = this.state;
 
 		const isActive =
@@ -50,19 +51,23 @@ export default class LighthouseNoData extends React.Component {
 					<LighthouseProgressModal
 						progress={progress}
 						statusMessage={statusMessage}
-						isMember={isMember}
 						onClose={() => this.setState({ openDialog: false })}
 					/>
 				)}
 				<DisabledComponent
 					imagePath={image}
 					message={createInterpolateElement(
-						__(
-							'Let’s find out what can be improved!<br/>SmartCrawl will run a quick SEO test against your Homepage, and then give you the tools to drastically improve your SEO.',
-							'smartcrawl-seo'
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'Let’s find out what can be improved!<br/><strong>%s</strong> will run a quick SEO test against your Homepage, and then give you the tools to drastically improve your SEO.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
 						),
 						{
 							br: <br />,
+							strong: <strong />,
 						}
 					)}
 					button={

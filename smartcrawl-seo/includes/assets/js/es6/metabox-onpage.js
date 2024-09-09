@@ -2,10 +2,10 @@ import $ from 'jQuery';
 import ConfigValues from './config-values';
 import { EventTarget } from 'event-target-shim';
 import { GutenbergPrimaryTerm } from './primary-term';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 
 class MetaboxOnpage extends EventTarget {
-
 	constructor() {
 		super();
 

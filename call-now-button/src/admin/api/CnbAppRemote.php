@@ -25,6 +25,8 @@ use WP_Error;
 
 class CnbAppRemote {
 
+	private static $transient_prefix = 'call-now-button_CnbAppRemote_';
+
 	/**
 	 * By creating a proxy method, we can easily stub this for testing
 	 *
@@ -155,7 +157,7 @@ class CnbAppRemote {
 	 * @return int|false false if not found, otherwise the current cache key
 	 */
 	public static function cnb__get_transient_base() {
-		$val = get_transient( self::cnb_get_api_base() );
+		$val = get_transient( self::$transient_prefix . self::cnb_get_api_base() );
 		if ( $val ) {
 			return (int) $val;
 		}
@@ -171,7 +173,7 @@ class CnbAppRemote {
 	public static function cnb_incr_transient_base( $time = null ) {
 		/** @noinspection PhpTernaryExpressionCanBeReducedToShortVersionInspection */
 		$value = $time ? $time : time();
-		set_transient( self::cnb_get_api_base(), $value );
+		set_transient( self::$transient_prefix . self::cnb_get_api_base(), $value );
 	}
 
 	public static function cnb_get_transient_base() {

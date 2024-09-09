@@ -2,6 +2,7 @@ import wp from 'wp';
 import _ from '_';
 import ConfigValues from './config-values';
 import StringUtils from './string-utils';
+import $ from 'jQuery';
 
 class MacroReplacement {
 	/**
@@ -143,7 +144,9 @@ class MacroReplacement {
 			},
 		};
 
-		load_required['%%ct_(desc_){0,1}([a-z_-]*)%%'] = (matches) => {
+		load_required['%%ct_(desc_){0,1}([a-zA-Z0-9!@#$^&*_+-=:;~]+)%%'] = (
+			matches
+		) => {
 			let field = 'name';
 			if (matches.length === 3 && matches[1] === 'desc_') {
 				field = 'description';
@@ -179,6 +182,30 @@ class MacroReplacement {
 						resolve(macro);
 					})
 					.catch(reject);
+			});
+		};
+
+		load_required['%%cf_([a-zA-Z0-9!@#$^&*_+-=:;~]+)%%'] = (matches) => {
+			return new Promise((resolve, reject) => {
+				if (matches && matches.length) {
+					const macro = {};
+
+					$('#postcustomstuff [id^="meta-"][id$="-key"]').each(
+						(index, el) => {
+							if (el.value === matches[1]) {
+								macro[matches[0]] = $(el)
+									.closest('td')
+									.siblings('td')
+									.find('[id^="meta-"][id$="-value"]')
+									.val();
+							}
+						}
+					);
+
+					resolve(macro);
+				} else {
+					reject();
+				}
 			});
 		};
 
@@ -226,13 +253,15 @@ class MacroReplacement {
 					}, {});
 
 					Object.keys(replacements).forEach((macro_key) => {
-						let regex = new RegExp(macro_key, 'g');
-						text = text.replace(regex, replacements[macro_key]);
+						text = text.replaceAll(
+							macro_key,
+							replacements[macro_key]
+						);
 					});
 
 					// Strip out any remaining unrecognized macros
 					let unrecognizedMacrosRegex = new RegExp(
-						'%%[a-zA-Z_]*%%',
+						'%%[a-zA-Z0-9!@#$^&*_+-=:;~]+%%',
 						'g'
 					);
 					text = text.replace(unrecognizedMacrosRegex, '');

@@ -14,7 +14,6 @@ import ClassicEditor from '../../../es6/classic-editor';
 import StringUtils from '../../../es6/string-utils';
 import FloatingNoticePlaceholder from '../../../components/floating-notice-placeholder';
 import NoticeUtil from '../../../utils/notice-util';
-import $ from 'jQuery';
 
 const macros = ConfigValues.get('macros', 'metabox');
 const titleMinLength = ConfigValues.get('title_min_length', 'metabox');

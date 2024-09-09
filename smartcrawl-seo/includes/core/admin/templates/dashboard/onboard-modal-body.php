@@ -120,29 +120,47 @@ $usage_tracking = Settings::get_value( 'usage_tracking', Settings::get_options()
 	</div>
 <?php endif; ?>
 
-<div class="wds-separator-top">
+<?php if ( \smartcrawl_is_tracking_allowed() ) : ?>
+
+	<div class="wds-separator-top">
+		<?php
+		$show_doc_link = \smartcrawl_is_doc_link_enabled();
+
+		$this->render_view(
+			'toggle-item',
+			array(
+				'field_name'       => 'usage-tracking-enable',
+				'checked'          => $usage_tracking,
+				'html_label'       => sprintf(
+					/* translators: 1, 2: opening/closing span tags */
+					__( 'Share Anonymous Usage Data %1$sRecommended%2$s', 'smartcrawl-seo' ),
+					'<span class="sui-tag sui-tag-sm">',
+					'</span>'
+				),
+				'html_description' => $show_doc_link ?
+					sprintf(
+						/* translators: 1,2: strong tag, 3: plugin title, 4,5: anchor tag */
+						esc_html__( 'Help us improve %1$s%3$s%2$s, and prevent errors by sharing anonymous and non-sensitive usage data. You can change this option in the settings. See %4$smore info%5$s about the data we collect.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						\smartcrawl_get_plugin_title(),
+						'<a href="https://wpmudev.com/docs/privacy/our-plugins/#usage-tracking-sc" target="_blank">',
+						'</a>'
+					)
+					: sprintf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						esc_html__( 'Help us improve %1$s%3$s%2$s, by sharing anonymous, and non-sensitive usage data.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						esc_html( \smartcrawl_get_plugin_title() )
+					),
+				'attributes'       => array(
+					'data-processing' => esc_attr__( 'Activating Usage Tracking', 'smartcrawl-seo' ),
+				),
+			)
+		);
+		?>
+	</div>
+
 	<?php
-	$this->render_view(
-		'toggle-item',
-		array(
-			'field_name'       => 'usage-tracking-enable',
-			'checked'          => $usage_tracking,
-			'html_label'       => sprintf(
-			/* translators: 1, 2: opening/closing span tags */
-				__( 'Share Anonymous Usage Data %1$sRecommended%2$s', 'smartcrawl-seo' ),
-				'<span class="sui-tag sui-tag-sm">',
-				'</span>'
-			),
-			'html_description' => sprintf(
-			/* translators: 1, 2: Opening/closing span tag */
-				__( 'Help us improve SmartCrawl, and prevent errors by sharing anonymous and non-sensitive usage data. You can change this option in the settings. See %1$smore info%2$s about the data we collect.', 'smartcrawl-seo' ),
-				'<a href="https://wpmudev.com/docs/privacy/our-plugins/#usage-tracking-sc" target="_blank">',
-				'</a>'
-			),
-			'attributes'       => array(
-				'data-processing' => esc_attr__( 'Activating Usage Tracking', 'smartcrawl-seo' ),
-			),
-		)
-	);
-	?>
-</div>
+endif;

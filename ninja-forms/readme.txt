@@ -5,7 +5,7 @@ Tags: forms, form builder, contact form, lead form, registration form
 
 Requires at least: 6.4
 Tested up to: 6.6.1
-Stable tag: 3.8.14
+Stable tag: 3.8.15
 
 Requires PHP: 7.4
 
@@ -312,16 +312,25 @@ This section describes how to install the plugin and get it working.
 5. Beautiful Forms Every Time!
 
 == Upgrade Notice ==
-= 3.8.14 (03 September 2024) =
+= 3.8.15 (10 September 2024) =
 *Bug Fixes:*
-- Ensure submissions page form filter finds form titles
-- Provide PHP 7.4 support for jsonSerialize method call
-- Ensure hCaptcha field functions when safe-listed
+- Ensure "From Address" email warning shows
+- Prevent JS error on datepicker inside fieldset repeater
 
 *Other:*
-- JS library updates
+- Add PHP compatibility tests
+- Add usage telemetry data
 
 == Changelog ==
+= 3.8.15 (10 September 2024) =
+*Bug Fixes:*
+- Ensure "From Address" email warning shows
+- Prevent JS error on datepicker inside fieldset repeater
+
+*Other:*
+- Add PHP compatibility tests
+- Add usage telemetry data
+
 = 3.8.14 (03 September 2024) =
 *Bug Fixes:*
 - Ensure submissions page form filter finds form titles

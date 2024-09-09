@@ -2069,10 +2069,7 @@ span.cnb-pro-badge {
 .cnb_inpage_notice {
     background-color: #fff;
     display: none;
-    align-items: center;
-    padding: 10px;
-    border-radius: 48px;
-    overflow: hidden;
+    padding: 5px 10px 10px 20px;
     border-left: 4px solid #00aa00;
     box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
     color: #3c434a;

@@ -5,6 +5,7 @@ import Notice from '../../notices/notice';
 import { createInterpolateElement } from '@wordpress/element';
 import LighthouseUtil from '../utils/lighthouse-util';
 import LighthouseToggle from '../lighthouse-toggle';
+import ConfigValues from '../../../es6/config-values';
 
 export default class LighthouseCheckCanonical extends React.Component {
 	static defaultProps = {
@@ -138,9 +139,13 @@ export default class LighthouseCheckCanonical extends React.Component {
 					</p>
 					<p>
 						{createInterpolateElement(
-							__(
-								'To help ensure your SEO efforts are up to snuff, see our blog post, <a>WordPress Canonicalization Made Simple With SmartCrawl</a>, for an easy setup guide to get canonicals right.',
-								'smartcrawl-seo'
+							sprintf(
+								// translators: %s: plugin title
+								__(
+									'To help ensure your SEO efforts are up to snuff, see our blog post, <a>WordPress Canonicalization Made Simple With <strong>%s</strong></a>, for an easy setup guide to get canonicals right.',
+									'smartcrawl-seo'
+								),
+								ConfigValues.get('plugin_title', 'admin')
 							),
 							{
 								a: (
@@ -150,6 +155,7 @@ export default class LighthouseCheckCanonical extends React.Component {
 										rel="noreferrer"
 									/>
 								),
+								strong: <strong />,
 							}
 						)}
 					</p>
@@ -287,9 +293,16 @@ export default class LighthouseCheckCanonical extends React.Component {
 				'smartcrawl-seo'
 			) +
 			'\n\n' +
-			__(
-				'For more information please check the SEO Audits section in SmartCrawl plugin.',
-				'smartcrawl-seo'
+			createInterpolateElement(
+				sprintf(
+					// translators: %s: plugin title
+					__(
+						'For more information please check the SEO Audits section in <strong>%s</strong> plugin.',
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
+				),
+				{ strong: <strong /> }
 			)
 		);
 	}

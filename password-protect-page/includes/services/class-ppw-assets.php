@@ -215,7 +215,7 @@ if ( ! class_exists( 'PPW_Asset_Services' ) ) {
 		public function load_assets_for_category_page() {
 			global $pagenow;
 			$module  = 'category';
-			$is_show = 'edit-tags.php' === $pagenow && isset( $_GET['taxonomy'] ) && 'category' === $_GET['taxonomy']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- We not hanlde nonce for load assets.
+			$is_show = 'edit-tags.php' === $pagenow && isset( $_GET['taxonomy'] ) && ( 'category' === $_GET['taxonomy'] || 'post_tag' === $_GET['taxonomy']); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- We not hanlde nonce for load assets.
 			$is_show = apply_filters( 'ppwp_is_load_assets_for_category_page', $is_show );
 			if ( $is_show ) {
 				$this->load_bundle_css( PPW_VERSION );

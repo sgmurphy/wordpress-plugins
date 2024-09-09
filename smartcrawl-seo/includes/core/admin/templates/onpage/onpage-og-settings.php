@@ -20,7 +20,15 @@ $current_description  = ! empty( $_view['options'][ "og-description-{$for_type}"
 
 $images_field_id = 'og-images-' . $for_type;
 $current_images  = ! empty( $_view['options'][ "og-images-{$for_type}" ] ) && is_array( $_view['options'][ "og-images-{$for_type}" ] ) ? $_view['options'][ "og-images-{$for_type}" ] : array();
-$macros          = empty( $macros ) ? array() : $macros;
+
+$current_images = array_filter(
+	$current_images,
+	function ( $image ) {
+		return wp_get_attachment_image_src( $image );
+	}
+);
+
+$macros = empty( $macros ) ? array() : $macros;
 
 $disable_first_image_id = 'og-disable-first-image-' . $for_type;
 $disable_first_image    = ! empty( $_view['options'][ $disable_first_image_id ] );

@@ -63,6 +63,7 @@ abstract class Settings extends Renderable {
 	const SEOMOZ_SUBMODULE      = 'seomoz';
 	const ROBOTS_SUBMODULE      = 'robots';
 
+	// todo: replace '_' with '-'.
 	const SETTINGS_MODULE = 'wds_settings';
 
 	/**
@@ -174,15 +175,12 @@ abstract class Settings extends Renderable {
 	 */
 	public static function get_all_components() {
 		return array(
-			self::COMP_AUTOLINKS,
 			self::COMP_ONPAGE,
 			self::COMP_SCHEMA,
 			self::COMP_SOCIAL,
 			self::COMP_SITEMAP,
 			self::COMP_HEALTH,
 			self::COMP_LIGHTHOUSE,
-			self::COMP_ROBOTS,
-			self::COMP_BREADCRUMBS,
 		);
 	}
 

@@ -1162,7 +1162,7 @@ class Options_Field {
                         array(
                             'id'    => 'single_blog_page',
                             'name'   => __( 'Single Blog Template.', 'htmega-addons' ),
-                            'desc'    => __( 'You can select Single blog page from here.', 'htmega-addons' ),
+                            'desc' => __( 'You can select a single blog page from here. Or create a ', 'htmega-addons' ) . ' <a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&tabs_group=library' ) ) . '">' . esc_html__( 'new one', 'htmega-addons' ) . '</a>',
                             'type'    => 'select',
                             'default' => '0',
                             'options' => htmega_elementor_template(),
@@ -1171,7 +1171,7 @@ class Options_Field {
                         array(
                             'id'    => 'archive_blog_page',
                             'name'   => __( 'Blog Template.', 'htmega-addons' ),
-                            'desc'    => __( 'You can select blog page from here.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select blog page from here. Or create a ', 'htmega-addons' ) . ' <a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&tabs_group=library' ) ) . '">' . esc_html__( 'new one', 'htmega-addons' ) . '</a>',
                             'type'    => 'select',
                             'default' => '0',
                             'options' => htmega_elementor_template(),
@@ -1180,7 +1180,7 @@ class Options_Field {
                         array(
                             'id'    => 'header_page',
                             'name'   => __( 'Header Template.', 'htmega-addons' ),
-                            'desc'    => __( 'You can select header template from here.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select header template from here. Or create a ', 'htmega-addons' ) . ' <a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&tabs_group=library' ) ) . '">' . esc_html__( 'new one', 'htmega-addons' ) . '</a>',
                             'type'    => 'select',
                             'default' => '0',
                             'options' => htmega_elementor_template(),
@@ -1189,7 +1189,7 @@ class Options_Field {
                         array(
                             'id'    => 'footer_page',
                             'name'   => __( 'Footer Template.', 'htmega-addons' ),
-                            'desc'    => __( 'You can select footer template from here.', 'htmega-addons' ),
+                            'desc'    => __( 'You can select footer template from here. Or create a ', 'htmega-addons' ) . ' <a href="' . esc_url( admin_url( 'edit.php?post_type=elementor_library&tabs_group=library' ) ) . '">' . esc_html__( 'new one', 'htmega-addons' ) . '</a>',
                             'type'    => 'select',
                             'default' => '0',
                             'options' => htmega_elementor_template(),

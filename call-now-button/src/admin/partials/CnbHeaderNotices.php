@@ -18,6 +18,22 @@ use cnb\utils\CnbUtils;
 use WP_Error;
 
 class CnbHeaderNotices {
+	/**
+	 * All notices that are prefixed with this string are Cloud notices specific to this plugin.
+	 *
+	 * @var string
+	 */
+	private $cnb_notice_prefix = 'call-now-button-notice-';
+
+	/**
+	 * Create a unique ID for a notice, with a prefix specific to this plugin.
+	 *
+	 * @return string
+	 */
+	public function generate_notice_id() {
+		return $this->cnb_notice_prefix . wp_generate_uuid4();
+	}
+
     /**
      * @return CnbNotice[]|string[]
      */
@@ -25,7 +41,7 @@ class CnbHeaderNotices {
         $transient_id = filter_input( INPUT_GET, 'tid', @FILTER_SANITIZE_STRING );
 
         $notices = array();
-        if ( $transient_id ) {
+        if ( $transient_id && strpos( $transient_id, $this->cnb_notice_prefix ) === 0 ) {
             $notices_cloud = get_transient( $transient_id );
             if ( is_array( $notices_cloud ) ) {
                 $notices = array_merge( $notices, $notices_cloud );
@@ -79,7 +95,8 @@ class CnbHeaderNotices {
         $register_url = $cnb_utils->get_app_url( 'register', 'upgrade-to-premium-options', 'callnowbutton.com' );
         $url          = $cnb_utils->get_app_url( '', 'manual_activation', 'sign-up-for-api' );
 
-        $message = '<h3 class="title cnb-remove-add-new">Enable NowButtons cloud features</h3>';
+        $message = '<h3 class="title cnb-remove-add-new">Account missing</h3>';
+        $message .= '<p class="title cnb-remove-add-new">The connection with NowButtons is enabled but the plugin is not connected to an account yet. Please activate it by connecting to a NowButtons account.</>';
         
         $message .= '<div class="option1-email"><h4>Email activation</h4>';
         $message .= self::cnb_settings_email_activation_input();
@@ -99,7 +116,7 @@ class CnbHeaderNotices {
         $message .= '<button class="button button-link" id="option1-email">Activate via email instead</button>';
 
         $adminNotices = CnbAdminNotices::get_instance();
-        $adminNotices->warning( $message );
+        $adminNotices->error( $message );
     }
 
     private function cnb_settings_api_key_invalid_notice() {

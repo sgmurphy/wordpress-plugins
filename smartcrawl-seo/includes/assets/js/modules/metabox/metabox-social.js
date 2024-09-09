@@ -1,5 +1,5 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
 import ConfigValues from '../../es6/config-values';
 import SocialItem from './social/social-item';
@@ -15,11 +15,15 @@ export default class MetaboxSocial extends React.Component {
 				<div className="wds-metabox-section sui-box-body">
 					<p>
 						{createInterpolateElement(
-							__(
-								"Customize this post's title, description and featured images for social shares. You can also configure the default settings for this post type in SmartCrawl's <a>Titles & Meta</a> area.",
-								'smartcrawl-seo'
+							sprintf(
+								// translators: %s: plugin title
+								__(
+									"Customize this post's title, description and featured images for social shares. You can also configure the default settings for this post type in <strong>%s</strong>'s <a>Titles & Meta</a> area.",
+									'smartcrawl-seo'
+								),
+								ConfigValues.get('plugin_title', 'admin')
 							),
-							{ a: <a href={tagOnpageUrl} /> }
+							{ a: <a href={tagOnpageUrl} />, strong: <strong /> }
 						)}
 					</p>
 					<SocialItem

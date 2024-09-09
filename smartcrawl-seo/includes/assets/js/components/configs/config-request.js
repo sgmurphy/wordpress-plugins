@@ -3,19 +3,19 @@ import RequestUtil from '../../utils/request-util';
 
 export default class ConfigRequest {
 	static sync() {
-		return this.post('wds_sync_hub_configs');
+		return this.post('smartcrawl_sync_configs');
 	}
 
 	static applyConfig(configId) {
-		return this.post('wds_apply_config', { config_id: configId });
+		return this.post('smartcrawl_apply_config', { config_id: configId });
 	}
 
 	static deleteConfig(configId) {
-		return this.post('wds_delete_config', { config_id: configId });
+		return this.post('smartcrawl_delete_config', { config_id: configId });
 	}
 
 	static updateConfig(configId, configName, configDescription) {
-		return this.post('wds_update_config', {
+		return this.post('smartcrawl_update_config', {
 			config_id: configId,
 			name: configName,
 			description: configDescription,
@@ -23,7 +23,7 @@ export default class ConfigRequest {
 	}
 
 	static createConfig(configName, configDescription) {
-		return this.post('wds_create_new_config', {
+		return this.post('smartcrawl_create_config', {
 			name: configName,
 			description: configDescription,
 		});
@@ -31,7 +31,7 @@ export default class ConfigRequest {
 
 	static uploadConfig(file) {
 		return RequestUtil.uploadFile(
-			'wds_upload_config',
+			'smartcrawl_upload_config',
 			ConfigValues.get('nonce', 'config'),
 			file
 		);

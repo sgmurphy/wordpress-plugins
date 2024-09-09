@@ -7,6 +7,7 @@ defined( 'ABSPATH' ) || die( '-1' );
 
 use cnb\admin\api\CnbAppRemote;
 use cnb\admin\models\CnbUser;
+use cnb\CnbHeaderNotices;
 use cnb\notices\CnbNotice;
 use WP_Error;
 
@@ -299,7 +300,7 @@ class CnbProfileController {
             // Create notification
             $notification   = array();
             $notification[] = new CnbNotice( 'success', '<p>Your profile has been updated.</p>' );
-            $transient_id   = 'cnb-' . wp_generate_uuid4();
+            $transient_id   = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $notification, HOUR_IN_SECONDS );
 
             if ( $page_source === 'domain-upgrade' ) {

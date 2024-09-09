@@ -339,7 +339,7 @@ abstract class Hub_Abstract {
 		}
 
 		$configs = json_decode( wp_json_encode( $params->configs ), true );
-		Configs\Controller::get()->apply_config( $configs );
+		Configs\Controller::get()->apply_handler( $configs );
 		wp_send_json_success();
 	}
 

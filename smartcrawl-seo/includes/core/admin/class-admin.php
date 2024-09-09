@@ -64,6 +64,8 @@ class Admin extends Controllers\Controller {
 		}
 
 		add_action( 'admin_init', array( $this, 'register_setting' ) );
+		add_action( 'admin_init', array( $this, 'manage_plugin_title' ) );
+
 		add_filter( 'load-index.php', array( $this, 'enqueue_dashboard_resources' ), 20 );
 
 		add_action( 'wp_ajax_wds_dismiss_message', array( $this, 'smartcrawl_dismiss_message' ) );
@@ -138,6 +140,33 @@ class Admin extends Controllers\Controller {
 	}
 
 	/**
+	 * Applies white labeled plugin name if necessary.
+	 */
+	public function manage_plugin_title() {
+		add_filter('get_text', 'manage_plugin_title');
+		$modules = array(
+			'settings',
+			'sitemap',
+			'onpage',
+			'social',
+			'schema',
+		);
+
+		foreach ( $modules as $module ) {
+			if ( $this->get_handler( $module ) ) {
+				register_setting(
+					"wds_{$module}_options",
+					"wds_{$module}_options",
+					array(
+						$this->get_handler( $module ),
+						'validate',
+					)
+				);
+			}
+		}
+	}
+
+	/**
 	 * Admin page handler getter
 	 *
 	 * @param string $handler Handler to get.
@@ -183,9 +212,6 @@ class Admin extends Controllers\Controller {
 			return false;
 		}
 
-		$admin_bar->add_node( $this->create_admin_bar_node( Settings::TAB_DASHBOARD, __( 'SmartCrawl', 'smartcrawl-seo' ) ) );
-		$admin_bar->add_node( $this->create_admin_bar_node( Settings::TAB_DASHBOARD . '_dashboard', __( 'Dashboard', 'smartcrawl-seo' ), Settings::TAB_DASHBOARD ) );
-
 		$optional_nodes = array();
 
 		foreach ( $this->handlers as $handler ) {
@@ -202,8 +228,13 @@ class Admin extends Controllers\Controller {
 
 		$optional_nodes = apply_filters( 'smartcrawl_admin_bar_menu', $optional_nodes );
 
-		foreach ( $optional_nodes as $optional_node ) {
-			$admin_bar->add_node( $optional_node );
+		if ( ! empty( $optional_nodes ) ) {
+			$admin_bar->add_node( $this->create_admin_bar_node( Settings::TAB_DASHBOARD, \smartcrawl_get_plugin_title() ) );
+			$admin_bar->add_node( $this->create_admin_bar_node( Settings::TAB_DASHBOARD . '_dashboard', __( 'Dashboard', 'smartcrawl-seo' ), Settings::TAB_DASHBOARD ) );
+
+			foreach ( $optional_nodes as $optional_node ) {
+				$admin_bar->add_node( $optional_node );
+			}
 		}
 
 		return true;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import SettingsRow from '../../../components/settings-row';
 import ConfigValues from '../../../es6/config-values';
 import Select from '../../../components/input-fields/select';
@@ -76,9 +77,16 @@ class RedirectSettings extends React.Component {
 						: __('URL Redirection', 'smartcrawl-seo')
 				}
 				activateProps={{
-					message: __(
-						'Configure SmartCrawl to automatically redirect traffic from one URL to another. Use this tool if you have changed a page’s URL and wish to keep traffic flowing to the new page.',
-						'smartcrawl-seo'
+					message: createInterpolateElement(
+						sprintf(
+							// translators: %s: plugin title
+							__(
+								'Configure <strong>%s</strong> to automatically redirect traffic from one URL to another. Use this tool if you have changed a page’s URL and wish to keep traffic flowing to the new page.',
+								'smartcrawl-seo'
+							),
+							ConfigValues.get('plugin_title', 'admin')
+						),
+						{ strong: <strong /> }
 					),
 				}}
 				deactivateProps={{

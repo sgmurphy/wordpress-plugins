@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Modal from '../modal';
 import Button from '../button';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 import ConfigValues from '../../es6/config-values';
 import RequestUtil from '../../utils/request-util';
 
@@ -42,9 +43,16 @@ export default class DataResetModal extends React.Component {
 			<Modal
 				id="wds-data-reset-modal"
 				title={__('Reset Settings & Data', 'smartcrawl-seo')}
-				description={__(
-					'Are you sure you want to reset SmartCrawl’s settings and data back to the factory defaults?',
-					'smartcrawl-seo'
+				description={createInterpolateElement(
+					sprintf(
+						// translators: %s: plugin title
+						__(
+							"Are you sure you want to reset <strong>%s</strong>'s settings and data back to the factory defaults?",
+							'smartcrawl-seo'
+						),
+						ConfigValues.get('plugin_title', 'admin')
+					),
+					{ strong: <strong /> }
 				)}
 				focusAfterOpen="wds-data-reset-cancel-button"
 				focusAfterClose="wds-data-reset-button"

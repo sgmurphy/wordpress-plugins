@@ -785,6 +785,92 @@ class PPW_Admin {
 		wp_die( true );
 	}
 
+	/**
+	 * Update Tag settings.
+	 */
+	public function ppw_free_update_tag_settings() {
+	
+		$nonce_verification = check_ajax_referer( PPW_Constants::GENERAL_FORM_NONCE, 'security_check' );
+
+		if ( ! $nonce_verification ) {
+			wp_send_json(
+				array(
+					'is_error' => true,
+					'message'  => PPW_Constants::BAD_REQUEST_MESSAGE,
+				),
+				400
+			);
+
+			wp_die();
+		}
+		if ( isset( $_REQUEST['settings'], $_REQUEST['settings']['ppwp_is_protect_tag'] ) && 'false' === $_REQUEST['settings']['ppwp_is_protect_tag'] ) {
+			$data = get_option( PPW_Tag_Service::OPTION_NAME, false );
+			if ( $data ) {
+				$data                           = json_decode( $data );
+				$data->ppwp_is_protect_tag = false;
+				update_option( PPW_Tag_Service::OPTION_NAME, wp_json_encode( $data ) );
+			} else {
+				update_option( PPW_Tag_Service::OPTION_NAME, wp_json_encode( array( 'ppwp_is_protect_tag' => false ) ) );
+			}
+
+			return wp_die( true );
+		}
+
+		$setting_keys = apply_filters(
+			'ppw_tag_keys',
+			array(
+				'ppwp_is_protect_tag',
+				'ppwp_tags_password',
+				'ppwp_protected_tags_selected',
+			)
+		);
+
+		$data_settings = apply_filters( 'ppw_tag_data_settings', wp_unslash( $_REQUEST['settings'] ), $setting_keys ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- We no need to sanitize settings params.
+		if ( ppw_free_is_setting_data_invalid( $_REQUEST, $setting_keys, false ) ) {
+			wp_send_json(
+				array(
+					'is_error' => true,
+					'message'  => PPW_Constants::BAD_REQUEST_MESSAGE,
+				),
+				400
+			);
+
+			wp_die();
+		}
+
+		do_action( 'ppw_before_update_tag_settings', $setting_keys, $data_settings );
+
+		$passwords = PPW_Repository_Passwords::get_instance()->get_all_shared_tags_password();
+
+		// Add new shared password if password is not exist
+		// Update password if it is exist.
+		if ( count( $passwords ) > 0 ) {
+			$password_id = $passwords[0]->id;
+			PPW_Repository_Passwords::get_instance()->update_password(
+				$password_id,
+				array(
+					'password' => $data_settings['ppwp_tags_password'],
+				)
+			);
+		} else {
+			PPW_Repository_Passwords::get_instance()->add_new_password(
+				array(
+					'password'          => $data_settings['ppwp_tags_password'],
+					'post_id'           => 0,
+					'contact_id'        => 0,
+					'campaign_app_type' => PPW_Tag_Service::SHARED_TAG_TYPE,
+					'hits_count'        => 0,
+					'created_time'      => time(),
+				)
+			);
+		}
+		unset( $data_settings['ppwp_tags_password'] );
+
+		update_option( PPW_Tag_Service::OPTION_NAME, wp_json_encode( $data_settings ), 'no' );
+
+		wp_die( true );
+	}
+
 	public function ppw_free_update_entire_site_settings() {
 		$request = wp_unslash( $_REQUEST );
 		if ( ppw_free_is_entire_site_settings_data_invalid( $request ) ) {

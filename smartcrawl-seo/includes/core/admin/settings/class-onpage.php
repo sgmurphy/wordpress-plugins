@@ -374,7 +374,11 @@ class Onpage extends Admin_Settings {
 		$this->name        = Settings::COMP_ONPAGE;
 		$this->slug        = Settings::TAB_ONPAGE;
 		$this->action_url  = admin_url( 'options.php' );
-		$this->page_title  = __( 'SmartCrawl Wizard: Title & Meta', 'smartcrawl-seo' );
+		$this->page_title  = sprintf(
+		/* translators: %s: plugin title */
+			__( '%s Wizard: Title & Meta', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'wp_ajax_wds-onpage-save-static-home', array( $this, 'json_save_static_homepage_meta' ) );
 		// Deactivate action.

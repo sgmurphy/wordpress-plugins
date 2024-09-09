@@ -11,7 +11,7 @@ use SmartCrawl\Configs\Collection;
 use SmartCrawl\Controllers;
 use SmartCrawl\Singleton;
 use SmartCrawl\Settings;
-use SmartCrawl\Admin\Settings as Admin_Settings;
+use function smartcrawl_get_post_types;
 
 /**
  * Upgrader Controller.
@@ -36,7 +36,7 @@ class Controller extends Controllers\Controller {
 	 */
 	protected function init() {
 		add_action( 'init', array( $this, 'redirect_admin_pages' ) );
-		add_action( 'wds_plugin_update', array( $this, 'upgrade_post_types_to_343' ), 10, 2 );
+		add_action( 'wds_plugin_update', array( $this, 'upgrade_pre_343_post_types' ), 10, 2 );
 		add_action( 'wds_plugin_update', array( $this, 'upgrade_advanced_options' ), 10, 2 );
 	}
 
@@ -57,8 +57,8 @@ class Controller extends Controllers\Controller {
 
 		$page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
 
-		if ( 0 !== strpos( $page, 'wds_' ) && 0 !== strpos( $page, 'wds-' ) ) {
-				return;
+		if ( ! str_starts_with( $page, 'wds_' ) && ! str_starts_with( $page, 'wds-' ) ) {
+			return;
 		}
 
 		$redirect_url = '';
@@ -112,7 +112,7 @@ class Controller extends Controllers\Controller {
 	 *
 	 * @return void
 	 */
-	public function upgrade_post_types_to_343( $new_version, $old_version ) {
+	public function upgrade_pre_343_post_types( $new_version, $old_version ) {
 		// Only if old version is less than 3.4.3.
 		if ( version_compare( $old_version, '3.4.3', '>=' ) ) {
 			return;
@@ -120,64 +120,71 @@ class Controller extends Controllers\Controller {
 
 		$insert          = array();
 		$link_to         = array();
-		$options         = get_option( 'wds_autolinks_options', array() );
-		$post_type_names = array_keys( \smartcrawl_get_post_types() );
+		$autolinks_opts  = get_option( 'wds_autolinks_options', array() );
+		$post_type_names = array_keys( smartcrawl_get_post_types() );
 
 		// Check each post types for enabled status.
 		foreach ( array_merge( $post_type_names, array( 'comment', 'product_cat' ) ) as $insert_key ) {
-			if ( ! empty( $options[ $insert_key ] ) ) {
+			if ( ! empty( $autolinks_opts[ $insert_key ] ) ) {
 				// Remove old value.
-				unset( $options[ $insert_key ] );
+				unset( $autolinks_opts[ $insert_key ] );
 				$insert[] = $insert_key;
 			}
 		}
 		// Set link to option.
 		foreach ( $post_type_names as $post_type ) {
-			if ( ! empty( $options[ 'l' . $post_type ] ) ) {
+			if ( ! empty( $autolinks_opts[ 'l' . $post_type ] ) ) {
 				// Remove old value.
-				unset( $options[ 'l' . $post_type ] );
+				unset( $autolinks_opts[ 'l' . $post_type ] );
 				$link_to[] = 'l' . $post_type;
 			}
 		}
 		foreach ( get_taxonomies() as $taxonomy ) {
 			$tax = get_taxonomy( $taxonomy );
 			$key = strtolower( $tax->labels->name );
-			if ( ! empty( $options[ 'l' . $key ] ) ) {
+			if ( ! empty( $autolinks_opts[ 'l' . $key ] ) ) {
 				// Remove old value.
-				unset( $options[ 'l' . $key ] );
+				unset( $autolinks_opts[ 'l' . $key ] );
 				$link_to[] = 'l' . $key;
 			}
 		}
 
-		$options['insert']  = $insert;
-		$options['link_to'] = $link_to;
+		if ( empty( $insert ) && empty( $link_to ) ) {
+			return;
+		}
 
-		update_option( 'wds_autolinks_options', $options );
+		$options = get_option( Settings::ADVANCED_MODULE, array() );
+
+		$options['autolinks'] = array(
+			'insert'  => $insert,
+			'link_to' => $link_to,
+		);
+
+		update_option( Settings::ADVANCED_MODULE, $options );
 	}
 
 	/**
-	 * Upgrades pre v3.9.1 advanced module db settings to latest structure.
+	 * Upgrades pre v3.10.0 advanced module db settings to latest structure.
 	 *
-	 * @since 3.8.0
-	 *
-	 * @param string       $new_version New version.
-	 * @param string|false $old_version Old version.
+	 * @param string $new_version New version.
+	 * @param string $old_version Old version.
+	 * @param bool   $override If true, overrides existing values. Otherwise, skip.
 	 *
 	 * @return void
 	 */
-	public function upgrade_advanced_options( $new_version, $old_version ) {
+	public function upgrade_advanced_options( $new_version, $old_version, $override = false ) {
 		if ( ! $old_version || version_compare( $old_version, '3.10.0', '>=' ) ) {
 			return;
 		}
 
-		$options         = get_option( Settings::ADVANCED_MODULE, array() );
+		$options         = $override ? array() : get_option( Settings::ADVANCED_MODULE, array() );
 		$autolinks_opts  = get_option( 'wds_autolinks_options', array() );
 		$woo_opts        = get_option( 'wds_woocommerce_options', array() );
 		$settings_opts   = get_option( 'wds_settings_options', array() );
 		$breadcrumb_opts = get_option( 'wds_breadcrumb_options', array() );
 		$robots_opts     = get_option( 'wds_robots_options', array() );
 
-		$this->set_option( $options, 'autolinks', 'active', ! empty( $settings_opts['autolinks'] ) );
+		$this->set_option( $options, 'autolinks', 'active', ! empty( $settings_opts['autolinks'] ) || ! empty( $autolinks_opts['wds_autolinks-setup'] ) );
 
 		$keys = array(
 			'ignorepost',
@@ -204,7 +211,7 @@ class Controller extends Controllers\Controller {
 		);
 
 		foreach ( $keys as $key ) {
-			$this->set_option( $options, 'autolinks', $key, $autolinks_opts, $key );
+			$this->set_option( $options, 'autolinks', $key, $autolinks_opts, $key, true );
 		}
 
 		$this->set_option( $options, 'redirects', 'active', ! isset( $settings_opts['redirects'] ) || ! empty( $settings_opts['redirects'] ) );
@@ -268,17 +275,25 @@ class Controller extends Controllers\Controller {
 
 			update_site_option( 'wds_blog_tabs', $modules );
 		}
+
 		// Update config options wds_blog_tabs with new advanced tool changes.
 		$configs = Collection::get()->get_deflated_configs();
+
 		if ( ! empty( $configs ) ) {
 			foreach ( $configs as $config ) {
-				$wds_blog_tabs = $config['configs']['options']['wds_blog_tabs'] ?? array();
+				$wds_blog_tabs = isset( $config['configs']['options']['wds_blog_tabs'] ) ? $config['configs']['options']['wds_blog_tabs'] : array();
+
 				if ( isset( $wds_blog_tabs['wds_autolinks'] ) ) {
 					$config['configs']['options']['wds_blog_tabs'][ Settings::ADVANCED_MODULE ] = $wds_blog_tabs['wds_autolinks'];
 					Collection::get()->update_config_blog_tabs_settings( $config['id'], $config );
 				}
 			}
 		}
+
+		delete_option( 'wds_autolinks_options' );
+		delete_option( 'wds_woocommerce_options' );
+		delete_option( 'wds_breadcrumb_options' );
+		delete_option( 'wds_robots_options' );
 	}
 
 	/**
@@ -288,7 +303,7 @@ class Controller extends Controllers\Controller {
 	 * @param string       $submodule Module name.
 	 * @param string       $option Submodule name.
 	 * @param array|string $value Options where to get value if $old_option param exists. If not, old option value.
-	 * @param string       $old_option Optional. Old option value.
+	 * @param bool|string  $old_option Optional. Old option value.
 	 *
 	 * @return void
 	 */

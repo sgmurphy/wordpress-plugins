@@ -29,7 +29,7 @@ if ( ! $show_social_tab && ! $show_onpage_tabs ) {
 
 		<div class="sui-box">
 			<div class="sui-box-header">
-				<h2 class="sui-box-title"><?php esc_html_e( 'SmartCrawl', 'smartcrawl-seo' ); ?></h2>
+				<h2 class="sui-box-title"><?php echo \smartcrawl_get_plugin_title(); ?></h2>
 			</div>
 
 			<div>

@@ -25,10 +25,7 @@ const opts = {
 
 const SwitchMsgField = fieldWithValidation(
 	TextInputField,
-	new Validator(
-		isNonEmpty,
-		__('Please share which plugin.', 'smartcrawl-seo')
-	)
+	new Validator(isNonEmpty)
 );
 
 export default class DeactivationSurvey extends React.Component {
@@ -44,7 +41,6 @@ export default class DeactivationSurvey extends React.Component {
 			open: true,
 			selected: false,
 			messages: {},
-			error: false,
 			valid: true,
 			submitting: false,
 			skipping: false,
@@ -72,14 +68,6 @@ export default class DeactivationSurvey extends React.Component {
 
 	handleEvent(skipped) {
 		const { selected, messages } = this.state;
-
-		if (!skipped && !selected) {
-			this.setState({
-				error: true,
-				valid: true,
-			});
-			return;
-		}
 
 		this.setState({
 			submitting: !skipped,
@@ -138,10 +126,7 @@ export default class DeactivationSurvey extends React.Component {
 	validateSelection() {
 		const { selected, messages } = this.state;
 
-		const states = {
-			error: false,
-			valid: true,
-		};
+		const states = { valid: true };
 
 		if (selected === 'switching' && !messages?.switching?.valid) {
 			states.valid = false;
@@ -157,8 +142,7 @@ export default class DeactivationSurvey extends React.Component {
 			return '';
 		}
 
-		const { selected, messages, error, submitting, skipping, valid } =
-			this.state;
+		const { selected, messages, submitting, skipping, valid } = this.state;
 
 		return (
 			<Modal
@@ -233,6 +217,10 @@ export default class DeactivationSurvey extends React.Component {
 										}
 										value={messages[key]?.content}
 										isValid={messages[key]?.valid}
+										placeholder={__(
+											'Please kindly tell us which plugin you are switching to.',
+											'smartcrawl-seo'
+										)}
 										validateOnInit
 									/>
 								)}
@@ -241,22 +229,15 @@ export default class DeactivationSurvey extends React.Component {
 									onChange={(msg) =>
 										this.setMessage(key, msg, true)
 									}
+									placeholder={__(
+										'Please tell us why. (optional)',
+										'smartcrawl-seo'
+									)}
 									value={messages[key]?.content}
 								/>
 							)}
 						</div>
 					))}
-					{!!error && (
-						<div className="sui-col-12 sui-padding-top">
-							<Notice
-								type="error"
-								message={__(
-									'Please select an option from the list above.',
-									'smartcrawl-seo'
-								)}
-							/>
-						</div>
-					)}
 				</div>
 			</Modal>
 		);

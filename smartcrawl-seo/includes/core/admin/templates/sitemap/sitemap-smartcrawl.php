@@ -58,7 +58,13 @@ if ( $native_sitemap_available ) {
 			</button>
 
 			<p class="sui-description">
-				<?php esc_html_e( 'Note: SmartCrawl sitemap will be disabled.', 'smartcrawl-seo' ); ?>
+				<?php
+				printf(
+					/* translators: %s: plugin title */
+					esc_html__( 'Note: %s sitemap will be disabled.', 'smartcrawl-seo' ),
+					esc_html( \smartcrawl_get_plugin_title() )
+				);
+				?>
 			</p>
 		</div>
 	</div>

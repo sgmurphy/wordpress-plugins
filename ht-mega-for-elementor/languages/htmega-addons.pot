@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HT Mega – Absolute Addons for Elementor.\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-18 11:31+0000\n"
+"POT-Creation-Date: 2024-09-08 11:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -88,7 +88,7 @@ msgid "%1$s UPGRADE NOW %2$s"
 msgstr ""
 
 #. %s: Number of installations.
-#: includes/recommended-plugins/class.recommended-plugins.php:300
+#: includes/recommended-plugins/class.recommended-plugins.php:302
 #, php-format
 msgid "%s Active Installations"
 msgstr ""
@@ -235,8 +235,16 @@ msgstr ""
 msgid "13"
 msgstr ""
 
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:25
+msgid "130+ Elemetor Custom Widgets"
+msgstr ""
+
 #: includes/widgets/htmega_booked_calender.php:80
 msgid "14"
+msgstr ""
+
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:26
+msgid "14+ Essential Modules"
 msgstr ""
 
 #: includes/widgets/htmega_booked_calender.php:81
@@ -253,6 +261,10 @@ msgstr ""
 
 #: includes/widgets/htmega_booked_calender.php:83
 msgid "17"
+msgstr ""
+
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:27
+msgid "170+ Page Templates"
 msgstr ""
 
 #: includes/widgets/htmega_booked_calender.php:84
@@ -534,6 +546,10 @@ msgstr ""
 msgid "7 seconds"
 msgstr ""
 
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:28
+msgid "790+ Elementor Blocks Template"
+msgstr ""
+
 #: extensions/wc-sales-notification/admin/setting.php:125
 msgid "8 seconds"
 msgstr ""
@@ -670,14 +686,14 @@ msgstr ""
 
 #: admin/include/template-library.php:286
 #: admin/include/template-library.php:338
-#: includes/recommended-plugins/class.recommended-plugins.php:245
+#: includes/recommended-plugins/class.recommended-plugins.php:247
 msgid "Activate"
 msgstr ""
 
 #: admin/include/template-library.php:297
 #: admin/include/template-library.php:349
 #: includes/recommended-plugins/class.recommended-plugins.php:128
-#: includes/recommended-plugins/class.recommended-plugins.php:256
+#: includes/recommended-plugins/class.recommended-plugins.php:258
 msgid "Activated"
 msgstr ""
 
@@ -3238,8 +3254,8 @@ msgstr ""
 #: includes/class.assests.php:427 admin/include/template-library.php:305
 #: admin/include/template-library.php:357
 #: includes/recommended-plugins/class.recommended-plugins.php:124
-#: includes/recommended-plugins/class.recommended-plugins.php:233
-#: includes/recommended-plugins/class.recommended-plugins.php:287
+#: includes/recommended-plugins/class.recommended-plugins.php:235
+#: includes/recommended-plugins/class.recommended-plugins.php:289
 #: admin/include/settings-panel/includes/classes/Admin/Menu.php:76
 msgid "Buy Now"
 msgstr ""
@@ -3248,7 +3264,7 @@ msgstr ""
 msgid "BUY PRO"
 msgstr ""
 
-#: includes/recommended-plugins/class.recommended-plugins.php:273
+#: includes/recommended-plugins/class.recommended-plugins.php:275
 msgid "By "
 msgstr ""
 
@@ -4887,7 +4903,6 @@ msgstr ""
 msgid "div"
 msgstr ""
 
-#: includes/helper-function.php:97 includes/helper-function.php:104
 #: extensions/ht-menu/menu/helper_function.php:17
 msgid "Do not Saved Templates."
 msgstr ""
@@ -4898,7 +4913,7 @@ msgid ""
 "Pro )</span>"
 msgstr ""
 
-#: includes/class.htmega.php:463
+#: includes/class.htmega.php:451
 #: admin/include/templates/dashboard-widget.php:94
 #: admin/include/settings-panel/includes/templates/dashboard-general.php:25
 msgid "Documentation"
@@ -5412,7 +5427,7 @@ msgstr ""
 msgid "Expand Item Height"
 msgstr ""
 
-#: includes/twitteroauth.php:700
+#: includes/twitteroauth.php:701
 #, php-format
 msgid "Expired timestamp, yours %1$s, ours %2$s"
 msgstr ""
@@ -5445,7 +5460,7 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: includes/class.htmega.php:464
+#: includes/class.htmega.php:452
 msgid "Facebook Group"
 msgstr ""
 
@@ -5891,8 +5906,16 @@ msgstr ""
 msgid "Gerald Gilbert"
 msgstr ""
 
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:23
+msgid "Get HT Mega Pro"
+msgstr ""
+
 #: admin/include/settings-panel/includes/templates/dashboard-general.php:27
 msgid "Get Now"
+msgstr ""
+
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:31
+msgid "Get Pro Now"
 msgstr ""
 
 #: admin/include/settings-panel/includes/templates/dashboard-general.php:49
@@ -6046,7 +6069,7 @@ msgstr ""
 msgid "hastechit"
 msgstr ""
 
-#: includes/recommended-plugins/class.recommended-plugins.php:230
+#: includes/recommended-plugins/class.recommended-plugins.php:232
 msgid "HasTheme"
 msgstr ""
 
@@ -6054,7 +6077,7 @@ msgstr ""
 msgid "HasThemes"
 msgstr ""
 
-#: admin/admin-init.php:170
+#: admin/admin-init.php:156
 msgid "HasThemes Stories"
 msgstr ""
 
@@ -6528,7 +6551,7 @@ msgstr ""
 
 #: includes/widgets/htmega_call_to_action.php:115
 #: admin/include/settings-panel/includes/templates/sidebar-banner.php:15
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:25
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:38
 msgid "HT Mega Addons"
 msgstr ""
 
@@ -6911,7 +6934,7 @@ msgstr ""
 msgid "If need to different from prev button"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:36
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:49
 msgid ""
 "If you’re loving how our product has helped your business, please let the "
 "WordPress community know by"
@@ -7326,7 +7349,7 @@ msgstr ""
 
 #: admin/include/template-library.php:292
 #: admin/include/template-library.php:344
-#: includes/recommended-plugins/class.recommended-plugins.php:251
+#: includes/recommended-plugins/class.recommended-plugins.php:253
 msgid "Install Now"
 msgstr ""
 
@@ -7358,7 +7381,7 @@ msgstr ""
 msgid "Interactive Promo"
 msgstr ""
 
-#: includes/twitteroauth.php:646
+#: includes/twitteroauth.php:647
 #, php-format
 msgid "Invalid %1$s token: %2$s"
 msgstr ""
@@ -7379,7 +7402,7 @@ msgstr ""
 msgid "Invalid Request"
 msgstr ""
 
-#: includes/twitteroauth.php:681
+#: includes/twitteroauth.php:682
 msgid "Invalid signature"
 msgstr ""
 
@@ -7801,7 +7824,7 @@ msgstr ""
 msgid "Leave a Reply"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:36
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:49
 msgid "leaving us a review on our WP repository"
 msgstr ""
 
@@ -8748,6 +8771,10 @@ msgstr ""
 msgid "Mega Menu Background Color"
 msgstr ""
 
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:29
+msgid "Mega Menu Builder, Theme Builder, Advanced Slider and much More.."
+msgstr ""
+
 #: extensions/ht-menu/classes/class.mega-menu.php:89
 msgid "Mega Menu Settings"
 msgstr ""
@@ -8889,11 +8916,11 @@ msgstr ""
 msgid "missing feature"
 msgstr ""
 
-#: includes/twitteroauth.php:717
+#: includes/twitteroauth.php:718
 msgid "Missing nonce parameter. The parameter is required"
 msgstr ""
 
-#: includes/twitteroauth.php:691
+#: includes/twitteroauth.php:692
 msgid "Missing timestamp parameter. The parameter is required"
 msgstr ""
 
@@ -8981,7 +9008,7 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-#: includes/recommended-plugins/class.recommended-plugins.php:295
+#: includes/recommended-plugins/class.recommended-plugins.php:297
 msgid "More Details"
 msgstr ""
 
@@ -9042,6 +9069,13 @@ msgstr ""
 #: includes/widgets/htmega_booked_calender.php:709
 #: includes/widgets/htmega_newsticker.php:207
 msgid "Navigation Button"
+msgstr ""
+
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1165
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1174
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1183
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1192
+msgid "new one"
 msgstr ""
 
 #: includes/widgets/htmega_buddy_press.php:66
@@ -9147,6 +9181,10 @@ msgstr ""
 msgid "No matching records found"
 msgstr ""
 
+#: includes/helper-function.php:97 includes/helper-function.php:104
+msgid "No saved templates found!"
+msgstr ""
+
 #: includes/widgets/htmega_singlepost.php:603
 msgid "No selected post"
 msgstr ""
@@ -9167,7 +9205,7 @@ msgstr ""
 msgid "No, Thanks"
 msgstr ""
 
-#: includes/twitteroauth.php:732
+#: includes/twitteroauth.php:733
 #, php-format
 msgid "Nonce already used: %s"
 msgstr ""
@@ -9432,7 +9470,7 @@ msgstr ""
 msgid "Number Suffix"
 msgstr ""
 
-#: includes/twitteroauth.php:577
+#: includes/twitteroauth.php:578
 #, php-format
 msgid "OAuth version '%s' not supported"
 msgstr ""
@@ -10590,12 +10628,12 @@ msgid "Please wait..."
 msgstr ""
 
 #: admin/include/template-library.php:381
-#: includes/recommended-plugins/class.recommended-plugins.php:398
+#: includes/recommended-plugins/class.recommended-plugins.php:400
 msgid "Plugin Not Found"
 msgstr ""
 
 #: admin/include/template-library.php:401
-#: includes/recommended-plugins/class.recommended-plugins.php:418
+#: includes/recommended-plugins/class.recommended-plugins.php:420
 msgid "Plugin Successfully Activated"
 msgstr ""
 
@@ -11078,7 +11116,7 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
-#: includes/class.htmega.php:465
+#: includes/class.htmega.php:453
 msgid "Rate the plugin"
 msgstr ""
 
@@ -11086,7 +11124,7 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:33
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:46
 msgid "Rating icon"
 msgstr ""
 
@@ -11699,7 +11737,7 @@ msgstr ""
 msgid "Section Title"
 msgstr ""
 
-#: includes/helper-function.php:810
+#: includes/helper-function.php:818
 #: includes/widgets/htmega_wc_element_pages.php:57
 msgid "Select"
 msgstr ""
@@ -12247,7 +12285,7 @@ msgid ""
 "items, and news in your inbox."
 msgstr ""
 
-#: includes/twitteroauth.php:603
+#: includes/twitteroauth.php:604
 #, php-format
 msgid "Signature method '%1$s' not supported. Try one of the following: %2$s"
 msgstr ""
@@ -13458,7 +13496,7 @@ msgid "TH Width (Table Header Column Width %)"
 msgstr ""
 
 #. 1: Project Name, 2: Opening strong tag, 3: Closing strong tag
-#: admin/include/class.diagnostic-data.php:511
+#: admin/include/class.diagnostic-data.php:512
 #, php-format
 msgid "Thank you very much for supporting %2$s%1$s%3$s."
 msgstr ""
@@ -13539,7 +13577,7 @@ msgid "Third Party Widget List"
 msgstr ""
 
 #. %s: List of supported HTML tags
-#: includes/helper-function.php:774
+#: includes/helper-function.php:782
 #, php-format
 msgid "This input field supports the following HTML tags: %1$s"
 msgstr ""
@@ -14297,12 +14335,12 @@ msgstr ""
 msgid "Upgrade to HT Mega Pro"
 msgstr ""
 
-#: admin/admin-init.php:93 admin/admin-init.php:94
+#: admin/admin-init.php:79 admin/admin-init.php:80
 msgid "Upgrade to Pro"
 msgstr ""
 
 #. 1: Opening strong and anchor tags for Pro Version link, 2: Closing anchor and strong tags
-#: includes/helper-function.php:922 includes/widgets/htmega_data_table.php:1773
+#: includes/helper-function.php:930 includes/widgets/htmega_data_table.php:1773
 #: includes/widgets/htmega_imagemarker.php:1214
 #: includes/widgets/htmega_user_login_form.php:585
 #: includes/widgets/htmega_user_login_form.php:1685
@@ -14656,7 +14694,7 @@ msgstr ""
 msgid "WhatsApp Chat"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:36
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:49
 msgid "Which will motivate us a lot."
 msgstr ""
 
@@ -14883,8 +14921,12 @@ msgstr ""
 msgid "You can select 404 page from here. <span>( Pro )</span>"
 msgstr ""
 
+#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1165
+msgid "You can select a single blog page from here. Or create a "
+msgstr ""
+
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1174
-msgid "You can select blog page from here."
+msgid "You can select blog page from here. Or create a "
 msgstr ""
 
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1225
@@ -14892,19 +14934,15 @@ msgid "You can select coming soon page from here."
 msgstr ""
 
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1192
-msgid "You can select footer template from here."
+msgid "You can select footer template from here. Or create a "
 msgstr ""
 
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1183
-msgid "You can select header template from here."
+msgid "You can select header template from here. Or create a "
 msgstr ""
 
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1201
 msgid "You can select search page from here."
-msgstr ""
-
-#: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1165
-msgid "You can select Single blog page from here."
 msgstr ""
 
 #: includes/class.post-duplicator.php:90
@@ -14962,4 +15000,9 @@ msgstr ""
 
 #: includes/widgets/htmega_image_magnifier.php:76
 msgid "Zoomable"
+msgstr ""
+
+#: admin/include/class.diagnostic-data.php:496
+#, php-format
+msgid "🌟 Enhance Your %1$s Experience as a Valued Contributor!"
 msgstr ""

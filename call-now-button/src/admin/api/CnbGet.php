@@ -10,6 +10,7 @@ class CnbGet {
     protected $defaultExpiration = 300; // 5 * MINUTE_IN_SECONDS = 5 * 60 = 300
     protected $isCacheHit = false;
     private $useCache = false;
+	private $transient_prefix = 'call-now-button_CnbGet_';
 
     public function __construct() {
         $cnb_options = get_option( 'cnb' );
@@ -19,7 +20,7 @@ class CnbGet {
     }
 
     protected function add( $url, $response ) {
-        set_transient( CnbAppRemote::cnb_get_transient_base() . $url, $response, $this->defaultExpiration );
+        set_transient( $this->transient_prefix . CnbAppRemote::cnb_get_transient_base() . $url, $response, $this->defaultExpiration );
 
         return $response;
     }
@@ -30,7 +31,7 @@ class CnbGet {
 
     public function get( $url, $args ) {
         if ( $this->useCache ) {
-            $cache = get_transient( CnbAppRemote::cnb_get_transient_base() . $url );
+            $cache = get_transient( $this->transient_prefix . CnbAppRemote::cnb_get_transient_base() . $url );
             if ( $cache ) {
                 $this->isCacheHit = true;
 

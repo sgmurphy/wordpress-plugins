@@ -35,7 +35,7 @@ $this->render_view(
 		'title_placeholder'       => $smartcrawl_post->get_opengraph_title(),
 		'current_description'     => $og['description'],
 		'description_placeholder' => $smartcrawl_post->get_opengraph_description(),
-		'images'                  => $og['images'],
+		'images'                  => $smartcrawl_post->get_opengraph_images(),
 		'single_image'            => false,
 	)
 );

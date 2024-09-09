@@ -109,16 +109,19 @@ export default class Configs extends React.Component {
 							__('%s config has been applied successfully.'),
 							configId
 						);
+
+						setTimeout(() => {
+							window.location.reload();
+						}, 3000);
 					})
-					.catch(() => {
+					.catch((err) => {
 						this.showErrorNotice(
-							__(
-								'There was an error applying the config.',
-								'smartcrawl-seo'
-							)
+							err ||
+								__(
+									'There was an error applying the config.',
+									'smartcrawl-seo'
+								)
 						);
-					})
-					.finally(() => {
 						this.stopApplyingConfig();
 					});
 			}

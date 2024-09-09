@@ -279,7 +279,13 @@ class Taxonomy_Term extends Entity_With_Archive {
 		}
 
 		// Check meta.
-		$images = \smartcrawl_get_array_value( call_user_func( $load_post_meta ), 'images' );
+		$images = array_filter(
+			\smartcrawl_get_array_value( call_user_func( $load_post_meta ), 'images', array() ),
+			function ( $image ) {
+				return wp_get_attachment_image_src( $image );
+			}
+		);
+
 		if ( ! $images ) {
 			// Meta not available, check options.
 			$images = call_user_func( $load_from_options, $this->get_taxonomy() );

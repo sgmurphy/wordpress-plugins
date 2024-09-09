@@ -22,7 +22,7 @@ function cnb_ask_for_feedback_disable_cloud() {
         ele.on('click', () => {
             const isChecked = ele.is(':checked')
             const options = {
-                width: 450,
+                width: 350,
                 hideTitle: 1,
                 emoji: {
                     text: '😢',
@@ -71,7 +71,7 @@ function cnb_show_tips_when_deactivating() {
     ele.on('click', () => {
         const isChecked = ele.is(':checked')
         if (!isChecked) {
-            jQuery("#cnb_not_working_tips").css('display','flex');
+            jQuery("#cnb_not_working_tips").css('display','block');
         } else {
             jQuery("#cnb_not_working_tips").hide();
         }
@@ -137,7 +137,7 @@ function cnb_add_domain_alias() {
 jQuery(() => {
     init_settings();
     cnb_disable_api_key_when_cloud_hosting_is_disabled()
-    cnb_ask_for_feedback_disable_cloud()
+    cnb_ask_for_feedback_disable_cloud() //temp disabled
     cnb_show_tips_when_deactivating()
     add_onclick_cnb_user_storage_type()
     cnb_add_domain_alias()

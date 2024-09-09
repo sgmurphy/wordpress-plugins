@@ -1,33 +1,35 @@
 <?php
 /**
- * Handles imports
+ * Handles imports.
  *
  * @package SmartCrawl
  */
 
 namespace SmartCrawl\Configs;
 
+use SmartCrawl\Models\Ignores;
 use SmartCrawl\Modules\Advanced\Redirects\Database_Table;
 use SmartCrawl\Singleton;
 use SmartCrawl\Sitemaps\Utils;
 use SmartCrawl\Work_Unit;
+use function smartcrawl_get_array_value;
 
 /**
- * Imports handling class
+ * Imports handling class.
  */
 class Import extends Work_Unit {
 
 	use Singleton;
 
 	/**
-	 * Model instance
+	 * Model instance.
 	 *
 	 * @var Model_IO
 	 */
 	private $model;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -35,11 +37,11 @@ class Import extends Work_Unit {
 	}
 
 	/**
-	 * Loads all options
+	 * Loads all options.
 	 *
-	 * @param string $json JSON model to load from.
+	 * @param string $json JSON string to load from.
 	 *
-	 * @return Import instance
+	 * @return Import Import instance.
 	 */
 	public static function load( $json ) {
 		$me = new self();
@@ -50,25 +52,27 @@ class Import extends Work_Unit {
 	}
 
 	/**
-	 * Loads everything
+	 * Loads everything.
 	 *
-	 * @param string $json JSON model to load from.
+	 * @param string $json JSON string to load from.
 	 *
 	 * @return Model_IO instance
 	 */
 	public function load_all( $json ) {
 		$data = json_decode( $json, true );
+
 		if ( empty( $data ) ) {
 			return $this->model;
 		}
 
-		$this->model->set_version( (string) \smartcrawl_get_array_value( $data, 'version' ) );
-		$this->model->set_url( (string) \smartcrawl_get_array_value( $data, 'url' ) );
+		$this->model->set_version( (string) smartcrawl_get_array_value( $data, 'version' ) );
+		$this->model->set_url( (string) smartcrawl_get_array_value( $data, 'url' ) );
 
 		foreach ( $this->model->get_sections() as $section ) {
 			if ( ! isset( $data[ $section ] ) || ! is_array( $data[ $section ] ) ) {
 				continue;
 			}
+
 			$this->model->set( $section, $data[ $section ] );
 		}
 
@@ -81,54 +85,45 @@ class Import extends Work_Unit {
 	 * @return bool
 	 */
 	public function save() {
-		$overall_status = true;
-
 		foreach ( $this->model->get_sections() as $section ) {
-			$method = array( $this, "save_{$section}" );
+			$method = array( $this, "save_$section" );
+
 			if ( ! is_callable( $method ) ) {
 				continue;
 			}
+
 			$status = call_user_func( $method );
 
 			if ( ! $status ) {
 				$this->add_error( $section, __( 'Import process failed, aborting', 'smartcrawl-seo' ) );
-				$overall_status = false;
-			}
-			if ( ! $overall_status ) {
-				break;
+				return false;
 			}
 		}
 
-		return $overall_status;
+		\SmartCrawl\Upgrade\Controller::get()->upgrade_advanced_options( $this->model->get_version(), true );
+
+		return true;
 	}
 
 	/**
-	 * Save options
+	 * Saves options.
 	 *
 	 * @return bool
 	 */
 	public function save_options() {
-		$overall_status = true;
 		foreach ( $this->model->get( Model_IO::OPTIONS ) as $key => $value ) {
 			if ( false === $value ) {
 				continue;
-			} // Do not force-add false values.
-			if ( 'wds_blog_tabs' === $key ) {
-				$old    = get_site_option( $key );
-				$status = update_site_option( $key, $value );
-			} else {
-				$status = update_option( $key, $value );
 			}
-			// if ( false ) {
-			// $this->add_error( $key, sprintf( __( 'Failed importing options: %s', 'smartcrawl-seo' ), $key ) );
-			// $overall_status = false;
-			// }
-			if ( ! $overall_status ) {
-				break;
+
+			if ( 'wds_blog_tabs' === $key ) {
+				update_site_option( $key, $value );
+			} else {
+				update_option( $key, $value );
 			}
 		}
 
-		return $overall_status;
+		return true;
 	}
 
 	/**
@@ -137,24 +132,15 @@ class Import extends Work_Unit {
 	 * @return bool
 	 */
 	public function save_ignores() {
-		if ( ! $this->is_source_same_as_destination() ) {
+		if ( ! $this->has_same_url() ) {
 			return true;
 		}
 
 		$data    = $this->model->get( Model_IO::IGNORES );
-		$ignores = new \SmartCrawl\Models\Ignores();
+		$ignores = new Ignores();
 
 		foreach ( $data as $key ) {
-			$status = $ignores->set_ignore( $key );
-
-			/*
-			// Now, since update_(site_)option can return non-true for success, we do not do any error checking.
-			if (!$status) {
-				$this->add_error($key, sprintf(__('Failed importing ignores: %s', 'smartcrawl-seo'), $key));
-				$overall_status = false;
-			}
-			if (!$overall_status) break;
-			*/
+			$ignores->set_ignore( $key );
 		}
 
 		return true;
@@ -166,7 +152,7 @@ class Import extends Work_Unit {
 	 * @return bool
 	 */
 	public function save_extra_urls() {
-		if ( ! $this->is_source_same_as_destination() ) {
+		if ( ! $this->has_same_url() ) {
 			return true;
 		}
 
@@ -182,7 +168,7 @@ class Import extends Work_Unit {
 	 * @return bool
 	 */
 	public function save_ignore_urls() {
-		if ( ! $this->is_source_same_as_destination() ) {
+		if ( ! $this->has_same_url() ) {
 			return true;
 		}
 
@@ -198,7 +184,7 @@ class Import extends Work_Unit {
 	 * @return bool
 	 */
 	public function save_ignore_post_ids() {
-		if ( ! $this->is_source_same_as_destination() ) {
+		if ( ! $this->has_same_url() ) {
 			return true;
 		}
 
@@ -209,7 +195,7 @@ class Import extends Work_Unit {
 	}
 
 	/**
-	 * Saves postmeta entries
+	 * Saves post meta entries.
 	 *
 	 * @TODO: actually implement this.
 	 *
@@ -220,7 +206,7 @@ class Import extends Work_Unit {
 	}
 
 	/**
-	 * Saves taxmeta entries
+	 * Saves taxonomy meta entries.
 	 *
 	 * @TODO: actually implement this
 	 *
@@ -236,7 +222,7 @@ class Import extends Work_Unit {
 	 * @return bool
 	 */
 	public function save_redirects() {
-		if ( ! $this->is_source_same_as_destination() ) {
+		if ( ! $this->has_same_url() ) {
 			return true;
 		}
 
@@ -251,7 +237,7 @@ class Import extends Work_Unit {
 	}
 
 	/**
-	 * Gets filtering prefix
+	 * Gets filtering prefix.
 	 *
 	 * @return string
 	 */
@@ -259,8 +245,14 @@ class Import extends Work_Unit {
 		return 'wds-import';
 	}
 
-	private function is_source_same_as_destination() {
+	/**
+	 * Determines if config data has same url as current url.
+	 *
+	 * @return bool
+	 */
+	private function has_same_url() {
 		$data = $this->model->get_all();
+
 		if ( empty( $data['url'] ) ) {
 			return false;
 		}
@@ -268,6 +260,13 @@ class Import extends Work_Unit {
 		return $this->normalize_url( $data['url'] ) === $this->normalize_url( home_url() );
 	}
 
+	/**
+	 * Custom method to get url without protocol and www.
+	 *
+	 * @param string $url Urls as string.
+	 *
+	 * @return string
+	 */
 	private function normalize_url( $url ) {
 		$url = str_replace( array( 'http://', 'https://', 'www.' ), '', $url );
 

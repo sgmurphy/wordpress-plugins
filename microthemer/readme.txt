@@ -79,6 +79,11 @@ I've been happily developing Microthemer and supporting users of varying technic
 
 == Changelog ==
 
+= 7.3.1.7 (Sept 9th, 2024) =
+
+# Bugs fixed
+* Compatibility issue with WowStore plugin, which changes the classes on all blocks when saving. Microthemer now ignores these "temporary" classes when generating CSS selectors.
+
 = 7.3.1.6 (July 30th, 2024) =
 
 # Bugs fixed

@@ -19,7 +19,14 @@ wp_enqueue_script( \SmartCrawl\Controllers\Assets::CONFIGS_JS );
 			</div>
 
 			<div class="sui-box-body">
-				<p><?php esc_html_e( 'Use configs to save preset configurations of SmartCrawl’s settings, then upload and apply them to your other sites in just a few clicks! You can easily apply configs to multiple sites at once via the Hub.', 'smartcrawl-seo' ); ?></p>
+				<p><?php
+					printf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						esc_html__( 'Use configs to save preset configurations of %1$s%3$s%2$s\'s settings, then upload and apply them to your other sites in just a few clicks! You can easily apply configs to multiple sites at once via the Hub.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						esc_html( \smartcrawl_get_plugin_title() )
+					); ?></p>
 			</div>
 		</div>
 	</div>

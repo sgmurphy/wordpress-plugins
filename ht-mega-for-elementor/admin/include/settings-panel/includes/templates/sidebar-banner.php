@@ -17,7 +17,7 @@ $template_data = HTMega_Template_Library::instance()->get_templates_info();
                 <?php
             }
         }
-    }else{
+    }else{ 
 
         if( isset( $template_data['notices']['sidebar'][0]['status'] ) && !empty( $template_data['notices']['sidebar'][0]['status'] )){
             ?>
@@ -26,6 +26,23 @@ $template_data = HTMega_Template_Library::instance()->get_templates_info();
             </a>
          <?php 
         }
+        ?>
+        <div class="htmega-opt-get-pro htoption-rating-area">
+            <h3 class="htmega-opt-get-pro-title"><?php esc_html_e( 'Get HT Mega Pro', 'htmega-addons' )?></h3>
+            <ul>
+                <li><?php esc_html_e( '130+ Elemetor Widgets', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( '14+ Essential Modules', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( '170+ Page Templates', 'htmega-addons') ?></li>
+                <li><?php esc_html_e( '790+ Elementor Blocks Template', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( 'Mega Menu Builder', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( 'Theme Builder', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( 'Advanced Slider', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( 'Conditional Display', 'htmega-addons' ) ?></li>
+                <li><?php esc_html_e( 'Much More..', 'htmega-addons' ) ?></li>
+            </ul>
+            <a href="https://wphtmega.com/pricing/?utm_source=admin&utm_medium=mainmenu&utm_campaign=free" class="htmega-opt-get-pro-btn" target="_blank"><?php esc_html_e( 'Get Pro Now', 'htmega-addons' ); ?></a>
+        </div>
+        <?php
     }
     ?>
     <div class="htoption-rating-area">

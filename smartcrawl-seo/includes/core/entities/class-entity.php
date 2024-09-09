@@ -325,7 +325,18 @@ abstract class Entity {
 	}
 
 	protected function load_opengraph_images_from_options( $location ) {
-		return $this->get_onpage_option( 'og-images-' . $location );
+		$images = $this->get_onpage_option( 'og-images-' . $location );
+
+		if ( empty( $images ) || ! is_array( $images ) ) {
+			return array();
+		}
+
+		return array_filter(
+			$images,
+			function ( $image ) {
+				return wp_get_attachment_image_src( $image );
+			}
+		);
 	}
 
 	protected function is_twitter_enabled_for_location( $location ) {
@@ -341,7 +352,18 @@ abstract class Entity {
 	}
 
 	protected function load_twitter_images_from_options( $location ) {
-		return $this->get_onpage_option( 'twitter-images-' . $location );
+		$images = $this->get_onpage_option( 'twitter-images-' . $location );
+
+		if ( empty( $images ) || ! is_array( $images ) ) {
+			return array();
+		}
+
+		return array_filter(
+			$images,
+			function ( $image ) {
+				return wp_get_attachment_image_src( $image );
+			}
+		);
 	}
 
 	protected function get_onpage_option( $key ) {
@@ -453,7 +475,7 @@ abstract class Entity {
 			);
 		}
 
-		return preg_replace( '/%%[a-zA-Z_]*%%/', '', $subject );
+		return preg_replace( '/%%[a-zA-Z0-9!@#$^&*_+-=:;~]+%%/', '', $subject );
 	}
 
 	public function get_resolved_macros() {
@@ -545,7 +567,7 @@ abstract class Entity {
 	}
 
 	private function find_term_field_replacements( $subject, $get_terms, $prefix, $term_field ) {
-		$pattern      = "/(%%{$prefix}[a-z_\-]+%%)/";
+		$pattern      = "/(%%{$prefix}[a-zA-Z0-9!@#$^&*_+-=:;~]+%%)/";
 		$matches      = array();
 		$replacements = array();
 		$match_result = preg_match_all( $pattern, $subject, $matches, PREG_PATTERN_ORDER );
@@ -576,7 +598,7 @@ abstract class Entity {
 
 	private function find_meta_replacements( $subject, $get_meta ) {
 		$prefix       = 'cf_';
-		$pattern      = "/(%%{$prefix}[a-z_\-]+%%)/";
+		$pattern      = "/(%%{$prefix}[a-zA-Z0-9!@#$^&*_+-=:;~]+%%)/";
 		$matches      = array();
 		$replacements = array();
 		$match_result = preg_match_all( $pattern, $subject, $matches, PREG_PATTERN_ORDER );

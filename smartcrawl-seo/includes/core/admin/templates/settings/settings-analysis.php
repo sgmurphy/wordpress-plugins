@@ -44,42 +44,28 @@ $is_disalbed = empty( $_view['options']['analysis-seo'] ) && empty( $_view['opti
 		?>
 
 		<label class="sui-settings-label"><?php esc_html_e( 'Engine', 'smartcrawl-seo' ); ?></label>
-		<p class="sui-description"><?php esc_html_e( 'Choose how you want SmartCrawl to analyze your content.', 'smartcrawl-seo' ); ?></p>
 		<p class="sui-description">
 			<?php
 			printf(
-			/* translators: %s: "Content" within <strong> tag */
-				esc_html__( '%s is recommended for most websites as it only reviews the_content() output.', 'smartcrawl-seo' ),
-				sprintf( $strong, esc_html__( 'Content', 'smartcrawl-seo' ) )
+				/* translators: 1,2: strong tag, 3: plugin title */
+				esc_html__( 'Choose how you want %1$s%3$s%2$s to analyze your content.', 'smartcrawl-seo' ),
+				'<strong>',
+				'</strong>',
+				esc_html( \smartcrawl_get_plugin_title() )
 			);
 			?>
 		</p>
 		<p class="sui-description">
-			<?php
-			printf(
-			/* translators: %s: "Wide" within <strong> tag */
-				esc_html__( '%s includes everything, except for your header, nav, footer and sidebars. This can be helpful for page builders and themes with custom output.', 'smartcrawl-seo' ),
-				sprintf( $strong, esc_html__( 'Wide', 'smartcrawl-seo' ) ) // phpcs:ignore
-			);
-			?>
+			<?php esc_html__( '<strong>Content</strong> is recommended for most websites as it only reviews the_content() output.', 'smartcrawl-seo' ); ?>
 		</p>
 		<p class="sui-description">
-			<?php
-			printf(
-			/* translators: %s: "All" within <strong> tag */
-				esc_html__( '%s checks your entire page’s content including elements like nav and footer. Due to analysing everything you might miss key analysis of your real content so we don’t recommend this approach.', 'smartcrawl-seo' ),
-				sprintf( $strong, esc_html__( 'All', 'smartcrawl-seo' ) ) // phpcs:ignore
-			);
-			?>
+			<?php esc_html__( '<strong>Wide</strong> includes everything, except for your header, nav, footer and sidebars. This can be helpful for page builders and themes with custom output.', 'smartcrawl-seo' ); ?>
 		</p>
 		<p class="sui-description">
-			<?php
-			printf(
-			/* translators: %s: "None" within <strong> tag */
-				esc_html__( '%s only analyzes content you tell it to programmatically. If you have a fully custom setup, this is the option for you. Read the documentation.', 'smartcrawl-seo' ),
-				sprintf( $strong, esc_html__( 'None', 'smartcrawl-seo' ) ) // phpcs:ignore
-			);
-			?>
+			<?php esc_html__( '<strong>All</strong> checks your entire page’s content including elements like nav and footer. Due to analysing everything you might miss key analysis of your real content so we don’t recommend this approach.', 'smartcrawl-seo' ); ?>
+		</p>
+		<p class="sui-description">
+			<?php esc_html__( '<strong>None</strong> only analyzes content you tell it programmatically. If you have a fully custom setup, this is the option for you. Read the documentation.', 'smartcrawl-seo' ); ?>
 		</p>
 
 		<div class="wds-analysis-strategy-tabs sui-side-tabs sui-tabs">

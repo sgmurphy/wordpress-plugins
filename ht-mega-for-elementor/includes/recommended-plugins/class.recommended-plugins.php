@@ -149,13 +149,15 @@ class HTRP_Recommended_Plugins {
 
         $htplugins_plugin_list = $this->get_plugins();
         $palscode_plugin_list  = $this->get_plugins( 'moveaddons' );
-
-        $plugin_list = array_merge( $htplugins_plugin_list, $palscode_plugin_list );
-
         $prepare_plugin = array();
-        foreach ( $plugin_list as $plugin_key => $plugin ) {
-            $prepare_plugin[$plugin['slug']] = $plugin;
+        if( $htplugins_plugin_list ){
+            $plugin_list = array_merge( $htplugins_plugin_list, $palscode_plugin_list );
+            $prepare_plugin = array();
+            foreach ( $plugin_list as $plugin_key => $plugin ) {
+                $prepare_plugin[$plugin['slug']] = $plugin;
+            } 
         }
+
 
         ?>
             <div class="wrap">

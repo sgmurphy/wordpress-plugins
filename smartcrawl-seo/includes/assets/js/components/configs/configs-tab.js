@@ -1,6 +1,6 @@
 import React from 'react';
 import ConfigsBoxHeader from './configs-box-header';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import classnames from 'classnames';
 import Notice from '../notices/notice';
 import ConfigItem from './config-item';
@@ -67,9 +67,16 @@ export default class ConfigsTab extends React.Component {
 				/>
 				<div className="sui-box-body">
 					<p>
-						{__(
-							'Use configs to save preset configurations of SmartCrawl’s settings, then upload and apply them to your other sites in just a few clicks! You can easily apply configs to multiple sites at once via the Hub.',
-							'smartcrawl-seo'
+						{createInterpolateElement(
+							sprintf(
+								// translators: %s: plugin title
+								__(
+									'Use configs to save preset configurations of <strong>%s</strong>’s settings, then upload and apply them to your other sites in just a few clicks! You can easily apply configs to multiple sites at once via the Hub.',
+									'smartcrawl-seo'
+								),
+								ConfigValues.get('plugin_title', 'admin')
+							),
+							{ strong: <strong /> }
 						)}
 					</p>
 
@@ -93,9 +100,19 @@ export default class ConfigsTab extends React.Component {
 						{!configsExist && (
 							<Notice
 								type="info"
-								message={__(
-									'You don’t have any available config. Save preset configurations of SmartCrawl’s settings, then upload and apply them to your other sites in just a few clicks!',
-									'smartcrawl-seo'
+								message={createInterpolateElement(
+									sprintf(
+										// translators: %s: plugin title
+										__(
+											'You don’t have any available config. Save preset configurations of <strong>%s</strong>’s settings, then upload and apply them to your other sites in just a few clicks!',
+											'smartcrawl-seo'
+										),
+										ConfigValues.get(
+											'plugin_title',
+											'admin'
+										)
+									),
+									{ strong: <strong /> }
 								)}
 							/>
 						)}

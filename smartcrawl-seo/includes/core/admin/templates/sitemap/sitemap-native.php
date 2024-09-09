@@ -4,7 +4,7 @@ namespace SmartCrawl;
 
 use SmartCrawl\Sitemaps\Utils;
 
-$post_types = empty( $post_types ) ? array() : $post_types;
+$post_types            = empty( $post_types ) ? array() : $post_types;
 $taxonomies            = empty( $taxonomies ) ? array() : $taxonomies;
 $smartcrawl_buddypress = empty( $smartcrawl_buddypress ) ? array() : $smartcrawl_buddypress;
 $extra_urls            = empty( $extra_urls ) ? '' : $extra_urls;
@@ -17,12 +17,13 @@ $max_items_per_sitemap = Utils::get_max_items_per_sitemap();
 $this->render_view(
 	'notice',
 	array(
-		'message' => \smartcrawl_format_link(
-			/* translators: %s: Link to WordPress native sitemap.xml */
-			esc_html__( "Your sitemap is available at %s. Note that you're using the default WordPress sitemap but can switch to SmartCrawl's advanced sitemaps at any time.", 'smartcrawl-seo' ),
-			home_url( '/wp-sitemap.xml' ),
-			'/wp-sitemap.xml',
-			'_blank'
+		'message' => sprintf(
+			/* translators: 1: Link to WordPress native sitemap.xml, 2,3: strong tag, 4: plugin title */
+			esc_html__( 'Your sitemap is available at %1$s. Note that you\'re using the default WordPress sitemap but can switch to %2$s%4$s%3$s\'s advanced sitemaps at any time.', 'smartcrawl-seo' ),
+			\smartcrawl_format_link( '%s', home_url( '/wp-sitemap.xml' ), '/wp-sitemap.xml', '_blank'),
+			'<strong>',
+			'</strong>',
+			\smartcrawl_get_plugin_title()
 		),
 		'class'   => 'sui-notice-info',
 	)
@@ -31,10 +32,24 @@ $this->render_view(
 	<div class="sui-box-settings-row">
 		<div class="sui-box-settings-col-1">
 			<label class="sui-settings-label">
-				<?php esc_html_e( 'Switch to SmartCrawl Sitemap', 'smartcrawl-seo' ); ?>
+				<?php
+				printf(
+					/* translators: 1: plugin title */
+					esc_html__( 'Switch to %1$s Sitemap', 'smartcrawl-seo' ),
+					esc_html( \smartcrawl_get_plugin_title() )
+				);
+				?>
 			</label>
 			<p class="sui-description">
-				<?php esc_html_e( 'Switch to the powerful and styled SmartCrawl sitemap to ensure that search engines index all your posts and pages.', 'smartcrawl-seo' ); ?>
+				<?php
+				printf(
+				/* translators: 1,2: strong tag, 3: plugin title */
+					esc_html__( 'Switch to the powerful and styled %1$s%3$s%2$s sitemap to ensure that search engines index all your posts and pages.', 'smartcrawl-seo' ),
+					'<strong>',
+					'</strong>',
+					esc_html( \smartcrawl_get_plugin_title() )
+				);
+				?>
 			</p>
 		</div>
 		<div class="sui-box-settings-col-2">
@@ -105,6 +120,12 @@ $this->render_view(
 	'sitemap/sitemap-deactivate-button',
 	array(
 		'label_description'  => esc_html__( 'If you no longer wish to customize the Wordpress core sitemaps  you can deactivate it.', 'smartcrawl-seo' ),
-		'button_description' => esc_html__( 'Note: By clicking this button you are disabling SmartCrawl’s sitemap module. The Wordpress core sitemap will still be available afterwards.', 'smartcrawl-seo' ),
+		'button_description' => sprintf(
+			/* translators: 1,2: strong tag, 3: plugin title */
+			esc_html__( 'Note: By clicking this button you are disabling %1$s%3$s%2$s\'s sitemap module. The Wordpress core sitemap will still be available afterwards.', 'smartcrawl-seo' ),
+			'<strong>',
+			'</strong>',
+			\smartcrawl_get_plugin_title()
+		),
 	)
 );

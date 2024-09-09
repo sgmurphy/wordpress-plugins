@@ -295,7 +295,7 @@ class Metabox extends Controllers\Controller {
 		$show = \user_can_see_seo_metabox();
 		if ( function_exists( '\add_meta_box' ) ) {
 			// Show branding for singular installs.
-			$metabox_title = $this->get_metabox_title();
+			$metabox_title = \smartcrawl_get_plugin_title();
 			$post_types    = get_post_types(
 				array(
 					'show_ui' => true, // Only if it actually supports WP UI.
@@ -714,14 +714,5 @@ class Metabox extends Controllers\Controller {
 		}
 
 		return $this->is_private_post_type( $current_screen->post_type );
-	}
-
-	/**
-	 * Return metabox title.
-	 *
-	 * @return string
-	 */
-	private function get_metabox_title() {
-		return __( 'SmartCrawl', 'smartcrawl-seo' );
 	}
 }

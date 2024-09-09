@@ -44,7 +44,11 @@ class Health extends Admin_Settings {
 		$this->name        = Settings::COMP_HEALTH;
 		$this->slug        = Settings::TAB_HEALTH;
 		$this->action_url  = admin_url( 'options.php' );
-		$this->page_title  = __( 'SmartCrawl Wizard: SEO Health', 'smartcrawl-seo' );
+		$this->page_title  = sprintf(
+			/* translators: %s: plugin title */
+			__( '%s Wizard: SEO Health', 'smartcrawl-seo' ),
+			\smartcrawl_get_plugin_title()
+		);
 
 		add_action( 'wp_ajax_wds-save-health-settings', array( $this, 'save_health_settings' ) );
 
@@ -141,7 +145,6 @@ class Health extends Admin_Settings {
 
 		$args = array(
 			'start_time' => $lighthouse->get_start_time(),
-			'is_member'  => $service->is_member(),
 			'report'     => $report_data,
 			'nonce'      => wp_create_nonce( 'wds-lighthouse-nonce' ),
 		);

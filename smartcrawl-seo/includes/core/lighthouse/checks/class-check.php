@@ -18,46 +18,16 @@ abstract class Check {
 	private $failure_title = '';
 
 	/**
-	 * @var string
-	 */
-	private $success_description = '';
-
-	/**
-	 * @var string
-	 */
-	private $failure_description = '';
-
-	/**
-	 * @var string
-	 */
-	private $copy_description = '';
-
-	/**
 	 * @var bool
 	 */
 	private $passed = false;
-
-	/**
-	 * @var array
-	 */
-	private $raw_details = array();
 
 	/**
 	 * @var
 	 */
 	private $weight;
 
-	/**
-	 * @var Report
-	 */
-	private $report;
-
-	/**
-	 * @param $report
-	 */
-	public function __construct( $report ) {
-		$this->report = $report;
-	}
+	public function __construct() {}
 
 	/**
 	 * @return string
@@ -82,33 +52,6 @@ abstract class Check {
 	 */
 	public function set_failure_title( $title ) {
 		$this->failure_title = $title;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_description() {
-		if ( $this->is_passed() ) {
-			return $this->success_description;
-		} else {
-			return $this->failure_description;
-		}
-	}
-
-	/**
-	 * @param string $description
-	 */
-	public function set_success_description( $description ) {
-		$this->success_description = $description;
-	}
-
-	/**
-	 * @param $description
-	 *
-	 * @return void
-	 */
-	public function set_failure_description( $description ) {
-		$this->failure_description = $description;
 	}
 
 	/**
@@ -142,73 +85,11 @@ abstract class Check {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function get_raw_details() {
-		return $this->raw_details;
-	}
-
-	/**
-	 * @param array $raw_details
-	 */
-	public function set_raw_details( $raw_details ) {
-		$this->raw_details = empty( $raw_details )
-			? array()
-			: $raw_details;
-	}
-
-	/**
-	 * @param $raw_details
-	 *
-	 * @return null|Table
-	 */
-	public function parse_details( $raw_details ) {
-		return null;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function get_flattened_details() {
-		$table             = $this->get_details_table();
-		$flattened_details = array();
-
-		if ( empty( $table ) ) {
-			return $flattened_details;
-		}
-		$header = $table->get_header();
-
-		foreach ( $table->get_rows() as $row ) {
-			foreach ( $row as $col_index => $col ) {
-				$col_header = (string) \smartcrawl_get_array_value( $header, $col_index );
-				if ( $col_header ) {
-					$col_header = trim( wp_strip_all_tags( $col_header ) ) . ': ';
-				}
-				$flattened_details[] = $col_header . $col;
-			}
-		}
-
-		return $flattened_details;
-	}
-
-	/**
-	 * @return null|Table
-	 */
-	public function get_details_table() {
-		if ( empty( $this->raw_details ) ) {
-			return null;
-		}
-
-		return $this->parse_details( $this->raw_details );
-	}
-
-	/**
 	 * @param $id
-	 * @param $report
 	 *
 	 * @return Check|null
 	 */
-	public static function create( $id, $report ) {
+	public static function create( $id ) {
 		$available_checks = array(
 			'\SmartCrawl\Lighthouse\Checks\Canonical',
 			'\SmartCrawl\Lighthouse\Checks\Crawlable_Anchors',
@@ -229,21 +110,11 @@ abstract class Check {
 
 		foreach ( $available_checks as $check ) {
 			if ( constant( "{$check}::ID" ) === $id ) {
-				return new $check( $report );
+				return new $check();
 			}
 		}
 
 		return null;
-	}
-
-	/**
-	 * @return void
-	 */
-	public function print_details_table() {
-		$table = $this->get_details_table();
-		if ( ! empty( $table ) ) {
-			$table->render();
-		}
 	}
 
 	/**
@@ -265,51 +136,6 @@ abstract class Check {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_action_button() {
-		return '';
-	}
-
-	/**
-	 * @param $text
-	 * @param $url
-	 * @param $icon
-	 *
-	 * @return false|string
-	 */
-	protected function button_markup( $text, $url, $icon ) {
-		ob_start();
-		?>
-		<a class="wds-action-button sui-button" href="<?php echo esc_url( $url ); ?>">
-
-			<span class="<?php echo esc_attr( $icon ); ?>" aria-hidden="true"></span>
-			<?php echo esc_html( $text ); ?>
-		</a>
-		<?php
-		return ob_get_clean();
-	}
-
-	/**
-	 * @return false|string
-	 */
-	public function edit_homepage_button() {
-		$page_on_front = get_option( 'page_on_front' );
-		$show_on_front = get_option( 'show_on_front' );
-
-		$has_static_homepage = 'posts' !== $show_on_front && $page_on_front;
-		if ( ! $has_static_homepage || ! current_user_can( 'edit_page', $page_on_front ) ) {
-			return '';
-		}
-
-		return $this->button_markup(
-			esc_html__( 'Edit Homepage', 'smartcrawl-seo' ),
-			get_edit_post_link( $page_on_front ),
-			'sui-icon-pencil'
-		);
-	}
-
-	/**
 	 * @return mixed
 	 */
 	abstract function get_id();
@@ -318,36 +144,4 @@ abstract class Check {
 	 * @return mixed
 	 */
 	abstract public function prepare();
-
-	/**
-	 * @return string
-	 */
-	public function get_copy_description() {
-		return $this->copy_description;
-	}
-
-	/**
-	 * @param $copy_description
-	 *
-	 * @return void
-	 */
-	public function set_copy_description( $copy_description ) {
-		$this->copy_description = $copy_description;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_device_label() {
-		return $this->report->get_device() === 'desktop'
-			? esc_html__( 'Desktop', 'smartcrawl-seo' )
-			: esc_html__( 'Mobile', 'smartcrawl-seo' );
-	}
-
-	/**
-	 * @return Report
-	 */
-	public function get_report() {
-		return $this->report;
-	}
 }

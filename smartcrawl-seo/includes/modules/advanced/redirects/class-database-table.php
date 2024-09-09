@@ -9,6 +9,7 @@ namespace SmartCrawl\Modules\Advanced\Redirects;
 
 use SmartCrawl\Integration\Maxmind\GeoDB;
 use SmartCrawl\Singleton;
+use stdClass;
 
 // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
@@ -67,10 +68,6 @@ class Database_Table {
 	 * @return void
 	 */
 	public function upgrade_table() {
-		global $wpdb;
-
-		$collate = '';
-
 		$redirects = $this->get_redirects();
 
 		if ( ! $redirects ) {
@@ -88,8 +85,6 @@ class Database_Table {
 							'type' => $post_type,
 						)
 					);
-
-					$key = array_search( $post_type, $options, true );
 
 					unset( $options[ $post_type ] );
 				}
@@ -126,7 +121,7 @@ class Database_Table {
 	/**
 	 * Deletes all redirects from table.
 	 *
-	 * @return bool|int|\mysqli_result|null
+	 * @return int|false
 	 */
 	public function delete_all() {
 		global $wpdb;
@@ -137,7 +132,7 @@ class Database_Table {
 	/**
 	 * Drops table.
 	 *
-	 * @return bool|int|\mysqli_result|null
+	 * @return bool
 	 */
 	public function drop_table() {
 		global $wpdb;
@@ -147,6 +142,7 @@ class Database_Table {
 
 	/**
 	 * Retrieves redirect data by id.
+	 * This method is used in unit testing to check CRUD operation.
 	 *
 	 * @param int $id Redirect ID.
 	 *
@@ -161,15 +157,15 @@ class Database_Table {
 	}
 
 	/**
-	 * Retrieves redirect data by soruce, not regex.
+	 * Retrieves redirect data by source, not regex.
 	 *
 	 * @param string $source Source.
 	 *
-	 * @return Item|false
+	 * @return Item|null
 	 */
-	public function get_redirect_by_source( $source ) {
+	public function get_redirect_by_source( string $source ) {
 		if ( ! $this->table_exists() ) {
-			return false;
+			return null;
 		}
 
 		global $wpdb;
@@ -184,16 +180,14 @@ class Database_Table {
 	 *
 	 * @param string $source Source.
 	 *
-	 * @return Item[]|false
+	 * @return Item[]
 	 */
 	public function get_redirects_by_source_regex( $source ) {
 		global $wpdb;
 
 		$redirects = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}smartcrawl_redirects WHERE path = 'regex' AND %s RLIKE source", $source ) );
 
-		return $redirects
-			? array_map( array( $this, 'map_row_to_model' ), $redirects )
-			: false;
+		return $redirects ? array_map( array( $this, 'map_row_to_model' ), $redirects ) : array();
 	}
 
 	/**
@@ -201,16 +195,14 @@ class Database_Table {
 	 *
 	 * @param string $path Path.
 	 *
-	 * @return Item[]|false
+	 * @return Item[]
 	 */
 	public function get_redirects_by_path( $path ) {
 		global $wpdb;
 
 		$redirects = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}smartcrawl_redirects WHERE path = %s", $path ) );
 
-		return $redirects
-			? array_map( array( $this, 'map_row_to_model' ), $redirects )
-			: false;
+		return $redirects ? array_map( array( $this, 'map_row_to_model' ), $redirects ) : array();
 	}
 
 	/**
@@ -218,13 +210,13 @@ class Database_Table {
 	 *
 	 * @param array $ids Redirect IDs.
 	 *
-	 * @return array|false|object|\stdClass[]
+	 * @return stdClass[]
 	 */
 	private function get_raw_redirects( $ids ) {
 		global $wpdb;
 
 		if ( ! $this->table_exists() ) {
-			return false;
+			return array();
 		}
 
 		if ( empty( $ids ) ) {
@@ -235,7 +227,7 @@ class Database_Table {
 			$redirects = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}smartcrawl_redirects WHERE id in ( $ids )", OBJECT_K ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		}
 
-		return $redirects ? $redirects : false;
+		return empty( $redirects ) ? array() : $redirects;
 	}
 
 	/**
@@ -243,14 +235,12 @@ class Database_Table {
 	 *
 	 * @param array $ids Redirect IDs.
 	 *
-	 * @return array|false
+	 * @return array
 	 */
 	public function get_deflated_redirects( $ids = array() ) {
 		$redirects = $this->get_raw_redirects( $ids );
 
-		return $redirects
-			? array_map( array( $this, 'map_row_to_deflated' ), $redirects )
-			: false;
+		return array_map( array( $this, 'map_row_to_deflated' ), $redirects );
 	}
 
 	/**
@@ -271,9 +261,9 @@ class Database_Table {
 	/**
 	 * Retrieves total number of redirects.
 	 *
-	 * @since 3.7.0
-	 *
 	 * @return int
+	 *
+	 * @since 3.7.0
 	 */
 	public function get_redirect_count() {
 		global $wpdb;
@@ -282,26 +272,13 @@ class Database_Table {
 	}
 
 	/**
-	 * Deletes a redirect by ID.
-	 *
-	 * @param int $id Redirect ID.
-	 *
-	 * @return bool|int|\mysqli_result|null
-	 */
-	public function delete_redirect( $id ) {
-		global $wpdb;
-
-		return $wpdb->delete( $wpdb->prefix . 'smartcrawl_redirects', array( 'id' => $id ), array( '%d' ) );
-	}
-
-	/**
 	 * Deletes redirects from table.
 	 *
-	 * @param array | false $ids Redirect IDs to be deleted.
+	 * @param bool|array $ids Redirect IDs to be deleted.
 	 *
-	 * @return bool|int|\mysqli_result|null
+	 * @return false|int
 	 */
-	public function delete_redirects( $ids ) {
+	public function delete_redirects( $ids = false ) {
 		global $wpdb;
 
 		if ( empty( $ids ) ) {
@@ -314,7 +291,7 @@ class Database_Table {
 
 		$ids = implode( ',', array_filter( array_map( 'intval', $ids ) ) );
 
-		return $wpdb->query( "DELETE FROM {$wpdb->prefix}smartcrawl_redirects WHERE id IN ({$ids})" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $wpdb->query( "DELETE FROM {$wpdb->prefix}smartcrawl_redirects WHERE id IN ($ids)" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 	}
 
 	/**
@@ -322,7 +299,7 @@ class Database_Table {
 	 *
 	 * @param Item $redirect Redirect item.
 	 *
-	 * @return int
+	 * @return false|int
 	 */
 	public function save_redirect( $redirect ) {
 		global $wpdb;
@@ -404,7 +381,7 @@ class Database_Table {
 
 		$values = implode( ',', $values );
 
-		$query = "INSERT INTO {$wpdb->prefix}smartcrawl_redirects (title, source, path, destination, type, options, rules) VALUES {$values};";
+		$query = "INSERT INTO {$wpdb->prefix}smartcrawl_redirects (title, source, path, destination, type, options, rules) VALUES $values;";
 
 		return $wpdb->query( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 	}
@@ -413,11 +390,14 @@ class Database_Table {
 	 * Updates redirect data.
 	 *
 	 * @param Item[] $redirects Redirect items.
+	 *
+	 * @return false|int
 	 */
 	public function update_redirects( $redirects ) {
 		global $wpdb;
 
 		$values_array = array();
+
 		foreach ( $redirects as $redirect ) {
 			if ( ! $redirect->get_id() ) {
 				return false;
@@ -448,7 +428,7 @@ class Database_Table {
 	/**
 	 * Retrieves total number of redirects.
 	 *
-	 * @return int|string|null
+	 * @return int
 	 */
 	public function get_count() {
 		global $wpdb;
@@ -457,13 +437,13 @@ class Database_Table {
 			return 0;
 		}
 
-		return $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}smartcrawl_redirects" );
+		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}smartcrawl_redirects" );
 	}
 
 	/**
 	 * Handles to deflate row data.
 	 *
-	 * @param \stdClass $row Redirect item as a row.
+	 * @param stdClass $row Redirect item as a row.
 	 *
 	 * @return array
 	 */
@@ -476,7 +456,8 @@ class Database_Table {
 	/**
 	 * Handles to map row data to Item model.
 	 *
-	 * @param \stdClass $row Redirect item as a row.
+	 * @param stdClass|null $row Redirect item as a row.
+	 *
 	 * @return Item|null
 	 */
 	private function map_row_to_model( $row ) {
@@ -513,7 +494,7 @@ class Database_Table {
 	 *
 	 * @return array
 	 */
-	protected function map_model_to_row( Item $redirect ) {
+	protected function map_model_to_row( $redirect ) {
 		$destination = $redirect->get_destination();
 
 		if ( ! empty( $destination ) ) {
@@ -532,7 +513,7 @@ class Database_Table {
 	}
 
 	/**
-	 * Generates WHERE clause' format which is used to update a row in DB table.
+	 * Generates WHERE clause's format which is used to update a row in DB table.
 	 *
 	 * @return string[]
 	 */

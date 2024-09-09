@@ -4,7 +4,7 @@ Tags: hide,security,firewall,login,wp admin
 Requires at least: 4.6
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 5.2.04
+Stable tag: 5.3.00
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -301,6 +301,20 @@ Enjoy!
 9. Customize the wp-admin path while logged in as an administrator
 
 == Changelog ==
+= 5.3.00 (06 Sept 2024) =
+Update - Compatibility with WP 6.6.1 & 8.3.11
+Update - Compatibility with Nitrocache
+Update - Compatibility with WordFence plugin
+Update - Brute Force compatibility with UsersWP plugin
+Update - Cookie set on WP Multisite with subdomains
+Update - Brute Force shortcode to work with different login forms
+Update - Brute Force shortcode to work with Elementor login form
+Fixed - Security Check on admin url and login url
+Fixed - Google reCaptcha on frontend popup to load google header if not already loaded
+Fixed - Hide New Login Path to allow redirects from custom paths: lost password, signup and disconnect
+Fixed - WP Multisite active plugins check to ignore inactive plugins
+Fixed - Small bugs
+
 = 5.2.04 (07 July 2024) =
 Fixed - Compatibility with WP 6.6
 Fixed - Security update on wp-login.php and login.php

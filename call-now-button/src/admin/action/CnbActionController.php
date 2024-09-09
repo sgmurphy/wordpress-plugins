@@ -8,6 +8,7 @@ defined( 'ABSPATH' ) || die( '-1' );
 use cnb\admin\api\CnbAdminCloud;
 use cnb\admin\api\CnbAppRemote;
 use cnb\admin\models\CnbUser;
+use cnb\CnbHeaderNotices;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
 use WP_Error;
@@ -85,7 +86,7 @@ class CnbActionController {
 		CnbAdminCloud::cnb_delete_action( $cnb_cloud_notifications, $action );
 
 		// Save notices
-		$transient_id = 'cnb-' . wp_generate_uuid4();
+		$transient_id = (new CnbHeaderNotices())->generate_notice_id();
 		set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
 		// Create link
@@ -141,7 +142,7 @@ class CnbActionController {
             }
 
             // redirect the user to the appropriate page
-            $transient_id = 'cnb-' . wp_generate_uuid4();
+            $transient_id = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
             // Create link
@@ -210,7 +211,7 @@ class CnbActionController {
             }
 
             // redirect the user to the appropriate page
-            $transient_id = 'cnb-' . wp_generate_uuid4();
+            $transient_id = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
             // Create link
@@ -283,7 +284,7 @@ class CnbActionController {
                 }
                 // Create notice for link (and yes - we ignore the content of $cnb_cloud_notifications here, we just use it to count)
                 $notice       = new CnbNotice( 'success', '<p>' . count( $cnb_cloud_notifications ) . ' Action(s) deleted.</p>' );
-                $transient_id = 'cnb-' . wp_generate_uuid4();
+                $transient_id = (new CnbHeaderNotices())->generate_notice_id();
                 set_transient( $transient_id, array( $notice ), HOUR_IN_SECONDS );
 
                 // Create link

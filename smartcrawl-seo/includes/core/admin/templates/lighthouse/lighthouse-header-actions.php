@@ -8,7 +8,12 @@ if ( $lighthouse_report->has_data() && ! $lighthouse_report->has_errors() ) {
 	$disabled          = $lighthouse_report->is_cooling_down();
 	$remaining_minutes = $lighthouse_report->get_remaining_cooldown_minutes();
 	$tooltip           = $lighthouse_report->is_cooling_down()
-		? sprintf( esc_html__( 'SmartCrawl is just catching her breath, you can run another test in %s minutes.', 'smartcrawl-seo' ), $remaining_minutes )
+		? sprintf(
+			/* translators: 1: Remaining cool down minutes, 2: plugin title */
+			esc_html__( '%2$s is just catching her breath, you can run another test in %1$s minutes.', 'smartcrawl-seo' ),
+			$remaining_minutes,
+			\smartcrawl_get_plugin_title()
+		)
 		: false;
 } else {
 	$disabled = false;

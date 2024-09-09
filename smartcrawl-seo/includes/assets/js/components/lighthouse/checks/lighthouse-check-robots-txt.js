@@ -6,6 +6,7 @@ import Notice from '../../notices/notice';
 import LighthouseUtil from '../utils/lighthouse-util';
 import LighthouseTable from '../tables/lighthouse-table';
 import Button from '../../button';
+import ConfigValues from '../../../es6/config-values';
 
 export default class LighthouseCheckRobotsTxt extends React.Component {
 	static defaultProps = {
@@ -107,9 +108,13 @@ export default class LighthouseCheckRobotsTxt extends React.Component {
 					</strong>
 					<p>
 						{createInterpolateElement(
-							__(
-								'SmartCrawl can automatically add a robots.txt file for you, and link to your sitemap. Jump to <strong>Advanced Tools / Robots.txt Editor</strong> and fix the issues in your robots.txt file.',
-								'smartcrawl-seo'
+							sprintf(
+								// translators: %s: plugin title
+								__(
+									'<strong>%s</strong> can automatically add a robots.txt file for you, and link to your sitemap. Jump to <strong>Advanced Tools / Robots.txt Editor</strong> and fix the issues in your robots.txt file.',
+									'smartcrawl-seo'
+								),
+								ConfigValues.get('plugin_title', 'admin')
 							),
 							{ strong: <strong /> }
 						)}
@@ -193,9 +198,16 @@ export default class LighthouseCheckRobotsTxt extends React.Component {
 				'smartcrawl-seo'
 			) +
 			'\n' +
-			__(
-				'For more information please check the SEO Audits section in SmartCrawl plugin.',
-				'smartcrawl-seo'
+			createInterpolateElement(
+				sprintf(
+					// translators: %s: plugin title
+					__(
+						'For more information please check the SEO Audits section in <strong>%s</strong> plugin.',
+						'smartcrawl-seo'
+					),
+					ConfigValues.get('plugin_title', 'admin')
+				),
+				{ strong: <strong /> }
 			)
 		);
 	}

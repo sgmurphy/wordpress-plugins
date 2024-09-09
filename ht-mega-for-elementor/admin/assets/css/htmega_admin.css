@@ -425,6 +425,37 @@ ul.htoption-feature li + li {
 .htoption-btn-copy-status-copy .htoption-coupon-copy-content,.htoption-btn-copy-status-copied .htoption-coupon-copied-content{
   display: block;
 }
+.htoptions-sidebar-adds-area{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.htmega-opt-get-pro-title {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0;
+}
+.htmega-opt-get-pro{
+  gap: 10px;
+  justify-content: center;
+}
+.htmega-opt-get-pro ul li {
+  padding-left: 24px;
+  background-image: url(../images/icon/check.png);
+  background-repeat: no-repeat;
+  background-position: top 7px left;
+  background-size: 14px 13px;
+}
+.htmega-opt-get-pro .htmega-opt-get-pro-btn {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 25px;
+    color: #FFFFFF;
+    border-color: #1D39D7;
+    background-color: #1D39D7;
+    text-decoration: none;
+    border-radius: 4px;
+}
 
 .htoption-rating-area {
   display: -webkit-box;
@@ -441,6 +472,7 @@ ul.htoption-feature li + li {
   padding: 30px;
   background: #fff;
   box-shadow: 0 0 28px rgba(0,0,0,0.1);
+  border-radius: 5px;
 }
 .htoption-rating-area .htoption-rating-icon {
   -webkit-box-flex: 0;

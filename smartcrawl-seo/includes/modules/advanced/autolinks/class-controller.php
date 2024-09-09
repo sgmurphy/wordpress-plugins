@@ -69,7 +69,17 @@ class Controller extends Controllers\Submodule_Controller {
 			</a>
 
 			<p>
-				<small><?php esc_html_e( 'Configure SmartCrawl to automatically link certain key words to a page on your blog or even a whole new site all together.', 'smartcrawl-seo' ); ?></small>
+				<small>
+					<?php
+					printf(
+						/* translators: 1,2: strong tag, 3: plugin title */
+						esc_html__( 'Configure %1$s%3$s%2$s to automatically link certain key words to a page on your blog or even a whole new site all together.', 'smartcrawl-seo' ),
+						'<strong>',
+						'</strong>',
+						\smartcrawl_get_plugin_title()
+					);
+					?>
+				</small>
 			</p>
 			<button
 				type="button"

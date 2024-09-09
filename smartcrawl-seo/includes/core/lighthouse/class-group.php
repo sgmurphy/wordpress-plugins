@@ -27,13 +27,13 @@ class Group {
 	 * @param $report
 	 * @param $checks
 	 */
-	public function __construct( $id, $label, $description, $report, $checks ) {
+	public function __construct( $id, $label, $description, $checks ) {
 		$this->id          = $id;
 		$this->label       = $label;
 		$this->description = $description;
 
 		foreach ( $checks as $check_id ) {
-			$check                     = Checks\Check::create( $check_id, $report );
+			$check                     = Checks\Check::create( $check_id );
 			$this->checks[ $check_id ] = $check;
 		}
 	}

@@ -86,12 +86,13 @@ class Conflict_Detector extends Controller {
 
 			echo wp_kses_post(
 				sprintf(
-					/* translators: 1, 2: strong tag, 3, 4: anchor tag */
-					esc_html__( '%1$sWe\'ve detected one or more SEO plugins on your site.%2$s To avoid SEO issues, please disable the conflicting plugin(s) or select specific SmartCrawl modules to use alongside other plugins on the %3$sSettings page%4$s.', 'smartcrawl-seo' ),
+					/* translators: 1, 2: strong tag, 3, 4: anchor tag, 5: plugin title */
+					esc_html__( '%1$sWe\'ve detected one or more SEO plugins on your site.%2$s To avoid SEO issues, please disable the conflicting plugin(s) or select specific %1$s%5$s%2$s modules to use alongside other plugins on the %3$sSettings page%4$s.', 'smartcrawl-seo' ),
 					'<strong>',
 					'</strong>',
 					sprintf( '<a href="%s">', $settings_admin_url ),
-					'</a>'
+					'</a>',
+					\smartcrawl_get_plugin_title()
 				)
 			);
 			?>

@@ -2,8 +2,8 @@
 Contributors: integromat
 Tags: rest, api, rest api, integromat, endpoint, endpoints, meta, data, meta_data, Make
 Requires at least: 5.0
-Tested up to:  6.2
-Requires PHP: 5.6
+Tested up to:  6.6
+Requires PHP: 7.2
 Stable tag: 1.5.8
 License: GPLv2 or later
 

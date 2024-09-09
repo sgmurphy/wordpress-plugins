@@ -9,6 +9,7 @@ use cnb\admin\action\CnbAction;
 use cnb\admin\api\CnbAdminCloud;
 use cnb\admin\api\CnbAppRemote;
 use cnb\admin\condition\CnbCondition;
+use cnb\CnbHeaderNotices;
 use cnb\notices\CnbAdminNotices;
 use cnb\notices\CnbNotice;
 use cnb\utils\CnbUtils;
@@ -39,7 +40,7 @@ class CnbButtonController {
 
 	        // redirect the user to the appropriate page
             $tab          = filter_input( INPUT_POST, 'tab', @FILTER_SANITIZE_STRING );
-            $transient_id = 'cnb-' . wp_generate_uuid4();
+            $transient_id = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
             $new_button_type = null;
@@ -94,7 +95,7 @@ class CnbButtonController {
 
 			// redirect the user to the appropriate page
 			$tab          = filter_input( INPUT_POST, 'tab', @FILTER_SANITIZE_STRING );
-			$transient_id = 'cnb-' . wp_generate_uuid4();
+			$transient_id = (new CnbHeaderNotices())->generate_notice_id();
 			set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
 			$new_button_type = null;
@@ -145,7 +146,7 @@ class CnbButtonController {
 
             // redirect the user to the appropriate page
             $tab          = filter_input( INPUT_POST, 'tab', @FILTER_SANITIZE_STRING );
-            $transient_id = 'cnb-' . wp_generate_uuid4();
+            $transient_id = (new CnbHeaderNotices())->generate_notice_id();
             set_transient( $transient_id, $result, HOUR_IN_SECONDS );
 
             // Create link
@@ -284,7 +285,7 @@ class CnbButtonController {
             }
             $transient_id = null;
             if ( $notice ) {
-                $transient_id = 'cnb-' . wp_generate_uuid4();
+                $transient_id = (new CnbHeaderNotices())->generate_notice_id();
                 set_transient( $transient_id, array( $notice ), HOUR_IN_SECONDS );
             }
 
@@ -373,7 +374,7 @@ class CnbButtonController {
 		CnbAdminCloud::cnb_delete_button( $cnb_cloud_notifications, $button );
 
 		// Save notices
-		$transient_id = 'cnb-' . wp_generate_uuid4();
+		$transient_id = (new CnbHeaderNotices())->generate_notice_id();
 		set_transient( $transient_id, $cnb_cloud_notifications, HOUR_IN_SECONDS );
 
 		// Create link

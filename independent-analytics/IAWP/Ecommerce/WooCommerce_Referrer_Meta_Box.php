@@ -24,8 +24,12 @@ class WooCommerce_Referrer_Meta_Box
             return;
         }
         $order = $post_or_order_object instanceof \WP_Post ? wc_get_order($post_or_order_object->ID) : $post_or_order_object;
-        $screen = \class_exists('\\Automattic\\WooCommerce\\Internal\\DataStores\\Orders\\CustomOrdersTableController') && wc_get_container()->get(CustomOrdersTableController::class)->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id('shop-order') : 'shop_order';
         if ($order === \false) {
+            return;
+        }
+        $woocommerce_screen = \class_exists('\\Automattic\\WooCommerce\\Internal\\DataStores\\Orders\\CustomOrdersTableController') && wc_get_container()->get(CustomOrdersTableController::class)->custom_orders_table_usage_is_enabled() ? wc_get_page_screen_id('shop-order') : 'shop_order';
+        $current_screen = \get_current_screen();
+        if (\is_null($current_screen) || $current_screen->id !== $woocommerce_screen) {
             return;
         }
         $referrer_row = $this->get_referrer_for($order->get_id());
@@ -35,7 +39,7 @@ class WooCommerce_Referrer_Meta_Box
         if (\is_null($this->referrer) && \is_null($this->campaign)) {
             return;
         }
-        \add_meta_box('iawp-wc-referrer-source', \esc_html__('Order Referrer', 'independent-analytics'), [$this, 'render_meta_box_content'], $screen, 'side');
+        \add_meta_box('iawp-wc-referrer-source', \esc_html__('Order Referrer', 'independent-analytics'), [$this, 'render_meta_box_content'], $woocommerce_screen, 'side');
     }
     public function render_meta_box_content($post_or_order_object) : void
     {

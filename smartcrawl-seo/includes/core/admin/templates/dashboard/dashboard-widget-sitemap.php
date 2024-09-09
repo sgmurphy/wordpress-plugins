@@ -12,16 +12,20 @@ if ( ! $sitemap_available ) {
 	return;
 }
 
-$page_url            = Admin_Settings::admin_url( Settings::TAB_SITEMAP );
-$options             = $_view['options'];
-$sitemap_enabled     = Settings::get_setting( 'sitemap' );
-$option_name         = Settings::SETTINGS_MODULE . '_options';
-$service             = Service::get( Service::SERVICE_SITE );
-$is_member           = $service->is_member();
-$override_native     = Utils::override_native();
-$tooltip_text        = $override_native
+$page_url        = Admin_Settings::admin_url( Settings::TAB_SITEMAP );
+$options         = $_view['options'];
+$sitemap_enabled = Settings::get_setting( 'sitemap' );
+$option_name     = Settings::SETTINGS_MODULE . '_options';
+$service         = Service::get( Service::SERVICE_SITE );
+$is_member       = $service->is_member();
+$override_native = Utils::override_native();
+$tooltip_text    = $override_native
 	? esc_html__( 'You can switch to the WordPress core sitemap through the configure button.', 'smartcrawl-seo' )
-	: esc_html__( "You're using the default WordPress sitemap. You can switch to SmartCrawl's advanced sitemaps at any time.", 'smartcrawl-seo' );
+	: sprintf(
+		/* translators: %s: plugin title */
+		esc_html__( "You're using the default WordPress sitemap. You can switch to %s's advanced sitemaps at any time.", 'smartcrawl-seo' ),
+		esc_html( \smartcrawl_get_plugin_title() )
+	);
 $sitemap_notice_text = \smartcrawl_format_link(
 	/* translators: %s: Link to sitemap.xml */
 	esc_html__( 'Your sitemap is available at %s', 'smartcrawl-seo' ),
@@ -83,9 +87,10 @@ if ( ! $sitemap_enabled && $hide_disables ) {
 					class="wds-sitemap-type-tag sui-tag sui-tooltip sui-tooltip-constrained"
 					data-tooltip="<?php echo esc_attr( $tooltip_text ); ?>">
 					<?php
-					$override_native
-						? esc_html_e( 'SmartCrawl Sitemap', 'smartcrawl-seo' )
-						: esc_html_e( 'WP Core Sitemap', 'smartcrawl-seo' );
+					echo $override_native
+						/* translators: 1: plugin title */
+						? sprintf( esc_html__( '%s Sitemap', 'smartcrawl-seo' ), esc_html( \smartcrawl_get_plugin_title() ) )
+						: esc_html__( 'WP Core Sitemap', 'smartcrawl-seo' );
 					?>
 				</span>
 
@@ -160,7 +165,17 @@ if ( ! $sitemap_enabled && $hide_disables ) {
 						?>
 					<?php else : ?>
 						<p>
-							<small><?php esc_html_e( 'Automatically schedule SmartCrawl to run check for URLs that are missing from your Sitemap.', 'smartcrawl-seo' ); ?></small>
+							<small>
+								<?php
+								printf(
+									/* translators: 1,2: strong tag, 3: plugin title */
+									esc_html__( 'Automatically schedule %1$s%3$s%2$s to run check for URLs that are missing from your Sitemap.', 'smartcrawl-seo' ),
+									'<strong>',
+									'</strong>',
+									esc_html( \smartcrawl_get_plugin_title() )
+								);
+								?>
+							</small>
 						</p>
 						<div><span class="sui-tag sui-tag-inactive">
 							<?php esc_html_e( 'Sitemaps must be activated', 'smartcrawl-seo' ); ?>
@@ -177,7 +192,17 @@ if ( ! $sitemap_enabled && $hide_disables ) {
 						</span>
 					</a>
 					<p>
-						<small><?php esc_html_e( 'Automatically schedule SmartCrawl to run check for URLs that are missing from your Sitemap.', 'smartcrawl-seo' ); ?></small>
+						<small>
+							<?php
+							printf(
+								/* translators: 1,2: strong tag, 3: plugin title */
+								esc_html__( 'Automatically schedule %1$s%3$s%2$s to run check for URLs that are missing from your Sitemap.', 'smartcrawl-seo' ),
+								'<strong>',
+								'</strong>',
+								esc_html( \smartcrawl_get_plugin_title() )
+							);
+							?>
+						</small>
 					</p>
 				<?php endif; ?>
 			</div>
