@@ -5,7 +5,7 @@
 	 *
 	 * @author Infomaniak vod team
 	 * @link http://infomaniak.com
-	 * @version 1.5.8
+	 * @version 1.5.9
 	 * @copyright infomaniak.com
 	 */
 	define('VOD_RIGHT_CONTRIBUTOR', 1);
@@ -14,7 +14,7 @@
 	define('VOD_RIGHT_ADMIN', 4);
 
 	class EasyVod {
-		public $version = "1.5.8";
+		public $version = "1.5.9";
 		private $local_version;
 		private $plugin_url;
 		private $options;
@@ -593,14 +593,17 @@
 			if (strpos($width,'%') == false && strpos($width,'px') == false){
 				$width = $width."px";
 			}
-			
-			
-			$html_tag = '<div style="width:100%;max-width:'.$width.';">
+			if (!empty($aTagParam['responsive']) && $aTagParam['responsive'] == "1") {
+				$html_tag = '<div style="width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;position: relative">
+			   <iframe src="' . $video_url . '" width="100%" height="100%" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0" allowfullscreen crossorigin="anonymous" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+				</div>';
+			}else{
+				$html_tag = '<div style="width:100%;max-width:'.$width.';">
 							<div class="videoWrapper" style="position: relative;padding-bottom: '.$iPercentRatio.'%;height: 0;">
 								<iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="' . $video_url . '" frameborder="0" allowfullscreen></iframe>
 							</div>
 						</div>';
-			
+			}
 			return $html_tag;
 		}
 
@@ -646,7 +649,7 @@
 		}
 
 		function mce_register($plugin_array) {
-			$plugin_array["vodplugin"] = plugins_url('vod-infomaniak/js/editor_plugin.js?2');
+			$plugin_array["vodplugin"] = plugins_url('vod-infomaniak/js/editor_plugin.js?3');
 			return $plugin_array;
 		}
 
@@ -719,7 +722,7 @@
 				$aListFolder = $oApi->getFolders();
 				if (!empty($aListFolder)) {
 					foreach ($aListFolder as $oFolder) {
-						$this->db->insert_folder($oFolder['iFolderCode'], $oFolder['sFolderPath'], $oFolder['sFolderName'], $oFolder['sAccess'], $oFolder['sToken']);
+						$this->db->insert_folder($oFolder['iFolderCode'], $oFolder['sFolderPath'], $oFolder['sFolderName'], $oFolder['sAccess'], ($oFolder['key_restricted'] == 1)?'1':'0');
 					}
 				}
 			}
@@ -837,7 +840,7 @@
 				$bToken = false;
 				$oVideoProtected = $this->db->isFolderProtected($sVideo);
 				foreach ($oVideoProtected as $videoProtected) {
-					if (!is_null($videoProtected->sToken ) && $videoProtected->sToken != ""){
+					if (!is_null($videoProtected->sToken ) && $videoProtected->sToken != 0){
 						//video is protected
 						$bToken = true;
 					}
@@ -860,6 +863,7 @@
 						}
 					}
 				}
+				
 			}else{
 				$sShareURL = "";	//no share because v1
 			}
@@ -972,6 +976,11 @@
 
 
 			if (isset($_POST['updateSynchro']) && $_POST['updateSynchro'] == 1) {
+				require_once("vod.template.php");
+				EasyVod_Display::buildSyncFolder();
+				flush();
+				ob_flush();
+
 				$this->options['vod_api_lastUpdate'] = 0;
 				$this->fastSynchro();
 			}

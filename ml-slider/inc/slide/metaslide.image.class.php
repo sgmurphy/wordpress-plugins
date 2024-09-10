@@ -765,7 +765,8 @@ class MetaImageSlide extends MetaSlide
         $anchor_attributes = apply_filters('metaslider_flex_slider_anchor_attributes', array(
                 'href' => $slide['url'],
                 'target' => $slide['target'],
-                'aria-label' => $slide['link-alt']
+                'aria-label' => $slide['link-alt'],
+                'class' => 'metaslider_image_link'
             ), $slide, $this->slider->ID);
 
         if (strlen($anchor_attributes['href'])) {

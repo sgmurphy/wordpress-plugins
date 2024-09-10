@@ -38,10 +38,16 @@ class WPvivid_Backup_Task_2
 
     }
 
+    public function get_new_id()
+    {
+        $rand_id = substr(md5(time().rand()), 0,13);
+        return 'wpvivid-'.$rand_id;
+    }
+
     public function new_backup_task($options,$settings)
     {
         $this->task=array();
-        $id=uniqid('wpvivid-');
+        $id=$this->get_new_id();
         $this->task['id']=$id;
         $this->task['type']=isset($options['type'])?$options['type']:'';
 

@@ -219,6 +219,27 @@ class AHSC_Settings extends \AHSC\Pages\AHSC_Page {
 		);
 
 
+
+		$this->fields['sections']['general']['xmlrpc_status']['settings_tittle'] = array(
+			'title' => wp_kses( __( 'XML-RPC Status:', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
+			'type'  => 'title',
+			'class' =>( $is_hidden ) ? 'hidden' : '',
+		);
+		$this->fields['sections']['general']['xmlrpc_status'] = array(
+			'ids'   => array( 'ahsc_xmlrpc_status' ),
+			'name'  => wp_kses( __( 'XML-RPC', 'aruba-hispeed-cache' ), array( 'strong' => array() ) ) ,
+			'class' =>( $is_hidden ) ? 'hidden' : '',
+		);
+		$this->fields['ahsc_xmlrpc_status'] = array(
+			'name'    => "<strong>".wp_kses( __( 'XML-RPC', 'aruba-hispeed-cache' ), array( 'strong' => array() ) )."</strong>",
+			'legend' => wp_kses( __( 'Enhance the protection of your website from cyber attacks by disabling the XML-RPC function that allows data transfer.', 'aruba-hispeed-cache' ), array( 'strong' => array(), 'br' => array() ) ),
+			'type'    => 'checkbox',
+			'id'      => 'ahsc_xmlrpc_status',
+			'checked' => \checked( $option['ahsc_xmlrpc_status'] ?? 0 , 1, false ),
+			'class' =>( $is_hidden ) ? 'hidden' : '',
+		);
+
+
 	}
 
 

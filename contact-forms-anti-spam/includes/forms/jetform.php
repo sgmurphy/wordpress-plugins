@@ -13,11 +13,11 @@ function validate_jet_form_for_spam($form_handler) {
         // Country IP Check
         $spam = false;
         $reason = "";
-        $CountryCheck = CountryCheck($ip, $spam, $reason, $_POST);
-        $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false;
-        $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : "";
-        $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : "";
-        $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
+        $GeneralCheck = GeneralCheck($ip, $spam, $reason, $_POST,"jetform");
+        $spam = isset($GeneralCheck['spam']) ? $GeneralCheck['spam'] : false;
+        $reason = isset($GeneralCheck['reason']) ? $GeneralCheck['reason'] : "";
+        $message = isset($GeneralCheck['message']) ? $GeneralCheck['message'] : "";
+        $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
 
         if ($spam) {
             efas_add_to_log("Country/IP", $reason, $_POST, "JetFormBuilder", $message,  $spam_val);

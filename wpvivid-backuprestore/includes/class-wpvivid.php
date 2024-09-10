@@ -7236,7 +7236,7 @@ class WPvivid
                 $ret['result'] = 'failed';
                 $ret['error'] = __('User\'s email address is required.', 'wpvivid-backuprestore');
             } else {
-                $pattern = '/^[a-z0-9]+([._-][a-z0-9]+)*@([0-9a-z]+\.[a-z]{2,14}(\.[a-z]{2})?)$/i';
+                $pattern = '/^[a-z0-9]+([._-][a-z0-9]+)*@([0-9a-z-]+\.[a-z]{2,14}(\.[a-z]{2})?)$/i';
                 if (!preg_match($pattern, $_POST['user_mail'])) {
                     $ret['result'] = 'failed';
                     $ret['error'] = __('Please enter a valid email address.', 'wpvivid-backuprestore');

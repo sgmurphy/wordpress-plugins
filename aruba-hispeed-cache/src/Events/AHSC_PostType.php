@@ -14,7 +14,11 @@ if( ( ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) || defined( 'DOI
 	   AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_purge_archive_on_edit'] ||
 	   AHSC_CONSTANT['ARUBA_HISPEED_CACHE_OPTIONS']['ahsc_purge_archive_on_del']
 	){
-		\add_action( 'post_updated',  'ahsc_post_updated' , 20, 3 );
+		\add_action( 'post_updated',  'ahsc_post_updated' , 20, 2 );
+
+		if ( did_action( 'elementor/loaded' ) ) {
+			add_action( 'elementor/editor/after_save', 'ahsc_post_updated', 10 , 2 );
+		}
 	}
 }
 
@@ -47,7 +51,7 @@ if('nav-menus.php' !== $pagenow){
  *
  * @return void
  */
- function ahsc_post_updated($post_ID, $post_after, $post_before) {
+ function ahsc_post_updated($post_ID, $data) {
 	/**
 	 * I check whether the cleaning transient "ahsc_do_purge_deferred" is present in case I inhibit this action.
 	 */

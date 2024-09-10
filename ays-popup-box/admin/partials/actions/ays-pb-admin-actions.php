@@ -119,6 +119,7 @@ $options = array(
     'notification_logo_redirect_to_new_tab' => 'off',
     'notification_main_content' => 'Write the custom notification banner text here.',
     'notification_button_1_text' => 'Click!',
+    'notification_button_1_hover_text' => 'Click!',
     'notification_button_1_redirect_url' => '',
     'notification_button_1_redirect_to_new_tab' => 'off',
     'notification_button_1_bg_color' => '#F66123',
@@ -473,6 +474,9 @@ $notification_main_content = (isset($options['notification_main_content']) && $o
 
 // Notification type | Button 1 text
 $notification_button_1_text = (isset($options['notification_button_1_text']) && $options['notification_button_1_text'] != '') ? stripslashes( esc_attr($options['notification_button_1_text']) ) : 'Click!';
+
+// Notification type | Button 1 hover text
+$notification_button_1_hover_text = (isset($options['notification_button_1_hover_text']) && $options['notification_button_1_hover_text'] != '') ? stripslashes( esc_attr($options['notification_button_1_hover_text']) ) : '';
 
 // Notification type | Button 1 redirect URL
 $notification_button_1_redirect_url = (isset($options['notification_button_1_redirect_url']) && $options['notification_button_1_redirect_url'] != '') ? esc_url($options['notification_button_1_redirect_url']) : '';
@@ -1167,8 +1171,81 @@ if (isset($options['border_radius_mobile'])) {
     $border_radius_mobile = $border_radius;
 }
 
-// Custom class for quiz container
-$custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != "") ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
+// Close button image
+$close_btn_background_img = (isset($options['close_button_image']) && $options['close_button_image'] != '') ? esc_url($options['close_button_image']) : '';
+
+// Close button color
+$default_close_button_color = $view_type == 'lil' ? '#ffffff' : $textcolor;
+$close_button_color = (isset($options['close_button_color']) && $options['close_button_color'] != '') ? esc_attr( stripslashes($options['close_button_color']) ) : $default_close_button_color;
+
+// Close button hover color
+$close_button_hover_color = (isset($options['close_button_hover_color']) && $options['close_button_hover_color'] != '') ? esc_attr( stripslashes($options['close_button_hover_color']) ) : $close_button_color;
+
+// Close button size
+$ays_close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? abs( intval($options['close_button_size']) ) : 1;
+
+// Box shadow | On PC
+$options['enable_box_shadow'] = (isset($options['enable_box_shadow']) && $options['enable_box_shadow'] != '') ? esc_attr( stripslashes($options['enable_box_shadow']) ) : 'off';
+$enable_box_shadow = (isset($options['enable_box_shadow']) && $options['enable_box_shadow'] == 'on') ? true : false;
+
+// Box shadow | On PC | Color
+$box_shadow_color = (isset($options['box_shadow_color']) && $options['box_shadow_color'] != '') ? esc_attr( stripslashes($options['box_shadow_color']) ) : '#000';
+
+// Box shadow | On PC | X
+$pb_box_shadow_x_offset = (isset($options['pb_box_shadow_x_offset']) && $options['pb_box_shadow_x_offset'] != '') ? abs( intval($options['pb_box_shadow_x_offset']) ) : 0;
+
+// Box shadow | On PC | Y
+$pb_box_shadow_y_offset = (isset($options['pb_box_shadow_y_offset']) && $options['pb_box_shadow_y_offset'] != '') ? abs( intval($options['pb_box_shadow_y_offset']) ) : 0;
+
+// Box shadow | On PC | Z
+$pb_box_shadow_z_offset = (isset($options['pb_box_shadow_z_offset']) && $options['pb_box_shadow_z_offset'] != '') ? abs( intval($options['pb_box_shadow_z_offset']) ) : 15;
+
+// Box shadow | On mobile
+if (isset($options['enable_box_shadow_mobile'])) {
+    $options['enable_box_shadow_mobile'] = $options['enable_box_shadow_mobile'] != '' ? esc_attr( stripslashes($options['enable_box_shadow_mobile']) ) : 'off';
+} else {
+    $options['enable_box_shadow_mobile'] = $options['enable_box_shadow'];
+}
+$enable_box_shadow_mobile = (isset($options['enable_box_shadow_mobile']) && $options['enable_box_shadow_mobile'] == 'on') ? true : false;
+
+// Box shadow | On mobile | Color
+if (isset($options['box_shadow_color_mobile'])) {
+    $box_shadow_color_mobile = ($options['box_shadow_color_mobile'] != '') ? esc_attr( stripslashes($options['box_shadow_color_mobile']) ) : '#000';
+} else {
+    $box_shadow_color_mobile = $box_shadow_color;
+}
+
+// Box shadow | On mobile | X
+if ( isset($options['pb_box_shadow_x_offset_mobile']) ) {
+    $pb_box_shadow_x_offset_mobile = ($options['pb_box_shadow_x_offset_mobile'] != '') ? abs( intval($options['pb_box_shadow_x_offset_mobile']) ) : 0;
+} else {
+    $pb_box_shadow_x_offset_mobile = $pb_box_shadow_x_offset;
+}
+
+// Box shadow | On mobile | Y
+if ( isset($options['pb_box_shadow_y_offset_mobile']) ) {
+    $pb_box_shadow_y_offset_mobile = ($options['pb_box_shadow_y_offset_mobile'] != '') ? abs( intval($options['pb_box_shadow_y_offset_mobile']) ) : 0;
+} else {
+    $pb_box_shadow_y_offset_mobile = $pb_box_shadow_y_offset;
+}
+
+// Box shadow | On mobile | Z
+if ( isset($options['pb_box_shadow_z_offset_mobile']) ) {
+    $pb_box_shadow_z_offset_mobile = ($options['pb_box_shadow_z_offset_mobile'] != '') ? abs( intval($options['pb_box_shadow_z_offset_mobile']) ) : 15;
+} else {
+    $pb_box_shadow_z_offset_mobile = $pb_box_shadow_z_offset;
+}
+
+// Background image style on mobile
+$options['pb_bg_image_direction_on_mobile'] = (isset($options['pb_bg_image_direction_on_mobile']) && $options['pb_bg_image_direction_on_mobile'] != '') ? esc_attr( stripslashes($options['pb_bg_image_direction_on_mobile']) ) : 'off';
+$pb_bg_image_direction_on_mobile = (isset($options['pb_bg_image_direction_on_mobile']) && $options['pb_bg_image_direction_on_mobile'] == 'on') ? true : false;
+
+// Custom class for popup container
+$custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] != '') ? esc_attr( stripslashes($popupbox['custom_class']) ) : '';
+
+// Custom CSS
+$custom_css = (isset($popupbox['custom_css']) && $popupbox['custom_css'] != '') ? stripslashes( esc_attr($popupbox['custom_css']) ) : '';
+
 $users_role   = (isset($popupbox['users_role']) && $popupbox['users_role'] != "") ? json_decode($popupbox['users_role'], true) : array();
 
 if(isset($_POST["ays_submit"]) || isset($_POST["ays_submit_top"])){
@@ -1197,12 +1274,7 @@ $ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on')
 //Show PopupBox only once
 $show_only_once = (isset($options['show_only_once']) && $options['show_only_once'] == 'on') ? 'on' : 'off';
 
-//close button size
-$ays_close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? esc_attr( abs($options['close_button_size']) ) : '1';
-
 $cookie             = (isset($popupbox['cookie']) && $popupbox['cookie'] != "") ? esc_attr( abs($popupbox['cookie']) ) : "";
-
-$custom_css = (isset($popupbox['custom_css']) && $popupbox['custom_css'] != "") ? stripslashes ( esc_attr($popupbox['custom_css'] ) ) : "";
 
 $ays_pb_show_hide_timer_box = true;
 if ($enable_autoclose_delay_text_mobile) {
@@ -1247,19 +1319,11 @@ if($ays_enable_pb_fullscreen == 'on'){
     $disable_width  = '';
 }
 
-//close button image
-$close_btn_background_img  = (isset($options['close_button_image']) && $options['close_button_image'] != "") ? $options['close_button_image'] : "";
-$close_btn_image = __('Add Image', "ays-popup-box");
-$close_btn_style_bg = "display: none;";
-
-if (isset($options['close_button_image']) && !empty($options['close_button_image'])) {
-    $close_btn_style_bg  = "display: block;";
-    $close_btn_image = __('Edit Image', "ays-popup-box");
+$close_btn_img_display = 'display:none;';
+$close_btn_text_display = 'display:flex; align-items:center; justify-content: center;';
+if ($close_btn_background_img != '') {
     $close_btn_img_display = 'display:block;';
     $close_btn_text_display = 'display:none';
-}else{
-    $close_btn_img_display = 'display:none;';
-    $close_btn_text_display = 'display:flex; align-items:center; justify-content: center;';
 }
 
 $hide_title = '';
@@ -1300,58 +1364,6 @@ $not_default_view_types = array(
     'cmd'       => 'cmd',
 );
 
-//Box Shadow
-$options['enable_box_shadow'] = ( isset( $options['enable_box_shadow'] ) && $options['enable_box_shadow'] != '' ) ? $options['enable_box_shadow'] : 'off';
-$enable_box_shadow = ( isset( $options['enable_box_shadow'] ) && $options['enable_box_shadow'] == 'on' ) ? true : false;
-
-//Box Shadow mobile
-if ( isset($options['enable_box_shadow_mobile']) ) {
-    $options['enable_box_shadow_mobile'] = $options['enable_box_shadow_mobile'] != '' ? $options['enable_box_shadow_mobile'] : 'off';
-} else {
-    $options['enable_box_shadow_mobile'] = $options['enable_box_shadow'];
-}
-$enable_box_shadow_mobile = ( isset( $options['enable_box_shadow_mobile'] ) && $options['enable_box_shadow_mobile'] == 'on' ) ? true : false;
-
-//Box Shadow Color
-$box_shadow_color = (!isset($options['box_shadow_color'])) ? '#000' : esc_attr( stripslashes($options['box_shadow_color']) );
-
-//Box Shadow Color Mobile
-if ( isset($options['box_shadow_color_mobile']) ) {
-    $box_shadow_color_mobile = ($options['box_shadow_color_mobile'] == '') ? '#000' : esc_attr( stripslashes($options['box_shadow_color_mobile']) );
-} else {
-    $box_shadow_color_mobile = $box_shadow_color;
-}
-
-//Box Shadow X offset
-$pb_box_shadow_x_offset = (isset($options['pb_box_shadow_x_offset']) && $options['pb_box_shadow_x_offset'] != '' && intval( $options['pb_box_shadow_x_offset'] ) != 0) ? intval( $options['pb_box_shadow_x_offset'] ) : 0;
-
-//Box Shadow X offset Mobile
-if ( isset($options['pb_box_shadow_x_offset_mobile']) ) {
-    $pb_box_shadow_x_offset_mobile = ( $options['pb_box_shadow_x_offset_mobile'] != '' && intval($options['pb_box_shadow_x_offset_mobile']) != 0 ) ? intval($options['pb_box_shadow_x_offset_mobile']) : 0;
-} else {
-    $pb_box_shadow_x_offset_mobile = $pb_box_shadow_x_offset;
-}
-
-//Box Shadow Y offset
-$pb_box_shadow_y_offset = (isset($options['pb_box_shadow_y_offset']) && $options['pb_box_shadow_y_offset'] != '' && intval( $options['pb_box_shadow_y_offset'] ) != 0) ? intval( $options['pb_box_shadow_y_offset'] ) : 0;
-
-//Box Shadow Y offset Mobile
-if ( isset($options['pb_box_shadow_y_offset_mobile']) ) {
-    $pb_box_shadow_y_offset_mobile = ( $options['pb_box_shadow_y_offset_mobile'] != '' && intval($options['pb_box_shadow_y_offset_mobile']) != 0 ) ? intval($options['pb_box_shadow_y_offset_mobile']) : 0;
-} else {
-    $pb_box_shadow_y_offset_mobile = $pb_box_shadow_y_offset;
-}
-
-//Box Shadow Z offset
-$pb_box_shadow_z_offset = (isset($options['pb_box_shadow_z_offset']) && $options['pb_box_shadow_z_offset'] != '' && intval( $options['pb_box_shadow_z_offset'] ) != 0) ? intval( $options['pb_box_shadow_z_offset'] ) : 15;
-
-//Box Shadow Z offset Mobile
-if ( isset($options['pb_box_shadow_z_offset_mobile']) ) {
-    $pb_box_shadow_z_offset_mobile = ( $options['pb_box_shadow_z_offset_mobile'] != '' && intval($options['pb_box_shadow_z_offset_mobile']) != 0 ) ? intval($options['pb_box_shadow_z_offset_mobile']) : 0;
-} else {
-    $pb_box_shadow_z_offset_mobile = $pb_box_shadow_z_offset;
-}
-
 //Hide on PC
 $options['hide_on_pc'] = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] != "" ) ? esc_attr($options['hide_on_pc']) : "off";
 $ays_pb_hide_on_pc = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? true : false;
@@ -1359,19 +1371,6 @@ $ays_pb_hide_on_pc = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc']
 //Hide on tablets
 $options['hide_on_tablets'] = ( isset( $options['hide_on_tablets'] ) && $options['hide_on_tablets'] != "" ) ? esc_attr($options['hide_on_tablets']) : "off";
 $ays_pb_hide_on_tablets = ( isset( $options['hide_on_tablets'] ) && $options['hide_on_tablets'] == "on" ) ? true : false;
-
-//Background image position for mobile
-$options['pb_bg_image_direction_on_mobile'] = ( isset( $options['pb_bg_image_direction_on_mobile'] ) && $options['pb_bg_image_direction_on_mobile'] == "on" ) ? esc_attr($options['pb_bg_image_direction_on_mobile']) : "off";
-$pb_bg_image_direction_on_mobile = ( isset( $options['pb_bg_image_direction_on_mobile'] ) && $options['pb_bg_image_direction_on_mobile'] == "on" ) ? true : false;
-
-//Close button color
-$empty_closebtn_color = $textcolor;
-if($view_type == 'lil'){
-    $empty_closebtn_color = '#ffffff';
-}
-$close_button_color = (isset($options['close_button_color']) && $options['close_button_color'] != "") ? esc_attr( stripslashes( $options['close_button_color'] )) : $empty_closebtn_color;
-
-$close_button_hover_color = (isset($options['close_button_hover_color']) && $options['close_button_hover_color'] != "") ? esc_attr( stripslashes( $options['close_button_hover_color'] )) : $close_button_color;
 
 $show_popup_triggers_tooltip = array(
     'pageLoaded' => 'On page load - Trigger displays the popup automatically on the page load. Define the time delay of the popup in Open Delay option.',
@@ -1851,6 +1850,20 @@ $ays_users_roles = $wp_roles->roles;
                                         </div>
                                         <div class="col-sm-9">
                                             <input type="text" id="ays_pb_notification_button_1_text" class="ays-text-input" name="ays_pb_notification_button_1_text" value="<?php echo $notification_button_1_text ?>" />
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_hover_text">
+                                                <?php  echo __('Button hover text', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Displays text when cursor is placed over the button.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="ays_pb_notification_button_1_hover_text" class="ays-text-input" name="ays_pb_notification_button_1_hover_text" value="<?php echo $notification_button_1_hover_text ?>" />
                                         </div>
                                     </div>
                                     <hr>
@@ -5985,10 +5998,10 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div>
                                             <a href="javascript:void(0)" class="button ays_pb_add_close_btn_bg_image">
-                                                <?php echo $close_btn_image; ?>
+                                                <?php echo $close_btn_background_img != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
                                             </a>
                                         </div>
-                                        <div class="ays_pb_close_btn_bg_img_container ays-pb-edit-image-container" style="<?php echo $close_btn_style_bg; ?>">
+                                        <div class="ays_pb_close_btn_bg_img_container ays-pb-edit-image-container" style="<?php echo $close_btn_background_img != '' ? 'display: block' : 'display: none'; ?>">
                                             <div class="ays_pb_close_btn_bg_img">
                                                 <span class="ays_remove_bg_img ays-pb-edit-image-container-remove-img"></span>
                                                 <img src="<?php echo $close_btn_background_img ; ?>" id="ays_close_btn_bg_img"/>
@@ -6092,7 +6105,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label for="ays_pb_box_shadow_color">
-                                                            <?php echo __('Box shadow color',"ays-popup-box")?>
+                                                            <?php echo __('Color',"ays-popup-box")?>
                                                             <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The color of the shadow of the popup container',"ays-popup-box" ); ?>">
                                                                 <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                             </a>
@@ -6137,7 +6150,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 <div class="form-group row">
                                                     <div class="col-sm-12">
                                                         <label for="ays_pb_box_shadow_color_mobile">
-                                                            <?php echo __('Box shadow color',"ays-popup-box")?>
+                                                            <?php echo __('Color',"ays-popup-box")?>
                                                             <a class="ays_help" data-toggle="tooltip" title="<?php echo __('The color of the shadow of the popup container',"ays-popup-box" ); ?>">
                                                                 <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                             </a>
@@ -6182,7 +6195,7 @@ $ays_users_roles = $wp_roles->roles;
                                 <div class="form-group row">
                                     <div class="col-sm-4">
                                         <label for="custom_class">
-                                            <?php echo __('Custom class for Popup container ',"ays-popup-box")?>
+                                            <?php echo __('Custom class for popup container ',"ays-popup-box")?>
                                             <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Use your custom HTML class for adding your custom styles to popup container.',"ays-popup-box")?>">
                                                 <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                             </a>

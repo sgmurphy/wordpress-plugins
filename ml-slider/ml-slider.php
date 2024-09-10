@@ -5,7 +5,7 @@
  * Plugin Name: MetaSlider
  * Plugin URI:  https://www.metaslider.com
  * Description: MetaSlider gives you the power to create a beautiful slideshow, carousel, or gallery on your WordPress site.
- * Version:     3.90.1
+ * Version:     3.91.0
  * Author:      MetaSlider
  * Author URI:  https://www.metaslider.com
  * License:     GPL-2.0+
@@ -42,7 +42,7 @@ if (! class_exists('MetaSliderPlugin')) {
          *
          * @var string
          */
-        public $version = '3.90.1';
+        public $version = '3.91.0';
 
         /**
          * Pro installed version number
@@ -328,6 +328,7 @@ if (! class_exists('MetaSliderPlugin')) {
             add_action('media_upload_external_url', array($this, 'upgrade_to_pro_tab_external_url'));
             add_action('media_upload_local_video', array($this, 'upgrade_to_pro_tab_local_video'));
             add_action('media_upload_external_video', array($this, 'upgrade_to_pro_tab_external_video'));
+            add_action('media_upload_tiktok', array($this, 'upgrade_to_pro_tab_tiktok'));
 
             // TODO: Refactor to Slide class object
             add_action('wp_ajax_delete_slide', array($this, 'ajax_delete_slide'));
@@ -706,7 +707,7 @@ if (! class_exists('MetaSliderPlugin')) {
          */
         public function custom_media_upload_tab_name($tabs)
         {
-            $metaslider_tabs = array('post_feed', 'layer', 'youtube', 'vimeo', 'external_url', 'local_video', 'external_video');
+            $metaslider_tabs = array('post_feed', 'layer', 'youtube', 'vimeo', 'external_url', 'local_video', 'external_video', 'tiktok');
 
             // restrict our tab changes to the MetaSlider plugin page
             if ((isset($_GET['page']) && $_GET['page'] == 'metaslider') || (isset($_GET['tab']) && in_array(
@@ -724,6 +725,7 @@ if (! class_exists('MetaSliderPlugin')) {
                         'external_url' => __("External URL", "ml-slider"),
                         'local_video' => __("Local Video", "ml-slider"),
                         'external_video' => __("External Video", "ml-slider"),
+                        'tiktok' => __("Tiktok", "ml-slider"),
                     );
                 }
 
@@ -1153,6 +1155,10 @@ if (! class_exists('MetaSliderPlugin')) {
                             $msQuickstartPro->set_slideshow_theme( $id, 'outline' );
                             break;
 
+                        case 'tiktok':
+                            $msQuickstartPro->set_slideshow_theme( $id, 'social-play' );
+                            break;
+
                         case 'vimeo':
                             $msQuickstartPro->set_slideshow_theme( $id, 'outline' );
                             break;
@@ -1170,6 +1176,10 @@ if (! class_exists('MetaSliderPlugin')) {
                             break;
 
                         case 'external_video':
+                            $msQuickstartPro->set_slideshow_theme( $id, 'blend' );
+                            break;
+
+                        case 'local_video':
                             $msQuickstartPro->set_slideshow_theme( $id, 'blend' );
                             break;
                     }
@@ -1778,7 +1788,14 @@ if (! class_exists('MetaSliderPlugin')) {
                                     <?php if ( isset( $_GET['metaslider_add_sample_slides'] ) ) : ?>
                                         <p id="loading-add-sample-slides-notice" style="display: none;">
                                             <span style="background-image: url(<?php echo esc_url(admin_url( '/images/loading.gif' )); ?>);">
-                                                <?php _e( 'Loading... Please wait!', 'ml-slider' ) ?>
+                                                <?php 
+                                                if ($_GET['metaslider_add_sample_slides'] !== 'local_video') {
+                                                    _e( 'Loading... Please wait!', 'ml-slider' );
+                                                } else {
+                                                    // Only for Local videos
+                                                    _e( "Loading... Please wait! This may take some minutes due we're downloading sample Local videos.", 'ml-slider' );
+                                                }
+                                                ?>
                                             </span>
                                         </p>
                                     <?php endif; ?>
@@ -2265,6 +2282,45 @@ if (! class_exists('MetaSliderPlugin')) {
             );
         }
 
+         /**
+         * Return the MetaSlider pro upgrade iFrame
+         */
+        public function upgrade_to_pro_tab_tiktok()
+        {
+            if (function_exists('is_plugin_active') && ! is_plugin_active('ml-slider-pro/ml-slider-pro.php')) {
+                return wp_iframe(array($this, 'upgrade_to_pro_iframe_tiktok'));
+            }
+        }
+
+        /**
+         * Media Manager iframe HTML - Tiktok
+         */
+        public function upgrade_to_pro_iframe_tiktok()
+        {
+            $link = apply_filters('metaslider_hoplink', 'https://www.metaslider.com/upgrade/');
+            $link .= '?utm_source=lite&amp;utm_medium=more-slide-types-tiktok&amp;utm_campaign=pro';
+            $this->upgrade_to_pro_iframe(
+                array(
+                    '<div class="left"><img src="' . esc_url(METASLIDER_ADMIN_URL . 'images/upgrade/tiktok.png') . '" alt="" /></div>',
+                    "<div ><h2>" . esc_html__(
+                        'Create slideshows with Tiktok Videos',
+                        'ml-slider'
+                    ) . "</h2>",
+                    "<p>" . esc_html__(
+                        'A TikTok Slide will display a video in your slideshow directly from TikTok.com.',
+                        'ml-slider'
+                    ) . "</p>",
+                    '<a class="probutton button button-primary button-hero" href="' . esc_url(
+                        $link
+                    ) . '" target="_blank">' . esc_html__(
+                        "Find out more about MetaSlider Pro",
+                        "ml-slider"
+                    ) . '<span class="dashicons dashicons-external"></span></a>',
+                    "</div>"
+                )
+            );
+        }
+
         /**
          * Upgrade to pro Iframe - Render
          *
@@ -2277,6 +2333,7 @@ if (! class_exists('MetaSliderPlugin')) {
             echo implode("", $content);
             echo "</div>";
         }
+
 
         /**
          * Adds extra links to the plugin activation page

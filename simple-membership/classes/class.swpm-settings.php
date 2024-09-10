@@ -263,21 +263,47 @@ class SwpmSettings {
 			admin_url( 'admin.php' )
 		);
 
-		$reset_log_url = add_query_arg(
-			array(
-				'page'           => 'simple_wp_membership_settings',
-				'swpm_reset_log' => '1',
-				'_wpnonce'       => wp_create_nonce( 'swpm_reset_log' ),
-			),
-			admin_url( 'admin.php' )
-		);
-
-		$debug_field_help_text  = SwpmUtils::_( 'Check this option to enable debug logging.' );
-		$debug_field_help_text .= SwpmUtils::_( ' This can be useful when troubleshooting an issue. Turn it off and reset the log files after the troubleshooting is complete.' );
+		$debug_field_help_text  = __( 'Check this option to enable debug logging.', 'simple-membership' );
+		$debug_field_help_text .= __( ' This can be useful when troubleshooting an issue. Turn it off and reset the log files after the troubleshooting is complete.', 'simple-membership' );
 		$debug_field_help_text .= '<br />';
-		$debug_field_help_text .= '<br />- ' . SwpmUtils::_( 'View general debug log file by clicking ' ) . '<a href="' . $debug_log_url . '" target="_blank">' . SwpmUtils::_( 'here' ) . '</a>.';
-		$debug_field_help_text .= '<br />- ' . SwpmUtils::_( 'View login related debug log file by clicking ' ) . '<a href="' . $auth_log_url . '" target="_blank">' . SwpmUtils::_( 'here' ) . '</a>.';
-		$debug_field_help_text .= '<br />- ' . SwpmUtils::_( 'Reset debug log files by clicking ' ) . '<a href="' . $reset_log_url . '" target="_blank">' . SwpmUtils::_( 'here' ) . '</a>.';
+		$debug_field_help_text .= '<br />- ' . __( 'View general debug log file by ', 'simple-membership' ) . '<a href="' . $debug_log_url . '" target="_blank">' . __( 'clicking here', 'simple-membership' ) . '</a>.';
+		$debug_field_help_text .= '<br />- ' . __( 'View login related debug log file by ', 'simple-membership' ) . '<a href="' . $auth_log_url . '" target="_blank">' . __( 'clicking here', 'simple-membership' ) . '</a>.';
+		$debug_field_help_text .= '<br />- ' . __( 'Reset debug log files by ', 'simple-membership' ) . '<a href="javascript:void(0)" style="color: #CC0000;" id="swpm_reset_log_anchor">' . __( 'clicking here', 'simple-membership') . '</a>.';
+		ob_start();
+        ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function (){
+                const swpm_reset_log_anchor = document.getElementById('swpm_reset_log_anchor');
+                swpm_reset_log_anchor.addEventListener('click', function (e){
+                    e.preventDefault();
+                    const ajaxUrl = '<?php echo admin_url( 'admin-ajax.php' )?>';
+                    const payload = new URLSearchParams();
+                    payload.append('action', 'swpm_reset_log_action');
+                    payload.append('nonce',  '<?php echo esc_js( wp_create_nonce( 'swpm_reset_log_action' ) ) ?>');
+                    fetch(
+                        ajaxUrl,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: payload.toString()
+                        }
+                    ).then((response) => {
+                        return response.json();
+                    }).then((res) => {
+                        alert(res.data.message);
+                    }).catch(err => {
+                        alert('The ajax request to reset the log files has failed unexpectedly. Please try again later.');
+                    })
+                });
+            })
+
+
+        </script>
+        <?php
+		$debug_field_help_text .= ob_get_clean();
+
 		add_settings_field(
 			'enable-debug',
 			SwpmUtils::_( 'Enable Debug' ),
@@ -627,6 +653,18 @@ class SwpmSettings {
 			array(
 				'item'    => 'auto-login-after-rego',
 				'message' => SwpmUtils::_( 'Use this option if you want the members to be automatically logged into your site right after they complete the registration. This option will override any after registration redirection and instead it will trigger the after login redirection. Read <a href="https://simple-membership-plugin.com/configure-auto-login-after-registration-members/" target="_blank">this documentation</a> to learn more.' ),
+			)
+		);
+
+		add_settings_field(
+			'hide-join-us-link',
+			__( 'Hide the Join Us Link' , 'simple-membership'),
+			array( &$this, 'checkbox_callback' ),
+			'simple_wp_membership_settings',
+			'advanced-settings',
+			array(
+				'item'    => 'hide-join-us-link',
+				'message' => __( "Select this option to hide the 'Join Us' link if you prefer visitors not to see the registration option on your site. Refer to <a href='https://simple-membership-plugin.com/hiding-join-option-from-visitors/' target='_blank'>this documentation</a> to learn more." , "simple-membership"),
 			)
 		);
 
@@ -1105,16 +1143,6 @@ class SwpmSettings {
 	}
 
 	public function swpm_general_post_submit_check_callback() {
-		//Log file reset handler
-		if ( isset( $_REQUEST['swpm_reset_log'] ) ) {
-			check_admin_referer( 'swpm_reset_log' );
-			if ( SwpmLog::reset_swmp_log_files() ) {
-				echo '<div id="message" class="updated fade"><p>Debug log files have been reset!</p></div>';
-			} else {
-				echo '<div id="message" class="updated fade"><p>Debug log files could not be reset!</p></div>';
-			}
-		}
-
 		//Show settings updated message
 		if ( isset( $_REQUEST['settings-updated'] ) ) {
 			echo '<div id="message" class="updated fade"><p>' . SwpmUtils::_( 'Settings updated!' ) . '</p></div>';
@@ -1345,6 +1373,7 @@ class SwpmSettings {
 		$output['force-strong-passwords']            = isset( $input['force-strong-passwords'] ) ? esc_attr( $input['force-strong-passwords'] ) : '';
 		$output['auto-login-after-rego']             = isset( $input['auto-login-after-rego'] ) ? esc_attr( $input['auto-login-after-rego'] ) : '';
                 $output['hide-rego-form-to-logged-users']    = isset( $input['hide-rego-form-to-logged-users'] ) ? esc_attr( $input['hide-rego-form-to-logged-users'] ) : '';
+		$output['hide-join-us-link']                = isset( $input['hide-join-us-link'] ) ? esc_attr( $input['hide-join-us-link'] ) : '';
 		$output['force-wp-user-sync']                = isset( $input['force-wp-user-sync'] ) ? esc_attr( $input['force-wp-user-sync'] ) : '';
 		$output['payment-notification-forward-url']  = esc_url( $input['payment-notification-forward-url'] );
 		$output['use-new-form-ui']            		 = isset( $input['use-new-form-ui'] ) ? esc_attr( $input['use-new-form-ui'] ) : '';

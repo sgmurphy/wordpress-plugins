@@ -3,7 +3,7 @@
  * Plugin Name:    Login Logout Menu
  * Plugin URI:     https://loginpress.pro/?utm_source=login-logout-menu&utm_medium=plugin-inside&utm_campaign=pro-upgrade&utm_content=plugin_uri
  * Description:    Login Logout Menu is a handy plugin which allows you to add login, logout, register and profile menu items in your selected menu.
- * Version:        1.5.1
+ * Version:        1.5.2
  * Author:         WPBrigade
  * Author URI:     https://WPBrigade.com/?utm_source=login-logout-menu
  * Text Domain:    login-logout-menu
@@ -15,6 +15,10 @@
  **/
 
 if ( ! class_exists( 'Login_Logout_Menu' ) ) :
+
+	/**
+	 * Main Login_Logout_Menu Class.
+	 */
 	class Login_Logout_Menu {
 
 		/**
@@ -24,7 +28,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 		 *
 		 * @since 1.0.0
 		 */
-		public $version = '1.5.1';
+		public $version = '1.5.2';
 
 		/**
 		 * Instance variable.
@@ -44,7 +48,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 
 			$this->define_constants();
 			$this->includes();
-			$this->_hooks();
+			$this->llm_hooks();
 		}
 
 		/**
@@ -57,7 +61,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 			$this->define( 'LOGIN_LOGOUT_MENU_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 			$this->define( 'LOGIN_LOGOUT_MENU_DIR_PATH', plugin_dir_path( __FILE__ ) );
 			$this->define( 'LOGIN_LOGOUT_MENU_DIR_URL', plugin_dir_url( __FILE__ ) );
-			$this->define( 'LOGIN_LOGOUT_MENU_ROOT_PATH', dirname( __FILE__ ) . '/' );
+			$this->define( 'LOGIN_LOGOUT_MENU_ROOT_PATH', __DIR__ . '/' );
 			$this->define( 'LOGIN_LOGOUT_MENU_VERSION', $this->version );
 			$this->define( 'LOGIN_LOGOUT_MENU_FEEDBACK_SERVER', 'https://wpbrigade.com/' );
 		}
@@ -75,7 +79,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 			* @since  1.3.0
 			* @return Login_Logout_Menu_Shortcode
 			*/
-			include_once( LOGIN_LOGOUT_MENU_DIR_PATH . 'classes/shortcodes.php' );
+			include_once LOGIN_LOGOUT_MENU_DIR_PATH . 'classes/shortcodes.php';
 			new Login_Logout_Menu_Shortcode();
 		}
 
@@ -84,7 +88,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 		 *
 		 * @since  1.0.0
 		 */
-		private function _hooks() {
+		private function llm_hooks() {
 
 			add_action( 'plugins_loaded', array( $this, 'textdomain' ) );
 			add_action( 'admin_head-nav-menus.php', array( $this, 'admin_nav_menu' ) );
@@ -115,14 +119,14 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 		 * @since 1.0.0
 		 */
 		public function textdomain() {
-			$plugin_dir = dirname( plugin_basename( __FILE__ ) ) ;
+			$plugin_dir = dirname( plugin_basename( __FILE__ ) );
 			load_plugin_textdomain( 'login-logout-menu', false, $plugin_dir . '/languages/' );
 		}
 
 		/**
 		 * Registers Login/Logout/Register Links Metabox.
 		 */
-		public function admin_nav_menu( ) {
+		public function admin_nav_menu() {
 			add_meta_box( 'login_logout_menu', __( 'Login Logout Menu', 'login-logout-menu' ), array( $this, 'admin_nav_menu_callback' ), 'nav-menus', 'side', 'default' );
 		}
 
@@ -196,40 +200,71 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 					<?php echo walk_nav_menu_tree( array_map( 'wp_setup_nav_menu_item', $elems_obj ), 0, (object) array( 'walker' => $walker ) ); ?>
 					</ul>
 				</div>
-
-				<p class="button-controls">
-					<span class="list-controls hide-if-no-js">
-					<a href="javascript:void(0);" class="help" onclick="jQuery( '#login-logout-menu-help' ).toggle();"><?php _e( 'Help', 'login-logout-menu' ); ?></a>
-					<span class="hide-if-js" id="login-logout-menu-help"><br /><a name="login-logout-menu-help"></a>
-						<?php
-
-						echo sprintf( esc_html__('%1$s To redirect user after login/logout/register just add a relative link after the link\'s keyword, example :%2$s', 'login-logout-menu'),
-							'<br />&#9725;',
-							' <br /><code>#loginpress-loginlogout#index.php</code>.'
-						);
-
-						echo sprintf( 
-							esc_html__( '%1$sYou can also use %2$s to redirect the user on the current visited page after login/logout/register, example :%3$s', 'login-logout-menu' ),
-							'<br /><br />&#9725;', ' <code>%current-page%</code> ', ' <code>#loginpress-loginlogout#%current-page%</code>.'
-						);
-
-						echo sprintf(
-							esc_html__('%1$s You can also use %2$s to show the avatar in the menu item example: %3$s', 'login-logout-menu'),
-							'<br /><br />&#9725;',
-							'<code>%avatar%</code>.<br />',
-							' <br /><code>#loginpress-user#%avatar%</code>.<br />'
-						);
-						echo sprintf( __( '%4$s To get plugin support contact us on %1$splugin support forum%2$s or %3$scontact us page%2$s.%4$s', 'login-logout-menu' ), '<a href="https://wpbrigade.com/wordpress/plugins/login-logout-menu/" target="_blank">', '</a>', '<a href="https://wpbrigade.com/contact/" target="_blank">', ' <br /><br />' );
-						?>
-						</span>
-					</span>
-
+				<div class="button-controls">
+					<div class="list-controls hide-if-no-js">
+						<a href="javascript:void(0);" class="help" onclick="jQuery( '#login-logout-menu-help' ).toggle();"><?php esc_html_e( 'Help', 'login-logout-menu' ); ?></a>
+						<div class="hide-if-js" id="login-logout-menu-help"><br /><a name="login-logout-menu-help"></a>
+							<h2><?php esc_html_e( 'Redirecting Users After Login/Logout/Register', 'login-logout-menu' ); ?></h2>
+							<h4 style="margin: 0 0 5px;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the text '<code>#loginpress-login#YOUR-SLUG-HERE</code>'.
+									printf( esc_html__( 'Syntax: %1$s', 'login-logout-menu' ), '<code>#loginpress-login#YOUR-SLUG-HERE</code>' );
+								?>
+							</h4>
+							<p style="margin-top: 0;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the text 'YOUR-SLUG-HERE:'.
+									printf( esc_html__( '%1$s This relative link after the placeholder tells the plugin where to redirect the user after they log in, log out, or register, based on where the link is placed.', 'login-logout-menu' ), 'YOUR-SLUG-HERE:' );
+								?>
+							</p>
+							<p style="margin-top: 0;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the code snippet '<code>#loginpress-login#blog</code>'.
+									printf( esc_html__( 'For example, %1$s will redirect the user to the blog page after login.', 'login-logout-menu' ), '<code>#loginpress-login#blog</code>' );
+								?>
+							</p>
+							<hr>
+							<h2><?php esc_html_e( 'Redirecting Users to the Current Page', 'login-logout-menu' ); ?></h2>
+							<h4 style="margin: 0 0 5px;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the code snippet '<code>#loginpress-login#%current-page%</code>'.
+									printf( esc_html__( 'Syntax: %1$s', 'login-logout-menu' ), '<code>#loginpress-login#%current-page%</code>' );
+								?>
+							</h4>
+							<p style="margin-top: 0;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the text '%current-page%'.
+									printf( esc_html__( '%1$s This placeholder will automatically update with the URL of the page the user is currently on (Redirected to the current visited page). It’s useful when you want them to stay on the same page after logging in, logging out, or registering without redirecting them elsewhere.', 'login-logout-menu' ), '%current-page%:' );
+								?>
+							<hr>
+							<h2><?php esc_html_e( 'Displaying User Avatars in Menu', 'login-logout-menu' ); ?></h2>
+							<h4 style="margin: 0 0 5px;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the code snippet  '<code>#loginpress-user#%avatar%</code>'.
+									printf( esc_html__( 'Syntax: %1$s', 'login-logout-menu' ), '<code>#loginpress-user#%avatar%</code>' );
+								?>
+							</h4>
+							<p style="margin-top: 0;">
+								<?php
+									// Translators: %1$s is the placeholder that will be replaced with the text '%avatar%'.
+									printf( esc_html__( '%1$s This placeholder displays the logged-in user\'s avatar (profile picture) in the menu item. It only works with user or profile menu items.', 'login-logout-menu' ), '%avatar%:' );
+								?>
+							</p>
+							<hr>
+							<p>
+								<?php
+									// Translators: 1 is the opening tag for the plugin support forum link, 2 is the opening tag for the contact us page link, 3 is the closing tag for both links.
+									printf( esc_html__( 'Do you have more questions? For further plugin support, feel free to visit our %1$s plugin support forum%3$s or %2$s contact us page%3$s.', 'login-logout-menu' ), '<a href="https://wpbrigade.com/wordpress/plugins/login-logout-menu/">', '<a href="https://wpbrigade.com/contact/">', '</a>' );
+								?>
+							</p>
+						</div>
+					</div>
 					<span class="add-to-menu">
 						<input type="submit"<?php disabled( $nav_menu_selected_id, 0 ); ?> class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu', 'login-logout-menu' ); ?>" name="add-login-links-menu-item" id="submit-login-links" />
 						<span class="spinner"></span>
 					</span>
-				</p>
-
+				</div>
+				<div style="clear:both; padding-top:20px; text-align:center;">Made with ❤ by <a href="https://wpbrigade.com/" target="_blank">WPBrigade</a></div>
 			</div>
 			<?php
 		}
@@ -301,7 +336,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 
 			if ( $pagenow != 'nav-menus.php' && ! defined( 'DOING_AJAX' ) && isset( $item->url ) && strstr( $item->url, '#loginpress' ) != '' ) {
 
-				$item_url = substr( $item->url, 0, strpos( $item->url, '#', 1 ) ) . '#';
+				$item_url      = substr( $item->url, 0, strpos( $item->url, '#', 1 ) ) . '#';
 				$item_redirect = str_replace( $item_url, '', $item->url );
 
 				if ( $item_redirect == '%current-page%' ) {
@@ -458,7 +493,7 @@ if ( ! class_exists( 'Login_Logout_Menu' ) ) :
 
 			foreach ( $attrs as $login_logout_menu_attr => $value ) {
 
-				$value           = esc_attr( wp_unslash( $value ) );
+				$value                  = esc_attr( wp_unslash( $value ) );
 				$login_logout_menu_attr = esc_attr( wp_unslash( $login_logout_menu_attr ) );
 
 				if ( false !== $value && ! empty( $value ) && $login_logout_menu_attr !== 'class' && ( in_array( $login_logout_menu_attr, $allowed_attrs ) || preg_match( $data_attr_ptrn, $login_logout_menu_attr ) ) ) {

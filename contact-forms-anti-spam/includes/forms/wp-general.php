@@ -23,12 +23,12 @@ function maspik_comments_checker(array $data) {
     $reason = '';
 
     // Country IP + HP Check
-    $CountryCheck = CountryCheck($ip, $spam, $reason, $_POST);
-    $spam = $CountryCheck['spam'] ?? false;
-    $reason = $CountryCheck['reason'] ?? '';
-    $message = $CountryCheck['message'] ?? '';
-    $spam_val = $CountryCheck['value'] ?? '';
-    $spam_lbl = $CountryCheck['reason'] ?? '';
+    $GeneralCheck = GeneralCheck($ip, $spam, $reason, $_POST,"wp-general");
+    $spam = $GeneralCheck['spam'] ?? false;
+    $reason = $GeneralCheck['reason'] ?? '';
+    $message = $GeneralCheck['message'] ?? '';
+    $spam_val = $GeneralCheck['value'] ?? '';
+    $spam_lbl = $GeneralCheck['reason'] ?? '';
 
     // Name check
     if (!empty($name) && !$spam) {
@@ -104,12 +104,12 @@ function maspik_check_wp_registration_form($errors) {
 
     // Country IP Check
     if (!$spam) {
-        $CountryCheck = CountryCheck($ip, $spam, $reason, $_POST);
-        $spam = $CountryCheck['spam'] ?? false;
-        $reason = $CountryCheck['reason'] ?? '';
-        $message = $CountryCheck['message'] ?? '';
-        $spam_val = $CountryCheck['value'] ?? '';
-        $spam_lbl = $CountryCheck['reason'] ?? '';
+        $GeneralCheck = GeneralCheck($ip, $spam, $reason, $_POST);
+        $spam = $GeneralCheck['spam'] ?? false;
+        $reason = $GeneralCheck['reason'] ?? '';
+        $message = $GeneralCheck['message'] ?? '';
+        $spam_val = $GeneralCheck['value'] ?? '';
+        $spam_lbl = $GeneralCheck['reason'] ?? '';
     }
 
     if ($user_email && !$spam) {
@@ -152,10 +152,10 @@ function maspik_register_form_honeypot_check_in_woocommerce_registration($errors
     $reason = "";
 
     // Country IP Check
-    $CountryCheck = CountryCheck($ip, $spam, $reason, $_POST);
-    $spam = $CountryCheck['spam'] ?? false;
-    $reason = $CountryCheck['reason'] ?? '';
-    $message = $CountryCheck['message'] ?? '';
+    $GeneralCheck = GeneralCheck($ip, $spam, $reason, $_POST);
+    $spam = $GeneralCheck['spam'] ?? false;
+    $reason = $GeneralCheck['reason'] ?? '';
+    $message = $GeneralCheck['message'] ?? '';
 
     $error_message = cfas_get_error_text($message);
 

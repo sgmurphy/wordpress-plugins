@@ -11,6 +11,35 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.2.4
  * @class WPANALYTIFY_AJAX
  */
+
+ add_action( 'wp_ajax_analytify_opt_out_option',  'analytify_opt_out_option' );
+
+ // This Method is used as ajax call action to update partial opt-out options.
+ function analytify_opt_out_option() {
+     if( ! current_user_can( 'manage_options' ) || ! check_ajax_referer( 'analytify_optout_page_nonce', 'optout_nonce' ) ){
+         wp_die( '<p>' . __( 'Sorry, you are not allowed to edit this item.' ) . '</p>', 403 );
+     }
+     // Get the current option and decode it as an associative array
+     $sdk_data = json_decode(get_option('wpb_sdk_wp-analytify'), true);
+
+     // If there is no current option, initialize an empty array
+     if (!$sdk_data) {
+         $sdk_data = array();
+     }
+
+     $setting_name = $_POST['setting_name'];  // e.g., communication, diagnostic_info, extensions
+     $setting_value = $_POST['setting_value'];  // The new value to be updated
+
+     // Update the specific setting in the array
+     $sdk_data[$setting_name] = $setting_value;
+
+     // Encode the array back into a JSON string and update the option
+     update_option('wpb_sdk_wp-analytify', json_encode($sdk_data));
+
+     die( 'analytify_opt_out_option' );
+}
+
+
 class WPANALYTIFY_AJAX {
 
 	protected static $show_settings = array();
@@ -58,7 +87,10 @@ class WPANALYTIFY_AJAX {
 				add_action( 'wp_ajax_nopriv_analytify_' . $ajax_call, array( __CLASS__, $ajax_call ) );
 			}
 		}
+
 	}
+
+
 
 	/**
 	 * Triggered when clicking the rating footer.
@@ -1140,11 +1172,23 @@ class WPANALYTIFY_AJAX {
 	// Add opt-in beacon
 	public static function optin_yes() {
 
+
 		if( ! current_user_can( 'manage_options' ) || ! check_ajax_referer( 'analytify_optin_page_nonce', 'optin_yes_nonce' ) ){
 			wp_die( '<p>' . __( 'Sorry, you are not allowed to edit this item.' ) . '</p>', 403 );
 		};
 
-		// Track in user database
+		//Update SDK Options also
+        $sdk_data = array(
+            'communication'   => '1',
+            'diagnostic_info' => '1',
+            'extensions'      => '1',
+            'user_skip'      => '0',
+        );
+        $sdk_data_json = json_encode($sdk_data);
+        update_option('wpb_sdk_wp-analytify', $sdk_data_json);
+
+
+        // Track in user database
 		update_site_option( '_analytify_optin', 'yes' );
 		wp_die();
 	}
@@ -1167,6 +1211,12 @@ class WPANALYTIFY_AJAX {
 		if( ! current_user_can( 'manage_options' ) || ! check_ajax_referer( 'analytify_optin_page_nonce', 'optin_skip_nonce' ) ){
 			wp_die( '<p>' . __( 'Sorry, you are not allowed to edit this item.' ) . '</p>', 403 );
 		};
+
+        // Retrieve the existing option and decode it into an array
+        $sdk_data = json_decode(get_option('wpb_sdk_wp-analytify'), true);
+        $sdk_data['user_skip'] = '1';
+        $sdk_data_json = json_encode($sdk_data);
+        update_option('wpb_sdk_wp-analytify', $sdk_data_json);
 
 		update_site_option( '_analytify_optin', 'no' );
 
@@ -1214,6 +1264,7 @@ class WPANALYTIFY_AJAX {
 
 		wp_die();
 	}
+
 
 	/**
 	 * Transfer json file data to settings.

@@ -11,6 +11,17 @@
  //Centrer l'overlay
  //jQuery("#dialog-vod-form").dialog( "option", {'position' : 'center'} );
 
+function toggleTextFields() {
+	const fixedRadio = document.getElementById('fixed');
+	const textFields = document.getElementById('textFields');
+
+	if (fixedRadio.checked) {
+		textFields.classList.remove('hidden');
+	}else{
+		textFields.classList.add('hidden');
+	}
+}
+
 //Fonction permettant de cacher l'overlay de configuration
 Vod_dialogOpen = function () {
     if (jQuery('#dialog-player')) {
@@ -128,7 +139,7 @@ Vod_importVideo = function () {
 
 		jQuery('#vodImportVideoByUrl').hide();
 		jQuery('#vodEncodeVideo').hide();
-
+		jQuery('#VodEncodeS1, #VodEncodeS2, #VodEncodeS3').removeClass('stepEncodeOK');
 
 		jQuery.ajax({
 			url: jQuery("#url_ajax_import_video").val(),
@@ -487,6 +498,9 @@ Vod_dialogValid = function () {
 								text += " autoplay='"+ parseInt(autostart)+"'";
 								text += " loop='"+ parseInt(loop)+"'";
 							}
+							if (jQuery('input[name="formatPlayer"]:checked').attr('id') == 'responsive'){
+								text += " responsive='1'";
+							}							
 							text += ']' + url + "[/vod]";	
 
 							if ( typeof tinyMCE != 'undefined' && ( ed = tinyMCE.activeEditor ) && !ed.isHidden() ) {

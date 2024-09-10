@@ -4,7 +4,7 @@ Tags: geolocation, locator, geoip, maxmind, ipstack
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 5.4.0
+Stable tag: 5.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=BSYUZHS8FH3CL
@@ -173,6 +173,10 @@ The Plugin was renamed to Geolocation IP Detection in order to prevent trademark
 If you use Maxmind "Automatic download" then you need to upgrade to this plugin version in order to continue to receive database update. The Database license changed and you will need to register at their website and agree to the EULA.
 
 == Changelog ==
+
+= 5.4.1 =
+* NEW: JS now emit events 'geoip-detect-shortcodes-done' and 'geoip-detect-body-classes-done', see https://github.com/yellowtree/geoip-detect/wiki/API:-AJAX#events
+* FIX: Remove Fatal Error in check_requirements ("Undefined constand GEOIP_DETECT_DEBUG")
 
 = 5.4.0 =
 * NEW: Infos can be added to a mail sent by WPForms (with Smart Tag `{geoip_detect2_user_info}`)

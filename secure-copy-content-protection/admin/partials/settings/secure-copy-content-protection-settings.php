@@ -17,9 +17,6 @@ $subscribe = ($actions->ays_get_setting('subscribe') === false) ? array() : json
 
 $block_content = ($actions->ays_get_setting('block_content') === false) ? array() : json_decode( stripcslashes( $actions->ays_get_setting('block_content') ), true);
 
-// global $wp_roles;
-// $ays_users_roles = $wp_roles->role_names;
-
 $mailchimp_res      = ($actions->ays_get_setting('mailchimp') === false) ? json_encode(array()) : $actions->ays_get_setting('mailchimp');
 $mailchimp          = json_decode($mailchimp_res, true);
 $mailchimp_username = isset($mailchimp['username']) ? esc_attr(stripslashes($mailchimp['username'])) : '';

@@ -186,11 +186,15 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **111 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **112 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.4.1 (2024.09.10) - ASE Pro
+
+* **[FIXED in Pro] Disable Components >> Disable REST API**: fix an issue where updating to v7.4.0 causes the REST API to be inaccessible for all authenticated / logged-in user roles. This for example, caused users not being able to load the Elementor editor. Props to Ron R. for quickly reporting the issue.
 
 ### 7.4.0 (2024.09.09) - ASE Free and Pro
 

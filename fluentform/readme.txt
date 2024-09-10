@@ -4,7 +4,7 @@ Tags: contact form, wp forms, forms, form builder, custom form
 Requires at least: 4.5
 Tested up to: 6.6.1
 Requires PHP: 7.4
-Stable tag: 5.2.0
+Stable tag: 5.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,7 +65,6 @@ Anything from a simple contact form to a more advanced payment, quiz, or calcula
 * 50+ third-party integrations (and a lot more via Zapier)
 * User registration
 * Advanced post/CPT creation
-* Dynamic Field
 
 
 == Super Fast Contact Forms ==
@@ -453,6 +452,11 @@ You can get support from our official support thread at <a href="https://wpmanag
 12. Asset Loading Comparison with Other Plugins
 
 == Changelog ==
+
+= 5.2.1 (Date: September 10, 2024) =
+- Fixes custom error messages vulnerability (Allowing admin to inject script in custom error messages)
+- Fixes dropdown field in conversational forms after conditional multi-select
+- Fixes checkbox field "not-equal" condition in conversational forms
 
 = 5.2.0 (Date: Aug 7, 2024) =
 - Adds print entries

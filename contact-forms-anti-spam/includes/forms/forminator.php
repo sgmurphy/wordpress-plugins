@@ -14,11 +14,11 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
 
 
     // Country IP Check 
-    $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
-    $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
-    $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
-    $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
-    $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
+    $GeneralCheck = GeneralCheck($ip,$spam,$reason,$_POST,"forminator");
+    $spam = isset($GeneralCheck['spam']) ? $GeneralCheck['spam'] : false ;
+    $reason = isset($GeneralCheck['reason']) ? $GeneralCheck['reason'] : false ;
+    $message = isset($GeneralCheck['message']) ? $GeneralCheck['message'] : false ;
+    $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
     
     // find the last field ID to assigned the error message 
     $lastNonHiddenName = null;
@@ -31,7 +31,7 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
         }
     }
 
-    if ( $spam) {
+    if ($spam) {
         $submit_errors[][$lastNonHiddenName] = cfas_get_error_text($message);
         efas_add_to_log($type = "Country/IP",$reason, $_POST, "Forminator", $message,  $spam_val );
         return $submit_errors;
@@ -104,3 +104,37 @@ function maspik_validate_forminator_general($submit_errors, $form_id, $field_dat
 	return $submit_errors;
 }
 
+
+
+add_action( 'forminator_render_form_submit_markup', function( $html, $form_id, $post_id, $nonce ){
+
+	if ( is_admin() ) {
+		return $html;
+	}
+    
+    if ( maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck') ) {
+        $custom_html = "";
+        if (maspik_get_settings('maspikHoneypot')) {
+            $custom_html .= '<div class="forminator-row maspik-field">
+                <label for="full-name-maspik-hp" class="forminator-label">Leave this field empty</label>
+                <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="full-name-maspik-hp" id="full-name-maspik-hp" class="forminator-input" placeholder="Leave this field empty">
+            </div>';
+        }
+        if (maspik_get_settings('maspikYearCheck')) {
+            $custom_html .= '<div class="forminator-row maspik-field">
+                <label for="Maspik-currentYear" class="forminator-label">Leave this field empty</label>
+                <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="Maspik-currentYear" id="Maspik-currentYear" class="forminator-input" placeholder="">
+            </div>';
+        }
+        if (maspik_get_settings('maspikTimeCheck')) {
+            $custom_html .= '<div class="forminator-row maspik-field">
+                <label for="Maspik-exactTime" class="forminator-label">Leave this field empty</label>
+                <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="Maspik-exactTime" id="Maspik-exactTime" class="forminator-input" placeholder="">
+            </div>';
+        }
+     return   $custom_html . $html  ;
+
+    }
+
+	return  $html ;
+}, 20, 4 );

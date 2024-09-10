@@ -402,8 +402,11 @@ class SwpmMiscUtils {
 	}
 
 	public static function get_login_link() {
-		$login_url  = SwpmSettings::get_instance()->get_value( 'login-page-url' );
-		$joinus_url = SwpmSettings::get_instance()->get_value( 'join-us-page-url' );
+		$swpm_settings = SwpmSettings::get_instance();
+		$login_url = $swpm_settings->get_value( 'login-page-url' );
+		$joinus_url = $swpm_settings->get_value( 'join-us-page-url' );
+		$hide_join_us_link_enabled = $swpm_settings->get_value('hide-join-us-link');
+
 		if ( empty( $login_url ) || empty( $joinus_url ) ) {
 			return '<span style="color:red;">Simple Membership is not configured correctly. The login page or the join us page URL is missing in the settings configuration. '
 					. 'Please contact <a href="mailto:' . get_option( 'admin_email' ) . '">Admin</a>';
@@ -411,10 +414,13 @@ class SwpmMiscUtils {
 
 		//Create the login/protection message
 		$filtered_login_url = apply_filters( 'swpm_get_login_link_url', $login_url ); //Addons can override the login URL value using this filter.
-		$login_msg          = '';
-		$login_msg         .= SwpmUtils::_( 'Please' ) . ' <a class="swpm-login-link" href="' . $filtered_login_url . '">' . SwpmUtils::_( 'Log In' ) . '</a>. ';
-		$login_msg         .= SwpmUtils::_( 'Not a Member?' ) . ' <a href="' . $joinus_url . '">' . SwpmUtils::_( 'Join Us' ) . '</a>';
+		$login_msg = '';
+		$login_msg .= SwpmUtils::_( 'Please' ) . ' <a class="swpm-login-link" href="' . $filtered_login_url . '">' . SwpmUtils::_( 'Log In' ) . '</a>. ';
 
+		if (empty($hide_join_us_link_enabled)){
+			//Show the join us option
+			$login_msg .= SwpmUtils::_( 'Not a Member?' ) . ' <a href="' . $joinus_url . '">' . SwpmUtils::_( 'Join Us' ) . '</a>';
+		}
 		return $login_msg;
 	}
 

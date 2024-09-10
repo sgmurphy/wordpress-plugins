@@ -1,5 +1,6 @@
 <?php
-$calc_tabs = \cBuilder\Classes\CCBSettingsData::get_tab_data();
+$calc_tabs      = \cBuilder\Classes\CCBSettingsData::get_tab_data();
+$templates_page = get_admin_url( null, 'admin.php?page=cost_calculator_templates' );
 ?>
 
 <div class="ccb-tab-sections" :class="{'ccb-loader-inner-section': preloader}">
@@ -69,7 +70,7 @@ $calc_tabs = \cBuilder\Classes\CCBSettingsData::get_tab_data();
 								<i class="ccb-icon-Path-3398"></i>
 							</span>
 							<ul class="ccb-btn-dropdown-list" v-if="showSaveTemplate">
-								<li class="ccb-default-title ccb-bold" @click.stop="() => saveSettings('template')"><?php esc_html_e( 'Save as Template', 'cost-calculator-builder' ); ?></li>
+								<li class="ccb-default-title ccb-bold" @click.stop="() => saveSettings('template', '<?php echo esc_url( $templates_page ); ?>')"><?php esc_html_e( 'Save as Template', 'cost-calculator-builder' ); ?></li>
 							</ul>
 						</span>
 					</button>

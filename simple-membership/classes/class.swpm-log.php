@@ -1,17 +1,14 @@
 <?php
 
 class SwpmLog {
-	private $error;
-	private $warn;
-	private $notice;
-	private static $intance;
 	private static $log_file;
 	private static $log_auth_file;
-	private function __construct() {
-		$this->error  = array();
-		$this->warn   = array();
-		$this->notice = array();
+
+	public function __construct() {
+		//Register the ajax action handler for resetting the log files.
+		add_action('wp_ajax_swpm_reset_log_action', array('SwpmLog', 'handle_reset_log_action'));
 	}
+
 	private static function gen_log_file_names() {
 		if ( ! empty( self::$log_file ) && ! empty( self::$log_auth_file ) ) {
 			return;
@@ -61,51 +58,6 @@ class SwpmLog {
 		header( 'Content-Type: text/plain' );
 		fpassthru( $fp );
 		die;
-	}
-
-	public static function get_logger( $context = '' ) {
-		$context = empty( $context ) ? 'default' : $context;
-		if ( ! isset( self::$intance[ $context ] ) ) {
-			self::$intance[ $context ] = new SwpmLog();
-		}
-		return self::$intance[ $context ];
-	}
-	public function error( $msg ) {
-		$this->error[] = $msg;
-	}
-	public function warn( $msg ) {
-		$this->warn[] = $msg;
-	}
-	public function debug( $msg ) {
-		$this->notice[] = $msg;
-	}
-	public function get( $to_screen = false ) {
-		$msg = '';
-		foreach ( $this->error as $error ) {
-			$msg .= 'ERROR: ' . $error . ( $to_screen ? '<br/>' : "\n" );
-		}
-		foreach ( $this->warn as $warn ) {
-			$msg .= 'WARN: ' . $warn . ( $to_screen ? '<br/>' : "\n" );
-		}
-		foreach ( $this->notice as $notice ) {
-			$msg = 'NOTICE: ' . $notice . ( $to_screen ? '<br/>' : "\n" );
-		}
-		return $msg;
-	}
-	public static function writeall( $path = '' ) {
-		if ( empty( $path ) ) {
-			self::gen_log_file_names();
-			$path = SIMPLE_WP_MEMBERSHIP_PATH . self::$log_file;}
-		$fp   = fopen( $path, 'a' );
-		$date = current_time( 'mysql' );
-		fwrite( $fp, strtoupper( $date ) . ":\n" );
-		fwrite( $fp, str_repeat( '-=', ( strlen( $date ) + 1.0 ) / 2.0 ) . "\n" );
-		foreach ( self::$intance as $context => $intance ) {
-			fwrite( $fp, strtoupper( $context ) . ":\n" );
-			fwrite( $fp, str_repeat( '=', strlen( $context ) + 1 ) . "\n" );
-			fwrite( $fp, $intance->get() );
-		}
-		fclose( $fp );
 	}
 
 	public static function log_simple_debug( $message, $success, $end = false ) {
@@ -212,6 +164,24 @@ class SwpmLog {
 		fclose( $fp );  // close file
 	}
 
+	public static function handle_reset_log_action(){
+		if (!check_ajax_referer( 'swpm_reset_log_action', 'nonce', false )) {
+			wp_send_json_error(array(
+				'message' => __('Error! Nonce verification failed for reset log files action', 'simple-membership'),
+			));
+		}
+
+		if ( SwpmLog::reset_swmp_log_files() ) {
+			wp_send_json_success(array(
+				'message' => __('Log files have been reset.', 'simple-membership'),
+			));
+		} else {
+			wp_send_json_error(array(
+				'message' => __("Failed to reset the log files. Ensure the server's file permission is correct.", "simple-membership"),
+			));
+		}
+	}
+
 	public static function reset_swmp_log_files() {
 		$log_reset = true;
 		self::gen_log_file_names();
@@ -240,3 +210,6 @@ class SwpmLog {
 	}
 
 }
+
+//Initialize the log class (so the constructor runs and the ajax action handler is registered).
+$swpm_log = new SwpmLog();

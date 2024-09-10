@@ -24,11 +24,11 @@ $extracted_data = array(
 
 
   // Country IP Check 
-  $CountryCheck = CountryCheck($ip,$spam,$reason,$extracted_data);
-  $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
-  $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
-  $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
-  $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
+  $GeneralCheck = GeneralCheck($ip,$spam,$reason,$extracted_data,"fluentforms");
+  $spam = isset($GeneralCheck['spam']) ? $GeneralCheck['spam'] : false ;
+  $reason = isset($GeneralCheck['reason']) ? $GeneralCheck['reason'] : false ;
+  $message = isset($GeneralCheck['message']) ? $GeneralCheck['message'] : false ;
+  $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
 
    
   if ( $spam) {
@@ -49,7 +49,7 @@ function maspik_validate_fluentforms_text($errorMessage, $field, $formData, $fie
 
 	$validateTextField = validateTextField($field_value);
     $spam = isset($validateTextField['spam']) ? $validateTextField['spam'] : 0;
-    $message = $validateTextField['message'];
+    $message = isset($validateTextField['message']) ? $validateTextField['message'] : '';
     $spam_lbl = isset($validateTextField['label']) ? $validateTextField['label'] : 0 ;
     $spam_val = isset($validateTextField['option_value']) ? $validateTextField['option_value'] : 0 ;
 
@@ -135,7 +135,7 @@ add_filter('fluentform/validate_input_item_textarea', 'maspik_validate_fluentfor
 
 
 // maspik_add_text_to_mail_components fluentforms
-add_filter('fluentform/email_template_footer_text', 'maspik_add_text_to_mail_fluentforms', 10, 3);
+//add_filter('fluentform/email_template_footer_text', 'maspik_add_text_to_mail_fluentforms', 10, 3);
 function maspik_add_text_to_mail_fluentforms($footerText, $form, $notification) {
   $add_country_to_emails = maspik_get_settings("add_country_to_emails", '', 'old')  == "yes";
   if($footerText && $add_country_to_emails){
@@ -144,3 +144,52 @@ function maspik_add_text_to_mail_fluentforms($footerText, $form, $notification) 
     }
  return $footerText;
 }
+
+
+// add Maspik Honeypot fields to fluentform
+add_filter('fluentform/rendering_form', function($form){
+    
+    $last_field = end($form->fields['fields']);
+    // Retrieve the element and index values
+    $last_element = isset($last_field['element']) ? $last_field['element'] : null;
+    $last_index = isset($last_field['index']) ? $last_field['index'] : null;
+    
+    add_filter("fluentform/rendering_field_html_$last_element", function ($html, $data, $form) {
+        
+        if ( maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck') ) {
+            $custom_html = "";
+
+            if (maspik_get_settings('maspikHoneypot')) {
+                $custom_html .= '<div class="ff-el-group maspik-field">
+                    <label for="full-name-maspik-hp" class="ff-el-input--label">Leave this field empty</label>
+                    <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="full-name-maspik-hp" id="full-name-maspik-hp" class="ff-el-form-control" placeholder="Leave this field empty">
+                </div>';
+            }
+
+            if (maspik_get_settings('maspikYearCheck')) {
+                $custom_html .= '<div class="ff-el-group maspik-field">
+                    <label for="Maspik-currentYear" class="ff-el-input--label">Leave this field empty</label>
+                    <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="Maspik-currentYear" id="Maspik-currentYear" class="ff-el-form-control" placeholder="">
+                </div>';
+            }
+
+            if (maspik_get_settings('maspikTimeCheck')) {
+                $custom_html .= '<div class="ff-el-group maspik-field">
+                    <label for="Maspik-exactTime" class="ff-el-input--label">Leave this field empty</label>
+                    <input size="1" type="text" autocomplete="off" autofill="off" aria-hidden="true" tabindex="-1" name="Maspik-exactTime" id="Maspik-exactTime" class="ff-el-form-control" placeholder="">
+                </div>';
+            }
+         return   $html . $custom_html;
+           
+        }
+            
+        return   $html;
+            
+    }, 10, 3);  
+    
+   return $form;
+}, 10, 1);
+
+
+
+

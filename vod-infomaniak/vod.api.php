@@ -486,8 +486,17 @@
 		        	"allowed_domains" => [ get_option("siteurl") ],	
 		        	"strategy" => "hls"
 		    	);
-			$oSoap = $this->getSoapAdmin();
-			return $oSoap->getShareAndToken($video,$player,$body);
+			
+			try {
+				$oSoap = $this->getSoapAdmin();
+				if (!empty ($oSoap)) {
+					return $oSoap->getShareAndToken($video,$player,$body);
+				}
+			} catch (Exception $oException) {
+				$this->debug("getShareAndToken", $oException);
+			}
+
+
 		}
 
 		/**

@@ -13,7 +13,7 @@
 
 		static function buildForm($options, $aPlayers, $aVideos, $aPlaylists, $aFolders, $bCanUpload) {
 			?>
-			<link rel='stylesheet' href='<?php echo plugins_url('vod-infomaniak/css/style.css'); ?>' media='all' />
+			<link rel='stylesheet' href='<?php echo plugins_url('vod-infomaniak/css/style.css?1'); ?>' media='all' />
 
 
             <div id="dialog-vod-logout" style="display:none;" title="<?=__('Probleme de configuration', 'vod_infomaniak')?>">
@@ -210,10 +210,24 @@
 					<div id="dialog-config">
 						<div id="dialog-slide-header" class="ui-dialog-titlebar" onclick="Vod_dialogToggleSlider();"><?php _e('Options d\'integration', 'vod_infomaniak'); ?></div>
 						<div id="dialog-slide" style="display:none">
-							<p class="dialog-form-line">
-								<label for="dialog-width-input"><?php _e('Dimensions', 'vod_infomaniak'); ?></label>
-								<input type="text" id="dialog-width-input" size="5"/> &#215; <input type="text" id="dialog-height-input" size="5"/> pixels
+
+<p class="dialog-form-line">
+							Format du player : <label>
+							<input type="radio" name="formatPlayer" id="fixed" onclick="toggleTextFields()" checked>
+								Fixe
+							</label>
+							<label>
+							<input type="radio" name="formatPlayer" id="responsive" onclick="toggleTextFields()">
+								Responsive
+							</label>
 							</p>
+
+							<div id="textFields">
+								<p class="dialog-form-line">
+									<label for="dialog-width-input"><?php _e('Dimensions', 'vod_infomaniak'); ?></label>
+									<input type="text" id="dialog-width-input" size="5"/> &#215; <input type="text" id="dialog-height-input" size="5"/> pixels
+								</p>
+							</div>
 							<p class="dialog-form-line">
 								<input type="hidden" id="dialog-player-default" value="<?php echo $options['player']; ?>"/>
 								<label for="dialog-player"><?php _e('Player choisi', 'vod_infomaniak'); ?></label>
@@ -304,6 +318,18 @@
 		<?php
 		}
 
+		static function buildSyncFolder() {
+			?>
+				<div id="dialog-sync-fast">
+				<?php
+				echo "<br/>Synchronisation ... <img src='" . plugins_url('vod-infomaniak/img/ajax-loader.gif') . "' style='vertical-align:bottom'/> ";
+				?>
+				</div>			
+			<?php
+			flush();
+			ob_flush();
+        }
+
         static function buildFormNoConfig() {
             ?>
             <div id="dialog-vod-logout" style="display:none;" title="<?=__('Probleme de configuration', 'vod_infomaniak')?>">
@@ -319,7 +345,7 @@
 		static function adminMenu($action_url, $options, $sUrl, $aFolders) {
 			?>
 			<h2><?php _e('Administration du plugin VOD', 'vod_infomaniak'); ?></h2>
-			<script type="text/javascript" charset="iso-8859-1" src="<?php echo plugins_url('vod-infomaniak/js/editor_plugin.js?2'); ?>"></script>
+			<script type="text/javascript" charset="iso-8859-1" src="<?php echo plugins_url('vod-infomaniak/js/editor_plugin.js?3'); ?>"></script>
 
 			<form name="adminForm" action="<?php echo $action_url; ?>" method="post">
 				<input type="hidden" name="submitted" value="1"/>
@@ -542,6 +568,9 @@
 					<label style="font-weight: bold;"><?php _e('Adresse de callback', 'vod_infomaniak'); ?>:</label>
 					<span><?php echo $sUrl . "/?vod_page=callback&key=" . $options['vod_api_callbackKey']; ?></span>
 				</p>
+				<script>
+					document.getElementById('dialog-sync-fast').style.display = 'none';
+    			</script>
 			<?php
 			}
 		}
@@ -589,9 +618,9 @@
 			?>	
 			<input type="hidden" id="version" value="<?php echo get_option( 'vod_api_version', false ) ?>"/>
 
-			<link rel='stylesheet' href='<?php echo plugins_url('vod-infomaniak/css/style.css'); ?>' media='all' />
+			<link rel='stylesheet' href='<?php echo plugins_url('vod-infomaniak/css/style.css?1'); ?>' media='all' />
 
-			<script type="text/javascript" charset="iso-8859-1" src="<?php echo plugins_url('vod-infomaniak/js/editor_plugin.js?2'); ?>"></script>
+			<script type="text/javascript" charset="iso-8859-1" src="<?php echo plugins_url('vod-infomaniak/js/editor_plugin.js?3'); ?>"></script>
 			<h2><?php _e("Envoi d'une nouvelle video", 'vod_infomaniak'); ?></h2>
 			<p><?php _e("Ce plug-in vous permet d'ajouter de nouvelles videos directement depuis ce blog. Pour cela, vous n'avez qu'a choisir un dossier puis suivre les instructions", 'vod_infomaniak'); ?>
 				:</p>
@@ -672,7 +701,7 @@
 
 				<div id="vodEncodeLoader">
 					<ul>
-						<li id="VodEncodeS1" class="vodencode">Fichier reçu</li>
+						<li id="VodEncodeS1" class="vodencode"><?php _e('Fichier recu', 'vod_infomaniak'); ?></li>
 						<li id="VodEncodeS2" class="vodencode"><span id="encodeStep"/>Pre-encodage</span>  <?php echo "<img id='encodeVodLoader' src='" . plugins_url('vod-infomaniak/img/ajax-loader.gif') . "' style='vertical-align:bottom;display:none'/> ";?> <span id="encodeProgress"/></li> 
 						<li id="VodEncodeS3" class="vodencode">Au moins un des encodages est disponible *</li>
 					</ul>

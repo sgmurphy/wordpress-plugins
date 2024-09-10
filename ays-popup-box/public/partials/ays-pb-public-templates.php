@@ -4204,8 +4204,11 @@ class Ays_Pb_Public_Templates {
         // Notification button 1 text
         $notification_button_1_text = (isset($options->notification_button_1_text) && $options->notification_button_1_text != '') ? stripslashes( esc_attr($options->notification_button_1_text) ) : 'Click!';
 
-        //Notification button 1
-        $notification_button_1 = "<button>" . $notification_button_1_text . "</button>";
+        // Notification button 1 hover text
+        $notification_button_1_hover_text = (isset($options->notification_button_1_hover_text) && $options->notification_button_1_hover_text != '') ? stripslashes( esc_attr($options->notification_button_1_hover_text) ) : '';
+
+        // Notification button 1
+        $notification_button_1 = "<button title='" . $notification_button_1_hover_text  . "'>" . $notification_button_1_text . "</button>";
 
         // Notification button 1 redirect URL
         $notification_button_1_redirect_url = (isset($options->notification_button_1_redirect_url) && $options->notification_button_1_redirect_url != '') ? esc_url($options->notification_button_1_redirect_url) : '';

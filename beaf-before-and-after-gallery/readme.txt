@@ -4,7 +4,7 @@ Donate link:
 Tags: before after, before after elementor, before after slider, before after gallery, before after image
 Requires at least: 4.0
 Tested up to: 6.6
-Stable tag: 4.5.19
+Stable tag: 4.5.20
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -345,6 +345,11 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 24. Before After Video Slider
 
 == Changelog ==
+
+= 4.5.20 – 10/09/2024 =
+
+- System stability improved
+- Minor bug fixes & improvements
 
 = 4.5.19 – 18/08/2024 =
 
@@ -785,41 +790,6 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 
 - Added Lazy Load Support.
 - Updated Licensing Issue for Pro.
-
-= 3.3.9 - 15/08/2021 =
-
-- Fixed Minor Styling Issues.
-
-= 3.3.8 - 25/07/2021 =
-
-- Check: WordPress 5.8 compatibility
-
-= 3.3.7 - 19/07/2021 =
-
-- Fixed a conflict with Elementor sections.
-
-= 3.3.6 - 05/07/2021 =
-
-- Fixed an Image Sizing conflict with WP Rocket.
-
-= 3.3.5 - 02/07/2021 =
-
-- Fixed conflict with WoodMart Theme HTML shortcode generator box.
-
-= 3.3.4 - 28/06/2021 =
-
-- Fixed Bug of Before - After Label Styling
-
-= 3.3.3 - 25/06/2021 =
-
-- Fixed Minor Styling Issues.
-- Fixed Elementor Issues.
-- Added 1 New Preview Styles (Pro Version).
-
-= 3.3.2 - 21/06/2021 =
-
-- Fixed Minor Styling Issues.
-- Added 2 New Preview Styles (Pro Version).
 
 = 1.0.0 - 29/01/2020 =
 

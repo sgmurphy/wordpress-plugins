@@ -333,6 +333,11 @@ class CCBOrderController {
 			/** Delete orders */
 			Orders::delete_orders( $d, $ids );
 			Payments::delete_payments_by_order_ids( $ids );
+
+			foreach ( $ids as $id ) {
+				delete_option( 'calc_meta_data_order_' . $id );
+			}
+
 			do_action( 'ccb_after_delete_order', $ids );
 			wp_send_json(
 				array(

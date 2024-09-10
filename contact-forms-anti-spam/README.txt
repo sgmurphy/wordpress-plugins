@@ -1,15 +1,15 @@
 === Maspik - Advanced Spam Protection ===
 Contributors: yonifre
 Donate link: paypal.me/yonifre
-Tags: spam, blacklist, anti spam, Honeypot, black list
+Tags: spam, blacklist, anti spam, Honeypot, antispam 
 Tested up to: 6.6
 Requires at least: 5.0
 Requires PHP: 7.0
-Stable tag: 2.1.6
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Block spam in several ways, blacklist words/ honeypot and more, integrate with almost any contact form plugin and comments. 
+Block spam in several ways, blacklist words/ honeypot / IP verification and more, integrate with almost any contact form plugin and comments. 
 
 == Description ==
 
@@ -41,6 +41,7 @@ Maspik allows you to specify words, email addresses, phone formats, IP addresses
   * Review blocked submissions
 * **Advance Blocking:**
   * Honeypot
+  * IP verification
   * Block submissions without source URLs (Elementor)
 * **API Integrations:**
   * Proxycheck.io
@@ -142,6 +143,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.2.0 - 08/09/2024 =
+* Improvement - Improve UI/UX
+* Improvement - Make main block setting as ON by default. You can deactivate settings in the settings page.
+* Improvement - Forms are now supported by default. You can deactivate support for specific forms in the settings page.
 
 = 2.1.6 - 30/08/2024 =
 * New feature - added option to check if sender's IP address exists in Maspik blacklist database.

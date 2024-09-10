@@ -4,7 +4,7 @@
  * Plugin Name:       Maspik - Advanced Spam Protection
  * Plugin URI:        https://wpmaspik.com/
  * Description:       Overall Spam block, blacklist words, IP, country, languages, from contact-forms and more...
- * Version:           2.1.6
+ * Version:           2.2.0
  * Author:            WpMaspik
  * Author URI:        https://wpmaspik.com/?wp
  * License:           GPL-2.0+
@@ -19,17 +19,23 @@ if (!defined('ABSPATH')) exit;
 /**
  * Currently plugin version.
  */
-define( 'MASPIK_VERSION', '2.1.6' );
-
+define( 'MASPIK_VERSION', '2.2.0' );
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-settings-page-activator.php
  */
 // For future version
-function activate_maspik() {
-	//require_once plugin_dir_path( __FILE__ ) . 'includes/class-maspik-activator.php';
-	//Settings_Page_Activator::activate();
+function maspik_on_plugin_activation() {
+	maspik_auto_update_db(); // Run the auto create database function
+    if ( ! get_option( 'maspik_run_once' ) ) {
+		maspik_auto_update_db();
+        maspik_make_default_values();
+        update_option( 'maspik_run_once', 1 ); // 1 means the function has run
+    }
 }
+// Ensure the function runs on plugin activation
+register_activation_hook( __FILE__, 'maspik_on_plugin_activation' );
+
 
 /**
  * The code that runs during plugin deactivation.
@@ -39,8 +45,6 @@ function deactivate_maspik() {
 	//require_once plugin_dir_path( __FILE__ ) . 'includes/class-maspik-deactivator.php';
 	//Settings_Page_Deactivator::deactivate();
 }
-
-//register_activation_hook( __FILE__, 'activate_maspik' );
 //register_deactivation_hook( __FILE__, 'deactivate_maspik' );
 
 /**

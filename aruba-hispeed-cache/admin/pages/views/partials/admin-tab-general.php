@@ -74,15 +74,13 @@ foreach ( $this->fields['sections']['general'] as $sections_key => $sections ) :
                         <label for="<?php echo esc_html( $this->fields[ $filedkey ]['id'] ); ?>">
                             <textarea id="<?php echo esc_html( $this->fields[ $filedkey ]['id'] ); ?>"
                             name="<?php echo esc_html( $this->fields[ $filedkey ]['id'] ); ?>" rows="5" cols="60"><?php
-                                if(isset($this->fields[ $filedkey ]['value'])){
+                                if(isset($this->fields[ $filedkey ]['value']) && (is_object($this->fields[ $filedkey ]['value'])|| is_array($this->fields[ $filedkey ]['value']))){
                                     foreach($this->fields[ $filedkey ]['value'] as $ahsc_preconnect_domain){
                                         echo esc_url($ahsc_preconnect_domain,array(
 		                                        'https'
 	                                        ))."\n";
                                     }
-                                }
-
-                               // echo trim(esc_html( $this->fields[ $filedkey ]['value'] ));  ?>
+                                }?>
                             </textarea>
                         </label>
                             <small><?php

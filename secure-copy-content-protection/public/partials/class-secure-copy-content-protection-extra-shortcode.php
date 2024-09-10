@@ -92,7 +92,7 @@ class Ays_Sccp_Extra_Shortcodes_Public
         return str_replace(array("\r\n", "\n", "\r"), "\n", $passed_users_count_html);
     }
 
-    public function get_sccp_subscribers_count_by_id($id){
+    public function get_sccp_subscribers_count_by_id( $id ){
         global $wpdb;
 
         $reports_table = esc_sql( $wpdb->prefix . "ays_sccp_reports" );

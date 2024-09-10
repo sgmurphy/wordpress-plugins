@@ -3,7 +3,7 @@
  * Plugin Name: Analytify Dashboard
  * Plugin URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=plugin-uri
  * Description: Analytify brings a brand new and modern feeling of Google Analytics superbly integrated within the WordPress.
- * Version: 5.4.1
+ * Version: 5.4.2
  * Author: Analytify
  * Author URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=author-uri
  * License: GPLv3
@@ -224,6 +224,9 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'front_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'front_scripts' ) );
+
+			//Dismiss rank math notice 
+			add_action('wp_ajax_analytify_dismiss_rank_math_notice', array($this, 'analytify_dismiss_rank_math_notice'));
 
 			add_action( 'admin_notices', array( $this, 'analytify_admin_notice' ) );
 			add_action( 'admin_notices', array( $this, 'addons_ga4_update_notice' ) ); // Ask users to update plugins to work with version 5.0.0!
@@ -781,11 +784,23 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 				$settings_link .= sprintf( esc_html__( '%1$s Get Analytify Pro %2$s |', 'wp-analytify' ), '<a  href="https://analytify.io/pricing/?utm_source=analytify-lite&utm_medium=plugin-action-link&utm_campaign=pro-upgrade&utm_content=Get+Analytify+Pro" target="_blank" style="color:#3db634;">', '</a>' );
 			}
 
-			if ( 'yes' == get_option( '_analytify_optin' ) ) {
-				$settings_link .= sprintf( esc_html__( '%1$s Opt Out %2$s | ', 'wp-analytify' ), '<a class="opt-out" href="' . admin_url( 'admin.php?page=analytify-settings' ) . '">', '</a>' );
-			} else {
-				$settings_link .= sprintf( esc_html__( '%1$s Opt In %2$s | ', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-optin' ) . '">', '</a>' );
-			}
+            // Retrieve and decode the JSON option
+            $sdk_data = json_decode(get_option('wpb_sdk_wp-analytify'), true);
+
+            // Initialize the options or set defaults if not found
+            $communication   = isset($sdk_data['communication']) ? $sdk_data['communication'] : '0';
+            $diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : '0';
+            $extensions      = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : '0';
+
+            // Check if any option is set to '1' and build the settings link
+            if ( '1' == $communication || '1' == $diagnostic_info || '1' == $extensions ) {
+                $settings_link .= sprintf( esc_html__( '%1$s Opt Out %2$s | ', 'wp-analytify' ), '<a class="opt-out" href="' . admin_url( 'admin.php?page=analytify-settings' ) . '">', '</a>' );
+            } else {
+                if('yes' == get_option( '_analytify_optin' )) {
+                    update_option('_analytify_optin', 'no');
+                }
+                $settings_link .= sprintf( esc_html__( '%1$s Opt In %2$s | ', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-optin' ) . '">', '</a>' );
+            }
 
 			$settings_link .= sprintf( esc_html__( '%1$s Dashboard %2$s ', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-dashboard' ) . '">', '</a>' );
 
@@ -1941,6 +1956,11 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 			echo '<div id="message" class="updated notice is-dismissible"><p> ' .  __( 'Analytify statistics refreshed', 'wp-analytify') . ' </p></div>';
 		}
 
+		public function analytify_dismiss_rank_math_notice()
+		{
+			update_option('analytify_show_rank_math_notice', false);
+		}
+
 		/**
 		 * Display a notice that can be dismissed.
 		 *
@@ -1949,13 +1969,51 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 		 */
 		public function analytify_admin_notice() {
 
-			// Add a admin notice if rankmath host analytics file option is enabled.
-			if( is_plugin_active('seo-by-rank-math-pro/rank-math-pro.php') ) {
+			// Check if the notice should be displayed by fetching the option
+			$show_notice = get_option('analytify_show_rank_math_notice', true);
 
+			if ($show_notice && is_plugin_active('seo-by-rank-math-pro/rank-math-pro.php')) {
+				add_option('analytify_show_rank_math_notice', true);
 				$rank_math_analytics_options = get_option('rank_math_google_analytic_options');
 
-				if( is_array( $rank_math_analytics_options ) && isset($rank_math_analytics_options['local_ga_js']) && $rank_math_analytics_options['local_ga_js']){
-					echo '<div id="message" class="notice notice-warning is-dismissible"><p> ' .  sprintf( __( 'Kindly note that Rank Math Self-Hosted Analytics JS File Feature is available in %1$s Analytify %2$s as well. We recommend using Analytify for this functionality.', 'wp-analytify'), '<a style="text-decoration:none" href="' . menu_page_url( 'analytify-settings', false ) . '#wp-analytify-advanced">', '</a>'  ) . ' </p></div>';
+				if (is_array($rank_math_analytics_options) && isset($rank_math_analytics_options['local_ga_js']) && $rank_math_analytics_options['local_ga_js']) {
+					$screen = get_current_screen();
+					// Check if the current page is related to Rank Math or Analytify
+					if ($screen && (strpos($screen->id, 'analytify') !== false)) {
+						echo '<div id="message" class="notice notice-warning is-dismissible analytify-rank-math-notice">
+								<p>' . sprintf(
+							__('Kindly note that Rank Math Self-Hosted Analytics JS File Feature is available in %1$s Analytify %2$s as well. We recommend using Analytify for this functionality.', 'wp-analytify'),
+							'<a style="text-decoration:none" href="' . menu_page_url('analytify-settings', false) . '#wp-analytify-advanced">',
+							'</a>'
+						) . '</p></div>'; ?>
+						<script type="text/javascript">
+							(function($) {
+								$(document).on('click', '.analytify-rank-math-notice .notice-dismiss', function() {
+									$.post(ajaxurl, {
+										action: 'analytify_dismiss_rank_math_notice',
+									});
+								});
+							})(jQuery);
+						</script>
+					<?php
+					} else if (strpos($screen->id, 'rank-math') !== false) {
+						echo '<div id="message" class="rank-math-notice notice is-dismissible">
+								<p>' . sprintf(
+							__('Kindly note that Rank Math Self-Hosted Analytics JS File Feature is available in %1$s Analytify %2$s as well. We recommend using Analytify for this functionality.', 'wp-analytify'),
+							'<a style="text-decoration:none" href="' . menu_page_url('analytify-settings', false) . '#wp-analytify-advanced">',
+							'</a>'
+						) . '</p></div>'; ?>
+						<script type="text/javascript">
+							(function($) {
+								$(document).on('click', '.rank-math-notice .notice-dismiss', function() {
+									$.post(ajaxurl, {
+										action: 'analytify_dismiss_rank_math_notice',
+									});
+								});
+							})(jQuery);
+						</script>
+			<?php
+					}
 				}
 			}
 

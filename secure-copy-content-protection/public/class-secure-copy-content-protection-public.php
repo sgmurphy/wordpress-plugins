@@ -347,8 +347,10 @@ class Secure_Copy_Content_Protection_Public {
 					</div>
 					</div>
 				</form>
-			</div>';		
+			</div>';
 
+		$ays_sb_email = isset( $_POST['ays_sb_email_form_'.$id] ) && $_POST['ays_sb_email_form_'.$id] != '' ? esc_sql( sanitize_email( $_POST['ays_sb_email_form_'.$id] ) ) : '';
+		
 		$cookie_sub_name = 'bs_email_'.$id;
 		if (!isset($_COOKIE[$cookie_sub_name]) && isset($_POST['subscribe_sub_'.$id])) {
 			$c_ip = file_get_contents("https://api.db-ip.com/v2/free/".$user_ip);
@@ -357,15 +359,15 @@ class Secure_Copy_Content_Protection_Public {
             $sub_country_name = isset($c_data["countryName"]) && !empty($c_data["countryName"]) ? $c_data["countryName"] : '';
             $sub_country = $sub_city.$sub_country_name;
 
-			$cookie_sub_val = $_POST['ays_sb_email_form_'.$id];
+			$cookie_sub_val = $ays_sb_email;
 			setcookie($cookie_sub_name, $cookie_sub_val, time()+(86400*365),"/");
 			if(isset($_POST['ays_sb_email_form_'.$id])) {
 				
-				$check_email = $wpdb->get_row("SELECT * FROM " . $report_table . " WHERE subscribe_email = '".$_POST['ays_sb_email_form_'.$id]."' " , ARRAY_A);
+				$check_email = $wpdb->get_row("SELECT * FROM " . $report_table . " WHERE subscribe_email = '".$ays_sb_email."' " , ARRAY_A);
 				
 				if ( $check_email === null ) {
 				
-					$sub_email = esc_sql($_POST['ays_sb_email_form_'.$id]);
+					$sub_email = $ays_sb_email;
 					$sub_name = isset($_POST['ays_sb_name_field_'.$id]) ? esc_sql($_POST['ays_sb_name_field_'.$id]) : '';
 					$wpdb->insert(
 						$report_table,

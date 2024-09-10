@@ -310,3 +310,13 @@ function AHSC_log( $message, $name = '', $type = 'info' ) {
 		}
 	}
 }
+
+/** Let's get rid of the annoying Site Health warning about no auto-updates. We don't want autoupdates because we want to do backups before updates!
+ */
+
+add_filter('site_status_tests', function (array $test_type) {
+
+	unset($test_type['async']['background_updates']); // remove warning about Automatic background updates
+
+	return $test_type;
+}, 10, 1);

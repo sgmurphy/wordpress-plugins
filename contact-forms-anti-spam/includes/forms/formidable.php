@@ -13,11 +13,11 @@ function maspik_validate_formidable_general($errors, $values){
   $ip =  efas_getRealIpAddr();
 
   // Country IP Check 
-  $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
-  $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
-  $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
-  $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
-  $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
+  $GeneralCheck = GeneralCheck($ip,$spam,$reason,$_POST,"formidable");
+  $spam = isset($GeneralCheck['spam']) ? $GeneralCheck['spam'] : false ;
+  $reason = isset($GeneralCheck['reason']) ? $GeneralCheck['reason'] : false ;
+  $message = isset($GeneralCheck['message']) ? $GeneralCheck['message'] : false ;
+  $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
     
   if ( $spam) {
     efas_add_to_log($type = "Country/IP",$reason, $_POST['item_meta'], "Formidable" , $message,  $spam_val);
@@ -114,14 +114,3 @@ function maspik_validate_formidable_textarea($errors, $posted_field, $posted_val
 }
 add_filter('frm_validate_field_entry', 'maspik_validate_formidable_textarea', 10, 4);
 
-
-// maspik_add_text_to_mail_components
-add_filter('frm_email_message', 'maspik_add_text_to_mail_formidable', 10, 2);
-function maspik_add_text_to_mail_formidable($message, $atts) {
-  $add_country_to_emails = maspik_get_settings("add_country_to_emails", '', 'old')  == "yes";
-  if($message && $add_country_to_emails){
-     $countryName = maspik_add_country_to_submissions($linebreak = "");
-     $message = $message.$countryName;
-    }
- return $message;
-}

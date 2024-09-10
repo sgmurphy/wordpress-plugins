@@ -38,7 +38,7 @@ if ( ! class_exists( 'WP_Analytify_Settings' ) ) {
 		function admin_enqueue_scripts() {
 
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_media();
+			
 		}
 
 		/**

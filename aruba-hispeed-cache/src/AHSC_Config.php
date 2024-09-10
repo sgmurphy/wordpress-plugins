@@ -3,6 +3,8 @@ const AHSC_CORE = array(
 	'plugin_name' => 'aruba-hispeed-cache',
     'debug'=>WP_DEBUG
 );
+//var_dump(AHSC_CORE);
+
 $file=realpath(dirname(__FILE__)."/..")."/".AHSC_CORE['plugin_name'].".php";
 
 define( "AHSC_REQUIREMENTS", array(
@@ -33,11 +35,12 @@ const AHSC_OPTIONS_LIST = array(
 	'ahsc_static_cache'=>true,
 	'ahsc_dns_preconnect'=>false,
 	'ahsc_dns_preconnect_domains'=>'',
+	'ahsc_xmlrpc_status'=>true
 
 );
 
 define( "AHSC_CONSTANT", array(
-	'ARUBA_HISPEED_CACHE_VERSION'      => '2.0.16',
+	'ARUBA_HISPEED_CACHE_VERSION'      => '2.0.17',
 	'ARUBA_HISPEED_CACHE_PLUGIN'       => true,
 	'ARUBA_HISPEED_CACHE_FILE'         => $file,
 	'ARUBA_HISPEED_CACHE_BASEPATH'     => \plugin_dir_path( $file ),
@@ -63,6 +66,7 @@ const AHSC_OPTIONS_LIST_DEFAULT = array(
 	'ahsc_static_cache' => array('default'=>true),
 	'ahsc_dns_preconnect' => array('default'=>false),
 	'ahsc_dns_preconnect_domains'=>array('default'=>''),
+	'ahsc_xmlrpc_status'=>array('default'=>true)
 );
 
 

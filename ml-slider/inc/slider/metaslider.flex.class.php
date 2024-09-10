@@ -161,6 +161,7 @@ class MetaFlexSlider extends MetaSlider
             );
         }
 
+        remove_filter('metaslider_flex_slider_parameters', array($this, 'custom_delay_per_slide'));
         return $options;
     }
 
@@ -230,21 +231,23 @@ class MetaFlexSlider extends MetaSlider
                 }
                 $double = $slides * 2;
                 $animationtime = ($settings['animationSpeed'] * $slides) + ($settings['delay'] * $slides);
-
+                $transform_width = $margin + $settings["width"];
                 $css .= "
                     @keyframes infiniteloop_" . $slider_id . " {
                         0% {
                             transform: translateX(0);
+                            visibility: visible;
                         }
                         100% {
-                            transform: translateX(calc(-" . $settings["width"] . "px * " . $slides . "));
+                            transform: translateX(calc(-" . $transform_width . "px * " . $slides . "));
+                            visibility: visible;
                         }
                     }
                     #metaslider_{$slider_id}.flexslider .slides {
                         -webkit-animation: infiniteloop_" . $slider_id . " " . $animationtime . "ms linear infinite;
                                 animation: infiniteloop_" . $slider_id . " " . $animationtime . "ms linear infinite;
                         display: flex;
-                        width: calc(" . $settings["width"] . "px * " . $double . ");
+                        width: calc(" . $transform_width . "px * " . $double . ");
                     }
                     #metaslider_{$slider_id}.flexslider .slides:hover{
                         animation-play-state: paused;

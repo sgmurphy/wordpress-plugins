@@ -129,7 +129,7 @@ class MetaSlider
             'carouselMargin' => 5,
             'firstSlideFadeIn' => false,
             'easing' => 'linear',
-            'autoPlay' => false,
+            'autoPlay' => true,
             'thumb_width' => 150,
             'thumb_height' => 100,
             'responsive_thumbs' => true,
@@ -360,6 +360,11 @@ class MetaSlider
         }
         if ('false' != $this->get_setting('mobileNavigation_desktop')) {
             $class .= ' hide-navigation-desktop';
+        }
+
+        //arrows class
+        if ('onhover' == $this->get_setting('links')) {
+            $class .= ' has-onhover-arrows';
         }
 
         // handle any custom classes

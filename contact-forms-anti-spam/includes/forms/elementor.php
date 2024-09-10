@@ -12,32 +12,37 @@ add_action( 'elementor_pro/forms/validation', 'efas_validation_process' , 10, 2 
 function efas_validation_process ( $record, $ajax_handler ) {
   $spam = false;
   $reason ="";
-  // ip
-//  $ip = efas_getRealIpAddr();
-  $meta = $record->get_form_meta( [ 'page_url', 'page_title', 'user_agent', 'remote_ip' ] );
-  $ip =  $meta['remote_ip']['value'] ?   $meta['remote_ip']['value'] : efas_getRealIpAddr();
-
-  // Country IP Check 
-  $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
-  $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
-  $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
-  $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
-  $error_message = cfas_get_error_text($message);
-  $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
-
+    
   $NeedPageurl =  maspik_get_settings("NeedPageurl");   
   
-    if ( efas_get_spam_api('NeedPageurl') ){
-        $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('NeedPageurl',"bool");
-    }
+  if ( efas_get_spam_api('NeedPageurl') ){
+    $NeedPageurl = $NeedPageurl ? $NeedPageurl : efas_get_spam_api('NeedPageurl',"bool");
+  }
 
 
   if( !array_key_exists('referrer', $_POST ) && $NeedPageurl ){
-      $spam = true;
-      $reason = "Page source url is empty";
-      $error_message = cfas_get_error_text("block_empty_source");
-
+    $spam = true;
+    $reason = "Page source url is empty";
+    $message = "block_empty_source";
+    $error_message = cfas_get_error_text("block_empty_source");
+    $spam_val = $reason;
   }
+
+    
+    
+    if(!$spam){
+      //  $ip = efas_getRealIpAddr();
+      $meta = $record->get_form_meta( [ 'page_url', 'page_title', 'user_agent', 'remote_ip' ] );
+      $ip =  $meta['remote_ip']['value'] ? $meta['remote_ip']['value'] : efas_getRealIpAddr();
+
+      // Country IP Check 
+      $GeneralCheck = GeneralCheck($ip,$spam,$reason,$_POST,"elementor");
+      $spam = isset($GeneralCheck['spam']) ? $GeneralCheck['spam'] : false ;
+      $reason = isset($GeneralCheck['reason']) ? $GeneralCheck['reason'] : false ;
+      $message = isset($GeneralCheck['message']) ? $GeneralCheck['message'] : false ;
+      $error_message = cfas_get_error_text($message);
+      $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
+    }   
     
     $fields = $record->get_field(0);
     // Get the last element of the array

@@ -56,12 +56,12 @@ function maspik_custom_form_check() {
         $ip = efas_getRealIpAddr();
 
         // Country IP Check (example implementation)
-        $CountryCheck = CountryCheck($ip, $spam, $reason,$_POST);
-        if ($CountryCheck['spam']) {
-            $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
+        $GeneralCheck = GeneralCheck($ip, $spam, $reason,$_POST,"custom");
+        if ($GeneralCheck['spam']) {
+            $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
             
-            efas_add_to_log("Country/IP", $CountryCheck['reason'], $_POST, "Custom PHP form", $CountryCheck['message'],  $spam_val);
-            $errors['ip_country'] = cfas_get_error_text($CountryCheck['message']);
+            efas_add_to_log("Country/IP", $GeneralCheck['reason'], $_POST, "Custom PHP form", $GeneralCheck['message'],  $spam_val);
+            $errors['ip_country'] = cfas_get_error_text($GeneralCheck['message']);
         }
 
         // Check text fields

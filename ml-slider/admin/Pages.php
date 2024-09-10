@@ -68,12 +68,18 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
      */
     public function load_wysiwyg()
     {
-        wp_enqueue_script(
-            'metaslider-tinymce-script',
-            METASLIDER_ADMIN_URL . 'assets/vendor/tinymce/js/tinymce/tinymce.min.js',
-            array(),
-            METASLIDER_ASSETS_VERSION
-        );
+        $global_settings = $this->get_global_settings();
+
+        if (! isset($global_settings['tinyMce']) 
+            || ( isset($global_settings['tinyMce'] ) && true == $global_settings['tinyMce'])
+        ) {
+            wp_enqueue_script(
+                'metaslider-tinymce-script',
+                METASLIDER_ADMIN_URL . 'assets/vendor/tinymce/js/tinymce/tinymce.min.js',
+                array(),
+                METASLIDER_ASSETS_VERSION
+            );
+        }
     }
 
     /**
@@ -163,7 +169,7 @@ class MetaSlider_Admin_Pages extends MetaSliderPlugin
         // Register components and add support for the REST API / Admin AJAX
         do_action('metaslider_register_admin_components');
         $dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG;
-        wp_register_script('metaslider-admin-components', METASLIDER_ADMIN_URL . 'assets/dist/js/app' . ($dev ? '' : '.min') . '.js', array(), METASLIDER_ASSETS_VERSION, true);
+        wp_register_script('metaslider-admin-components', METASLIDER_ADMIN_URL . 'assets/dist/js/app' . ($dev ? '' : '.min') . '.js', array('jquery'), METASLIDER_ASSETS_VERSION, true);
 
         // Check if rest is available
         $is_rest_enabled = $this->is_rest_enabled();

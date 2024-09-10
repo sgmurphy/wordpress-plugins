@@ -1471,6 +1471,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 text
         $notification_button_1_text = (isset($data['ays_pb_notification_button_1_text']) && $data['ays_pb_notification_button_1_text'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_text']) ) : '';
 
+        // Notification type | Button 1 hover text
+        $notification_button_1_hover_text = (isset($data['ays_pb_notification_button_1_hover_text']) && $data['ays_pb_notification_button_1_hover_text'] != '') ? stripslashes( sanitize_text_field($data['ays_pb_notification_button_1_hover_text']) ) : '';
+
         // Notification type | Button 1 redirect URL
         $notification_button_1_redirect_url = (isset($data['ays_pb_notification_button_1_redirect_url']) && $data['ays_pb_notification_button_1_redirect_url'] != '') ? sanitize_url($data['ays_pb_notification_button_1_redirect_url']) : '';
 
@@ -1832,6 +1835,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_logo_redirect_to_new_tab' => $notification_logo_redirect_to_new_tab,
             'notification_main_content' => $notification_main_content,
             'notification_button_1_text' => $notification_button_1_text,
+            'notification_button_1_hover_text' => $notification_button_1_hover_text,
             'notification_button_1_redirect_url' => $notification_button_1_redirect_url,
             'notification_button_1_redirect_to_new_tab' => $notification_button_1_redirect_to_new_tab,
             'notification_button_1_bg_color' => $notification_button_1_bg_color,

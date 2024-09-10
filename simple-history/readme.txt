@@ -4,7 +4,7 @@ Contributors: eskapism
 Donate link: https://www.paypal.me/eskapism
 Tags: history, audit log, event log, user tracking, activity
 Tested up to: 6.6
-Stable tag: 5.0.0
+Stable tag: 5.0.1
 
 Track changes and user activities on your WordPress site. See who created a page, uploaded an attachment, and more, for a complete audit trail.
 
@@ -274,6 +274,12 @@ Read more at the [FAQ on the plugin website](https://simple-history.com/docs/faq
 ## Changelog
 
 ### Unreleased
+
+### 5.0.1 (September 2024)
+
+A minor update to quickly fix an issue with avatars that affected a few people.
+
+-   Fix: Correct default value used in `get_avatar_data()` when no user found for an event. Solves compatibility issues with [BuddyBoss](https://www.buddyboss.com/) and possible other similar plugins. [#461](https://github.com/bonny/WordPress-Simple-History/issues/461)
 
 ### 5.0.0 (September 2024)
 

@@ -1227,7 +1227,7 @@ class ProductHelper {
 				return ! empty( $variations ) ? \end( $variations ) : null;
 
 			case 'cheap':
-				return isset( $variations_price['price'] ) ? \array_keys( $variations_price['price'], \min( $variations_price['price'] ) )[0] : null;
+				return (isset($variations_price['price']) && !empty($variations_price['price'])) ? \array_keys( $variations_price['price'], \min( $variations_price['price'] ) )[0] : null;
 
 			case 'expensive':
 				return isset( $variations_price['price'] ) ? \array_keys( $variations_price['price'], \max( $variations_price['price'] ) )[0] : null;

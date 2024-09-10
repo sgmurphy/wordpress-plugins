@@ -9,33 +9,29 @@ if ( ! defined( 'WPINC' ) ) {
  *
  */
 
+    define('MASPIK_API_KEY', 'KVJS5BDFFYabnZkQ3Svty6z6CIsxp3YG5ny4lrFQ');
 
-    function maspik_auto_update_db(){
-                
-        $min_php_version = '7.0';
-        $current_php_version = phpversion();
-
-        if (version_compare($current_php_version, $min_php_version, '>=') && !maspik_table_exists()) { 
-
+    function maspik_auto_update_db(){    
+        if ( maspik_get_settings('text_blacklist') === null ) { 
             create_maspik_log_table();
-            create_maspik_table("auto");
-            echo maspik_run_transfer();
-            
-            add_action('admin_footer', function() {
-                ?>
-                <script type="text/javascript">
-                    // Refresh the page
-                    window.location.reload(true);
-                </script>
-                <?php
-            });
-
-    
+            create_maspik_table();
+            if( get_option('text_blacklist') ){
+                maspik_run_transfer();
+            }
+            maspik_make_default_values();
         }
-
     }
 
-    add_action('admin_init', 'maspik_auto_update_db');
+    add_action('admin_init', 'maspik_auto_update_db' , 10);
+    // run the default values function only once if necessary
+    function maspik_check_if_need_to_run_once() {
+        $maspik_run_once = get_option( 'maspik_run_once', 0 ); // default to 0 if option doesn't exist
+        if ( $maspik_run_once < 2 ) {
+            maspik_make_default_values();
+            update_option( 'maspik_run_once', $maspik_run_once + 1 ); // update to 2 to prevent reruns
+        }
+    }
+    add_action( 'admin_init', 'maspik_check_if_need_to_run_once' , 20);
 
      //Check for PRO -addclass- 
         function maspik_add_pro_class(){
@@ -200,7 +196,7 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
 
             $numbox = "";
             $numbox .= "<div class='maspik-numbox-wrap'><label for=". esc_attr($id) .">". esc_html($label) .":</label>
-            <input type='number' id=". esc_attr($id) ." name=". esc_attr($name) ." ". $class_attr ." min='". $min ." ' max='" . $max . "' step='1' value='";
+            <input type='number' id=". esc_attr($id) ." name=". esc_attr($name) ." ". $class_attr ." min='".  esc_attr($min) ." ' max='" . esc_attr($max) . "' step='1' value='";
 
 
             if($data != ''){
@@ -379,7 +375,7 @@ class Maspik_Admin {
     public function enqueue_styles() {
         $screen = get_current_screen();
         if ( false !== strpos($screen->id, 'maspik') ) { 
-            wp_enqueue_style( "Maspik-admin-style", plugin_dir_url(__DIR__).'/admin/css/admin-style.css', array(), $this->version, 'all' );
+            wp_enqueue_style( "maspik-admin-style", plugin_dir_url(__DIR__) . 'admin/css/admin-style.css', array(), MASPIK_VERSION, 'all' ); 
         }
     }
 

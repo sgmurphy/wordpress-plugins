@@ -25,12 +25,12 @@ function maspik_make_extra_spam_check($post) {
     }
 
     // Year check
-    if (maspik_get_settings('maspikYearCheck') && isset($post['Maspik-currentYear'])) {
+    if (maspik_get_settings('maspikYearCheck')) {
         $serverYear = intval(date('Y'));
         if ($post['Maspik-currentYear'] != $serverYear) {
             return [
                 'spam' => true,
-                'reason' => "Maspik Spam Trap - Server year and local year did not match",
+                'reason' => "Maspik JavaScript check - Server year and local year did not match (Turn off from settings page if this is false positive)",
                 'message' => cfas_get_error_text()
             ];
         }
@@ -69,7 +69,7 @@ function maspik_HP_name(){
 }
 
 
-function CountryCheck($ip, &$spam, &$reason, $post = "") {
+function GeneralCheck($ip, &$spam, &$reason, $post = "",$form = false) {
     
     $to_do_extra_spam_check = maspik_get_settings('maspikHoneypot') || maspik_get_settings('maspikTimeCheck') || maspik_get_settings('maspikYearCheck');
     if( is_array($post) && $to_do_extra_spam_check ){ 
@@ -83,17 +83,6 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
     }
     
     
-    //start check IP in api
-    $do_ip_api_check = maspik_get_settings('maspikDbCheck');
-    if ($do_ip_api_check) {
-        $exists = check_ip_in_api($ip);
-        if($exists){
-            $reason = "Ip: $ip, exists in Maspik blacklist" ;
-            $message = "maspikDbCheck" ;
-            return array('spam' => true, 'reason' => $reason, 'message' => $message, 'value' => 1);
-        }
-    } 
-    //end check IP in api
       
     $message = 0;
     $opt_value = maspik_get_dbvalue();
@@ -202,6 +191,20 @@ function CountryCheck($ip, &$spam, &$reason, $post = "") {
           return array('spam' => $spam, 'reason' => $reason, 'message' => "proxycheck_io_api", 'value' => "");
         }
       }
+    
+    //start check IP in api
+    $do_ip_api_check = maspik_get_settings('maspikDbCheck');
+    if ($do_ip_api_check && !$spam && $form) {
+        $exists = check_ip_in_api($ip,$form);
+        if($exists){
+            $reason = "Ip: $ip, exists in Maspik blacklist" ;
+            $message = "maspikDbCheck" ;
+            return array('spam' => true, 'reason' => $reason, 'message' => $message, 'value' => 1);
+        }
+    } 
+    //end check IP in api
+
+    
 
     return array('spam' => $spam, 'reason' => $reason, 'message' => $message, 'value' => "");
 }
@@ -653,11 +656,10 @@ function Maspik_add_hp_js_to_footer() {
             }
 
             // Add hidden fields to various form types
+            //Not suported ninja form
             addHiddenFields('form.brxe-brf-pro-forms', 'brxe-brf-pro-forms-field-text');
-            addHiddenFields('form.frm-fluent-form', 'ff-el-form-control');
-            addHiddenFields('form.frm-show-form', 'wpforms-field');
-            addHiddenFields('form.forminator-custom-form', 'forminator-input');
-            addHiddenFields('form.comment-form', 'comment-form-comment');
+            //formidable
+            addHiddenFields('form.frm-show-form', 'frm_form_field');
             addHiddenFields('form.elementor-form', 'elementor-field-textual');
 
             // Function to set the current year and exact time in the appropriate fields

@@ -22,11 +22,11 @@ add_filter( 'gform_field_validation', function ( $result, $value, $form, $field 
     $ip = efas_getRealIpAddr();
     
   	// Country IP Check 
-    $CountryCheck = CountryCheck($ip,$spam,$reason,$_POST);
-    $spam = isset($CountryCheck['spam']) ? $CountryCheck['spam'] : false ;
-    $reason = isset($CountryCheck['reason']) ? $CountryCheck['reason'] : false ;
-    $message = isset($CountryCheck['message']) ? $CountryCheck['message'] : false ;
-    $spam_val = $CountryCheck['value'] ? $CountryCheck['value'] : false ;
+    $GeneralCheck = GeneralCheck($ip,$spam,$reason,$_POST,"gravityforms");
+    $spam = isset($GeneralCheck['spam']) ? $GeneralCheck['spam'] : false ;
+    $reason = isset($GeneralCheck['reason']) ? $GeneralCheck['reason'] : false ;
+    $message = isset($GeneralCheck['message']) ? $GeneralCheck['message'] : false ;
+    $spam_val = $GeneralCheck['value'] ? $GeneralCheck['value'] : false ;
 
       //If country or ip is in blacklist
     if ( $spam ) {

@@ -20,7 +20,7 @@
         <table class="form-table">
             <tr valign="top">
                 <th scope="row">Hotline</th>
-                <td><input placeholder="0123 456 789" type="text" name="pzf_phone" value="<?php echo get_option('pzf_phone'); ?>" pattern="[0-9]{10,12}" title="Valid phone number from 10 to 12 digits" />
+                <td><input placeholder="0123 456 789" type="text" name="pzf_phone" value="<?php echo esc_attr(get_option('pzf_phone')); ?>" pattern="[0-9]{5,25}" title="Valid phone number from 5 to 25 digits" />
                     <label for="pzf_color_phone">
                         <input id="pzf_color_phone" class="my-color-field" name="pzf_color_phone" type="text" value="<?php echo esc_attr(get_option('pzf_color_phone')); ?>" 
        pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
@@ -29,7 +29,7 @@
             </tr>
             <tr valign="top">
                 <th scope="row">Hotline 2</th>
-                <td><input placeholder="0123 456 789" type="text" name="pzf_phone2" value="<?php echo get_option('pzf_phone2'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" />
+                <td><input placeholder="0123 456 789" type="text" name="pzf_phone2" value="<?php echo esc_attr(get_option('pzf_phone2')); ?>" pattern="[0-9]{5,25}" title="Valid phone number from 5 to 25 digits" />
                     <label for="pzf_color_phone2">
                         <input id="pzf_color_phone2" class="my-color-field" name="pzf_color_phone2" type="text" value="<?php echo esc_attr(get_option('pzf_color_phone2')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7" />
                     </label>
@@ -38,7 +38,7 @@
             <tr valign="top">
                 <th scope="row">Hotline 3</th>
                 <td>
-                    <input placeholder="0123 456 789" type="text" name="pzf_phone3" value="<?php echo get_option('pzf_phone3'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" />
+                    <input placeholder="0123 456 789" type="text" name="pzf_phone3" value="<?php echo esc_attr(get_option('pzf_phone3')); ?>" pattern="[0-9]{5,25}" title="Valid phone number from 5 to 25 digits" />
                     <label for="pzf_color_phone3">
                         <input id="pzf_color_phone3" class="my-color-field" name="pzf_color_phone3" type="text" value="<?php echo esc_attr(get_option('pzf_color_phone3')); ?>" pattern="^#([A-Fa-f0-9]{6})$" title="Color must be in the format #RRGGBB" maxlength="7"/>
                     </label>
@@ -54,7 +54,7 @@
             </tr>
             <tr valign="top">
                 <th scope="row">Zalo</th>
-                <td><input placeholder="0123 456 789" type="text" name="pzf_zalo" value="<?php echo get_option('pzf_zalo'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" /></td>
+                <td><input placeholder="0123 456 789" type="text" name="pzf_zalo" value="<?php echo get_option('pzf_zalo'); ?>" pattern="\d{5,25}" title="Valid phone number from 5 to 25 digits" /></td>
             </tr>
             <tr valign="top">
                 <th scope="row">Telegram</th>
@@ -82,11 +82,11 @@
             </tr>
             <tr valign="top">
                 <th scope="row">Whatsapp</th>
-                <td><input placeholder="0123456789" type="text" name="pzf_whatsapp" value="<?php echo get_option('pzf_whatsapp'); ?>" pattern="\d{10,11}" title="Số điện thoại hợp lệ từ 10 đến 11 chữ số" /></td>
+                <td><input placeholder="0123456789" type="text" name="pzf_whatsapp" value="<?php echo get_option('pzf_whatsapp'); ?>" pattern="\d{5,25}" title="Valid phone number from 5 to 25 digits" /></td>
             </tr>
             <tr valign="top">
                 <th scope="row">Viber</th>
-                <td><input placeholder="0123 456 789" type="text" name="pzf_viber" value="<?php echo get_option('pzf_viber'); ?>" pattern="\d{10,11}" title="Valid phone number from 10 to 11 digits" /></td>
+                <td><input placeholder="0123 456 789" type="text" name="pzf_viber" value="<?php echo get_option('pzf_viber'); ?>" pattern="\d{5,25}" title="Valid phone number from 5 to 25 digits" /></td>
             </tr>
             <tr valign="top">
                 <th scope="row">Link map</th>

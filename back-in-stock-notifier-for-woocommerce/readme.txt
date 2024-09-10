@@ -5,7 +5,7 @@ Donate link: [https://codewoogeek.online/product-category/back-in-stock-notifier
 Requires at least: 4.7
 Tested up to: 6.6.1
 Requires PHP: 7.0
-Stable tag: 5.4.2
+Stable tag: 5.5.0
 License: GPL-3.0+
 License URI: [https://www.gnu.org/licenses/gpl-3.0.txt](https://www.gnu.org/licenses/gpl-3.0.txt)
 
@@ -234,6 +234,10 @@ You can contact us via the support Forum of WordPress or by creating a support t
 
 
 == Changelog ==
+= 5.5.0 2024-09-10 =
+* Tweak : Updated Webhook payload (only_product_name, product_link , product_image)
+* Tweak : Tested with WooCommerce 9.2.3
+
 = 5.4.2 2024-08-22 =
 * Tweak : Tested with WooCommerce 9.2.1
 
