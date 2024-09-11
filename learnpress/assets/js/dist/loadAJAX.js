@@ -58,16 +58,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
 /* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
-/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
+/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
+/* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady)
 /* harmony export */ });
 /**
- * Fetch API.
+ * Utils functions
  *
  * @param url
  * @param data
  * @param functions
  * @since 4.2.5.1
- * @version 1.0.1
+ * @version 1.0.2
  */
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -153,6 +154,32 @@ const listenElementCreated = callback => {
     subtree: true
   });
   // End.
+};
+
+/**
+ * Listen element created.
+ *
+ * @param selector
+ * @param callback
+ * @since 4.2.7.1
+ */
+const lpOnElementReady = (selector, callback) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    callback(element);
+    return;
+  }
+  const observer = new MutationObserver((mutations, obs) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      obs.disconnect();
+      callback(element);
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
 };
 
 // Parse JSON from string with content include LP_AJAX_START.
@@ -248,18 +275,15 @@ __webpack_require__.r(__webpack_exports__);
  * Load all you need via AJAX
  *
  * @since 4.2.5.7
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 
 
 
 // Handle general parameter in the Frontend and Backend
-let apiData = _api_js__WEBPACK_IMPORTED_MODULE_1__["default"].admin;
-if ('undefined' === typeof apiData) {
-  apiData = _api_js__WEBPACK_IMPORTED_MODULE_1__["default"].frontend;
-}
-const urlAPI = apiData.hasOwnProperty('apiAJAX') ? apiData.apiAJAX : '';
+const apiData = _api_js__WEBPACK_IMPORTED_MODULE_1__["default"].admin || _api_js__WEBPACK_IMPORTED_MODULE_1__["default"].frontend;
+const urlAPI = apiData?.apiAJAX || '';
 let lpSettings = {};
 if ('undefined' !== typeof lpDataAdmin) {
   lpSettings = lpDataAdmin;
@@ -299,9 +323,9 @@ const lpAJAX = () => {
       (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpFetchAPI)(url, option, callBack);
     },
     getElements: () => {
-      //console.log( 'getElements' );
       // Finds all elements with the class '.lp-load-ajax-element'
       const elements = document.querySelectorAll('.lp-load-ajax-element:not(.loaded)');
+      //console.log( 'getElements', elements );
       if (elements.length) {
         elements.forEach(element => {
           //console.log( 'Element handing', element );
@@ -347,12 +371,22 @@ const lpAJAX = () => {
     }
   };
 };
+window.lpAJAXG = lpAJAX();
+window.lpAJAXG.getElements();
 
-// Case 1: file JS loaded, find all elements with the class '.lp-load-ajax-element' not have class 'loaded'
-if ('undefined' === typeof window.lpAJAXG) {
-  window.lpAJAXG = lpAJAX();
+// Listen element created
+(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.listenElementCreated)(node => {
+  if (node.classList.contains('lp-load-ajax-element')) {
+    //console.log( 'Element created', node );
+    window.lpAJAXG.getElements();
+  }
+});
+
+// Listen element ready
+(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.lpOnElementReady)('.lp-load-ajax-element', element => {
+  //console.log( 'Element ready', element );
   window.lpAJAXG.getElements();
-}
+});
 
 // Case 2: readystatechange, find all elements with the class '.lp-load-ajax-element' not have class 'loaded'
 document.addEventListener('readystatechange', event => {
@@ -362,6 +396,7 @@ document.addEventListener('readystatechange', event => {
 
 // Case 3: DOMContentLoaded, find all elements with the class '.lp-load-ajax-element' not have class 'loaded'
 document.addEventListener('DOMContentLoaded', () => {
+  //console.log( 'DOMContentLoaded' );
   window.lpAJAXG.getElements();
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (lpAJAX);

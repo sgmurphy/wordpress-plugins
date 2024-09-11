@@ -1,8 +1,8 @@
 === Super Page Cache ===
 Contributors: optimole, salvatorefresta, isaumya
 Tags: cloudflare, caching ,performance, page caching, pagespeed, cdn
-Requires at least: 4.9
-Requires PHP: 7.0
+Requires at least: 5.3
+Requires PHP: 7.4
 Tested up to: 6.6
 Stable tag: trunk
 License: GPLv2 or later
@@ -166,6 +166,21 @@ First check the questions mentioned in the FAQ tab inside the plugin settings pa
 
 
 == Changelog ==
+
+#####   Version 5.0.2 (2024-09-11)
+
+- Use proper versions for backend scripts and styles
+- Improve dashboard script dependency loading
+- Improve dashboard settings organization and UI
+- Fixed page cache setting not appearing in some instances
+- Fixed Cloudflare cache toggle value not being consistent in the dashboard
+- Updated Cloudflare cache rule to work regardless of the URL protocol
+- Added media lazy loading feature
+- Added javascript delayed loading feature [PRO]
+- Added javascript defer feature [PRO]
+
+
+
 
 #####   Version 5.0.1 (2024-08-28)
 

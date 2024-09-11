@@ -1,34 +1,31 @@
 <?php
 // Handles $_POST requests to toggle plugin options and prevents form resubmission.
-function analytify_handle_opt_out_requests()
-{
-    if (isset($_POST['wp_opt_out_action'])) {
-        $plugin_slug = 'wp-analytify';
 
-        $option_types = ['communication', 'diagnostic_info', 'extensions'];
-        foreach ($option_types as $type) {
-            if (isset($_POST["wpbrigade_sdk_{$type}_{$plugin_slug}"])) {
-                $current_value = get_option("wpbrigade_sdk_{$type}_{$plugin_slug}");
-                $new_value = ($current_value == true) ? false : true;
-                update_option("wpbrigade_sdk_{$type}_{$plugin_slug}", $new_value);
-            }
-        }
+$pluginSlug = "wp-analytify";
+$pluginName = "Analytify";
 
-        // Redirect to avoid resubmission on refresh
-        wp_redirect($_SERVER['REQUEST_URI']);
-        exit;
-    }
-}
+$analytify_optout_page_nonce = wp_create_nonce("analytify_optout_page_nonce");
 
-add_action('admin_init', 'analytify_handle_opt_out_requests');
+// Fetch the wpb_sdk_  option and decode it into an array
+$sdk_data = json_decode(get_option('wpb_sdk_' . $pluginSlug), true);
+
+// Handle cases where option doesn't exist
+$sdk_communication = isset($sdk_data['communication']) ? $sdk_data['communication'] : '0';
+$sdk_diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : '0';
+$sdk_extensions = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : '0';
+
 ?>
 
+<input type="hidden" id="<?php echo $pluginSlug . '_communication' ?>" value="<?php echo $sdk_communication; ?>"/>
+<input type="hidden" id="<?php echo $pluginSlug . '_diagnostic_info' ?>" value="<?php echo $sdk_diagnostic_info; ?>"/>
+<input type="hidden" id="<?php echo $pluginSlug . '_extensions' ?>" value="<?php echo $sdk_extensions; ?>"/>
+
 <style media="screen">
-    .wp-analytify-modal.active {
+    .<?php echo $pluginSlug; ?>-modal.active {
         display: block;
     }
 
-    .wp-analytify-modal {
+    .<?php echo $pluginSlug; ?>-modal {
         position: fixed;
         overflow: auto;
         height: 100%;
@@ -39,11 +36,11 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         background: rgba(0, 0, 0, 0.6);
     }
 
-    .wp-analytify-modal.active .wp-analytify-modal-dialog {
+    .<?php echo $pluginSlug; ?>-modal.active .<?php echo $pluginSlug; ?>-modal-dialog {
         top: 10%;
     }
 
-    .wp-analytify-modal .wp-analytify-modal-dialog {
+    .<?php echo $pluginSlug; ?>-modal .<?php echo $pluginSlug; ?>-modal-dialog {
         background: #fff;
         position: absolute;
         left: 50%;
@@ -56,7 +53,7 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .wp-analytify-modal .wp-analytify-modal-header {
+    .<?php echo $pluginSlug; ?>-modal .<?php echo $pluginSlug; ?>-modal-header {
         background: #fbfbfb;
         border-bottom: 1px solid #eee;
         margin-bottom: -3px;
@@ -64,12 +61,12 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         position: relative;
     }
 
-    .wp-analytify-modal .wp-analytify-modal-body {
+    .<?php echo $pluginSlug; ?>-modal .<?php echo $pluginSlug; ?>-modal-body {
         border-bottom: 0;
         padding: 20px;
     }
 
-    .wp-analytify-modal .wp-analytify-modal-footer {
+    .<?php echo $pluginSlug; ?>-modal .<?php echo $pluginSlug; ?>-modal-footer {
         background: #fefefe;
         border: 0;
         padding: 20px;
@@ -77,7 +74,7 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         text-align: right;
     }
 
-    .wp-analytify-modal h4 {
+    .<?php echo $pluginSlug; ?>-modal h4 {
         color: #cacaca;
         font-size: 1.2em;
         font-weight: 700;
@@ -89,13 +86,13 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         -webkit-font-smoothing: antialiased;
     }
 
-    .wp-analytify-modal h2 {
+    .<?php echo $pluginSlug; ?>-modal h2 {
         font-weight: bold;
         font-size: 20px;
         margin-top: 0;
     }
 
-    .wp-analytify-modal p {
+    .<?php echo $pluginSlug; ?>-modal p {
         font-size: 14px;
         color: #333;
     }
@@ -116,14 +113,14 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         margin: 0;
     }
 
-    .opt-out-link {
+    .<?php echo $pluginSlug; ?>-opt-out-link {
         color: #2271b1;
         font-size: 13px;
         text-decoration: underline;
         line-height: 20px;
     }
 
-    .opt-out-link:hover {
+    .<?php echo $pluginSlug; ?>-opt-out-link:hover {
         text-decoration: none;
     }
 
@@ -239,17 +236,17 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         padding-left: 19px;
     }
 
-    .wp-analytify-opt-out-button {
+    .<?php echo $pluginSlug; ?>-opt-out-button {
         display: inline-block;
         vertical-align: middle;
         margin-right: 10px;
     }
 
-    .wp-analytify-modal-footer .wp-core-ui .button-primary {
+    .<?php echo $pluginSlug; ?>-modal-footer .wp-core-ui .button-primary {
         vertical-align: middle;
     }
 
-    .wp-analytify-modal-close {
+    .<?php echo $pluginSlug; ?>-modal-close {
         border-radius: 20px;
         color: #bbb;
         cursor: pointer;
@@ -260,18 +257,18 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
         transition: all .2s ease-in-out;
     }
 
-    .wp-analytify-modal-close:hover {
+    .<?php echo $pluginSlug; ?>-modal-close:hover {
         background: #aaa;
         color: #fff;
     }
 
-    .wp-analytify-modal-opt-out-overlay {
+    .<?php echo $pluginSlug; ?>-modal-opt-out-overlay {
         position: fixed;
         inset: 0;
         content: '';
     }
 
-    .wp-analytify-modal-body hr {
+    .<?php echo $pluginSlug; ?>-modal-body hr {
         border: 0;
         border-top: 1px solid #eee;
         margin: 25px 0 20px;
@@ -319,7 +316,6 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
     }
 
 
-
     .wpb-ajax-spinner {
         background: url(/wp-admin/images/wpspin_light-2x.gif);
         background-size: contain;
@@ -341,7 +337,7 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
     }
 
     .wpb-loading .wpb-switch-feedback,
-    .wpb-loading .opt-out-link,
+    .wpb-loading .<?php echo $pluginSlug; ?>-opt-out-link,
     .wpb-loading .communication-content {
         cursor: wait;
     }
@@ -351,35 +347,22 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
     }
 
 </style>
-
-<div class="wp-analytify-modal wp-analytify-modal-opt-out">
-    <div class="wp-analytify-modal-opt-out-overlay"></div>
-    <div class="wp-analytify-modal-dialog">
-        <div class="wp-analytify-modal-header">
-            <div class="wp-analytify-modal-close continue-button"><span class="dashicons dashicons-no"></span></div>
+<div class="<?php echo $pluginSlug; ?>-modal <?php echo $pluginSlug; ?>-modal-opt-out" >
+    <div class="<?php echo $pluginSlug; ?>-modal-opt-out-overlay"></div>
+    <div class="<?php echo $pluginSlug; ?>-modal-dialog">
+        <div class="<?php echo $pluginSlug; ?>-modal-header">
+            <div class="<?php echo $pluginSlug; ?>-modal-close <?php echo $pluginSlug; ?>-continue-button"><span
+                        class="dashicons dashicons-no"></span></div>
             <h4>Opt Out</h4>
         </div>
-        <div class="wp-analytify-modal-body" data-optin="extensions">
-
-            <?php
-            // Fetch the wpb_sdk_wp-analytify option and decode it into an array
-            $sdk_data = json_decode(get_option('wpb_sdk_wp-analytify'), true);
-
-            // Handle cases where option doesn't exist
-            $sdk_communication = isset($sdk_data['communication']) ? $sdk_data['communication'] : '0';
-            $sdk_diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : '0';
-            $sdk_extensions = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : '0';
-
-            // Create the nonce for security
-            $analytify_optout_page_nonce = wp_create_nonce("analytify_optout_page_nonce");
-            ?>
-
+        <div class="<?php echo $pluginSlug; ?>-modal-body" data-optin="extensions">
             <!-- Communication Section -->
             <div class="communication-container <?= $sdk_communication === '1' ? '' : 'wpb-deactivated' ?>">
                 <div class="communication-header">
                     <h2>COMMUNICATION</h2>
-                    <span class="wpb-communication-switch-feedback wpb-switch-feedback"><i class="dashicons dashicons-yes"></i></span>
-                    <a href="#" class="opt-out-link"
+                    <span class="wpb-communication-switch-feedback wpb-switch-feedback"><i
+                                class="dashicons dashicons-yes"></i></span>
+                    <a href="#" class="<?php echo $pluginSlug; ?>-opt-out-link"
                        option-name="communication"><?= $sdk_communication === '1' ? "Opt Out" : "Opt In" ?></a>
                 </div>
                 <div class="communication-content">
@@ -402,8 +385,9 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
             <div class="communication-container <?= $sdk_diagnostic_info === '1' ? "" : "wpb-deactivated" ?>">
                 <div class="communication-header">
                     <h2>Diagnostic Info</h2>
-                    <span class="wpb-diagnostic_info-switch-feedback wpb-switch-feedback"><i class="dashicons dashicons-yes"></i></span>
-                    <a href="#" class="opt-out-link"
+                    <span class="wpb-diagnostic_info-switch-feedback wpb-switch-feedback"><i
+                                class="dashicons dashicons-yes"></i></span>
+                    <a href="#" class="<?php echo $pluginSlug; ?>-opt-out-link"
                        option-name="diagnostic_info"><?= $sdk_diagnostic_info === '1' ? "Opt Out" : "Opt In" ?></a>
                 </div>
                 <div class="communication-content">
@@ -437,7 +421,7 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
             <div class="communication-header">
                 <h2>Extensions</h2>
                 <span class="wpb-extensions-switch-feedback wpb-switch-feedback"><i class="dashicons dashicons-yes"></i></span>
-                <a href="#" class="opt-out-link"
+                <a href="#" class="<?php echo $pluginSlug; ?>-opt-out-link"
                    option-name="extensions"><?= $sdk_extensions === '1' ? "Opt Out" : "Opt In" ?></a>
             </div>
             <div class="communication-content">
@@ -456,157 +440,160 @@ add_action('admin_init', 'analytify_handle_opt_out_requests');
                 </div>
             </div>
         </div>
-
     </div>
-    <div class="wp-analytify-modal-body" style="display: none;" data-optin="communication">
+    <div class="<?php echo $pluginSlug; ?>-modal-body" style="display: none;" data-optin="communication">
         <p>Sharing your name and email allows us to keep you in the loop about new features and important updates, warn
             you about security issues before they become public knowledge, and send you special offers.</p>
-        <p>By clicking "Opt Out", <strong>Analytify</strong> will no longer be able to view your name and email.</p>
+        <p>By clicking "Opt Out", <strong><?php echo $pluginName; ?></strong> will no longer be able to view your name
+            and email.</p>
     </div>
-    <div class="wp-analytify-modal-body" style="display: none;" data-optin="diagnostic_info">
+    <div class="<?php echo $pluginSlug; ?>-modal-body" style="display: none;" data-optin="diagnostic_info">
         <p>Sharing diagnostic data helps to provide additional functionality that's relevant to your website, avoid
             WordPress or PHP version incompatibilities that can break the website, and recognize which languages &
             regions the plugin should be translated and tailored to.</p>
-        <p>By clicking "Opt Out", diagnostic data will no longer be sent to <strong>Analytify</strong>.</p>
+        <p>By clicking "Opt Out", diagnostic data will no longer be sent to <strong><?php echo $pluginName; ?></strong>.
+        </p>
     </div>
-
-
-    <div class="wp-analytify-modal-footer" data-optin-footer="extensions">
-        <button class="button button-primary continue-button">Done</button>
+    <div class="<?php echo $pluginSlug; ?>-modal-footer" data-optin-footer="extensions">
+        <button class="button button-primary <?php echo $pluginSlug; ?>-continue-button">Done</button>
     </div>
-    <div class="wp-analytify-modal-footer" style="display: none;" data-optin-footer="communication">
-        <a class="wp-analytify-opt-out-button" data-optin="" href="#">Opt Out</a>
+    <div class="<?php echo $pluginSlug; ?>-modal-footer" style="display: none;" data-optin-footer="communication">
+        <a class="<?php echo $pluginSlug; ?>-opt-out-button" data-optin="" href="#">Opt Out</a>
         <button class="button button-primary" id="stay-connected">Stay Connected</button>
     </div>
-    <div class="wp-analytify-modal-footer" style="display: none;" data-optin-footer="diagnostic_info">
-        <a class="wp-analytify-opt-out-button" data-optin="" href="#">Opt Out</a>
+    <div class="<?php echo $pluginSlug; ?>-modal-footer" style="display: none;" data-optin-footer="diagnostic_info">
+        <a class="<?php echo $pluginSlug; ?>-opt-out-button" data-optin="" href="#">Opt Out</a>
         <button class="button button-primary" id="stay-connected">Keep Sharing</button>
     </div>
 </div>
-
 </div>
-
 
 <script type="text/javascript">
     (function ($) {
         $(function () {
-            var pluginSlug = 'wp-analytify';  // Define the plugin slug
+
+            var pluginSlug = '<?php echo $pluginSlug; ?>';  // Define the plugin slug
 
             // Open modal when the "Opt Out" button is clicked for a specific plugin row
             $(document).on('click', 'tr[data-slug="' + pluginSlug + '"] .opt-out', function (e) {
                 e.preventDefault();
-                $('.wp-analytify-modal-opt-out').addClass('active');  // Show the modal
+                $('.' + pluginSlug + '-modal-opt-out').addClass('active');  // Show the modal
             });
 
             // Close the modal and reload the page when the "Done" button is clicked
-            $(document).on('click', '.continue-button', function (event) {
+            $(document).on('click', '.' + pluginSlug + '-modal .' + pluginSlug + '-continue-button', function (event) {
                 event.preventDefault();
-                $('.wp-analytify-modal-opt-out').removeClass('active');  // Hide the modal
-                location.reload();  // Reload the page
-            });
-            $(document).on('click', '.wp-analytify-modal-opt-out-overlay', function (event) {
-                event.preventDefault();
-                $('.wp-analytify-modal-opt-out').removeClass('active');  // Hide the modal
-                location.reload();  // Reload the page
+                $('.' + pluginSlug + '-modal-opt-out').removeClass('active');  // Hide the modal
+
+                if (
+                    $('#' + pluginSlug + '_communication').val() === '0'
+                    &&
+                    $('#' + pluginSlug + '_diagnostic_info').val() === '0'
+                    &&
+                    $('#' + pluginSlug + '_extensions').val() === '0'
+                ) {
+                    location.reload();
+                }// Reload the page
             });
             // Show the extension opt-in modal body when "Stay Connected" is clicked
-            $(document).on('click', '#stay-connected', function (event) {
+            $(document).on('click', '.' + pluginSlug + '-modal  #stay-connected', function (event) {
                 event.preventDefault();
-                $('[data-optin="extensions"]').show().siblings('.wp-analytify-modal-body').hide();  // Show extensions, hide other modal bodies
-                $('[data-optin-footer="extensions"]').show().siblings('.wp-analytify-modal-footer').hide();  // Show extension footer, hide other footers
+                $('.' + pluginSlug + '-modal [data-optin="extensions"]').show().siblings('.' + pluginSlug + '-modal-body').hide();  // Show extensions, hide other modal bodies
+                $('.' + pluginSlug + '-modal [data-optin-footer="extensions"]').show().siblings('.' + pluginSlug + '-modal-footer').hide();  // Show extension footer, hide other footers
             });
 
             // Send opt-out request when the opt-out button in the modal footer is clicked
-            $('.wp-analytify-modal-footer .wp-analytify-opt-out-button').on('click', function () {
-                var $analytify_setting_name = $(this).parent().attr('data-optin-footer');  // Get the setting name
-                var $analytify_optin_button = $('.opt-out-link[option-name="' + $analytify_setting_name + '"]')
-                analytify_send_optin_request($analytify_optin_button, $analytify_setting_name, 0);  // Send an opt-out request (0)
+            $('.' + pluginSlug + '-modal-footer .' + pluginSlug + '-opt-out-button').on('click', function () {
+                var sdk_setting_setting_name = $(this).parent().attr('data-optin-footer');  // Get the setting name
+                var sdk_setting_optin_button = $('.' + pluginSlug + '-modal .' + pluginSlug + '-opt-out-link[option-name="' + sdk_setting_setting_name + '"]')
+                send_optin_request(sdk_setting_optin_button, sdk_setting_setting_name, 0);  // Send an opt-out request (0)
             });
 
             // Trigger opt-out when the extension checkbox is changed
-            $('[data-checkbox="extensions"]').on('change', function () {
+            $('.' + pluginSlug + '-modal [data-checkbox="extensions"]').on('change', function () {
                 var optinName = $(this).attr('data-checkbox');  // Get the opt-in name
-                $('.opt-out-link[option-name="' + optinName + '"]').trigger('click');  // Simulate opt-out link click
+                $('.' + pluginSlug + '-modal .' + pluginSlug + '-opt-out-link[option-name="' + optinName + '"]').trigger('click');  // Simulate opt-out link click
             });
 
             // Handle toggle between "Opt Out" and "Opt In" when clicked
-            $(document).on('click', '.opt-out-link', function (e) {
+            $(document).on('click', '.' + pluginSlug + '-modal .' + pluginSlug + '-opt-out-link', function (e) {
                 e.preventDefault();
                 const el = $(this),
                     getOptionName = el.attr('option-name');  // Get the option name
                 // Show/hide appropriate modal sections based on the option name
                 if ((getOptionName == 'communication' || getOptionName == 'diagnostic_info') && (el.html() == 'Opt Out')) {
-                    $('[data-optin="' + getOptionName + '"]').show().siblings('.wp-analytify-modal-body').hide();  // Show specific modal body
-                    $('[data-optin-footer="' + getOptionName + '"]').show().siblings('.wp-analytify-modal-footer').hide();  // Show specific modal footer
+                    $('.' + pluginSlug + '-modal [data-optin="' + getOptionName + '"]').show().siblings('.' + pluginSlug + '-modal-body').hide();  // Show specific modal body
+                    $('.' + pluginSlug + '-modal [data-optin-footer="' + getOptionName + '"]').show().siblings('.' + pluginSlug + '-modal-footer').hide();  // Show specific modal footer
                     return false;  // Stop further execution for specific cases
                 }
                 // Toggle between "Opt In" and "Opt Out"
-                let $analytify_optionValue = $(this).html() === "Opt In" ? 1 : 0;  // Set option value based on current text
-                // $(this).html($analytify_optionValue ? 'Opt Out' : 'Opt In');  // Toggle the button text
+                let sdk_setting_optionValue = $(this).html() === "Opt In" ? 1 : 0;  // Set option value based on current text
+                // $(this).html(sdk_setting_optionValue ? 'Opt Out' : 'Opt In');  // Toggle the button text
                 // Toggle visual indication for deactivation
                 $(this).closest('.communication-container').toggleClass('wpb-deactivated');
 
                 // Update checkbox status based on opt-in/out state
-                $('[data-checkbox="' + getOptionName + '"]').prop('checked', el.html() === 'Opt Out');
+                $('.' + pluginSlug + '-modal [data-checkbox="' + getOptionName + '"]').prop('checked', el.html() === 'Opt Out');
 
                 // Send opt-in/out request
-                var $analytify_setting_name = $(this).attr('option-name');
-                analytify_send_optin_request(el, $analytify_setting_name, $analytify_optionValue);  // Send request with setting name and value
+                var sdk_setting_setting_name = $(this).attr('option-name');
+                send_optin_request(el, sdk_setting_setting_name, sdk_setting_optionValue);  // Send request with setting name and value
             });
 
             // Function to send an AJAX request for opt-in/out changes
-            function analytify_send_optin_request(el, setting_name, analytify_optionValue) {
+            function send_optin_request(el, setting_name, setting_option_value) {
                 $.ajax({
                     type: 'POST',
                     url: ajaxurl,  // Use WordPress AJAX URL
                     data: {
                         action: 'analytify_opt_out_option',  // The action to trigger
                         setting_name: setting_name,  // The setting name (option)
-                        setting_value: analytify_optionValue,  // The value (opt-in or opt-out)
+                        setting_value: setting_option_value,  // The value (opt-in or opt-out)
                         optout_nonce: '<?php echo isset($analytify_optout_page_nonce) ? $analytify_optout_page_nonce : ''; ?>',  // Security nonce
                     },
                     beforeSend: function () {
-                        if (analytify_optionValue == '0') {
+                        if (setting_option_value == '0') {
                             el.html('Opting Out..')
                         }
-                        if (analytify_optionValue == '1') {
+                        if (setting_option_value == '1') {
                             el.html('Opting In..')
                         }
                         // if (setting_name == 'extensions') {
-                            $('.wpb-'+setting_name+'-switch-feedback').show().html('<span class="wpb-ajax-spinner"></span>');
-                            el.closest('.communication-container').addClass('wpb-loading');
+                        $('.' + pluginSlug + '-modal .wpb-' + setting_name + '-switch-feedback').show().html('<span class="wpb-ajax-spinner"></span>');
+                        el.closest('.communication-container').addClass('wpb-loading');
                         // }
                     },
                     error: function (error) {
                         // Handle error here (currently empty)
                     },
                     success: function (response) {
-                        if (analytify_optionValue == '1') {
+                        $('#' + pluginSlug + '_' + setting_name).val(setting_option_value);
+                        if (setting_option_value == '1') {
                             el.html('Opt Out')
-                            $('[option-name="' + setting_name + '"]').closest('.communication-container').removeClass('wpb-deactivated');  // Add deactivated class
+                            $('.' + pluginSlug + '-modal [option-name="' + setting_name + '"]').closest('.communication-container').removeClass('wpb-deactivated');  // Add deactivated class
                             if (setting_name === 'extensions') {
-                                $('.wpb-optin-switch input').prop('checked', true);
+                                $('.' + pluginSlug + '-modal .wpb-optin-switch input').prop('checked', true);
                             }
                         }
-                        if (analytify_optionValue == '0') {
+                        if (setting_option_value == '0') {
                             el.html('Opt In')
-                            $('[option-name="' + setting_name + '"]').closest('.communication-container').addClass('wpb-deactivated');  // Add deactivated class
+                            $('.' + pluginSlug + '-modal [option-name="' + setting_name + '"]').closest('.communication-container').addClass('wpb-deactivated');  // Add deactivated class
 
                             if (setting_name === 'extensions') {
-                                $('.wpb-optin-switch input').prop('checked', false);
+                                $('.' + pluginSlug + '-modal .wpb-optin-switch input').prop('checked', false);
                             }
 
 
                         }
                         // Update UI after successful opt-in/out request
-                        $('[data-optin="extensions"]').show().siblings('.wp-analytify-modal-body').hide();  // Show extensions section
-                        $('[data-optin-footer="extensions"]').show().siblings('.wp-analytify-modal-footer').hide();  // Show footer
+                        $('.' + pluginSlug + '-modal [data-optin="extensions"]').show().siblings('.' + pluginSlug + '-modal-body').hide();  // Show extensions section
+                        $('.' + pluginSlug + '-modal [data-optin-footer="extensions"]').show().siblings('.' + pluginSlug + '-modal-footer').hide();  // Show footer
                         el.closest('.communication-container').removeClass('wpb-loading');
 
                         // Update UI if the user opted out
                         // if (setting_name == 'extensions') {
-                            $('.wpb-'+setting_name+'-switch-feedback').addClass('success');
-                            $('.wpb-'+setting_name+'-switch-feedback').html('<i class="dashicons dashicons-yes"></i> Saved');
+                        $('.' + pluginSlug + '-modal .wpb-' + setting_name + '-switch-feedback').addClass('success');
+                        $('.' + pluginSlug + '-modal .wpb-' + setting_name + '-switch-feedback').html('<i class="dashicons dashicons-yes"></i> Saved');
                         // }
                     }
                 });

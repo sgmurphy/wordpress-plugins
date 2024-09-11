@@ -82,8 +82,8 @@ class Helpers {
 	public static function get_from_date( $time = null, $daily_range = null, $hour_range = null ) {
 
 		$current_time = isset( $time ) ? strtotime( $time ) : strtotime( current_time( 'mysql' ) );
-		$daily_range  = isset( $daily_range ) ? $daily_range : \tptn_get_option( 'daily_range' );
-		$hour_range   = isset( $hour_range ) ? $hour_range : \tptn_get_option( 'hour_range' );
+		$daily_range  = isset( $daily_range ) ? absint( $daily_range ) : (int) \tptn_get_option( 'daily_range' );
+		$hour_range   = isset( $hour_range ) ? absint( $hour_range ) : (int) \tptn_get_option( 'hour_range' );
 
 		if ( \tptn_get_option( 'daily_midnight' ) ) {
 			$from_date = $current_time - ( max( 0, ( $daily_range - 1 ) ) * DAY_IN_SECONDS );
@@ -194,69 +194,6 @@ class Helpers {
 		}
 
 		return $string;
-	}
-
-	/**
-	 * Processes exclusion settings to return if the related posts should not be displayed on the current post.
-	 *
-	 * @since 3.3.0
-	 *
-	 * @param int|\WP_Post|null $post Post ID or post object. Defaults to global $post. Default null.
-	 * @param array             $args Parameters in a query string format.
-	 * @return bool True if any exclusion setting is matched.
-	 */
-	public static function exclude_on( $post = null, $args = array() ) {
-		$post = get_post( $post );
-		if ( ! $post ) {
-			return false;
-		}
-
-		// If this post ID is in the DO NOT DISPLAY list.
-		$exclude_on_post_ids_list = isset( $args['exclude_on_post_ids_list'] ) ? $args['exclude_on_post_ids_list'] : \tptn_get_option( 'exclude_on_post_ids_list' );
-		$exclude_on_post_ids_list = explode( ',', $exclude_on_post_ids_list );
-		if ( in_array( $post->ID, $exclude_on_post_ids_list ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-			return true;
-		}
-
-		// If this post type is in the DO NOT DISPLAY list.
-		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-		$exclude_on_post_types = isset( $args['exclude_on_post_types'] ) ? $args['exclude_on_post_types'] : \tptn_get_option( 'exclude_on_post_types' );
-		$exclude_on_post_types = $exclude_on_post_types ? explode( ',', $exclude_on_post_types ) : array();
-
-		if ( in_array( $post->post_type, $exclude_on_post_types, true ) ) {
-			return true;
-		}
-
-		// If this post's category is in the DO NOT DISPLAY list.
-		$exclude_on_categories = isset( $args['exclude_on_categories'] ) ? $args['exclude_on_categories'] : \tptn_get_option( 'exclude_on_categories' );
-		$exclude_on_categories = explode( ',', $exclude_on_categories );
-		$post_categories       = get_the_terms( $post->ID, 'category' );
-		$categories            = array();
-		if ( ! empty( $post_categories ) && ! is_wp_error( $post_categories ) ) {
-			$categories = wp_list_pluck( $post_categories, 'term_taxonomy_id' );
-		}
-		if ( ! empty( array_intersect( $exclude_on_categories, $categories ) ) ) {
-			return true;
-		}
-
-		// If the DO NOT DISPLAY meta field is set.
-		if ( ( isset( $args['is_shortcode'] ) && ! $args['is_shortcode'] ) &&
-		( isset( $args['is_manual'] ) && ! $args['is_manual'] ) &&
-		( isset( $args['is_block'] ) && ! $args['is_block'] ) ) {
-			$tptn_post_meta = get_post_meta( $post->ID, 'tptn_post_meta', true );
-
-			if ( isset( $tptn_post_meta['disable_here'] ) ) {
-				$disable_here = $tptn_post_meta['disable_here'];
-			} else {
-				$disable_here = 0;
-			}
-
-			if ( $disable_here ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -627,5 +564,37 @@ class Helpers {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get all terms of a post.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param int|\WP_Post $post Post ID or WP_Post object.
+	 * @return array Array of taxonomies.
+	 */
+	public static function get_all_terms( $post ) {
+		$taxonomies = array();
+
+		if ( ! empty( $post ) ) {
+			$post = get_post( $post );
+		}
+
+		if ( ! empty( $post ) ) {
+			$taxonomies = get_object_taxonomies( $post );
+		}
+
+		$all_terms = array();
+
+		// Loop through the taxonomies and get the terms for the post for each taxonomy.
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_the_terms( $post, $taxonomy );
+			if ( $terms && ! is_wp_error( $terms ) ) {
+				$all_terms = array_merge( $all_terms, $terms );
+			}
+		}
+
+		return $all_terms;
 	}
 }

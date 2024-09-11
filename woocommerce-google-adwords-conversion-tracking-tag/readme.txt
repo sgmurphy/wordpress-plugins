@@ -4,7 +4,7 @@ Tags: woocommerce, google analytics, google ads, facebook pixel, conversion trac
 Requires at least: 3.7
 Tested up to: 6.6
 Requires PHP: 7.3
-Stable tag: 1.44.0
+Stable tag: 1.44.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -296,8 +296,13 @@ We are committed to ensuring the security of our customers and their data. If yo
 
 == Changelog ==
 
+= 1.44.1  =
+*Release date - 11.09.2024*
+
+* Fix: Temporary roll back to old variations selection logic to prevent issues with some themes.
+
 = 1.44.0  =
-*Release date - XX.XX.2024*
+*Release date - 05.09.2024*
 
 * New: Filters to add custom parameters for Google Analytics orders and order items.
 * Tweak: Bumped up WP version compatibility to 6.6

@@ -275,10 +275,11 @@ final class CEI_Core {
 			unlink( $_FILES['cei-import-file']['tmp_name'] );
 			return;
 		}
-		remove_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
 
-		$overrides = array( 'test_form' => false, 'test_type' => true, 'mimes' => array('dat' => 'text/plain') );
+		$overrides = array( 'test_form' => false, 'test_type' => false, 'mimes' => array('dat' => 'application/dat') );
 		$file      = wp_handle_upload( $_FILES['cei-import-file'], $overrides );
+
+		remove_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
 
 		// Make sure we have an uploaded file.
 		if ( isset( $file['error'] ) ) {
@@ -291,15 +292,6 @@ final class CEI_Core {
 			return;
 		}
 		
-		add_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
-		$validate = wp_check_filetype( $file['file'] );
-		if ( 'application/dat' !== $validate['type'] ) {
-			$cei_error = __( 'File type is not allowed', 'customizer-export-import' );
-			unlink( $file['file'] );
-			return;
-		}
-		remove_filter( 'upload_mimes', array( 'CEI_Core', 'add_mime_for_upload' ) );
-
 		// Get the upload data.
 		$raw  = file_get_contents( $file['file'] );
 		$data = @unserialize( $raw, array( 'allowed_classes' => false ) );

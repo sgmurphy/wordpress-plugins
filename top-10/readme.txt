@@ -1,9 +1,9 @@
-=== Top 10  - WordPress Popular posts by WebberZone ===
-Tags: popular posts, top 10, counter, top posts, daily popular, page views, statistics, tracker
+=== Top 10 - WordPress Popular posts by WebberZone ===
+Tags: popular posts, top 10, counter, statistics, tracker
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.3.4
-Requires at least: 6.2
+Stable tag: 4.0.0
+Requires at least: 6.3
 Tested up to: 6.6
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -38,14 +38,36 @@ Top 10 also has powerful API and is fully extendable with WordPress actions and 
 * **Works with caching plugins** like WP-Super-Cache, W3 Total Cache or Quick Cache
 * **Extendable code**: Top 10 has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
 
+= Features in Top 10 Pro =
+
+* **Advanced Blocks and Widgets**
+  - **Top 10 Query Block**: Query and display popular posts directly from the block or site editor.
+  - **Enhanced Top 10 Featured Image Block**: Supports multiple image sources for more flexibility.
+  - **Popular Posts Block Enhancements**: 
+    - Save and clear default block settings with a single click.
+    - Auto-insert default and global settings attributes with an option to disable.
+
+* **Improved Admin Tools**
+  - **Admin Bar Integration**: New admin bar menu item to view daily, total, and overall post counts, access admin pages, and clear the cache quickly.
+  - **Dashboard Access Control**: Control which user roles can view the Top 10 dashboard.
+  - **Display Settings**: Choose which post type screens display admin columns.
+
+* **Custom Display Options**
+  - **Taxonomy-Specific Displays**: Use the `display_only_on_tax_ids` parameter to restrict popular post displays to specific taxonomy terms.
+  - **Category Inclusion**: Include popular posts from specific categories using a new option in the Edit Post meta box.
+
+* **Enhanced Tracking and Performance**
+  - **Fast Tracker**: A new, faster tracking method to improve post view speed.
+  - **Query Filters**: Enable parent term inclusion in post queries for more accurate filtering.
+
+* **Developer-Friendly Features**
+  - **Filters and Hooks**: New filters like `top_ten_query_exclude_terms_include_parents`, `top_ten_query_include_terms_include_parents`, and `get_tptn_short_circuit` for greater customisation.
+  - **Custom Post Type Sortable Columns**: Display columns on post types and make them sortable.
+
 = GDPR =
 Top 10 is GDPR compliant as it doesn't collect any personal data about your visitors when installed out of the box. You can see the data the plugin stores in the `wp_top_ten` and `wp_top_ten_daily` tables in the database. Note: the prefix `wp` might be different if you have changed it from the default.
 
 YOU ARE RESPONSIBLE FOR ENSURING THAT ALL GDPR REQUIREMENTS ARE MET ON YOUR WEBSITE.
-
-= Donations =
-
-I spend a significant amount of my free time maintaining, updating and more importantly supporting this plugin. If you have been using this plugin and find this useful, do consider making a donation. This helps me pay for my hosting and domains.
 
 = Translations =
 Top 10 is available for [translation directly on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/top-10). Check out the official [Translator Handbook](https://make.wordpress.org/polyglots/handbook/rosetta/theme-plugin-directories/) to contribute.
@@ -65,24 +87,13 @@ Top 10 - Popular Posts is one of the many plugins developed by WebberZone. Check
 * [Knowledge Base](https://wordpress.org/plugins/knowledgebase/) - Create a knowledge base or FAQ section on your WordPress site
 * [Better Search](https://wordpress.org/plugins/better-search/) - Enhance the default WordPress search with contextual results sorted by relevance
 * [Auto-Close](https://wordpress.org/plugins/autoclose/) - Automatically close comments, pingbacks and trackbacks and manage revisions
-
+* [Popular Authors](https://wordpress.org/plugins/popular-authors/) - Display popular authors in your WordPress widget
+* [Followed Posts](https://wordpress.org/plugins/where-did-they-go-from-here/) - Show a list of related posts based on what your users have read
 
 == Screenshots ==
 
-1. Top 10 options - General options
-2. Top 10 options - Counter and Tracker options
-3. Top 10 options - Popular post list options
-4. Top 10 options - Thumbnail options
-5. Top 10 options - Styles
-6. Top 10 options - Maintenance
-7. Top 10 options - Feed
-8. Top 10 widget options
-9. Top 10 Meta box on the Edit Post screen
-10. Top 10 Tools page
-11. Top 10 - Popular posts view in Admin
-12. Top 10 Export/Import interface
-13. Top 10 - Popular posts view in Network Admin
-14. Top 10 Gutenberg block
+1. Top 10 - Popular posts view in Admin
+2. Top 10 - Left thumbnails style
 
 == Installation ==
 
@@ -101,23 +112,31 @@ Top 10 - Popular Posts is one of the many plugins developed by WebberZone. Check
 5. Select the __top-10.zip__ file that you downloaded and hit Install Now
 6. Activate the Plugin in WP-Admin.
 7. Go to __Top 10 &raquo; Settings__ to configure
-8. Go to __Appearance &raquo; Widgets__ to add the Popular Posts sidebar widget to your theme
-9. Go to __Top 10 &raquo; View Popular Posts__ to view the list of popular posts
+8. Go to __Appearance &raquo; Widgets__ and add __Top 10 Popular Posts__ to your sidebar to display the popular posts in the sidebar
 
+= For help and support =
+1. Visit [Top 10 documentation](https://webberzone.com/support/product/top-10/) for extensive information and examples of how to use the plugin
+2. Visit the [Support forum](https://wordpress.org/support/plugin/top-10) on WordPress.org
 
 == Frequently Asked Questions ==
 
-Check out the [FAQ on the plugin page](http://wordpress.org/plugins/top-10/faq/) and the [FAQ on the WebberZone knowledgebase](https://webberzone.com/support/section/top-10/).
-It is the fastest way to get support as I monitor the forums regularly.
+Check out the [FAQ on the plugin page](http://wordpress.org/plugins/top-10/faq/) and the [FAQ on the WebberZone knowledgebase](https://webberzone.com/support/product/top-10/). It is the fastest way to get support as I monitor the forums regularly.
 
+If your question isn't listed there, please create a new post at the [WordPress.org support forum](https://wordpress.org/support/plugin/top-10/). It is the fastest way to get support as I monitor the forums regularly.
+
+Support for products sold and distributed by WebberZone is only available for those who have an active, paid extension license. You can [access our support form here](https://webberzone.com/request-support/).
 
 = How can I customise the output? =
 
-Details on how to use and customize the output is in this [knowledge base article](https://webberzone.com/support/knowledgebase/using-and-customising-top-10/)
+ Top 10 is highly customizable. There are several configurable options in the Settings page and you can use CSS to customize the outputs. Learn more by reading [knowledge base article](https://webberzone.com/support/knowledgebase/using-and-customising-top-10/)
 
 = Shortcodes =
 
 You can find details of the shortcodes in this [knowledge base article](https://webberzone.com/support/knowledgebase/top-10-shortcodes/)
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/top-10)
 
 = Can this plugin replace Google Analytics? =
 
@@ -128,89 +147,46 @@ No. Top 10 has been designed to only track the number of page-views on your blog
 When you enabled the scheduled maintenance, Top 10 will create a cron job that will run at a predefined interval and clean up old entries from the `wp_top_ten_daily` table.
 *Note: If you enable this option, WordPress will execute this job when it is scheduled the first time*
 
-= How to make the columns on the Custom Post Type admin pages sortable? =
-Add the following code to your functions.php file of your theme.
-
-`
-add_filter( 'manage_edit-{$cpt}_sortable_columns', 'tptn_column_register_sortable' );
-`
-
-Replace `{$cpt}` by the slug of your custom post type. E.g. to make the columns on your 'projects' post type sortable, you will need to add:
-`
-add_filter( 'manage_edit-projects_sortable_columns', 'tptn_column_register_sortable' );
-`
-
-
 == Changelog ==
 
-= 3.3.4 =
+= 4.0.0 =
 
-* Enhancements:
-	* Exporting and importing the post tables now supports post URLs. This will allow you to import the post tables into a different site and have the correct counts. Note: This will only work if the URLs are the same on both sites. If you have changed the URL structure, you will need to manually update the URLs in the exported CSV file
-	* Cache is enabled by default
-
-* Bug fixes:
-	* Fixed a bug where the cron job would not run
-
-= 3.3.3 =
-
-Release post: [https://webberzone.com/announcements/top-10-v3-3-0/](https://webberzone.com/announcements/top-10-v3-3-0/)
-
-* Enhancements:
-	* Media Handler checks the title of the image if the alt tag is empty
-
-* Bug fixes:
-	* Check if `$wp_filters['the_content']` is set. Fixes a PHP warning for users running WordPress before 6.1
-	* `Import_Export` Class: Fix unnecessary check for `network_admin_menu` filter; Minor code fixes to set headers before outputting data
-	* Number fields in the block were not saved.
-
-* Security fix:
-	* Check nonce before editing post counts in the Admin area
-
-= 3.3.2 =
-
-* Enhancements:
-	* Shortcode `tptn_views` takes two new parameters: `format_number` to apply `number_format_i18n` and `post_id` which takes a post ID. Default is the post being viewed
-
-* Bug fixes:
-	* Plugin activator function didn't run on activation - Top 10's database tables were not created
-
-= 3.3.1 =
-
-* Enhancements/Modifications:
-	* When displaying the post thumbnail, the Media Handler will first use the image's alt tag set in the Media editor. If alt tag is empty, then it will use the post title as a fallback. Filter `tptn_thumb_use_image_alt` and set it to false to not use the alt tag. Filter `tptn_thumb_alt_fallback_post_title` and set it to false to disable the alt tag
-	* Orderby clause modified to ensure compatibility if any other plugin rewrites the WP_Query fields
-	* Media Handler will check if the meta field contains a valid URL
-	* When saving settings, the thumbnail width and height is forced if either the width or height of the thumbnail setting is set to 0
-
-* Bug fixes:
-	* Function `wp_img_tag_add_loading_attr` is deprecated since version 6.3.0
-	* Bug in `the_content` filter detection which sometimes caused the counter not to display
-	* `tptn_thumbnail` settings size disappeared from Settings page if this was deselected
-    * `meta_query` argument was ignored
-
-= 3.3.0 =
+Release post: [https://webberzone.com/announcements/top-10-v4-0-0/](https://webberzone.com/announcements/top-10-v4-0-0/)
 
 * Features:
-	* Added new setting to stop tracking bots. Top 10 now includes a comprehensive set of bot user agents via https://github.com/janusman/robot-user-agents
+	* Added a new REST API route (`counter`) to fetch the post count for individual posts.
+	* Introduced the Top 10 Post Count Block for displaying post counts.
+	* Added filters `top_ten_query_exclude_terms_include_parents` and `top_ten_query_include_terms_include_parents` to include parent terms in post queries. Pro users can enable this in settings.
+	* New `get_tptn_short_circuit` filter to bypass the plugin’s output.
+	* New filter `tptn_dashboard_setup` to disable Top 10 widgets being displayed on the admin dashboard.
+	* [Pro] New Top 10 Query Block for querying popular posts directly from the block or site editor.
+	* [Pro] Enhanced Top 10 Featured Image Block now supports multiple image sources.
+	* [Pro] Popular Posts block now includes:
+		* Buttons to save and clear default block settings.
+		* Auto-insertion of default and global settings attributes, with an option to disable this in the **Posts List** settings.
+	* [Pro] Added a new admin bar menu item to view daily, total, and overall post counts, access Top 10 admin pages, and clear the Top 10 cache.
+	* [Pro] Added `display_only_on_tax_ids` parameter to restrict popular posts display to specific taxonomy terms.
+	* [Pro] New Fast Tracker improves post view tracking speed. Select it from your settings page.
+	* [Pro] "Display columns on post types" setting to choose which post type screens display admin columns.
+	* [Pro] "Also show dashboard to" setting to select user roles that can view the dashboard screen.
+    * [Pro] New option added to the Edit Post meta box mapped to `include_cat_ids` to include popular posts from specific categories only.
 
-* Enhancements/Modifications:
-	* Complete rewrite of Top 10 plugin to use Classes and autoloading
-	* `get_tptn_post_count_only()` and `get_tptn_post_count` can also take a `WP_Post` object and returns an integer only without the count being number formatted
-	* `tptn_list` shortcode now accepts `WP_Query` parameters. You can also pass typical array only parameters as a comma-separated list
-	* Tracker script no longer require jQuery
-	* Widget styles are handled properly with the block editor
-
-* Bug fixes:
-	* Post count should only display once within the content within the main loop
-	* Fixed data labels in the Dashboard graphs
-	* Custom Post Type labels could cause an issue in Network view of popular posts
+* Enhancements:
+	* Direct support for `WP_Query` if `top_ten_query` is used in query arguments.
+	* Optimised media handler to reduce queries.
+	* New filter: `tptn_shortcode_defaults` for default shortcode arguments.
+	* Media Handler improvements:
+		* Added `use_site_icon` and `style` parameters.
+		* `get_image_html()` now uses `wp_get_attachment_image()` with a valid attachment ID.
+		* Support for `decoding`, `loading`, and `fetchpriority` attributes.
+		* `get_attachment_id_from_url()` now strips size suffixes before locating the attachment ID.
+	* Updated top-10/popular-posts block to API version 3.
+	* Added `$more_link_text` parameter for `get_the_excerpt()`.
 
 For previous changelog entries, please refer to the separate changelog.txt file or [Github Releases page](https://github.com/WebberZone/top-10/releases)
 
 
 == Upgrade Notice ==
 
-= 3.3.4 =
-Check out the release post for further information on this release
-
+= 4.0.0 =
+Major release. Top 10 Pro is here. Check out the release post or changelog for further information.

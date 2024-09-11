@@ -4,45 +4,8 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita2f4c329c330d062fb2c33f1b83a0a3b
+class ComposerStaticInit6f6f11d2d6b76b6bfb0313dde06eeb4f
 {
-    public static $prefixLengthsPsr4 = array (
-        'K' => 
-        array (
-            'Krokedil\\WpApi\\' => 15,
-            'Krokedil\\WooCommerce\\' => 21,
-            'Krokedil\\KlarnaOnsiteMessaging\\' => 31,
-            'Krokedil\\KlarnaExpressCheckout\\' => 31,
-        ),
-        'F' => 
-        array (
-            'Firebase\\JWT\\' => 13,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'Krokedil\\WpApi\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/krokedil/wp-api/src',
-        ),
-        'Krokedil\\WooCommerce\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/krokedil/woocommerce/src',
-        ),
-        'Krokedil\\KlarnaOnsiteMessaging\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/krokedil/klarna-onsite-messaging/src',
-        ),
-        'Krokedil\\KlarnaExpressCheckout\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/krokedil/klarna-express-checkout/src',
-        ),
-        'Firebase\\JWT\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
-        ),
-    );
-
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -50,9 +13,7 @@ class ComposerStaticInita2f4c329c330d062fb2c33f1b83a0a3b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita2f4c329c330d062fb2c33f1b83a0a3b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita2f4c329c330d062fb2c33f1b83a0a3b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita2f4c329c330d062fb2c33f1b83a0a3b::$classMap;
+            $loader->classMap = ComposerStaticInit6f6f11d2d6b76b6bfb0313dde06eeb4f::$classMap;
 
         }, null, ClassLoader::class);
     }

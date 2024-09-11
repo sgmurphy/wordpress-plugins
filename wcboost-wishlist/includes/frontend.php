@@ -552,6 +552,7 @@ class Frontend {
 		}
 
 		if ( wc_string_to_bool( get_option( 'wcboost_wishlist_allow_adding_variations' ) ) && $product->is_type( 'variable' ) ) {
+			/** @var \WC_Product_Variable $product */
 			$variations = $product->get_available_variations( 'objects' );
 			$data       = [];
 

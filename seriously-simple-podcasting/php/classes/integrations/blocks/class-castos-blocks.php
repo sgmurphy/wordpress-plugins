@@ -273,7 +273,7 @@ class Castos_Blocks {
 				),
 			),
 			'render_callback' => function ( $args ) {
-				return ssp_frontend_controller()->players_controller->render_html_player( $args['episodeId'] );
+				return ssp_frontend_controller()->players_controller->render_html_player( $args['episodeId'], true, 'block', $args );
 			}
 		) );
 
@@ -447,6 +447,10 @@ class Castos_Blocks {
 
 					if ( ! empty( $attributes['order'] ) ) {
 						$args['order'] = $attributes['order'];
+					}
+
+					if ( ! empty( $attributes['className'] ) ) {
+						$args['class'] = $attributes['className'];
 					}
 
 					$podcast_playlist = new Podcast_Playlist();

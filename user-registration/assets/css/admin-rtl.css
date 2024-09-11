@@ -6785,8 +6785,8 @@ img.tips {
   position: relative;
   vertical-align: baseline;
   width: 16px; }
-  .user-registration-help-tip::after:not(.no-icon),
-  .ur-portal-tooltip::after:not(.no-icon) {
+  .user-registration-help-tip:not(.no-icon)::after,
+  .ur-portal-tooltip:not(.no-icon)::after {
     font-family: 'Dashicons';
     speak: none;
     font-weight: normal;

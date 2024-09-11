@@ -707,6 +707,43 @@ class Wishlist extends \WC_Data {
 	}
 
 	/**
+	 * Empty the wishlist
+	 *
+	 * @since 1.1.4
+	 *
+	 * @return void
+	 */
+	public function empty() {
+		foreach ( $this->items as $item ) {
+			$item->trash();
+			$this->add_item_to_trash( $item );
+		}
+
+		$this->items = [];
+		$this->save();
+
+		do_action( 'wcboost_wishlist_emptied', $this );
+	}
+
+	/**
+	 * Check if the wishlist has a product
+	 *
+	 * @since 1.1.4
+	 *
+	 * @param int $product_id
+	 * @return bool
+	 */
+	public function has_product( $product_id ) {
+		foreach ( $this->items as $item ) {
+			if ( $item->get_product_id() === $product_id ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Get the public URL of the wishlist
 	 *
 	 * @return string
@@ -776,5 +813,35 @@ class Wishlist extends \WC_Data {
 	 */
 	public function get_hash() {
 		return $this->get_hash_key() . '::' . $this->get_hash_content();
+	}
+
+	/**
+	 * Merge items from another wishlist
+	 *
+	 * @since 1.1.4
+	 *
+	 * @param Wishlist $wishlist
+	 *
+	 * @return int Number of items merged
+	 */
+	public function merge( $wishlist ) {
+		$this->data_store->set_is_reading( true );
+
+		$merged_count = 0;
+
+		foreach ( $wishlist->get_items() as $item ) {
+			$adding_product = $item->get_product();
+			$merging_item   = new Wishlist_Item( $adding_product );
+
+			$merged = $this->add_item( $merging_item );
+
+			if ( $merged && ! is_wp_error( $merged ) ) {
+				$merged_count++;
+			}
+		}
+
+		$this->data_store->set_is_reading( false );
+
+		return $merged_count;
 	}
 }

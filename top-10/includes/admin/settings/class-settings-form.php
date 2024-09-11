@@ -3,7 +3,7 @@
  * Generates the settings form.
  *
  * @link  https://webberzone.com
- * @since 2.0.0
+ * @since 3.3.0
  *
  * @package WebberZone\Top_Ten
  */
@@ -304,7 +304,7 @@ class Settings_Form {
 			$checked,
 			$disabled
 		);
-		$html .= ( (bool) $value !== (bool) $default ) ? '<em style="color:orange">' . $this->checkbox_modified_text . '</em>' : '';
+		$html .= ( (bool) $value !== (bool) $default ) ? '<em style="color:#9B0800">' . $this->checkbox_modified_text . '</em>' : '';
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
@@ -322,25 +322,28 @@ class Settings_Form {
 	public function callback_multicheck( $args ) {
 		$html = '';
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$value_array = wp_parse_list( $value );
+		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		if ( ! empty( $args['options'] ) ) {
 			$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
 
 			foreach ( $args['options'] as $key => $option ) {
-				if ( isset( $value[ $key ] ) ) {
+				if ( in_array( $key, $value_array, true ) ) {
 					$enabled = $key;
 				} else {
 					$enabled = null;
 				}
 
 				$html .= sprintf(
-					'<input name="%1$s[%2$s][%3$s]" id="%1$s[%2$s][%3$s]" type="checkbox" value="%4$s" %5$s /> ',
+					'<input name="%1$s[%2$s][%3$s]" id="%1$s[%2$s][%3$s]" type="checkbox" value="%4$s" %5$s %6$s /> ',
 					$this->settings_key,
 					sanitize_key( $args['id'] ),
 					sanitize_key( $key ),
 					esc_attr( $key ),
-					checked( $key, $enabled, false )
+					checked( $key, $enabled, false ),
+					$disabled
 				);
 				$html .= sprintf(
 					'<label for="%1$s[%2$s][%3$s]">%4$s</label> <br />',
@@ -350,9 +353,8 @@ class Settings_Form {
 					$option
 				);
 			}
-
-			$html .= $this->get_field_description( $args );
 		}
+		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
 		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -369,15 +371,17 @@ class Settings_Form {
 	public function callback_radio( $args ) {
 		$html = '';
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		foreach ( $args['options'] as $key => $option ) {
 			$html .= sprintf(
-				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s /> ',
+				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s %5$s /> ',
 				$this->settings_key,
 				sanitize_key( $args['id'] ),
 				$key,
-				checked( $value, $key, false )
+				checked( $value, $key, false ),
+				$disabled
 			);
 			$html .= sprintf(
 				'<label for="%1$s[%2$s][%3$s]">%4$s</label> <br />',
@@ -405,25 +409,28 @@ class Settings_Form {
 	public function callback_radiodesc( $args ) {
 		$html = '';
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		foreach ( $args['options'] as $option ) {
 			$html .= sprintf(
-				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s /> ',
+				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s %5$s /> ',
 				$this->settings_key,
 				sanitize_key( $args['id'] ),
 				$option['id'],
-				checked( $value, $option['id'], false )
+				checked( $value, $option['id'], false ),
+				$disabled
 			);
 			$html .= sprintf(
-				'<label for="%1$s[%2$s][%3$s]">%4$s</label>',
+				'<label for="%1$s[%2$s][%3$s]">%4$s: <em>%5$s</em></label>',
 				$this->settings_key,
 				sanitize_key( $args['id'] ),
 				$option['id'],
-				$option['name']
+				$option['name'],
+				wp_kses_post( $option['description'] )
 			);
 
-			$html .= ': <em>' . wp_kses_post( $option['description'] ) . '</em> <br />';
+			$html .= '<br />';
 		}
 
 		$html .= $this->get_field_description( $args );
@@ -560,7 +567,8 @@ class Settings_Form {
 	public function callback_posttypes( $args ) {
 		$html = '';
 
-		$options = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$options  = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		// If post_types contains a query string then parse it with wp_parse_args.
 		if ( is_string( $options ) && strpos( $options, '=' ) ) {
@@ -578,17 +586,22 @@ class Settings_Form {
 
 		$posts_types_inc = array_intersect( wp_list_pluck( $wp_post_types, 'name' ), $post_types );
 
-		$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
+		$html .= sprintf(
+			'<input type="hidden" name="%1$s[%2$s]" value="-1" />',
+			$this->settings_key,
+			sanitize_key( $args['id'] )
+		);
 
 		foreach ( $wp_post_types as $wp_post_type ) {
 
 			$html .= sprintf(
-				'<label for="%4$s[%1$s][%2$s]"><input name="%4$s[%1$s][%2$s]" id="%4$s[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s /> %5$s</label><br />',
+				'<label for="%4$s[%1$s][%2$s]"><input name="%4$s[%1$s][%2$s]" id="%4$s[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s %6$s /> %5$s</label><br />',
 				sanitize_key( $args['id'] ),
 				esc_attr( $wp_post_type->name ),
 				checked( true, in_array( $wp_post_type->name, $posts_types_inc, true ), false ),
 				$this->settings_key,
-				$wp_post_type->label
+				$wp_post_type->label,
+				$disabled
 			);
 
 		}

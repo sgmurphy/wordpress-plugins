@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress
 * Plugin URI: https://loginpress.pro?utm_source=loginpress-lite&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=plugin-uri
 * Description: LoginPress is the best <code>wp-login</code> Login Page Customizer plugin by <a href="https://wpbrigade.com/?utm_source=loginpress-lite&utm_medium=plugins&utm_campaign=wpbrigade-home&utm_content=WPBrigade-text-link">WPBrigade</a> which allows you to completely change the layout of login, register and forgot password forms.
-* Version: 3.1.2
+* Version: 3.2.0
 * Author: LoginPress
 * Author URI: https://loginpress.pro?utm_source=loginpress-lite&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=author-uri
 * Text Domain: loginpress
@@ -58,7 +58,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 		/**
 		* @var string
 		*/
-		public $version = '3.1.2';
+		public $version = '3.2.0';
 
 		/**
 		* @var The single instance of the class
@@ -219,11 +219,25 @@ if ( ! class_exists( 'LoginPress' ) ) :
 						return;
 					}
 					update_option( '_loginpress_optin', 'no' );
+                    // Retrieve WPB SDK existing option and set user_skip
+                    $sdk_data = json_decode(get_option('wpb_sdk_loginpress'), true);
+                    $sdk_data['user_skip'] = '1';
+                    $sdk_data_json = json_encode($sdk_data);
+                    update_option('wpb_sdk_loginpress', $sdk_data_json);
 				} elseif ( isset( $_POST['loginpress-submit-optin'] ) ) {
 					if ( ! wp_verify_nonce( sanitize_text_field( $_POST['loginpress_submit_optin_nonce'] ), 'loginpress_submit_optin_nonce' ) ) {
 						return;
 					}
 					update_option( '_loginpress_optin', 'yes' );
+                    //WPB SDK OPT IN OPTIONS
+                    $sdk_data = array(
+                        'communication'   => '1',
+                        'diagnostic_info' => '1',
+                        'extensions'      => '1',
+                        'user_skip'      => '0',
+                    );
+                    $sdk_data_json = json_encode($sdk_data);
+                    update_option('wpb_sdk_loginpress', $sdk_data_json);
 				} elseif ( ! get_option( '_loginpress_optin' ) && isset( $_GET['page'] ) && ( $_GET['page'] === 'loginpress-settings' || $_GET['page'] === 'loginpress' || $_GET['page'] === 'abw' ) ) {
 
 				/**
@@ -547,25 +561,77 @@ if ( ! class_exists( 'LoginPress' ) ) :
 				$this_plugin = 'loginpress/loginpress.php';
 			}
 
-			if ( $file == $this_plugin ) {
+            if ($file == $this_plugin) {
+                // Build the initial settings and customize links
+                $settings_link = sprintf(
+                    esc_html__('%1$s Settings %2$s | %3$s Customize %4$s', 'loginpress'),
+                    '<a href="' . admin_url('admin.php?page=loginpress-settings') . '">', '</a>',
+                    '<a href="' . admin_url('admin.php?page=loginpress') . '">', '</a>'
+                );
 
-				$settings_link = sprintf( esc_html__( '%1$s Settings %2$s | %3$s Customize %4$s', 'loginpress' ), '<a href="' . admin_url( 'admin.php?page=loginpress-settings' ) . '">', '</a>', '<a href="' . admin_url( 'admin.php?page=loginpress' ) . '">', '</a>' );
+                // Retrieve WPB SDK Opt Out options
+                $sdk_data = json_decode(get_option('wpb_sdk_loginpress'), true);
 
-				if( 'yes' == get_option( '_loginpress_optin' ) ){
-					$settings_link .= sprintf( esc_html__( ' | %1$s Opt Out %2$s ', 'loginpress'), '<a class="opt-out" href="' . admin_url( 'admin.php?page=loginpress-settings' ) . '">', '</a>' );
-				} else {
-					$settings_link .= sprintf( esc_html__( ' | %1$s Opt In %2$s ', 'loginpress'), '<a href="' . admin_url( 'admin.php?page=loginpress-optin&redirect-page=' .'loginpress-settings' ) . '">', '</a>' );
-				}
+                // Set default values for options
+                $communication = isset($sdk_data['communication']) ? $sdk_data['communication'] : false;
+                $diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : false;
+                $extensions = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : false;
 
-				array_unshift( $links, $settings_link );
+                // Determine the opt-in state and whether all options are false
+                $is_optin = 'yes' == get_option('_loginpress_optin');
+                $all_options_false = !$communication && !$diagnostic_info && !$extensions;
 
-				if ( ! has_action( 'loginpress_pro_add_template' ) ) {
-					$pro_link = sprintf( esc_html__( '%1$s %3$s Upgrade Pro %4$s %2$s', 'loginpress' ),  '<a href="https://loginpress.pro/lite/?utm_source=loginpress-lite&utm_medium=plugins&utm_campaign=pro-upgrade&utm_content=Upgrade+Pro" target="_blank">', '</a>', '<span class="loginpress-dashboard-pro-link">', '</span>' );
-					array_push( $links, $pro_link );
-				}
-			}
+                // Build the settings link based on the option states
+                if ($communication || $diagnostic_info || $extensions) {
+                    $settings_link .= sprintf(
+                        esc_html__(' | %1$s Opt Out %2$s ', 'loginpress'),
+                        '<a class="opt-out" href="' . admin_url('admin.php?page=loginpress-settings') . '">', '</a>'
+                    );
+                } else {
+                    if ($is_optin) {
+                        if ($all_options_false) {
+                            // If opted in but all options are false, update the SDK data
+                            $sdk_data = json_encode([
+                                'communication' => '1',
+                                'diagnostic_info' => '1',
+                                'extensions' => '1',
+                                'user_skip' => '0',
+                            ]);
+                            update_option('wpb_sdk_loginpress', $sdk_data);
+                        } else {
+                            // If opted in and not all options are false, update the opt-in state
+                            update_option('_loginpress_optin', 'no');
+                        }
 
-			return $links;
+                        // Display opt-out link
+                        $settings_link .= sprintf(
+                            esc_html__(' | %1$s Opt Out %2$s ', 'loginpress'),
+                            '<a class="opt-out" href="' . admin_url('admin.php?page=loginpress-settings') . '">', '</a>'
+                        );
+                    } else {
+                        // Display opt-in link
+                        $settings_link .= sprintf(
+                            esc_html__(' | %1$s Opt In %2$s ', 'loginpress'),
+                            '<a href="' . admin_url('admin.php?page=loginpress-optin&redirect-page=loginpress-settings') . '">', '</a>'
+                        );
+                    }
+                }
+
+                // Add the settings link to the array
+                array_unshift($links, $settings_link);
+
+                // Add Pro upgrade link if not already present
+                if (!has_action('loginpress_pro_add_template')) {
+                    $pro_link = sprintf(
+                        esc_html__('%1$s %3$s Upgrade Pro %4$s %2$s', 'loginpress'),
+                        '<a href="https://loginpress.pro/lite/?utm_source=loginpress-lite&utm_medium=plugins&utm_campaign=pro-upgrade&utm_content=Upgrade+Pro" target="_blank">',
+                        '</a>', '<span class="loginpress-dashboard-pro-link">', '</span>'
+                    );
+                    array_push($links, $pro_link);
+                }
+            }
+
+            return $links;
 		}
 
 		// function get_addon_info_( $api, $action, $args ) {

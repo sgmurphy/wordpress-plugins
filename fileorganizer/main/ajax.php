@@ -150,11 +150,17 @@ function fileorganizer_ajax_handler(){
 				}
 			},
 			'upload.presave' => function(&$path, &$name, $src, $elfinder, $volume) {
-				// Check if the file is an SVG
-				if(
-					mime_content_type($src) == 'image/svg+xml' ||
-					in_array(pathinfo($name, PATHINFO_EXTENSION), array('svg', 'svgz') )
-				) {
+				
+				if( !current_user_can('activate_plugins') ) {
+					$validate = wp_check_filetype( $name );
+				
+					if( $validate['type'] == false ){
+						return array( 'error' => __('File type is not allowed.', 'fileorganizer'));
+					}
+				}
+				
+				if( !current_user_can('unfiltered_html') ) {
+					
 					$content = file_get_contents($src);
 					
 					$is_xss = '';
@@ -163,7 +169,12 @@ function fileorganizer_ajax_handler(){
 						$found = fileorganizer_xss_content($content);
 						
 						if(strlen($found) > 0){
-							if( in_array($found, array('svg', 'xml')) ){
+							
+							// Check if the file is an SVG then allow 'svg', 'xml' tags
+							if( in_array($found, array('svg', 'xml')) &&
+								( mime_content_type($src) == 'image/svg+xml' ||
+								in_array(pathinfo($name, PATHINFO_EXTENSION), array('svg', 'svgz') ) )
+							){
 								$content = str_replace($found, '', $content);
 								continue;
 							}
@@ -175,7 +186,7 @@ function fileorganizer_ajax_handler(){
 					}
 					
 					// Unfiltered_html cap needs to be checked
-					if(!current_user_can('unfiltered_html') && strlen($is_xss) > 0 ){
+					if(strlen($is_xss) > 0 ){
 						return array( 'error' => __('Following not allowed content found ').' : -"'. $is_xss .'" in file '.$name);
 					}
 					
@@ -267,6 +278,16 @@ function fileorganizer_xss_content($data){
 	$data = preg_split('/\s/', $data);
 	$data = implode('', $data);
 	//echo $data;
+	
+	// For PDF file
+	if(preg_match('/\/JavaScript/is', $data)){
+		return '/JavaScript';
+	}
+	
+	// This is also for PDF file
+	if(preg_match('/\/JS/is', $data)){
+		return '/JS';
+	}
 	
 	if(preg_match('/["\']javascript\:/is', $data)){
 		return 'javascript';

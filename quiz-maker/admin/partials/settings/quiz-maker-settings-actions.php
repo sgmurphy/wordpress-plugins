@@ -61,6 +61,15 @@ class Quiz_Maker_Settings_Actions {
                 'quiz_fields_label_phone'        => $quiz_fields_label_phone,
             );
 
+            // Default texts | Start
+            $wrong_shortcode_text               = (isset($_REQUEST['ays_quiz_wrong_shortcode_text']) && $_REQUEST['ays_quiz_wrong_shortcode_text'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quiz_wrong_shortcode_text'] )) : 'Wrong shortcode initialized';
+
+            $default_texts = array(
+                'wrong_shortcode_text'                  => $wrong_shortcode_text,
+            );
+            // Default texts | End
+
+
 
             // Addon Data Start
 
@@ -322,7 +331,11 @@ class Quiz_Maker_Settings_Actions {
                     $del_stat = "&del_stat=ok&mcount=" . $month_count;
                 }
             }
-            
+
+            $result = $this->ays_update_setting('default_texts', json_encode($default_texts));
+            if ($result) {
+                $success++;
+            }
             $result = $this->ays_update_setting('buttons_texts', json_encode($buttons_texts));
             if ($result) {
                 $success++;

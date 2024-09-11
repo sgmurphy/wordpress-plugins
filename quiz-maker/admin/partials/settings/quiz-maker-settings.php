@@ -111,6 +111,14 @@
     
     //Aro end
 
+    // Default texts | Start
+    $default_texts_res = ($actions->ays_get_setting('default_texts') === false) ? json_encode(array()) : $actions->ays_get_setting('default_texts');
+    $default_texts = json_decode( stripcslashes($default_texts_res), true);
+
+    $wrong_shortcode_text               = (isset($default_texts['wrong_shortcode_text']) && $default_texts['wrong_shortcode_text'] != '') ? stripslashes( esc_attr( $default_texts['wrong_shortcode_text'] ) ) : 'Wrong shortcode initialized';
+    // Default texts | End
+
+
     // Do not store IP addresses
     $options['disable_user_ip'] = isset($options['disable_user_ip']) ? $options['disable_user_ip'] : 'off';
     $disable_user_ip = (isset($options['disable_user_ip']) && $options['disable_user_ip'] == "on") ? true : false;
@@ -392,7 +400,7 @@
                             <?php echo __("Message variables", $this->plugin_name);?>
                         </a>
                         <a href="#tab5" data-tab="tab5" class="nav-tab <?php echo ($ays_quiz_tab == 'tab5') ? 'nav-tab-active' : ''; ?>">
-                            <?php echo __("Buttons Texts", $this->plugin_name);?>
+                            <?php echo __("Text Customizations", $this->plugin_name);?>
                         </a>
                         <a href="#tab6" data-tab="tab6" class="nav-tab <?php echo ($ays_quiz_tab == 'tab6') ? 'nav-tab-active' : ''; ?>">
                             <?php echo __("Fields texts", $this->plugin_name);?>
@@ -1106,7 +1114,7 @@
                                         <div class="col-sm-4">
                                             <label for="ays_all_results_show_publicly">
                                                 <?php echo __( "Show to guests too", $this->plugin_name ); ?>
-                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the All results table to guests as well. By default, it is displayed only for logged-in users. If this option is disabled, then only the logged-in users will be able to see the table. Note: Despite the fact of showing the table to the guests, the table will contain only info of the logged-in users.',$this->plugin_name)?>">
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the All results table to guests as well. By default, it is displayed only for logged-in users. If this option is disabled, then only the logged-in users will be able to see the table.',$this->plugin_name)?>">
                                                     <i class="ays_fa ays_fa_info_circle"></i>
                                                 </a>
                                             </label>
@@ -1206,7 +1214,7 @@
                                         <div class="col-sm-4">
                                             <label for="ays_quiz_all_results_show_publicly">
                                                 <?php echo __( "Show to guests too", $this->plugin_name ); ?>
-                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the Single quiz results table to guests as well. By default, it is displayed only for logged-in users. If this option is disabled, then only the logged-in users will be able to see the table. Note: Despite the fact of showing the table to the guests, the table will contain only info of the logged-in users.',$this->plugin_name)?>">
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Show the Single quiz results table to guests as well. By default, it is displayed only for logged-in users. If this option is disabled, then only the logged-in users will be able to see the table.',$this->plugin_name)?>">
                                                     <i class="ays_fa ays_fa_info_circle"></i>
                                                 </a>
                                             </label>
@@ -3781,6 +3789,30 @@
                         </div>
                     </div>
                     <div id="tab5" class="ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab5') ? 'ays-quiz-tab-content-active' : ''; ?>">
+                        <p class="ays-subtitle">
+                            <?php echo __('Default Texts', "quiz-maker"); ?>
+                            <a class="ays_help" data-toggle="tooltip" data-html="true" title="<p style='margin-bottom:3px;'><?php echo __( 'If you make a change here, these words will not be translatable via translation tools!', "quiz-maker" ); ?>">
+                                <i class="ays_fa ays_fa_info_circle"></i>
+                            </a>
+                        </p>
+                        <blockquote class="ays_warning">
+                            <p style="margin:0;"><?php echo __( "If you make a change here, these words will not be translatable via translation tools!", "quiz-maker" ); ?></p>
+                        </blockquote>
+                        <hr>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="ays_quiz_wrong_shortcode_text">
+                                    <?php echo __( "Wrong shortcode text", "quiz-maker" ); ?>
+                                    <a class="ays_help" data-toggle="tooltip" data-html="true" title="<p style='margin-bottom:3px;'><?php echo __( 'The text will be displayed if the post/page contains an incorrect shortcode', "quiz-maker" ); ?>">
+                                        <i class="ays_fa ays_fa_info_circle"></i>
+                                    </a>
+                                </label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" id="ays_quiz_wrong_shortcode_text" name="ays_quiz_wrong_shortcode_text" class="ays-text-input"  value='<?php echo esc_attr($wrong_shortcode_text); ?>'>
+                            </div>
+                        </div>
+                        <hr />
                         <p class="ays-subtitle">
                             <?php echo __('Buttons texts',$this->plugin_name)?>
                             <a class="ays_help" data-toggle="tooltip" data-html="true" title="<p style='margin-bottom:3px;'><?php echo __( 'If you make a change here, these words will not be translated either․', $this->plugin_name ); ?>">

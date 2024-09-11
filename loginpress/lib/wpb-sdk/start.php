@@ -4,9 +4,9 @@
  * WPBrigade Telemetry SDK
  *
  * @package wpbrigade_sdk
- * @since 3.0.2
+ * @since 3.1.0
  */
-$this_sdk_version = '3.0.2';
+$this_sdk_version = '3.1.0';
 
 if (!defined('ABSPATH')) {
     exit;
@@ -25,7 +25,7 @@ if (!function_exists('wpb_dynamic_init')) {
         update_option('wpb_sdk_module_id', $module['id']);
         update_option('wpb_sdk_module_slug', $module['slug']);
 
-        $wpb = Logger::instance($module['id'], $module['slug'], true);
+        $wpb = WPBRIGADE_Logger::instance($module['id'], $module['slug'], true);
         $wpb->wpb_init($module);
         return [
             'logger' => $wpb,

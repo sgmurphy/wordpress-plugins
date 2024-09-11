@@ -118,7 +118,8 @@ if ( ! class_exists( 'Mo2f_Backup_Codes' ) ) {
 			$login_popup        = new Mo2f_Login_Popup();
 			$mo2fa_login_status = MoWpnsConstants::MO2F_ERROR_MESSAGE_PROMPT;
 			$skeleton_values    = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, null, null, $current_user->ID, '' );
-			$login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id, $skeleton_values, $twofa_method );
+			$html               = $login_popup->mo2f_get_twofa_skeleton_html( $mo2fa_login_status, $mo2fa_login_message, '', '', $skeleton_values, $twofa_method, '' );
+			$html              .= $login_popup->mo2f_get_validation_popup_script( '', $twofa_method, '', '' );
 			exit;
 
 		}
@@ -136,14 +137,10 @@ if ( ! class_exists( 'Mo2f_Backup_Codes' ) ) {
 			$login_popup   = new Mo2f_Login_Popup();
 			$common_helper = new Mo2f_Common_Helper();
 			$user_id       = MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'mo2f_current_user_id' );
-			echo_js_css_files();
+			$common_helper->mo2f_echo_js_css_files();
 			$mo2fa_login_status = MoWpnsConstants::MO_2_FACTOR_USE_BACKUP_CODES;
-			$html               = '<div class="mo2f_modal" tabindex="-1" role="dialog">
-			<div class="mo2f-modal-backdrop"></div>
-			<div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">';
 			$skeleton_values    = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, null, null, $user_id, '' );
-			$html              .= $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $login_method );
-			$html              .= '</div></div>';
+			$html               = $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $login_method );
 			$html              .= $common_helper->mo2f_get_hidden_forms_login( $redirect_to, $session_id_encrypt, $mo2fa_login_status, $mo2fa_login_message, $login_method, $user_id );
 			$html              .= $common_helper->mo2f_get_hidden_script_login();
 			$html              .= $this->mo2f_get_validation_hidden_form( $redirect_to, $session_id_encrypt );

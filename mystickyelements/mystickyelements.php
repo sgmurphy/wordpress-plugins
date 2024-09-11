@@ -3,18 +3,18 @@
 Plugin Name: myStickyElements
 Plugin URI: https://premio.io/
 Description: myStickyElements is simple yet very effective plugin. It is perfect to fill out usually unused side space on webpages with some additional messages, videos, social widgets ...
-Version: 2.2
+Version: 2.2.1
 Author: Premio
 Author URI: https://premio.io/
 Domain Path: /languages
-License: GPLv2 or later
+License: GPLv3
 */
 
 defined('ABSPATH') or die("Cannot access pages directly.");
 
 define('MYSTICKYELEMENTS_URL', plugins_url('/', __FILE__));  // Define Plugin URL
 define('MYSTICKYELEMENTS_PATH', plugin_dir_path(__FILE__));  // Define Plugin Directory Path
-define("MY_STICKY_ELEMENT_VERSION", "2.2");
+define("MY_STICKY_ELEMENT_VERSION", "2.2.1");
 /*
  * redirect my sticky element setting page after plugin activated
  */
@@ -2988,6 +2988,16 @@ if ( !function_exists('mystickyelements_social_channels')) {
 											'tooltip'	=> 'Add the link of of your Instagram profile E.g., <a href="https://instagram.com/cocacola" target="_blank">https://instagram.com/cocacola</a>',
 											'icon_color' => 1
 										),
+							'threads'           => [
+											'text'             => "Threads",
+											'icon_text'        => "",
+											'hover_text'       => "Threads",
+											'background_color' => "#000000",
+											'placeholder'      => 'Example: https://www.threads.net/@demo_link',
+											'class'            => "fa-brands fa-threads",
+											'tooltip'          => 'Add a link to your Threads profile here. For example: <a href="https://www.threads.net/@demo_link" target="_blank">https://www.threads.net/@demo_link</a>',
+											'icon_color'       => 1,
+										],
 							'skype'	=> array(
 											'text' => "Skype",
 											'icon_text' => "",

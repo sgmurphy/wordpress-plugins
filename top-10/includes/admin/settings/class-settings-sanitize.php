@@ -3,7 +3,7 @@
  * Functions to sanitize settings.
  *
  * @link  https://webberzone.com
- * @since 2.0.0
+ * @since 3.3.0
  *
  * @package WebberZone\Top_Ten
  */
@@ -153,27 +153,35 @@ class Settings_Sanitize {
 	}
 
 	/**
-	 * Sanitize post_types fields
+	 * Sanitize multicheck fields
 	 *
-	 * @param  array $value The field value.
+	 * @param  array|int $value The field value.
 	 * @return string  $value  Sanitized value
 	 */
-	public function sanitize_posttypes_field( $value ) {
-		$post_types = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
+	public function sanitize_multicheck_field( $value ) {
+		$values = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
 
-		return implode( ',', $post_types );
+		return implode( ',', $values );
 	}
 
 	/**
 	 * Sanitize post_types fields
 	 *
-	 * @param  array $value The field value.
+	 * @param  array|int $value The field value.
+	 * @return string  $value  Sanitized value
+	 */
+	public function sanitize_posttypes_field( $value ) {
+		return $this->sanitize_multicheck_field( $value );
+	}
+
+	/**
+	 * Sanitize post_types fields
+	 *
+	 * @param  array|int $value The field value.
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_taxonomies_field( $value ) {
-		$taxonomies = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
-
-		return implode( ',', $taxonomies );
+		return $this->sanitize_multicheck_field( $value );
 	}
 
 	/**
@@ -262,6 +270,7 @@ class Settings_Sanitize {
 				if ( isset( $matches[3] ) ) {
 					$term = get_term_by( 'term_taxonomy_id', $matches[3] );
 				} else {
+					// Fallback to fetching the category as this was the original format.
 					$term = get_term_by( 'name', $slug, 'category' );
 				}
 				if ( isset( $term->term_taxonomy_id ) ) {

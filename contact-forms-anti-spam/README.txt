@@ -5,7 +5,7 @@ Tags: spam, blacklist, anti spam, Honeypot, antispam
 Tested up to: 6.6
 Requires at least: 5.0
 Requires PHP: 7.0
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,6 +143,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.2.1 - 10/09/2024 =
+* Bug Fix - Fixed an issue where settings were not being saved correctly in certain server environments
+* Improvement - Scheduled deletion of outdated IP check data twice daily for improved performance
 
 = 2.2.0 - 08/09/2024 =
 * Improvement - Improve UI/UX

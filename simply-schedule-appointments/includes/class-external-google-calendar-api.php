@@ -25,18 +25,15 @@ class SSA_External_Google_Calendar_Api extends SSA_External_Calendar_Api {
 	}
 	
 	public function get_api() {
-		if ( null == $this->api ) {
-			$this->api = ssa()->google_calendar_client->client_init();
-		}
-		return $this->api;
+		// not used
+		// just here to satisfy the abstract class
 	}
 
 	public function get_api_service() {
 		if ( null !== $this->api_service ) {
 			return $this->api_service;
 		}
-
-		$this->api_service = $this->get_api()->service_init($this->staff_id);
+		$this->api_service = ssa()->google_calendar_client->service_init($this->staff_id);
 		return $this->api_service;
 	}
 	

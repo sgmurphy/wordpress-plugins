@@ -35,7 +35,7 @@ class Settings extends \WC_Settings_Page {
 		] );
 
 		$settings = [
-			  // General section.
+			// General section.
 			[
 				'type'  => 'title',
 				'title' => __( 'General', 'wcboost-wishlist' ),
@@ -65,6 +65,21 @@ class Settings extends \WC_Settings_Page {
 				'default' => __( 'You need to login to add products to your wishlist', 'wcboost-wishlist' ),
 				'type'    => 'textarea',
 				'css'     => 'min-width: 50%; height: 75px;',
+			],
+			[
+				'name'          => __( 'Merge guest wishlist', 'wcboost-wishlist' ),
+				'desc'          => __( 'Allow merging guest wishlist after a user login', 'wcboost-wishlist' ),
+				'type'          => 'checkbox',
+				'id'            => 'wcboost_wishlist_merge_guest_wishlist',
+				'default'       => 'yes',
+				'checkboxgroup' => 'start',
+			],
+			[
+				'desc'          => __( 'Automatically empty guest wishlist after merging', 'wcboost-wishlist' ),
+				'type'          => 'checkbox',
+				'id'            => 'wcboost_wishlist_clear_guest_wishlist_after_merge',
+				'default'       => 'yes',
+				'checkboxgroup' => 'end',
 			],
 			[
 				'name'    => __( 'Add variations', 'wcboost-wishlist' ),

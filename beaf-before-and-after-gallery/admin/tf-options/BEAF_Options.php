@@ -150,14 +150,14 @@ if ( ! class_exists( 'BEAF_Options' ) ) {
 				if ( $bafg_load_from_cdn == 1 ) {
 					// wp_enqueue_style('tf-fontawesome-4', '//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), $this->beaf_options_version());
 					// wp_enqueue_style('tf-fontawesome-5', '//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), $this->beaf_options_version());
-					// wp_enqueue_style('tf-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', array(), $this->beaf_options_version());
+					wp_enqueue_style( 'tf-fontawesome-6', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css', array(), $this->beaf_options_version() );
 					// wp_enqueue_style('tf-remixicon', '//cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css', array(), $this->beaf_options_version());
 					wp_enqueue_style( 'tf-select2', '//cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', array(), $this->beaf_options_version() );
 					wp_enqueue_style( 'tf-flatpickr', '//cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css', array(), $this->beaf_options_version() );
 				} else {
 					// wp_enqueue_style('tf-fontawesome-4', BEAF_ASSETS_URL . 'libs/font-awesome/fontawesome4/css/font-awesome.min.css', array(), $this->beaf_options_version());
 					// wp_enqueue_style('tf-fontawesome-5', BEAF_ASSETS_URL . 'libs/font-awesome/fontawesome5/css/all.min.css', array(), $this->beaf_options_version());
-					// wp_enqueue_style('tf-fontawesome-6', BEAF_ASSETS_URL . 'libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->beaf_options_version());
+					wp_enqueue_style( 'tf-fontawesome-6', BEAF_ASSETS_URL . 'libs/font-awesome/fontawesome6/css/all.min.css', array(), $this->beaf_options_version() );
 					// wp_enqueue_style('tf-remixicon', BEAF_ASSETS_URL . 'libs/remixicon/remixicon.css', array(), $this->beaf_options_version());
 					wp_enqueue_style( 'tf-select2', BEAF_ASSETS_URL . 'libs/select2/select2.min.css', array(), $this->beaf_options_version() );
 					wp_enqueue_style( 'tf-flatpickr', BEAF_ASSETS_URL . 'libs/flatpickr/flatpickr.min.css', array(), $this->beaf_options_version() );

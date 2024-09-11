@@ -1,10 +1,10 @@
 ﻿=== Favicon by RealFaviconGenerator ===
 Contributors: phbernard
 Donate link: http://realfavicongenerator.net/donate
-Tags: favicon, favicon icon, favicon image, favicon code, favicon change, favicon manager, short icon, addressbar logo, apple touch icon, icon, iphone, admin, wordpress, realfavicongenerator, real favicon generator
+Tags: favicon, logo, icon, apple touch icon, iphone
 Requires at least: 3.5
-Tested up to: 6.6.1
-Stable tag: 1.3.32
+Tested up to: 6.6.2
+Stable tag: 1.3.34
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,14 @@ This screen presents you a preview of the favicon you various platforms, so you 
 5. You can also trigger RealFaviconGenerator's favicon checker, to make sure your favicon is correctly setup.
 
 == Changelog ==
+
+= 1.3.34 =
+
+- Plugin was tested up to WordPress 6.6.2
+
+= 1.3.33 =
+
+- Update plugin tags
 
 = 1.3.32 =
 

@@ -168,7 +168,8 @@ if ( ! class_exists( 'Mo2f_KBA_Handler' ) ) {
 			$login_popup         = new Mo2f_Login_Popup();
 			$common_helper       = new Mo2f_Common_Helper();
 			$skeleton_values     = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, $kba_questions[0], $kba_questions[1], $current_user->ID, 'test_2fa', '' );
-			$html                = $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, '', '', $skeleton_values, $this->mo2f_current_method, 'test_2fa' );
+			$html                = $login_popup->mo2f_get_twofa_skeleton_html( $mo2fa_login_status, $mo2fa_login_message, '', '', $skeleton_values, $this->mo2f_current_method, 'test_2fa' );
+			$html               .= $login_popup->mo2f_get_validation_popup_script( 'test_2fa', $this->mo2f_current_method, '', '' );
 			$html               .= $common_helper->mo2f_get_test_script();
 			wp_send_json_success( $html );
 		}

@@ -1,6 +1,6 @@
 <?php
 global $ays_quiz_db_version;
-$ays_quiz_db_version = '3.8.5';
+$ays_quiz_db_version = '3.8.6';
 /**
  * Fired during plugin activation
  *
@@ -416,6 +416,7 @@ class Quiz_Maker_Activator
             }
         
             $metas = array(
+                "default_texts",
                 "buttons_texts",
                 "fields_placeholders",
                 "options"

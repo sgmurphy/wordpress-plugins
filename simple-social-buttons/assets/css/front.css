@@ -376,7 +376,8 @@ div[class*="simplesocialbuttons-float"].simplesocial-simple-icons.simplesocialbu
 }
 .simplesocial-simple-icons button.ssb_tweet-icon .icon{
   position: relative;
-  top: 2px;
+  top: 3px;
+  left: -2px;
   display: inline-block;
   width: 14px;
   height: 14px;

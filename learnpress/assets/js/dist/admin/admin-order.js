@@ -25,7 +25,7 @@ const addCoursesToOrder = () => {
   const idOrderDetails = '#learn-press-order';
   let dataSend = {
     search: '',
-    not_ids: '',
+    id_not_in: '',
     paged: 1
   };
   const courseIdsNewSelected = [];
@@ -46,13 +46,13 @@ const addCoursesToOrder = () => {
    * @param paged
    */
   const fetchCoursesAPI = (keySearch = '', course_ids_exclude = [], paged = 1) => {
-    let not_ids = '';
+    let id_not_in = '';
     if (course_ids_exclude.length > 0) {
-      not_ids = course_ids_exclude.join(',');
+      id_not_in = course_ids_exclude.join(',');
     }
     dataSend = {
       search: keySearch,
-      not_ids,
+      id_not_in,
       paged
     };
     _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__.AdminUtilsFunctions.fetchCourses(keySearch, dataSend, {
@@ -253,7 +253,6 @@ const addCoursesToOrder = () => {
    * Display list courses when search done.
    *
    * @param courses
-   * @return string
    */
   const renderSearchResult = courses => {
     let html = '';
@@ -274,9 +273,8 @@ const addCoursesToOrder = () => {
   /**
    * Render pagination.
    *
-   * @param  currentPage
-   * @param  maxPage
-   * @return {string}
+   * @param currentPage
+   * @param maxPage
    */
   const renderPagination = (currentPage, maxPage) => {
     currentPage = parseInt(currentPage);
@@ -371,7 +369,7 @@ const addCoursesToOrder = () => {
       if (target.closest(idModalSearchItems)) {
         e.preventDefault();
         const paged = target.getAttribute('data-page');
-        fetchCoursesAPI(dataSend.search, dataSend.not_ids, paged);
+        fetchCoursesAPI(dataSend.search, dataSend.id_not_in, paged);
       }
     }
     if (target.name === 'selectedItems[]') {
@@ -576,39 +574,48 @@ const AdminUtilsFunctions = {
       return;
     }
     const optionDefault = {
-      options: [],
       plugins: {
         remove_button: {
           title: 'Remove this item'
         }
       },
-      load(keySearch, callbackTom) {
-        fetchAPI(keySearch, dataSend, AdminUtilsFunctions.callBackTomSelectSearchAPI(callbackTom, callBackHandleData));
-      }
+      onInitialize() {}
     };
+    if (fetchAPI) {
+      optionDefault.load = (keySearch, callbackTom) => {
+        const selectedOptions = Array.from(elTomSelect.selectedOptions);
+        const selectedValues = selectedOptions.map(option => option.value);
+        dataSend.id_not_in = selectedValues.join(',');
+        fetchAPI(keySearch, dataSend, AdminUtilsFunctions.callBackTomSelectSearchAPI(callbackTom, callBackHandleData));
+      };
+    }
     options = {
       ...optionDefault,
       ...options
     };
-    if (options.options.length > 20) {
-      const currentIds = dataSend?.current_ids ? dataSend?.current_ids : '';
+    if (options?.options?.length > 20) {
       const chunkSize = 20;
-      const chunkedOptions = [];
-      for (let i = 0; i < options.options.length; i += chunkSize) {
-        chunkedOptions.push(options.options.slice(i, i + chunkSize));
-      }
-      options.options = chunkedOptions[0];
-      const tomSelect = new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, options);
-      for (let i = 0; i < chunkedOptions.length; i++) {
-        setTimeout(() => {
-          chunkedOptions[i].forEach(option => {
-            tomSelect.addOption(option);
-          });
-          if (i === chunkedOptions.length - 1 && currentIds) {
-            tomSelect.setValue(currentIds.split(','));
-          }
-        }, 200 * i);
-      }
+      const length = options.options.length;
+      let i = 0;
+      const optionsSlice = options.options.slice(i, chunkSize);
+      const chunkedOptions = {
+        ...options
+      };
+      chunkedOptions.options = optionsSlice;
+      const tomSelect = new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, chunkedOptions);
+      i += chunkSize;
+      const interval = setInterval(() => {
+        if (i > length - 1) {
+          clearInterval(interval);
+        }
+        let optionsSlice = {
+          ...options
+        };
+        optionsSlice = options.options.slice(i, i + chunkSize);
+        i += chunkSize;
+        tomSelect.addOptions(optionsSlice);
+        tomSelect.setValue(options.items);
+      }, 200);
       return tomSelect;
     }
     return new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, options);
@@ -710,16 +717,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
 /* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
-/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
+/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
+/* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady)
 /* harmony export */ });
 /**
- * Fetch API.
+ * Utils functions
  *
  * @param url
  * @param data
  * @param functions
  * @since 4.2.5.1
- * @version 1.0.1
+ * @version 1.0.2
  */
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -805,6 +813,32 @@ const listenElementCreated = callback => {
     subtree: true
   });
   // End.
+};
+
+/**
+ * Listen element created.
+ *
+ * @param selector
+ * @param callback
+ * @since 4.2.7.1
+ */
+const lpOnElementReady = (selector, callback) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    callback(element);
+    return;
+  }
+  const observer = new MutationObserver((mutations, obs) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      obs.disconnect();
+      callback(element);
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
 };
 
 // Parse JSON from string with content include LP_AJAX_START.

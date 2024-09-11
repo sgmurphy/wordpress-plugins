@@ -167,11 +167,13 @@
 			},
 			success: function( response ) {
 				if ( ! response.success ) {
-					if ( response.data.redirect_url ) {
-						location.href = response.data.redirect_url;
-					} else if ( response.data.message ) {
+					if ( response.data && response.data.message ) {
 						var notice = new WCBoostNotice( response.data.message );
 						notice.show();
+					}
+
+					if ( response.data && response.data.redirect_url ) {
+						location.href = response.data.redirect_url;
 					}
 
 					self.updateButton( $button, 'removed' );

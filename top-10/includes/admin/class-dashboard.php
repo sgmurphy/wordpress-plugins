@@ -11,6 +11,8 @@
 
 namespace WebberZone\Top_Ten\Admin;
 
+use WebberZone\Top_Ten\Admin\Settings\Settings_API;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -61,6 +63,7 @@ class Dashboard {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Top 10 Dashboard', 'top-10' ); ?></h1>
+			<?php do_action( 'tptn_settings_page_header' ); ?>
 
 			<?php settings_errors(); ?>
 
@@ -176,10 +179,12 @@ class Dashboard {
 	 * @since 3.0.0
 	 */
 	public function admin_menu() {
+		$roles = wp_parse_list( \tptn_get_option( 'show_dashboard_to_roles' ) );
+
 		$this->parent_id = add_menu_page(
 			esc_html__( 'Top 10 Dashboard', 'top-10' ),
 			esc_html__( 'Top 10', 'top-10' ),
-			'manage_options',
+			Settings_API::get_capability_for_menu( $roles ),
 			'tptn_dashboard',
 			array( $this, 'render_page' ),
 			'dashicons-editor-ol'
@@ -189,7 +194,7 @@ class Dashboard {
 			'tptn_dashboard',
 			esc_html__( 'Top 10 Dashboard', 'top-10' ),
 			esc_html__( 'Dashboard', 'top-10' ),
-			'manage_options',
+			Settings_API::get_capability_for_menu( $roles ),
 			'tptn_dashboard',
 			array( $this, 'render_page' )
 		);
@@ -222,7 +227,7 @@ class Dashboard {
 					'charttitle'   => __( 'Daily Visits', 'top-10' ),
 				)
 			);
-			wp_enqueue_style( 'tptn-admin-ui-css', );
+			wp_enqueue_style( 'top-ten-admin-css' );
 		}
 	}
 
@@ -234,7 +239,9 @@ class Dashboard {
 	public function get_chart_data() {
 		global $wpdb;
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		$roles = wp_parse_list( \tptn_get_option( 'show_dashboard_to_roles' ) );
+
+		if ( ! current_user_can( Settings_API::get_capability_for_menu( $roles ) ) ) {
 			wp_die();
 		}
 		check_ajax_referer( 'tptn-dashboard', 'security' );

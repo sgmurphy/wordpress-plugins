@@ -376,6 +376,14 @@ function fileorganizer_settings_page(){
 										<p class="description">
 											<?php echo esc_html__( 'Enabling access to the FileOrganizer for User Roles'); ?>
 										</p>
+										<p class="description notice notice-warning" style="padding:10px;">
+											<?php printf(
+												esc_html__( '%s: For selected user roles, this option provides full access to the File Manager, which may pose a security risk, especially for lower-level users. We strongly recommend setting appropriate restrictions before allowing access. You can manage access through %s and %s to ensure that appropriate security measures are in place.' ),
+												'<strong>' . esc_html__( 'Important', 'fileorganizer' ) . '</strong>',
+												'<a href="' . esc_url( admin_url( 'admin.php?page=fileorganizer-user-role-restrictions' ) ) . '" target="_blank">' . esc_html__( 'User Role Restrictions', 'fileorganizer' ) . '</a>',
+												'<a href="' . esc_url( admin_url( 'admin.php?page=fileorganizer-user-restrictions' ) ) . '" target="_blank">' . esc_html__( 'User Restrictions', 'fileorganizer' ) . '</a>'
+											); ?>
+										</p>
 									</div>
 								</td>
 							</tr>

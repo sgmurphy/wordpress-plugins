@@ -15,45 +15,53 @@ const AdminUtilsFunctions = {
 		}
 
 		const optionDefault = {
-			options: [],
 			plugins: {
 				remove_button: {
 					title: 'Remove this item',
 				},
 			},
-			load( keySearch, callbackTom ) {
+			onInitialize() {
+
+			},
+		};
+
+		if ( fetchAPI ) {
+			optionDefault.load = ( keySearch, callbackTom ) => {
+				const selectedOptions = Array.from( elTomSelect.selectedOptions );
+				const selectedValues = selectedOptions.map( ( option ) => option.value );
+				dataSend.id_not_in = selectedValues.join( ',' );
+
 				fetchAPI(
 					keySearch,
 					dataSend,
 					AdminUtilsFunctions.callBackTomSelectSearchAPI( callbackTom, callBackHandleData )
 				);
-			},
-		};
+			};
+		}
 
 		options = { ...optionDefault, ...options };
-		if ( options.options.length > 20 ) {
-			const currentIds = dataSend?.current_ids ? dataSend?.current_ids : '';
+		if ( options?.options?.length > 20 ) {
 			const chunkSize = 20;
-			const chunkedOptions = [];
+			const length = options.options.length;
+			let i = 0;
+			const optionsSlice = options.options.slice( i, chunkSize );
+			const chunkedOptions = { ...options };
+			chunkedOptions.options = optionsSlice;
 
-			for ( let i = 0; i < options.options.length; i += chunkSize ) {
-				chunkedOptions.push( options.options.slice( i, i + chunkSize ) );
-			}
+			const tomSelect = new TomSelect( elTomSelect, chunkedOptions );
+			i += chunkSize;
 
-			options.options = chunkedOptions[ 0 ];
-			const tomSelect = new TomSelect( elTomSelect, options );
+			const interval = setInterval( () => {
+				if ( i > ( length - 1 ) ) {
+					clearInterval( interval );
+				}
 
-			for ( let i = 0; i < chunkedOptions.length; i++ ) {
-				setTimeout( () => {
-					chunkedOptions[ i ].forEach( ( option ) => {
-						tomSelect.addOption( option );
-					} );
-
-					if ( i === chunkedOptions.length - 1 && currentIds ) {
-						tomSelect.setValue( currentIds.split( ',' ) );
-					}
-				}, 200 * i );
-			}
+				let optionsSlice = { ...options };
+				optionsSlice = options.options.slice( i, i + chunkSize );
+				i += chunkSize;
+				tomSelect.addOptions( optionsSlice );
+				tomSelect.setValue( options.items );
+			}, 200 );
 
 			return tomSelect;
 		}

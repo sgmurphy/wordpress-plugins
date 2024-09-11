@@ -28,14 +28,26 @@ trait AssetsTrait {
 			$url = GTMKIT_URL;
 		}
 
-		$deps_file  = $path . 'assets/admin/' . $script_handle . '.asset.php';
+		$deps_file  = \realpath( $path . 'assets/admin/' . $script_handle . '.asset.php' );
 		$dependency = [];
 		$version    = false;
 
-		if ( \file_exists( $deps_file ) ) {
-			$deps_file  = require $deps_file;
-			$dependency = $deps_file['dependencies'];
-			$version    = $deps_file['version'];
+		// Ensure the file is within the expected directory.
+		if ( $deps_file && \strpos( $deps_file, \realpath( $path . 'assets/admin/' ) ) === 0 && \file_exists( $deps_file ) ) {
+			$deps_data  = require $deps_file; // nosemgrep.
+			$dependency = $deps_data['dependencies'];
+			$version    = $deps_data['version'];
+		}
+
+		// Polyfill for WordPress versions earlier than 6.6.
+		if ( in_array( 'react-jsx-runtime', $dependency, true ) && ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
+			wp_register_script(
+				'react-jsx-runtime',
+				GTMKIT_URL . 'assets/react-jsx-runtime.js',
+				[ 'react' ],
+				'18.3.1',
+				true
+			);
 		}
 
 		if ( $settings_dependency ) {

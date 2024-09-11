@@ -47,6 +47,7 @@ class ComposerStaticInite99810171ee43e515e07ad2afa4a8519
         'TEC\\Tickets\\Commerce\\Admin\\Featured_Settings' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Featured_Settings.php',
         'TEC\\Tickets\\Commerce\\Admin\\Notices' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Notices.php',
         'TEC\\Tickets\\Commerce\\Admin\\Orders_Page' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Orders_Page.php',
+        'TEC\\Tickets\\Commerce\\Admin\\Singular_Order_Page' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin/Singular_Order_Page.php',
         'TEC\\Tickets\\Commerce\\Admin_Tables\\Attendees' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin_Tables/Attendees.php',
         'TEC\\Tickets\\Commerce\\Admin_Tables\\Orders' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin_Tables/Orders.php',
         'TEC\\Tickets\\Commerce\\Admin_Tables\\Orders_Table' => __DIR__ . '/../..' . '/src/Tickets/Commerce/Admin_Tables/Orders_Table.php',

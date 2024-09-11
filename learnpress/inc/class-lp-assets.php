@@ -303,10 +303,10 @@ class LP_Assets extends LP_Abstract_Assets {
 				),
 				'lp-courses-v2'        => new LP_Asset_Key(
 					self::url( 'js/dist/frontend/courses-v2' . self::$_min_assets . '.js' ),
-					[ 'utils' ],
+					[ 'utils' ], // dependency utils of wp, because js is using wpCookies
 					[ LP_PAGE_COURSES ],
 					0,
-					1,
+					0,
 					'',
 					[ 'strategy' => 'async' ]
 				),

@@ -4,7 +4,7 @@ Donate link:
 Tags: before after, before after elementor, before after slider, before after gallery, before after image
 Requires at least: 4.0
 Tested up to: 6.6
-Stable tag: 4.5.20
+Stable tag: 4.5.21
 Requires PHP: 7.4
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -345,6 +345,11 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 24. Before After Video Slider
 
 == Changelog ==
+
+= 4.5.21 – 12/09/2024 =
+
+- Fixed: Beaf Settings panel saving issue
+- Improvement: System stability improved
 
 = 4.5.20 – 10/09/2024 =
 
@@ -728,68 +733,6 @@ Yes, We provide full support on the WordPress.org forums. You can also post ques
 - Introducing: 3 Images Before After Slider (Pro)
 - Fixed: Minor Bugs and Stylesheet.
 - Option Panel Update
-
-= 3.5.1 - 02/01/2022 =
-
-- Additional bug fixes
-- Fixed Minor Styling Issues.
-
-= 3.5.0 - 09/12/2021 =
-
-- Removed a notice
-
-= 3.4.10 - 10/11/2021 =
-
-- Additional bug fixes
-
-= 3.4.9 - 10/11/2021 =
-
-- Additional bug fixes
-- Removed a notice
-
-= 3.4.8 - 3/11/2021 =
-
-- Notice to connect with Before After for WooCommerce - eBEAF Plugin
-
-= 3.4.7 - 24/10/2021 =
-
-- Fixed Minor Styling Issues.
-- Fixed issues on Option Panel
-
-= 3.4.6 - 23/09/2021 =
-
-- Fixed Issue with the tab.
-
-= 3.4.5 - 23/09/2021 =
-
-- Reverted to Old.
-
-= 3.4.4 - 22/09/2021 =
-
-- Added Lazy load option
-- Slider Handle Color Customizer Added (Pro)
-- Slider overlay color feature added (Pro)
-- Show label outside of image (Pro)
-
-= 3.4.3 - 20/09/2021 =
-
-- Fixed Minor Styling Issues.
-
-= 3.4.2 - 13/09/2021 =
-
-- Added On Scroll Slider Option for Pro
-- Added a New Preview Style for Pro
-- Few minor fixing for Free & Pro
-
-= 3.4.1 - 26/08/2021 =
-
-- Added Language Support.
-- Added Documentation Tab.
-
-= 3.4.0 - 19/08/2021 =
-
-- Added Lazy Load Support.
-- Updated Licensing Issue for Pro.
 
 = 1.0.0 - 29/01/2020 =
 

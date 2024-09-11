@@ -26,6 +26,7 @@ class Episode_Repository implements Service {
 	use Useful_Variables;
 
 	const META_SYNC_STATUS = 'sync_status';
+
 	const META_SYNC_ERROR = 'ssp_sync_episode_error';
 
 	/**
@@ -477,6 +478,7 @@ class Episode_Repository implements Service {
 		return update_post_meta( $episode_id, self::META_SYNC_STATUS, $status );
 	}
 
+
 	/**
 	 * @param int $episode_id
 	 *
@@ -630,6 +632,7 @@ class Episode_Repository implements Service {
 				'excerpt'               => ssp_get_episode_excerpt( $episode->ID ),
 				'player_id'             => wp_rand(),
 				'add_empty_warning'     => false,
+				'class'                 => '',
 			);
 
 			return apply_filters( 'ssp_html_player_data', $template_data );

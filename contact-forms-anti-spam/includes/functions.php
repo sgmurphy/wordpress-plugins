@@ -226,10 +226,28 @@ add_action('init', 'maspik_insert_to_table');
 
 //check if table exists
 
-    function maspik_table_exists() {
+    function maspik_table_exists($rowtocheck = false) {
         global $wpdb;
         $table_name = $wpdb->prefix . 'maspik_options';
-        return $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name;
+        
+        // First, check if the table exists
+        $table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'") == $table_name;
+        
+        if (!$table_exists) {
+            return false;
+        }
+        
+        // If the table exists and rowtocheck is 'text_blacklist', check for the specific row
+        if ($rowtocheck) {
+            $row_exists = $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table_name} WHERE option_name = %s",
+                $rowtocheck
+            ));
+            return $row_exists > 0;
+        }
+        
+        // For all other cases, just return true if the table exists
+        return true;
     }
 
     function maspik_logtable_exists() {
@@ -248,20 +266,47 @@ add_action('init', 'maspik_insert_to_table');
         $setting_value = maspik_get_dbvalue();
         $setting_label = maspik_get_dblabel();
 
-        // SQL query to update
+        // Check if the row exists
+        $exists = $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(*) FROM $table WHERE $setting_label = %s",
+            $col_name
+        ));
 
-        if(is_numeric($new_value)){
-            $sql = $wpdb->prepare("UPDATE $table SET $setting_value = %d WHERE $setting_label = %s", $new_value, $col_name);
-        }else{
-            $sql = $wpdb->prepare("UPDATE $table SET $setting_value = %s WHERE $setting_label = %s", $new_value, $col_name);
+        if ($exists) {
+            // Update existing row
+            if (is_numeric($new_value)) {
+                $result = $wpdb->update(
+                    $table,
+                    array($setting_value => $new_value),
+                    array($setting_label => $col_name),
+                    array('%d'),
+                    array('%s')
+                );
+            } else {
+                $result = $wpdb->update(
+                    $table,
+                    array($setting_value => $new_value),
+                    array($setting_label => $col_name),
+                    array('%s'),
+                    array('%s')
+                );
+            }
+        } else {
+            // Insert new row
+            $result = $wpdb->insert(
+                $table,
+                array(
+                    $setting_label => $col_name,
+                    $setting_value => $new_value
+                ),
+                array('%s', is_numeric($new_value) ? '%d' : '%s')
+            );
         }
-
-        $result = $wpdb->query($sql);
             
         if ($result !== false) {
             $result_check = "success";
         } else {
-            $result_check =  $wpdb->last_error;
+            $result_check = $wpdb->last_error;
         }
 
         return $result_check;
@@ -483,14 +528,7 @@ function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
                     }
                 } else {
                     // The option doesn't exist in the source, so insert the default value
-                    $wpdb->insert(
-                        $target_table,
-                        array(
-                            'option_name' => $option_name, 
-                            'option_value' => $option_value,
-                        ),
-                        array('%s', '%s')
-                    );
+                    maspik_save_settings($option_name, $option_value);
                 }
             }
         }
@@ -540,9 +578,6 @@ function maspik_get_settings($data_name, $type = '', $table_var = 'new'){
                 'country_blacklist' => '',
                 'AllowedOrBlockCountries' => '',  
                 'custom_error_message_country_blacklist' => '',
-                //Maspik API
-                'private_file_id' => '',
-                'popular_spam' => '',
                 //General
                 'NeedPageurl' => '1',
                 'ip_blacklist' => '',
@@ -2088,10 +2123,10 @@ function check_ip_in_api($ip,$form) {
     if ($exists === true) {
         // Cache for 12 hours if the IP exists in the list
         // manage better in the next version
-        $cache_duration = 20 * MINUTE_IN_SECONDS; //HOUR_IN_SECONDS
+        $cache_duration = 30 * MINUTE_IN_SECONDS; //HOUR_IN_SECONDS
     } else {
         // Cache for 30 minutes if the IP does not exist in the list
-        $cache_duration = 10 * MINUTE_IN_SECONDS;
+        //$cache_duration = 10 * MINUTE_IN_SECONDS;
     }
 
     // Cache the result in a transient
@@ -2099,6 +2134,20 @@ function check_ip_in_api($ip,$form) {
 
     return $exists;
 }
+
+// Add this to your plugin's main file or functions.php
+if (!wp_next_scheduled('maspik_clean_expired_ip_transients')) {
+    wp_schedule_event(time(), 'twicedaily', 'maspik_clean_expired_ip_transients');
+}
+
+add_action('maspik_clean_expired_ip_transients', 'maspik_clean_expired_ip_check_transients');
+
+function maspik_clean_expired_ip_check_transients() {
+    global $wpdb;
+    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_maspik_ip_check_%' AND option_value < " . time());
+    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_maspik_ip_check_%' AND option_name NOT IN (SELECT CONCAT('_transient_', SUBSTRING(option_name, 20)) FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_maspik_ip_check_%')");
+}
+
 
 // Set default values for various settings
 function maspik_make_default_values() {

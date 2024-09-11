@@ -125,7 +125,7 @@ var Templates = function Templates() {
 
 
       $e.components.get('library').addTab('templates/persian', {
-        title: '<a href="https://temply.ir/" target="_blank" style="color: #0c0d0e; padding:17px 25px">قالب های فارسی</a>',
+        title: '<a href="https://temply.ir/?utm_source=persian-elementor&utm_medium=elementor-template&utm_campaign=template-button" target="_blank" style="color: #0c0d0e; padding:17px 25px">قالب های فارسی</a>',
       }, 10);
     });
     prependBadge();

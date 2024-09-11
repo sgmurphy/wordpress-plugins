@@ -242,9 +242,9 @@ if ( ! class_exists( 'BEAF_Settings' ) ) {
 
 							if ( ! empty( $field['id'] ) ) {
 
-								$fieldClass = 'TF_' . $field['type'];
+								$fieldClass = 'BEAF_' . $field['type'];
 
-								if ( $fieldClass == 'TF_tab' ) {
+								if ( $fieldClass == 'BEAF_tab' ) {
 									$data = isset( $option_request[ $field['id'] ] ) ? $option_request[ $field['id'] ] : '';
 									foreach ( $field['tabs'] as $tab ) {
 										foreach ( $tab['fields'] as $tab_fields ) {

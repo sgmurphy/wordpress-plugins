@@ -314,7 +314,8 @@ div.inside div.simplesocialbuttons-nav li a {
   display: inline-block;
   vertical-align: top;
   position: relative;
-  top: 2px;
+  top: 1px;
+	left: -2px;
 }
 .simplesocialbuttons-nav.simple-icons a.simplesocial-linkedin-share{
   background: #0077b5;
@@ -1837,7 +1838,7 @@ div.inside .simplesocial-form-section ul.options li {
   width: 10px;
   height: 2px;
   position: absolute;
-  top: 20px;
+  top: 24px;
   right: 10px;
   background: #000;
   content: '';
@@ -1847,7 +1848,7 @@ div.inside .simplesocial-form-section ul.options li {
   height: 10px;
   width: 2px;
   position: absolute;
-  top: 16px;
+  top: 20px;
   right: 14px;
   background: #000;
   content: '';
@@ -2176,7 +2177,7 @@ html[dir="rtl"] .simplesocial-inline-form-section label{
 /*=====  End of functionality  ======*/
 
 /*=====================================
-=            Click To Tweet          =
+=            Click To post          =
 =====================================*/
 
 .ssb_ctt_desgin{
@@ -2391,7 +2392,7 @@ text-transform: uppercase;
   fill: #1f9fef;
 }
 
-/*=====  End of Click To Tweet  ======*/
+/*=====  End of Click To post  ======*/
 
 
 /* Sidebar */

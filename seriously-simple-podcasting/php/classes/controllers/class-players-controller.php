@@ -131,8 +131,11 @@ class Players_Controller {
 	 *
 	 * @return string
 	 */
-	public function render_html_player( $episode_id, $skip_empty_audio = true, $context = 'block' ) {
+	public function render_html_player( $episode_id, $skip_empty_audio = true, $context = 'block', $args = array() ) {
 		$template_data = $this->episode_repository->get_player_data( $episode_id, null, false );
+		if ( isset( $args['className'] ) ) {
+			$template_data['class'] .= ' ' . $args['className'];
+		}
 
 		if ( $skip_empty_audio && empty( $template_data['audio_file'] ) ) {
 			$show_with_warning = is_admin() ||
@@ -276,6 +279,7 @@ class Players_Controller {
 		global $wp;
 		$template_data['current_url'] = home_url( $wp->request );
 		$template_data['player_id']   = $player_id;
+		$template_data['class']       = $atts['class'];
 
 		if ( in_array( $atts['style'], array( 'light', 'dark' ) ) ) {
 			$template_data['player_mode'] = $atts['style'];
@@ -285,7 +289,7 @@ class Players_Controller {
 			$template_data['playlist'][] = $this->episode_repository->get_player_data( $episode->ID );
 		}
 
-		return $this->renderer->render_deprecated( $template_data, 'players/castos-player' );
+		return $this->renderer->fetch( 'players/castos-player', $template_data );
 	}
 
 	/**
@@ -317,6 +321,7 @@ class Players_Controller {
 
 		$safe_type  = esc_attr( $atts['type'] );
 		$safe_style = esc_attr( $atts['style'] );
+		$class      = $atts['class'];
 
 		static $instance = 0;
 		$instance ++;
@@ -326,9 +331,9 @@ class Players_Controller {
 			do_action( 'wp_playlist_scripts', $atts['type'], $atts['style'] );
 		}
 
-		return $this->renderer->render_deprecated(
-			compact('safe_style', 'safe_type', 'data', 'width', 'height'),
-			'players/playlist-compact-player'
+		return $this->renderer->fetch(
+			'players/playlist-compact-player',
+			compact('safe_style', 'safe_type', 'data', 'width', 'height', 'class')
 		);
 	}
 

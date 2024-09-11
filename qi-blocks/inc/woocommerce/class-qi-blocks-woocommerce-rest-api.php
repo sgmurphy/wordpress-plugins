@@ -16,6 +16,9 @@ class Qi_Blocks_Woocommerce_Rest_API {
 		// Set page ID if WooCommerce page is.
 		add_filter( 'qi_blocks_filter_page_inline_style_page_id', array( $this, 'set_page_inline_style_page_id' ) );
 
+		// Localize main editor js script with additional variables.
+		add_filter( 'qi_blocks_filter_localize_main_js', array( $this, 'localize_script' ) );
+
 		// Add plugin's body classes.
 		add_filter( 'body_class', array( $this, 'add_body_classes' ) );
 	}
@@ -194,6 +197,12 @@ class Qi_Blocks_Woocommerce_Rest_API {
 		}
 
 		return $page_id;
+	}
+
+	public function localize_script( $global ) {
+		$global['viewCartText'] = esc_attr__( 'View Cart', 'qi-blocks' );
+
+		return $global;
 	}
 
 	public function add_body_classes( $classes ) {

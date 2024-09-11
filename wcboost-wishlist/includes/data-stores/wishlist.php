@@ -317,15 +317,58 @@ class Wishlist {
 	public function get_wishlist_ids() {
 		global $wpdb;
 
-		$ids = [];
-
 		if ( is_user_logged_in() ) {
 			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE user_id = %d AND status != 'trash';", [ get_current_user_id() ] ) );
-		} elseif ( $session_id = Session::get_session_id() ) {
-			$ids = $wpdb->get_col( $wpdb->prepare( "SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE session_id = %s LIMIT 1;", [ $session_id ] ) );
+
+			return array_map( 'absint', $ids );
 		}
 
+		return $this->get_guest_wishlist_ids();
+	}
+
+	/**
+	 * Get guest wishlist IDs
+	 *
+	 * @since 1.1.4
+	 *
+	 * @return array
+	 */
+	public function get_guest_wishlist_ids() {
+		global $wpdb;
+
+		if ( ! Session::get_session_id() ) {
+			return [];
+		}
+
+		$ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE session_id = %s LIMIT 1;",
+				[ Session::get_session_id() ]
+			)
+		);
+
 		return array_map( 'absint', $ids );
+	}
+
+	/**
+	 * Get wishlist ID by session ID
+	 *
+	 * @since 1.1.4
+	 *
+	 * @param string $session_id
+	 * @return int
+	 */
+	public function get_wishlist_id_by_session( $session_id ) {
+		global $wpdb;
+
+		$wishlist_id = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT wishlist_id FROM {$wpdb->prefix}wcboost_wishlists WHERE session_id = %s LIMIT 1;",
+				[ $session_id ]
+			)
+		);
+
+		return absint( $wishlist_id );
 	}
 
 	/**
@@ -428,7 +471,7 @@ class Wishlist {
 	 *
 	 * @return void
 	 */
-	private function set_is_reading( $reading = false ) {
+	public function set_is_reading( $reading = false ) {
 		$this->is_reading = wc_string_to_bool( $reading );
 	}
 

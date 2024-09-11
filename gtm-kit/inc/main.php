@@ -14,8 +14,15 @@ use TLA_Media\GTM_Kit\Admin\GeneralOptionsPage;
 use TLA_Media\GTM_Kit\Admin\HelpOptionsPage;
 use TLA_Media\GTM_Kit\Admin\IntegrationsOptionsPage;
 use TLA_Media\GTM_Kit\Admin\MetaBox;
+use TLA_Media\GTM_Kit\Admin\NotificationsHandler;
+use TLA_Media\GTM_Kit\Admin\PluginAvailability;
 use TLA_Media\GTM_Kit\Admin\SetupWizard;
+use TLA_Media\GTM_Kit\Admin\PluginSuggestions;
 use TLA_Media\GTM_Kit\Admin\TemplatesOptionsPage;
+use TLA_Media\GTM_Kit\Common\Conditionals\ContactForm7Conditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\EasyDigitalDownloadsConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\PremiumConditional;
+use TLA_Media\GTM_Kit\Common\Conditionals\WooCommerceConditional;
 use TLA_Media\GTM_Kit\Common\RestAPIServer;
 use TLA_Media\GTM_Kit\Common\Util;
 use TLA_Media\GTM_Kit\Frontend\BasicDatalayerData;
@@ -27,6 +34,7 @@ use TLA_Media\GTM_Kit\Installation\Upgrade;
 use TLA_Media\GTM_Kit\Integration\ContactForm7;
 use TLA_Media\GTM_Kit\Integration\EasyDigitalDownloads;
 use TLA_Media\GTM_Kit\Integration\WooCommerce;
+use TLA_Media\GTM_Kit\Admin\UpgradesOptionsPage;
 
 
 if ( ! defined( 'GTMKIT_VERSION' ) ) {
@@ -60,6 +68,8 @@ function gtmkit_plugin_deactivation(): void {
 	}
 
 	wp_clear_scheduled_hook( 'gtmkit_send_anonymous_data' );
+
+	do_action( 'gtmkit_deactivate' );
 }
 
 register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deactivation' );
@@ -67,9 +77,9 @@ register_deactivation_hook( GTMKIT_FILE, 'TLA_Media\GTM_Kit\gtmkit_plugin_deacti
 /**
  * Add plugin action links on Plugins page.
  *
- * @param array $links Existing plugin action links.
+ * @param array<string, string> $links Existing plugin action links.
  *
- * @return array
+ * @return array<string, string>
  */
 function gtmkit_add_plugin_action_link( array $links ): array {
 
@@ -87,9 +97,9 @@ function gtmkit_add_plugin_action_link( array $links ): array {
 /**
  * Remove deactivation link.
  *
- * @param array $links Existing plugin action links.
+ * @param array<string, string> $links Existing plugin action links.
  *
- * @return array
+ * @return array<string, string>
  */
 function gtmkit_remove_deactivation_link( array $links ): array {
 
@@ -126,13 +136,13 @@ function gtmkit_frontend_init(): void {
 		BasicDatalayerData::register( $options );
 		UserData::register( $options );
 
-		if ( $options->get( 'integrations', 'woocommerce_integration' ) && function_exists( 'WC' ) ) {
+		if ( $options->get( 'integrations', 'woocommerce_integration' ) && ( new WooCommerceConditional() )->is_met() ) {
 			WooCommerce::register( $options, $util );
 		}
-		if ( $options->get( 'integrations', 'cf7_integration' ) && class_exists( 'WPCF7' ) ) {
+		if ( $options->get( 'integrations', 'cf7_integration' ) && ( new ContactForm7Conditional() )->is_met() ) {
 			ContactForm7::register( $options, $util );
 		}
-		if ( $options->get( 'integrations', 'edd_integration' ) && class_exists( 'EDD_Requirements_Check' ) ) {
+		if ( $options->get( 'integrations', 'edd_integration' ) && ( new EasyDigitalDownloadsConditional() )->is_met() ) {
 			EasyDigitalDownloads::register( $options, $util );
 		}
 	}
@@ -160,20 +170,25 @@ function gtmkit_admin_init(): void {
 		new Upgrade();
 	}
 
-	$options         = new Options();
-	$rest_api_server = new RestAPIServer();
-	$util            = new Util( $options, $rest_api_server );
+	$options             = new Options();
+	$rest_api_server     = new RestAPIServer();
+	$util                = new Util( $options, $rest_api_server );
+	$plugin_availability = new PluginAvailability();
 
+	$notifications_handler = NotificationsHandler::get();
+
+	PluginSuggestions::register( $notifications_handler, $plugin_availability );
 	Analytics::register( $options, $util );
 	MetaBox::register( $options );
 	SetupWizard::register( $options, $util );
 	GeneralOptionsPage::register( $options, $util );
 	IntegrationsOptionsPage::register( $options, $util );
-	if ( ! $util->is_premium() ) {
+	if ( ! ( new PremiumConditional() )->is_met() ) {
 		TemplatesOptionsPage::register( $options, $util );
 	} else {
 		add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_remove_deactivation_link', 11, 1 );
 	}
+	UpgradesOptionsPage::register( $options, $util );
 	HelpOptionsPage::register( $options, $util );
 
 	add_filter( 'plugin_action_links_' . plugin_basename( GTMKIT_FILE ), 'TLA_Media\GTM_Kit\gtmkit_add_plugin_action_link', 10, 1 );

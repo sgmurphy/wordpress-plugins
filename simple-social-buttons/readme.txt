@@ -4,7 +4,7 @@ Donate link: https://simplesocialbuttons.com/?utm_source=simple-social-buttons-l
 Tags: Social Share, Social buttons, Social Media Share, Social Sharing, Share buttons
 Requires at least: 4.0
 Tested up to: 6.6
-Stable tag: 5.3.1
+Stable tag: 5.3.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -160,6 +160,14 @@ like_button_size = small(default), large
 9. Social Share buttons on flyins.
 
 == Changelog ==
+
+= 5.3.2 - 2024-09-11 =
+* Bugfix: Duplicate first icon issue.
+* Security Fix: Fixed Opt-out and Opt-in consent.
+* Enhancement: Update X "Post" keyword from Twitter "Tweet".
+* Enhancement: Compatible with Tumbler and other builders.
+* Enhancement: Code optimization.
+* Compatibility: Compatible with WordPress 6.6
 
 = 5.3.1 - 2024-08-21 =
 * Bugfix: conflict with WPBakery.
@@ -549,5 +557,5 @@ like_button_size = small(default), large
 
 == Upgrade Notice ==
 
-= 5.3.1 =
+= 5.3.2 =
 * Update Now.

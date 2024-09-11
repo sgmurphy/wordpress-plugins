@@ -9,8 +9,6 @@ import { AdminUtilsFunctions, Api, Utils } from './utils-admin.js';
  * @param     fetchAPI
  * @param     customOptions
  * @param {*} callBack
- *
- * @return []
  */
 const handleResponse = ( response, tomSelectEl, dataStruct, fetchAPI, customOptions = {}, callBack ) => {
 	if ( ! response || ! tomSelectEl || ! dataStruct || ! fetchAPI || ! callBack ) {
@@ -78,16 +76,36 @@ const handleResponse = ( response, tomSelectEl, dataStruct, fetchAPI, customOpti
 	return options;
 };
 
+//Init Tom-select with available options
+const initTomSelectWithOption = ( tomSelectEl, settingTomSelect = {} ) => {
+	if ( ! tomSelectEl ) {
+		return null;
+	}
+
+	if ( null != tomSelectEl.tomSelectInstance ) {
+		return null;
+	}
+
+	tomSelectEl.tomSelectInstance = AdminUtilsFunctions.buildTomSelect( tomSelectEl, settingTomSelect );
+};
+
 // Init Tom-select
 const initTomSelect = ( tomSelectEl, customOptions = {}, customParams = {} ) => {
 	if ( ! tomSelectEl ) {
 		return;
 	}
 
+	if ( tomSelectEl.classList.contains( 'loaded' ) ) {
+		return;
+	} else {
+		tomSelectEl.classList.add( 'loaded' );
+	}
+
 	const defaultIds = tomSelectEl.dataset?.saved ? JSON.parse( tomSelectEl.dataset.saved ) : 0;
 	const dataStruct = tomSelectEl?.dataset?.struct ? JSON.parse( tomSelectEl.dataset.struct ) : '';
 
 	if ( ! dataStruct ) {
+		initTomSelectWithOption( tomSelectEl );
 		return;
 	}
 
@@ -98,22 +116,34 @@ const initTomSelect = ( tomSelectEl, customOptions = {}, customParams = {} ) => 
 			return newEl;
 		}
 
+		if ( newEl.tagName.toLowerCase() === 'html' ) {
+			return false;
+		}
+
 		return getParentElByTagName( tag, newEl );
 	};
 
 	const formParent = getParentElByTagName( 'form', tomSelectEl );
-	const elInput = formParent.querySelector( 'input[name="' + tomSelectEl.getAttribute( 'name' ) + '"]' );
-	if ( elInput ) {
-		elInput.remove();
+
+	if ( formParent ) {
+		const elInput = formParent.querySelector( 'input[name="' + tomSelectEl.getAttribute( 'name' ) + '"]' );
+		if ( elInput ) {
+			elInput.remove();
+		}
 	}
 
-	const dataSendApi = dataStruct.dataSendApi;
-	const urlApi = dataStruct.urlApi;
+	const dataSendApi = dataStruct.dataSendApi ?? '';
+	const urlApi = dataStruct.urlApi ?? '';
 
 	const settingTomSelect = {
 		...dataStruct.setting,
 		...customOptions,
 	};
+
+	if ( ! urlApi ) {
+		initTomSelectWithOption( tomSelectEl, settingTomSelect );
+		return;
+	}
 
 	const fetchFunction = ( keySearch = '', customParams, callback ) => {
 		const url = urlApi;
@@ -204,15 +234,14 @@ const searchUserOnListPost = () => {
 	createSelectUserHtml();
 };
 
-const defaultInitTomSelect = ( registered = [] ) => {
-	const tomSelectEls = Array.prototype.slice.call( document.querySelectorAll( '.lp-tom-select' ) );
+const initElsTomSelect = () => {
+	const tomSelectEls = document.querySelectorAll( 'select.lp-tom-select:not(.loaded)' );
 
 	if ( tomSelectEls.length ) {
-		tomSelectEls.map( ( tomSelectEl ) => {
-			if ( registered.length ) {
-				if ( registered.includes( tomSelectEl ) ) {
-					return;
-				}
+		tomSelectEls.forEach( ( tomSelectEl ) => {
+			// Not build elements tom-select in Widget left classic of WordPress.
+			if ( tomSelectEl.closest( '.widget-liquid-left' ) ) {
+				return;
 			}
 			initTomSelect( tomSelectEl );
 		} );
@@ -222,5 +251,5 @@ const defaultInitTomSelect = ( registered = [] ) => {
 export {
 	initTomSelect,
 	searchUserOnListPost,
-	defaultInitTomSelect,
+	initElsTomSelect,
 };

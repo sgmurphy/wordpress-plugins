@@ -75,9 +75,10 @@
 	}
 
 	public function service_init( $staff_id = 0 ) {
-		$this->staff_id = $staff_id;
-		$this->authorize();
-		return $this;
+		$client = (new self( $this->plugin ))->client_init();
+		$client->staff_id = $staff_id;
+		$client->authorize();
+		return $client;
 	}
 	
 	/**
@@ -603,6 +604,7 @@
 	}
 	
 	public function get_auth_url( $staff_id, $wp_next_ssa_uri = null, $wp_next_base_uri = null ) {
+		$this->client_init();
 		$gcal_api_endpoint = 'https://accounts.google.com/o/oauth2/auth?';
 		// need to store the exact home url returned at this point
 		// because some plugins can affect the home url, causing the quick-connect domain to be invalid

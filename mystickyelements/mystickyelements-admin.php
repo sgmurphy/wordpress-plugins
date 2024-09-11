@@ -948,7 +948,7 @@ if ( !class_exists('MyStickyElementsPage_pro') ) {
 									<span>
 										<i class="fas fa-info"></i>
 										<span class="social-tooltip-popup">
-											<?php echo esc_html($social_channels_list['tooltip']); ?>
+											<?php echo wp_kses_post($social_channels_list['tooltip']); ?>
 										</span>
 									</span>
                                 </label>

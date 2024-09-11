@@ -13,49 +13,80 @@ function formatCourse(repo) {
 function formatCourseSelection(repo) {
   return repo.title.rendered || repo.text;
 }
-function autocompleteWidget(widget = null) {
-  const searchs = $('.lp-widget_select_course');
-  const wpRestUrl = searchs.data('rest-url');
-  const postType = searchs.data('post_type') || 'lp_course';
-  searchs.select2({
-    ajax: {
-      method: 'GET',
-      url: wpRestUrl + 'wp/v2/' + postType,
-      dataType: 'json',
-      delay: 250,
-      data(params) {
-        return {
-          search: params.term
-        };
-      },
-      processResults(data, params) {
-        params.page = params.page || 1;
-        return {
-          results: data
-        };
-      },
-      cache: true
-    },
-    escapeMarkup(markup) {
-      return markup;
-    },
-    minimumInputLength: 2,
-    templateResult: formatCourse,
-    // omitted for brevity, see the source of this page
-    templateSelection: formatCourseSelection // omitted for brevity, see the source of this page
-  });
-}
+
+/*function autocompleteWidget( widget = null ) {
+	const searchs = $( '.lp-widget_select_course' );
+	const wpRestUrl = searchs.data( 'rest-url' );
+	const postType = searchs.data( 'post_type' ) || 'lp_course';
+
+	if ( postType === 'lp_course' ) {
+		const dataStruct = {
+			urlApi: Api.admin.apiSearchCourses,
+			dataType: 'courses',
+			keyGetValue: {
+				value: 'ID',
+				text: '{{post_title}} (#{{ID}})',
+				key_render: {
+					post_title: 'post_title',
+					ID: 'ID',
+				},
+			},
+		};
+		const dataStructJson = JSON.stringify( dataStruct );
+		const widgetListEl = document.querySelector( '#widget-list' );
+		let nonTomSelectWidgetEls = '';
+		if ( widgetListEl ) {
+			const tomSelectWidgetEls = Array.prototype.slice.call( widgetListEl.querySelectorAll( '.lp-widget_select_course' ) );
+			nonTomSelectWidgetEls = Array.prototype.slice.call( searchs ).filter( ( el ) => ! tomSelectWidgetEls.includes( el ) );
+		}
+
+		nonTomSelectWidgetEls.forEach( ( nonTomSelectWidgetEl ) => {
+			$( nonTomSelectWidgetEl ).attr( 'data-struct', dataStructJson );
+			initTomSelect( nonTomSelectWidgetEl );
+		} );
+	} else {
+		searchs.select2( {
+			ajax: {
+				method: 'GET',
+				url: wpRestUrl + 'wp/v2/' + postType,
+				dataType: 'json',
+				delay: 250,
+				data( params ) {
+					return {
+						search: params.term,
+					};
+				},
+				processResults( data, params ) {
+					params.page = params.page || 1;
+
+					return {
+						results: data,
+					};
+				},
+				cache: true,
+			},
+			escapeMarkup( markup ) {
+				return markup;
+			},
+			minimumInputLength: 2,
+			templateResult: formatCourse, // omitted for brevity, see the source of this page
+			templateSelection: formatCourseSelection, // omitted for brevity, see the source of this page
+		} );
+	}
+}*/
+
 document.addEventListener('DOMContentLoaded', function (event) {
   if (document.querySelector('#widgets-editor')) {
     $(document).on('widget-added', function (event, widget) {
-      autocompleteWidget(widget);
+      //autocompleteWidget( widget );
     });
   } else {
     $(document).on('learnpress/widgets/select', function () {
-      autocompleteWidget();
+      //autocompleteWidget();
       sortItem();
     });
-    autocompleteWidget();
+
+    //autocompleteWidget();
   }
 });
 

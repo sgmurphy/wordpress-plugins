@@ -16,6 +16,7 @@ use LP_Cache;
 use LP_Course_DB;
 use LP_Course_Filter;
 use LP_Courses_Cache;
+use LP_Database;
 use LP_Helper;
 use LP_Settings;
 use Thim_Cache_DB;
@@ -78,7 +79,20 @@ class Courses {
 		$fields_str = LP_Helper::sanitize_params_submitted( urldecode( $param['c_fields'] ?? '' ) );
 		if ( ! empty( $fields_str ) ) {
 			$fields         = explode( ',', $fields_str );
+			foreach ( $fields as $key => $field ) {
+				$fields[ $key ] = LP_Database::getInstance()->wpdb->prepare( '%i', $field );;
+			}
 			$filter->fields = $fields;
+		}
+
+		// Get only columns
+		$fields_only_str = LP_Helper::sanitize_params_submitted( urldecode( $param['c_only_fields'] ?? '' ) );
+		if ( ! empty( $fields_only_str ) ) {
+			$fields_only         = explode( ',', $fields_only_str );
+			foreach ( $fields_only as $key => $field ) {
+				$fields_only[ $key ] = LP_Database::getInstance()->wpdb->prepare( '%i', $field );;
+			}
+			$filter->only_fields = $fields_only;
 		}
 
 		// Exclude Columns
@@ -104,6 +118,16 @@ class Courses {
 		if ( ! empty( $author_ids_str ) ) {
 			$author_ids           = explode( ',', $author_ids_str );
 			$filter->post_authors = $author_ids;
+		}
+
+		// Find by status
+		$post_status = LP_Helper::sanitize_params_submitted( $param['c_status'] ?? '' );
+		if ( ! empty( $post_status ) ) {
+			if ( 'all' !== $post_status ) {
+				$filter->post_status = explode( ',', $post_status );
+			}
+		} else {
+			$filter->post_status = [ 'publish' ];
 		}
 
 		/**

@@ -79,35 +79,11 @@ if ( ! class_exists( 'Mo2f_Reconfigure_Link' ) ) {
 		 * @param string $twofa_method Twofa method.
 		 * @return void
 		 */
-		public function mo2f_show_login_prompt_old( $mo2fa_login_message, $mo2fa_login_status, $current_user, $redirect_to, $session_id, $mo2f_title, $twofa_method ) {
-			$login_popup     = new Mo2f_Login_Popup();
-			$skeleton_values = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, null, null, $current_user->ID, $mo2f_title );
-			$login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id, $skeleton_values, $twofa_method );
-			exit;
-		}
-
-		/**
-		 * Show login popup for email.
-		 *
-		 * @param string $mo2fa_login_message Login message.
-		 * @param string $mo2fa_login_status Login status.
-		 * @param object $current_user Current user.
-		 * @param string $redirect_to Redirection url.
-		 * @param string $session_id Session ID.
-		 * @param string $mo2f_title Login title.
-		 * @param string $twofa_method Twofa method.
-		 * @return void
-		 */
 		public function mo2f_show_login_prompt( $mo2fa_login_message, $mo2fa_login_status, $current_user, $redirect_to, $session_id, $mo2f_title, $twofa_method ) {
-			$login_popup   = new Mo2f_Login_Popup();
-			$common_helper = new Mo2f_Common_Helper();
-			echo_js_css_files();
-			$html            = '<div class="mo2f_modal" tabindex="-1" role="dialog">
-			<div class="mo2f-modal-backdrop"></div>
-			<div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">';
+			$login_popup     = new Mo2f_Login_Popup();
+			$common_helper   = new Mo2f_Common_Helper();
 			$skeleton_values = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, null, null, $current_user->ID, 'login_2fa', '' );
-			$html           .= $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id, $skeleton_values, $twofa_method );
-			$html           .= '</div></div>';
+			$html            = $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id, $skeleton_values, $twofa_method );
 			$html           .= $common_helper->mo2f_get_hidden_forms_login( $redirect_to, $session_id, $mo2fa_login_status, $mo2fa_login_message, $twofa_method, $current_user->ID );
 			$html           .= $common_helper->mo2f_get_hidden_script_login();
 			echo $html;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped the necessary in the definition.

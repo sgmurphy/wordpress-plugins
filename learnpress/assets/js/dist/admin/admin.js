@@ -10,7 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   defaultInitTomSelect: () => (/* binding */ defaultInitTomSelect),
+/* harmony export */   initElsTomSelect: () => (/* binding */ initElsTomSelect),
 /* harmony export */   initTomSelect: () => (/* binding */ initTomSelect),
 /* harmony export */   searchUserOnListPost: () => (/* binding */ searchUserOnListPost)
 /* harmony export */ });
@@ -26,8 +26,6 @@ __webpack_require__.r(__webpack_exports__);
  * @param     fetchAPI
  * @param     customOptions
  * @param {*} callBack
- *
- * @return []
  */
 const handleResponse = (response, tomSelectEl, dataStruct, fetchAPI, customOptions = {}, callBack) => {
   if (!response || !tomSelectEl || !dataStruct || !fetchAPI || !callBack) {
@@ -84,14 +82,32 @@ const handleResponse = (response, tomSelectEl, dataStruct, fetchAPI, customOptio
   return options;
 };
 
+//Init Tom-select with available options
+const initTomSelectWithOption = (tomSelectEl, settingTomSelect = {}) => {
+  if (!tomSelectEl) {
+    return null;
+  }
+  if (null != tomSelectEl.tomSelectInstance) {
+    return null;
+  }
+  tomSelectEl.tomSelectInstance = _utils_admin_js__WEBPACK_IMPORTED_MODULE_0__.AdminUtilsFunctions.buildTomSelect(tomSelectEl, settingTomSelect);
+};
+
 // Init Tom-select
 const initTomSelect = (tomSelectEl, customOptions = {}, customParams = {}) => {
+  var _dataStruct$dataSendA, _dataStruct$urlApi;
   if (!tomSelectEl) {
     return;
+  }
+  if (tomSelectEl.classList.contains('loaded')) {
+    return;
+  } else {
+    tomSelectEl.classList.add('loaded');
   }
   const defaultIds = tomSelectEl.dataset?.saved ? JSON.parse(tomSelectEl.dataset.saved) : 0;
   const dataStruct = tomSelectEl?.dataset?.struct ? JSON.parse(tomSelectEl.dataset.struct) : '';
   if (!dataStruct) {
+    initTomSelectWithOption(tomSelectEl);
     return;
   }
   const getParentElByTagName = (tag, el) => {
@@ -99,19 +115,28 @@ const initTomSelect = (tomSelectEl, customOptions = {}, customParams = {}) => {
     if (newEl.tagName.toLowerCase() === tag) {
       return newEl;
     }
+    if (newEl.tagName.toLowerCase() === 'html') {
+      return false;
+    }
     return getParentElByTagName(tag, newEl);
   };
   const formParent = getParentElByTagName('form', tomSelectEl);
-  const elInput = formParent.querySelector('input[name="' + tomSelectEl.getAttribute('name') + '"]');
-  if (elInput) {
-    elInput.remove();
+  if (formParent) {
+    const elInput = formParent.querySelector('input[name="' + tomSelectEl.getAttribute('name') + '"]');
+    if (elInput) {
+      elInput.remove();
+    }
   }
-  const dataSendApi = dataStruct.dataSendApi;
-  const urlApi = dataStruct.urlApi;
+  const dataSendApi = (_dataStruct$dataSendA = dataStruct.dataSendApi) !== null && _dataStruct$dataSendA !== void 0 ? _dataStruct$dataSendA : '';
+  const urlApi = (_dataStruct$urlApi = dataStruct.urlApi) !== null && _dataStruct$urlApi !== void 0 ? _dataStruct$urlApi : '';
   const settingTomSelect = {
     ...dataStruct.setting,
     ...customOptions
   };
+  if (!urlApi) {
+    initTomSelectWithOption(tomSelectEl, settingTomSelect);
+    return;
+  }
   const fetchFunction = (keySearch = '', customParams, callback) => {
     const url = urlApi;
     const dataSend = {
@@ -193,14 +218,13 @@ const searchUserOnListPost = () => {
   };
   createSelectUserHtml();
 };
-const defaultInitTomSelect = (registered = []) => {
-  const tomSelectEls = Array.prototype.slice.call(document.querySelectorAll('.lp-tom-select'));
+const initElsTomSelect = () => {
+  const tomSelectEls = document.querySelectorAll('select.lp-tom-select:not(.loaded)');
   if (tomSelectEls.length) {
-    tomSelectEls.map(tomSelectEl => {
-      if (registered.length) {
-        if (registered.includes(tomSelectEl)) {
-          return;
-        }
+    tomSelectEls.forEach(tomSelectEl => {
+      // Not build elements tom-select in Widget left classic of WordPress.
+      if (tomSelectEl.closest('.widget-liquid-left')) {
+        return;
       }
       initTomSelect(tomSelectEl);
     });
@@ -242,39 +266,48 @@ const AdminUtilsFunctions = {
       return;
     }
     const optionDefault = {
-      options: [],
       plugins: {
         remove_button: {
           title: 'Remove this item'
         }
       },
-      load(keySearch, callbackTom) {
-        fetchAPI(keySearch, dataSend, AdminUtilsFunctions.callBackTomSelectSearchAPI(callbackTom, callBackHandleData));
-      }
+      onInitialize() {}
     };
+    if (fetchAPI) {
+      optionDefault.load = (keySearch, callbackTom) => {
+        const selectedOptions = Array.from(elTomSelect.selectedOptions);
+        const selectedValues = selectedOptions.map(option => option.value);
+        dataSend.id_not_in = selectedValues.join(',');
+        fetchAPI(keySearch, dataSend, AdminUtilsFunctions.callBackTomSelectSearchAPI(callbackTom, callBackHandleData));
+      };
+    }
     options = {
       ...optionDefault,
       ...options
     };
-    if (options.options.length > 20) {
-      const currentIds = dataSend?.current_ids ? dataSend?.current_ids : '';
+    if (options?.options?.length > 20) {
       const chunkSize = 20;
-      const chunkedOptions = [];
-      for (let i = 0; i < options.options.length; i += chunkSize) {
-        chunkedOptions.push(options.options.slice(i, i + chunkSize));
-      }
-      options.options = chunkedOptions[0];
-      const tomSelect = new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, options);
-      for (let i = 0; i < chunkedOptions.length; i++) {
-        setTimeout(() => {
-          chunkedOptions[i].forEach(option => {
-            tomSelect.addOption(option);
-          });
-          if (i === chunkedOptions.length - 1 && currentIds) {
-            tomSelect.setValue(currentIds.split(','));
-          }
-        }, 200 * i);
-      }
+      const length = options.options.length;
+      let i = 0;
+      const optionsSlice = options.options.slice(i, chunkSize);
+      const chunkedOptions = {
+        ...options
+      };
+      chunkedOptions.options = optionsSlice;
+      const tomSelect = new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, chunkedOptions);
+      i += chunkSize;
+      const interval = setInterval(() => {
+        if (i > length - 1) {
+          clearInterval(interval);
+        }
+        let optionsSlice = {
+          ...options
+        };
+        optionsSlice = options.options.slice(i, i + chunkSize);
+        i += chunkSize;
+        tomSelect.addOptions(optionsSlice);
+        tomSelect.setValue(options.items);
+      }, 200);
       return tomSelect;
     }
     return new (tom_select__WEBPACK_IMPORTED_MODULE_1___default())(elTomSelect, options);
@@ -376,16 +409,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
 /* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
-/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
+/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
+/* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady)
 /* harmony export */ });
 /**
- * Fetch API.
+ * Utils functions
  *
  * @param url
  * @param data
  * @param functions
  * @since 4.2.5.1
- * @version 1.0.1
+ * @version 1.0.2
  */
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -471,6 +505,32 @@ const listenElementCreated = callback => {
     subtree: true
   });
   // End.
+};
+
+/**
+ * Listen element created.
+ *
+ * @param selector
+ * @param callback
+ * @since 4.2.7.1
+ */
+const lpOnElementReady = (selector, callback) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    callback(element);
+    return;
+  }
+  const observer = new MutationObserver((mutations, obs) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      obs.disconnect();
+      callback(element);
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
 };
 
 // Parse JSON from string with content include LP_AJAX_START.
@@ -5880,6 +5940,8 @@ var __webpack_exports__ = {};
   \**************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./init-tom-select.js */ "./assets/src/js/admin/init-tom-select.js");
+/* harmony import */ var _utils_admin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils-admin.js */ "./assets/src/js/admin/utils-admin.js");
+
 
 (function ($) {
   /**
@@ -6079,11 +6141,21 @@ const showHideOptionsDependency = (e, target) => {
 document.addEventListener('click', e => {
   const target = e.target;
   showHideOptionsDependency(e, target);
+  // For case click add on Widgets of WordPress.
+  (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.initElsTomSelect)();
 });
 document.addEventListener('DOMContentLoaded', () => {
   (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.searchUserOnListPost)();
-  (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.defaultInitTomSelect)();
+
+  // Sure that the TomSelect is loaded if listen can't find elements.
+  (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.initElsTomSelect)();
 });
+
+// Listen element select created on DOM.
+_utils_admin_js__WEBPACK_IMPORTED_MODULE_1__.Utils.lpOnElementReady('select.lp-tom-select', e => {
+  (0,_init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.initElsTomSelect)();
+});
+window.lpFindTomSelect = _init_tom_select_js__WEBPACK_IMPORTED_MODULE_0__.initElsTomSelect;
 })();
 
 /******/ })()

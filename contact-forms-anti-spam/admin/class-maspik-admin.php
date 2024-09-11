@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
     define('MASPIK_API_KEY', 'KVJS5BDFFYabnZkQ3Svty6z6CIsxp3YG5ny4lrFQ');
 
     function maspik_auto_update_db(){    
-        if ( maspik_get_settings('text_blacklist') === null ) { 
+        if ( !maspik_table_exists('text_blacklist') ) { 
             create_maspik_log_table();
             create_maspik_table();
             if( get_option('text_blacklist') ){
@@ -21,8 +21,8 @@ if ( ! defined( 'WPINC' ) ) {
             maspik_make_default_values();
         }
     }
-
     add_action('admin_init', 'maspik_auto_update_db' , 10);
+
     // run the default values function only once if necessary
     function maspik_check_if_need_to_run_once() {
         $maspik_run_once = get_option( 'maspik_run_once', 0 ); // default to 0 if option doesn't exist
@@ -227,25 +227,26 @@ function maspik_toggle_button($name, $id, $dbrow_name, $class, $type = "", $manu
             
             $results = $data = maspik_get_settings($name, 'select');
             $class_attr = !empty($class) ? ' class="js-states form-control maspik-select ' . esc_attr($class) . '"' : '';
-            foreach ($results as $result){
-                $result_array = explode(" ", $result -> $setting_value);
+
+            $result_array = array();
+            if (is_array($results) || is_object($results)) {
+                foreach ($results as $result) {
+                    $result_array = explode(" ", $result->$setting_value);
+                }
+            }
+            $select =  '<select '. $class_attr .' multiple="multiple" '.$attr.' name="'.esc_attr($name).'[]" id="'.esc_attr($name).'"  >';
+            foreach ($the_array as $key => $value) {
+                $select .=  ' <option value="'.esc_attr($key).'" ';
+                foreach ($result_array as $aresult) {
+                    if ($key == preg_replace('/\s+/', '', $aresult)) {
+                        $select .=  ' selected="selected"';
+                    }
+
+                }
+                $select .= '>'. esc_html($value) .'</option>';
             }
 
-            
-
-                $select =  '<select '. $class_attr .' multiple="multiple" '.$attr.' name="'.esc_attr($name).'[]" id="'.esc_attr($name).'"  >';
-                foreach ($the_array as $key => $value) {
-                    $select .=  ' <option value="'.esc_attr($key).'" ';
-                    foreach ($result_array as $aresult) {
-                        if ($key == preg_replace('/\s+/', '', $aresult)) {
-                            $select .=  ' selected="selected"';
-                        }
-   
-                    }
-                    $select .= '>'. esc_html($value) .'</option>';
-                }
-
-                $select .= "</select>";
+            $select .= "</select>";
                        
             return $select;
             

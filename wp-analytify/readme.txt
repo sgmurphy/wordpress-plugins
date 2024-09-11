@@ -4,7 +4,7 @@ Donate link: https://paypal.me/Analytify
 Tags: google analytics, google analytics dashboard, google analytics 4, WordPress Analytics, analytics
 Requires at least: 3.6
 Tested up to: 6.6
-Stable tag: 5.4.2
+Stable tag: 5.4.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -302,6 +302,10 @@ We listen to each of our users and are active (Monday to Friday) at the <a href=
 
 
 == Changelog ==
+
+= 5.4.3 - 2024-09-11 =
+* Enhancement: UI improvement in Opt-out form.
+* Compatibility: Compatible to WordPress 6.6
 
 = 5.4.2 - 2024-09-10 =
 * Bug Fix: Rank Math plugin conflict fixed.
@@ -1019,7 +1023,7 @@ We listen to each of our users and are active (Monday to Friday) at the <a href=
 
 == Upgrade Notice ==
 
-= 5.4.2 =
+= 5.4.3 =
 * Update This Google Analytics Plugin Now.
 
 == Notes ==

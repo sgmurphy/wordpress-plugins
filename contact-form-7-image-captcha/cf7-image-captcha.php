@@ -3,7 +3,7 @@
  * Plugin Name:  WP Image CAPTCHA
  * Plugin URI:   https://wpimagecaptcha.com/
  * Description:  Adds an image CAPTCHA to your "Contact Form 7" and "WPForms" forms.
- * Version:      3.3.18
+ * Version:      3.3.19
  * Author:       WP Image CAPTCHA
  * Author URI:   https://wpimagecaptcha.com/
  * License:      GNU General Public License v2
@@ -125,9 +125,9 @@ function cf7ic_plugin_activate() {
 add_action('admin_init', 'cf7ic_plugin_redirect');
 function cf7ic_plugin_redirect() {
     if (get_option('cf7ic_plugin_do_activation_redirect', false)) {
-        delete_option('cf7ic_plugin_do_activation_redirect');
-
         cf7ic_set_timestamp();
+        
+        delete_option('cf7ic_plugin_do_activation_redirect');
 
         if (!isset($_GET['activate-multi'])) {
             wp_redirect("admin.php?page=cf7ic_settings_menu");

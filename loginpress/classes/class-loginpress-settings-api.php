@@ -4,7 +4,7 @@
  * LoginPress Settings API
  *
  * @since 1.0.9
- * @version 3.0.0
+ * @version 3.1.3
  */
 if ( !class_exists( 'LoginPress_Settings_API' ) ):
 
@@ -39,7 +39,7 @@ if ( !class_exists( 'LoginPress_Settings_API' ) ):
 			// wp_enqueue_style( 'wp-color-picker' );
 			// wp_enqueue_script( 'wp-color-picker' );
 
-			wp_enqueue_media();
+			// wp_enqueue_media();
 			wp_enqueue_script( 'jquery' );
 		}
 

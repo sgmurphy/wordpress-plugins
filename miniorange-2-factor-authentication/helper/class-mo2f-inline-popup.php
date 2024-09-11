@@ -298,7 +298,8 @@ if ( ! class_exists( 'Mo2f_Inline_Popup' ) ) {
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			<?php
 
-			echo_js_css_files();
+			$common_helper = new Mo2f_Common_Helper();
+			$common_helper->mo2f_echo_js_css_files();
 			wp_register_style( 'mo2f_bootstrap', plugins_url( 'includes/css/bootstrap.min.css', dirname( __FILE__ ) ), array(), MO2F_VERSION, false );
 			wp_print_styles( 'mo2f_bootstrap' );
 			?>

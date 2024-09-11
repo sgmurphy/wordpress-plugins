@@ -403,13 +403,27 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
 		 */
 		function optout_yes() {
 
-			check_ajax_referer( 'loginpress-optout-nonce', 'security' );
-
-			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die( 'No cheating, huh!' );
+			if( ! current_user_can( 'manage_options' ) || ! check_ajax_referer( 'loginpress-optout-nonce', 'optout_nonce' ) ){
+				wp_die( '<p>' . __( 'Sorry, you are not allowed to edit this item.' ) . '</p>', 403 );
 			}
 
-			update_option( '_loginpress_optin', 'no' );
+            // Get the current option and decode it as an associative array
+            $sdk_data = json_decode(get_option('wpb_sdk_loginpress'), true);
+
+            // If there is no current option, initialize an empty array
+            if (!$sdk_data) {
+                $sdk_data = array();
+            }
+
+            $setting_name = $_POST['setting_name'];  // e.g., communication, diagnostic_info, extensions
+            $setting_value = $_POST['setting_value'];  // The new value to be updated
+
+            // Update the specific setting in the array
+            $sdk_data[$setting_name] = $setting_value;
+
+            // Encode the array back into a JSON string and update the option
+            update_option('wpb_sdk_loginpress', json_encode($sdk_data));
+
 			wp_die();
 		}
 

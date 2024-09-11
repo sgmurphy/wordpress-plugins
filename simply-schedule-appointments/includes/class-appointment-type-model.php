@@ -188,7 +188,10 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 						'capacity' => SSA_Constants::CAPACITY_MAX,
 					);
 				}
-				$this->update( $appointment_type['id'], $appointment_type_update_data );
+				
+				if ( !empty( $appointment_type_update_data ) ) {
+					$this->update( $appointment_type['id'], $appointment_type_update_data );
+				}
 			}
 		}
 	}
@@ -1436,7 +1439,7 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 		}
 		
 		try {
-			$client = $this->plugin->google_calendar_client->client_init()->service_init( 0 );
+			$client = $this->plugin->google_calendar_client->service_init( 0 );
 			$calendar_list = $client->get_calendar_list();
 			
 			// should never be empty unless something failed
@@ -1479,6 +1482,7 @@ class SSA_Appointment_Type_Model extends SSA_Db_Model {
 					'service' => 'google',
 				) );
 			}
+			
 		} catch (\Throwable $th) {
 			// do nothing
 			// this cleanup is not critical

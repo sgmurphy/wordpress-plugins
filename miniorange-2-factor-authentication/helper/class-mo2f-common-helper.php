@@ -65,6 +65,24 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 		}
 
 		/**
+		 * This function used to include css and js files.
+		 *
+		 * @return void
+		 */
+		public function mo2f_echo_js_css_files() {
+			wp_register_style( 'mo2f_style_settings', plugins_url( 'includes/css/twofa_style_settings.min.css', dirname( __FILE__ ) ), array(), MO2F_VERSION );
+			wp_print_styles( 'mo2f_style_settings' );
+
+			wp_register_script( 'mo2f_bootstrap_js', plugins_url( 'includes/js/bootstrap.min.js', dirname( __FILE__ ) ), array(), MO2F_VERSION, true );
+			wp_print_scripts( 'jquery' );
+			wp_print_scripts( 'mo2f_bootstrap_js' );
+			if ( get_site_option( 'mo2f_enable_login_popup_customization' ) ) {
+				wp_register_style( 'mo2f_custom-login-popup', plugins_url( 'includes/css/mo2f_login_popup_ui.min.css', dirname( __FILE__ ) ), array(), MO2F_VERSION );
+				wp_print_styles( 'mo2f_custom-login-popup' );
+			}
+		}
+
+		/**
 		 * Return the handler object for selected method.
 		 *
 		 * @param string $selected_method Twofa method name.
@@ -1442,10 +1460,6 @@ if ( ! class_exists( 'Mo2f_Common_Helper' ) ) {
 
 			$script = '<script>		
 			var twofa_method = "' . esc_js( $twofa_method ) . '";
-			if (!sessionStorage.getItem("reloaded") && twofa_method === "GOOGLE AUTHENTICATOR") {
-				sessionStorage.setItem("reloaded", "true");
-				location.reload();
-			}
 			var attemptleft = 3;	
 			jQuery("#mo2f_validate").click(function() {
 				

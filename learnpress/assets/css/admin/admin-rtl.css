@@ -562,12 +562,18 @@ ul .clearfix {
 
 .ts-wrapper {
   min-width: 200px;
+  width: fit-content;
 }
 .ts-wrapper .ts-control input[type=text] {
   width: auto;
 }
 .ts-wrapper .ts-control li {
   margin: 0 0 5px 5px;
+  padding: 3px 8px;
+  background: #eee;
+  border-radius: var(--lp-border-radius);
+}
+.ts-wrapper .ts-control .item {
   padding: 3px 8px;
   background: #eee;
   border-radius: var(--lp-border-radius);
@@ -705,7 +711,6 @@ ul .clearfix {
 /* Metabox dropdown pages field */
 .learn-press-dropdown-pages input[type=text] {
   min-width: 300px;
-  height: 29px;
   margin: 0;
   vertical-align: top;
 }
@@ -6687,6 +6692,11 @@ table.lp-material--table tr:nth-child(even) {
 
 .learn-press-dropdown-pages {
   display: inline-block;
+}
+.learn-press-dropdown-pages .list-pages-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .lp-notice-update-database {

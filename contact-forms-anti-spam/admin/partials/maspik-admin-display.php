@@ -548,7 +548,7 @@ $spamcounter = maspik_spam_count();
     <div class="maspik-setting-body">
     
         
-        <div class="maspik-blacklist-options <?php if( !maspik_table_exists() ) echo ' accordion-disable'; ?>">
+        <div class="maspik-blacklist-options">
 
             <div class="maspik-save-message-wrap"><?php
                     if($save_notif == "yes"){
@@ -564,10 +564,8 @@ $spamcounter = maspik_spam_count();
 
 
         <!--accordions here-->
-        <div class="maspik-accordion">
-            <div class="maspik-database-update-overlay <?php if( !maspik_table_exists() ) echo ' accordion-disable'; ?>"><h4>Please update the database first</h4></div>
+        <div class="maspik-accordion">            
             
-        
             <form method="POST" action="" class="maspik-form">
 
                 <?php /*<div class="maspik-section-head">

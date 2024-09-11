@@ -259,7 +259,9 @@ class App_Controller {
 
 		$this->episode_repository = new Episode_Repository( $this->feed_handler );
 
-		$this->castos_handler = new Castos_Handler( $this->feed_handler, $this->logger );
+		$this->admin_notices_handler = new Admin_Notifications_Handler();
+
+		$this->castos_handler = new Castos_Handler( $this->feed_handler, $this->logger, $this->admin_notices_handler );
 
 		$this->onboarding_controller = new Onboarding_Controller( $this->renderer, $this->settings_handler );
 
@@ -273,11 +275,9 @@ class App_Controller {
 
 		$this->widgets_controller = new Widgets_Controller( $this->file, $this->version );
 
-		$this->ajax_handler = new Ajax_Handler( $this->castos_handler );
+		$this->ajax_handler = new Ajax_Handler( $this->castos_handler, $this->admin_notices_handler );
 
 		$this->podping_handler = new Podping_Handler( $this->logger );
-
-		$this->admin_notices_handler = new Admin_Notifications_Handler( $this->token );
 
 		$this->assets_controller = new Assets_Controller();
 

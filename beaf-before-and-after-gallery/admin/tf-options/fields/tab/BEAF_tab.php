@@ -2,7 +2,7 @@
 // don't load directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'BEAF_text' ) ) {
+if ( ! class_exists( 'BEAF_tab' ) ) {
 	class BEAF_tab extends BEAF_Fields {
 
 		public function __construct( $field, $value = '', $settings_id = '', $parent_field = '' ) {

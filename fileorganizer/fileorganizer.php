@@ -3,7 +3,7 @@
 Plugin Name: FileOrganizer
 Plugin URI: https://wordpress.org/plugins/fileorganizer/
 Description: FileOrganizer is a plugin that helps you to manage all files in your WordPress Site.
-Version: 1.0.9
+Version: 1.1.1
 Author: Softaculous Team
 Author URI: https://fileorganizer.net
 Text Domain: fileorganizer
@@ -21,18 +21,24 @@ $_tmp_plugins = get_option('active_plugins', []);
 
 if(!defined('SITEPAD') && in_array('fileorganizer-pro/fileorganizer-pro.php', $_tmp_plugins)){
 
-	if(!function_exists('get_plugins')){
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
+	// Was introduced in 1.0.9
+	$fileorganizer_pro_info = get_option('fileorganizer_pro_version');
+	
+	if(!empty($fileorganizer_pro_info) && version_compare($fileorganizer_pro_info, '1.0.9', '>=')){
+		// Let Fileorganizer load
+	
+	// Lets check for older versions
+	}else{
 
-	$fileorganizer_pro_info = get_plugins('/fileorganizer-pro');
+		if(!function_exists('get_plugin_data')){
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
 
-	if(
-		!empty($fileorganizer_pro_info) && 
-		!empty($fileorganizer_pro_info['fileorganizer-pro.php']) && 
-		version_compare($fileorganizer_pro_info['fileorganizer-pro.php']['Version'], '1.0.9', '<')
-	){
-		return;
+		$fileorganizer_pro_info = get_plugin_data(WP_PLUGIN_DIR . '/fileorganizer-pro/fileorganizer-pro.php');
+		
+		if(!empty($fileorganizer_pro_info) && version_compare($fileorganizer_pro_info['Version'], '1.0.9', '<')){
+			return;
+		}
 	}
 }
 
@@ -42,5 +48,6 @@ if(defined('FILEORGANIZER_VERSION')){
 }
 
 define('FILEORGANIZER_FILE', __FILE__);
+define('FILEORGANIZER_VERSION', '1.1.1');
 
 include_once(dirname(__FILE__).'/init.php');

@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Remove options and table when plugin is uninstalled
+ */
 if (!defined('WP_UNINSTALL_PLUGIN')) {
     die();
 }

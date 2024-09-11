@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.4.3 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -654,10 +654,6 @@ video {
   margin-top: 1rem !important;
 }
 
-.gtmkit-mb-0 {
-  margin-bottom: 0px;
-}
-
 .gtmkit-mb-0\.5 {
   margin-bottom: 0.125rem;
 }
@@ -702,6 +698,14 @@ video {
   margin-left: 1rem;
 }
 
+.gtmkit-ml-6 {
+  margin-left: 1.5rem;
+}
+
+.gtmkit-mr-2 {
+  margin-right: 0.5rem;
+}
+
 .gtmkit-mr-8 {
   margin-right: 2rem;
 }
@@ -726,10 +730,6 @@ video {
   margin-top: 2rem;
 }
 
-.gtmkit-ml-6 {
-  margin-left: 1.5rem;
-}
-
 .gtmkit-block {
   display: block;
 }
@@ -746,16 +746,12 @@ video {
   display: grid;
 }
 
-.gtmkit-h-0 {
-  height: 0px;
+.gtmkit-hidden {
+  display: none;
 }
 
 .gtmkit-h-0\.5 {
   height: 0.125rem;
-}
-
-.gtmkit-h-2 {
-  height: 0.5rem;
 }
 
 .gtmkit-h-2\.5 {
@@ -770,6 +766,11 @@ video {
   height: 2rem;
 }
 
+.gtmkit-h-min {
+  height: -moz-min-content;
+  height: min-content;
+}
+
 .gtmkit-h-screen {
   height: 100vh;
 }
@@ -782,16 +783,8 @@ video {
   min-height: 175px;
 }
 
-.gtmkit-w-2 {
-  width: 0.5rem;
-}
-
 .gtmkit-w-2\.5 {
   width: 0.625rem;
-}
-
-.gtmkit-w-3\/4 {
-  width: 75%;
 }
 
 .gtmkit-w-5 {
@@ -843,6 +836,10 @@ video {
   max-width: 28rem;
 }
 
+.gtmkit-max-w-screen-lg {
+  max-width: 1024px;
+}
+
 .gtmkit-max-w-xl {
   max-width: 36rem;
 }
@@ -859,6 +856,10 @@ video {
   table-layout: fixed;
 }
 
+.gtmkit-cursor-pointer {
+  cursor: pointer;
+}
+
 .gtmkit-grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -873,6 +874,10 @@ video {
 
 .gtmkit-items-center {
   align-items: center;
+}
+
+.\!gtmkit-justify-start {
+  justify-content: flex-start !important;
 }
 
 .gtmkit-justify-center {
@@ -903,6 +908,11 @@ video {
   gap: 2rem;
 }
 
+.gtmkit-gap-x-16 {
+  -moz-column-gap: 4rem;
+       column-gap: 4rem;
+}
+
 .gtmkit-space-x-9 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(2.25rem * var(--tw-space-x-reverse));
@@ -919,6 +929,12 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.gtmkit-space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
 .gtmkit-space-y-8 > :not([hidden]) ~ :not([hidden]) {
@@ -968,6 +984,10 @@ video {
   border-bottom-width: 4px;
 }
 
+.gtmkit-border-t-0 {
+  border-top-width: 0px;
+}
+
 .gtmkit-border-t-4 {
   border-top-width: 4px;
 }
@@ -993,12 +1013,20 @@ video {
   border-bottom-color: var(--gtmkit-color-primary);
 }
 
+.gtmkit-bg-color-background-disabled {
+  background-color: var(--gtmkit-button-disabled-bg);
+}
+
 .gtmkit-bg-color-border {
   background-color: var(--gtmkit-border-color);
 }
 
 .gtmkit-bg-color-button-disabled {
   background-color: var(--gtmkit-button-disabled);
+}
+
+.gtmkit-bg-color-error {
+  background-color: var(--gtmkit-color-error);
 }
 
 .gtmkit-bg-color-grey {
@@ -1030,6 +1058,11 @@ video {
   padding: 2rem;
 }
 
+.\!gtmkit-px-3 {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
 .\!gtmkit-px-6 {
   padding-left: 1.5rem !important;
   padding-right: 1.5rem !important;
@@ -1040,6 +1073,11 @@ video {
   padding-right: 2rem !important;
 }
 
+.\!gtmkit-py-1 {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+
 .\!gtmkit-py-4 {
   padding-top: 1rem !important;
   padding-bottom: 1rem !important;
@@ -1048,6 +1086,11 @@ video {
 .\!gtmkit-py-6 {
   padding-top: 1.5rem !important;
   padding-bottom: 1.5rem !important;
+}
+
+.gtmkit-px-1\.5 {
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
 }
 
 .gtmkit-px-16 {
@@ -1105,6 +1148,11 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.gtmkit-py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
 .gtmkit-py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1113,6 +1161,11 @@ video {
 .gtmkit-py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.gtmkit-py-px {
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .gtmkit-pb-6 {
@@ -1218,6 +1271,10 @@ video {
 
 .gtmkit-leading-5 {
   line-height: 1.25rem;
+}
+
+.gtmkit-leading-\[1\.125rem\] {
+  line-height: 1.125rem;
 }
 
 .gtmkit-text-color-grey {

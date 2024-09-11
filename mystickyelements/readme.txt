@@ -3,7 +3,7 @@ Contributors: galdub, tomeraharon, premio
 Tags: whatsapp, contact form, facebook messenger, call now button, instagram
 Requires at least: 3.1
 Tested up to: 6.6
-Stable tag: 2.2
+Stable tag: 2.2.1
 Plugin URI: https://premio.io/downloads/mystickyelements/
 License: GPLv3
 
@@ -28,7 +28,7 @@ Want to use the robust pro version? Check out <a href="https://premio.io/downloa
 pro plans"><strong>My Sticky Elements Pro Plans</strong></a>.
 
 = 📝 Contact form and social buttons in one plugin =
-Tabs that will help your website visitors contact you or follow your business on any popular social channel such as Facebook, Messenger, Instagram, WhatsApp, Telegram, Pinterest, Youtube, WeChat and more.
+Tabs that will help your website visitors contact you or follow your business on any popular social channel such as Facebook, Messenger, Instagram, Threads, WhatsApp, Telegram, Pinterest, Youtube, WeChat and more.
 
 
 = 🚀 Show My Sticky Elements contact and social tabs =
@@ -48,6 +48,7 @@ Open hours
 WeChat
 Telegram
 TikTok
+Threads
 Vimeo
 Spotify
 Itunes
@@ -198,6 +199,8 @@ Adding WhatsApp button to your site will give 25 million new users every month (
 
 * Telegram channel - add your Telegram channel link and let your visitors join your Telegram community. 
 
+* Threads - add a link to your Threads profile so your visitors can connect with you easily
+
 * Vimeo - Let your visitors see all of your videos on Vimeo, comment, like your videos and follow your channel.
 
 * Spotify - Spotify is growing and if you run a podcast, Spotify is the best distribution channel you can probably have.  
@@ -331,6 +334,12 @@ A live demo for My Sticky Elements plugin is available at <a href="https://demo.
 9. Change the color of your icons, contact form, text, and anything else!
 
 == Changelog ==
+
+= 2.2.1 =
+Add Threads as a channel
+WPML bug fixed
+Nofollow option for links was added
+Other bugs were fixed
 
 = 2.2 =
 Option to open any tab by default when the page loads

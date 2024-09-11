@@ -43,6 +43,7 @@ class Quiz_Maker_Public
 
     protected $settings;
     
+    protected $default_texts;
     protected $buttons_texts;
     protected $fields_placeholders;
     protected $is_training;
@@ -213,12 +214,14 @@ class Quiz_Maker_Public
         $category_selective = (isset($attr['category_selective']) && sanitize_text_field($attr['category_selective']) === 'true') ? true : ' ';
         $title = isset($attr['title']) ? sanitize_text_field($attr['title']) : ' ';
 
+        $this->default_texts = self::ays_set_quiz_default_texts( $this->plugin_name, array() );
+
         $this->set_prop( 'is_training', $is_training );
         $this->set_prop( 'category_selective', $category_selective );
         $this->set_prop( 'title', $title );
 
         if (is_null($id)) {
-            $quiz_content = "<p class='wrong_shortcode_text' style='color:red;'>" . __('Wrong shortcode initialized', $this->plugin_name) . "</p>";
+            $quiz_content = "<p class='wrong_shortcode_text' style='color:red;'>" . $this->default_texts['wrongShortcode'] . "</p>";
             return str_replace(array("\r\n", "\n", "\r"), "\n", $quiz_content);
         }
 
@@ -661,13 +664,39 @@ class Quiz_Maker_Public
 
         return $message_data;
     }
+
+    /*
+     * Get quiz default texts from database
+     */
+    public static function ays_set_quiz_default_texts( $plugin_name, $settings = array() ) {
+        global $wpdb;
+
+        $settings_table = $wpdb->prefix . "aysquiz_settings";
+        $sql = "SELECT meta_value FROM " . $settings_table . " WHERE meta_key = 'default_texts'";
+        $result = $wpdb->get_var($sql);
+        $settings_static_texts = ($result == "") ? array() : json_decode( stripslashes($result), true);
+
+        $wrong_shortcode_text = (isset($settings_static_texts['wrong_shortcode_text']) && $settings_static_texts['wrong_shortcode_text'] != '') ? stripslashes(esc_attr($settings_static_texts['wrong_shortcode_text'])) : 'Wrong shortcode initialized';
+
+        if ($wrong_shortcode_text === 'Wrong shortcode initialized') {
+            $wrong_shortcode_text = __('Wrong shortcode initialized', $plugin_name);
+        }
+
+        $texts = array(
+            'wrongShortcode' => $wrong_shortcode_text,
+        );
+
+        return $texts;
+    }
+
     
     public function show_quiz($id){
         $quiz = $this->get_quiz_by_id($id);
+        $this->default_texts = self::ays_set_quiz_default_texts( $this->plugin_name, array() );
         $content = '';
         
         if (is_null($quiz)) {
-            $content = "<p class='wrong_shortcode_text' style='color:red;'>" . __('Wrong shortcode initialized', $this->plugin_name) . "</p>";
+            $content = "<p class='wrong_shortcode_text' style='color:red;'>" . $this->default_texts['wrongShortcode'] . "</p>";
             return $content;
         }
         if (intval($quiz['published']) === 0) {

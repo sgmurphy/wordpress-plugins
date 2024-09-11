@@ -7,6 +7,7 @@
 
 namespace WebberZone\Top_Ten;
 
+use PHP_CodeSniffer\Util\Help;
 use WebberZone\Top_Ten\Util\Helpers;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -33,53 +34,52 @@ class Counter {
 	}
 
 	/**
-	 * Function to add the viewed count to the post content. Filters `the_content`.
+	 * Adds the viewed count to the post content. Filters `the_content`.
 	 *
-	 * @since   1.0
+	 * @since 3.3.0
+	 *
 	 * @param   string $content Post content.
-	 * @return  string  Filtered post content
+	 * @return  string Filtered post content.
 	 */
 	public static function the_content( $content ) {
 		global $post, $wp_filters;
 
-		// Track the number of times this function  is called.
+		// Track the number of times this function is called.
 		static $filter_calls = 0;
 		++$filter_calls;
 
-		if ( ! ( in_the_loop() && is_main_query() && (int) get_queried_object_id() === (int) $post->ID ) ) {
+		// Check if this is the last call of 'the_content' and only process for the main query.
+		if ( ! ( in_the_loop() && is_main_query() && (int) get_queried_object_id() === (int) $post->ID ) || ( doing_filter( 'the_content' ) && isset( $wp_filters['the_content'] ) && (int) $wp_filters['the_content'] !== $filter_calls ) ) {
 			return $content;
 		}
 
-		// Check if this is the last call of the_content.
-		if ( doing_filter( 'the_content' ) && isset( $wp_filters['the_content'] ) && (int) $wp_filters['the_content'] !== $filter_calls ) {
-			return $content;
-		}
-
+		// Exclude posts that should not display the viewed count.
 		$exclude_on_post_ids = explode( ',', \tptn_get_option( 'exclude_on_post_ids' ) );
-		$add_to              = \tptn_get_option( 'add_to', false );
+		if ( isset( $post ) && in_array( $post->ID, $exclude_on_post_ids, true ) ) {
+			return $content;
+		}
 
-		if ( isset( $post ) ) {
-			if ( in_array( $post->ID, $exclude_on_post_ids ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-				return $content;    // Exit without adding related posts.
+		// Determine where to add the viewed count.
+		$add_to = wp_parse_list( \tptn_get_option( 'add_to', array() ) );
+
+		$conditions = array(
+			'single'            => is_single(),
+			'page'              => is_page(),
+			'home'              => is_home(),
+			'category_archives' => is_category(),
+			'tag_archives'      => is_tag(),
+			'other_archives'    => is_tax() || is_author() || is_date(),
+		);
+
+		foreach ( $conditions as $key => $condition ) {
+			if ( $condition && in_array( $key, $add_to, true ) ) {
+				return $content . self::echo_post_count( 0 );
 			}
 		}
 
-		if ( ( is_single() ) && ! empty( $add_to['single'] ) ) {
-			return $content . self::echo_post_count( 0 );
-		} elseif ( ( is_page() ) && ! empty( $add_to['page'] ) ) {
-			return $content . self::echo_post_count( 0 );
-		} elseif ( ( is_home() ) && ! empty( $add_to['home'] ) ) {
-			return $content . self::echo_post_count( 0 );
-		} elseif ( ( is_category() ) && ! empty( $add_to['category_archives'] ) ) {
-			return $content . self::echo_post_count( 0 );
-		} elseif ( ( is_tag() ) && ! empty( $add_to['tag_archives'] ) ) {
-			return $content . self::echo_post_count( 0 );
-		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ! empty( $add_to['other_archives'] ) ) {
-			return $content . self::echo_post_count( 0 );
-		} else {
-			return $content;
-		}
+		return $content;
 	}
+
 
 	/**
 	 * Filter to display the post count when viewing feeds.
@@ -161,12 +161,15 @@ class Counter {
 	/**
 	 * Return the formatted post count for the supplied ID.
 	 *
-	 * @since   3.3.0
+	 * @since  3.3.0
+	 * @since  4.0.0 Added $args parameter.
+	 *
 	 * @param   int|string|\WP_Post $post       Post ID or WP_Post object.
 	 * @param   int|string          $blog_id    Blog ID.
+	 * @param   array               $args       Additional arguments.
 	 * @return  string  Formatted post count
 	 */
-	public static function get_post_count( $post = 0, $blog_id = 0 ) {
+	public static function get_post_count( $post = 0, $blog_id = 0, $args = array() ) {
 		if ( $post instanceof \WP_Post ) {
 			$id = $post->ID;
 		} else {
@@ -177,8 +180,8 @@ class Counter {
 			return '';
 		}
 
-		$count_disp_form      = stripslashes( \tptn_get_option( 'count_disp_form' ) );
-		$count_disp_form_zero = stripslashes( \tptn_get_option( 'count_disp_form_zero' ) );
+		$count_disp_form      = isset( $args['count_disp_form'] ) ? $args['count_disp_form'] : stripslashes( \tptn_get_option( 'count_disp_form' ) );
+		$count_disp_form_zero = isset( $args['count_disp_form_zero'] ) ? $args['count_disp_form_zero'] : stripslashes( \tptn_get_option( 'count_disp_form_zero' ) );
 		$total_count          = self::get_post_count_only( $id, 'total', $blog_id );
 		$is_singular          = is_singular();
 		$is_zero_total_count  = ( 0 === (int) $total_count );
@@ -223,7 +226,7 @@ class Counter {
 	/**
 	 * Returns the post count.
 	 *
-	 * @since   1.9.8.5
+	 * @since 3.3.0
 	 *
 	 * @param   int|\WP_Post $post    Post ID or WP_Post object.
 	 * @param   string       $counter Which count to return? total, daily or overall.
@@ -242,6 +245,8 @@ class Counter {
 
 		$defaults = array(
 			'format_number' => false,
+			'from_date'     => '',
+			'to_date'       => '',
 		);
 		$args     = wp_parse_args( $args, $defaults );
 
@@ -252,23 +257,49 @@ class Counter {
 			$blog_id = get_current_blog_id();
 		}
 
-		if ( $id > 0 ) {
+		if ( $id > 0 || 'overall' === $counter ) {
 			$resultscount = false;
 			switch ( $counter ) {
 				case 'total':
-					$resultscount = $wpdb->get_row( $wpdb->prepare( "SELECT postnumber, cntaccess as visits FROM {$table_name} WHERE postnumber = %d AND blog_id = %d ", $id, $blog_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$resultscount = $wpdb->get_row( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+						$wpdb->prepare(
+							"SELECT postnumber, cntaccess as visits FROM {$table_name} WHERE postnumber = %d AND blog_id = %d ", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+							$id,
+							$blog_id
+						)
+					);
 					break;
 				case 'daily':
-					$from_date = Helpers::get_from_date();
+					$from_date = ! empty( $args['from_date'] ) ? Helpers::get_from_date( $args['from_date'], 0, 0 ) : Helpers::get_from_date();
+					$to_date   = ! empty( $args['to_date'] ) ? Helpers::get_from_date( $args['to_date'], 0, 0 ) : null;
 
-					$resultscount = $wpdb->get_row( $wpdb->prepare( "SELECT postnumber, SUM(cntaccess) as visits FROM {$table_name_daily} WHERE postnumber = %d AND blog_id = %d AND dp_date >= %s GROUP BY postnumber ", array( $id, $blog_id, $from_date ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$base_query = "SELECT postnumber, SUM(cntaccess) as visits
+						FROM {$table_name_daily}
+						WHERE postnumber = %d
+						AND blog_id = %d
+						AND dp_date >= %s";
+
+					$query_params = array( $id, $blog_id, $from_date );
+
+					if ( $to_date ) {
+						$base_query    .= ' AND dp_date <= %s';
+						$query_params[] = $to_date;
+					}
+
+					$base_query .= ' GROUP BY postnumber';
+
+					$prepared_query = $wpdb->prepare( $base_query, $query_params ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+					$sql = $prepared_query;
+
+					$resultscount = $wpdb->get_row( $prepared_query );  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 					break;
 				case 'overall':
 					$resultscount = $wpdb->get_row( 'SELECT SUM(cntaccess) as visits FROM ' . $table_name ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 					break;
 			}
 
-			$post_count = $resultscount ? $resultscount->visits : 0;
+			$post_count = $resultscount ? absint( $resultscount->visits ) : 0;
 			if ( $args['format_number'] ) {
 				$post_count = number_format_i18n( $post_count );
 			}
@@ -293,7 +324,7 @@ class Counter {
 	/**
 	 * Delete the counts from the selected table.
 	 *
-	 * @since 3.2.0
+	 * @since 3.3.0
 	 *
 	 * @param string|array $args {
 	 *     Optional. Array or string of Query parameters.
@@ -348,7 +379,7 @@ class Counter {
 	/**
 	 * Delete post count.
 	 *
-	 * @since 2.9.0
+	 * @since 3.3.0
 	 *
 	 * @param int  $post_id Post ID.
 	 * @param int  $blog_id Blog ID.
@@ -380,7 +411,7 @@ class Counter {
 	/**
 	 * Function to update the Top 10 count with ajax.
 	 *
-	 * @since 2.9.0
+	 * @since 3.3.0
 	 */
 	public static function edit_count_ajax() {
 		// Security check.
@@ -413,7 +444,7 @@ class Counter {
 	/**
 	 * Function to edit the count.
 	 *
-	 * @since 2.9.0
+	 * @since 3.3.0
 	 *
 	 * @param int $post_id Post ID.
 	 * @param int $blog_id Blog ID.

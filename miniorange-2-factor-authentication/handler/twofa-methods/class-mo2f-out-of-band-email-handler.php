@@ -262,7 +262,8 @@ if ( ! class_exists( 'Mo2f_OUTOFBANDEMAIL_Handler' ) ) {
 			$login_popup        = new Mo2f_Login_Popup();
 			$common_helper      = new Mo2f_Common_Helper();
 			$skeleton_values    = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, null, null, $user_id, 'test_2fa', '' );
-			$html               = $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, '', '', $skeleton_values, $this->mo2f_current_method, 'test_2fa' );
+			$html               = $login_popup->mo2f_get_twofa_skeleton_html( $mo2fa_login_status, $mo2fa_login_message, '', '', $skeleton_values, $this->mo2f_current_method, 'test_2fa' );
+			$html              .= $login_popup->mo2f_get_validation_popup_script( 'test_2fa', $this->mo2f_current_method, '', '' );
 			$html              .= $mo2f_onprem_cloud_obj->mo2f_oobe_get_dashboard_script( $request_type, $response['txId'] );
 			$html              .= '<script>emailVerificationPoll()</script>';
 			$html              .= $common_helper->mo2f_get_dashboard_hidden_forms();
@@ -282,20 +283,10 @@ if ( ! class_exists( 'Mo2f_OUTOFBANDEMAIL_Handler' ) ) {
 		 */
 		public function mo2f_show_login_prompt( $mo2fa_login_message, $mo2fa_login_status, $current_user, $redirect_to, $session_id_encrypt, $transaction_id = '' ) {
 			global $mo2f_onprem_cloud_obj;
-			$login_popup   = new Mo2f_Login_Popup();
-			$common_helper = new Mo2f_Common_Helper();
-			$html          = '<head>
-				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<meta name="viewport" content="width=device-width, initial-scale=1">
-			';
-			echo_js_css_files();
-			$html           .= '</head>';
-			$html           .= '<div class="mo2f_modal" tabindex="-1" role="dialog">
-			<div class="mo2f-modal-backdrop"></div>
-			<div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">';
+			$login_popup     = new Mo2f_Login_Popup();
+			$common_helper   = new Mo2f_Common_Helper();
 			$skeleton_values = $login_popup->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, null, null, $current_user->ID, 'login_2fa', '' );
-			$html           .= $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $this->mo2f_current_method );
-			$html           .= ' </div></div > ';
+			$html            = $login_popup->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $this->mo2f_current_method );
 			$html           .= $common_helper->mo2f_get_hidden_forms_login( $redirect_to, $session_id_encrypt, $mo2fa_login_status, $mo2fa_login_message, $this->mo2f_current_method, $current_user->ID );
 			if ( MoWpnsConstants::MO2F_ERROR_MESSAGE_PROMPT !== $mo2fa_login_status ) {
 				$html .= $mo2f_onprem_cloud_obj->mo2f_oobe_get_login_script( 'direct_login', $transaction_id );

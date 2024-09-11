@@ -3,7 +3,7 @@
  * Plugin Name: Simple Social Buttons
  * Plugin URI: https://simplesocialbuttons.com/?utm_source=simple-social-buttons-lite&utm_medium=plugin-url-link
  * Description: Simple Social Buttons adds an advanced set of social media sharing buttons to your WordPress sites, such as: Facebook, Twitter, WhatsApp, Viber, Reddit, LinkedIn and Pinterest. This makes it the most <code>Flexible Social Sharing Plugin ever for Everyone.</code>
- * Version: 5.3.1
+ * Version: 5.3.2
  * Author: WPBrigade
  * Author URI: https://www.WPBrigade.com/?utm_source=simple-social-buttons-lite&utm_medium=author-url-link
  * Text Domain: simple-social-buttons
@@ -253,7 +253,120 @@ class SimpleSocialButtonsPR {
 		add_action( 'init', array( $this, 'ssb_register_block' ) );
 
         add_action( 'wp_wpb_sdk_after_uninstall', array( $this, 'plugin_uninstall' ) );
+
+
+        add_action( 'admin_menu',             array( $this, 'register_options_page' ) );
+        add_action( 'admin_init',             array( $this, 'redirect_optin' ) );
+        add_action( 'admin_footer',           array( $this, 'add_deactivate_modal' ) );
+        add_action( 'wp_ajax_ssb_optout_yes', array( $this, 'optout_yes' ) );
 	}
+
+    function optout_yes() {
+
+        check_ajax_referer( 'ssb-optout-nonce', 'security' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( 'No cheating, huh!' );
+        }
+
+        // Get the current option and decode it as an associative array
+        $sdk_data = json_decode(get_option('wpb_sdk_simple-social-buttons'), true);
+
+        // If there is no current option, initialize an empty array
+        if (!$sdk_data) {
+            $sdk_data = array();
+        }
+
+        $setting_name = $_POST['setting_name'];  // e.g., communication, diagnostic_info, extensions
+        $setting_value = $_POST['setting_value'];  // The new value to be updated
+
+        // Update the specific setting in the array
+        $sdk_data[$setting_name] = $setting_value;
+
+        // Encode the array back into a JSON string and update the option
+        update_option('wpb_sdk_simple-social-buttons', json_encode($sdk_data));
+
+        wp_die();
+    }
+
+    /**
+     * Add deactivate modal layout.
+     */
+    function add_deactivate_modal() {
+        global $pagenow;
+
+        if ( 'plugins.php' !== $pagenow ) {
+            return;
+        }
+
+        include SSB_PLUGIN_DIR . 'inc/ssb-optout-form.php';
+    }
+
+    /**
+     * Add new page in Appearance to customize Opt In Page.
+     */
+    public function register_options_page() {
+
+        add_submenu_page( 'SSB', __( 'Activate', 'ssb' ), __( 'Activate', 'ssb' ), 'manage_options', 'ssb-optin', array( $this, 'render_optin' )  );
+    }
+
+    /**
+     * Show Opt-in Page.
+     */
+    function render_optin() {
+        include SSB_PLUGIN_DIR . 'inc/ssb-optin-form.php';
+    }
+
+
+    function redirect_optin() {
+
+        /**
+         * Fix the Broken Access Control (BAC) security fix.
+         *
+         * @since 1.6.3
+         */
+        if ( current_user_can( 'manage_options' ) ) {
+            if ( isset( $_POST['ssb-submit-optout'] ) ) {
+                if ( ! wp_verify_nonce( sanitize_text_field( $_POST['ssb_submit_optin_nonce'] ), 'ssb_submit_optin_nonce' ) ) {
+                    return;
+                }
+                update_option( '_ssb_optin', 'no' );
+                // Retrieve WPB SDK existing option and set user_skip
+                $sdk_data = json_decode(get_option('wpb_sdk_simple-social-buttons'), true);
+                $sdk_data['user_skip'] = '1';
+                $sdk_data_json = json_encode($sdk_data);
+                update_option('wpb_sdk_simple-social-buttons', $sdk_data_json);
+            } elseif ( isset( $_POST['ssb-submit-optin'] ) ) {
+                if ( ! wp_verify_nonce( sanitize_text_field( $_POST['ssb_submit_optin_nonce'] ), 'ssb_submit_optin_nonce' ) ) {
+                    return;
+                }
+                update_option( '_ssb_optin', 'yes' );
+                //WPB SDK OPT IN OPTIONS
+                $sdk_data = array(
+                    'communication'   => '1',
+                    'diagnostic_info' => '1',
+                    'extensions'      => '1',
+                    'user_skip'      => '0',
+                );
+                $sdk_data_json = json_encode($sdk_data);
+                update_option('wpb_sdk_simple-social-buttons', $sdk_data_json);
+            } elseif ( ! get_option( '_ssb_optin' ) && isset( $_GET['page'] ) && ( $_GET['page'] === 'simple-social-buttons' || $_GET['page'] === 'ssb' || $_GET['page'] === 'abw' ) ) {
+
+                /**
+                 * XSS Attack vector found and fixed.
+                 *
+                 * @since 1.5.11
+                 */
+                $page_redirect = $_GET['page'] === 'ssb'  ? 'ssb' : 'simple-social-buttons';
+                wp_redirect( admin_url('admin.php?page=ssb-optin&redirect-page=' . $page_redirect) );
+                exit;
+
+            } elseif ( get_option( '_ssb_optin' ) && ( get_option( '_ssb_optin' ) == 'yes' ) && isset( $_GET['page'] ) && $_GET['page'] === 'ssb-optin' ) {
+                wp_redirect( admin_url( 'admin.php?page=simple-social-buttons' ) );
+                exit;
+            }
+        }
+    }
 
 	/**
 	 * Setter function to set user selected networks.
@@ -510,9 +623,9 @@ class SimpleSocialButtonsPR {
 		 * @See https://twitcount.com/ library for get twitter counts.
 		 *
 		 * @since 2.0.21
-		 * @since 5.0.1
+		 * @version 5.3.2
 		 */
-		if ( ( $this->inline_option['share_counts'] === 1 || $this->sidebar_option['share_counts'] === 1 ) && isset( $this->selected_networks['twitter'] ) ) {
+		if ( ( isset( $this->inline_option['share_counts'] ) && $this->inline_option['share_counts'] === 1 ) || ( isset( $this->sidebar_option['share_counts'] ) && $this->sidebar_option['share_counts'] === 1 ) && isset( $this->selected_networks['twitter'] ) )  { 
 			echo "<script type='text/javascript'>function initTwitCount(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://static1.twitcount.com/js/twitcount.js';fjs.parentNode.insertBefore(js,fjs)}}
 				var ssb_twit_count_init=!1;addEventListener('mouseover',function(event){if(!ssb_twit_count_init){initTwitCount(document,'script','twitcount_plugins')
 				ssb_twit_count_init=!0}})</script>";
@@ -874,8 +987,8 @@ class SimpleSocialButtonsPR {
 
 		// define empty buttons code to use.
 		$ssb_buttonscode = '';
-		$post_id  	= (int) get_the_id();
-		$theme    	= isset( $extra_data['theme'] ) ? $extra_data['theme'] : $this->selected_theme;
+		$post_id         = get_the_ID() ?: get_queried_object_id();
+		$theme    	     = isset( $extra_data['theme'] ) ? $extra_data['theme'] : $this->selected_theme;
 
 		/**
 		* 'ssb_get_share_post' can be used to change the post that is shared.
@@ -1021,6 +1134,13 @@ class SimpleSocialButtonsPR {
 
 		foreach ( $arrButtons as $button_name => $button_sort ) {
 
+			/**
+			 * Fix the duplication of buttons by resetting the variable.
+			 *
+			 * @since 5.3.2
+			 */
+			$_html = '';
+
 			switch ( $button_name ) {
 
 				case 'fbshare':
@@ -1059,9 +1179,9 @@ class SimpleSocialButtonsPR {
 						<span class="icon"><svg viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.9 0H0L5.782 7.7098L0.315 14H2.17L6.6416 8.8557L10.5 14H15.4L9.3744 5.9654L14.56 0H12.705L8.5148 4.8202L4.9 0ZM11.2 12.6L2.8 1.4H4.2L12.6 12.6H11.2Z" fill="#fff"/></svg></span>';
 
 						if ( $show_count ) {
-							$_html .= '<i class="simplesocialtxt">Tweet ' . ssb_count_format( $twitter_share ) . '</i>';
+							$_html .= '<i class="simplesocialtxt">Post ' . ssb_count_format( $twitter_share ) . '</i>';
 						} else {
-							$_html .= '<i class="simplesocialtxt">Tweet </i>';
+							$_html .= '<i class="simplesocialtxt">Post </i>';
 
 						}
 
@@ -1468,7 +1588,7 @@ class SimpleSocialButtonsPR {
 		</style>
 		<div class="ssb-update-notice">
 			<div class="ssb-update-thumbnail">
-				<img src="<?php echo plugins_url( 'assets/images/ssb_icon.png', __FILE__ ); ?>" alt="">
+				<img src="<?php echo plugins_url( 'assets/images/social_button.svg', __FILE__ ); ?>" alt="">
 			</div>
 			<div class="ssb-update-text">
 				<h3><?php _e( 'Simple Social Buttons 2.0 (Relaunched)', 'simple-social-buttons' ); ?></h3>
@@ -1986,15 +2106,40 @@ class SimpleSocialButtonsPR {
 	 */
 	public function filter_plugin_action_links( $actions_links ) {
 
-			$settings_link = '<a href="' . admin_url( 'admin.php?page=simple-social-buttons' ) . '">' . __( 'Settings', 'simple-social-buttons' ) . '</a>';
-			array_unshift( $actions_links, $settings_link );
+        // Retrieve WPB SDK Opt Out options
+        $sdk_data = json_decode(get_option('wpb_sdk_simple-social-buttons'), true);
 
-		if ( ! class_exists( 'Simple_Social_Buttons_Pro' ) ) {
+        // Initialize the options or set defaults if not found
+        $communication   = isset($sdk_data['communication']) ? $sdk_data['communication'] : '0';
+        $diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : '0';
+        $extensions      = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : '0';
 
-			$pro_link = sprintf( esc_html__( '%1$s %3$s Upgrade Pro %4$s %2$s', 'simple-social-buttons' ), '<a href="https://wpbrigade.com/wordpress/plugins/simple-social-buttons/" target="_blank">', '</a>', '<span class="simple-social-buttons-pro-link">', '</span>' );
-			array_push( $actions_links, $pro_link );
-		}
-					return $actions_links;
+        $settings_link = "";
+        // Check if any option is set to '1' and build the settings link
+        if ( '1' == $communication || '1' == $diagnostic_info || '1' == $extensions ) {
+            $settings_link .= sprintf( esc_html__( ' %1$s Opt Out %2$s ', 'simple-social-buttons'), '<a class="opt-out" href="' . admin_url( 'admin.php?page=simple-social-buttons' ) . '">', '</a>' );
+        } else {
+            if('yes' == get_option( '_ssb_optin' )) {
+                update_option('_ssb_optin', 'no');
+            }
+            $settings_link .= sprintf( esc_html__( ' %1$s Opt In %2$s ', 'simple-social-buttons'), '<a href="' . admin_url( 'admin.php?page=ssb-optin&redirect-page=' .'simple-social-buttons' ) . '">', '</a>' );
+        }
+
+
+        array_unshift( $actions_links, $settings_link );
+
+
+        $settings_link = '<a href="' . admin_url( 'admin.php?page=simple-social-buttons' ) . '">' . __( 'Settings', 'simple-social-buttons' ) . '</a>';
+        array_unshift( $actions_links, $settings_link );
+
+        if ( ! class_exists( 'Simple_Social_Buttons_Pro' ) ) {
+
+            $pro_link = sprintf( esc_html__( '%1$s %3$s Upgrade Pro %4$s %2$s', 'simple-social-buttons' ), '<a href="https://wpbrigade.com/wordpress/plugins/simple-social-buttons/" target="_blank">', '</a>', '<span class="simple-social-buttons-pro-link">', '</span>' );
+            array_push( $actions_links, $pro_link );
+        }
+
+
+        return $actions_links;
 	}
 
 	/**

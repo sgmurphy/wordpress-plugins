@@ -15,16 +15,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lpAddQueryArgs: () => (/* binding */ lpAddQueryArgs),
 /* harmony export */   lpAjaxParseJsonOld: () => (/* binding */ lpAjaxParseJsonOld),
 /* harmony export */   lpFetchAPI: () => (/* binding */ lpFetchAPI),
-/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam)
+/* harmony export */   lpGetCurrentURLNoParam: () => (/* binding */ lpGetCurrentURLNoParam),
+/* harmony export */   lpOnElementReady: () => (/* binding */ lpOnElementReady)
 /* harmony export */ });
 /**
- * Fetch API.
+ * Utils functions
  *
  * @param url
  * @param data
  * @param functions
  * @since 4.2.5.1
- * @version 1.0.1
+ * @version 1.0.2
  */
 const lpFetchAPI = (url, data = {}, functions = {}) => {
   if ('function' === typeof functions.before) {
@@ -110,6 +111,32 @@ const listenElementCreated = callback => {
     subtree: true
   });
   // End.
+};
+
+/**
+ * Listen element created.
+ *
+ * @param selector
+ * @param callback
+ * @since 4.2.7.1
+ */
+const lpOnElementReady = (selector, callback) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    callback(element);
+    return;
+  }
+  const observer = new MutationObserver((mutations, obs) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      obs.disconnect();
+      callback(element);
+    }
+  });
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
 };
 
 // Parse JSON from string with content include LP_AJAX_START.

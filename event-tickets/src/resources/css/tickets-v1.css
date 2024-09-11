@@ -610,8 +610,8 @@
 			line-height: var(--tec-line-height-3);
 			font-weight: var(--tec-font-weight-regular);
 			background: transparent;
-			border-radius: 0;
 			border: 0;
+			border-radius: 0;
 			color: inherit;
 			cursor: pointer;
 			display: inline-block;
@@ -1199,8 +1199,8 @@
 		font-weight: var(--tec-font-weight-regular);
 		font-weight: var(--tec-font-weight-bold);
 		background: transparent;
-		border-radius: 0;
 		border: 0;
+		border-radius: 0;
 		color: inherit;
 		cursor: pointer;
 		display: inline-block;

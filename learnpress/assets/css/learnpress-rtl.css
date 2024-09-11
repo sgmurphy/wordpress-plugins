@@ -1844,61 +1844,6 @@ body .entry-content.has-global-padding {
 .lp-user-profile ul.learn-press-courses .course {
   margin: 0 0 40px 0;
 }
-.lp-user-profile #profile-content-wishlist .tab-course-wishlist-wraper .learn-press-wishlist-courses {
-  display: flex;
-  grid-gap: 16px;
-  flex-wrap: wrap;
-  margin-right: 0;
-}
-.lp-user-profile #profile-content-wishlist .tab-course-wishlist-wraper .learn-press-wishlist-courses li {
-  margin-bottom: 32px;
-  width: calc((100% - 32px) / 3);
-}
-@media (max-width: 768px) {
-  .lp-user-profile #profile-content-wishlist .tab-course-wishlist-wraper .learn-press-wishlist-courses li {
-    width: calc((100% - 16px) / 2);
-  }
-}
-@media (max-width: 425px) {
-  .lp-user-profile #profile-content-wishlist .tab-course-wishlist-wraper .learn-press-wishlist-courses li {
-    width: 100%;
-  }
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  grid-gap: 16px;
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses li {
-  margin-bottom: 32px;
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses li .course-title {
-  display: block;
-  overflow: hidden;
-  text-decoration: none;
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses li .course-title img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  display: block;
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses li .course-title h3 {
-  font-weight: 600;
-  color: #333;
-  padding: 16px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses li .course-title:hover h3 {
-  color: var(--lp-primary-color);
-}
-.lp-user-profile #profile-content-wishlist .learn-press-wishlist-courses li .lp-btn-wishlist {
-  margin: 0 auto;
-}
 .lp-user-profile .profile-orders .profile-heading {
   display: none;
 }
@@ -3921,7 +3866,7 @@ button[data-counter]::after {
   gap: 8px;
   min-height: 38px;
   color: #333;
-  font-weight: 700;
+  font-weight: 500;
   text-align: center;
 }
 .quiz-status .countdown .fas {
@@ -5487,7 +5432,7 @@ body.confirm #popup_container.ready {
   line-height: 1;
 }
 .lp-courses-bar .switch-layout .switch-btn.grid::before {
-  content: "\f00a";
+  content: "\f009";
 }
 .lp-courses-bar .switch-layout .switch-btn.list {
   margin-right: 3px;

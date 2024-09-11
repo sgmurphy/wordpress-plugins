@@ -43,6 +43,7 @@ class Quiz_Maker_Quiz_All_Results
 
 
     protected $settings;
+    protected $default_texts;
 
     /**
      * Initialize the class and set its properties.
@@ -236,8 +237,10 @@ class Quiz_Maker_Quiz_All_Results
     public function ays_generate_quiz_all_results_method( $attr ) {
         $id = (isset($attr['id']) && $attr['id'] != '') ? absint(intval($attr['id'])) : null;
 
+        $this->default_texts = Quiz_Maker_Public::ays_set_quiz_default_texts( $this->plugin_name, array() );
+
         if (is_null($id)) {
-            $quiz_all_results_html = "<p class='wrong_shortcode_text' style='color:red;'>" . __('Wrong shortcode initialized', $this->plugin_name) . "</p>";
+            $quiz_all_results_html = "<p class='wrong_shortcode_text' style='color:red;'>" . $this->default_texts['wrongShortcode'] . "</p>";
             return str_replace(array("\r\n", "\n", "\r"), '', $quiz_all_results_html);
         }
 

@@ -46,6 +46,8 @@ class Quiz_Maker_Quiz_Category
     private $unique_id;
     private $unique_id_in_class;
 
+    protected $default_texts;
+
     /**
      * Initialize the class and set its properties.
      *
@@ -69,8 +71,10 @@ class Quiz_Maker_Quiz_Category
 
         $id = (isset($attr['id'])) ? absint(intval($attr['id'])) : null;
 
+        $this->default_texts = Quiz_Maker_Public::ays_set_quiz_default_texts( $this->plugin_name, array() );
+
         if (is_null($id)) {
-            $display_questions_html = "<p class='wrong_shortcode_text' style='color:red;'>" . __('Wrong shortcode initialized', $this->plugin_name) . "</p>";
+            $display_questions_html = "<p class='wrong_shortcode_text' style='color:red;'>" . $this->default_texts['wrongShortcode'] . "</p>";
             return str_replace(array("\r\n", "\n", "\r"), '', $display_questions_html);
         }
 
@@ -81,7 +85,7 @@ class Quiz_Maker_Quiz_Category
         $category = Quiz_Maker_Public::get_quiz_category_by_id($id);
 
         if (isset($category['published']) && $category['published'] == 0) {
-            $display_questions_html = "<p class='wrong_shortcode_text' style='color:red;'>" . __('Wrong shortcode initialized', $this->plugin_name) . "</p>";
+            $display_questions_html = "<p class='wrong_shortcode_text' style='color:red;'>" . $this->default_texts['wrongShortcode'] . "</p>";
             return str_replace(array("\r\n", "\n", "\r"), '', $display_questions_html);
         }
 

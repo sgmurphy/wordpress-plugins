@@ -10,21 +10,20 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Testimonial Slider and Showcase WordPress plugin is most customizable and user friendly testimonial plugin to manage your customers testimonial.
 
-Testimonial Slider and Showcase plugin for WordPress websites. The Testimonial Slider plugin is highly customizable and developer-friendly, making it easy to manage your customer testimonials.
-
 == Description ==
 
-[Testimonial](https://www.radiustheme.com/downloads/wp-testimonial-slider-showcase-pro-wordpress/) Testimonial Slider and Showcase plugin for WordPress website. It is a developer and user-friendly testimonial plugin that facilitates easy management of customer testimonials. Since it is fully responsive, it ensures that your testimonials appear in beautiful layouts on all devices.
+[Testimonial](https://www.radiustheme.com/downloads/wp-testimonial-slider-showcase-pro-wordpress/) Slider and Showcase plugin for WordPress website. It is a developer and user-friendly testimonial plugin that facilitates easy management of customer testimonials. Since it is fully responsive, it ensures that your testimonials appear in beautiful layouts on all devices.
 
 👉 [ShortCode Demo](https://www.radiustheme.com/demo/plugins/testimonial-slider/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/testimonial-slider/elementor-grid-layout-1/) | [Documentation](https://www.radiustheme.com/docs/testimonial-slider/getting-started/installation/) | [Get Pro](https://www.radiustheme.com/downloads/wp-testimonial-slider-showcase-pro-wordpress/) 👈
 
-This testimonial slider plugin is full customizable and allows you to generate shortcodes easily. You can use the shortcodes onto any post or page on which you need to showcase testimonials in slider or grid view. It offers many variations of the grid and slider layouts.
+This testimonials slider plugin is full customizable and allows you to generate shortcodes easily. You can use the shortcodes onto any post or page on which you need to showcase testimonials in slider or grid view. It offers many variations of the grid and slider layouts.
 
 You also get to customize the testimonials fields, style, color, and general appearance. With this WordPress testimonial plugin, you can control whether the profile images on the testimonials you display are square or rounded. The Testimonial Slider and Showcase Pro allow you to customize the image size. It also lets you order testimonials by date, title, or id.
 
+"Testimonial Slider & Showcase Elementor Addon is a versatile and user-friendly tool for creating customizable testimonial sliders and showcases in Elementor. This addon allows you to display customer reviews, feedback, and testimonials in an attractive showcase or slider format, offering a visually engaging way to highlight your social proof." 
+
 [youtube https://www.youtube.com/watch?v=g7x9k15SMLM]
 
-Here are the features that make this testimonial slider plugin so endearing:
 
 == 🏆 Features of The Testimonial Slider and Showcase ==
 You can make money from posting ads where users pay for each ad or for ad promotions, such as
@@ -148,11 +147,13 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 
 * [The Post Grid](https://wordpress.org/plugins/the-post-grid/) – Shortcode, Gutenberg Blocks and Elementor Addon for Post Grid.
 
+* [Classified Lisitng](https://wordpress.org/plugins/classified-listing/) – Best Classified ads and Directory WordPress Plugin.
+
+* [ShopBuilder](https://wordpress.org/plugins/shopbuilder/) - Elementor WooCommerce Builder Addons with 84+ widgets and 10+ modules.
+
 * [Variation Swatches](https://wordpress.org/plugins/woo-product-variation-swatches/) - Woocommerce Variation Swatches plugin converts the product variation select fields into radio, images, colors, and labels.
 
 * [Variation Gallery](https://wordpress.org/plugins/woo-product-variation-gallery/) - Woocommerce Variation Gallery plugin allows to add UNLIMITED additional images for each variation of product.
-
-* [ShopBuilder](https://wordpress.org/plugins/shopbuilder/) - Elementor WooCommerce Builder Addons with 84+ widgets and 10+ modules.
 
 * [Food Menu](https://wordpress.org/plugins/tlp-food-menu/) – Restaurant Menu & Online Ordering using WooCommerce.
 

@@ -298,6 +298,106 @@ if ( ! class_exists( 'Mo2f_Login_Popup' ) ) {
 		 * @param string $twofa_flow Twofa flow.
 		 */
 		public function mo2f_twofa_authentication_login_prompt( $login_status, $login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $twofa_method, $twofa_flow = 'login_2fa' ) {
+			echo '
+			<html>
+			<head>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			';
+			$common_helper = new Mo2f_Common_Helper();
+			$common_helper->mo2f_echo_js_css_files();
+			echo '
+			</head>
+			<body>
+			<div class="mo2f_modal" tabindex="-1" role="dialog">
+			<div class="mo2f-modal-backdrop"></div> <div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">';
+			$html  = $this->mo2f_get_twofa_skeleton_html( $login_status, $login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $twofa_method, $twofa_flow );
+			$html .= '</div></div></body></html>';
+			$html .= $this->mo2f_get_validation_popup_script( $twofa_flow, $twofa_method, $redirect_to, $session_id_encrypt );
+			return $html;
+		}
+
+		/**
+		 * Gets 2fa validation popup script.
+		 *
+		 * @param string $twofa_flow Twofa flow.
+		 * @param string $twofa_method Twofa method.
+		 * @param string $redirect_to Redirection url.
+		 * @param string $session_id_encrypt Session id.
+		 * @return mixed
+		 */
+		public function mo2f_get_validation_popup_script( $twofa_flow, $twofa_method, $redirect_to, $session_id_encrypt ) {
+			if ( 'login_2fa' === $twofa_flow ) {
+				$resend_script = 'prompt_2fa_popup_login( twofa_method );';
+			} else {
+				$resend_script = 'prompt_2fa_popup_dashboard( twofa_method, "test" );';
+			}
+			$html  = '<script>
+			var twofa_method = "' . esc_attr( $twofa_method ) . '";
+			jQuery("a[href=\'#resend\']").click(function() {
+				' . $resend_script . '
+			});
+			function mologinback(){
+				jQuery("#mo2f_backto_mo_loginform").submit();
+				jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
+				closeVerification = true;
+			}';
+			$html .= 'jQuery("input[name=mo2fa_softtoken]").keypress(function(e) {
+				if (e.which === 13) {
+					e.preventDefault();
+					jQuery("#mo2f_validate").click();
+					jQuery("input[name=otp_token]").focus();
+				}
+
+			});';
+			$html .= "function prompt_2fa_popup_login(methodName) {
+				var data = {
+					'action'                    : 'mo_two_factor_ajax',
+					'mo_2f_two_factor_ajax'     : 'mo2f_resend_otp_login',
+					'nonce'                     : '" . esc_js( wp_create_nonce( 'mo-two-factor-ajax-nonce' ) ) . "',
+					'auth_method'               : methodName,
+					'redirect_to'               : '" . esc_js( $redirect_to ) . "',
+					'session_id'                : '" . esc_js( $session_id_encrypt ) . "',
+				};
+				var ajaxurl = '" . esc_js( admin_url( 'admin-ajax.php' ) ) . "';
+				jQuery.ajax({
+					url: ajaxurl,
+					method: 'POST',
+					data: data,
+					dataType: 'json',
+					success: function(response) {
+						if (response.success) {
+							mo2f_show_message(response.data);
+						} else {
+							mo2f_show_message('Unknown error occured. Please try again.');
+						}
+					},
+					error: function (o, e, n) {
+						console.log('error' + n);
+					},
+				});
+			}";
+			$html .= "function mo2f_show_message(response) {
+				var html = '<div id=\"otpMessage\"><p class=\"mo2fa_display_message_frontend\">' + response + '</p></div>';
+				jQuery('#otpMessage').empty();
+				jQuery('#otpMessaghide').after(html);
+			}</script>";
+			return $html;
+		}
+
+
+		/**
+		 * Shows two factor authentication skeleton values.
+		 *
+		 * @param string $login_status Login status.
+		 * @param string $login_message Login message.
+		 * @param string $redirect_to Redirection url.
+		 * @param string $session_id_encrypt Session Id.
+		 * @param array  $skeleton_values Skeleton values.
+		 * @param string $twofa_method Twofa method.
+		 * @param string $twofa_flow Twofa flow.
+		 */
+		public function mo2f_get_twofa_skeleton_html( $login_status, $login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $twofa_method, $twofa_flow ) {
 			$html                          = '<div class="mo2f_setup_popup_dashboard">';
 			$html                         .= '<div class="login mo_customer_validation-modal-content">
 			<div class="mo2f_modal-header">
@@ -559,56 +659,6 @@ if ( ! class_exists( 'Mo2f_Login_Popup' ) ) {
 				</div>
                
 			</div>';
-			$html         .= '<script>
-			var twofa_method = "' . esc_attr( $twofa_method ) . '";
-			jQuery("a[href=\'#resend\']").click(function() {
-				' . $resend_script . '
-			});
-			function mologinback(){
-				jQuery("#mo2f_backto_mo_loginform").submit();
-				jQuery("#mo2f_2fa_popup_dashboard").fadeOut();
-				closeVerification = true;
-			}';
-			$html         .= 'jQuery("input[name=mo2fa_softtoken]").keypress(function(e) {
-				if (e.which === 13) {
-					e.preventDefault();
-					jQuery("#mo2f_validate").click();
-					jQuery("input[name=otp_token]").focus();
-				}
-
-			});';
-			$html         .= "function prompt_2fa_popup_login(methodName) {
-				var data = {
-					'action'                    : 'mo_two_factor_ajax',
-					'mo_2f_two_factor_ajax'     : 'mo2f_resend_otp_login',
-					'nonce'                     : '" . esc_js( wp_create_nonce( 'mo-two-factor-ajax-nonce' ) ) . "',
-					'auth_method'               : methodName,
-					'redirect_to'               : '" . esc_js( $redirect_to ) . "',
-					'session_id'                : '" . esc_js( $session_id_encrypt ) . "',
-				};
-				var ajaxurl = '" . esc_js( admin_url( 'admin-ajax.php' ) ) . "';
-				jQuery.ajax({
-					url: ajaxurl,
-					method: 'POST',
-					data: data,
-					dataType: 'json',
-					success: function(response) {
-						if (response.success) {
-							mo2f_show_message(response.data);
-						} else {
-							mo2f_show_message('Unknown error occured. Please try again.');
-						}
-					},
-					error: function (o, e, n) {
-						console.log('error' + n);
-					},
-				});
-			}";
-			$html         .= "function mo2f_show_message(response) {
-				var html = '<div id=\"otpMessage\"><p class=\"mo2fa_display_message_frontend\">' + response + '</p></div>';
-				jQuery('#otpMessage').empty();
-				jQuery('#otpMessaghide').after(html);
-			}</script>";
 			return $html;
 		}
 
@@ -759,19 +809,9 @@ if ( ! class_exists( 'Mo2f_Login_Popup' ) ) {
 		 * @return void
 		 */
 		public function mo2f_show_login_prompt_for_otp_based_methods( $mo2fa_login_message, $mo2fa_login_status, $current_user, $redirect_to, $session_id_encrypt, $twofa_method, $kba_questions = null ) {
-			$common_helper = new Mo2f_Common_Helper();
-			$html          = '<head>
-				<meta http-equiv="X-UA-Compatible" content="IE=edge">
-				<meta name="viewport" content="width=device-width, initial-scale=1">
-			';
-			echo_js_css_files();
-			$html           .= '</head>';
-			$html           .= '<div class="mo2f_modal" tabindex="-1" role="dialog">
-			<div class="mo2f-modal-backdrop"></div>
-			<div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">';
+			$common_helper   = new Mo2f_Common_Helper();
 			$skeleton_values = $this->mo2f_twofa_login_prompt_skeleton_values( $mo2fa_login_message, $mo2fa_login_status, isset( $kba_questions[0] ) ? $kba_questions[0] : null, isset( $kba_questions[1] ) ? $kba_questions[1] : null, $current_user->ID, 'login_2fa', '' );
-			$html           .= $this->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $twofa_method );
-			$html           .= '</div></div>';
+			$html            = $this->mo2f_twofa_authentication_login_prompt( $mo2fa_login_status, $mo2fa_login_message, $redirect_to, $session_id_encrypt, $skeleton_values, $twofa_method );
 			$html           .= $common_helper->mo2f_get_hidden_forms_login( $redirect_to, $session_id_encrypt, $mo2fa_login_status, $mo2fa_login_message, $twofa_method, $current_user->ID );
 			$html           .= $common_helper->mo2f_get_login_script( $twofa_method );
 			$html           .= $common_helper->mo2f_get_hidden_script_login();

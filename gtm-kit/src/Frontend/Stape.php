@@ -26,7 +26,7 @@ final class Stape {
 	 *
 	 * @var Options
 	 */
-	protected $options;
+	protected Options $options;
 
 	/**
 	 * Constructor.
@@ -68,7 +68,7 @@ final class Stape {
 		$this->set_cookie(
 			array(
 				'name'    => self::COOKIE_KEEPER_NAME,
-				'value'   => md5( wp_rand( PHP_INT_MIN, PHP_INT_MAX ) . '|' . filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_DEFAULT ) . '|' . time() ),
+				'value'   => md5( wp_rand( PHP_INT_MIN, PHP_INT_MAX ) . '|' . filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_SPECIAL_CHARS ) . '|' . time() ),
 				'expires' => time() + ( YEAR_IN_SECONDS * 2 ),
 			)
 		);
@@ -94,7 +94,7 @@ final class Stape {
 	/**
 	 * Set cookie.
 	 *
-	 * @param  array $args Parameters.
+	 * @param  array<string, mixed> $args Parameters.
 	 * @return void
 	 */
 	private function set_cookie( array $args ): void {

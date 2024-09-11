@@ -55,7 +55,7 @@ class Statistics {
 	public function admin_enqueue_scripts( $hook ) {
 		if ( $hook === $this->parent_id ) {
 			wp_enqueue_script( 'top-ten-admin-js' );
-			wp_enqueue_style( 'tptn-admin-ui-css', );
+			wp_enqueue_style( 'top-ten-admin-css' );
 		}
 	}
 
@@ -110,6 +110,7 @@ class Statistics {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Top 10 Popular Posts', 'top-10' ); ?></h1>
+			<?php do_action( 'tptn_settings_page_header' ); ?>
 
 			<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">

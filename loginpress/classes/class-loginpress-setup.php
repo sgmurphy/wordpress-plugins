@@ -317,7 +317,7 @@ if ( ! class_exists( 'LoginPress_Settings' ) ):
 				array(
 					'name'  => 'enable_reg_pass_field',
 					'label' => __( 'Custom Password Fields', 'loginpress' ),
-					'desc'  => sprintf( __( 'Enable to add %1$sCustom Password Fields%2$s to the Registration Form.', 'loginpress' ), '<a href="' . esc_url( 'https://loginpress.pro/doc/enable-the-auto-remember-me-checkbox?utm_source=loginpress-lite&utm_medium=settings&utm_campaign=user-guide&utm_content=Custom+Password+Fields+Documentation' ) . '" target="_blank">', '</a>' ),
+					'desc'  => sprintf( __( 'Enable to add %1$sCustom Password Fields%2$s to the Registration Form.', 'loginpress' ), '<a href="' . esc_url( 'https://loginpress.pro/doc/custom-password-fields-on-the-registration-form/?utm_source=loginpress-lite&utm_medium=settings&utm_campaign=user-guide&utm_content=Custom+Password+Fields+Documentation' ) . '" target="_blank">', '</a>' ),
 					'type'  => 'checkbox'
 				),
 				array(
@@ -335,7 +335,7 @@ if ( ! class_exists( 'LoginPress_Settings' ) ):
 				array(
 					'name'  => 'enable_pci_compliance',
 					'label' => __( 'Enable PCI Compliance', 'loginpress' ),
-					'desc'  => sprintf( __( 'Enable to add %1$sPCI Compliance%2$s to WordPress Login Forms.', 'loginpress' ), '<a href="' . esc_url( 'https://loginpress.pro/doc/enable-the-auto-remember-me-checkbox?utm_source=loginpress-lite&utm_medium=settings&utm_campaign=user-guide&utm_content=PCI+Compliance+Documentation' ) . '" target="_blank">', '</a>' ),
+					'desc'  => sprintf( __( 'Enable to add %1$sPCI Compliance%2$s to WordPress Login Forms.', 'loginpress' ), '<a href="' . esc_url( 'https://loginpress.pro/doc/wordpress-login-page-pci-compliance/?utm_source=loginpress-lite&utm_medium=settings&utm_campaign=user-guide&utm_content=PCI+Compliance+Documentation' ) . '" target="_blank">', '</a>' ),
 					'type'  => 'checkbox'
 				),
 				// array(

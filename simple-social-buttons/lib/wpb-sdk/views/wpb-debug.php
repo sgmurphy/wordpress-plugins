@@ -15,8 +15,8 @@ $id = get_option('wpb_sdk_module_id');
 $all_plugins = [];
 
 // Instantiate the Logger class
-$wpb = Logger::instance($id, $slug, true);
-$Data = $wpb->get_logs_data();
+$wpb = WPBRIGADE_Logger::instance($id, $slug, true);
+$Data = $wpb->get_logs_data($slug);
 
 $plugin_path = $Data['product_info']['path'];
 $plugins = array_keys(get_plugins());

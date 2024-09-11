@@ -14,7 +14,7 @@
  * Plugin Name: Top 10
  * Plugin URI:  https://webberzone.com/plugins/top-10/
  * Description: Count daily and total visits per post and display the most popular posts based on the number of views
- * Version:     3.3.4
+ * Version:     4.0.0
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 3.1.0
  */
 if ( ! defined( 'TOP_TEN_VERSION' ) ) {
-	define( 'TOP_TEN_VERSION', '3.3.4' );
+	define( 'TOP_TEN_VERSION', '4.0.0' );
 }
 
 /**
@@ -85,32 +85,23 @@ if ( ! defined( 'TOP_TEN_STORE_DATA' ) ) {
 global $tptn_db_version;
 $tptn_db_version = '6.0';
 
+// Load Freemius.
+require_once TOP_TEN_PLUGIN_DIR . 'includes/load-freemius.php';
 
 // Load the autoloader.
 require_once TOP_TEN_PLUGIN_DIR . 'includes/autoloader.php';
 
-
-/**
- * The code that runs during plugin activation.
- *
- * @since 3.3.2
- *
- * @param bool $network_wide Whether the plugin is being activated network-wide.
- */
-function activate_tptn( $network_wide ) {
-	\WebberZone\Top_Ten\Admin\Activator::activation_hook( $network_wide );
+if ( ! function_exists( __NAMESPACE__ . '\load_tptn' ) ) {
+	/**
+	 * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
+	 *
+	 * @since 3.3.0
+	 */
+	function load_tptn() {
+		Main::get_instance();
+	}
+	add_action( 'plugins_loaded', __NAMESPACE__ . '\load_tptn' );
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_tptn' );
-
-/**
- * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
- *
- * @since 3.3.0
- */
-function load_tptn() {
-	\WebberZone\Top_Ten\Main::get_instance();
-}
-add_action( 'plugins_loaded', __NAMESPACE__ . '\load_tptn' );
 
 /*
  *----------------------------------------------------------------------------

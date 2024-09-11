@@ -215,8 +215,8 @@
 $slug = get_option('wpb_sdk_module_slug');
 $id = get_option('wpb_sdk_module_id');
 
-$wpb = Logger::instance($id, $slug, true);
-$Data = $wpb->get_logs_data();
+$wpb = WPBRIGADE_Logger::instance($id, $slug, true);
+$Data = $wpb->get_logs_data($slug);
 ?>
 <div class="wrap fs-section">
     <h2 class="nav-tab-wrapper">

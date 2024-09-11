@@ -1,4 +1,5 @@
-import { defaultInitTomSelect, searchUserOnListPost } from './init-tom-select.js';
+import { initElsTomSelect, searchUserOnListPost } from './init-tom-select.js';
+import { AdminUtilsFunctions, Api, Utils } from './utils-admin.js';
 
 ( function( $ ) {
 	/**
@@ -241,9 +242,20 @@ const showHideOptionsDependency = ( e, target ) => {
 document.addEventListener( 'click', ( e ) => {
 	const target = e.target;
 	showHideOptionsDependency( e, target );
+	// For case click add on Widgets of WordPress.
+	initElsTomSelect();
 } );
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	searchUserOnListPost();
-	defaultInitTomSelect();
+
+	// Sure that the TomSelect is loaded if listen can't find elements.
+	initElsTomSelect();
 } );
+
+// Listen element select created on DOM.
+Utils.lpOnElementReady( 'select.lp-tom-select', ( e ) => {
+	initElsTomSelect();
+} );
+
+window.lpFindTomSelect = initElsTomSelect;

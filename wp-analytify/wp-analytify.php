@@ -3,7 +3,7 @@
  * Plugin Name: Analytify Dashboard
  * Plugin URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=plugin-uri
  * Description: Analytify brings a brand new and modern feeling of Google Analytics superbly integrated within the WordPress.
- * Version: 5.4.2
+ * Version: 5.4.3
  * Author: Analytify
  * Author URI: https://analytify.io/?ref=27&utm_source=wp-org&utm_medium=plugin-header&utm_campaign=pro-upgrade&utm_content=author-uri
  * License: GPLv3
@@ -762,53 +762,77 @@ if ( ! class_exists( 'WP_Analytify' ) ) {
 		 *
 		 * @return array
 		 */
-		public function plugin_action_links( $links ) {
-			// $settings_link = sprintf( esc_html__( '%1$s Settings %2$s | %3$s Dashboard %4$s | %5$s Help %6$s', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-settings' ) . '">', '</a>', '<a href="' . admin_url( 'admin.php?page=analytify-dashboard' ) . '">', '</a>', '<a href="' . admin_url( 'index.php?page=wp-analytify-getting-started' ) . '">', '</a>' );
+        public function plugin_action_links($links)
+        {
 
-			$settings_link = '';
+            $settings_link = '';
 
-			if ( class_exists( 'WP_Analytify_Pro' ) ) {
-				// Remove deactivate link if Pro is active, and add a message that it's required by Pro.
-				$settings_link .= sprintf( esc_html__( '%1$s Required by Analytify Pro %2$s | ', 'wp-analytify' ), '<span style="color:#32373c">', '</span>' );
-				unset( $links['deactivate'] );
-			} elseif ( class_exists( 'Analytify_Dashboard_Addon' ) ) {
-				// Remove deactivate link if Widget is active, and add a message that it's required by Widget.
-				$settings_link .= sprintf( esc_html__( '%1$s Required by Analytify Dashboard Widget %2$s | ', 'wp-analytify' ), '<span style="color:#32373c">', '</span>' );
-				unset( $links['deactivate'] );
-			}
+            if (class_exists('WP_Analytify_Pro')) {
+                // Remove deactivate link if Pro is active, and add a message that it's required by Pro.
+                $settings_link .= sprintf(esc_html__('%1$s Required by Analytify Pro %2$s | ', 'wp-analytify'), '<span style="color:#32373c">', '</span>');
+                unset($links['deactivate']);
+            } elseif (class_exists('Analytify_Dashboard_Addon')) {
+                // Remove deactivate link if Widget is active, and add a message that it's required by Widget.
+                $settings_link .= sprintf(esc_html__('%1$s Required by Analytify Dashboard Widget %2$s | ', 'wp-analytify'), '<span style="color:#32373c">', '</span>');
+                unset($links['deactivate']);
+            }
 
-			$settings_link .= sprintf( esc_html__( '%1$s Settings %2$s | ', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-settings' ) . '">', '</a>' );
-			$settings_link .= sprintf( esc_html__( '%1$s Support %2$s | ', 'wp-analytify' ), '<a target="blank" href="https://wordpress.org/support/plugin/wp-analytify">', '</a>' );
+            // Build the initial settings and customize links
+            $settings_link .= sprintf(esc_html__('%1$s Settings %2$s | ', 'wp-analytify'), '<a href="' . admin_url('admin.php?page=analytify-settings') . '">', '</a>');
+            $settings_link .= sprintf(esc_html__('%1$s Support %2$s | ', 'wp-analytify'), '<a target="blank" href="https://wordpress.org/support/plugin/wp-analytify">', '</a>');
 
-			if ( ! class_exists( 'WP_Analytify_Pro' ) ) {
-				$settings_link .= sprintf( esc_html__( '%1$s Get Analytify Pro %2$s |', 'wp-analytify' ), '<a  href="https://analytify.io/pricing/?utm_source=analytify-lite&utm_medium=plugin-action-link&utm_campaign=pro-upgrade&utm_content=Get+Analytify+Pro" target="_blank" style="color:#3db634;">', '</a>' );
-			}
+
+            if (!class_exists('WP_Analytify_Pro')) {
+                $settings_link .= sprintf(esc_html__('%1$s Get Analytify Pro %2$s |', 'wp-analytify'), '<a  href="https://analytify.io/pricing/?utm_source=analytify-lite&utm_medium=plugin-action-link&utm_campaign=pro-upgrade&utm_content=Get+Analytify+Pro" target="_blank" style="color:#3db634;">', '</a>');
+            }
 
             // Retrieve and decode the JSON option
             $sdk_data = json_decode(get_option('wpb_sdk_wp-analytify'), true);
 
-            // Initialize the options or set defaults if not found
-            $communication   = isset($sdk_data['communication']) ? $sdk_data['communication'] : '0';
-            $diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : '0';
-            $extensions      = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : '0';
+            // Set default values for options
+            $communication = isset($sdk_data['communication']) ? $sdk_data['communication'] : false;
+            $diagnostic_info = isset($sdk_data['diagnostic_info']) ? $sdk_data['diagnostic_info'] : false;
+            $extensions = isset($sdk_data['extensions']) ? $sdk_data['extensions'] : false;
 
-            // Check if any option is set to '1' and build the settings link
-            if ( '1' == $communication || '1' == $diagnostic_info || '1' == $extensions ) {
-                $settings_link .= sprintf( esc_html__( '%1$s Opt Out %2$s | ', 'wp-analytify' ), '<a class="opt-out" href="' . admin_url( 'admin.php?page=analytify-settings' ) . '">', '</a>' );
+
+            // Determine the opt-in state and whether all options are false
+            $is_optin = 'yes' == get_option('_analytify_optin');
+            $all_options_false = $communication === false && $diagnostic_info === false && $extensions === false;
+
+            // Build the settings link based on the option states
+            if ($communication || $diagnostic_info || $extensions) {
+                $settings_link .= sprintf(esc_html__('%1$s Opt Out %2$s | ', 'wp-analytify'), '<a class="opt-out" href="' . admin_url('admin.php?page=analytify-settings') . '">', '</a>');
             } else {
-                if('yes' == get_option( '_analytify_optin' )) {
-                    update_option('_analytify_optin', 'no');
+                if ($is_optin) {
+                    if ($all_options_false) {
+                        // If opted in but all options are false, update the SDK data
+                        $sdk_data = json_encode([
+                            'communication' => '1',
+                            'diagnostic_info' => '1',
+                            'extensions' => '1',
+                            'user_skip' => '0',
+                        ]);
+                        update_option('wpb_sdk_wp-analytify', $sdk_data);
+                        $settings_link .= sprintf(esc_html__('%1$s Opt Out %2$s | ', 'wp-analytify'), '<a class="opt-out" href="' . admin_url('admin.php?page=analytify-settings') . '">', '</a>');
+                    } else {
+                        // If opted in and not all options are false, update the opt-in state
+                        update_option('_analytify_optin', 'no');
+                        $settings_link .= sprintf(esc_html__('%1$s Opt In %2$s | ', 'wp-analytify'), '<a href="' . admin_url('admin.php?page=analytify-optin') . '">', '</a>');
+                    }
+
+                } else {
+                    // Display opt-in link
+                    $settings_link .= sprintf(esc_html__('%1$s Opt In %2$s | ', 'wp-analytify'), '<a href="' . admin_url('admin.php?page=analytify-optin') . '">', '</a>');
                 }
-                $settings_link .= sprintf( esc_html__( '%1$s Opt In %2$s | ', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-optin' ) . '">', '</a>' );
             }
 
-			$settings_link .= sprintf( esc_html__( '%1$s Dashboard %2$s ', 'wp-analytify' ), '<a href="' . admin_url( 'admin.php?page=analytify-dashboard' ) . '">', '</a>' );
+            $settings_link .= sprintf(esc_html__('%1$s Dashboard %2$s ', 'wp-analytify'), '<a href="' . admin_url('admin.php?page=analytify-dashboard') . '">', '</a>');
 
-			// $settings_link .= sprintf( esc_html__( '%1$s Help %2$s  ', 'wp-analytify'), '<a href="' . admin_url( 'index.php?page=wp-analytify-getting-started' ) . '">', '</a>'  );
-			array_unshift( $links, $settings_link );
+            // $settings_link .= sprintf( esc_html__( '%1$s Help %2$s  ', 'wp-analytify'), '<a href="' . admin_url( 'index.php?page=wp-analytify-getting-started' ) . '">', '</a>'  );
+            array_unshift($links, $settings_link);
 
-			return $links;
-		}
+            return $links;
+        }
 
 		/**
 		 * Plugin row meta links

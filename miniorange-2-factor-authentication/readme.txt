@@ -1,56 +1,67 @@
 === miniOrange's Google Authenticator - WordPress Two Factor Authentication - 2FA, Two Factor, OTP SMS and Email | Passwordless login ===
 
 Contributors: twofactor, twofactorauthentication, hsn97, cyberlord92
-Tags: google authenticator, WP 2FA, 2FA, 2-factor authentication, two-factor authentication
+Tags: google authenticator, WordPress 2FA(WP 2FA), 2FA, two-factor authentication, 2-factor authentication
 Donate link: https://miniorange.com/
 Requires at least: 3.0.1
 Tested up to: 6.6.1
 Requires PHP: 7.2.24
-Stable tag: 6.0.2
+Stable tag: 6.0.3
 License: MIT/Expat
 License URI: https://docs.miniorange.com/mit-license
 
-Google Authenticator is a user-friendly plugin that allows you to add 2FA - two-factor authentication for your users to secure your site’s login page.
+Google Authenticator is a user-friendly plugin that allows you to add two-factor authentication i.e, 2FA for your users to secure the WordPress login.
 
 == Description ==
+ 
+[Features](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa) | [Setup Guide](https://plugins.miniorange.com/step-by-step-guide-for-wordpress-2-factor-authentication) | [Documentation](https://plugins.miniorange.com/wordpress-two-factor-authentication-setup-guides) | [Integrations](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa#log_in_integrations) | [Contact Us](https://www.miniorange.com/contact)
 
-[Features](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa#key-features) | [Setup Guide](https://plugins.miniorange.com/step-by-step-guide-for-wordpress-2-factor-authentication) | [Documentation](https://plugins.miniorange.com/wordpress-two-factor-authentication-setup-guides) | [Integrations](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa#log_in_integrations) | [Contact Us](https://www.miniorange.com/contact)
+**A POWERFUL & USER-FRIENDLY 2FA PLUGIN - FREE TO USE**
 
-**A POWERFUL & USER-FRIENDLY WP 2FA PLUGIN - FREE TO USE**
-Secure your WordPress login by adding a security layer i.e. two-factor authentication or 2FA. Install [miniOrange's Google Authenticator - WordPress Two Factor Authentication- 2FA plugin](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa) to protect your website from unauthorized access. miniOrange WordPress 2FA plugin is a versatile and reliable security solution that secures your website against various threats like brute force attacks, dictionary attacks, and automated password guessing.
+Secure your WordPress login by adding a security layer i.e. two-factor authentication(2FA) or two-step authentication.
 
-**The miniOrange Google Authenticator - WP 2FA plugin** supports many popular TOTP Authenticator Apps in which you get 2FA code on a respective mobile. Here are a few of the many TOTP Authenticator apps that are supported by the miniOrange Google Authenticator - WP 2FA plugin:
+Install [Two Factor Authentication - 2FA plugin](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa) to protect your website from unauthorized access. miniOrange Google Authenticator - Two Factor Authentication(2FA) is the most featre-rich and reliable 2FA solution.
+Two Factor Authentication or Two-Step Authentication secures your website against various threats like brute force attacks, dictionary attacks, and automated password guessing.
+
+**KEY FEATURES AND CAPABILITIES OF GOOGLE AUTHENTICATOR - TWO-FACTOR AUTHENTICATION PLUGIN(2FA)**
+
+**Two Fator Authentication plugin** supports all the TOTP Authenticator Apps. 
+Here are a few examples of TOTP Authenticator apps of Two Factor Authentication - WP 2FA plugin:
  [Google Authenticator](https://plugins.miniorange.com/google-authenticator-for-wordpress-two-factor-authenticator-2fa-mfa)
  [Microsoft Authenticator](https://plugins.miniorange.com/setup-microsoft-authenticator-for-wordpress-2fa)
  [LastPass Authenticator](https://plugins.miniorange.com/how-to-setup-lastpass-authenticator-for-wordpress-2fa)
- [miniOrange Authenticator](https://plugins.miniorange.com/setup-miniorange-authenticator-for-two-factor-authentication-wordpress-2fa)
  [Duo Authenticator](https://plugins.miniorange.com/duo-authenticator-for-two-factor-authentication-wordpress)
  [Authy 2-Factor Authenticator](https://plugins.miniorange.com/authy-authenticator-setup-for-wordpress-2fa)
  FreeOTP Authenticator
  Okta Verify and many other 2FA authenticator apps.
+ 
+In TOTP Authenticator methods of WP 2FA plugin, you get a 2FA code on the authenticator app to verify yourself during WordPress Login.
 
-Check out the following video to configure Google authenticator as your WP 2FA:
+Check out the following video to configure Google authenticator as your 2FA method:
 
 [youtube https://youtu.be/_nkMCkxLcIs]
 
-**miniOrange Google Authenticator- WordPress 2FA plugin** is feature-rich and provides multiple 2FA methods one of the popular being Google Authenticator. This WordPress two-factor authentication- WordPress 2FA plugin is very easy to set up. Our easy-to-follow steps of the setup wizard guide you through the process, making 2FA setup simple, quick, easy, and requires no technical knowledge. Hence, you can configure 2FA in no time.
+**Two Factor Authenticator - WordPress 2FA(WP 2FA) plugin** provides multiple 2FA methods to setup two-step authentication. One of the popular being Google Authenticator. 
+ 
+WordPress 2 factor authentication plugin very easily helps you to set up two-step authentication.
+Our easy-to-follow steps of the setup wizard guide you through the process.
+It makes WordPress 2FA(WP 2FA) plugin  setup simple, quick, easy, and requires no technical knowledge.
+Hence, you can configure 2FA in no time and setup any two-step authentication method of your choice.
 
-**KEY FEATURES AND CAPABILITIES OF GOOGLE AUTHENTICATOR - WORDPRESS TWO-FACTOR AUTHENTICATION PLUGIN**
 
 * [Two-Factor Authentication - 2FA for all user roles](https://plugins.miniorange.com/how-to-enable-role-based-2fa-for-wordpress-two-factor-authentication)
-* Two-Factor Authentication- 2FA Methods:
+* Two-Factor Authentication(2FA) or Two-Step Authentication Methods:
   * Login with 2FA using Authenticator Apps
   * [OTP Over Email/2FA code Over email/OTP login via Email](https://plugins.miniorange.com/otp-over-email-for-wordpress-two-factor-authentication-2fa-mfa)
   * [OTP Over SMS/2FA code Over SMS/OTP login via SMS](https://plugins.miniorange.com/otp-over-sms-for-wordpress-two-factor-authentication-2fa-mfa)
   * [Email Verification via link](https://plugins.miniorange.com/how-to-setup-email-verification-for-2-factor-authentication-wordpress-2fa)
   * [OTP over Telegram](https://plugins.miniorange.com/login-with-telegram-as-a-two-factor-method-for-wordpress)
-  * miniOrange Authenticator - QR Code Authentication, Push Notifications, and Soft Token
   * [Security Questions](https://plugins.miniorange.com/setup-security-questions-for-two-factor-authentication-wordpress-2fa)
 * [Set 2FA method of any user from their profiles](https://plugins.miniorange.com/how-to-set-up-2-factor-from-wordpress-user-profile-section)
-* Users can log in with any configured 2FA methods
-* Grace Period for users to configure 2FA
-* 2FA is supported on popular login forms
-* 2FA supported on popular checkout/registration forms
+* Users can log in with any configured 2FA  or two-step authentication methods
+* Grace Period for users to configure 2FA or two-step authentication
+* 2FA or two-step authentication is supported on popular login forms
+* 2FA or two-step authentication supported on popular checkout/registration forms
 * 2FA for a lifetime for up to 3 users
 * Login using backup codes in case you are locked out
 * Language Translation Support for French, Spanish, Italian, German, and many other languages
@@ -65,11 +76,11 @@ We are experts in the field of security and have released various advanced WordP
 
 * Unlimited Email transactions for email-based 2FA
 
-* [Set different 2FA policies for different user roles](https://docs.miniorange.com/documentation/specific-set-authentication-methods-based-role)
+* [Set different 2FA or two-step authentication policies for different user roles](https://docs.miniorange.com/documentation/specific-set-authentication-methods-based-role)
 
-* Enable/disable Two-Factor Authentication - 2FA for specific Users/User Roles
+* Enable/disable Two-Factor Authentication(2FA) or two-step authentication for specific Users/User Roles
 
-* Login with backup 2FA methods: - KBA (Security Questions), OTP login using Email, and Backup codes.
+* Login with backup 2FA methods: - KBA (Security Questions), OTP login using Email, and Backup codes
 
 * [Redirect users to a custom URL after 2FA](https://docs.miniorange.com/documentation/custom-redirect-login-url)
 
@@ -77,21 +88,21 @@ We are experts in the field of security and have released various advanced WordP
 
 * [Set custom security questions](https://docs.miniorange.com/documentation/custom-security-questions)
 
-* [Force Two-factor authentication for users](https://docs.miniorange.com/documentation/enforce-2fa-users)
+* [Force Two-factor authentication or two-step authentication for users](https://docs.miniorange.com/documentation/enforce-2fa-users)
 
-* [Send email notification to users asking them to set up Two-Factor Authentication- 2FA](https://docs.miniorange.com/documentation/want-send-email-notification-users-setting-2-factor)
+* [Send email notification to users asking them to set up Two-Factor Authentication(2FA) or two-step authentication](https://docs.miniorange.com/documentation/want-send-email-notification-users-setting-2-factor)
 
-* [Remember device to skip 2FA on trusted devices](https://plugins.miniorange.com/how-to-set-remember-device-with-two-factor-authentication-2fa)
+* [Remember device to skip 2FA or two-step authentication on trusted devices](https://plugins.miniorange.com/how-to-set-remember-device-with-two-factor-authentication-2fa)
 
 * Customize 2FA login pop-ups according to your website's theme
 
 * 2FA supported on multisite network for up to 3 subsites
 
-* Login with 2FA using Hardware Token
+* Login with 2FA or two-step authentication using Hardware Token
 
 * [Sync WP 2FA for multiple websites](https://plugins.miniorange.com/two-factor-authentication-2fa-for-multiple-wordpress-websites)
 
-* Customize email notifications, and 2FA login pop-ups and use your branding logo
+* Customize email notifications, and 2FA login pop-ups and use your own branding logo
 
 * Shortcodes available to add enable/disable 2FA checkbox and reconfigure 2FA panel on user's account page
 
@@ -99,13 +110,13 @@ We are experts in the field of security and have released various advanced WordP
 
 * [Passwordless login - Login without password using 2FA](https://plugins.miniorange.com/how-to-set-passwordless-login-as-a-login-screen-options-wordpress-2fa)
 
-* 2FA for popular login forms like User Pro, Login with Ajax, Theme My Login, etc 
+* 2FA or two-step authentication for popular login forms like User Pro, Login with Ajax, Theme My Login, etc 
 
-= User Identity Verification with the miniOrange Google Authenticator - WP 2FA plugin =
+= User Identity Verification with the Two Factor Authentication(2FA) or WordPress 2FA(WP 2FA) plugin =
 **2FA on Login and Registration:** Verify users on login with different [TOTP login methods & other 2FA/OTP login methods](https://plugins.miniorange.com/wp-2fa-otp-based-2fa-methods) like OTP login using SMS, OTP login using Email, OTP over Telegram, Google Authenticator, Email Verification, Authy Authenticator, Duo Authenticator, Microsoft Authenticator and many others. Two-factor authentication on registration can be done via either of the OTP login methods (OTP authentication using Email or via OTP authentication using SMS).
 
-= Plugin Integrations and Support for all two-factor authentication - 2FA methods =
-**miniOrange Google Authenticator - WP 2FA plugin** is compatible with [popular plugins](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa#integrations) such as:-
+= Plugin Integrations and Support for all two-factor authentication(2FA) or two-step authentication methods =
+**Two Factor Authentication - WordPress 2FA plugin** is compatible with [popular plugins](https://plugins.miniorange.com/2-factor-authentication-for-wordpress-wp-2fa#integrations) such as:-
 
 * [WooCommerce](https://plugins.miniorange.com/two-factor-authentication-2fa-mfa-for-woocommerce-login-form)
 * [Ultimate member](https://plugins.miniorange.com/two-factor-authentication-2fa-mfa-for-ultimate-member-login-form)
@@ -121,26 +132,25 @@ We are experts in the field of security and have released various advanced WordP
 * [Login With Ajax](https://plugins.miniorange.com/two-factor-authentication-2fa-mfa-for-login-with-ajax-form) and many more.
 
 = Third-Party Custom SMS Gateway for OTP Over SMS - OTP Login via SMS  =
-The premium miniOrange Google Authenticator - WP 2FA plugin supports any third-party **SMS Gateway** for OTP login via SMS method. If you don't have your SMS gateway you can use the miniOrange gateway and send SMS in OTP over SMS authentication.
-[Famous SMS gateways supported by miniOrange Google Authenticator - WP 2FA plugin](https://plugins.miniorange.com/sms-email-gateways-supported-by-2fa-plugin).
+The premium Two Factor Authentication - WordPress 2FA(WP 2FA) plugin support any third-party **SMS Gateway** for OTP login via SMS method. If you don't have your SMS gateway you can use the miniOrange gateway and send SMS in OTP over SMS authentication.
+[Famous SMS gateways supported by Two Factor Authentication - WordPress 2FA plugin](https://plugins.miniorange.com/sms-email-gateways-supported-by-2fa-plugin).
 [Test your gateway](https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig)
 
-= Why do you need to register with miniOrange in the miniOrange Google Authenticator plugin? =
-**miniOrange Google authenticator - WP 2FA plugin** uses miniOrange APIs to communicate between your WP site and miniOrange IDP. To keep this communication secure, we ask you to register and assign API keys specific to your account. This way your account and users’ calls can be accessed only by API keys assigned to you.
+= Why do you need to register with miniOrange in the Two Factor Authentication plugin or miniOrange Google Authenticator? =
+**Two Factor Authentication or WordPress 2FA(WP 2FA) plugin** uses miniOrange APIs to communicate between your WP site and miniOrange IDP. To keep this communication secure, we ask you to register and assign API keys specific to your account. This way your account and users’ calls can be accessed only by API keys assigned to you.
 
-However, you can use most of the 2FA methods without registration but you must register yourself to use the following methods:-
-OTP Over SMS or OTP login via SMS method
-miniOrange Authenticator method
+However, you can use most of the 2FA methods without registration. You must register yourself to use the OTP Over SMS or OTP login via SMS method.
 
-= Useful blog posts about two-factor authentication - WP 2FA plugin =
+
+= Useful blog posts about two-factor authentication or WordPress 2FA plugin =
 * [Beginner’s Guide: How to Add Two-Factor Authentication to WordPress](https://themeisle.com/blog/how-to-add-two-factor-authentication-to-wordpress/)
-* [How to Add WordPress Two-Factor Authentication - WP 2FA using Google Authenticator](https://phppot.com/wordpress/how-to-add-wordpress-two-factor-authentication-2fa-using-google-authenticator-plugin/)
+* [How to Add Two-Factor Authentication i.e, WordPress 2FA using Google Authenticator](https://phppot.com/wordpress/how-to-add-wordpress-two-factor-authentication-2fa-using-google-authenticator-plugin/)
 * [How to translate WordPress Two-Factor Authentication - WP 2FA](https://plugins.miniorange.com/the-plugin-translate-spanish-language-with-2-factor-wordpress)
 * [Simple method to add Two-Factor Authentication in WordPress](https://wpastra.com/two-factor-authentication-wordpress/)
 * [WordPress two-factor authentication – How to Setup 2FA](https://www.fixrunner.com/wordpress-two-factor-authentication/)
-* [OTP over WhatsApp](https://plugins.miniorange.com/login-with-whatsapp-as-a-two-factor-method-for-wordpress?utm_source=wordpress&utm_medium=readme+link&utm_campaign=last+June)
+* [OTP over WhatsApp](https://plugins.miniorange.com/login-with-whatsapp-as-a-two-factor-method-for-wordpress)
 
-Customized solutions and active support for the miniOrange Google Authenticator - WP 2FA plugin are available. Email us at info@xecurify.com or call us at +1 9786589387.
+Customized solutions and active support for the miniOrange Google Authenticator or Two Factor Authentication(2FA) plugin are available. Email us at info@xecurify.com or call us at +1 9786589387.
 
 == Installation ==
 
@@ -163,33 +173,33 @@ Customized solutions and active support for the miniOrange Google Authenticator 
 
 You can obtain access to your website by one of the below options:
 
-1. If you have an additional administrator account whose Two-Factor - 2FA is not enabled yet, you can log in with it.
-2. If you had set up KBA questions earlier, you can use them as an alternate method to log in to your website instead of the configured 2FA method.
-3. Rename the plugin from FTP - this disables the Google Authenticator - WP 2FA plugin and you will be able to log in without 2FA.
+1. If you have an additional administrator account whose Two-Factor or 2FA is not enabled yet, you can log in with it.
+2. If you had set up KBA questions as 2FA earlier, you can use them as an alternate method to log in to your website instead of the configured 2FA method.
+3. Rename the plugin from FTP - this disables the Two Factor Authentication - WordPress 2FA(WP 2FA) plugin and you will be able to log in without 2FA.
 
 For detailed information, please check on our website. <a href="https://faq.miniorange.com/knowledgebase/how-to-gain-access-to-my-website-if-i-get-locked-out/" target="_blank">Locked Out</a>.<br>
 You can also check our video tutorial:
 [youtube https://www.youtube.com/watch?v=wLFKakQkpk8]
 
-= How do I enable Google Authenticator 2 Factor authentication - 2FA as the backup method? =
+= How do I enable Google Authenticator 2 Factor Authentication - 2FA as the backup method? =
 
 You can use Google Authenticator as the backup method for your users by enabling the "Login with any configured 2FA method" or "Multi-factor Authentication" in the miniOrange two-factor authentication - 2FA plugin settings. [PREMIUM FEATURE]
 
-= I have enabled Two-Factor Authentication - 2FA for all users, what happens if an end-user tries to log in but has not yet registered? =
+= I have enabled Two Factor Authentication(2FA) or Two-step authentication for all users, what happens if an end-user tries to log in but has not yet registered? =
 
-If a user has not set up Two-Factor yet, the user will be prompted to register for 2FA by inline 2FA registration on the first login.
+If a user has not set up Two Factor yet, the user will be prompted for 2FA registration on the first login.
 
 = How can I enable only one authentication method for my users? =
 
-You can select the specific two-factor authentication methods under the Login Settings tab. Only the selected authentication methods will be shown to the user during inline registration for example if you select Google Authenticator or any specific 2FA methods, only they will be shown on login. [PREMIUM FEATURE]
+You can select the specific two-factor authentication(2FA) or two-step authentication methods under the Login Settings tab. Only the selected authentication methods will be shown to the user during inline registration for example if you select Google Authenticator or any specific 2FA methods, only they will be shown on login. [PREMIUM FEATURE]
 
 = How can I make the look and feel of custom/front-end login page on my site to remain the same when I add 2-factor authentication? =
 
-If you have a custom login form other than wp-login.php then you can configure 2FA on your login form from the Login Form settings in the miniOrange 2FA plugin dashboard. We are not claiming that it will work with all the custom login pages. In such a case, custom work is needed to integrate two-factor with your customized login page. You can submit a query in our <b>Support Section</b> in the plugin or you can contact us at info@xecurify.com for more details.
+If you have a custom login form other than wp-login.php then you can configure 2FA on your login form from the Login Form settings in the miniOrange Two Factor Authentication(2FA) plugin dashboard. We are not claiming that it will work with all the custom login pages. In such a case, custom work is needed to integrate two-factor with your customized login page. You can submit a query in our <b>Support Section</b> in the plugin or you can contact us at info@xecurify.com for more details.
 
-= What should I do if I face any issues while logging in with the minniOrange Google Authenticator plugin or if there is a conflict with any other plugin?  =
+= What should I do if I face any issues while logging in with the minniOrange Two Factor Authentication plugin or if there is a conflict with any other plugin?  =
 
-Our Google Authenticator plugin is compatible with most popular plugins, but if it is not working for you, please submit a query in our Support Section in the plugin or contact us at info@xecurify.com.
+Our Two Factor Authentication plugin is compatible with most popular plugins, but if it is not working for you, please submit a query in our Support Section in the plugin or contact us at info@xecurify.com.
 
 = I am using a render-blocking javascript and CSS plugin - Async JS and CSS Plugin and I am not able to log in with Two-Factor and the screen goes blank. What should I do? =
 
@@ -214,6 +224,9 @@ You should go to <b>2FA For Me</b> Tab and click on <b>Reconfigure</b> to reconf
 11. Google Authenticator (WP 2FA/OTP) - Remember device and white labeling add-ons
 
 == Changelog ==
+
+= 6.0.3 =
+* Bug Fixes - Google Authentication CSS-JS loading issue in login
 
 = 6.0.2 =
 * Setup Wizard flow changes.
@@ -331,6 +344,9 @@ You should go to <b>2FA For Me</b> Tab and click on <b>Reconfigure</b> to reconf
 For older changelog entries, please see the [additional changelog.txt file](https://plugins.svn.wordpress.org/miniorange-2-factor-authentication/trunk/changelog.txt) provided with the plugin.
 
 == Upgrade Notice ==
+
+= 6.0.3 =
+* Bug Fixes - Google Authentication CSS-JS loading issue in login
 
 = 6.0.2 =
 * Setup Wizard flow changes.

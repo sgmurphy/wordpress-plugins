@@ -2,9 +2,9 @@
 Contributors: qodeinteractive
 Tags: gutenberg block, blocks, patterns, wireframes, gutenberg templates
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -285,6 +285,12 @@ Feel free to try out some of our other products:
 12.	Device Frame Slider Block.
 
 == Changelog ==
+
+= 1.3.2 - 11-09-2024 =
+- Added WordPress 6.6 support
+- Improved saving block options
+- Fixed product list "Add to Cart" button
+- Fixed minor bugs
 
 = 1.3.1 - 09-07-2024 =
 - Fixed potential Cross Site Scripting (XSS) vulnerability for Search block
