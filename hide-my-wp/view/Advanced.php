@@ -3,7 +3,7 @@
 <div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
 <?php echo $view->getAdminTabs(HMWP_Classes_Tools::getValue('page', 'hmwp_advanced')); ?>
     <div class="hmwp_row d-flex flex-row p-0 m-0">
-        <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+        <div class="hmwp_col flex-grow-1 p-0 pr-2 mr-2 mb-3">
                 <form method="POST">
                     <?php wp_nonce_field('hmwp_advsettings', 'hmwp_nonce') ?>
                     <input type="hidden" name="action" value="hmwp_advsettings"/>
@@ -20,7 +20,7 @@
                                     <div class="small text-black-50"><?php echo esc_html__("eg. disable_url, safe_url", 'hide-my-wp'); ?></div>
                                 </div>
                                 <div class="col-sm-8 p-0 input-group">
-                                    <input type="text" class="form-control bg-input" name="hmwp_disable_name" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_name') ?>" placeholder="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_name') ?>"/>
+                                    <input type="text" class="form-control" name="hmwp_disable_name" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_name') ?>" placeholder="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_name') ?>"/>
                                     <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/advanced-wp-security/#custom_safe_url') ?>" target="_blank" class="position-absolute float-right" style="right: 7px;top: 20%;"><i class="dashicons dashicons-editor-help"></i></a>
                                 </div>
                                 <div class="col-sm-12 py-3">
@@ -56,7 +56,7 @@
                                     <div class="font-weight-bold"><?php echo esc_html__('Server Type', 'hide-my-wp'); ?>:</div>
                                 </div>
                                 <div class="col-sm-9 p-0 input-group mb-1">
-                                    <select name="hmwp_server_type" class="form-control bg-input">
+                                    <select name="hmwp_server_type" class="form-control">
                                         <option value="auto" <?php selected('auto', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?>><?php echo esc_html__("Autodetect", 'hide-my-wp') ?></option>
                                         <option value="apache" <?php selected('apache', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?>><?php echo esc_html__("Apache", 'hide-my-wp') ?></option>
                                         <option value="iis" <?php selected('iis', HMWP_Classes_Tools::getOption('hmwp_server_type')) ?>><?php echo esc_html__("IIS Windows", 'hide-my-wp') ?></option>
@@ -85,7 +85,7 @@
                                     <div class="font-weight-bold"><?php echo esc_html__('Plugin Loading Hook', 'hide-my-wp'); ?>:</div>
                                 </div>
                                 <div class="col-sm-9 p-0 input-group mb-1">
-                                    <select multiple name="hmwp_loading_hook[]" class="form-control bg-input selectpicker">
+                                    <select multiple name="hmwp_loading_hook[]" class="form-control selectpicker">
                                         <option value="first" <?php echo ((in_array('first', HMWP_Classes_Tools::getOption('hmwp_loading_hook')) || HMWP_Classes_Tools::getOption('hmwp_firstload')) ? 'selected="select"' : '' ) ?>><?php echo esc_html__("Must Use Plugin Loading", 'hide-my-wp') ?></option>
                                         <option value="priority" <?php echo ((in_array('priority', HMWP_Classes_Tools::getOption('hmwp_loading_hook')) || HMWP_Classes_Tools::getOption('hmwp_priorityload')) ? 'selected="select"' : '' ) ?>><?php echo esc_html__("Priority Loading", 'hide-my-wp') ?></option>
                                         <option value="normal" <?php echo ((in_array('normal', HMWP_Classes_Tools::getOption('hmwp_loading_hook'))  || (!HMWP_Classes_Tools::getOption('hmwp_laterload') && !HMWP_Classes_Tools::getOption('hmwp_priorityload'))) ? 'selected="select"' : '') ?>><?php echo esc_html__("Normal Loading", 'hide-my-wp') ?> (<?php echo esc_html__("recommended", 'hide-my-wp'); ?>)</option>
@@ -165,7 +165,7 @@
                                         $email = $current_user->user_email;
                                     }
                                     ?>
-                                    <input type="text" class="form-control bg-input" name="hmwp_email_address" value="<?php echo esc_attr($email) ?>" placeholder="Email address ..."/>
+                                    <input type="text" class="form-control" name="hmwp_email_address" value="<?php echo esc_attr($email) ?>" placeholder="Email address ..."/>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                 </form>
 
             </div>
-        <div class="hmwp_col hmwp_col_side p-0 m-0 mr-2">
+        <div class="hmwp_col hmwp_col_side p-0 pr-2 mr-2">
             <?php $view->show('blocks/ChangeCacheFiles'); ?>
             <?php $view->show('blocks/SecurityCheck'); ?>
         </div>

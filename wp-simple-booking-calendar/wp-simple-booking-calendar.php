@@ -3,7 +3,7 @@
  * Plugin Name: WP Simple Booking Calendar
  * Plugin URI: https://www.wpsimplebookingcalendar.com/
  * Description: The availability calendar for your needs.
- * Version: 2.0.10
+ * Version: 2.0.12
  * Author: Veribo, Roland Murg
  * Author URI: https://www.wpsimplebookingcalendar.com/
  * Text Domain: wp-simple-booking-calendar
@@ -72,7 +72,7 @@ class WP_Simple_Booking_Calendar
     {
 
         // Defining constants
-        define('WPSBC_VERSION', '2.0.10');
+        define('WPSBC_VERSION', '2.0.12');
         define('WPSBC_FILE', __FILE__);
         define('WPSBC_BASENAME', plugin_basename(__FILE__));
         define('WPSBC_PLUGIN_DIR', plugin_dir_path(__FILE__));

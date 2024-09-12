@@ -1046,8 +1046,8 @@
 		    saveData:function(f)
 			{
 				try{
-					var itemsStringified   = $.stringifyXX( items ),
-						theFormStringified = $.stringifyXX( theForm ),
+					var itemsStringified   = JSON.stringify( items ),
+						theFormStringified = JSON.stringify( theForm ),
 						errorTxt = 'The entered data includes invalid characters. Please, if you are copying and pasting from another platform, be sure the data not include invalid characters.',
 						str;
 

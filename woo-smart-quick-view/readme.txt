@@ -4,8 +4,8 @@ Donate link: https://wpclever.net
 Tags: woocommerce, wpc, quickview, quick-view
 Requires at least: 4.0
 Tested up to: 6.6
-Version: 4.1.1
-Stable tag: 4.1.1
+Version: 4.1.2
+Stable tag: 4.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,8 +33,8 @@ Visit our [live demo 01](https://demo.wpclever.net/woosq/ "live demo 01") or [li
 - A useful tool for improving your site’s search engine optimization
 - WPML compatible for building multilingual sites
 - RTL support for better displaying right-to-left languages
-- Premium: Customizable Quick view content
-- Premium: Choose the image source, add lightbox images
+- Premium: Customizable the content on quick-view popup
+- Premium: Enable fancybox/zoom effect for product images
 - Premium: Enable/disable related products section
 - Premium: Product summary fields: Title, Rating, Price, Excerpt, Add to Cart, Meta
 - Premium: Add to Cart button can function as a single page or the archive page
@@ -87,6 +87,9 @@ Example:
 });`
 
 == Changelog ==
+
+= 4.1.2 =
+* Updated: Temporary disabled the Fancybox effect due to security reason
 
 = 4.1.1 =
 * Added: Filter hook 'woosq_product_id'

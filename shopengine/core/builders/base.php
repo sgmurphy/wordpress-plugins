@@ -47,7 +47,6 @@ class Base extends Common {
 
 		add_filter("theme_{$cpt_type}_templates", [$this, 'add_page_templates'], 999, 4);
 		add_filter("elementor/document/urls/wp_preview", [$this, 'change_preview_editor_url'], 999, 2);
-		add_filter( 'preview_post_link', [$this, 'modify_gutenberg_preview_url'], 999, 2);
 
 
 		add_action('wp', [Page_Templates::instance(), 'init'], 999);
@@ -58,25 +57,6 @@ class Base extends Common {
 		(new Import())->init();
 	}
 
-	public function modify_gutenberg_preview_url( $modified_url, $post ) {
-		$post_id = $post->ID;
-		$template = \ShopEngine\Core\Builders\Templates::get_registered_template_data($post_id);
-
-		if ( empty( $template ) || ! isset( $template['url'] ) || get_post_type( $post_id ) !== Template_Cpt::TYPE ) {
-			return $modified_url;
-		}
-
-		$param = [
-			'shopengine_template_id' => $post_id,
-			'preview_nonce'          => wp_create_nonce( 'template_preview_' . $post_id ),
-			'change_template'        => '1',
-		];
-
-		$modified_url = \ShopEngine\Utils\Helper::add_to_url( $template['url'], $param );
-		
-
-		return $modified_url;
-	}
 
 	public function change_preview_editor_url($url, $document) {
 		$post_id  = $document->get_main_id();

@@ -1223,7 +1223,7 @@
 				let template_button = $('#view_template_preview_button');
 				$(template_button).parent().find('.es-send-success').hide();
 				$(template_button).parent().find('.es-send-error').hide();
-				ig_es_show_template_preview_in_popup();
+				//ig_es_show_template_preview_in_popup();
 			});
 
 			$('#save_campaign_as_template_button').on('click', function(e){
@@ -3865,55 +3865,6 @@ function ig_es_show_campaign_preview_in_popup() {
 		}
 	}).done(function(){
 		jQuery('#view_campaign_preview_button').removeClass('loading');
-	});
-}
-
-function ig_es_show_template_preview_in_popup() {
-	ig_es_sync_wp_editor_content();
-
-	let content = jQuery('textarea[name="data[body]"]').val();
-	if (jQuery("#edit-es-campaign-body-wrap").hasClass("tmce-active")) {
-		content = tinyMCE.activeEditor.getContent();
-	}
-
-
-	if ( !content ) {
-		alert( ig_es_js_data.i18n_data.empty_template_message );
-		return;
-	}
-
-	let template_button = jQuery('#view_campaign_preview_button,#view_template_preview_button');
-	jQuery(template_button).addClass('loading');
-	let form_data = jQuery('#view_campaign_preview_button,#view_template_preview_button').closest('form').serialize();
-	// Add action to form data
-	form_data += form_data + '&action=ig_es_get_template_preview&security='  + ig_es_js_data.security;
-	jQuery.ajax({
-		method: 'POST',
-		url: ajaxurl,
-		data: form_data,
-		dataType: 'json',
-		success: function (response) {
-			if (response.success) {
-				if ( 'undefined' !== typeof response.data ) {
-					let response_data = response.data;
-					let template_html = response_data.preview_html;
-					jQuery('#browser-preview-tab').trigger('click');
-					ig_es_load_iframe_preview( '#campaign-preview-iframe-container', template_html );
-					// We are setting popup visiblity hidden so that we can calculate iframe width/height before it is shown to user.
-					jQuery('#campaign-preview-popup').css('visibility','hidden').show();
-					setTimeout(()=>{
-						jQuery('#campaign-preview-popup').css('visibility','visible');
-					},100);
-				}
-			} else {
-				alert( ig_es_js_data.i18n_data.ajax_error_message );
-			}
-		},
-		error: function (err) {
-			alert( ig_es_js_data.i18n_data.ajax_error_message );
-		}
-	}).done(function(){
-		jQuery(template_button).removeClass('loading');
 	});
 }
 

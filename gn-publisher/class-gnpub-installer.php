@@ -54,7 +54,7 @@ final class GNPUB_Installer {
 	 */
 	private static function set_option_defaults() {
 		foreach ( self::$default_options as $option_name => $option_default ) {
-			add_option( $option_name, $option_default, false );
+			add_option( $option_name, $option_default, '', false );
 		}
 	}
 

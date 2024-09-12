@@ -1,4 +1,4 @@
-	$.fbuilder['version'] = '5.2.35';
+	$.fbuilder['version'] = '5.2.36';
 	$.fbuilder['controls'] = $.fbuilder['controls'] || {};
 	$.fbuilder['forms'] = $.fbuilder['forms'] || {};
 	$.fbuilder['css'] = $.fbuilder['css'] || {};
@@ -1053,7 +1053,11 @@
 				return ('undefined' != typeof form.data('being-submitted'));
 			},
 			processing_form = function () {
-				form.find('[name="cp_ref_page"]').val(document.location.href);
+				try{
+					form.find('[name="cp_ref_page"]').val(parent.window.document.location.href);
+				} catch (err) {
+					form.find('[name="cp_ref_page"]').val(document.location.href);
+				}
 				form.find("[name$='_date'][type='hidden']").each(function () {
 					let v = $(this).val(),
 					name = $(this).attr('name').replace('_date', ''),

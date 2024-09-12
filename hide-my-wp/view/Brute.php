@@ -3,32 +3,30 @@
 <div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
 <?php echo $view->getAdminTabs(HMWP_Classes_Tools::getValue('page', 'hmwp_brute')); ?>
     <div class="hmwp_row d-flex flex-row p-0 m-0">
-        <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+        <div class="hmwp_col flex-grow-1 p-0 pr-2 mr-2 mb-3">
 
             <div id="blocked" class="card col-sm-12 p-0 m-0 tab-panel tab-panel-first">
-                <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('Blocked IPs', 'hide-my-wp'); ?>
+                <h3 class="card-title hmwp_header p-2 m-0 mb-3"><?php echo esc_html__('Blocked IPs', 'hide-my-wp'); ?>
                     <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/#block_ip_report') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help"></i></a>
                 </h3>
-                <div class="card-body">
+                <div class="card-body p-2 m-0">
                     <?php if (HMWP_Classes_Tools::getOption('hmwp_bruteforce') ) { ?>
-                        <div class="mt-3 mb-1" style="display: block;">
-                            <div class="py-1">
-                                <div class="float-right my-1" onclick="jQuery('#hmwp_blockedips_form').submit()"><i class="dashicons dashicons-update" style="cursor: pointer"></i></div>
-                                <div class="my-1">
-                                    <form method="POST">
-                                        <?php wp_nonce_field('hmwp_deleteallips', 'hmwp_nonce') ?>
-                                        <input type="hidden" name="action" value="hmwp_deleteallips"/>
-                                        <button type="submit" class="btn rounded-0 btn-default save py-1"><?php echo esc_html__('Unlock all', 'hide-my-wp'); ?></button>
-                                    </form>
-                                </div>
-
+                        <div class="py-1">
+                            <div class="float-right my-1" onclick="jQuery('#hmwp_blockedips_form').submit()"><i class="dashicons dashicons-update" style="cursor: pointer"></i></div>
+                            <div class="my-1">
+                                <form method="POST">
+                                    <?php wp_nonce_field('hmwp_deleteallips', 'hmwp_nonce') ?>
+                                    <input type="hidden" name="action" value="hmwp_deleteallips"/>
+                                    <button type="submit" class="btn rounded-0 btn-default save py-1"><?php echo esc_html__('Unlock all', 'hide-my-wp'); ?></button>
+                                </form>
                             </div>
-                            <form id="hmwp_blockedips_form" method="POST">
-                                <?php wp_nonce_field('hmwp_blockedips', 'hmwp_nonce') ?>
-                                <input type="hidden" name="action" value="hmwp_blockedips"/>
-                            </form>
-                            <div id="hmwp_blockedips" class="col-sm-12 p-0"></div>
+
                         </div>
+                        <form id="hmwp_blockedips_form" method="POST">
+                            <?php wp_nonce_field('hmwp_blockedips', 'hmwp_nonce') ?>
+                            <input type="hidden" name="action" value="hmwp_blockedips"/>
+                        </form>
+                        <div id="hmwp_blockedips" class="col-sm-12 p-0"></div>
                     <?php }else{ ?>
                         <div class="col-sm-12 p-1 text-center">
                             <div class="text-black-50 mb-2"><?php echo esc_html__('Activate the "Brute Force" option to see the user IP blocked report', 'hide-my-wp'); ?></div>
@@ -49,7 +47,7 @@
                         <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/brute-force-attack-protection/') ?>" target="_blank" class="d-inline-block float-right mr-2" ><i class="dashicons dashicons-editor-help"></i></a>
                     </h3>
                     <div class="card-body">
-                        <div class="col-sm-12 row mb-1 py-1 mx-2 ">
+                        <div class="col-sm-12 row mb-1 ml-1 p-2">
                             <div class="checker col-sm-12 row my-2 py-1">
                                 <div class="col-sm-12 p-0 switch switch-sm">
                                     <input type="checkbox" id="hmwp_bruteforce" name="hmwp_bruteforce" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce') ? 'checked="checked"' : '') ?> value="1"/>
@@ -60,7 +58,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 row mb-1 py-1 mx-2 hmwp_bruteforce">
+                        <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_bruteforce">
                             <div class="checker col-sm-12 row my-2 py-0">
                                 <div class="col-sm-12 p-0 switch switch-xxs pl-5">
                                     <input type="checkbox" id="hmwp_bruteforce_lostpassword" name="hmwp_bruteforce_lostpassword" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_lostpassword') ? 'checked="checked"' : '') ?> value="1"/>
@@ -71,7 +69,7 @@
                         </div>
 
 	                    <?php if ( get_option( 'users_can_register' ) ) {?>
-                            <div class="col-sm-12 row mb-1 py-1 mx-2 hmwp_bruteforce">
+                            <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_bruteforce">
                                 <div class="checker col-sm-12 row my-2 py-0">
                                     <div class="col-sm-12 p-0 switch switch-xxs pl-5">
                                         <input type="checkbox" id="hmwp_bruteforce_register" name="hmwp_bruteforce_register" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_register') ? 'checked="checked"' : '') ?> value="1"/>
@@ -82,7 +80,7 @@
                             </div>
 	                    <?php }?>
 
-                        <div class="col-sm-12 row mb-1 py-1 mx-2 hmwp_bruteforce" >
+                        <div class="col-sm-12 row mb-1 ml-1 p-2 hmwp_bruteforce" >
                             <div class="checker col-sm-12 row my-2 py-0">
                                 <div class="col-sm-12 p-0 switch switch-xxs pl-5">
                                     <input type="checkbox" id="hmwp_bruteforce_username" name="hmwp_bruteforce_username" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_username') ? 'checked="checked"' : '') ?> value="1"/>
@@ -115,7 +113,7 @@
                                         <div class="small text-black-50"><?php echo sprintf(esc_html__("Site keys for %sGoogle reCaptcha%s.", 'hide-my-wp'), '<a href="https://www.google.com/recaptcha/admin#list" class="text-link" target="_blank">', '</a>'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group">
-                                        <input type="text" class="form-control bg-input" name="brute_captcha_site_key" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_site_key') ?>"/>
+                                        <input type="text" class="form-control" name="brute_captcha_site_key" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_site_key') ?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -124,7 +122,7 @@
                                         <div class="small text-black-50"><?php echo sprintf(esc_html__("Secret keys for %sGoogle reCAPTCHA%s.", 'hide-my-wp'), '<a href="https://www.google.com/recaptcha/admin#list" class="text-link" target="_blank">', '</a>'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group">
-                                        <input type="password" class="form-control bg-input" name="brute_captcha_secret_key" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key') ?>"/>
+                                        <input type="password" class="form-control" name="brute_captcha_secret_key" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key') ?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -132,7 +130,7 @@
                                         <div class="font-weight-bold"><?php echo esc_html__('reCaptcha Theme', 'hide-my-wp'); ?>:</div>
                                     </div>
                                     <div class="col-sm-8 p-0 input-group">
-                                        <select name="brute_captcha_theme" class="form-control bg-input mb-1">
+                                        <select name="brute_captcha_theme" class="form-control mb-1">
                                             <?php
                                             $themes = array(esc_html__('light', 'hide-my-wp'), esc_html__('dark', 'hide-my-wp'));
                                             foreach ($themes as $theme) {
@@ -146,7 +144,7 @@
                                         <div class="font-weight-bold"><?php echo esc_html__('reCaptcha Language', 'hide-my-wp'); ?>:</div>
                                     </div>
                                     <div class="col-sm-8 p-0 input-group">
-                                        <select name="brute_captcha_language" class="form-control bg-input mb-1">
+                                        <select name="brute_captcha_language" class="form-control mb-1">
                                             <?php
                                             $languages = array(
                                                 esc_html__('Auto Detect', 'hide-my-wp') => '',
@@ -223,7 +221,7 @@
                                         <div class="small text-black-50"><?php echo sprintf(esc_html__("Site keys for %sGoogle reCaptcha%s.", 'hide-my-wp'), '<a href="https://www.google.com/recaptcha/admin#list" class="text-link" target="_blank">', '</a>'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group">
-                                        <input type="text" class="form-control bg-input" name="brute_captcha_site_key_v3" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_site_key_v3') ?>"/>
+                                        <input type="text" class="form-control" name="brute_captcha_site_key_v3" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_site_key_v3') ?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -232,7 +230,7 @@
                                         <div class="small text-black-50"><?php echo sprintf(esc_html__("Secret keys for %sGoogle reCAPTCHA%s.", 'hide-my-wp'), '<a href="https://www.google.com/recaptcha/admin#list" class="text-link" target="_blank">', '</a>'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group">
-                                        <input type="password" class="form-control bg-input" name="brute_captcha_secret_key_v3" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key_v3') ?>"/>
+                                        <input type="password" class="form-control" name="brute_captcha_secret_key_v3" value="<?php echo HMWP_Classes_Tools::getOption('brute_captcha_secret_key_v3') ?>"/>
                                     </div>
                                 </div>
 
@@ -259,7 +257,7 @@
                                         <div class="small text-black-50"><?php echo esc_html__('Block IP on login page', 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-md-2 p-0 input-group">
-                                        <input type="text" class="form-control bg-input" name="brute_max_attempts" value="<?php echo HMWP_Classes_Tools::getOption('brute_max_attempts') ?>"/>
+                                        <input type="text" class="form-control" name="brute_max_attempts" value="<?php echo HMWP_Classes_Tools::getOption('brute_max_attempts') ?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -268,7 +266,7 @@
                                         <div class="small text-black-50"><?php echo esc_html__('No. of seconds', 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-md-2 p-0 input-group input-group">
-                                        <input type="text" class="form-control bg-input" name="brute_max_timeout" value="<?php echo HMWP_Classes_Tools::getOption('brute_max_timeout') ?>"/>
+                                        <input type="text" class="form-control" name="brute_max_timeout" value="<?php echo HMWP_Classes_Tools::getOption('brute_max_timeout') ?>"/>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 row border-bottom border-light py-3 mx-0 my-3">
@@ -277,7 +275,7 @@
                                         <div class="small text-black-50"><?php echo esc_html__('Show message instead of login form', 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-md-8 p-0 input-group input-group">
-                                        <textarea type="text" class="form-control bg-input" name="hmwp_brute_message" style="height: 80px"><?php echo HMWP_Classes_Tools::getOption('hmwp_brute_message') ?></textarea>
+                                        <textarea type="text" class="form-control" name="hmwp_brute_message" style="height: 80px"><?php echo HMWP_Classes_Tools::getOption('hmwp_brute_message') ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +320,7 @@
                         </h3>
                         <div class="card-body">
 
-                            <div class="col-sm-12 row mb-1 py-1 mx-2">
+                            <div class="col-sm-12 row mb-1 ml-1 p-2">
                                 <div class="checker col-sm-12 row my-2 py-1">
                                     <div class="col-sm-12 p-0 switch switch-sm">
                                         <input type="checkbox" id="hmwp_bruteforce_woocommerce" name="hmwp_bruteforce_woocommerce" class="switch" <?php echo(HMWP_Classes_Tools::getOption('hmwp_bruteforce_woocommerce') ? 'checked="checked"' : '') ?> value="1"/>
@@ -357,7 +355,7 @@
             </form>
 
         </div>
-        <div class="hmwp_col hmwp_col_side p-0 m-0 mr-2">
+        <div class="hmwp_col hmwp_col_side p-0 pr-2 mr-2">
             <div class="card col-sm-12 m-0 p-0 rounded-0">
                 <div class="card-body f-gray-dark text-left">
                     <h3 class="card-title"><?php echo esc_html__('Brute Force Login Protection', 'hide-my-wp'); ?></h3>

@@ -12,6 +12,10 @@ Custom order numbers for WooCommerce.
 
 == Description ==
 
+> ###🚀&nbsp;&nbsp;New Launch: Flexi BOGO for WooCommerce
+>
+> The only BOGO plugin with a revenue tracking feature. **Now, at an attractive introductory price**. [Check out our new plugin here](https://www.tychesoftwares.com/products/woocommerce-flexi-bogo-plugin/?utm_source=wprepo&utm_medium=pluginpagetop&utm_campaign=CustomNumbers).
+
 This plugin lets you set [custom order numbers](https://www.tychesoftwares.com/store/premium-plugins/custom-order-numbers-woocommerce/?utm_source=wprepo&utm_medium=topprolink&utm_campaign=CustomNumbers) in WooCommerce.
 
 = Main Features =
@@ -45,6 +49,8 @@ Custom Order Numbers plugin is compatible with all popular invoice plugins such 
 
 ### Some of our other Pro plugins
 
+1. **[Flexi BOGO for WooCommerce](https://www.tychesoftwares.com/products/woocommerce-flexi-bogo-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=CustomNumbers "Flexi BOGO for WooCommerce")**
+
 1. **[Abandoned Cart Pro for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/woocommerce-abandoned-cart-pro/?utm_source=wprepo&utm_medium=link&utm_campaign=CustomNumbers "Abandoned Cart Pro for WooCommerce")**
 
 2. **[Booking & Appointment Plugin for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/woocommerce-booking-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=CustomNumbers "Booking & Appointment Plugin for WooCommerce")**
@@ -72,6 +78,8 @@ Custom Order Numbers plugin is compatible with all popular invoice plugins such 
 1. **[Abandoned Cart for WooCommerce](https://wordpress.org/plugins/woocommerce-abandoned-cart/ "Abandoned Cart for WooCommerce")**
 
 2. **[Order Delivery Date for WooCommerce - Lite](https://wordpress.org/plugins/order-delivery-date-for-woocommerce/ "Order Delivery Date for WooCommerce - Lite")**
+
+3. **[Print Invoice & Delivery Notes for WooCommerce](https://wordpress.org/plugins/woocommerce-delivery-notes/ "Print Invoice & Delivery Notes for WooCommerce")**
 
 3. **[Product Delivery Date for WooCommerce - Lite](https://wordpress.org/plugins/product-delivery-date-for-woocommerce-lite/ "Product Delivery Date for WooCommerce")**
 

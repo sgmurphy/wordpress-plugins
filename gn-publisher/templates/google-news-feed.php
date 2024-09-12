@@ -13,7 +13,7 @@ $last_activation = get_option( 'gnpub_last_activation', 0 );
  * This template is based on wp-includes/feed-rss2.php
  */
 
-header( 'Content-Type: ' . feed_content_type( 'rss2' ) . '; charset=' . get_option( 'blog_charset' ), true );
+header( 'Content-Type: ' . feed_content_type( 'rss2' ) . '; charset=' . esc_attr( get_option( 'blog_charset' ) ), true );
 $more = 1;
 
 ///////////////
@@ -26,7 +26,7 @@ header("Pragma: no-cache");
 
 define( 'DONOTCACHEPAGE', true);
 
-echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
+echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>';
 /**
  * Fires between the xml and rss tags in a feed.
  *
@@ -60,13 +60,13 @@ do_action( 'rss_tag_pre', 'rss2' );
 		<description><?php gnpub_bloginfo_rss( 'description' ); ?></description>
 		<lastBuildDate><?php
 			$date = get_lastpostmodified( 'GMT' );
-			echo $date ? mysql2date( 'D, d M Y H:i:s +0000', $date, false ) : gmdate( 'r' );
+			echo $date ? esc_html( mysql2date( 'D, d M Y H:i:s +0000', $date, false ) ) : esc_html( gmdate( 'r' ) );
 		?></lastBuildDate>
 		<language><?php bloginfo_rss( 'language' ); ?></language>
-		<sy:updatePeriod> <?php $duration = 'hourly'; echo apply_filters( 'rss_update_period', $duration );?> </sy:updatePeriod>
-		<sy:updateFrequency> <?php $frequency = '1'; echo apply_filters( 'rss_update_frequency', $frequency );?> </sy:updateFrequency>
+		<sy:updatePeriod> <?php $duration = 'hourly'; echo esc_html( apply_filters( 'rss_update_period', $duration ) );?> </sy:updatePeriod>
+		<sy:updateFrequency> <?php $frequency = '1'; echo esc_html( apply_filters( 'rss_update_frequency', $frequency ) );?> </sy:updateFrequency>
 		<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
-		<generator>GN Publisher v<?=GNPUB_VERSION;?> https://wordpress.org/plugins/gn-publisher/</generator>
+		<generator>GN Publisher v<?php echo esc_html(GNPUB_VERSION);?> https://wordpress.org/plugins/gn-publisher/</generator>
 <?php
 	$feed_support_flag = apply_filters('gnpub_enable_feed_support_filter', 0); // create selected post type feeds
 	if($feed_support_flag == 0){
@@ -84,7 +84,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 				$pub_date_object->setTimestamp( get_post_time( 'U', true ) );
 				$pub_date_object->modify( '+' . $mod_counter . ' seconds' );
 
-				$pub_date = date( 'D, d M Y H:i:s +0000', $pub_date_object->getTimestamp() );
+				$pub_date = gmdate( 'D, d M Y H:i:s +0000', $pub_date_object->getTimestamp() );
 			} else {
 				 $pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );
 
@@ -95,11 +95,11 @@ do_action( 'rss_tag_pre', 'rss2' );
 			<item>
 				<title><?php gnpub_the_title_rss(); ?></title>
 				<link><?php gnpub_feed_post_link(get_the_permalink()); ?></link>
-				<pubDate><?php echo $pub_date; ?></pubDate>
-				<?php $gnpub_authors = '<dc:creator><![CDATA['.get_the_author().']]></dc:creator>'; ?>
-				<?php $gnpub_authors = apply_filters('gnpub_pp_authors_compat',$gnpub_authors );
-					  $gnpub_authors = apply_filters('gnpub_molongui_authors_compat',$gnpub_authors );
-					  echo $gnpub_authors;
+				<pubDate><?php echo esc_attr( $pub_date ); ?></pubDate>
+				<?php $gnpub_authors_escaped = '<dc:creator><![CDATA['. esc_html( get_the_author() ) .']]></dc:creator>'; ?>
+				<?php $gnpub_authors_escaped = apply_filters('gnpub_pp_authors_compat',$gnpub_authors_escaped );
+					  $gnpub_authors_escaped = apply_filters('gnpub_molongui_authors_compat',$gnpub_authors_escaped );
+					  echo $gnpub_authors_escaped; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --reason: already escaped
 				?>
 				<guid isPermaLink="false"><?php the_guid() ?></guid>
 	<?php 
@@ -110,9 +110,9 @@ do_action( 'rss_tag_pre', 'rss2' );
 		$content = gnpub_pp_translate( $content );
 	 if ( $content && strlen( $content ) > 0 ) : 
 	?>
-				<description><![CDATA[<?php echo wp_trim_words($content,15,'...');?>]]></description>
+				<description><![CDATA[<?php echo wp_trim_words($content,15,'...'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></description>
 
-				<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
+				<content:encoded><![CDATA[<?php echo $content; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></content:encoded>
 	<?php 		else : ?>
 				<content:encoded><![CDATA[<?php the_excerpt_rss(); ?>]]></content:encoded>
 	<?php 		endif; ?>
@@ -125,4 +125,4 @@ do_action( 'rss_tag_pre', 'rss2' );
 	?>
 	</channel>
 </rss>
-<!-- last GN Pub feeds fetch (not specifically this feed): <?php echo (get_option( 'gnpub_google_last_fetch', null )) ? date_i18n( 'Y-m-d H:i:s', get_option( 'gnpub_google_last_fetch' ) ) : 'has not fetched'; ?> -->
+<!-- last GN Pub feeds fetch (not specifically this feed): <?php echo (get_option( 'gnpub_google_last_fetch', null )) ? esc_html(date_i18n( 'Y-m-d H:i:s', get_option( 'gnpub_google_last_fetch' ) )) : esc_html__( 'has not fetched' , 'gn-publisher' ); ?> -->

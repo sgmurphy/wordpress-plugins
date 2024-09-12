@@ -9,9 +9,10 @@ defined('ABSPATH') || die('No direct access.');
 
 use Extendify\Config;
 use Extendify\PartnerData;
-use Extendify\Shared\Services\Escaper;
-use Extendify\Shared\DataProvider\ResourceData;
 use Extendify\Shared\Controllers\UserSelectionController;
+use Extendify\Shared\DataProvider\ResourceData;
+use Extendify\Shared\Services\ApexDomain\ApexDomain;
+use Extendify\Shared\Services\Escaper;
 
 /**
  * This class handles any file loading for the admin area.
@@ -96,11 +97,14 @@ class Admin
                 'partnerLogo' => \esc_attr(PartnerData::$logo),
                 'partnerId' => \esc_attr(PartnerData::$id),
                 'partnerName' => \esc_attr(PartnerData::$name),
+                'allowedPlugins' => array_map('esc_attr', PartnerData::setting('allowedPluginsSlugs')),
+                'requiredPlugins' => Escaper::recursiveEscAttr(PartnerData::setting('requiredPlugins')),
                 'userData' => [
                     'userSelectionData' => \wp_json_encode((UserSelectionController::get()->get_data() ?? [])),
                 ],
                 'resourceData' => \wp_json_encode((new ResourceData())->getData()),
                 'showAIConsent' => isset($partnerData['showAIConsent']) ? (bool) $partnerData['showAIConsent'] : false,
+                'aiChatEnabled' => (bool) (PartnerData::setting('aiChatEnabled') || constant('EXTENDIFY_DEVMODE')),
                 'consentTermsHTML' => \wp_kses((html_entity_decode(($partnerData['consentTermsHTML'] ?? '')) ?? ''), $htmlAllowlist),
                 'userGaveConsent' => $userConsent ? (bool) $userConsent : false,
                 'installedPlugins' => array_map('esc_attr', array_keys(\get_plugins())),
@@ -109,6 +113,8 @@ class Admin
                 'globalStylesPostID' => \esc_attr(\WP_Theme_JSON_Resolver::get_user_global_styles_post_id()),
                 'showLocalizedCopy' => (bool) array_key_exists('showLocalizedCopy', $partnerData),
                 'activity' => \wp_json_encode(\get_option('extendify_shared_activity', null)),
+                'showDraft' => isset($partnerData['showDraft']) ? (bool) $partnerData['showDraft'] : false,
+                'apexDomain' => PartnerData::setting('enableApexDomain') ? rawurlencode(ApexDomain::getApexDomain(\get_home_url())) : null,
             ]),
             'before'
         );

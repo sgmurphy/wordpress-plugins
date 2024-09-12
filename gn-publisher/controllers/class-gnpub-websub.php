@@ -14,26 +14,10 @@ class GNPUB_Websub {
 	private $posts_updated = array();
 
 	public function __construct() {
-		add_action( 'parse_query', array( $this, 'feed_list_check' ), 10, 1 );
+
 		add_action( 'save_post', array( $this, 'post_saved' ), 10, 3 );
 		add_action( 'shutdown', array( $this, 'notify_hubs' ) );
-	}
-
-	/**
-	 * Detect Google FeedFetcher fetching feeds and record the feed fetched.
-	 * 
-	 * @since 1.0.5
-	 * 
-	 * @param WP_Query $query The global posts query instance.
-	 */
-	public function feed_list_check( $query ) {
-		if ( ! $query->is_feed || $query->get( 'feed' ) !== GNPUB_Feed::FEED_ID || ! gnpub_is_feedfetcher() || $query->is_comment_feed || $query->is_paged ) {
-			return;
-		}
-
-		$feed_url = untrailingslashit( gnpub_current_feed_link() );
-
-		gnpub_add_feed( $feed_url, $query );
+		
 	}
 
 	/**

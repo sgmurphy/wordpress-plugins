@@ -23,7 +23,8 @@
             <?php wp_nonce_field('age_gate_' . $action) ?>
             <?php echo $this->section('content'); ?>
 
-            <?php submit_button(__('Save settings', 'age-gate')) ?>
+            <button type="submit" class="button button-primary"><?php echo __('Save settings', 'age-gate') ?></button>
+            <?php /* <?php submit_button(__('Save settings', 'age-gate')) ?> */ ?>
         </form>
     <?php endif; ?>
     <?php echo $this->section('after') ?>

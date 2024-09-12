@@ -98,7 +98,7 @@ class WriteWithAI extends Base
                     'Authorization' => 'Bearer ' . $api_key,
                 ),
                 'body' => json_encode(array(
-                    'model' => 'gpt-3.5-turbo', // Add the model parameter here
+                    'model' => 'gpt-4o-mini', // Add the model parameter here
                     'messages' => array(
                         array('role' => 'system', 'content' => 'You are a helpful assistant who writes documentation for users.'),
                         array('role' => 'user', 'content' => $prompt),

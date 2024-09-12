@@ -25,6 +25,19 @@ trait Advanced
                         ]
 
                     ],
+                    'renderer' => [
+                        'label' => __('Template render element', 'age-gate'),
+                        'type' => 'select',
+                        'default' => 'template',
+                        'subtext' => __('Templates may be crawled by Google giving unexpected SEO results, but may improve compatibility with some performance plugins', 'age-gate'),
+                        'options' => [
+                            'template' => __('Template element', 'age-gate'),
+                            'script' => __('Script element', 'age-gate'),
+                        ],
+                        'condition' => [
+                            'x-show' => "method == 'js'"
+                        ],
+                    ],
                     'disable_ajax_fallback' => [
                         'label' => __('Disable AJAX fallback', 'age-gate'),
                         'type' => 'checkbox',

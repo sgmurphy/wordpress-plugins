@@ -26,7 +26,7 @@ header("Pragma: no-cache");
 
 define( 'DONOTCACHEPAGE', true);
 
-echo '<?xml version="1.0" encoding="' . get_option( 'blog_charset' ) . '"?' . '>';
+echo '<?xml version="1.0" encoding="' . esc_attr( get_option( 'blog_charset' ) ) . '"?' . '>';
 /**
  * Fires between the xml and rss tags in a feed.
  *
@@ -75,7 +75,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 			$pub_date_object->setTimestamp( get_post_time( 'U', true ) );
 			$pub_date_object->modify( '+' . $mod_counter . ' seconds' );
 
-			$pub_date = date( 'D, d M Y H:i:s +0000', $pub_date_object->getTimestamp() );
+			$pub_date = gmdate( 'D, d M Y H:i:s +0000', $pub_date_object->getTimestamp() );
 		} else {
 			 $pub_date = mysql2date( 'D, d M Y H:i:s +0000', get_post_time( 'Y-m-d H:i:s', true ), false );
 
@@ -96,13 +96,12 @@ do_action( 'rss_tag_pre', 'rss2' );
 			<title><?php gnpub_the_title_rss(); ?></title>
 			<link><?php gnpub_feed_post_link(get_the_permalink()); ?></link>
 			<guid isPermaLink="false"><?php the_guid(); ?></guid>
-			<pubDate><?php echo $pub_date; ?></pubDate>
-			<?php $gnpub_authors = '<dc:creator><![CDATA['.get_the_author().']]></dc:creator>'; ?>
-			
-			<?php $gnpub_authors = apply_filters('gnpub_pp_authors_compat',$gnpub_authors );
-				  $gnpub_authors = apply_filters('gnpub_molongui_authors_compat',$gnpub_authors );
-				  echo $gnpub_authors;
-			?>
+			<pubDate><?php echo esc_attr( $pub_date ); ?></pubDate>
+			<?php $gnpub_authors_escaped = '<dc:creator><![CDATA['. esc_html( get_the_author() ) .']]></dc:creator>'; ?>
+				<?php $gnpub_authors_escaped = apply_filters('gnpub_pp_authors_compat',$gnpub_authors_escaped );
+					  $gnpub_authors_escaped = apply_filters('gnpub_molongui_authors_compat',$gnpub_authors_escaped );
+					  echo $gnpub_authors_escaped; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped --reason: already escaped
+				?>
 			
 <?php 
 $content = get_the_content_feed( GNPUB_Feed::FEED_ID );
@@ -112,16 +111,16 @@ if( function_exists( 'gnpub_flipboard' ) )
 	$content = gnpub_flipboard( $content );
  if ( $content && strlen( $content ) > 0 ) : 
 ?>
-			<description><![CDATA[<?php echo wp_trim_words($content,15,'...');?>]]></description>
+			<description><![CDATA[<?php echo wp_trim_words($content,15,'...'); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></description>
 			<?php if (has_post_thumbnail( get_the_ID() ) ){ ?>
 				<enclosure url="<?php esc_url( the_post_thumbnail_url() ); ?>" length="1000" type="image/jpeg" />
 			<?php } ?>
 
 			<?php if ( ! empty( $category ) ) { ?> 
-				<category><?php echo implode(", ",$namees); ?></category>
+				<category><?php echo esc_attr(implode(", ",$namees)); ?></category>
 			<?php } ?>
 
-			<content:encoded><![CDATA[<?php echo $content; ?>]]></content:encoded>
+			<content:encoded><![CDATA[<?php echo $content; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>]]></content:encoded>
 <?php 		else : ?>
 			<content:encoded><![CDATA[<?php the_excerpt_rss(); ?>]]></content:encoded>
 <?php 		endif; ?>

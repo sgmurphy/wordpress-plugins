@@ -190,6 +190,9 @@ class Notice {
 			<?php if(!empty($notice['btn'])):?>
 			<p>
 				<a title="<?php esc_html_e('Notification','shopengine')?>" href="<?php echo esc_url($notice['btn']['url']); ?>" class="button-primary"><?php echo esc_html($notice['btn']['label']); ?></a>
+				<?php if(!empty($notice['btn2'])):?>
+				<span style="margin: 0 5px; font-weight: 600; font-size: 16px;"> or </span> <a title="<?php esc_html_e('Notification','shopengine')?>" href="<?php echo isset($notice['btn2']['url']) ? esc_url($notice['btn2']['url']) : ''; ?>" class="button-primary"><?php echo isset($notice['btn2']['label']) ? esc_html($notice['btn2']['label']) : ''; ?></a>
+				<?php endif; ?>
 			</p>
 			<?php endif; ?>
 		</div>

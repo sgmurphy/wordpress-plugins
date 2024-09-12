@@ -87,7 +87,7 @@ echo '<div class="theplus-panel-welcome-page">';
 				echo '<div class="theplus-sec-subtitle">'.esc_html__('Notable additions made to The Plus Addons for Elementor.','tpebl').'</div>';
 				echo '<div class="theplus-sec-border"></div>';
 				echo '<div class="theplus-changelog-list">';
-					echo '<div class="changelog-date">September 06 , 2024 <span class="changelog-version">Lite Version 5.6.7</span></div>';
+					echo '<div class="changelog-date">September 12 , 2024 <span class="changelog-version">Lite Version 5.6.8</span></div>';
 						echo '<ul class="changelog-list">';
 							echo '<li>'.esc_html__('Update : Plus Extras : Advanced shadow Document Link Update', 'tpebl').'</li>';
 							echo '<li>'.esc_html__('Fix : Info Box : Backend ( Elementor Editor ) style 4 load Issue', 'tpebl').'</li>';

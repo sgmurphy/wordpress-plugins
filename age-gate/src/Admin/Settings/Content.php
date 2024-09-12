@@ -3,6 +3,7 @@
 namespace AgeGate\Admin\Settings;
 
 use AgeGate\Common\Settings;
+use AgeGate\Admin\Taxonomy\TermHelper;
 
 trait Content
 {
@@ -104,7 +105,7 @@ trait Content
                 $slug => [
                     'type' => 'group',
                     'label' => $taxonomy->label,
-                    'fields' => $this->getTermFields(get_terms(['taxonomy' => $taxonomy->name]), $taxonomy),
+                    'fields' => $this->getPaginatedTermFields($taxonomy),
                     'parent' => 'terms',
                 ]
             ];
@@ -126,6 +127,26 @@ trait Content
                 ];
             }
         }
+
+        return $fields;
+    }
+
+    private function getPaginatedTermFields($taxonomy)
+    {
+        $count = 20;
+
+        $fields = [
+            $taxonomy->name . '.terms' => [
+                'type' => 'paginated',
+                'fields' => [],
+                'total' => wp_count_terms(['taxonomy' => $taxonomy->name]),
+                'current' => 1,
+                'perpage' => $count,
+                'taxonomy' => $taxonomy->name,
+                'label' => $taxonomy->label,
+                'pages' => (int) ceil(wp_count_terms(['taxonomy' => $taxonomy->name]) / 20),
+            ],
+        ];
 
         return $fields;
     }

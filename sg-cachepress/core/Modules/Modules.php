@@ -18,6 +18,14 @@ class Modules {
 	 */
 	private static $instance;
 
+
+	/**
+	 * The Optimizer plugin tabs placeholder.
+	 *
+	 * @var array.
+	 */
+	public $tabs;
+
 	/**
 	 * List of all modules.
 	 *
@@ -207,55 +215,6 @@ class Modules {
 				'siteground_optimizer_lazyload_woocommerce',
 				'siteground_optimizer_lazyload_videos',
 			),
-		),
-	);
-
-	/**
-	 * List of all tabs.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @access private
-	 *
-	 * @var array List of all optimizer tabs.
-	 */
-	public $tabs = array(
-		'supercacher' => array(
-			'title'   => 'SuperCacher Settings',
-			'modules' => array(
-				'dynamic_cache',
-				'memcached',
-			),
-		),
-		'environment' => array(
-			'title'   => 'Environment Optimization',
-			'modules' => array(
-				'ssl',
-				'hearbeat_control',
-				'database_optimization',
-				'gzip',
-				'browser_cache',
-			),
-		),
-		'frontend'    => array(
-			'title'   => 'Frontend Optimization',
-			'modules' => array(
-				'html',
-				'javascript',
-				'css',
-				'query_strings',
-				'emojis',
-			),
-		),
-		'images'      => array(
-			'title'   => 'Media Optimization',
-			'modules' => array(
-				'optimize_images',
-				'lazyload_images',
-			),
-		),
-		'analytics'   => array(
-			'title' => 'Speed Test',
 		),
 	);
 
@@ -481,6 +440,66 @@ class Modules {
 	);
 
 	/**
+	 * The constructor.
+	 */
+	public function __construct() {
+		// Load the tabs array with translated titles.
+		$this->initialize_tabs();
+	}
+
+	/**
+	* List of all tabs.
+	*
+	* @since 7.6.5
+	*
+	* @access private
+	*
+	* A method that initialize a list of all optimizer tabs.
+	*/
+	private function initialize_tabs() {
+		$this->tabs = array(
+			'supercacher' => array(
+				'title'   => __( 'SuperCacher Settings', 'sg-cachepress' ),
+				'modules' => array(
+					'dynamic_cache',
+					'memcached',
+				),
+			),
+			'environment' => array(
+				'title'   => __( 'Environment Optimization', 'sg-cachepress' ),
+				'modules' => array(
+					'ssl',
+					'hearbeat_control',
+					'database_optimization',
+					'gzip',
+					'browser_cache',
+				),
+			),
+			'frontend'    => array(
+				'title'   => __( 'Frontend Optimization', 'sg-cachepress' ),
+				'modules' => array(
+					'html',
+					'javascript',
+					'css',
+					'query_strings',
+					'emojis',
+				),
+			),
+			'images'      => array(
+				'title'   => __( 'Media Optimization', 'sg-cachepress' ),
+				'modules' => array(
+					'optimize_images',
+					'lazyload_images',
+				),
+			),
+			'analytics'   => array(
+				'title' => __( 'Speed Test', 'sg-cachepress' ),
+			),
+		);
+	}
+
+
+	/**
 	 * Get the singleton instance.
 	 *
 	 * @since 5.0.0
@@ -539,6 +558,7 @@ class Modules {
 		}
 
 		$message = sprintf(
+			/* translators: 1: list of conflicting plugins, 2: module names */
 			__( '<strong>Important message from Speed Optimizer by SiteGround plugin</strong>: We have detected that there is duplicate functionality with other plugins installed on your site: <strong>%1$s</strong> and have deactivated the following functions from our plugin: <strong>%2$s</strong>. If you wish to enable them, please do that from the Speed Optimizer by SiteGround config page.', 'sg-cachepress' ),
 			implode( ', ', $excluded['conflicting_plugins'] ),
 			implode( ', ', $this->get_modules_pretty_names( $excluded['excluded_modules'] ) )
@@ -547,8 +567,8 @@ class Modules {
 		printf(
 			'<div class="%1$s" style="position: relative"><p style="max-width: 90%%!important;">%2$s</p><button type="button" class="notice-dismiss dismiss-memcache-notice" data-link="%3$s"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
 			esc_attr( 'notice notice-error sg-optimizer-notice' ),
-			$message,
-			admin_url( 'admin-ajax.php?action=dismiss_blocking_plugins_notice' )
+			wp_kses_post( $message ),
+			esc_url( admin_url( 'admin-ajax.php?action=dismiss_blocking_plugins_notice' ) )
 		);
 	}
 
@@ -574,6 +594,7 @@ class Modules {
 		}
 
 		$message = sprintf(
+			/* translators: 1: list of conflicting plugins */
 			__( '<strong>Important warning from Speed Optimizer by SiteGround plugin</strong>: We have detected that there is duplicate functionality with other plugins installed on your site: <strong>%s</strong>. Please note that having two plugins with the same functionality may actually decrease your site\'s performance and hurt your pages loading times so we recommend you to leave only one of the plugins active.', 'sg-cachepress' ),
 			implode( ', ', $excluded['conflicting_plugins'] )
 		);
@@ -581,8 +602,8 @@ class Modules {
 		printf(
 			'<div class="%1$s" style="position: relative"><p style="max-width: 90%%!important;">%2$s</p><button type="button" class="notice-dismiss dismiss-memcache-notice" data-link="%3$s"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
 			esc_attr( 'notice notice-error sg-optimizer-notice' ),
-			$message,
-			admin_url( 'admin-ajax.php?action=dismiss_cache_plugins_notice' )
+			wp_kses_post( $message ),
+			esc_url( admin_url( 'admin-ajax.php?action=dismiss_cache_plugins_notice' ) )
 		);
 	}
 
@@ -684,7 +705,7 @@ class Modules {
 
 		// Build tabs data.
 		foreach ( $this->tabs as $tab_slug => $tab ) {
-			$active_tabs[ $tab_slug ] = __( $tab['title'], 'sg-cachepress' );
+			$active_tabs[ $tab_slug ] = $tab['title'];
 		}
 
 		// Return the tabs.

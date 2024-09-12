@@ -592,6 +592,15 @@ class Premium_Videobox extends Widget_Base {
 		);
 
 		$this->add_control(
+			'play_inline',
+			array(
+				'label'       => __( 'Play Inline', 'premium-addons-for-elementor' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'description' => __( 'Enable this option to play the video in its position, not in popup on touch devices.', 'premium-addons-for-elementor' ),
+			)
+		);
+
+		$this->add_control(
 			'privacy_mode',
 			array(
 				'label'       => __( 'Privacy Mode', 'premium-addons-for-elementor' ),
@@ -1333,7 +1342,6 @@ class Premium_Videobox extends Widget_Base {
 				'type'      => Controls_Manager::SWITCHER,
 				'separator' => 'before',
 				'condition' => array(
-					// 'premium_video_box_image_switcher'   => 'yes',
 					'premium_video_box_self_autoplay!'   => 'yes',
 					'premium_video_box_sticky_switcher!' => 'yes',
 				),
@@ -1353,7 +1361,6 @@ class Premium_Videobox extends Widget_Base {
 				),
 				'condition'          => array(
 					'video_lightbox'                     => 'yes',
-					// 'premium_video_box_image_switcher'   => 'yes',
 					'premium_video_box_self_autoplay!'   => 'yes',
 					'premium_video_box_video_type!'      => 'dailymotion',
 					'premium_video_box_sticky_switcher!' => 'yes',
@@ -1381,10 +1388,6 @@ class Premium_Videobox extends Widget_Base {
 							'name'  => 'video_lightbox',
 							'value' => 'yes',
 						),
-						// array(
-						// 'name'  => 'premium_video_box_image_switcher',
-						// 'value' => 'yes',
-						// ),
 						array(
 							'name'     => 'premium_video_box_self_autoplay',
 							'operator' => '!=',
@@ -2609,6 +2612,8 @@ class Premium_Videobox extends Widget_Base {
 
 		$mute = $settings['premium_video_box_mute'];
 
+		$playsinline = $settings['play_inline'];
+
 		$loop = $settings['premium_video_box_loop'];
 
 		$controls = $settings['premium_video_box_controls'];
@@ -2653,9 +2658,14 @@ class Premium_Videobox extends Widget_Base {
 				}
 			}
 
+			if ( $playsinline ) {
+				$video_params .= 'playsinline ';
+			}
+
 			if ( ! $settings['download_button'] ) {
 				$video_params .= ' controlsList="nodownload"';
 			}
+
 		} else {
 			// youtube - vimeo - dailymotion.
 			$link = $params['link'];
@@ -2670,6 +2680,8 @@ class Premium_Videobox extends Widget_Base {
 			$options .= 'yes' === $loop ? '1' : '0';
 			$options .= '&controls=';
 			$options .= 'yes' === $controls ? '1' : '0';
+			$options .= '&playsinline=';
+			$options .= 'yes' === $playsinline ? '1' : '0';
 
 			if ( 'yes' === $autoplay && ! $this->has_image_overlay() ) {
 
@@ -2684,7 +2696,7 @@ class Premium_Videobox extends Widget_Base {
 			if ( 'vimeo' === $video_type ) {
 
 				// Filter any paramters after link to be added later.
-				$queryString = parse_url( $link, PHP_URL_QUERY );
+				$query_string = wp_parse_url( $link, PHP_URL_QUERY );
 
 				// If video link contains paramters.
 				if ( false !== strpos( $link, '?' ) ) {
@@ -2709,7 +2721,7 @@ class Premium_Videobox extends Widget_Base {
 
 				$options .= '&autopause=0';
 
-				$options .= '&' . $queryString . '#t=';
+				$options .= '&' . $query_string . '#t=';
 
 			} elseif ( 'dailymotion' === $video_type ) {
 				// dailymotion options.
@@ -3137,9 +3149,9 @@ class Premium_Videobox extends Widget_Base {
 	}
 
 	/**
-	 * Get Vimeo header
+	 * Get Vimeo header.
 	 *
-	 * Get Vimeo video meta data
+	 * Get Vimeo video meta data.
 	 *
 	 * @access private
 	 *
@@ -3262,18 +3274,16 @@ class Premium_Videobox extends Widget_Base {
 
 			foreach ( $playlist_videos as $index => $video ) {
 
-
-				if( 'playlist' === $source ) {
-					$id = 	$video->snippet->resourceId->videoId;
+				if ( 'playlist' === $source ) {
+					$id = $video->snippet->resourceId->videoId;
 				} else {
 
-					if( ! isset( $video->id->videoId ) ) {
+					if ( ! isset( $video->id->videoId ) ) {
 						continue;
 					}
 
 					$id = $video->id->videoId;
 				}
-
 
 				if ( 'playlist' === $source && 'public' !== $video->status->privacyStatus ) {
 					continue;
@@ -3301,12 +3311,16 @@ class Premium_Videobox extends Widget_Base {
 
 				$loop = $settings['premium_video_box_loop'];
 
+				$playsinline = $settings['play_inline'];
+
 				$options  = '&rel=';
 				$options .= 'yes' === $related ? '1' : '0';
 				$options .= '&mute=';
 				$options .= 'yes' === $mute ? '1' : '0';
 				$options .= '&loop=';
 				$options .= 'yes' === $loop ? '1' : '0';
+				$options .= '&playsinline=';
+				$options .= 'yes' === $playsinline ? '1' : '0';
 
 				if ( $settings['premium_video_box_start'] ) {
 					$options .= '&start=' . $settings['premium_video_box_start'];
@@ -3484,7 +3498,7 @@ class Premium_Videobox extends Widget_Base {
 
 		$api_key = Admin_Helper::get_integrations_settings()['premium-youtube-api'];
 
-		if ( empty( $api_key ) || '1' == $api_key ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+		if ( empty( $api_key ) || '1' === $api_key ) { // phpcs:ignore WordPress.PHP.StrictComparisons
 			?>
 			<div class="premium-error-notice">
 				<?php
@@ -3530,10 +3544,7 @@ class Premium_Videobox extends Widget_Base {
 
 			$response_data = $api_response['data'];
 
-
-
 			$response_json = rplg_json_decode( $response_data );
-
 
 			$transient = $settings['reload'];
 

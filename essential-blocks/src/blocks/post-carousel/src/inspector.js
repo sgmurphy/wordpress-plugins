@@ -595,7 +595,7 @@ function Inspector(props) {
                             <BorderShadowControl
                                 controlName={COLUMN_BORDER_SHADOW}
                                 noShadow
-                                // noBorder
+                            // noBorder
                             />
                         </InspectorPanel.PanelBody>
                     </InspectorPanel.PanelBody>
@@ -858,7 +858,7 @@ function Inspector(props) {
                                 <BorderShadowControl
                                     controlName={READMORE_BORDER_SHADOW}
                                     noShadow
-                                    // noBorder
+                                // noBorder
                                 />
                             </InspectorPanel.PanelBody>
                         </InspectorPanel.PanelBody>
@@ -1227,39 +1227,20 @@ function Inspector(props) {
                                 }
                             />
 
-                            <ResponsiveRangeController
-                                baseLabel={__(
-                                    "Dots Size",
-                                    "essential-blocks"
-                                )}
-                                controlName={DOTS_SIZE}
-                                units={FONT_UNIT_TYPES}
-                                min={1}
-                                max={50}
-                                step={1}
-                            />
-                            <ResponsiveRangeController
-                                baseLabel={__(
-                                    "Dots Gap",
-                                    "essential-blocks"
-                                )}
-                                controlName={DOTS_GAP}
-                                units={UNIT_TYPES}
-                                min={0}
-                                max={50}
-                                step={1}
-                            />
-                            <ResponsiveRangeController
-                                baseLabel={__(
-                                    "Dots Size",
-                                    "essential-blocks"
-                                )}
-                                controlName={DOTS_SIZE}
-                                units={FONT_UNIT_TYPES}
-                                min={1}
-                                max={50}
-                                step={1}
-                            />
+                            {!dotPreset.includes('modern') && (
+                                <ResponsiveRangeController
+                                    baseLabel={__(
+                                        "Dots Size",
+                                        "essential-blocks"
+                                    )}
+                                    controlName={DOTS_SIZE}
+                                    units={FONT_UNIT_TYPES}
+                                    min={1}
+                                    max={100}
+                                    step={1}
+                                />
+                            )}
+
                             <ResponsiveRangeController
                                 baseLabel={__(
                                     "Dots Gap",

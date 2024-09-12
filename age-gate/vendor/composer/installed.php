@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'asylum/wp-plugin-boilerplate',
-        'pretty_version' => '3.4.1',
-        'version' => '3.4.1.0',
-        'reference' => 'b2ea656bc2693b27169f3c995c84813d81f7c1e2',
+        'pretty_version' => '3.5.0',
+        'version' => '3.5.0.0',
+        'reference' => 'a220045e337e884f9af52880802a39f2ec7f12f8',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'agegate/common' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '3af399da9e2a5eb342530581f4b5da09d13d75a7',
+            'reference' => 'f29b05348d07c3deded3b7f2e535fee26b3edfd3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../agegate/common',
             'aliases' => array(
@@ -75,9 +75,9 @@
             'dev_requirement' => false,
         ),
         'asylum/wp-plugin-boilerplate' => array(
-            'pretty_version' => '3.4.1',
-            'version' => '3.4.1.0',
-            'reference' => 'b2ea656bc2693b27169f3c995c84813d81f7c1e2',
+            'pretty_version' => '3.5.0',
+            'version' => '3.5.0.0',
+            'reference' => 'a220045e337e884f9af52880802a39f2ec7f12f8',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

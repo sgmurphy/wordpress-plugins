@@ -19,15 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Admin extends Base {
 
 	public $plugin;
-
 	public $slug;
-
 	public $name;
-
 	public $server;
-
 	public $version;
-
 	public $admin_url;
 
 	/**

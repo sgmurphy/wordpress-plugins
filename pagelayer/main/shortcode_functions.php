@@ -111,7 +111,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 	}
 	
 	// Is there any function ?
-	$func = @$pagelayer->shortcodes[$tag]['func'];
+	$func = pagelayer_isset($pagelayer->shortcodes[$tag], 'func');
 	
 	// If not, we will search for a default func if prefix of tag is pl_
 	if(empty($func) && substr($tag, 0, 3) == 'pl_'){
@@ -141,7 +141,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 		unset($el['oAtts']['pagelayer-id']);
 	}
 	
-	$innerHTML = @$pagelayer->shortcodes[$tag]['innerHTML'];
+	$innerHTML = pagelayer_isset($pagelayer->shortcodes[$tag], 'innerHTML');
 	if(!empty($innerHTML) && !empty($content)){
 		$el['oAtts'][$innerHTML] = $content;
 		$el['atts'][$innerHTML] = $content;
@@ -195,7 +195,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 					foreach($param['req'] as $rk => $reqval){
 						$except = $rk[0] == '!' ? true : false;
 						$rk = $except ? substr($rk, 1) : $rk;
-						$val = @$el['atts'][$rk];
+						$val = pagelayer_isset($el['atts'], $rk);
 						
 						//echo $prop.' - '.$rk.' : '.$reqval.' == '.$val.'<br>';
 						
@@ -396,7 +396,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 						
 						$M_prop = $prop.$mv;
 						
-						$prop_val = isset($el['atts'][$M_prop]) ? $el['atts'][$M_prop] : '';
+						$prop_val = pagelayer_isset($el['atts'], $M_prop);
 						
 						// If is global font
 						if( $param['type'] == 'typography' && (!empty($prop_val) || !empty($global_typo)) ){
@@ -447,7 +447,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 							
 							// Make the CSS
 							if(!empty($selector)){
-								$el['css'][$selector][] = rtrim( trim( pagelayer_css_render($v, $prop_val, @$param['sep']) ), ';' );
+								$el['css'][$selector][] = rtrim( trim( pagelayer_css_render($v, $prop_val, pagelayer_isset($param, 'sep')) ), ';' );
 							}else{
 								$el['css'][][] = pagelayer_parse_el_vars($el['atts'][$M_prop],$el);
 							}
@@ -477,7 +477,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 						$val[0] = empty($val[0]) ? $font_cache : $val[0];
 						
 						if(!empty($val[0])){
-							pagelayer_load_font_family($val[0], @$val[3], @$val[2]);
+							pagelayer_load_font_family($val[0], pagelayer_isset($val, 3), pagelayer_isset($val, 2));
 														
 							//pagelayer_print($pagelayer->runtime_fonts);
 						}
@@ -485,8 +485,8 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 					
 					if($prop == 'font_family' && !empty($el['atts'][$M_prop])){
 						$val = $el['atts'][$M_prop];
-						if(!empty($val)){
-							pagelayer_load_font_family($val, @$el['atts']['font_weight'.$mv], @$el['atts']['font_style'.$mv]);
+						if(!empty($val)){							
+							pagelayer_load_font_family($val, pagelayer_isset($el['atts'], 'font_weight'.$mv), pagelayer_isset($el['atts'], 'font_style'.$mv));
 						}
 					}
 				}
@@ -727,7 +727,7 @@ function pagelayer_render_shortcode($atts, $content = '', $tag = '', $inner_bloc
 		foreach($el['css'] as $ck => $cv){
 			preg_match('/\|pl_(mobile|tablet)\|/is', $ck, $screen_matches);
 			$ck = str_replace(['|pl_mobile|', '|pl_tablet|'], '', $ck);
-			$media = @$screen_matches[1];
+			$media = pagelayer_isset($screen_matches, 1);
 			
 			$merge_css = implode(';', $cv);
 			$combine_css = (!is_numeric($ck) ? $ck.'{'.$merge_css.'}' : $merge_css ).PHP_EOL;

@@ -91,10 +91,7 @@ class GNPUB_Feed {
 	 * @param WP_Query $query The global posts query instance.
 	 */
 	public function apply_feed_constraints( $query ) {
-		if ( ! $query->is_feed ) {
-			return;
-		}
-	
+		
 		/*
 			This checks:
 			1. Is the queried feed the GN Publisher feed, if so continue.
@@ -102,21 +99,23 @@ class GNPUB_Feed {
 			3. Is the default feed the GN Publisher feed, if so continue.
 		*/
 		
-		foreach(self::FEED_ID as $feedidval){
-			if ( $query->get( 'feed' ) !== $feedidval && ( $query->get( 'feed' ) !== 'feed' && get_default_feed() !== $feedidval ) ) {
-				return;
+		if ( $query->is_feed && ! is_admin() ) {
+		
+			if ( $query->get( 'feed' ) === 'gn' || $query->get( 'feed' ) === 'flipboard' || ( get_default_feed() === 'gn' || get_default_feed() === 'flipboard' ) ) {
+
+				if ( gnpub_is_feedfetcher() ) {
+
+					update_option( 'gnpub_google_last_fetch', current_time( 'timestamp' ) );
+					$feed_url = untrailingslashit( gnpub_current_feed_link() );	
+					gnpub_add_feed( $feed_url, $query );
+					
+				}
+				
 			}
+			
 		}
-
-		if ( gnpub_is_feedfetcher() ) {
-			update_option( 'gnpub_google_last_fetch', current_time( 'timestamp' ) );
-		}
-
-		// The maximum number of posts which can be displayed in the feed.
-		// Default: 30 posts.
-		$max_posts = apply_filters( 'gnpub_feed_max_posts', 30 );
-
-			}
+																					
+	}
 
 	/**
 	 * Adds a post's feature image to the beginning of the content.

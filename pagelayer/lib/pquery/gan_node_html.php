@@ -1465,7 +1465,7 @@ class DomNode implements IQuery {
 		if (!is_array($className)) {
 			$className = array($className);
 		}
-		$class = $this->class;
+		$class = isset($this->class) ? $this->class : '';
 		foreach ($className as $c) {
 			if (!(preg_match('`\b'.preg_quote($c).'\b`si', $class) > 0)) {
 				$class .= ' '.$c;
@@ -2353,7 +2353,7 @@ class DomNode implements IQuery {
       return $this;
    }
 
-   public function count() {
+   public function count(): int {
        return 1;
    }
 

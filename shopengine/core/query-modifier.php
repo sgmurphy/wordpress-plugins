@@ -20,6 +20,8 @@ class Query_Modifier
 
     public function modify_query($query)
     {
+
+        
         if (is_admin() || !$query->is_main_query() || $query->is_single === true) {
             return;
         }
@@ -27,7 +29,6 @@ class Query_Modifier
         if (!isset($query->query_vars['wc_query']) || $query->query_vars['wc_query'] != 'product_query') {
             return;
         }
-
 
         // query filter begins
 

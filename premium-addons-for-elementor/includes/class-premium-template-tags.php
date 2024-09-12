@@ -772,7 +772,7 @@ class Premium_Template_Tags {
 			the_content();
 
 		} else {
-			$excerpt = strip_tags( trim( get_the_excerpt() ) );
+			$excerpt = trim( get_the_excerpt() );
 
 			$excerpt = apply_filters( 'pa_post_excerpt', $excerpt, get_the_ID() );
 

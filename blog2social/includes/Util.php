@@ -539,6 +539,7 @@ class B2S_Util {
 
         //Bug: Converting json + PHP Extension
         if (function_exists('mb_strlen') && function_exists('mb_substr') && function_exists('mb_stripos') && function_exists('mb_strripos')) {
+
             if (mb_strlen($text, 'UTF-8') < $count) {
                 return trim($text);
             }
@@ -548,12 +549,11 @@ class B2S_Util {
 
             //New Case: whole set - V8.0.0
             $tmpMax = ($max !== false) ? ($max - $count) : ($count - 1);
-            if (mb_strlen($text, 'UTF-8') < $max) {
+            if (mb_strlen($text, 'UTF-8') < $tmpMax) {
                 return trim($text);
             }
 
-            $tmpCount = (($max !== false) && (int) $count == 0) ? $tmpMax : $count;
-
+            $tmpCount = (($max !== false) && (int) $count == 0) ? $max : $count;
             $parts = preg_split('/([\s\n\r]+)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
             $length = 0;
             $last_part = 0;
@@ -568,15 +568,18 @@ class B2S_Util {
                     $last_taken = $last_part;
                 }
             }
-
             $tmpText = implode(array_slice($parts, 0, $last_taken));
-
+            
             //Old case: first whole set in $text is greater than $count, do cut off by word -until V7.5.5
             if (empty($tmpText)) {
 
-                $stops = array('.', '?', '!', '#');
+                $stops = array('.', '?', '!', '#', '(');
                 $min = $count;
                 $cleanTruncateWord = true;
+                $max = ($max !== false) ? ($max - $min) : ($min - 1);
+                if (mb_strlen($text, 'UTF-8') < $max) {
+                    return trim($text);
+                }
 
                 $sub = mb_substr($text, $min, $max, 'UTF-8');
                 $stopAt = '';
@@ -604,22 +607,19 @@ class B2S_Util {
                         $sub = mb_substr($sub, 0, -1);
                     }
                 }
+
                 if ($cleanTruncateWord) {
                     $lastIndex = mb_strripos($sub, ' ');
                     if ($lastIndex !== false) {
                         $sub = trim(mb_substr($sub, 0, $lastIndex));
                     }
                 }
-
                 $text = trim(mb_substr($text, 0, $min, 'UTF-8') . $sub);
             } else {
                 $text = $tmpText;
             }
-
-
             return ($add) ? $text . "..." : $text;
         }
-
         return trim($text);
     }
 

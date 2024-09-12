@@ -2,10 +2,9 @@
 <?php if (HMWP_Classes_Tools::getOption('test_frontend') && HMWP_Classes_Tools::getOption('hmwp_mode') <> 'default' ) {
     add_action('home_url', array(HMWP_Classes_ObjController::getClass('HMWP_Models_Rewrite'), 'home_url'), PHP_INT_MAX, 1);
     ?>
-    <div class="col-sm-12 border-bottom border-light p-0 mx-0 my-3">
+    <div class="col-sm-12 border-bottom border-light p-0 mx-0 mt-0 mb-3">
 
         <div class="col-sm-12 border-danger bg-light border py-3 mx-0 my-0">
-            <h4><?php echo esc_html__('Next Steps', 'hide-my-wp'); ?></h4>
 
             <div class="text-center my-4">
                 <div class="hmwp_confirm" style="display: inline-block; margin-right: 5px;">

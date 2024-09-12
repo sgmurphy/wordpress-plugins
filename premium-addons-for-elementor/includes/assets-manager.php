@@ -476,6 +476,10 @@ class Assets_Manager {
 
 			$file_content = self::get_file_content( $path );
 
+			if( 'not_found' === $file_content ) {
+				continue;
+			}
+
 			if ( 'empty' === $file_content ) {
 				return 'empty';
 			}

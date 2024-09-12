@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3
+class ComposerStaticInitd45382ff60ee79f90668e944e165456b
 {
     public static $prefixLengthsPsr4 = array (
         'W' => 
@@ -140,6 +140,7 @@ class ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3
         'WeDevs\\WpUtils\\HookTrait' => __DIR__ . '/..' . '/wedevs/wp-utils/src/HookTrait.php',
         'WeDevs\\WpUtils\\LogTrait' => __DIR__ . '/..' . '/wedevs/wp-utils/src/LogTrait.php',
         'WeDevs\\WpUtils\\SingletonTrait' => __DIR__ . '/..' . '/wedevs/wp-utils/src/SingletonTrait.php',
+        'WeDevs\\Wpuf\\API' => __DIR__ . '/../..' . '/includes/API.php',
         'WeDevs\\Wpuf\\Admin' => __DIR__ . '/../..' . '/includes/Admin.php',
         'WeDevs\\Wpuf\\Admin\\Admin_Installer' => __DIR__ . '/../..' . '/includes/Admin/Admin_Installer.php',
         'WeDevs\\Wpuf\\Admin\\Admin_Settings' => __DIR__ . '/../..' . '/includes/Admin/Admin_Settings.php',
@@ -178,6 +179,7 @@ class ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3
         'WeDevs\\Wpuf\\Ajax\\Admin_Form_Builder_Ajax' => __DIR__ . '/../..' . '/includes/Ajax/Admin_Form_Builder_Ajax.php',
         'WeDevs\\Wpuf\\Ajax\\Frontend_Form_Ajax' => __DIR__ . '/../..' . '/includes/Ajax/Frontend_Form_Ajax.php',
         'WeDevs\\Wpuf\\Ajax\\Upload_Ajax' => __DIR__ . '/../..' . '/includes/Ajax/Upload_Ajax.php',
+        'WeDevs\\Wpuf\\Api\\Subscription' => __DIR__ . '/../..' . '/includes/Api/Subscription.php',
         'WeDevs\\Wpuf\\Assets' => __DIR__ . '/../..' . '/includes/Assets.php',
         'WeDevs\\Wpuf\\Data\\Country_State' => __DIR__ . '/../..' . '/includes/Data/Country_State.php',
         'WeDevs\\Wpuf\\Encryption_Helper' => __DIR__ . '/../..' . '/includes/Encryption_Helper.php',
@@ -249,9 +251,9 @@ class ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite6d585c24d2981e9689fdf2be11dfee3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd45382ff60ee79f90668e944e165456b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd45382ff60ee79f90668e944e165456b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd45382ff60ee79f90668e944e165456b::$classMap;
 
         }, null, ClassLoader::class);
     }

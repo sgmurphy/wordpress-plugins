@@ -60,7 +60,9 @@ class Settings
         }
 
         // flip terms
-        $data['terms'] = collect($data['terms'] ?? [])->map(fn ($item, $k) => array_keys($item))->toArray();
+        $data['terms'] = collect($data['terms'] ?? [])->map(function ($item, $k) {
+            return is_array($item) ? array_keys($item) : [];
+        })->toArray();
 
         $data['rememberTime'] = $data['rememberLength']['remember_time'] ?? 365;
         $data['rememberLength'] = $data['rememberLength']['remember_length'] ?? 'days';

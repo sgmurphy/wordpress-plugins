@@ -5,7 +5,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
 <div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
     <?php echo $view->getAdminTabs(HMWP_Classes_Tools::getValue('page', 'hmwp_advanced')); ?>
     <div class="hmwp_row d-flex flex-row p-0 m-0">
-        <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+        <div class="hmwp_col flex-grow-1 p-0 pr-2 mr-2 mb-3">
             <form method="POST">
                 <?php wp_nonce_field('hmwp_firewall', 'hmwp_nonce') ?>
                 <input type="hidden" name="action" value="hmwp_firewall"/>
@@ -39,7 +39,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                 <div class="text-black-50 small"><?php echo sprintf(esc_html__('Learn more about %s 8G firewall %s.', 'hide-my-wp'), '<a href="https://perishablepress.com/8g-firewall/" target="_blank">', '</a>'); ?></div>
                             </div>
                             <div class="col-sm-8 p-0 input-group mb-1">
-                                <select name="hmwp_sqlinjection_level" class="form-control bg-input">
+                                <select name="hmwp_sqlinjection_level" class="form-control">
                                     <option value="1" <?php echo selected(1, HMWP_Classes_Tools::getOption('hmwp_sqlinjection_level')) ?>><?php echo esc_html__('Minimal', 'hide-my-wp'); ?></option>
                                     <option value="2" <?php echo selected(2, HMWP_Classes_Tools::getOption('hmwp_sqlinjection_level')) ?>><?php echo esc_html__('Medium', 'hide-my-wp'); ?></option>
                                     <option value="3" <?php echo selected(3, HMWP_Classes_Tools::getOption('hmwp_sqlinjection_level')) ?>><?php echo esc_html__('7G Firewall', 'hide-my-wp'); ?></option>
@@ -57,7 +57,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     <div class="text-black-50 small"><?php echo esc_html__('Where to add the firewall rules.', 'hide-my-wp'); ?></div>
                                 </div>
                                 <div class="col-sm-8 p-0 input-group mb-1">
-                                    <select name="hmwp_sqlinjection_location" class="form-control bg-input">
+                                    <select name="hmwp_sqlinjection_location" class="form-control">
                                         <option value="onload" <?php echo selected('onload', HMWP_Classes_Tools::getOption('hmwp_sqlinjection_location')) ?>><?php echo esc_html__('On website initialization', 'hide-my-wp'); ?> (<?php echo esc_html__('recommended', 'hide-my-wp'); ?>)</option>
                                         <option value="file" <?php echo selected('file', HMWP_Classes_Tools::getOption('hmwp_sqlinjection_location')) ?>><?php echo esc_html__('In .htaccess file', 'hide-my-wp'); ?></option>
                                     </select>
@@ -120,7 +120,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                             </div>
 
                             <div class="col-sm-12 row py-4 border-bottom hmwp_security_header" >
-                                <input type="hidden" class="form-control bg-input w-100" name="hmwp_security_headers[]" value="" />
+                                <input type="hidden" class="form-control w-100" name="hmwp_security_headers[]" value="" />
                                 <?php
                                 $headers = (array)HMWP_Classes_Tools::getOption('hmwp_security_headers');
                                 $help =  array(
@@ -186,7 +186,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                             </div>
                                             <div class="col-sm-8 p-0">
                                                 <div class=" input-group">
-                                                    <input type="text" class="form-control bg-input w-100" name="hmwp_security_headers[<?php echo esc_attr($name)?>]" value="<?php echo esc_attr($value) ?>" />
+                                                    <input type="text" class="form-control w-100" name="hmwp_security_headers[<?php echo esc_attr($name)?>]" value="<?php echo esc_attr($value) ?>" />
                                                     <?php if(isset($help[$name]['link'])) { ?>
                                                         <a href="<?php echo esc_url($help[$name]['link'])?>" target="_blank" class="position-absolute float-right" style="right: 7px;top: 10px;"><i class="dashicons dashicons-editor-help"></i></a>
                                                     <?php }?>
@@ -215,7 +215,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                                         <?php }?>
                                                     </div>
                                                     <div class="col-sm-8 p-0 input-group">
-                                                        <input type="text" class="form-control bg-input" />
+                                                        <input type="text" class="form-control" />
                                                         <?php if(isset($value['link'])) { ?>
                                                             <a href="<?php echo esc_url($value['link'])?>" target="_blank" class="position-absolute float-right" style="right: 7px;top: 10px;"><i class="dashicons dashicons-editor-help"></i></a>
                                                         <?php }?>
@@ -300,7 +300,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     $ips = json_decode($ips, true);
                                 }
                                 ?>
-                                <textarea type="text" class="form-control bg-input" name="whitelist_ip" style="height: 100px"><?php echo(!empty($ips) ? implode(PHP_EOL, $ips) : '') ?></textarea>
+                                <textarea type="text" class="form-control" name="whitelist_ip" style="height: 100px"><?php echo(!empty($ips) ? implode(PHP_EOL, $ips) : '') ?></textarea>
                                 <div class="small text-black-50 col-md-12 py-2 px-0"><?php echo sprintf(esc_html__('You can white-list a single IP address like 192.168.0.1 or a range of 245 IPs like 192.168.0.*. Find your IP with %s', 'hide-my-wp'), '<a href="https://whatismyipaddress.com/" target="_blank">https://whatismyipaddress.com/</a>') ?></div>
                             </div>
                         </div>
@@ -317,7 +317,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     $urls = json_decode($urls, true);
                                 }
                                 ?>
-                                <textarea type="text" class="form-control bg-input" name="whitelist_urls" style="height: 100px"><?php echo(!empty($urls) ? implode(PHP_EOL, $urls) : '') ?></textarea>
+                                <textarea type="text" class="form-control" name="whitelist_urls" style="height: 100px"><?php echo(!empty($urls) ? implode(PHP_EOL, $urls) : '') ?></textarea>
                                 <div class="small text-black-50 col-md-12 py-2 px-0"><?php echo esc_html__('e.g. /cart/ will whitelist all path starting with /cart/', 'hide-my-wp') ?></div>
                             </div>
                         </div>
@@ -328,7 +328,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                 <div class="text-black-50 small"><?php echo esc_html__('Chose what to do when accessing from whitelist IP addresses and whitelisted paths.', 'hide-my-wp'); ?></div>
                             </div>
                             <div class="col-sm-8 p-0 input-group mb-1 pl-2">
-                                <select name="whitelist_level" class="form-control bg-input">
+                                <select name="whitelist_level" class="form-control">
                                     <option value="0" <?php echo selected(0, HMWP_Classes_Tools::getOption('whitelist_level')) ?> ><?php echo esc_html__('Allow Hidden Paths', 'hide-my-wp'); ?></option>
                                     <option value="1" <?php echo selected(1, HMWP_Classes_Tools::getOption('whitelist_level')) ?> ><?php echo esc_html__('Show Default Paths & Allow Hidden Paths', 'hide-my-wp'); ?></option>
                                     <option value="2" <?php echo selected(2, HMWP_Classes_Tools::getOption('whitelist_level')) ?> ><?php echo esc_html__('Show Defaults Paths & Allow Everything', 'hide-my-wp'); ?></option>
@@ -357,7 +357,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     $ips = json_decode($ips, true);
                                 }
                                 ?>
-                                <textarea type="text" class="form-control bg-input" name="banlist_ip" ><?php echo(!empty($ips) ? implode(PHP_EOL, $ips) : '') ?></textarea>
+                                <textarea type="text" class="form-control" name="banlist_ip" ><?php echo(!empty($ips) ? implode(PHP_EOL, $ips) : '') ?></textarea>
                                 <div class="small text-black-50 col-md-12 py-2 px-0"><?php echo esc_html__('You can ban a single IP address like 192.168.0.1 or a range of 245 IPs like 192.168.0.*. These IPs will not be able to access the login page.', 'hide-my-wp') ?></div>
                             </div>
                         </div>
@@ -376,7 +376,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     $user_agents = json_decode($user_agents, true);
                                 }
                                 ?>
-                                <textarea type="text" class="form-control bg-input" name="banlist_user_agent"><?php echo(!empty($user_agents) ? implode(PHP_EOL, $user_agents) : '') ?></textarea>
+                                <textarea type="text" class="form-control" name="banlist_user_agent"><?php echo(!empty($user_agents) ? implode(PHP_EOL, $user_agents) : '') ?></textarea>
                             </div>
                         </div>
 
@@ -393,7 +393,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     $referrers = json_decode($referrers, true);
                                 }
                                 ?>
-                                <textarea type="text" class="form-control bg-input" name="banlist_referrer"><?php echo(!empty($referrers) ? implode(PHP_EOL, $referrers) : '') ?></textarea>
+                                <textarea type="text" class="form-control" name="banlist_referrer"><?php echo(!empty($referrers) ? implode(PHP_EOL, $referrers) : '') ?></textarea>
                             </div>
                         </div>
 
@@ -410,7 +410,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
                                     $hostnames = json_decode($hostnames, true);
                                 }
                                 ?>
-                                <textarea type="text" class="form-control bg-input" name="banlist_hostname"><?php echo(!empty($hostnames) ? implode(PHP_EOL, $hostnames) : '') ?></textarea>
+                                <textarea type="text" class="form-control" name="banlist_hostname"><?php echo(!empty($hostnames) ? implode(PHP_EOL, $hostnames) : '') ?></textarea>
                                 <div class="col-12 px-0 py-2 small text-danger"><?php echo esc_html__('Resolving hostnames may affect the website loading speed.'); ?></div>
                             </div>
                         </div>
@@ -426,7 +426,7 @@ defined('ABSPATH') || die('Cheatin\' uh?'); ?>
             </form>
 
         </div>
-        <div class="hmwp_col hmwp_col_side p-0 m-0 mr-2">
+        <div class="hmwp_col hmwp_col_side p-0 pr-2 mr-2">
             <?php $view->show('blocks/SecurityCheck'); ?>
         </div>
     </div>

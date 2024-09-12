@@ -894,8 +894,8 @@ input[type="number"]{
     position: absolute !important;
     color: white !important;
     opacity: 1 !important;
-    right: 5px !important
-        top: 5px !important;
+    right: 5px !important;
+    top: 5px !important;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black !important;
 }
 
@@ -1027,6 +1027,7 @@ input[type="number"]{
 
 .b2s-post-item-textarea-icon-container {
     display: none;
+    z-index: 1020;
     position: absolute;
     right: calc(50% - 10px);
     top: calc(50% - 10px);
@@ -1069,4 +1070,15 @@ input[type="number"]{
     100% {
         transform: rotate(360deg);
     }
+}
+
+.b2s-post-item-sceditor-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.b2s-post-item-ass-reset-btn{
+    background-color: #e9e9ed !important;
+    border-color: transparent !important;
+    color: #3c434a !important;
 }

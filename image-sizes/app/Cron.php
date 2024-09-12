@@ -18,13 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Cron extends Base {
 
 	public $plugin;
-
 	public $slug;
-
 	public $name;
-
 	public $server;
-
 	public $version;
 
 	/**

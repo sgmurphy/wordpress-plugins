@@ -3,8 +3,8 @@ Contributors: ays-pro
 Donate link: https://ays-pro.com/wordpress/popup-box
 Tags: popup, popups, exit popup, pop up, modal
 Requires at least: 4.0
-Tested up to: 6.6.1
-Stable tag: 4.7.9
+Tested up to: 6.6.2
+Stable tag: 4.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -334,6 +334,10 @@ After clearing the caches, try to check the case with either the **Incognito mod
 
 
 == Changelog ==
+
+= 4.8.0 =
+* Added: Font weight option for notification popup button
+* Tested: Compatible up to 6.6.2
 
 = 4.7.9 =
 * Added: Button hover text option for notification popup type

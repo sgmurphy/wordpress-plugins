@@ -1,5 +1,8 @@
 import { __ } from '@wordpress/i18n';
 
+const { themeSlug } = window.extSharedData;
+const { launchCompleted } = window.extAssistData;
+
 export default {
 	slug: 'setup-simplybook',
 	title: __('Set up bookings', 'extendify-local'),
@@ -15,6 +18,8 @@ export default {
 	type: 'internalLink',
 	dependencies: { goals: [], plugins: ['simplybook'] },
 	show: ({ plugins, goals, activePlugins, userGoals }) => {
+		// They need either extendable or launch completed
+		if (themeSlug !== 'extendable' && !launchCompleted) return false;
 		if (!plugins.length && !goals.length) return true;
 
 		return activePlugins

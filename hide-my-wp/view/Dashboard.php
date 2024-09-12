@@ -179,8 +179,8 @@ if (HMWP_Classes_Tools::getOption('hmwp_security_alert')) {
             });
 
             <?php if($do_check) { ?>
-                $('#hmwp_dashboard_widget').hmwp_widget_recheck();
-                $('#hmwp_securitycheck_widget').hmwp_widget_recheck();
+                // $('#hmwp_dashboard_widget').hmwp_widget_recheck();
+                // $('#hmwp_securitycheck_widget').hmwp_widget_recheck();
             <?php }?>
         });
     })(jQuery);

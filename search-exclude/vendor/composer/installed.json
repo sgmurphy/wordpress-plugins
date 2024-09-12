@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "automattic/jetpack-assets",
-            "version": "v2.3.7",
-            "version_normalized": "2.3.7.0",
+            "version": "v2.3.8",
+            "version_normalized": "2.3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-assets.git",
-                "reference": "ace534dbeca02ead69d01bbdcc305319c902f4b6"
+                "reference": "3ddaff78c82ed7663b61961356585061dbb3410a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/ace534dbeca02ead69d01bbdcc305319c902f4b6",
-                "reference": "ace534dbeca02ead69d01bbdcc305319c902f4b6",
+                "url": "https://api.github.com/repos/Automattic/jetpack-assets/zipball/3ddaff78c82ed7663b61961356585061dbb3410a",
+                "reference": "3ddaff78c82ed7663b61961356585061dbb3410a",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,7 @@
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
-            "time": "2024-09-05T19:34:25+00:00",
+            "time": "2024-09-10T11:21:54+00:00",
             "type": "jetpack-library",
             "extra": {
                 "autotagger": true,
@@ -56,7 +56,7 @@
             ],
             "description": "Asset management utilities for Jetpack ecosystem packages",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-assets/tree/v2.3.7"
+                "source": "https://github.com/Automattic/jetpack-assets/tree/v2.3.8"
             },
             "install-path": "../../jetpack_vendor/automattic/jetpack-assets"
         },
@@ -173,6 +173,68 @@
                 "source": "https://github.com/Automattic/jetpack-constants/tree/v2.0.4"
             },
             "install-path": "../../jetpack_vendor/automattic/jetpack-constants"
+        },
+        {
+            "name": "franmastromarino/wp-orm",
+            "version": "dev-dev-refactor",
+            "version_normalized": "dev-dev-refactor",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franmastromarino/wp-options-orm.git",
+                "reference": "7c5a62368473dca16c667e942ba812ec3f6e30e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franmastromarino/wp-options-orm/zipball/7c5a62368473dca16c667e942ba812ec3f6e30e7",
+                "reference": "7c5a62368473dca16c667e942ba812ec3f6e30e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "10up/wp_mock": "^0.5.0",
+                "brain/monkey": "^2.6",
+                "composer/composer": "^2.1",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "mockery/mockery": "^1.5",
+                "phpcompatibility/phpcompatibility-wp": "^2.1.0",
+                "phpunit/phpunit": "^9.6",
+                "squizlabs/php_codesniffer": "*",
+                "wp-coding-standards/wpcs": "^2.3.0"
+            },
+            "time": "2024-09-09T16:04:03+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/V2/helpers.php"
+                ],
+                "psr-4": {
+                    "QuadLayers\\WP_Orm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "QuadLayers",
+                    "email": "noreply@quadlayers.com"
+                }
+            ],
+            "description": "A package to help developers create custom WordPress entities in their own plugins.",
+            "homepage": "https://quadlayers.com/",
+            "keywords": [
+                "autoload",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/franmastromarino/wp-options-orm/issues",
+                "source": "https://github.com/franmastromarino/wp-options-orm/tree/dev-refactor"
+            },
+            "install-path": "../franmastromarino/wp-orm"
         },
         {
             "name": "quadlayers/wp-dashboard-widget-news",

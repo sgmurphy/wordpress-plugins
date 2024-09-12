@@ -556,10 +556,6 @@ class Admin extends Base {
 
         betterdocs()->assets->enqueue( 'betterdocs-admin-glossaries', 'admin/js/glossaries.js' );
 
-        // removing emoji support
-        remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-        remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-
         betterdocs()->assets->localize( 'betterdocs-admin-glossaries', 'betterdocsGlossary', [
             'dir_url'             => BETTERDOCS_ABSURL,
             'rest_url'            => esc_url_raw( rest_url() ),

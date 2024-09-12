@@ -597,7 +597,7 @@ function Inspector(props) {
                                                         handleCustomURL(
                                                             text,
                                                             item.id,
-                                                            images,
+                                                            sources,
                                                             setAttributes
                                                         )
                                                     }
@@ -626,7 +626,7 @@ function Inspector(props) {
                                                         handleOpenNewTab(
                                                             !item.openNewTab,
                                                             item.id,
-                                                            images,
+                                                            sources,
                                                             setAttributes
                                                         )
                                                     }

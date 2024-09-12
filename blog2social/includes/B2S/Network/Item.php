@@ -943,7 +943,7 @@ class B2S_Network_Item {
         $content .= '</div>';
         $content .= '<div class="row">';
         $content .= '<div class="col-md-12 b2s-edit-template-link-info">';
-        if ($networkId != 43 && $networkId != 24 && $networkId != 12 && $networkId != 2 && $networkId != 1) {
+        if ($networkId != 43 && $networkId != 12 && $networkId != 2 && $networkId != 3 && $networkId != 1) {
             if ($networkId == 11) {
                 $content .= '<i class="glyphicon glyphicon-info-sign"></i> ' . esc_html__('The link will be transmitted as a canonical link, i.e. in the source code of your page, in order to refer to the original source of the content and to increase the reach from search engines like Google.', 'blog2social');
             } else if ($networkId == 39) {
@@ -967,7 +967,7 @@ class B2S_Network_Item {
         }
         $content .= '</div>';
         $content .= '</div>';
-        if ($networkId == 1 || $networkId == 2 || $networkId == 43) {
+        if ($networkId == 1 || $networkId == 2 || $networkId == 3 || $networkId == 43) {
             $content .= '<div class="row b2s-edit-template-enable-link-area" style="display:' . (($schema[$networkType]['format'] == 1) ? 'block' : 'none') . '" data-network-type="' . esc_attr($networkType) . '">';
             $content .= '<div class="col-md-12">';
             $content .= '<input class="b2s-edit-template-enable-link" data-network-type="' . esc_attr($networkType) . '" type="checkbox" ' . ((isset($schema[$networkType]['addLink']) && $schema[$networkType]['addLink'] == false) ? '' : 'checked="checked"') . ' id="b2s-edit-template-enable-link[' . esc_attr($networkType) . ']"><label for="b2s-edit-template-enable-link[' . esc_attr($networkType) . ']"> ' . esc_html__('Add a link-URL to the end of my image post.', 'blog2social') . '</label>';

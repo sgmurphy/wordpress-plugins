@@ -16,7 +16,7 @@ if (function_exists('wp_roles') ) {
 <div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
 <?php echo $view->getAdminTabs(HMWP_Classes_Tools::getValue('page', 'hmwp_tweaks')); ?>
     <div class="hmwp_row d-flex flex-row p-0 m-0">
-        <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+        <div class="hmwp_col flex-grow-1 p-0 pr-2 mr-2 mb-3">
             <form method="POST">
                 <?php wp_nonce_field('hmwp_tweakssettings', 'hmwp_nonce') ?>
                 <input type="hidden" name="action" value="hmwp_tweakssettings"/>
@@ -31,7 +31,7 @@ if (function_exists('wp_roles') ) {
                                 <div class="font-weight-bold"><?php echo esc_html__('Redirect Hidden Paths', 'hide-my-wp'); ?>:</div>
                             </div>
                             <div class="col-sm-8 p-0 input-group mb-1">
-                                <select name="hmwp_url_redirect" class="form-control bg-input">
+                                <select name="hmwp_url_redirect" class="form-control">
                                     <option value="." <?php selected('.', HMWP_Classes_Tools::getOption('hmwp_url_redirect'), true) ?>><?php echo esc_html__("Front page", 'hide-my-wp') ?></option>
                                     <option value="404" <?php selected('404', HMWP_Classes_Tools::getOption('hmwp_url_redirect'), true) ?> ><?php echo esc_html__("404 page", 'hide-my-wp') ?></option>
                                     <option value="NFError" <?php selected('NFError', HMWP_Classes_Tools::getOption('hmwp_url_redirect'), true) ?> ><?php echo esc_html__("404 HTML Error", 'hide-my-wp') ?></option>
@@ -89,7 +89,7 @@ if (function_exists('wp_roles') ) {
                                             <div class="small text-black-50"><?php echo esc_html__("eg.", 'hide-my-wp') . ' ' . admin_url('', 'relative'); ?></div>
                                         </div>
                                         <div class="col-sm-8 p-0 input-group ">
-                                            <input type="text" class="form-control bg-input mt-2" name="hmwp_url_redirects[default][login]" value="<?php echo(isset($urlRedirects['default']['login']) ? esc_url($urlRedirects['default']['login']) : '') ?>" />
+                                            <input type="text" class="form-control mt-2" name="hmwp_url_redirects[default][login]" value="<?php echo(isset($urlRedirects['default']['login']) ? esc_url($urlRedirects['default']['login']) : '') ?>" />
                                             <a href="<?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_website') ?>/kb/activate-security-tweaks/#redirect_on_login" target="_blank" class="position-absolute float-right" style="right: 7px;top: 20%;"><i class="dashicons dashicons-editor-help"></i></a>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@ if (function_exists('wp_roles') ) {
                                             <div class="small text-black-50"><?php echo esc_html__("eg. /logout or ", 'hide-my-wp') . ' ' . home_url('', 'relative'); ?></div>
                                         </div>
                                         <div class="col-sm-8 p-0 input-group">
-                                            <input type="text" class="form-control bg-input mt-2" name="hmwp_url_redirects[default][logout]" value="<?php echo(isset($urlRedirects['default']['logout']) ? esc_url($urlRedirects['default']['logout']) : '') ?>" />
+                                            <input type="text" class="form-control mt-2" name="hmwp_url_redirects[default][logout]" value="<?php echo(isset($urlRedirects['default']['logout']) ? esc_url($urlRedirects['default']['logout']) : '') ?>" />
                                             <a href="<?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_website') ?>/kb/activate-security-tweaks/#redirect_on_login" target="_blank" class="position-absolute float-right" style="right: 7px;top: 20%;"><i class="dashicons dashicons-editor-help"></i></a>
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@ if (function_exists('wp_roles') ) {
                                                     <div class="small text-black-50"><?php echo esc_html__("eg.", 'hide-my-wp') . ' ' . admin_url('', 'relative'); ?></div>
                                                 </div>
                                                 <div class="col-sm-8 p-0 input-group">
-                                                    <input type="text" class="form-control bg-input mt-2" name="hmwp_url_redirects[<?php echo esc_attr($role) ?>][login]" value="<?php echo(isset($urlRedirects[$role]['login']) ? esc_url($urlRedirects[$role]['login']) : '') ?>"/>
+                                                    <input type="text" class="form-control mt-2" name="hmwp_url_redirects[<?php echo esc_attr($role) ?>][login]" value="<?php echo(isset($urlRedirects[$role]['login']) ? esc_url($urlRedirects[$role]['login']) : '') ?>"/>
                                                     <a href="<?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_website') ?>/kb/activate-security-tweaks/#redirect_on_login" target="_blank" class="position-absolute float-right" style="right: 7px;top: 20%;"><i class="dashicons dashicons-editor-help"></i></a>
                                                 </div>
                                             </div>
@@ -131,7 +131,7 @@ if (function_exists('wp_roles') ) {
                                                     <div class="small text-black-50"><?php echo esc_html__("eg. /logout or ", 'hide-my-wp') . ' ' . home_url('', 'relative'); ?></div>
                                                 </div>
                                                 <div class="col-sm-8 p-0 input-group">
-                                                    <input type="text" class="form-control bg-input mt-2" name="hmwp_url_redirects[<?php echo esc_attr($role) ?>][logout]" value="<?php echo(isset($urlRedirects[$role]['logout']) ? esc_url($urlRedirects[$role]['logout']) : '') ?>"/>
+                                                    <input type="text" class="form-control mt-2" name="hmwp_url_redirects[<?php echo esc_attr($role) ?>][logout]" value="<?php echo(isset($urlRedirects[$role]['logout']) ? esc_url($urlRedirects[$role]['logout']) : '') ?>"/>
                                                     <a href="<?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_website') ?>/kb/activate-security-tweaks/#redirect_on_login" target="_blank" class="position-absolute float-right" style="right: 7px;top: 20%;"><i class="dashicons dashicons-editor-help"></i></a>
                                                 </div>
                                             </div>
@@ -466,7 +466,7 @@ if (function_exists('wp_roles') ) {
                                         <div class="small text-black-50"><?php echo esc_html__("Leave it blank if you don't want to display any message", 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-sm-7 p-0 input-group">
-                                        <input type="text" class="form-control bg-input mt-2" name="hmwp_disable_click_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_click_message') ?>" />
+                                        <input type="text" class="form-control mt-2" name="hmwp_disable_click_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_click_message') ?>" />
                                     </div>
                                 </div>
 
@@ -520,7 +520,7 @@ if (function_exists('wp_roles') ) {
                                         <div class="small text-black-50"><?php echo esc_html__("Leave it blank if you don't want to display any message", 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-sm-7 p-0 input-group">
-                                        <input type="text" class="form-control bg-input mt-2" name="hmwp_disable_inspect_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_inspect_message') ?>" />
+                                        <input type="text" class="form-control mt-2" name="hmwp_disable_inspect_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_inspect_message') ?>" />
                                     </div>
                                 </div>
 
@@ -585,7 +585,7 @@ if (function_exists('wp_roles') ) {
                                         <div class="small text-black-50"><?php echo esc_html__("Leave it blank if you don't want to display any message", 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-sm-7 p-0 input-group">
-                                        <input type="text" class="form-control bg-input mt-2" name="hmwp_disable_source_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_source_message') ?>" />
+                                        <input type="text" class="form-control mt-2" name="hmwp_disable_source_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_source_message') ?>" />
                                     </div>
                                 </div>
 
@@ -639,7 +639,7 @@ if (function_exists('wp_roles') ) {
                                         <div class="small text-black-50"><?php echo esc_html__("Leave it blank if you don't want to display any message", 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-sm-7 p-0 input-group">
-                                        <input type="text" class="form-control bg-input mt-2" name="hmwp_disable_copy_paste_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_copy_paste_message') ?>" />
+                                        <input type="text" class="form-control mt-2" name="hmwp_disable_copy_paste_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_copy_paste_message') ?>" />
                                     </div>
                                 </div>
 
@@ -703,7 +703,7 @@ if (function_exists('wp_roles') ) {
                                         <div class="small text-black-50"><?php echo esc_html__("Leave it blank if you don't want to display any message", 'hide-my-wp'); ?></div>
                                     </div>
                                     <div class="col-sm-7 p-0 input-group">
-                                        <input type="text" class="form-control bg-input mt-2" name="hmwp_disable_drag_drop_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_drag_drop_message') ?>" />
+                                        <input type="text" class="form-control mt-2" name="hmwp_disable_drag_drop_message" value="<?php echo HMWP_Classes_Tools::getOption('hmwp_disable_drag_drop_message') ?>" />
                                     </div>
                                 </div>
 
@@ -748,7 +748,7 @@ if (function_exists('wp_roles') ) {
                 </div>
             </form>
         </div>
-        <div class="hmwp_col hmwp_col_side p-0 m-0 mr-2">
+        <div class="hmwp_col hmwp_col_side p-0 pr-2 mr-2">
             <?php $view->show('blocks/ChangeCacheFiles'); ?>
             <?php $view->show('blocks/SecurityCheck'); ?>
         </div>

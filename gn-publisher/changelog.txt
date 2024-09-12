@@ -1,3 +1,15 @@
+= 1.5.17 - (12 September 2024) =
+
+* Fixed : Ping Functionality Not Working. #102
+* Fixed : On multisite, When plugin activated, It goes to not found page #103
+* Improved : Few improvements required #100
+
+= 1.5.16 - (09 August 2024) =
+
+* Fixed : Reload issue on tab click #96
+* Fixed : PHP fatal error on feed #98
+* Tested with WordPress v6.6 and updated readme.txt #99
+
 = 1.5.15 - (10 June 2024) =
 
 * Remove ad tags from feed #88

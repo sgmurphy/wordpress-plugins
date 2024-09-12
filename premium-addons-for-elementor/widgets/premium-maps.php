@@ -609,6 +609,23 @@ class Premium_Maps extends Widget_Base {
 				)
 			);
 
+			$this->add_control(
+				'cluster_icon_size',
+				array(
+					'label'     => __( 'Icon Size (PX)', 'premium-addons-for-elementor' ),
+					'type'      => Controls_Manager::SLIDER,
+					'range'     => array(
+						'px' => array(
+							'min' => 1,
+							'max' => 200,
+						),
+					),
+					'condition' => array(
+						'premium_maps_map_option_cluster' => 'yes',
+					),
+				)
+			);
+
 		}
 
 		$this->add_control(
@@ -1121,8 +1138,9 @@ class Premium_Maps extends Widget_Base {
 
 		$hover_close = 'yes' === $settings['premium_maps_marker_mouse_out'];
 
-		$marker_cluster = false;
-		$cluster_icon   = '';
+		$marker_cluster    = false;
+		$cluster_icon      = '';
+		$cluster_icon_size = '';
 
 		$cluster_enabled = Admin_Helper::get_integrations_settings()['premium-map-cluster'];
 
@@ -1130,7 +1148,8 @@ class Premium_Maps extends Widget_Base {
 			$marker_cluster = 'yes' === $settings['premium_maps_map_option_cluster'];
 
 			if ( $marker_cluster ) {
-				$cluster_icon = $settings['cluster_icon']['url'];
+				$cluster_icon      = $settings['cluster_icon']['url'];
+				$cluster_icon_size = $settings['cluster_icon_size']['size'];
 			}
 		}
 
@@ -1182,6 +1201,7 @@ class Premium_Maps extends Widget_Base {
 			'hoverClose'        => $hover_close,
 			'cluster'           => $marker_cluster,
 			'cluster_icon'      => $cluster_icon,
+			'cluster_icon_size' => $cluster_icon_size,
 			'drag'              => $settings['disable_drag'],
 			'loadScroll'        => $settings['load_on_visible'],
 		);

@@ -63,6 +63,7 @@ class Frontend {
 		$feed_layout = $feed['layout'];
 
 		if ( in_array( $feed_layout, array( 'masonry', 'highlight', 'highlight-square' ) ) ) {
+			wp_dequeue_script( 'masonry' );
 			wp_enqueue_script( 'masonry' );
 		}
 

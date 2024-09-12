@@ -50,9 +50,11 @@
     "test:unit": "wp-scripts test-unit-js"
   },
   "dependencies": {
+    "@codemirror/lang-css": "^6.3.0",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@presto-player/components-react": "0.0.2",
     "@surecart/components-react": "^1.0.1",
+    "@uiw/react-codemirror": "^4.23.1",
     "alpinejs": "^2.8.2",
     "debounce-promise": "^3.1.2",
     "memoize-one": "^5.2.1",

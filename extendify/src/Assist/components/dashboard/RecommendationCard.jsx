@@ -19,7 +19,10 @@ const LinkCard = ({ recommendation }) => {
 
 	return (
 		<a
-			href={recommendation[linkType]}
+			href={recommendation[linkType]?.replace(
+				'{APEXDOMAIN}',
+				window.extSharedData?.apexDomain ?? '',
+			)}
 			onClick={() => incrementActivity(`recommendations-${slug}`)}
 			target="_blank"
 			rel="noopener noreferrer"

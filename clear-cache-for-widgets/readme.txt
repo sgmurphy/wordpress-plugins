@@ -1,14 +1,14 @@
 === Clear Cache for Me ===
 Contributors: webheadllc
 Donate link: https://webheadcoder.com/donate-clear-cache-for-me
-Tags: wpengine, cache, clear, purge, js, css, widget
+Tags: cache, clear, purge, js, css
 Requires at least: 3.8
-Tested up to: 6.5
+Tested up to: 6.6
 Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Purges all cache on WPEngine, W3 Total Cache, WP Super Cache, WP Fastest Cache when updating widgets, menus, settings.  Forces a browser to reload CSS and JS files.
+Purges cache on WPEngine, W3TC, WP Super Cache, WP Fastest Cache when widgets, menus, settings update.  Forces browsers to reload CSS and JS files.
 
 == Description ==
 

@@ -17,7 +17,7 @@
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/license/gpl-2.0.txt
  * Domain Path: lang
- * Version:     3.5.13
+ * Version:     3.5.14
  */
 
 /*
@@ -54,7 +54,7 @@ function mc_get_version( $version = true ) {
 	if ( ! $version ) {
 		return get_option( 'mc_version', '' );
 	}
-	return '3.5.13';
+	return '3.5.14';
 }
 
 define( 'MC_DEBUG', false );
@@ -442,6 +442,7 @@ function my_calendar_menu() {
 			add_action( "load-$locations", 'mc_location_help_tab' );
 			add_submenu_page( 'my-calendar', __( 'Categories', 'my-calendar' ), __( 'Categories', 'my-calendar' ), 'mc_edit_cats', 'my-calendar-categories', 'my_calendar_manage_categories' );
 		}
+		// The Design screen is available with any of these permissions.
 		$permission = 'manage_options';
 		if ( current_user_can( 'mc_edit_styles' ) ) {
 			$permission = 'mc_edit_styles';

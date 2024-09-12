@@ -22,8 +22,8 @@ import Disabled from "../components/Disabled";
 import Group from "../components/Group";
 import Media from "../components/Media";
 import Page from "../components/Page";
-import CodeMirror from "../components/CodeMirror";
 import { symbol, symbolFilled } from "@wordpress/icons";
+import CustomCSS from "../components/CustomCSS";
 
 export default () => {
   const disabled = () => {
@@ -365,11 +365,11 @@ export default () => {
           "presto-player"
         )}
       >
-        <CodeMirror
-          disabled={!prestoPlayer?.isPremium}
-          option={{ id: "player_css" }}
-          value={branding?.player_css}
-          onChange={(player_css) => updateBranding({ player_css })}
+        <CustomCSS
+          editable={prestoPlayer?.isPremium}
+          content={branding?.player_css}
+          height={"200px"}
+          handleChange={(player_css) => updateBranding({ player_css })}
         />
       </Group>
       <Group

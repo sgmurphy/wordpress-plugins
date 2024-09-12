@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.35
+Stable tag: 5.2.36
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,14 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.36 =
+
+* Modernizes the predefined designs starting by the template 01.
+* Updates the module that retrieves the page URL to accurately identify the correct URL when the form is loaded within an iframe.
+* Adjusts the HTML Content control to prevent contained tags from impacting the form builder.
+* Enhances the functionality of the Phone control.
+* Eliminates redundant vendor libraries.
+
 = 5.2.35 =
 
 * Modifies the container fields.
@@ -486,9 +494,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Fixes some issues in the Phone control.
 * Adds a new predefined template.
 * Improves the PayPal Checkout add-on (Platinum plugin distribution).
-
-= 5.2.30 =
-
-* Modifies the position of the validation error messages in the form.
-* Reimplements the Phone control to support dynamic field structure and validation rules based on the country code.
-* Adds a new predefined template.

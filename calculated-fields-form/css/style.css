@@ -269,6 +269,7 @@
 #fbuilder .sticker i.sticker-x{width:15px;background-color:#72aee661;}
 #fbuilder .sticker i.sticker-4{width:15px;}
 #fbuilder .fhtml {border:1px solid #CDCDCD;min-height:16px;border-radius:2px;}
+#fbuilder .fhtml .fhtml-content * {pointer-events:none !important;}
 
 .groupBox,
 .dependenciesBox,

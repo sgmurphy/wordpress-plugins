@@ -181,7 +181,7 @@ class Loader {
 
 			// Check if class exists.
 			if ( ! class_exists( $class ) ) {
-				throw new \Exception( 'Unknown library type "' . $library . '".' );
+				throw new \Exception( 'Unknown library type "' . esc_html( $library ) . '".' );
 			}
 
 			// Lowercase the classsname we are going to use in the object context.

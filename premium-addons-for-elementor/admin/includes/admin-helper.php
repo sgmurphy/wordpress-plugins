@@ -97,6 +97,9 @@ class Admin_Helper {
 		// Register AJAX Hooks for regenerate assets.
 		add_action( 'wp_ajax_pa_clear_cached_assets', array( $this, 'clear_cached_assets' ) );
 
+        // Register Deactivation hooks.
+        register_deactivation_hook( PREMIUM_ADDONS_FILE, array( $this, 'clear_dynamic_assets_data' ) );
+
 		// Register AJAX Hooks for clearing saved site cursor.
 		add_action( 'wp_ajax_pa_clear_site_cursor_settings', array( $this, 'clear_site_cursor_settings' ) );
 
@@ -1197,7 +1200,7 @@ class Admin_Helper {
 	 * Clear Cached Assets.
 	 *
 	 * Deletes assets options from DB And
-	 * deletes assets files from uploads/premium-addons-for-elementor
+	 * deletes assets files from uploads/premium-addons-for-elementor via AJAX
 	 * diretory.
 	 *
 	 * @access public
@@ -1206,6 +1209,23 @@ class Admin_Helper {
 	public function clear_cached_assets() {
 
 		check_ajax_referer( 'pa-generate-nonce', 'security' );
+
+        $this->clear_dynamic_assets_data();
+
+		wp_send_json_success( 'Cached Assets Cleared' );
+	}
+
+    /**
+	 * Clear Dynamic Assets Data.
+	 *
+	 * Deletes assets options from DB And
+	 * deletes assets files from uploads/premium-addons-for-elementor
+	 * diretory.
+	 *
+	 * @access public
+	 * @since 4.10.51
+	 */
+	public function clear_dynamic_assets_data() {
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error( __( 'You are not allowed to do this action', 'premium-addons-for-elementor' ) );
@@ -1218,8 +1238,6 @@ class Admin_Helper {
 		}
 
 		$this->delete_assets_files( $post_id );
-
-		wp_send_json_success( 'Cached Assets Cleared' );
 	}
 
 	/**

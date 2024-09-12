@@ -4,7 +4,7 @@ Contributors: xpeedstudio, Ataurr, emranio
 Tags: WooCommerce, WooCommerce Builder, Elementor, Elementor WooCommerce, Product Template, WooCommerce blocks, WooCommerce Product, Product Slider, Shopping Cart, Wishlist, Woo Builder, Variation Swatches
 
 Tested up to: 6.6
-Stable tag: 4.7.0
+Stable tag: 4.7.1
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -308,6 +308,10 @@ If you like using the ShopEngine WooCommerce template builder, then consider che
 Visit  [wpmet](https://wpmet.com/)  to learn more about how to get the best of WordPress with  [Tutorial, Tips & Tricks](https://wpmet.com/blog)!
 
 == Changelog ==
+v4.7.1// 12-09-2024
+Improved: Required plugin installation UI
+Fixed: Deal product widget issue
+
 v4.7.0// 04-09-2024
 Improved: Related product widget
 Fixed: Swiper slider issue

@@ -108,6 +108,7 @@ class HMWP_Controllers_Rewrite extends HMWP_Classes_FrontController
         add_filter('query_vars', array($this->model, 'addParams'), 1, 1);
         add_filter('login_redirect', array($this->model, 'sanitize_login_redirect'), 9, 3);
         add_filter('wp_redirect', array($this->model, 'sanitize_redirect'), PHP_INT_MAX, 2);
+        add_filter( 'x_redirect_by', '__return_false', PHP_INT_MAX, 1 );
 
         //hmwp redirect based on current user role
         if(HMWP_Classes_Tools::getOption('hmwp_do_redirects')) {

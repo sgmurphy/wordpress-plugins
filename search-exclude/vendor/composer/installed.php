@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'quadlayers/search-exclude',
-        'pretty_version' => 'v2.1.4',
-        'version' => '2.1.4.0',
-        'reference' => '15d63b8fe9a8e8062081e253fea22407e610adb3',
+        'pretty_version' => 'v2.1.5',
+        'version' => '2.1.5.0',
+        'reference' => 'a56a04440e00d8426522fa457c7a7a23f6f6d93b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'automattic/jetpack-assets' => array(
-            'pretty_version' => 'v2.3.7',
-            'version' => '2.3.7.0',
-            'reference' => 'ace534dbeca02ead69d01bbdcc305319c902f4b6',
+            'pretty_version' => 'v2.3.8',
+            'version' => '2.3.8.0',
+            'reference' => '3ddaff78c82ed7663b61961356585061dbb3410a',
             'type' => 'jetpack-library',
             'install_path' => __DIR__ . '/../../jetpack_vendor/automattic/jetpack-assets',
             'aliases' => array(),
@@ -37,10 +37,19 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'franmastromarino/wp-orm' => array(
+            'pretty_version' => 'dev-dev-refactor',
+            'version' => 'dev-dev-refactor',
+            'reference' => '7c5a62368473dca16c667e942ba812ec3f6e30e7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../franmastromarino/wp-orm',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'quadlayers/search-exclude' => array(
-            'pretty_version' => 'v2.1.4',
-            'version' => '2.1.4.0',
-            'reference' => '15d63b8fe9a8e8062081e253fea22407e610adb3',
+            'pretty_version' => 'v2.1.5',
+            'version' => '2.1.5.0',
+            'reference' => 'a56a04440e00d8426522fa457c7a7a23f6f6d93b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

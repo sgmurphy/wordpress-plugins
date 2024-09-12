@@ -52,14 +52,15 @@ class B2S_Loader {
         define('B2S_PLUGIN_USER_APP_NETWORKS', serialize(array(2, 6)));
         define('B2S_PLUGIN_DEFAULT_USER_APP_QUANTITY', serialize(array(0 => 1, 1 => 1, 2 => 3, 3 => 5)));
         define('B2S_PLUGIN_ALLOW_VIDEO_MIME_TYPE', serialize(array('video/x-msvideo', 'video/avi', 'video/mp4', 'video/mpeg', 'video/ogg', 'video/x-flv', 'video/quicktime', 'video/x-ms-asf')));
+        define('B2S_PLUGIN_ALLOW_ADD_LINK', serialize(array(1, 2, 3, 12, 43)));
 
         define('B2S_PLUGIN_NETWORK_SETTINGS_TEMPLATE_DEFAULT', serialize(array(
-            1 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 500), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => false),
-                1 => array('short_text' => array('active' => 0, 'range_min' => 500, 'range_max' => 1000, 'excerpt_range_min' => 250, 'excerpt_range_max' => 500, 'limit' => 0), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => false)
+            1 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 500), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => true),
+                1 => array('short_text' => array('active' => 0, 'range_min' => 500, 'range_max' => 1000, 'excerpt_range_min' => 250, 'excerpt_range_max' => 500, 'limit' => 0), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => true)
             ),
             2 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 254, 'excerpt_range_min' => 200, 'excerpt_range_max' => 254, 'limit' => 280), 'content' => '{CONTENT} {KEYWORDS}', 'format' => 1, 'addLink' => true, 'twitterThreads' => false)),
-            3 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 3000), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0),
-                1 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 3000), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0),
+            3 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 3000), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => true),
+                1 => array('short_text' => array('active' => 0, 'range_min' => 200, 'range_max' => 400, 'excerpt_range_min' => 200, 'excerpt_range_max' => 400, 'limit' => 3000), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => 0, 'addLink' => true),
             ),
             4 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 1000, 'range_max' => 20000, 'excerpt_range_min' => 1000, 'excerpt_range_max' => 20000, 'limit' => 0), 'content' => '{CONTENT}', 'format' => false, 'disableKeywords' => true)),
             6 => array(0 => array('short_text' => array('active' => 0, 'range_min' => 350, 'range_max' => 421, 'excerpt_range_min' => 350, 'excerpt_range_max' => 421, 'limit' => 495), 'content' => "{CONTENT}\n{KEYWORDS}", 'format' => false),
@@ -390,10 +391,10 @@ class B2S_Loader {
                                                         $res = array_merge($res, $defaultPostData);
                                                         $networkId = $networkDetails[0]->network_id;
                                                         $networkType = $networkDetails[0]->network_type;
-                                                        if (((int) $networkId == 12) && isset($optionPostFormat[$networkId][$networkType]['addLink']) && $optionPostFormat[$networkId][$networkType]['addLink'] == false) {
-                                                            $res['url'] = '';
-                                                        } else if (((int) $networkId == 1 || (int) $networkId == 2 || (int) $networkId == 43) && isset($optionPostFormat[$networkId][$networkType]['format']) && (int) $optionPostFormat[$networkId][$networkType]['format'] == 1 && isset($optionPostFormat[$networkId][$networkType]['addLink']) && $optionPostFormat[$networkId][$networkType]['addLink'] == false) {
-                                                            $res['url'] = '';
+                                                        if (in_array($networkId, unserialize(B2S_PLUGIN_ALLOW_ADD_LINK)) && isset($optionPostFormat[$networkId][$networkType]['addLink']) && $optionPostFormat[$networkId][$networkType]['addLink'] == false) {
+                                                            if (($networkId == 12) || (isset($optionPostFormat[$networkId][$networkType]['format']) && (int) $optionPostFormat[$networkId][$networkType]['format'] == 1)) {
+                                                                $res['url'] = '';
+                                                            }
                                                         }
                                                         $autoShare->saveShareData($res, $networkId, $networkType, $value, 0, strip_tags($networkDetails[0]->network_display_name));
                                                     }
@@ -884,10 +885,10 @@ class B2S_Loader {
                                                         if ($res !== false && is_array($res)) {
                                                             $ship = true;
                                                             $res = array_merge($res, $defaultPostData);
-                                                            if (((int) $value->networkId == 12) && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
-                                                                $res['url'] = '';
-                                                            } else if (((int) $value->networkId == 1 || (int) $value->networkId == 2 || (int) $value->networkId == 43) && isset($optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $optionPostFormat[$value->networkId][$value->networkType]['format'] == 1 && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
-                                                                $res['url'] = '';
+                                                            if (in_array($value->networkId, unserialize(B2S_PLUGIN_ALLOW_ADD_LINK)) && isset($optionPostFormat[$value->networkId][$value->networkType]['addLink']) && $optionPostFormat[$value->networkId][$value->networkType]['addLink'] == false) {
+                                                                if (($value->networkId == 12) || (isset($optionPostFormat[$value->networkId][$value->networkType]['format']) && (int) $optionPostFormat[$value->networkId][$value->networkType]['format'] == 1)) {
+                                                                    $res['url'] = '';
+                                                                }
                                                             }
                                                             $shareApprove = (isset($value->instant_sharing) && (int) $value->instant_sharing == 1) ? 1 : 0;
                                                             $insert = $autoShare->saveShareData($res, $value->networkId, $value->networkType, $value->networkAuthId, $shareApprove, strip_tags($value->networkUserName));
@@ -1296,6 +1297,7 @@ class B2S_Loader {
             $subPages[] = add_submenu_page('blog2social', esc_html__('Premium', 'blog2social'), '<span class="dashicons dashicons-star-filled"></span> ' . esc_html__('PREMIUM', 'blog2social'), 'blog2social_access', 'blog2social-premium', array($this, 'b2sPremium'));
         }
         $subPages[] = add_submenu_page('blog2social_hidden', 'B2S Post Draft', 'B2S Post Draft', 'blog2social_access', 'blog2social-draft-post', array($this, 'b2sPostDraft'));
+        $subPages[] = add_submenu_page('blog2social_hidden', 'AI Content Creator', 'AI Content Creator', 'blog2social_access', 'blog2social-ai-content-creator', array($this, 'b2sAiContentCreator'));
         $subPages[] = add_submenu_page('blog2social_hidden', 'B2S Post Favorites', 'B2S Post Favorites', 'blog2social_access', 'blog2social-favorites', array($this, 'b2sPostFavorites'));
         $subPages[] = add_submenu_page('blog2social_hidden', 'B2S Post Sched', 'B2S Post Sched', 'blog2social_access', 'blog2social-sched', array($this, 'b2sPostSched'));
         $subPages[] = add_submenu_page('blog2social_hidden', 'B2S Post Approve', 'B2S Post Approve', 'blog2social_access', 'blog2social-approve', array($this, 'b2sPostApprove'));
@@ -1793,6 +1795,17 @@ class B2S_Loader {
         }
     }
 
+    
+    
+    //PageFunktion
+    public function b2sAiContentCreator() {
+        if (B2S_Tools::showNotice() == false) {
+            require_once( B2S_PLUGIN_DIR . 'views/b2s/ai.dashboard.php');
+        } else {
+            require_once( B2S_PLUGIN_DIR . 'views/notice.php');
+        }
+    }
+    
     //PageFunktion
     public function b2sPostDraft() {
         if (B2S_Tools::showNotice() == false) {

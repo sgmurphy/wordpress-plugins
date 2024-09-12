@@ -4,8 +4,8 @@ Tags: age, age verification, age gate, adult, age restriction, age verify, adult
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donate%40wordpressagegate%2ecom&lc=GB&item_name=Age%20Gate&item_number=Age%20Gate%20Donation&no_note=0&currency_code=GBP&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Requires at least: 6.0.0
 Requires PHP: 7.4
-Tested up to: 6.6.1
-Stable tag: 3.4.1
+Tested up to: 6.6.2
+Stable tag: 3.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,12 @@ From version 1.4.0 those using caching can select the "Cache Bypass" option to a
 6. Manage what users can change Age Gate's setting, restrict posts and exclude settings from certain post types.
 
 == Changelog ==
+
+= 3.5.0 =
+
+* Removed - deprecated hook fallbacks
+* Added - pagination for terms in content settings
+* Fixed - Term settings being incorrectly stored when using WPML
 
 = 3.4.1 =
 * Fixed - Issue in some multilingual sites where settings were incorrectly translated

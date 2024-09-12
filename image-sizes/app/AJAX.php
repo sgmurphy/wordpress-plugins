@@ -17,14 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author Codexpert <hi@codexpert.io>
  */
 class Ajax extends Base {
+
 	public $plugin;
-
 	public $slug;
-
 	public $name;
-	
 	public $version;
-
 	public $args;
 
 	/**

@@ -67,7 +67,20 @@ class CSVExporter {
             'posts_per_page' => -1
         ];
 
+        if( $this->args['include_faq'] ) { //include betterdocs_faq when 'all' are selected from 'docs' or 'doc categories'
+            $post_args['post_type'] = ['docs', 'betterdocs_faq'];
+        }
+
         if ( isset($this->args['post__in']) ) {
+            if( $this->args['include_faq'] ){ //include betterdocs_faq 'ids' when specific id's are selected from 'docs'
+                $faq_posts_ids = get_posts([
+                    'numberposts' => -1,
+                    'post_type'   => 'betterdocs_faq',
+                    'fields'      => 'ids'
+                ]);
+                $this->args['post__in'] =  array_merge( isset( $this->args['post__in'] ) ? $this->args['post__in'] : [] , $faq_posts_ids );
+            }
+
             $post_args['post__in'] = $this->args['post__in'];
         }
 
@@ -79,6 +92,20 @@ class CSVExporter {
                     'terms' => $this->args['category_terms'],
                 ],
             ];
+
+            if( $this->args['include_faq'] ) { //include betterdocs_faq when specific 'doc categories' are selected
+                $post_args['tax_query']['relation'] = 'OR';
+                $faq_category_slugs = get_terms([
+                    'taxonomy' => 'betterdocs_faq_category',
+                    'fields'   => 'slugs',
+                ]);
+                $post_args['tax_query'][] = [
+                    'taxonomy' => 'betterdocs_faq_category',
+                    'field'    => 'slug',
+                    'terms'     => $faq_category_slugs,
+                    'operator' => 'IN',
+                ];
+            }
         }
 
         if ( isset($this->args['kb_terms']) ) {
@@ -91,9 +118,19 @@ class CSVExporter {
             ];
         }
 
-        $posts = get_posts($post_args);
+        if( $this->args['content'] == 'glossaries') { //for glossaries terms
+            $posts = get_terms( [
+                'taxonomy' => 'glossaries',
+                'hide_empty' => false,
+            ] );
+        } else {
+            $posts = get_posts($post_args);
+        }
 
         $post_ids = array_map(function ($post) {
+            if( $this->args['content'] == 'glossaries' ) { //for glossaries terms
+                return $post->term_id;
+            }
             return $post->ID;
         }, $posts);
 
@@ -153,9 +190,17 @@ class CSVExporter {
      * @param array $post_ids An array of object IDs.
      * @return array An array of WP_Term objects sorted based on term meta.
      */
-	private function get_terms( array $post_ids ) {
+	private function get_terms( array $post_ids, $include_faq = false ) {
+        $post_types = [
+            'docs'
+        ];
+
+        if( $include_faq ) {
+            array_push($post_types, 'betterdocs_faq');
+        }
+
         // Get the object taxonomies
-        $taxonomies = get_object_taxonomies( 'docs' );
+        $taxonomies = get_object_taxonomies( $post_types );
 
         // Get the object terms with parent terms coming before their child terms
         $terms = wp_get_object_terms( $post_ids, $taxonomies);
@@ -244,7 +289,14 @@ class CSVExporter {
             'KB order', // Add additional term meta headers here
         ];
 
-        $terms = $this->get_terms( $post_ids );
+        if( $this->args['content'] == 'glossaries' ) {
+            $terms = get_terms([
+                'taxonomy'   => 'glossaries',
+                'hide_empty' => false,
+            ]);
+        } else{
+            $terms = $this->get_terms( $post_ids, $this->args['include_faq'] );
+        }
         foreach ( $terms as $term ) {
             $term_meta = '';
 
@@ -377,7 +429,7 @@ class CSVExporter {
             $attachment_url = get_the_post_thumbnail_url($post->ID);
             // Add CSV row for post
             $csv_data_posts[] = [
-                'Docs',
+                $post->post_type == 'betterdocs_faq' ? 'FAQ' : 'Docs',
                 $post->ID,
                 $post->post_author,
                 $post->post_date,

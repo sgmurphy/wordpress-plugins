@@ -603,6 +603,7 @@ class Defaults extends Base
             'encyclopedia_dictionary_per_page'                         => '5',
             'encyclopedia_dictionary_loadmore_button_text'             => 'Load More',
             'encyclopedia_dictionary_learn_more_text'                  => 'Learn More',
+            'encyclopedia_dictionary_explore_more_text'                => 'Explore [count] More Docs',
             'encyclopedia_dictionary_docs_per_page'                    => '10',
             'alphabets_background_color'                               => '#fff',
             'alphabets_link_color'                                     => '#667085',

@@ -5,8 +5,6 @@
     // Listen for the jQuery ready event on the document
     $(function() {
 
-        // The DOM is ready!
-
         // colorpicker
         $('[name="relpoststh_background"], [name="relpoststh_hoverbackground"], [name="relpoststh_bordercolor"], [name="relpoststh_fontcolor"]').wpColorPicker();
 

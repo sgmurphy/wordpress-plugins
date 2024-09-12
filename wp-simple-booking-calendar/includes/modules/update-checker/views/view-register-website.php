@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $serial_key = get_option( 'wpsbc_serial_key', '' );
 $website_id = get_option( 'wpsbc_registered_website_id', '' );
-
 ?>
 
 <!-- Serial Key -->
@@ -18,9 +17,9 @@ $website_id = get_option( 'wpsbc_registered_website_id', '' );
 		<input type="text" name="serial_key" <?php echo ( ! empty( $serial_key ) ? 'disabled' : '' ); ?> value="<?php echo esc_attr( $serial_key ); ?>" />
 
 		<?php if( empty( $website_id ) ): ?>
-			<a id="wpsbc-register-website-button" class="button-primary" href="<?php echo add_query_arg( array( 'tab' => 'register_website', 'wpsbc_action' => 'register_website', 'wpsbc_token' => wp_create_nonce( 'wpsbc_register_website' ) ) ); ?>"><?php echo __( 'Register Website', 'wp-simple-booking-calendar' ); ?></a>
+			<a id="wpsbc-register-website-button" class="button-primary" href="<?php echo add_query_arg( array( 'tab' => 'register_website', 'wpsbc_action' => 'register_website', 'wpsbc_token' => wp_create_nonce( 'wpsbc_register_website' ) ), admin_url('admin.php') ); ?>"><?php echo __( 'Register Website', 'wp-simple-booking-calendar' ); ?></a>
 		<?php else: ?>
-			<a id="wpsbc-deregister-website-button" class="button-secondary" href="<?php echo add_query_arg( array( 'tab' => 'register_website', 'wpsbc_action' => 'deregister_website', 'wpsbc_token' => wp_create_nonce( 'wpsbc_deregister_website' ) ) ); ?>"><?php echo __( 'Deregister Website', 'wp-simple-booking-calendar' ); ?></a>
+			<a id="wpsbc-deregister-website-button" class="button-secondary" href="<?php echo add_query_arg( array( 'tab' => 'register_website', 'wpsbc_action' => 'deregister_website', 'wpsbc_token' => wp_create_nonce( 'wpsbc_deregister_website' ) ), admin_url('admin.php') ); ?>"><?php echo __( 'Deregister Website', 'wp-simple-booking-calendar' ); ?></a>
 		<?php endif; ?>
 
 	</div>
@@ -34,7 +33,7 @@ $website_id = get_option( 'wpsbc_registered_website_id', '' );
 
 	<div class="wpsbc-settings-field-inner">
 
-		<a id="wpsbc-check-for-updates-button" class="button-secondary" <?php echo ( empty( $serial_key ) || empty( $website_id ) ? 'disabled' : '' ); ?> href="<?php echo add_query_arg( array( 'tab' => 'register_website', 'wpsbc_action' => 'check_for_updates', 'wpsbc_token' => wp_create_nonce( 'wpsbc_check_for_updates' ) ) ); ?>"><?php echo __( 'Check for Updates', 'wp-simple-booking-calendar' ); ?></a>
+		<a id="wpsbc-check-for-updates-button" class="button-secondary" <?php echo ( empty( $serial_key ) || empty( $website_id ) ? 'disabled' : '' ); ?> href="<?php echo add_query_arg( array( 'tab' => 'register_website', 'wpsbc_action' => 'check_for_updates', 'wpsbc_token' => wp_create_nonce( 'wpsbc_check_for_updates' ) ), admin_url('admin.php') ); ?>"><?php echo __( 'Check for Updates', 'wp-simple-booking-calendar' ); ?></a>
 
 	</div>
 	

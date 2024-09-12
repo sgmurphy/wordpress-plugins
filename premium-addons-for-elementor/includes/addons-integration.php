@@ -1046,6 +1046,14 @@ class Addons_Integration {
 			);
 
 			wp_register_script(
+				'premium-woo-cart',
+				PREMIUM_ADDONS_URL . 'assets/frontend/' . $directory . '/premium-woo-cart' . $suffix . '.js',
+				array( 'jquery' ),
+				PREMIUM_ADDONS_VERSION,
+				true
+			);
+
+			wp_register_script(
 				'premium-woo-cta',
 				PREMIUM_ADDONS_URL . 'assets/frontend/' . $directory . '/premium-woo-cta' . $suffix . '.js',
 				array( 'jquery' ),
@@ -1666,7 +1674,7 @@ class Addons_Integration {
 		}
 
 		if ( class_exists( 'woocommerce' ) && ( self::$modules['woo-products'] || self::$modules['woo-categories'] || self::$modules['woo-cta'] ) ) {
-			Woocommerce::get_instance();
+			Woocommerce::get_instance();			
 		}
 
 		if ( self::$modules['premium-global-tooltips'] ) {

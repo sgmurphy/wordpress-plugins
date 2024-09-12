@@ -56,6 +56,10 @@
     color: #006ba1;
 }
 
+.hmwp-settings.uipc-body .modal-backdrop{
+    z-index: 1 !important;
+}
+
 .dropdown-item.active, .dropdown-item:active{
     background-color: #0e6dd4;
 }
@@ -116,7 +120,7 @@
 
 #hmwp_wrap .hmwp_nav .hmwp_nav_item:hover, #hmwp_wrap .hmwp_nav .hmwp_nav_item.active {
     color: #121116;
-    background: #fff;
+    font-weight: 600;
     border-left: 2px solid #2e4a61;
 }
 
@@ -175,21 +179,17 @@
 
 #hmwp_wrap .hmwp_header{
     background-color: #f5f8f9;
-    font-size: 1rem;
-    font-weight: 400;
     color: #292929!important;
 
     border-top: 1px solid #e5e1e1;
     border-bottom: 1px solid #e5e1e1;
 
-    line-height: 1.9rem;
+    line-height: 2.2rem;
 }
 
 #hmwp_wrap .card-title{
     font-size: 1.15rem;
     font-weight: 400;
-    color: #292929 !important;
-    line-height: 1.9rem;
 }
 
 #hmwp_wrap .fa-question-circle{

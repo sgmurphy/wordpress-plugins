@@ -11,12 +11,12 @@ jQuery(document).on('heartbeat-send', function (e, data) {
 jQuery.xhrPool = [];
 
 jQuery(window).on("load", function () {
-    
+
     //Onboarding
     if (typeof jQuery('#b2s-toastee-paused').val() != "undefined") {
         jQuery('.b2s-container').css('margin-top', "40px");
     }
-    
+
     // Assistini data
     initAssSidebar();
 
@@ -1581,10 +1581,12 @@ jQuery(document).on('change', '.b2s-post-item-details-release-input-date-select'
             if (jQuery('#b2s-ship-ass-connected').val() == 1) {
                 jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
                 jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
+                jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
                 jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
             } else {
                 jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
                 jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
+                jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
                 jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             }
         }
@@ -1608,10 +1610,12 @@ jQuery(document).on('change', '.b2s-post-item-details-release-input-date-select'
             if (jQuery('#b2s-ship-ass-connected').val() == 1) {
                 jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
                 jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
+                jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
                 jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
             } else {
                 jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
                 jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
+                jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
                 jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             }
         }
@@ -1656,6 +1660,7 @@ jQuery(document).on('change', '.b2s-post-item-details-release-input-date-select'
             var networkAuthId = jQuery(this).data('network-auth-id');
             jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
+            jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
         }
         // end
@@ -1977,6 +1982,37 @@ jQuery(document).on('click', '.b2s-select-image-modal-open', function () {
             jQuery(document).on('click', '.b2s-image-change-meta-network', function () {
                 currentOGImage = jQuery('input[name=image_url]:checked').val();
                 changedOGImage = true;
+
+                if (typeof jQuery('.b2s-content-info-image[data-network-id="' + networkId + '"][data-network-auth-id="' + authId + '"]') != typeof undefined) {
+                    jQuery.ajax({
+                        url: ajaxurl,
+                        type: "POST",
+                        dataType: "json",
+                        cache: false,
+                        async: false,
+                        data: {
+                            'action': 'b2s_check_image_size_network',
+                            'network_id': networkId,
+                            'image_url': currentOGImage,
+                            'b2s_security_nonce': jQuery('#b2s_security_nonce').val()
+                        },
+                        error: function () {
+                            jQuery('.b2s-server-connection-fail').show();
+                            return false;
+                        },
+                        success: function (data) {
+                            jQuery('.b2s-content-info-image[data-network-id="' + networkId + '"][data-network-auth-id="' + authId + '"]').hide();
+                            if (data.error != undefined) {
+                                if (data.error == 'nonce') {
+                                    jQuery('.b2s-nonce-check-fail').show();
+                                } else {
+                                    jQuery('.b2s-content-info-image[data-network-id="' + networkId + '"][data-network-auth-id="' + authId + '"]').show();
+                                }
+                            }
+                        }
+                    });
+                }
+
                 if (jQuery('.b2s-input-hidden[name="action"][value="b2s_edit_save_post"]').length > 0) { //sched or calender view
                     jQuery('.b2s-image-change-this-network').trigger('click');
                 } else { //ship view
@@ -2044,6 +2080,9 @@ jQuery(document).on('click', '.b2s-image-remove-btn', function () {
         jQuery('.cropper-open[data-network-count="' + networkCountId + '"][data-network-auth-id="' + networkAuthId + '"]').hide();
     }
 
+    // remove image error
+    jQuery('.b2s-content-info-image[data-network-auth-id="' + networkAuthId + '"]').hide();
+
     //add check linkpost change meta tag image for this network
     var postFormat = jQuery('.b2s-post-item-details-post-format[data-network-auth-id=' + networkAuthId + ']').val();
     var networkId = jQuery('.b2s-post-item-details-post-format[data-network-auth-id=' + networkAuthId + ']').attr('data-network-id');
@@ -2087,6 +2126,35 @@ jQuery(document).on('click', '.b2s-image-change-this-network', function () {
     var label = jQuery("label[for='" + jQuery('input[name=image_url]:checked').attr('id') + "'] :first-child");
     var alt = label.attr('alt');
 
+    if (typeof jQuery('.b2s-content-info-image[data-network-id="' + networkId + '"][data-network-auth-id="' + networkAuthId + '"]') != typeof undefined) {
+        jQuery.ajax({
+            url: ajaxurl,
+            type: "POST",
+            dataType: "json",
+            cache: false,
+            async: false,
+            data: {
+                'action': 'b2s_check_image_size_network',
+                'network_id': networkId,
+                'image_url': currentImage,
+                'b2s_security_nonce': jQuery('#b2s_security_nonce').val()
+            },
+            error: function () {
+                jQuery('.b2s-server-connection-fail').show();
+                return false;
+            },
+            success: function (data) {
+                jQuery('.b2s-content-info-image[data-network-id="' + networkId + '"][data-network-auth-id="' + networkAuthId + '"]').hide();
+                if (data.error != undefined) {
+                    if (data.error == 'nonce') {
+                        jQuery('.b2s-nonce-check-fail').show();
+                    } else {
+                        jQuery('.b2s-content-info-image[data-network-id="' + networkId + '"][data-network-auth-id="' + networkAuthId + '"]').show();
+                    }
+                }
+            }
+        });
+    }
     if (jQuery('#b2sInsertImageType').val() == '1') { //HTML-Network
         var sceditor = jQuery('.b2s-post-item-details-item-message-input-allow-html[data-network-auth-id="' + networkAuthId + '"]').sceditor('instance');
         sceditor.insert("<br /><img src='" + currentImage + "'/><br />");
@@ -2275,6 +2343,37 @@ jQuery(document).on('click', '.b2s-image-change-all-network', function () {
             });
         }
     }
+
+    var chosenImage = jQuery('input[name=image_url]:checked').val();
+    let imageError = [];
+
+    jQuery.ajax({
+        url: ajaxurl,
+        type: "POST",
+        dataType: "json",
+        cache: false,
+        async: false,
+        data: {
+            'action': 'b2s_check_image_size_network_all',
+            'image_url': chosenImage,
+            'b2s_security_nonce': jQuery('#b2s_security_nonce').val()
+        },
+        error: function () {
+            jQuery('.b2s-server-connection-fail').show();
+            return false;
+        },
+        success: function (data) {
+            jQuery('.b2s-content-info-image').hide();
+            if (data.error != undefined) {
+                if (data.error == 'nonce') {
+                    jQuery('.b2s-nonce-check-fail').show();
+                } else {
+                    imageError = data.error;
+                }
+            }
+        }
+    });
+
     jQuery('.b2s-post-item-details-url-image[data-network-image-change="1"]' + noGifs).attr('src', jQuery('input[name=image_url]:checked').val());
     jQuery('#b2s_blog_default_image').val(jQuery('input[name=image_url]:checked').val());
     jQuery('.b2s-post-item-details-url-image' + noGifs).removeClass('b2s-img-required');
@@ -2282,6 +2381,12 @@ jQuery(document).on('click', '.b2s-image-change-all-network', function () {
     jQuery('.b2s-image-remove-btn' + noGifs).show();
     jQuery('.cropper-open' + noGifs).show();
     jQuery('.b2s-post-item-details-release-input-date-select' + noGifs).each(function () {
+        var itemNetworkId = jQuery(this).data('network-id');
+        var itemNetworkAuthId = jQuery(this).data('network-auth-id');
+        if (jQuery.inArray(itemNetworkId, imageError) != -1) {
+            jQuery('.b2s-content-info-image[data-network-id="' + itemNetworkId + '"][data-network-auth-id="' + itemNetworkAuthId + '"]').show();
+        }
+
         if (jQuery(this).val() == 1) {
             jQuery('.b2s-image-remove-btn[data-network-count="-1"][data-network-auth-id="' + jQuery(this).attr('data-network-auth-id') + '"]' + noGifs).hide();
             jQuery('.cropper-open[data-network-count="-1"][data-network-auth-id="' + jQuery(this).attr('data-network-auth-id') + '"]' + noGifs).hide();
@@ -2715,9 +2820,10 @@ window.addEventListener('message', function (e) {
 
                         jQuery('.b2s-post-item-ass-auth-btn').hide();
                         jQuery('.b2s-post-item-ass-create-btn').show();
+                        jQuery('.b2s-post-item-ass-reset-btn').show();
                         jQuery('.b2s-post-item-ass-setting-btn').show();
                         jQuery('#b2s-ship-ass-connected').val(1);
-                        
+
                         //background
                         jQuery('#sidebar_ship_ass_words_open').text(data.ass_words_open);
                         jQuery('#sidebar_ship_ass_words_total').text(data.ass_words_total);
@@ -2728,7 +2834,7 @@ window.addEventListener('message', function (e) {
                 }
             });
 
-            
+
 
         } else {
             loginSuccess(data.networkId, data.networkType, data.displayName, data.networkAuthId, data.mandandId, data.instant_sharing);
@@ -4640,10 +4746,12 @@ jQuery(document).on('change', '.b2s-post-item-details-post-format[data-network-i
         if (jQuery('#b2s-ship-ass-connected').val() == 1) {
             jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
+            jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
             jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
         } else {
             jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
             jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
+            jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
         }
     }
@@ -4651,10 +4759,11 @@ jQuery(document).on('change', '.b2s-post-item-details-post-format[data-network-i
         jQuery('.b2s-format-area-tumblr-link[data-network-auth-id="' + networkAuthId + '"]').show();
         jQuery('.b2s-format-area-tumblr-image[data-network-auth-id="' + networkAuthId + '"]').show();
         jQuery('.b2s-post-item-details-item-message-area[data-network-auth-id="' + networkAuthId + '"]').hide();
-        
+
         // hide assistini buttons
         jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
         jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
+        jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
         jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
     }
     if (type == 0) {
@@ -4666,10 +4775,12 @@ jQuery(document).on('change', '.b2s-post-item-details-post-format[data-network-i
         if (jQuery('#b2s-ship-ass-connected').val() == 1) {
             jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
+            jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
             jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
         } else {
             jQuery('.b2s-post-item-ass-auth-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').show();
             jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
+            jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
             jQuery('.b2s-post-item-ass-setting-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').hide();
         }
     }
@@ -4902,7 +5013,7 @@ jQuery(document).on('click', '.b2s-post-item-ass-setting-btn', function () {
             if (data.result == true) {
                 postTemplateElm.prop('disabled', false);
                 emojiElm.prop('disabled', false);
-                
+
                 if (data.settings.post_template != null) {
                     postTemplateElm.prop('checked', data.settings.post_template);
                 }
@@ -4928,7 +5039,7 @@ jQuery(document).on('click', '.b2s-post-item-ass-setting-btn', function () {
 jQuery(document).on('click', '#b2s-ass-settings-save-btn', function () {
     var postTemplateElm = jQuery('#b2s-ass-settings-checkbox-1');
     var emojiElm = jQuery('#b2s-ass-settings-checkbox-2');
-    
+
     jQuery.ajax({
         url: ajaxurl,
         type: "POST",
@@ -4944,29 +5055,19 @@ jQuery(document).on('click', '#b2s-ass-settings-save-btn', function () {
             jQuery('.b2s-server-connection-fail').show();
             return false;
         },
-        beforeSend: function () {
-            // postTemplateElm.prop('disabled', true);
-            // emojiElm.prop('disabled', true);
-        },
         success: function (data) {
             if (data.result == true) {
-                // postTemplateElm.prop('disabled', false);
-                // emojiElm.prop('disabled', false
-                // jQuery('.b2s-draft-list-entry[data-b2s-draft-id="' + jQuery('#b2s-delete-confirm-draft-id').val() + '"]').remove();
-                // jQuery('.b2s-post-remove-success').show();
-                // location.reload();
                 jQuery('#b2sAssSettingsModal').modal('hide');
             } else {
                 if (data.error == 'nonce') {
                     jQuery('.b2s-nonce-check-fail').show();
                 }
-                // jQuery('.b2s-post-remove-fail').show();
             }
             return true;
         }
     });
-    
-    
+
+
     return true;
 });
 
@@ -5095,26 +5196,6 @@ function initAssSidebar() {
     }
 }
 
-function waitForElm(selector) {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(mutations => {
-            if (document.querySelector(selector)) {
-                observer.disconnect();
-                resolve(document.querySelector(selector));
-            }
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    });
-}
-
 jQuery(document).on('click', '#b2s-sidebar-ship-ass-logout-btn', function () {
     jQuery.ajax({
         url: ajaxurl,
@@ -5143,16 +5224,20 @@ function assGenerateText(networkAuthId, networkName, schedCount = false) {
         var textareaElm = jQuery('.b2s-post-item-details-item-message-input[name="b2s[' + networkAuthId + '][sched_content][' + schedCount + ']"]');
         var loaderElm = jQuery('.b2s-post-item-textarea-loader[data-network-auth-id="' + networkAuthId + '"][data-network-count="' + schedCount + '"]');
         var createBtnElm = jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="' + schedCount + '"]');
+        var resetBtnElm = jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="' + schedCount + '"]');
     } else {
         var textareaElm = jQuery('textarea[name="b2s[' + networkAuthId + '][content]"]');
         var loaderElm = jQuery('.b2s-post-item-textarea-loader[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]');
         var createBtnElm = jQuery('.b2s-post-item-ass-create-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]');
+        var resetBtnElm = jQuery('.b2s-post-item-ass-reset-btn[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]');
     }
-
     var postId = textareaElm.data('post-id');
-
-    var postDetailsElm = jQuery('input[name="b2s[' + networkAuthId + '][post_format]"]');
-
+    var postFormatElm = null;
+    
+    if(typeof jQuery('input[name="b2s[' + networkAuthId + '][post_format]"]').val() != undefined){
+        postFormatElm = jQuery('input[name="b2s[' + networkAuthId + '][post_format]"]').val();
+    }
+    
     jQuery.ajax({
         url: ajaxurl,
         type: "POST",
@@ -5161,7 +5246,7 @@ function assGenerateText(networkAuthId, networkName, schedCount = false) {
         data: {
             'action': 'b2s_ass_generate_text_sm',
             'b2s_security_nonce': jQuery('#b2s_security_nonce').val(),
-            'post_type': postDetailsElm.val(),
+            'post_format': postFormatElm,
             'post_network_name': networkName,
             'post_lang': jQuery('#b2sUserLang').val(),
             'post_id': postId,
@@ -5174,12 +5259,33 @@ function assGenerateText(networkAuthId, networkName, schedCount = false) {
             'is_video_mode': jQuery('#b2sIsVideo').val(),
             'post_url': jQuery('#b2sDefault_url').val(),
         },
-        beforeSend: function() {
+        beforeSend: function () {
             textareaElm.prop('disabled', true);
             createBtnElm.prop('disabled', true);
+            resetBtnElm.prop('disabled', true);
+            if (schedCount == false) {
+                var sceditor = jQuery('.b2s-post-item-details-item-message-input-allow-html[data-network-auth-id="' + networkAuthId + '"]').sceditor('instance');
+                var sceditorBody = jQuery('.b2s-post-item-details-item-message-area[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').children('.sceditor-container');
+                if (sceditor != undefined && typeof sceditor.readOnly === 'function') {
+                    sceditor.readOnly(true);
+                    sceditorBody[0].classList.add('b2s-post-item-sceditor-disabled');
+                }
+            }
             loaderElm.show();
         },
         success: function (data) {
+            textareaElm.prop('disabled', false);
+            createBtnElm.prop('disabled', false);
+            resetBtnElm.prop('disabled', false);
+            if (schedCount == false) {
+                var sceditor = jQuery('.b2s-post-item-details-item-message-input-allow-html[data-network-auth-id="' + networkAuthId + '"]').sceditor('instance');
+                var sceditorBody = jQuery('.b2s-post-item-details-item-message-area[data-network-auth-id="' + networkAuthId + '"][data-network-count="-1"]').children('.sceditor-container');
+                if (sceditor != undefined && typeof sceditor.readOnly === 'function') {
+                    sceditor.readOnly(false);
+                    sceditorBody[0].classList.remove('b2s-post-item-sceditor-disabled');
+                }
+            }
+            loaderElm.hide();
             var data = JSON.parse(data);
             if (data.error == 'nonce') {
                 jQuery('.b2s-nonce-check-fail').show();
@@ -5190,7 +5296,7 @@ function assGenerateText(networkAuthId, networkName, schedCount = false) {
                         if (sceditor != undefined && typeof sceditor.insert === 'function') {
                             sceditor.val('');
                             var currentImage = jQuery('input[name=image_url]:checked').val();
-                            if (currentImage != undefined && currentImage != '' ) {
+                            if (currentImage != undefined && currentImage != '') {
                                 sceditor.insert("<img src='" + currentImage + "'/><br />");
                                 jQuery('.b2s-image-url-hidden-field[data-network-auth-id="' + networkAuthId + '"]').val(currentImage); //Torial
                             }
@@ -5199,26 +5305,16 @@ function assGenerateText(networkAuthId, networkName, schedCount = false) {
                     } else { // no html network
                         textareaElm.val(data.ass_text);
                     }
-                    jQuery('#sidebar_ship_ass_words_open').text(data.ass_words_open);
-                    jQuery('#b2s-ship-ass-words-open').val(data.ass_words_open);
-                    textareaElm.prop('disabled', false);
-                    createBtnElm.prop('disabled', false);
-                    loaderElm.hide();
                     var networkCountId = '-1';
                     if (schedCount !== false) {
                         networkCountId = schedCount;
                     }
                     jQuery(".b2s-post-item-countChar[data-network-count='" + networkCountId + "'][data-network-auth-id='" + networkAuthId + "']").html(data.ass_text.length);
+                    jQuery('#sidebar_ship_ass_words_open').text(data.ass_words_open);
                 } else {
                     if (data.error == 3001) { // 3001 - aufgebrauchtes limit
-                        textareaElm.prop('disabled', false);
-                        createBtnElm.prop('disabled', false);
-                        loaderElm.hide();
                         jQuery('#b2sAssLimitModal').modal('show');
                     } else {
-                        textareaElm.prop('disabled', false);
-                        createBtnElm.prop('disabled', false);
-                        loaderElm.hide();
                         jQuery('#b2sAssDefaultErrorModal').modal('show');
                     }
                 }
@@ -5226,3 +5322,22 @@ function assGenerateText(networkAuthId, networkName, schedCount = false) {
         }
     });
 }
+
+jQuery(document).on('click', '.b2s-post-item-ass-reset-btn', function () {
+    var networkAuthId = jQuery(this).data('network-auth-id');
+    var schedCount = jQuery(this).data('network-count');
+    var originalMessage = atob(jQuery('.b2s-post-item-ass-original-message[data-network-auth-id="' + networkAuthId + '"]').val());
+    var sceditor = jQuery('.b2s-post-item-details-item-message-input-allow-html[data-network-auth-id="' + networkAuthId + '"]').sceditor('instance');
+    if (sceditor != undefined && sceditor.length == undefined) {
+        sceditor.val('');
+        sceditor.insert(jQuery('<textarea />').html(originalMessage).text());
+    } else {
+        if (schedCount == -1) {
+            var textareaElm = jQuery('.b2s-post-item-details-item-message-input[name="b2s[' + networkAuthId + '][content]"]');
+        } else {
+            var textareaElm = jQuery('.b2s-post-item-details-item-message-input[name="b2s[' + networkAuthId + '][sched_content][' + schedCount + ']"]');
+        }
+        textareaElm.val(jQuery('<textarea />').html(originalMessage).text());
+    }
+    jQuery(".b2s-post-item-countChar[data-network-count='" + schedCount + "'][data-network-auth-id='" + networkAuthId + "']").html(originalMessage.length);
+});

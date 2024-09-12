@@ -54,7 +54,6 @@ function Edit(props) {
         currentPostType
     } = attributes;
 
-
     // you must declare this variable
     const enhancedProps = {
         ...props,
@@ -77,13 +76,9 @@ function Edit(props) {
         }
     }, [source]);
 
-    const [rawTitle = '', setTitle, fullTitle] = useEntityProp(
-        'postType',
-        currentPostType,
-        'title',
-        currentPostId
-    );
+    const [rawTitle = '', setTitle, fullTitle] = useEntityProp('postType', currentPostType, 'title', currentPostId);
 
+    const editorType = eb_conditional_localize?.editor_type || false
     let TagName = tagName;
 
     return (
@@ -107,9 +102,16 @@ function Edit(props) {
             <BlockProps.Edit {...enhancedProps}>
 
                 {source == 'dynamic-title' && currentPostId == 0 && (
-                    <div className="eb-loading" >
-                        <img src={`${EssentialBlocksLocalize?.image_url}/ajax-loader.gif`} alt="Loading..." />
-                    </div >
+                    <>
+                        {editorType === 'edit-site' && (
+                            <TagName className="eb-ah-title">Dynamic Title</TagName>
+                        )}
+                        {editorType !== 'edit-site' && (
+                            <div className="eb-loading" >
+                                <img src={`${EssentialBlocksLocalize?.image_url}/ajax-loader.gif`} alt="Loading..." />
+                            </div >
+                        )}
+                    </>
                 )}
 
                 {((source == 'dynamic-title' && currentPostId != 0) || source == 'custom') && (
@@ -124,12 +126,6 @@ function Edit(props) {
                                 {displaySeperator && seperatorPosition === "top" && (
                                     <div className={"eb-ah-separator " + seperatorType}>
                                         {seperatorType === "icon" && (
-                                            // <i
-                                            //     className={`${separatorIcon
-                                            //         ? separatorIcon
-                                            //         : "fas fa-arrow-circle-down"
-                                            //         }`}
-                                            // ></i>
                                             <EBDisplayIcon icon={separatorIcon} />
                                         )}
                                     </div>

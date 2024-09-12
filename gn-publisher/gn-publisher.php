@@ -7,7 +7,7 @@
  * Plugin Name: GN Publisher
  * Plugin URI: https://gnpublisher.com/
  * Description: GN Publisher: The easy way to make Google News Publisher compatible RSS feeds.
- * Version: 1.5.16
+ * Version: 1.5.17
  * Author: Chris Andrews
  * Author URI: https://gnpublisher.com/
  * Text Domain: gn-publisher
@@ -40,7 +40,7 @@ function gnpub_feed_bootstrap() {
 		return;
 	}
  
-	define( 'GNPUB_VERSION', '1.5.16' );
+	define( 'GNPUB_VERSION', '1.5.17' );
 	define( 'GNPUB_PATH', plugin_dir_path( __FILE__ ) );
     define( 'GNPUB_URL', plugins_url( '', __FILE__) );
 	define( 'GNPUB_PLUGIN_FILE', __FILE__ );
@@ -67,7 +67,7 @@ function gnpub_feed_bootstrap() {
 		require_once GNPUB_PATH . 'controllers/admin/class-gnpub-menu.php';
 		require_once GNPUB_PATH . 'includes/mb-helper-function.php';
 		require_once GNPUB_PATH . 'controllers/admin/class-gnpub-settings.php';		
-		require_once GNPUB_PATH . 'controllers/admin/newsletter.php';
+		require_once GNPUB_PATH . 'controllers/admin/class-gnpub-newsletter.php';
 
 
 		register_activation_hook( __FILE__, array( 'GNPUB_Installer', 'install' ) );
@@ -88,31 +88,37 @@ function gnpub_load_textdomain() {
 	load_plugin_textdomain( 'gn-publisher', false, basename( dirname( GNPUB_PLUGIN_FILE ) ) . '/languages/' );
 }
 
-function gnpub_admin_style($hook_suffix ) {
-	if($hook_suffix=="settings_page_gn-publisher-settings")
-	{
-		wp_enqueue_style('gn-admin-styles', GNPUB_URL .'/assets/css/gn-admin.css', array(),GNPUB_VERSION);
+function gnpub_admin_style( $hook_suffix ) {
+
+	if ( $hook_suffix == "settings_page_gn-publisher-settings" ) {
+	
+		$min = defined ( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style('gn-admin-styles', GNPUB_URL ."/assets/css/gn-admin{$min}.css", array(),GNPUB_VERSION);
 		wp_enqueue_script('thickbox');
         wp_enqueue_style('thickbox');
-        wp_enqueue_style('gn-admin-promo-style', GNPUB_URL .'/assets/css/promotional-popup.css', array(),GNPUB_VERSION);
-		
-		wp_enqueue_script('gn-admin-script', GNPUB_URL . '/assets/js/gn-admin.js', array('jquery'), GNPUB_VERSION, 'true' );
-		
+        wp_enqueue_style('gn-admin-promo-style', GNPUB_URL ."/assets/css/promotional-popup{$min}.css", array(),GNPUB_VERSION);		
+		wp_enqueue_script('gn-admin-script', GNPUB_URL . "/assets/js/gn-admin{$min}.js", array('jquery'), GNPUB_VERSION, 'true' );		
 		wp_localize_script('gn-admin-script', 'gn_script_vars', array(
 			'nonce' => wp_create_nonce( 'gn-admin-nonce' ),
 		)
 		);
-		wp_enqueue_script('gn-admin-promo-script', GNPUB_URL . '/assets/js/promotional-popup.js', array(), GNPUB_VERSION);
+
+		wp_enqueue_script('gn-admin-promo-script', GNPUB_URL . "/assets/js/promotional-popup{$min}.js", array(), GNPUB_VERSION, 'true' );
+
 	}
 }
 
 
 add_action('admin_enqueue_scripts', 'gnpub_admin_style');
 
-function gnpub_admin_newsletter_script($hook_suffix ) {
-	if($hook_suffix=="settings_page_gn-publisher-settings")
-	{
-		wp_enqueue_script('gn-admin-newsletter-script', GNPUB_URL . '/assets/js/gn-admin-newsletter.js', array('jquery'), GNPUB_VERSION, 'true' );
+function gnpub_admin_newsletter_script( $hook_suffix ) {
+
+	if ( $hook_suffix == "settings_page_gn-publisher-settings" ) {
+
+		$min = defined ( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_script( 'gn-admin-newsletter-script', GNPUB_URL . "/assets/js/gn-admin-newsletter{$min}.js", array('jquery'), GNPUB_VERSION, 'true' );
 		
 		$current_screen = get_current_screen(); 
        
@@ -121,11 +127,10 @@ function gnpub_admin_newsletter_script($hook_suffix ) {
         }
 
 		$post_id = get_the_ID();
+		//phpcs:ignore WordPress.Security.NonceVerification.Recommended --Reason: Nonce verification is not required here.
         if(isset($_GET['tag_ID'])){
-                $post_id = intval($_GET['tag_ID']);
-        }
-
-		
+                $post_id = intval($_GET['tag_ID']);  //phpcs:ignore WordPress.Security.NonceVerification.Recommended --Reason: Nonce verification is not required here.
+        }		
 
 		$data = array(     
 			'current_url'                  => gnpub_get_current_url(), 
@@ -150,18 +155,23 @@ register_activation_hook(__FILE__, 'gnpub_activate');
 
 add_action('admin_init', 'gnpub_redirect');
 
-function gnpub_activate() {
-    add_option('gnpub_activation_redirect', true);
+function gnpub_activate( $network_wide )
+{
+	if ( !( is_multisite() && $network_wide ) ) {
+		add_option('gnpub_activation_redirect', true);
+	}
 }
 
-function gnpub_redirect() {
-    if (get_option('gnpub_activation_redirect', false)) {
-        delete_option('gnpub_activation_redirect');
-        if(!isset($_GET['activate-multi']))
-        {
-            wp_redirect("options-general.php?page=gn-publisher-settings&tab=welcome");
-        }
-    }
+function gnpub_redirect()
+{
+	if ( get_option('gnpub_activation_redirect', false) ) {
+		delete_option('gnpub_activation_redirect' );
+		//phpcs:ignore WordPress.Security.NonceVerification.Recommended --Reason: Nonce verification is not required here.
+		if ( !isset( $_GET['activate-multi'] ) ) {
+			wp_redirect("options-general.php?page=gn-publisher-settings&tab=welcome");
+			exit;
+		}
+	}
 }
 
 /**
@@ -182,7 +192,7 @@ function gnpub_htmlToPlainText($str)
 		$resultStr = html_entity_decode( $resultStr, ENT_HTML5, 'UTF-8' );
 		$resultStr = html_entity_decode( $resultStr );
 		$resultStr = htmlspecialchars_decode( $resultStr );
-		$resultStr = strip_tags( $resultStr );
+		$resultStr = wp_strip_all_tags( $resultStr );
 	}
     return $resultStr;
 }
@@ -206,7 +216,7 @@ function gnpub_wp_title_rss()
 		
     	$wp_title_rss = gnpub_pp_translate( trim( $wp_title_rss_explode[0] ) ) . ' - ' . gnpub_pp_translate( trim( $wp_title_rss_explode[1] ) );
 	}
-	echo $wp_title_rss;
+	echo esc_html( $wp_title_rss );
 }
 
 /**
@@ -224,9 +234,9 @@ function gnpub_bloginfo_rss( $attr )
 	$bloginfo_rss = ob_get_contents();
 	ob_end_clean();
 	if( function_exists( 'gnpub_pp_translate' ) )
-		echo gnpub_pp_translate($bloginfo_rss);
+		echo esc_html(gnpub_pp_translate($bloginfo_rss));
 	else
-		echo $bloginfo_rss;
+		echo esc_html($bloginfo_rss);
 }
 
 /**
@@ -243,9 +253,9 @@ function gnpub_the_title_rss()
 	$the_title_rss = ob_get_contents();
 	ob_end_clean();
 	if( function_exists( 'gnpub_pp_translate' ) )
-		echo gnpub_pp_translate($the_title_rss);
+		echo esc_html(gnpub_pp_translate($the_title_rss));
 	else
-		echo $the_title_rss;
+		echo esc_html($the_title_rss);
 }
 
 /**
@@ -319,7 +329,7 @@ function gnpub_revenue_snippet(){
 	$gnpub_google_rev_snippet = isset($gnpub_options['gnpub_google_rev_snippet'])?$gnpub_options['gnpub_google_rev_snippet']:'';
 	if($gnpub_enable_google_revenue_manager){
 		if(!empty($gnpub_google_rev_snippet)){
-			echo $gnpub_google_rev_snippet;
+			echo wp_kses_post($gnpub_google_rev_snippet);
 		}
 	}
 }
@@ -352,6 +362,7 @@ function gnpub_rss_enclosure()
 					 *
 					 * @param string $html_link_tag The HTML link tag with a URI and other attributes.
 					 */
+					//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Reason: The filter return escaped data.
 					echo apply_filters( 'gnpub_rss_enclosure', '<enclosure url="' . esc_url( trim( $enclosure[0] ) ) . '" length="' . absint( trim( $enclosure[1] ) ) . '" type="' . esc_attr( $type ) . '" />' . "\n" );
 				}
 				$enclosure_cnt++;

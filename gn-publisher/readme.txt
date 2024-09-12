@@ -4,11 +4,11 @@ Tags: google news, news, rss, feed, feeds
 Requires at least: 3.5
 Tested up to: 6.6
 Requires PHP: 5.4
-Stable tag: 1.5.16
+Stable tag: 1.5.17
 License: GPLv3 
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-
+GN Publisher makes RSS feeds that comply with the Google News RSS Feed Technical Requirements for including your site in the Google News.
 == Description ==
 
 GN Publisher makes RSS feeds that comply with the [Google News RSS Feed Technical Requirements](https://support.google.com/news/publisher-center/answer/9545420) for including your site in the [Google News Publisher Center](https://publishercenter.google.com/).
@@ -88,6 +88,12 @@ GN Publisher may also be downloaded to your computer and uploaded, installed, an
 
 
 == Changelog ==
+
+= 1.5.17 - (12 September 2024) =
+
+* Fixed : Ping Functionality Not Working. #102
+* Fixed : On multisite, When plugin activated, It goes to not found page #103
+* Improved : Few improvements required #100
 
 = 1.5.16 - (09 August 2024) =
 

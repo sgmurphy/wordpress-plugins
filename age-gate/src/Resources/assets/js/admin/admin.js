@@ -5,12 +5,17 @@ import hljs from 'highlight.js/lib/core';
 import css from 'highlight.js/lib/languages/css';
 import Alpine from 'alpinejs'
 import { accordion } from "./components/Accordion";
+
+import { Paginator } from "./components/Paginator";
 // import './components/GreedyNav';
 // import Bouncer from 'formbouncerjs';
 
+global.age_gate_pagination = Paginator;
 
 window.addEventListener('DOMContentLoaded', () => {
     accordion();
+
+    // Array.from(document.querySelectorAll('.ag-field--paginator')).forEach(el => new Paginator(el));
 
     // const validate = new Bouncer('.ag-settings-form');
 

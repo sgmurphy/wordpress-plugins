@@ -5,7 +5,7 @@ Tags:  docs, documentation, knowledge base, faq, chatgpt ai writer
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 3.6.5
+Stable tag: 3.6.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -218,6 +218,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 3.6.6 - 12/09/2024 =
+
+- Updated: OpenAI GPT model for 'Write with AI'.
+- Added: FAQ and Glossaries in Import/Export.
+- Added: BetterDocs Order option for the Docs Order in the BetterDocs Category Grid block.
+- Fixed: Related Docs Elementor widget | heading not changing.
+- Few minor bug fixes and improvements
 
 = 3.6.5 - 13/08/2024 =
 

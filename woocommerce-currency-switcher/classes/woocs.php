@@ -4601,14 +4601,18 @@ final class WOOCS {
             if (!empty($custom_prices) AND is_array($custom_prices)) {
                 $custom_prices = array_unique($custom_prices);
                 foreach ($custom_prices as $p) {
-                    if (!isset($currencies[$p['currency']])) {
-                        $p['currency'] = $this->default_currency;
+
+                    $curr = sanitize_key($p['currency']);
+
+                    //check for currency existance
+                    if (!isset($currencies[$curr])) {
+                        $curr = $this->default_currency;
                     }
-                    
+
                     $result[$p['value']] = do_shortcode("[woocs_show_custom_price "
-                            . "value=" . sanitize_text_field($p['value'])
+                            . "value=" . floatval($p['value'])
                             . " decimals=" . intval($p['decimals'])
-                            . " currency=" . sanitize_text_field($p['currency'])
+                            . " currency=" . $curr
                             . " ]");
                 }
             }

@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 5.1.1\n"
+"Project-Id-Version: MailPoet 5.2.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-04T18:05:36+00:00\n"
+"POT-Creation-Date: 2024-09-12T05:42:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -536,7 +536,7 @@ msgid "Select the list that you want to add"
 msgstr ""
 
 #: views/form/editor.html:161
-#: views/help.html:71
+#: views/help.html:70
 #: views/newsletter/editor.html:1050
 #: views/newsletter/editor.html:1051
 #: views/segments/translations.html:80
@@ -1222,7 +1222,7 @@ msgid "Delete Permanently"
 msgstr ""
 
 #: views/forms.html:49
-#: views/help.html:48
+#: views/help.html:47
 #: views/subscribers/subscribers.html:54
 #: views/subscribers/subscribers.html:73
 #: lib/Automation/Integrations/MailPoet/Fields/SubscriberFieldsFactory.php:104
@@ -1418,146 +1418,146 @@ msgstr ""
 msgid "Form settings of \"%1$s\" form are corrupted. Please [link]reconfigure the form in the editor[/link]."
 msgstr ""
 
-#: views/help.html:19
+#: views/help.html:18
 msgid "Knowledge Base"
 msgstr ""
 
-#: views/help.html:20
+#: views/help.html:19
 msgid "System Info"
 msgstr ""
 
-#: views/help.html:21
+#: views/help.html:20
 msgid "System Status"
 msgstr ""
 
-#: views/help.html:22
+#: views/help.html:21
 msgid "Your Privacy"
 msgstr ""
 
-#: views/help.html:23
+#: views/help.html:22
 msgid "For the plugin to work, it must be able to establish connection with the task scheduler and the key activation/MailPoet Sending Service."
 msgstr ""
 
-#: views/help.html:24
+#: views/help.html:23
 msgid "Task Scheduler"
 msgstr ""
 
-#: views/help.html:25
+#: views/help.html:24
 msgid "Connection to the MailPoet Sending Service"
 msgstr ""
 
-#: views/help.html:26
+#: views/help.html:25
 #: lib/AutomaticEmails/WooCommerce/WooCommerce.php:115
 msgid "Please contact our technical support for assistance."
 msgstr ""
 
-#: views/help.html:27
+#: views/help.html:26
 msgid "Your installation can connect to our sending service."
 msgstr ""
 
-#: views/help.html:28
+#: views/help.html:27
 msgid "Click on one of these categories below to find more information:"
 msgstr ""
 
-#: views/help.html:29
+#: views/help.html:28
 msgid "Visit our Knowledge Base for more articles"
 msgstr ""
 
-#: views/help.html:30
+#: views/help.html:29
 msgid "The information below is useful when you need to get in touch with our support. Just copy all the text below and paste it into a message to us."
 msgstr ""
 
-#: views/help.html:31
+#: views/help.html:30
 #: assets/dist/js/newsletter_editor.js:2
 msgid "Sorry, there was an error, please try again later."
 msgstr ""
 
-#: views/help.html:32
+#: views/help.html:31
 #: assets/dist/js/commons.js:9
 msgid "Copy to clipboard"
 msgstr ""
 
-#: views/help.html:33
+#: views/help.html:32
 msgid "Copied to clipboard."
 msgstr ""
 
-#: views/help.html:34
+#: views/help.html:33
 msgid "Could not copy to clipboard."
 msgstr ""
 
-#: views/help.html:35
+#: views/help.html:34
 msgid "Cron"
 msgstr ""
 
-#: views/help.html:36
+#: views/help.html:35
 msgid "Sending Queue"
 msgstr ""
 
-#: views/help.html:37
+#: views/help.html:36
 msgid "MailPoet respects your privacy. We don’t track any information about your website or yourself without your explicit consent."
 msgstr ""
 
-#: views/help.html:38
+#: views/help.html:37
 msgid "Third-party services used within the plugin may track information such as your email & IP address."
 msgstr ""
 
-#: views/help.html:39
+#: views/help.html:38
 msgid "If you send with MailPoet, we track data that is used to ensure that the service works correctly."
 msgstr ""
 
-#: views/help.html:40
+#: views/help.html:39
 msgid "Read our Privacy Notice"
 msgstr ""
 
-#: views/help.html:49
+#: views/help.html:48
 msgid "yes"
 msgstr ""
 
-#: views/help.html:50
+#: views/help.html:49
 msgid "no"
 msgstr ""
 
-#: views/help.html:60
+#: views/help.html:59
 msgid "Total completed tasks"
 msgstr ""
 
-#: views/help.html:61
+#: views/help.html:60
 msgid "Total scheduled tasks"
 msgstr ""
 
-#: views/help.html:62
+#: views/help.html:61
 msgid "Total cancelled tasks"
 msgstr ""
 
-#: views/help.html:63
+#: views/help.html:62
 msgid "Total running tasks"
 msgstr ""
 
-#: views/help.html:64
+#: views/help.html:63
 msgid "Total paused tasks"
 msgstr ""
 
-#: views/help.html:65
+#: views/help.html:64
 msgid "Scheduled sending tasks"
 msgstr ""
 
-#: views/help.html:66
+#: views/help.html:65
 msgid "Running sending tasks"
 msgstr ""
 
-#: views/help.html:67
+#: views/help.html:66
 msgid "Completed sending tasks"
 msgstr ""
 
-#: views/help.html:68
+#: views/help.html:67
 msgid "Cancelled sending tasks"
 msgstr ""
 
-#: views/help.html:69
+#: views/help.html:68
 msgid "Paused sending tasks"
 msgstr ""
 
-#: views/help.html:72
+#: views/help.html:71
 #: views/segments/translations.html:79
 #: views/subscribers/subscribers.html:72
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:20
@@ -1568,150 +1568,150 @@ msgstr ""
 msgid "Subscriber"
 msgstr ""
 
-#: views/help.html:75
+#: views/help.html:74
 msgid "Scheduled at"
 msgstr ""
 
-#: views/help.html:76
+#: views/help.html:75
 msgid "Cancelled at"
 msgstr ""
 
-#: views/help.html:77
+#: views/help.html:76
 msgid "Updated at"
 msgstr ""
 
-#: views/help.html:79
+#: views/help.html:78
 msgid "Nothing to show."
 msgstr ""
 
-#: views/help.html:81
+#: views/help.html:80
 msgid "WP Cron / Action Scheduler Status"
 msgstr ""
 
-#: views/help.html:82
+#: views/help.html:81
 msgid "Version"
 msgstr ""
 
-#: views/help.html:83
+#: views/help.html:82
 msgid "Storage type"
 msgstr ""
 
-#: views/help.html:41
+#: views/help.html:40
 msgctxt "A label in a status table e.g. Last updated: 2018-10-18 18:50"
 msgid "Last updated"
 msgstr ""
 
-#: views/help.html:42
+#: views/help.html:41
 msgctxt "A label in a status table e.g. Last run started: 2018-10-18 18:50"
 msgid "Last run started"
 msgstr ""
 
-#: views/help.html:43
+#: views/help.html:42
 msgctxt "A label in a status table e.g. Last run completed: 2018-10-18 18:50"
 msgid "Last run completed"
 msgstr ""
 
-#: views/help.html:44
+#: views/help.html:43
 msgctxt "A label in a status table e.g. Last seen error: Process timeout"
 msgid "Last seen error"
 msgstr ""
 
-#: views/help.html:45
+#: views/help.html:44
 msgctxt "A label in a status table e.g. Last seen error date: 2018-10-18 18:50"
 msgid "Last seen error date"
 msgstr ""
 
-#: views/help.html:46
+#: views/help.html:45
 msgctxt "An unknown state is a status table e.g. Last run started: unknown"
 msgid "unknown"
 msgstr ""
 
-#: views/help.html:47
+#: views/help.html:46
 msgctxt "A label in a status table e.g. Accessible: yes"
 msgid "Accessible"
 msgstr ""
 
-#: views/help.html:51
+#: views/help.html:50
 msgctxt "An empty state is a status table e.g. Error: none"
 msgid "none"
 msgstr ""
 
-#: views/help.html:52
+#: views/help.html:51
 msgctxt "A state of a process."
 msgid "running"
 msgstr ""
 
-#: views/help.html:53
+#: views/help.html:52
 msgctxt "A state of a process."
 msgid "paused"
 msgstr ""
 
-#: views/help.html:54
+#: views/help.html:53
 msgctxt "A state of a process."
 msgid "waiting for the next run"
 msgstr ""
 
-#: views/help.html:55
+#: views/help.html:54
 msgctxt "A label in a status table e.g. Started at: 2018-10-18 18:50"
 msgid "Started at"
 msgstr ""
 
-#: views/help.html:56
+#: views/help.html:55
 msgctxt "A label in a status table e.g. Sent emails: 50"
 msgid "Sent emails"
 msgstr ""
 
-#: views/help.html:57
+#: views/help.html:56
 msgctxt "A label in a status table e.g. Retry attempt: 2"
 msgid "Retry attempt"
 msgstr ""
 
-#: views/help.html:58
+#: views/help.html:57
 msgctxt "A label in a status table e.g. Retry at: 2018-10-18 18:50"
 msgid "Retry at"
 msgstr ""
 
-#: views/help.html:59
+#: views/help.html:58
 msgctxt "A label in a status table e.g. Error: missing data"
 msgid "Error"
 msgstr ""
 
-#: views/help.html:70
+#: views/help.html:69
 msgctxt "Table column heading for task type."
 msgid "Type"
 msgstr ""
 
-#: views/help.html:73
+#: views/help.html:72
 msgctxt "Used when multiple subscribers are selected for a task and we don't list them all."
 msgid "Multiple subscribers"
 msgstr ""
 
-#: views/help.html:74
+#: views/help.html:73
 msgctxt "Table column heading for task priority (number)."
 msgid "Priority"
 msgstr ""
 
-#: views/help.html:78
+#: views/help.html:77
 msgctxt "Table column heading to perform an action."
 msgid "Action"
 msgstr ""
 
-#: views/help.html:80
+#: views/help.html:79
 msgctxt "Text of a link to email preview page."
 msgid "Preview"
 msgstr ""
 
-#: views/help.html:84
+#: views/help.html:83
 msgctxt "Label for the next date and time of background job trigger run."
 msgid "Next trigger run"
 msgstr ""
 
-#: views/help.html:85
+#: views/help.html:84
 msgctxt "Label for the last date and time of background job trigger run."
 msgid "Last trigger run"
 msgstr ""
 
-#: views/help.html:86
+#: views/help.html:85
 msgctxt "Label for the last date and time of background job worker run."
 msgid "Last worker run"
 msgstr ""
@@ -7028,7 +7028,7 @@ msgstr ""
 msgid "Automation not found."
 msgstr ""
 
-#: lib/AdminPages/Pages/Help.php:63
+#: lib/AdminPages/Pages/Help.php:59
 #: lib/SystemReport/SystemReportCollector.php:71
 msgid "Can‘t generate cron URL."
 msgstr ""
@@ -7236,7 +7236,7 @@ msgstr ""
 msgid "Task not found."
 msgstr ""
 
-#: lib/API/JSON/v1/Help.php:78
+#: lib/API/JSON/v1/Help.php:82
 msgid "Invalid or missing parameter `id`."
 msgstr ""
 

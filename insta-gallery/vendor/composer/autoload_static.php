@@ -8,7 +8,7 @@ class ComposerStaticInit74b9f45daec271d48236a833cf56b3b7
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/../..' . '/jetpack_vendor/automattic/jetpack-assets/actions.php',
-        '017bc83cfc52756fc7b94c9b354c1ba0' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/helpers.php',
+        'eed58ea21003214096fa69247fda8497' => __DIR__ . '/..' . '/franmastromarino/wp-orm/src/V2/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (

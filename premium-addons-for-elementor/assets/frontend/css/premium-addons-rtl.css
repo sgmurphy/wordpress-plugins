@@ -6137,6 +6137,16 @@ a.premium-image-separator-link:active {
 .premium-maps-container .gm-style-iw-c {
     padding: 12px !important;
 }
+.premium-adv-carousel__item-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  z-index: 99;
+}
+
 .premium-adv-carousel__media-info-wrap {
     padding: 5px;
     z-index: 3;
@@ -6283,15 +6293,6 @@ a.premium-image-separator-link:active {
     transform: translateY(0) !important;
   }
 
-  .premium-adv-carousel__item .premium-adv-carousel__item-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    cursor: pointer;
-  }
-
   .premium-adv-carousel__item-outer-wrapper {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -6359,15 +6360,6 @@ a.premium-image-separator-link:active {
     -webkit-transform: translateY(0) !important;
     -ms-transform: translateY(0) !important;
     transform: translateY(0) !important;
-  }
-
-  .premium-adv-carousel__infinite .premium-adv-carousel__item .premium-adv-carousel__item-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    cursor: pointer;
   }
 
   .premium-adv-carousel__infinite.premium-adv-carousel__horizontal {

@@ -3,9 +3,9 @@ Contributors: Leap13, Rimoun
 Tags: elementor, elementor addons, widgets, elementor elements, elementor templates
 Donate Link: https://premiumaddons.com/?utm_source=wp-repo&utm_medium=link&utm_campaign=readme
 Requires at least: 5.0
-Tested Up To: 6.6.1
+Tested Up To: 6.6.2
 Requires PHP: 7.0
-Stable Tag: 4.10.50
+Stable Tag: 4.10.51
 License: GPL v3.0
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -231,6 +231,13 @@ Premium Addonsis 100% Ads Free, Ads can only be detected from Youtube videos, th
 14. Premium Progress Bar Widget
 
 == Changelog ==
+
+= 4.10.51 =
+
+- Tweak: Added Play Inline option in Video Box widget.
+- Tweak: Added Cluster Icon size control in Google Maps widget.
+- Fixed: Conflict in Dynamic Assets Generate feature.
+- Fixed: Items links not working in Advanced Carousel widget.
 
 = 4.10.50 =
 

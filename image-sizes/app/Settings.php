@@ -13,11 +13,8 @@ use Codexpert\Plugin\Settings as Settings_API;
 class Settings extends Base {
 
 	public $plugin;
-
 	public $slug;
-
 	public $name;
-
 	public $version;
 
 	/**
@@ -110,9 +107,9 @@ class Settings extends Base {
 			$upgrade_pro = [
 				'id'            => "upgrade-to-pro",
 				'parent'        => 'thumbpress',
-				'label'         => __( 'Advanced Features', 'image-sizes' ),
-				'title'         => __( 'Advanced Features', 'image-sizes' ),
-				'header'        => __( 'Advanced Features', 'image-sizes' ),
+				'label'         => __( '<b>Get Pro <span style="color: #f77474;">(On Sale)</span></b> ', 'image-sizes' ),
+				'title'         => __( 'Get Pro (On Sale)', 'image-sizes' ),
+				'header'        => __( 'Get Pro (On Sale)', 'image-sizes' ),
 				'priority'      => 100,
 				'sections'      => [
 					'upgrade-to-pro'=> [
@@ -145,6 +142,14 @@ class Settings extends Base {
 	public function reset( $option_name ) {
 		if( $option_name == 'prevent_image_sizes' ) {
 			update_option( '_image-sizes', Helper::default_image_sizes() );
+		}
+	}
+
+	public function redirect_specific_admin_page() {
+		global $pagenow;
+		if ( $pagenow == 'admin.php' && isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'upgrade-to-pro' ) {
+			wp_redirect( 'https://thumbpress.co/pricing/?utm_source=plugin+dashboard&utm_medium=sidebar&utm_campaign=on+sale' );
+			exit;
 		}
 	}
 }

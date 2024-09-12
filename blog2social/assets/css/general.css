@@ -8112,7 +8112,30 @@ CSS CheckBOX
 
 .b2s-ass-img-welcome{
     max-width: 15em;
+}
 
+.b2s-ass-img-welcome-dashboard{
+    max-width: 20em;
+}
+
+.b2s-ass-thumbnail-dashboard{
+    border: 0px !important;
+}
+
+.b2s-ass-thumbnail-dashboard > img {
+    max-height: 110px;
+}
+.b2s-ass-title-h5{
+ font-weight: 600;
+ font-size: 15px;
+}
+
+.b2s-ass-title-strong{
+ font-weight: 600;
+}
+
+.b2s-ass-img-rewrite{
+    max-width: 40em;
 }
 
 .b2s-ass-register-btn , .b2s-ass-register-btn:hover, .b2s-ass-btn, .b2s-ass-btn:hover {
@@ -8225,6 +8248,7 @@ CSS CheckBOX
 
 .btn-ass{
     background-color: rgb(245, 54, 92);
+    margin-right: 5px;
     color: rgb(255, 255, 255);
     border-color:rgb(245, 54, 92);
 }
@@ -8309,7 +8333,10 @@ CSS CheckBOX
 .b2s-pl-2{
     padding-left: 2em !important;
 }
-
+.b2s-mx-05 {
+    margin-left: 0.5em !important;
+    margin-right: 0.5em !important;
+}
 .b2s-w-80 {
     width: 80% !important;
 }
@@ -8356,4 +8383,20 @@ CSS CheckBOX
 
 .b2s-post-item-ass-margin-html {
     margin-top: 5px !important;
+}
+
+.b2s-header-trial-modal-list {
+    padding-left: 15px;
+    padding-top: 10px;
+    list-style: disc;
+}
+
+.b2s-header-trial-image-container {
+    display: flex;
+    align-items: center;
+}
+
+.b2s-header-trial-image {
+    margin-top: -20px;
+    max-width: 33em;   
 }

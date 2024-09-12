@@ -416,13 +416,10 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					wp_enqueue_script( 'jquery-ui-droppable' );
 					wp_enqueue_script( 'jquery-ui-button' );
 					wp_enqueue_script( 'jquery-ui-datepicker' );
-					wp_deregister_script( 'query-stringify' );
-					wp_register_script( 'query-stringify', plugins_url( '/vendors/jQuery.stringify.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array(), CP_CALCULATEDFIELDSF_VERSION );
-					wp_enqueue_script( 'query-stringify' );
 
 					// ULR to the admin resources.
 					$admin_resources = admin_url( 'admin.php?page=cp_calculated_fields_form&cp_cff_resources=admin' );
-					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script', $admin_resources, array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-droppable', 'jquery-ui-button', 'jquery-ui-accordion', 'jquery-ui-datepicker', 'query-stringify' ), CP_CALCULATEDFIELDSF_VERSION );
+					wp_enqueue_script( 'cp_calculatedfieldsf_builder_script', $admin_resources, array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-droppable', 'jquery-ui-button', 'jquery-ui-accordion', 'jquery-ui-datepicker' ), CP_CALCULATEDFIELDSF_VERSION );
 
 					wp_enqueue_script( 'cp_calculatedfieldsf_builder_library_script', plugins_url( '/js/library.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'cp_calculatedfieldsf_builder_script' ), CP_CALCULATEDFIELDSF_VERSION );
 
@@ -1016,12 +1013,9 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 				wp_enqueue_script( 'jquery-ui-datepicker' );
 				wp_enqueue_script( 'jquery-ui-slider' );
 
-				wp_deregister_script( 'query-stringify' );
-				wp_register_script( 'query-stringify', plugins_url( '/vendors/jQuery.stringify.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), 'pro' );
-
 				wp_deregister_script( 'cp_calculatedfieldsf_validate_script' );
 				wp_register_script( 'cp_calculatedfieldsf_validate_script', plugins_url( '/vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ), array( 'jquery' ), 'pro' );
-				wp_enqueue_script( 'cp_calculatedfieldsf_builder_script', $public_js_path, array( 'jquery', 'jquery-ui-core', 'jquery-ui-button', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-tooltip', 'query-stringify', 'cp_calculatedfieldsf_validate_script', 'jquery-ui-datepicker', 'jquery-ui-slider' ), CP_CALCULATEDFIELDSF_VERSION, true );
+				wp_enqueue_script( 'cp_calculatedfieldsf_builder_script', $public_js_path, array( 'jquery', 'jquery-ui-core', 'jquery-ui-button', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-tooltip', 'cp_calculatedfieldsf_validate_script', 'jquery-ui-datepicker', 'jquery-ui-slider' ), CP_CALCULATEDFIELDSF_VERSION, true );
 
 				wp_localize_script( 'cp_calculatedfieldsf_builder_script', 'cp_calculatedfieldsf_fbuilder_config_' . self::$form_counter, array( 'obj' => $config_json ) );
 			} else {
@@ -1066,7 +1060,6 @@ if ( ! class_exists( 'CPCFF_MAIN' ) ) {
 					?>
 					<script type='text/javascript'> if( typeof fbuilderjQuery == 'undefined' && typeof jQuery != 'undefined' ) fbuilderjQuery = jQuery;</script>
 					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jquery.validate.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
-					<script type='text/javascript' src='<?php echo esc_attr( plugins_url( 'vendors/jQuery.stringify.js', CP_CALCULATEDFIELDSF_MAIN_FILE_PATH ) ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<script type='text/javascript' src='<?php echo esc_attr( $public_js_path . ( ( strpos( $public_js_path, '?' ) == false ) ? '?' : '&' ) . 'ver=' . CP_CALCULATEDFIELDSF_VERSION ); // phpcs:ignore WordPress.WP.EnqueuedResources ?>'></script>
 					<?php
 				}

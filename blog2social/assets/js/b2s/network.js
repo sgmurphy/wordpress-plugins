@@ -999,9 +999,7 @@ jQuery(window).on("load", function () {
             jQuery('.b2s-edit-template-post-format[data-network-type=' + jQuery(this).attr('data-network-type') + ']').val('0');
             jQuery('.b2s-edit-template-image-preview[data-network-type=' + jQuery(this).attr('data-network-type') + ']').hide();
             jQuery('.b2s-edit-template-link-preview[data-network-type=' + jQuery(this).attr('data-network-type') + ']').show();
-            if (jQuery('#b2s-edit-template-network-id').val() == 1 || jQuery('#b2s-edit-template-network-id').val() == 2 || jQuery('#b2s-edit-template-network-id').val() == 24 || jQuery('#b2s-edit-template-network-id').val() == 43) {
-                jQuery('.b2s-edit-template-enable-link-area[data-network-type=' + jQuery(this).attr('data-network-type') + ']').hide();
-            }
+            jQuery('.b2s-edit-template-enable-link-area[data-network-type=' + jQuery(this).attr('data-network-type') + ']').hide();
         });
 
         jQuery(document).on('click', '.b2s-edit-template-image-post', function () {
@@ -1010,9 +1008,7 @@ jQuery(window).on("load", function () {
             jQuery('.b2s-edit-template-post-format[data-network-type=' + jQuery(this).attr('data-network-type') + ']').val('1');
             jQuery('.b2s-edit-template-link-preview[data-network-type=' + jQuery(this).attr('data-network-type') + ']').hide();
             jQuery('.b2s-edit-template-image-preview[data-network-type=' + jQuery(this).attr('data-network-type') + ']').show();
-            if (jQuery('#b2s-edit-template-network-id').val() == 1 || jQuery('#b2s-edit-template-network-id').val() == 2 || jQuery('#b2s-edit-template-network-id').val() == 24 || jQuery('#b2s-edit-template-network-id').val() == 43) {
-                jQuery('.b2s-edit-template-enable-link-area[data-network-type=' + jQuery(this).attr('data-network-type') + ']').show();
-            }
+            jQuery('.b2s-edit-template-enable-link-area[data-network-type=' + jQuery(this).attr('data-network-type') + ']').show();
         });
 
 
@@ -1232,7 +1228,7 @@ jQuery(document).on('click', '.b2s-edit-template-save-btn', function () {
             }
         }
 
-        if (jQuery('#b2s-edit-template-network-id').val() == 43 || jQuery('#b2s-edit-template-network-id').val() == 24 || jQuery('#b2s-edit-template-network-id').val() == 12 || jQuery('#b2s-edit-template-network-id').val() == 1 || jQuery('#b2s-edit-template-network-id').val() == 2) {
+        if (typeof jQuery('.b2s-edit-template-enable-link') != "undefined") {
             if (jQuery('.b2s-edit-template-enable-link[data-network-type="' + networkType + '"]').is(':checked')) {
                 template_data[networkType]['addLink'] = true;
             } else {

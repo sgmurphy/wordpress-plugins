@@ -15,14 +15,14 @@ if (HMWP_Classes_Tools::getOption('hmwp_security_alert')) {
 	}
 }
 ?>
-<div id="hmwp_wrap" class="d-flex flex-row my-3 bg-light">
-    <div class="hmwp_row d-flex flex-row bg-white p-0">
-        <div class="hmwp_col flex-grow-1 m-0">
+<div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
+    <div class="hmwp_row d-flex flex-row p-0 m-0">
+        <div class="hmwp_col flex-grow-1 px-2 py-0 mr-2 mb-3">
             <div class="card col-sm-12 p-0 m-0" style="max-width: 100%">
                 <h3 class="card-title hmwp_header p-2 m-0"><?php echo esc_html__('WordPress Security Check', 'hide-my-wp'); ?>:
                     <a href="<?php echo esc_url(HMWP_Classes_Tools::getOption('hmwp_plugin_website') . '/kb/website-security-check/') ?>" target="_blank" class="d-inline-block float-right mr-2" style="color: white"><i class="dashicons dashicons-editor-help" style=" vertical-align: top; padding: 5px 0 !important;"></i></a>
                 </h3>
-                <div class="card-body">
+                <div class="card-body p-0 m-0">
 
                     <div class="col-sm-12 border-bottom border-light pb-3 m-0">
                         <div class="card col-sm-12 p-4 bg-light ">

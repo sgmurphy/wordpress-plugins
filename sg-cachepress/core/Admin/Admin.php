@@ -68,7 +68,7 @@ class Admin {
 
 	/**
 	 * Check if it's a multisite, but the single site
-	 * has no permisions to edit optimizer settings.
+	 * has no permissions to edit optimizer settings.
 	 *
 	 * @since  5.0.0
 	 *
@@ -97,7 +97,7 @@ class Admin {
 	public function hide_errors_and_notices() {
 		// Hide all error in our page.
 		if (
-			isset( $_GET['page'] ) &&
+			isset( $_GET['page'] ) && // phpcs:ignore
 			array_key_exists( $_GET['page'], $this->subpages ) // phpcs:ignore
 		) {
 			remove_all_actions( 'network_admin_notices' );
@@ -132,7 +132,6 @@ class Admin {
 			\SiteGround_Optimizer\VERSION,
 			'all'
 		);
-
 	}
 
 	/**
@@ -207,7 +206,7 @@ class Admin {
 		// Get the option.
 		$show_notice = (int) get_site_option( 'siteground_optimizer_memcache_notice', 0 );
 
-		// Bail if the current user is not admin or if we sholdn't  display notice.
+		// Bail if the current user is not admin or if we shouldn't  display notice.
 		if (
 			! is_admin() ||
 			0 === $show_notice ||
@@ -230,7 +229,7 @@ class Admin {
 			'<div class="%1$s" style="position: relative"><p>%2$s</p><button type="button" class="notice-dismiss dismiss-memcache-notice" data-link="%3$s"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
 			esc_attr( $class ),
 			esc_html( $message ),
-			admin_url( 'admin-ajax.php?action=dismiss_memcache_notice' )
+			esc_url( admin_url( 'admin-ajax.php?action=dismiss_memcache_notice' ) )
 		);
 	}
 
@@ -344,7 +343,7 @@ class Admin {
 		);
 
 		if ( ! is_network_admin() ) {
-			echo '<script>window.addEventListener("load", function(){ SGOptimizer.init({ domElementId: "root", page: SGOptimizer.PAGE.' . $id . ',config:' . json_encode( $data ) . '})});</script>';
+			echo '<script>window.addEventListener("load", function(){ SGOptimizer.init({ domElementId: "root", page: SGOptimizer.PAGE.' . esc_html( $id ) . ',config:' . wp_json_encode( $data ) . '})});</script>';
 		} else {
 			$data['rest_base'] = untrailingslashit( get_rest_url( null, Rest::REST_NAMESPACE ) );
 			$data['modules'] = Modules::get_instance()->get_active_modules();

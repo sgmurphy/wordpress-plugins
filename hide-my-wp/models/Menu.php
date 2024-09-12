@@ -176,10 +176,6 @@ class HMWP_Models_Menu
                     'title' => esc_html__("API Security", 'hide-my-wp'),
                     'tab' =>'api',
                 ),
-                array(
-                    'title' => esc_html__("Other Options", 'hide-my-wp'),
-                    'tab' =>'more',
-                )
             ),
             'hmwp_mapping' => array(
                 array(

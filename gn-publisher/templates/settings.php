@@ -5,7 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $tab  = 'gn-intro';
+//phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is not required here.
 if( !empty( $_GET['tab'] ) ) {
+  //phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verification is not required here.
   $tab  = sanitize_text_field( wp_unslash( $_GET['tab'] ) ); 
 }
 
@@ -13,7 +15,7 @@ if( !empty( $_GET['tab'] ) ) {
 <div class="wrap">
   <div class="gn-container">
   
-    <h1><a href="https://gnpublisher.com/" target="_blank"><img  class="gn-logo" src=<?php echo GNPUB_URL . '/assets/images/logo.png' ?> title="<?php esc_html_e( 'GN Publisher', 'gn-publisher' ); ?>"/></a></h1>
+    <h1><a href="https://gnpublisher.com/" target="_blank"><img  class="gn-logo" src=<?php echo esc_url( GNPUB_URL . '/assets/images/logo.png' ); ?> title="<?php esc_html_e( 'GN Publisher', 'gn-publisher' ); ?>"/></a></h1>
   </div>
 <?php 
 if ( defined('GNPUB_PRO_VERSION') ) { 
@@ -26,8 +28,12 @@ if ( defined('GNPUB_PRO_VERSION') ) {
       $license_key_status = $license_info['pro']['license_key_status'];
     } 
   if($license_key_status != 'active'){
-    echo '<div class="gnpu-license-notice">'.__( 'Thank You For installing ', 'gn-publisher' ).'<a href="https://gnpublisher.com/" target="_blank">'.__( 'GN PUBLISHER PRO', 'gn-publisher' ).'</a>, '.__( 'please activate the license key to receive regular updates.', 'gn-publisher' ).'</div>
-    ';
+    echo '<div class="gnpu-license-notice">' . esc_html__( 'Thank you for installing ', 'gn-publisher' ) . 
+     '<a href="' . esc_url( 'https://gnpublisher.com/' ) . '" target="_blank">' . 
+     esc_html__( 'GN PUBLISHER PRO', 'gn-publisher' ) . '</a>, ' . 
+     esc_html__( 'please activate the license key to receive regular updates.', 'gn-publisher' ) . 
+     '</div>';
+
   } 
 } 
 ?>
@@ -55,18 +61,25 @@ if ( defined('GNPUB_PRO_VERSION') ) {
 <div id="gn-intro" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-intro' ? 'gnpub-show' : 'gnpub-d-none'); ?>">
    
   <p><?php
-      printf(
-        __( '<p> This plugin was created by Chris Andrews, a Platinum Level Product Expert on the Google News Publisher Help forum, the original creator of <a href="%1$s" target="_blank">GN Publisher</a>.</p>', 'gn-publisher' ),
-        'https://gnpublisher.com/'
-      );
+    printf(
+    /* translators: 1: GN Publisher Website link */
+    '<p>' . esc_html__( 'This plugin was created by Chris Andrews, a Platinum Level Product Expert on the Google News Publisher Help forum, the original creator of %1$s.', 'gn-publisher' ) . '</p>',
+    '<a href="' . esc_url( 'https://gnpublisher.com/' ) . '" target="_blank">' . esc_html__( 'GN Publisher', 'gn-publisher' ) . '</a>'
+);
+
   ?></p>
 
   <p><?php
-      printf(
-        __( 'GN Publisher is a WordPress plugin designed to output RSS feeds that comply with the <a href="%1$s" target="_blank">Google News RSS Feed Technical Requirements</a> for inclusion in the <a href="%2$s" target="_blank">Google News Publisher Center</a>.', 'gn-publisher' ),
-        'https://support.google.com/news/publisher-center/answer/9545420?hl=en',
-        'https://publishercenter.google.com/'
-      );
+    printf(
+    /* translators: 1: Google News Publisher Center Technical Requirements link, 2: Google News Publisher Center link */
+    esc_html__(
+        'GN Publisher is a WordPress plugin designed to output RSS feeds that comply with the %1$s for inclusion in the %2$s.',
+        'gn-publisher'
+    ),
+    '<a href="' . esc_url( 'https://support.google.com/news/publisher-center/answer/9545420?hl=en' ) . '" target="_blank">' . esc_html__( 'Google News RSS Feed Technical Requirements', 'gn-publisher' ) . '</a>',
+    '<a href="' . esc_url( 'https://publishercenter.google.com/' ) . '" target="_blank">' . esc_html__( 'Google News Publisher Center', 'gn-publisher' ) . '</a>'
+);
+
   ?></p>
 
   <p><?php esc_html_e( 'The plugin addresses common issues publishers experience when using the Google News Publisher Center, including:', 'gn-publisher' ); ?></p>
@@ -92,7 +105,7 @@ if ( defined('GNPUB_PRO_VERSION') ) {
   /////// display feed urls, @since 1.0.2 -ca ///////////////////
       $permalinks_enabled = ! empty( get_option( 'permalink_structure' ) );
       $feed_url=esc_url( $permalinks_enabled ? trailingslashit( home_url() ) . 'feed/gn' : add_query_arg( 'feed', 'gn', home_url() ) );
-      echo '<li><input type="text" class="gn-input" value="'.$feed_url.'" id="gn-feed-0" size="60" readonly>
+      echo '<li><input type="text" class="gn-input" value="'. esc_url( $feed_url ) .'" id="gn-feed-0" size="60" readonly>
       <div class="gn-tooltip">
       <button class="gn-btn" onclick="gn_copy('."'gn-feed-0'".')" onmouseout="gn_out('."'gn-feed-0'".')">
         <span class="gn-tooltiptext" id="gn-feed-0-tooltip">Copy URL</span>
@@ -135,7 +148,7 @@ if ( defined('GNPUB_PRO_VERSION') ) {
         echo '<li><input type="text" class="gn-input" value="'.esc_url( $gn_category_link ).'" id="gn-feed-'.esc_attr($category->term_id).'" size="60" readonly>
       <div class="gn-tooltip">
       <button class="gn-btn" onclick="gn_copy('."'gn-feed-".esc_attr($category->term_id)."'".')" onmouseout="gn_out('."'gn-feed-".esc_attr($category->term_id)."'".')">
-        <span class="gn-tooltiptext" id="gn-feed-'.esc_attr($category->term_id).'-tooltip">'.__( 'Copy URL', 'gn-publisher' ).'</span>
+        <span class="gn-tooltiptext" id="gn-feed-'.esc_attr($category->term_id).'-tooltip">'. esc_html__( 'Copy URL', 'gn-publisher' ) .'</span>
         Copy
         </button>
       </div></li>';
@@ -153,7 +166,7 @@ if ( defined('GNPUB_PRO_VERSION') ) {
 
   <?php if(!defined('GNPUB_PRO_VERSION')){ ?>
 <div class="info gnpub-content-stolen-badge">
-  <div class="gnpub-badge-left"><a href="https://gnpublisher.com/" target="_blank"><img  class="gn-logo" src=<?php echo GNPUB_URL . '/assets/images/gn-logo-mini.png' ?> title="<?php esc_html_e( 'GN Publisher', 'gn-publisher' ); ?>"/></a></div>
+  <div class="gnpub-badge-left"><a href="https://gnpublisher.com/" target="_blank"><img  class="gn-logo" src=<?php echo esc_url( GNPUB_URL . '/assets/images/gn-logo-mini.png' ); ?> title="<?php esc_html_e( 'GN Publisher', 'gn-publisher' ); ?>"/></a></div>
   <div class="gnpub-badge-right"><p><?php echo esc_html__('For feed content protection, upgrade to Premium.', 'gn-publisher') ?></p></div>
   <div class="gnpub-badge-right-btn"><a class="gn-publisher-pro-btn " target="_blank" href="https://gnpublisher.com/pricing/#pricing"><?php echo esc_html__('Upgrade to Premium', 'gn-publisher') ?></a></div>
 </div>
@@ -206,11 +219,14 @@ do_action('gnpub_pro_cpt_form');
       </label>
       <ul id="links3">
         <li>
-          <?php $last_fetch=( is_null( $last_google_fetch ) ) ? __( 'None recorded.', 'gn-publisher' ) : $last_google_fetch;
-         $last_websub_ping = ( is_null( $last_websub_ping ) ) ? __( 'None recorded.', 'gn-publisher' ) : $last_websub_ping; 
+          <?php $last_fetch=( is_null( $last_google_fetch ) ) ? esc_html__( 'None recorded.', 'gn-publisher' ) : $last_google_fetch;
+         $last_websub_ping = ( is_null( $last_websub_ping ) ) ? esc_html__( 'None recorded.', 'gn-publisher' ) : $last_websub_ping; 
           ?>
-         <p><?php echo esc_html__('➔', 'gn-publisher').'<b>'.esc_html__('Most Recent Feedfetcher Fetch: '.$last_fetch.'(if testing, refresh this page for most recent fetch time)', 'gn-publisher').'</b><br/>'.esc_html__('If the "Most Recent Feedfetcher fetch" is "None recorded" or the date is more than 24 hours old, it\'s likely that your host or firewall is blocking Google\'s feed crawler, Feedfetcher. Because Feedfetcher is not a well-known bot and doesn\'t follow some of the standard crawler procedures, it is often mistakenly blocked by hosting companies and firewalls. Ask your hosting company or server administrator to whitelist the user-agent "Feedfetcher-Google". Note: If you are using AWS Cloudfront, Amazon does not pass the user-agent through to GN Publisher, so the "Most Recent Feedfetcher Fetch" timestamp will not work for you.', 'gn-publisher'); ?></p>
-         <p><?php echo esc_html__('➔', 'gn-publisher').'<b>'.esc_html__('Most Recent Update Ping Sent: '.$last_websub_ping.' (if testing, refresh this page for most recent ping time)', 'gn-publisher').'</b><br/>'.esc_html__('When you publish or update a post, GN Publisher pings Google to let them know there is an update to one of your feeds. The "Most Recent Update Ping" indicates when the most recent ping was sent. Google normally fetches the feed soon thereafter (often within a minute).', 'gn-publisher'); ?></p>
+         <p><?php echo esc_html__('➔ ', 'gn-publisher') . '<b>' . esc_html__('Most Recent Feedfetcher Fetch: ', 'gn-publisher') . esc_html($last_fetch) . esc_html__(' ( If testing, refresh this page for most recent fetch time )', 'gn-publisher') . '</b><br/>' . esc_html__('If the "Most Recent Feedfetcher fetch" is "None recorded" or the date is more than 24 hours old, it\'s likely that your host or firewall is blocking Google\'s feed crawler, Feedfetcher. Because Feedfetcher is not a well-known bot and doesn\'t follow some of the standard crawler procedures, it is often mistakenly blocked by hosting companies and firewalls. Ask your hosting company or server administrator to whitelist the user-agent "Feedfetcher-Google". Note: If you are using AWS Cloudfront, Amazon does not pass the user-agent through to GN Publisher, so the "Most Recent Feedfetcher Fetch" timestamp will not work for you.', 'gn-publisher'); ?>
+        </p>
+        <p>
+          <?php echo esc_html__('➔ ', 'gn-publisher') . '<b>' . esc_html__('Most Recent Update Ping Sent: ', 'gn-publisher') . esc_html($last_websub_ping) . esc_html__(' ( If testing, refresh this page for most recent ping time )', 'gn-publisher') . '</b><br/>' . esc_html__('When you publish or update a post, GN Publisher pings Google to let them know there is an update to one of your feeds. The "Most Recent Update Ping" indicates when the most recent ping was sent. Google normally fetches the feed soon thereafter (often within a minute).', 'gn-publisher'); ?>
+        </p>
         </li>
       </ul>
     </div>
@@ -343,7 +359,7 @@ echo esc_html__( '➔ Because of the huge number of ways that publishers, plugin
 <div class="gn-flex-container-services">
   <div class="gn-service-card first">
       <div class="gn-service-card-left">
-      <img src="<?php echo GNPUB_URL . '/assets/images/google-news.png'?>" width="128px" height="128px">
+      <img src="<?php echo esc_url( GNPUB_URL . '/assets/images/google-news.png' ); ?>" width="128px" height="128px">
     </div>
     <div class="gn-service-card-right">
       <h3 class="gn-service-heading"><?php echo esc_html__('Google News Setup & Audit', 'gn-publisher') ?></h3>
@@ -353,7 +369,7 @@ echo esc_html__( '➔ Because of the huge number of ways that publishers, plugin
   </div>
   <div class="gn-service-card second">
   <div class="gn-service-card-left">  
-    <img src="<?php echo GNPUB_URL . '/assets/images/support.png'?>" width="128px" height="128px">  
+    <img src="<?php echo esc_url( GNPUB_URL . '/assets/images/support.png' ); ?>" width="128px" height="128px">  
   </div>
   <div class="gn-service-card-right">    
   <h3 class="gn-service-heading"><?php echo esc_html__('Dedicated Developer for Website', 'gn-publisher') ?></h3>
@@ -364,7 +380,7 @@ echo esc_html__( '➔ Because of the huge number of ways that publishers, plugin
   
   <div class="gn-service-card third">
   <div class="gn-service-card-left">
-    <img src="<?php echo GNPUB_URL . '/assets/images/google.png'?>" width="128px" height="128px">
+    <img src="<?php echo esc_url( GNPUB_URL . '/assets/images/google.png' ); ?>" width="128px" height="128px">
   </div>
   <div class="gn-service-card-right">
     <h3 class="gn-service-heading"><?php echo esc_html__('Search Console Maintenance', 'gn-publisher') ?>
@@ -509,18 +525,18 @@ $gnpub_google_rev_snippet_name = isset($gnpub_options['gnpub_google_rev_snippet_
   </div>
   <div id="gn-upgrade" class="gn-tabcontent <?php echo esc_attr( $tab == 'gn-upgrade' || $tab == 'welcome' ? 'gnpub-show' : 'gnpub-d-none'); ?>" style="text-align: center;">
 <?php if(!defined('GNPUB_PRO_VERSION')){ ?>
-  <p style="font-weight: bold;font-size: 30px;color: #000;"><?= esc_html_e( 'Thank You for using GN Publisher.', 'gn-publisher' ) ?></p>
-        <p style="font-size: 18px;padding: 0 10%;line-height: 1.7;color: #000;"><?= esc_html_e( 'We strive to create the best GN Publisher solution in WordPress. Our dedicated development team does continuous development and innovation to make sure we are able to meet your demand.', 'gn-publisher' ) ?></p>
-        <p style="font-size: 16px;font-weight: 600;color: #000;"><?= esc_html_e( 'Please support us by Upgrading to Premium version.', 'gn-publisher' ) ?></p>
+  <p style="font-weight: bold;font-size: 30px;color: #000;"><?php esc_html_e( 'Thank You for using GN Publisher.', 'gn-publisher' ) ?></p>
+        <p style="font-size: 18px;padding: 0 10%;line-height: 1.7;color: #000;"><?php esc_html_e( 'We strive to create the best GN Publisher solution in WordPress. Our dedicated development team does continuous development and innovation to make sure we are able to meet your demand.', 'gn-publisher' ) ?></p>
+        <p style="font-size: 16px;font-weight: 600;color: #000;"><?php esc_html_e( 'Please support us by Upgrading to Premium version.', 'gn-publisher' ) ?></p>
         <a target="_blank" href="https://gnpublisher.com/pricing/#pricing/">
             <button class="button-gnp-ugrade" style="display: inline-block;font-size: 20px;">
-                <span><?= esc_html_e( 'YES! I want to Support by UPGRADING.', 'gn-publisher' ) ?></span></button>
+                <span><?php esc_html_e( 'YES! I want to Support by UPGRADING.', 'gn-publisher' ) ?></span></button>
         </a>
-        <a href="<?php echo add_query_arg('page', 'gn-publisher-settings', admin_url('options-general.php')); ?>"
+        <a href="<?php echo esc_url( add_query_arg( 'page', 'gn-publisher-settings', admin_url( 'options-general.php' ) ) ); ?>"
            style="text-decoration: none;">
             <button class="button-gnp-ugrade1"
                     style="display: block;text-align: center;border: 0;margin: 0 auto;background: none;">
-                <span style="cursor: pointer;"><?= esc_html_e( 'No Thanks, I will stick with FREE version for now.', 'gn-publisher' ) ?></span>
+                <span style="cursor: pointer;"><?php esc_html_e( 'No Thanks, I will stick with FREE version for now.', 'gn-publisher' ) ?></span>
             </button>
         </a>
   <?php } ?>

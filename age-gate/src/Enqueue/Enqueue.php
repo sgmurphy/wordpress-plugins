@@ -32,6 +32,15 @@ class Enqueue
             || in_array(($GLOBALS['pagenow'] ?? false), $pages)) {
                 wp_enqueue_media();
                 wp_enqueue_style('age-gate-admin', AGE_GATE_URL . 'dist/admin.css', [], AGE_GATE_VERSION);
+
+                wp_localize_script(
+                    'age-gate-admin',
+                    'ag_admin',
+                    [
+                        'rest' => rest_url( 'age-gate/v3/admin/terms'),
+                        'nonce' => wp_create_nonce('wp_rest'),
+                    ]
+                );
             // wp_enqueue_script('age-gate-admin', AGE_GATE_URL . 'dist/admin.js', [], AGE_GATE_VERSION, true);
         }
     }

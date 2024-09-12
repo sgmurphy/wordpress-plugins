@@ -1,14 +1,15 @@
-=== Plugin Name ===
+=== Manage Notification E-mails ===
 Contributors: virgial
-Tags: notification,notify,email,user,password,moderator,postauthor,automatic updates,admin e-mail,switch
+Tags: notification,notify,user,e-mail,switch
 Requires at least: 4.0.0
 Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TYG56SLWNG42N
-Tested up to: 6.4.2
+Tested up to: 6.6.2
 Stable tag: 1.8.6
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Disable or enable the WordPress notification e-mails (new user, changed password, automatic updates, etc.). Works perfectly in combination with a lot of other plugins!
+Enable and disable email notifications that WordPress sends to the admin and user. Works perfectly with many other plugins!
 
 == Description ==
 
@@ -78,7 +79,6 @@ If you're one of the early installers, than you'll be happy to see that de new u
 FIXED: Medium vulnerability in settings module. Thanks to Wordfence for reporting this.
 UPDATED: Lowered the priority to 99 in the filters fixing some issues where plugins overwrite the disabling of sending the e-mails.
 
-== Changelog ==
 = 1.8.5 =
 UPDATED: Compatibility fix with WP 6.1+ where new user notifications are managed by filters.
 

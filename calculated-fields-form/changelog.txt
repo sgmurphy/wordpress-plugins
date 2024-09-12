@@ -1,5 +1,13 @@
 == Changelog ==
 
+= 5.2.36 =
+
+* Modernizes the predefined designs starting by the template 01.
+* Updates the module that retrieves the page URL to accurately identify the correct URL when the form is loaded within an iframe.
+* Adjusts the HTML Content control to prevent contained tags from impacting the form builder.
+* Enhances the functionality of the Phone control.
+* Eliminates redundant vendor libraries.
+
 = 5.2.35 =
 
 * Modifies the container fields.

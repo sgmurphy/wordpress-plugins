@@ -49,8 +49,10 @@
 						});
 					});
 				},
-			_input_boxes:function()
+			_input_boxes:function( silent )
 				{
+					silent = silent || false;
+
 					let me 		    = this,
 						prefix      = $('#'+me.name+'_0').val(),
 					    bk_number   = '',
@@ -71,8 +73,7 @@
 							min_r  = min % d,
 							c	   = 1;
 
-						if ( predefined.length < max ) predefined += predefined.substring(-1).repeat(max-predefined.length);
-
+						if ( predefined.length && predefined.length < max ) predefined += predefined.substr(-1).repeat(max-predefined.length);
 
 						for ( var i = 0, h = Math.floor( max/d ); i<h; i++ ) {
 							let w = d + ( ( max_r && h - i <= max_r ) ? 1 : 0 ),
@@ -99,7 +100,7 @@
 					e.find('.uh_phone:not(:first)').remove();
 					e.append(output);
 					$('[id*="'+me.name+'"].cpefb_error.message').remove();
-					$(':input[id*="'+me.name+'"]').valid();
+					if ( ! silent ) $(':input[id*="'+me.name+'"]').valid();
 					me._on_change_events();
 				},
 			show:function()
@@ -110,8 +111,8 @@
                     me.dformat = String(me.dformat).trim().replace(/\s+/g, ' ');
 
 					var str  = "",
-						tmp  = me.dformat.split(/\s+/),
 						tmpv = me.predefined,
+						tmp  = me.dformat.length ? me.dformat.split(/\s+/) : ( tmpv.length ? tmpv.split(/\s+/) : [''] ),
 						attr = (typeof me.predefinedClick != 'undefined' && me.predefinedClick) ? 'placeholder' : 'value',
 						nc   = me.dformat.replace(/\s/g, '').length, // Number of characters.
                         c 	 = 0,
@@ -182,7 +183,8 @@
 					me._on_change_events();
                     $('#'+me.name+'_0').trigger('change');
 					if (me.countryComponent && me.dynamic) {
-						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); });//.trigger('change');
+						$('#'+me.name+'_0').on('change', function(){ me._input_boxes(); });
+						me._input_boxes( true );
 					}
 				},
 			val:function(raw, no_quotes)

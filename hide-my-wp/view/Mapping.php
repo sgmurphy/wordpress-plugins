@@ -3,7 +3,7 @@
 <div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
 <?php echo $view->getAdminTabs(HMWP_Classes_Tools::getValue('page', 'hmwp_mapping')); ?>
     <div class="hmwp_row d-flex flex-row p-0 m-0">
-        <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+        <div class="hmwp_col flex-grow-1 p-0 pr-2 mr-2 mb-3">
 
             <form method="POST">
                 <?php wp_nonce_field('hmwp_mappsettings', 'hmwp_nonce') ?>
@@ -78,11 +78,11 @@
                                         <div class="col-sm-12 hmwp_text_mapping row border-bottom border-light py-1 px-0 mx-0 my-0">
                                             <div class="hmwp_text_mapping_remove" onclick="jQuery(this).parent().remove()" title="<?php echo esc_html__('Remove') ?>">x</div>
                                             <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                                <input type="text" class="form-control bg-input" name="hmwp_text_mapping_from[]" value="<?php echo esc_attr($hmwp_text_mapping['from'][$index]) ?>" placeholder="Current Text ..."/>
+                                                <input type="text" class="form-control" name="hmwp_text_mapping_from[]" value="<?php echo esc_attr($hmwp_text_mapping['from'][$index]) ?>" placeholder="Current Text ..."/>
                                                 <div class="col-sm-1 py-2 px-0 text-center text-black-50" style="max-width: 30px"><?php echo '=>' ?></div>
                                             </div>
                                             <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                                <input type="text" class="form-control bg-input" name="hmwp_text_mapping_to[]" value="<?php echo esc_attr($hmwp_text_mapping['to'][$index]) ?>" placeholder="New Text ..."/>
+                                                <input type="text" class="form-control" name="hmwp_text_mapping_to[]" value="<?php echo esc_attr($hmwp_text_mapping['to'][$index]) ?>" placeholder="New Text ..."/>
                                             </div>
                                         </div>
                                         <?php
@@ -91,11 +91,11 @@
                                 <div class="col-sm-12 hmwp_text_mapping row border-bottom border-light py-1 px-0 mx-0 my-0">
                                     <div class="hmwp_text_mapping_remove" style="display: none" onclick="jQuery(this).parent().remove()" title="<?php echo esc_html__('Remove') ?>">x</div>
                                     <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                        <input type="text" class="form-control bg-input" name="hmwp_text_mapping_from[]" value="" placeholder="Current Text ..."/>
+                                        <input type="text" class="form-control" name="hmwp_text_mapping_from[]" value="" placeholder="Current Text ..."/>
                                         <div class="col-sm-1 py-2 px-0 text-center text-black-50" style="max-width: 30px"><?php echo '=>' ?></div>
                                     </div>
                                     <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                        <input type="text" class="form-control bg-input" name="hmwp_text_mapping_to[]" value="" placeholder="New Text ..."/>
+                                        <input type="text" class="form-control" name="hmwp_text_mapping_to[]" value="" placeholder="New Text ..."/>
                                     </div>
                                 </div>
                             </div>
@@ -165,11 +165,11 @@
                                             <div class="col-sm-12 hmwp_url_mapping row border-bottom border-light py-1 px-0 mx-0 my-0">
                                                 <div class="hmwp_url_mapping_remove" onclick="jQuery(this).parent().remove()" title="<?php echo esc_html__('Remove') ?>">x</div>
                                                 <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                                    <input type="text" class="form-control bg-input" name="hmwp_url_mapping_from[]" value="<?php echo esc_attr($hmwp_url_mapping['from'][$index]) ?>" placeholder="Current URL ..."/>
+                                                    <input type="text" class="form-control" name="hmwp_url_mapping_from[]" value="<?php echo esc_attr($hmwp_url_mapping['from'][$index]) ?>" placeholder="Current URL ..."/>
                                                     <div class="col-sm-1 py-2 px-0 text-center text-black-50" style="max-width: 30px"><?php echo '=>' ?></div>
                                                 </div>
                                                 <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                                    <input type="text" class="form-control bg-input" name="hmwp_url_mapping_to[]" value="<?php echo esc_attr($hmwp_url_mapping['to'][$index]) ?>" placeholder="New URL ..."/>
+                                                    <input type="text" class="form-control" name="hmwp_url_mapping_to[]" value="<?php echo esc_attr($hmwp_url_mapping['to'][$index]) ?>" placeholder="New URL ..."/>
                                                 </div>
                                             </div>
                                             <?php
@@ -178,11 +178,11 @@
                                     <div class="col-sm-12 hmwp_url_mapping row border-bottom border-light py-1 px-0 mx-0 my-0">
                                         <div class="hmwp_url_mapping_remove" style="display: none" onclick="jQuery(this).parent().remove()" title="<?php echo esc_html__('Remove') ?>">x</div>
                                         <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                            <input type="text" class="form-control bg-input" name="hmwp_url_mapping_from[]" value="" placeholder="Current URL ..."/>
+                                            <input type="text" class="form-control" name="hmwp_url_mapping_from[]" value="" placeholder="Current URL ..."/>
                                             <div class="col-sm-1 py-2 px-0 text-center text-black-50" style="max-width: 30px"><?php echo '=>' ?></div>
                                         </div>
                                         <div class="col-sm-6 py-0 px-0 input-group input-group">
-                                            <input type="text" class="form-control bg-input" name="hmwp_url_mapping_to[]" value="" placeholder="New URL ..."/>
+                                            <input type="text" class="form-control" name="hmwp_url_mapping_to[]" value="" placeholder="New URL ..."/>
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@
                                         <div class="col-sm-12 hmwp_cdn_mapping row border-bottom border-light py-1 px-0 mx-0 my-0">
                                             <div class="hmwp_cdn_mapping_remove" onclick="jQuery(this).parent().remove()" title="<?php echo esc_html__('Remove') ?>">x</div>
                                             <div class="col-sm-12 py-0 px-0 input-group input-group">
-                                                <input type="text" class="form-control bg-input" name="hmwp_cdn_urls[]" value="<?php echo esc_attr($row) ?>" placeholder="CDN URL ..."/>
+                                                <input type="text" class="form-control" name="hmwp_cdn_urls[]" value="<?php echo esc_attr($row) ?>" placeholder="CDN URL ..."/>
                                             </div>
                                         </div>
                                         <?php
@@ -227,7 +227,7 @@
                                 <div class="col-sm-12 hmwp_cdn_mapping row border-bottom border-light py-1 px-0 mx-0 my-0">
                                     <div class="hmwp_cdn_mapping_remove" style="display: none" onclick="jQuery(this).parent().remove()" title="<?php echo esc_html__('Remove') ?>">x</div>
                                     <div class="col-sm-12 py-0 px-0 input-group input-group">
-                                        <input type="text" class="form-control bg-input" name="hmwp_cdn_urls[]" value="" placeholder="CDN URL ..."/>
+                                        <input type="text" class="form-control" name="hmwp_cdn_urls[]" value="" placeholder="CDN URL ..."/>
                                     </div>
 
                                 </div>
@@ -301,7 +301,7 @@
 
             </form>
         </div>
-        <div class="hmwp_col hmwp_col_side p-0 m-0 mr-2">
+        <div class="hmwp_col hmwp_col_side p-0 pr-2 mr-2">
             <?php $view->show('blocks/ChangeCacheFiles'); ?>
             <?php $view->show('blocks/SecurityCheck'); ?>
         </div>

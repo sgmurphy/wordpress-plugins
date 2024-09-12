@@ -54,6 +54,11 @@ class FrontEnd extends Base {
 
         //Remove our search selector from from Searchanise plugin for woocommerce, conflicts with betterdocs search (Bug Fix Card -> https://trello.com/c/lXzrtv2f/1313-client-issue-betterdocs-is-conflicting-with-the-searchanise-plugin)
         add_filter( 'se_load_search_widgets', [$this, 'exclude_betterdocs_search'], 10, 1 );
+
+        //Fix Betterdocs Search Issue With HostCluster Theme
+        if( function_exists('hostcluster_search_filter') ) {
+            remove_filter('pre_get_posts', 'hostcluster_search_filter');
+        }
     }
 
     public function fse_url_update( &$wp_admin_bar ) {

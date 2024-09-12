@@ -1633,7 +1633,7 @@ class Premium_Search_Form extends Widget_Base {
 				'label'     => __( 'Text Color', 'premium-addons-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => array(
-					'{{WRAPPER}} .premium-search__input' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .premium-search__input, {{WRAPPER}} .premium-search__input::placeholder' => 'color: {{VALUE}};',
 				),
 			)
 		);

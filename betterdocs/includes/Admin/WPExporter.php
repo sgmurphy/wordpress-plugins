@@ -73,9 +73,34 @@ class WPExporter {
         $ptype = get_post_type_object( $this->args['content'] );
 		if ( 'docs' === $this->args['content'] ) {
 			$where = $this->wpdb->prepare( "{$this->wpdb->posts}.post_type = %s", $this->args['content'] );// phpcs:ignore
-		} else {
+		} elseif( 'glossaries' === $this->args['content'] ) { //handles glossaries related xml export
+            if( isset( $this->args['glossary_terms'] ) && ( count( $this->args['glossary_terms'] ) > 0 ) ) {
+                $glossary_term_ids = [];
+                foreach( $this->args['glossary_terms'] as $glossary_slug ) {
+                    $term_object = get_term_by('slug', $glossary_slug , 'glossaries');
+                    if( isset( $term_object->term_id ) && ! empty( $term_object->term_id ) ){
+                        array_push($glossary_term_ids, $term_object->term_id);
+                    }
+                }
+            } else {
+                $glossary_term_ids = $this->wpdb->get_col( "SELECT term_id from {$this->wpdb->term_taxonomy} where taxonomy='{$this->args['content']}';" );
+            }
+            $filename = 'betterdocs.' . date( 'Y-m-d' ) . '.xml';
+            return [
+                'success' => true,
+                'data' => [
+                    'filename'  => $filename,
+                    'filetype'  => 'text/xml',
+                    'download'  => $this->get_xml_export($glossary_term_ids),
+                ]
+            ];
+        }else {
 			return [];
 		}
+
+        if( $this->args['include_faq'] ) { //include FAQ if enabled
+            $where .=  $this->wpdb->prepare( " OR {$this->wpdb->posts}.post_type = %s", 'betterdocs_faq' );
+        }
 
 		if ( $this->args['status'] && 'docs' === $this->args['content'] ) {
 			$where .= $this->wpdb->prepare( " AND {$this->wpdb->posts}.post_status = %s", $this->args['status'] );// phpcs:ignore
@@ -84,9 +109,17 @@ class WPExporter {
 		}
 
 		if ( ! empty( $this->args['post__in'] ) ) {
-            $post_in = [implode(', ', $this->args['post__in'])];
-			$ids_placeholder = implode( ', ', array_fill( 0, count( $post_in ), '%d' ) );
-			$where           .= $this->wpdb->prepare( " AND {$this->wpdb->posts}.ID IN ($ids_placeholder)", $post_in );// phpcs:ignore
+            $ids     = $this->args['post__in'];
+            if( $this->args['include_faq'] ) { //include FAQ if enabled when specific post id's are selected
+                $faq_posts_ids = get_posts([
+                    'numberposts' => -1,
+                    'post_type'   => 'betterdocs_faq',
+                    'fields'      => 'ids'
+                ]);
+                $ids = array_merge($ids, $faq_posts_ids);
+            }
+			$ids_placeholder = implode( ', ', array_fill( 0, count( $ids ), '%d' ) );
+			$where           .= $this->wpdb->prepare( " AND {$this->wpdb->posts}.ID IN ($ids_placeholder)", $ids );// phpcs:ignore
 		}
 
 
@@ -480,11 +513,17 @@ class WPExporter {
         // Get the object taxonomies
         $taxonomies = get_object_taxonomies( $this->args['content'] );
 
-        if ( $this->args['selected_docs'][0] == 'all' ) {
+        if ( isset( $this->args['selected_docs'] ) && $this->args['selected_docs'][0] == 'all' ) {
             $terms = get_terms( [
                 'taxonomy'   => $taxonomies,
                 'hide_empty' => false,
             ] );
+        } else if( $this->args['content'] == 'glossaries' ) {
+            $terms = get_terms([
+                'taxonomy'   => 'glossaries',
+                'include'    => $post_ids,
+                'hide_empty' => false,
+            ]);
         } else {
             $terms = wp_get_object_terms( $post_ids, $taxonomies);
         }

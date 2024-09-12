@@ -16,15 +16,6 @@ const pages = [
 		component: Dashboard,
 	},
 ];
-const { themeSlug } = window.extSharedData;
-const { launchCompleted } = window.extAssistData;
-
-const disableTasks = themeSlug !== 'extendable' || !launchCompleted;
-const filteredPages = pages.filter((page) => {
-	const noTasks = page.slug === 'tasks' && disableTasks;
-	const noRecs = page.slug === 'recommendations';
-	return !noTasks && !noRecs;
-});
 
 let onChangeEvents = [];
 const state = (set, get) => ({
@@ -118,7 +109,7 @@ export const useRouter = () => {
 		// watch url changes for #dashboard, etc
 		const handle = () => {
 			const hash = window.location.hash.replace('#', '');
-			const page = filteredPages.find((page) => page.slug === hash);
+			const page = pages.find((page) => page.slug === hash);
 			if (!page) {
 				navigateTo(current?.slug ?? 'dashboard');
 				return;
@@ -147,7 +138,7 @@ export const useRouter = () => {
 			),
 			[current],
 		),
-		filteredPages,
+		pages,
 		navigateTo,
 		history,
 	};

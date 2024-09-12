@@ -8,7 +8,7 @@ use SiteGround_Optimizer\Options\Options;
  */
 class Message_Service {
 	/**
-	 * React responce messages.
+	 * React response messages.
 	 *
 	 * @since 6.0.0
 	 *
@@ -72,22 +72,24 @@ class Message_Service {
 		);
 
 		if ( is_null( $type ) ) {
-			return sprintf( __( '%s', 'sg-cachepress' ), $messages[ $option ] );
+			return $messages[ $option ];
 		}
 
 		if ( true === $result ) {
 			if ( 1 === $type ) {
+				/* translators: 1: the message option */
 				return sprintf( __( '%s Enabled', 'sg-cachepress' ), $messages[ $option ] );
 			}
-
+			/* translators: 1: the message option */
 			return sprintf( __( '%s Disabled', 'sg-cachepress' ), $messages[ $option ] );
 
 		}
 
 		if ( 1 === $type ) {
+			/* translators: 1: the message option */
 			return sprintf( __( 'Could not enable %s', 'sg-cachepress' ), $messages[ $option ] );
 		}
-
+		/* translators: 1: the message option */
 		return sprintf( __( 'Could not disable %s', 'sg-cachepress' ), $messages[ $option ] );
 	}
 }

@@ -451,9 +451,14 @@ if ( ! class_exists( 'Tp_Onbording' ) ) {
 											$output .= '<div class="tpae-nexter-text">' . esc_html__( 'Why use Nexter Theme?', 'tpebl' ) . '</div>';
 											$output .= '<img class="nexter-vector" src="' . esc_url( L_THEPLUS_ASSETS_URL . 'images/on-boarding/rightvector.svg' ) . '" />';
 										$output     .= '</div>';
-										$output     .= '<div class="tpae-bgwhite-details"><input id="in-nexter" type="checkbox">' . esc_html__( 'Agree to install & activate', 'tpebl' ) . '<b>' . esc_html__( 'Nexter', 'tpebl' ) . '</b>' . esc_html__( 'Theme ', 'tpebl' ) . ' <span>' . esc_html__( 'Recommended', 'tpebl' ) . '</span>';
-										$output     .= '<div class="tpae-nxt-load"><img decoding="async" src="' . esc_url( L_THEPLUS_ASSETS_URL . 'images/on-boarding/spinner.gif' ) . '" alt="spinner.gif"></div>';
-										$output     .= '</div>';
+										// $output     .= '<div class="tpae-bgwhite-details">
+										// 					<input id="in-nexter" type="checkbox">' . esc_html__( 'Agree to install & activate', 'tpebl' ) . 
+										// 					'<b>' . esc_html__( 'Nexter', 'tpebl' ) . 
+										// 					'</b>' . esc_html__( 'Theme ', 'tpebl' ) . 
+										// 					' <span>' . esc_html__( 'Recommended', 'tpebl' ) . 
+										// 					'</span>';
+										// 	$output     .= '<div class="tpae-nxt-load"><img decoding="async" src="' . esc_url( L_THEPLUS_ASSETS_URL . 'images/on-boarding/spinner.gif' ) . '" alt="spinner.gif"></div>';
+										// $output     .= '</div>';
 									$output         .= '</div>';
 									$output         .= '<div class="tpae-theme-right tpae-wd-55">';
 										$output     .= '<img class="full-img" src="' . esc_url( L_THEPLUS_ASSETS_URL . 'images/on-boarding/page5.png' ) . '" />';

@@ -115,9 +115,6 @@ class FluidCheckout_Steps extends FluidCheckout {
 		// Account creation
 		add_action( 'fc_checkout_after_contact_fields', array( $this, 'output_form_account_creation' ), 10 );
 
-		// Formatted address
-		add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'add_custom_fields_formatted_address_replacements' ), 10, 2 );
-
 		// Shipping address
 		add_filter( 'option_woocommerce_ship_to_destination', array( $this, 'change_woocommerce_ship_to_destination' ), 100, 2 );
 		add_action( 'fc_output_step_shipping', array( $this, 'output_substep_shipping_address' ), $this->get_shipping_address_hook_priority() );
@@ -183,6 +180,7 @@ class FluidCheckout_Steps extends FluidCheckout {
 
 		// Formatted address
 		add_filter( 'woocommerce_localisation_address_formats', array( $this, 'add_phone_localisation_address_formats' ), 10 );
+		add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'add_custom_fields_formatted_address_replacements' ), 10, 2 );
 		add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'add_phone_formatted_address_replacements' ), 10, 2 );
 		add_filter( 'fc_add_phone_localisation_formats', array( $this, 'maybe_skip_adding_phone_to_formatted' ), 100, 1 );
 
@@ -452,9 +450,6 @@ class FluidCheckout_Steps extends FluidCheckout {
 		// Account creation
 		remove_action( 'fc_checkout_after_contact_fields', array( $this, 'output_form_account_creation' ), 10 );
 
-		// Formatted address
-		remove_filter( 'woocommerce_formatted_address_replacements', array( $this, 'add_custom_fields_formatted_address_replacements' ), 10, 2 );
-
 		// Shipping address
 		remove_filter( 'option_woocommerce_ship_to_destination', array( $this, 'change_woocommerce_ship_to_destination' ), 100 );
 		remove_action( 'fc_output_step_shipping', array( $this, 'output_substep_shipping_address' ), $this->get_shipping_address_hook_priority() );
@@ -523,7 +518,9 @@ class FluidCheckout_Steps extends FluidCheckout {
 
 		// Formatted Address
 		remove_filter( 'woocommerce_localisation_address_formats', array( $this, 'add_phone_localisation_address_formats' ), 10 );
+		remove_filter( 'woocommerce_formatted_address_replacements', array( $this, 'add_custom_fields_formatted_address_replacements' ), 10, 2 );
 		remove_filter( 'woocommerce_formatted_address_replacements', array( $this, 'add_phone_formatted_address_replacements' ), 10, 2 );
+		remove_filter( 'fc_add_phone_localisation_formats', array( $this, 'maybe_skip_adding_phone_to_formatted' ), 100, 1 );
 
 		// Place order
 		remove_action( 'fc_place_order', array( $this, 'output_checkout_place_order' ), 10, 2 );
@@ -3944,9 +3941,10 @@ class FluidCheckout_Steps extends FluidCheckout {
 		// Get current field value
 		$is_billing_same_as_shipping = $this->is_billing_same_as_shipping();
 		$is_billing_same_as_shipping_checked = $this->is_billing_same_as_shipping_checked() ? 1 : 0;
+		$is_billing_same_as_shipping_available = $this->is_shipping_address_available_for_billing() ? 1 : 0;
 
 		// Output a hidden field when shipping country not allowed for billing, or shipping not needed
-		if ( apply_filters( 'fc_output_billing_same_as_shipping_as_hidden_field', false ) || ! $this->is_shipping_address_available_for_billing() ) :
+		if ( apply_filters( 'fc_output_billing_same_as_shipping_as_hidden_field', false ) || ! $is_billing_same_as_shipping_available ) :
 			?>
 			<input type="hidden" name="billing_same_as_shipping" id="billing_same_as_shipping" value="<?php echo esc_attr( $is_billing_same_as_shipping_checked ); ?>">
 			<?php
@@ -3965,6 +3963,7 @@ class FluidCheckout_Steps extends FluidCheckout {
 		// to be able to detect when the value changes
 		?>
 		<input type="hidden" name="billing_same_as_shipping_previous" id="billing_same_as_shipping_previous" value="<?php echo esc_attr( $is_billing_same_as_shipping_checked ); ?>">
+		<input type="hidden" name="billing_same_as_shipping_available" id="billing_same_as_shipping_available" value="<?php echo esc_attr( $is_billing_same_as_shipping_available ); ?>">
 		<?php
 	}
 
@@ -3987,6 +3986,7 @@ class FluidCheckout_Steps extends FluidCheckout {
 		// Get current field value
 		$is_shipping_same_as_billing = $this->is_shipping_same_as_billing();
 		$is_shipping_same_as_billing_checked = $this->is_shipping_same_as_billing_checked() ? 1 : 0;
+		$is_shipping_same_as_billing_available = $this->is_billing_address_available_for_shipping() ? 1 : 0;
 
 		// Output a hidden field when billing country not allowed for shipping
 		if ( apply_filters( 'fc_output_shipping_same_as_billing_as_hidden_field', false ) || ! $this->is_billing_address_available_for_shipping() ) :
@@ -4008,6 +4008,7 @@ class FluidCheckout_Steps extends FluidCheckout {
 		// to be able to detect when the value changes
 		?>
 		<input type="hidden" name="shipping_same_as_billing_previous" id="shipping_same_as_billing_previous" value="<?php echo esc_attr( $is_shipping_same_as_billing_checked ); ?>">
+		<input type="hidden" name="shipping_same_as_billing_available" id="shipping_same_as_billing_available" value="<?php echo esc_attr( $is_shipping_same_as_billing_available ); ?>">
 		<?php
 	}
 

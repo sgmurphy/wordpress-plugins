@@ -266,6 +266,10 @@ echo paginate_links(  array(        // phpcs:ignore WordPress.Security.EscapeOut
               $posted_data = unserialize($events[$i]->posted_data);
               $cancelled = 0;
               $status = '';
+              if (!is_array($posted_data))
+                  $posted_data = array();
+              if (!is_array($posted_data["apps"]))
+                  $posted_data["apps"] = array();			  
               for($k=0; $k<count($posted_data["apps"]); $k++)
                   if ($posted_data["apps"][$k]["cancelled"] != '')
                   {

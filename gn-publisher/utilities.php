@@ -17,6 +17,7 @@ function gnpub_is_feedfetcher() {
 	}
 
 	$user_agent_signature = "FeedFetcher-Google";
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized	 -- not saving the data here
 	$user_agent = $_SERVER['HTTP_USER_AGENT'];
 
 	return ( stripos( $user_agent, $user_agent_signature ) !== false );
@@ -152,8 +153,14 @@ function gnpub_publish_feeds( $feed_urls ) {
  * @return string
  */
 function gnpub_current_feed_link() {
+
 	$host = @parse_url( home_url() );
-	return set_url_scheme( 'http://' . $host['host'] . stripslashes_deep( $_SERVER['REQUEST_URI'] ) );
+
+	if ( isset( $host['host'] ) || isset( $_SERVER['REQUEST_URI'] ) ) {
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		return set_url_scheme( 'http://' . $host['host'] . stripslashes_deep( $_SERVER['REQUEST_URI'] ) );
+	}
+	
 }
 
 /**
@@ -189,7 +196,7 @@ function gnpub_feed_channel_link() {
 		$host_url['path'] 		=	implode( '/', $tmp_arr );	
 	}
 
-	echo set_url_scheme( $host_url['scheme'].'://'.$host_url['host'].$host_url['path'] );
+	echo esc_url( set_url_scheme( $host_url['scheme'].'://'.$host_url['host'].$host_url['path'] ) );
 
 }
 
@@ -232,6 +239,6 @@ function gnpub_feed_post_link($post_url=null) {
 	}
 
 
-	echo set_url_scheme($tmp_url['scheme'].'://'.$tmp_url['host'].$tmp_url['path'].((isset($tmp_url['query']) && !empty($tmp_url['query']))?'?'.$tmp_url['query']:''));
+	echo esc_url( set_url_scheme($tmp_url['scheme'].'://'.$tmp_url['host'].$tmp_url['path'].((isset($tmp_url['query']) && !empty($tmp_url['query']))?'?'.$tmp_url['query']:'') ) );
 
 }

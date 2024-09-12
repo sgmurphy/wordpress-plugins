@@ -12,8 +12,14 @@ use AgeGate\Routes\Rest\Check;
 use AgeGate\Shortcode\Shortcode;
 use AgeGate\Presentation\Template;
 use AgeGate\Routes\Rest\Developer;
+use AgeGate\Routes\Rest\Admin\Term;
 
-new Deprecated;
+add_action('wp', function() {
+    if (apply_filters('age_gate/include_deprecated_hooks', false) === true) {
+        new Deprecated;
+    }
+}, 0);
+
 new Admin;
 new Ajax;
 new Update;
@@ -27,6 +33,7 @@ new Check;
 new LegacyCheck;
 // new Routes\Rest\Media();
 new Developer;
+new Term;
 
 new Shortcode;
 

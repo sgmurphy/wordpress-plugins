@@ -248,11 +248,24 @@ abstract class Statistics
         $original_end = (clone $this->date_range->end())->setTimezone(Timezone::site_timezone());
         $end = $this->chart_interval->calculate_start_of_interval_for($original_end);
         $end->add(new DateInterval('PT1S'));
+        $is_problematic_timezone = \in_array(Timezone::site_timezone()->getName(), ['Asia/Beirut', 'America/Santiago']);
+        // Imagine a scenario where the offset for the start date is -4 and the offset for the
+        // end date is -3. In that case, the DatePeriod is actually going to have its end date
+        // short an hour, cause a date we care about to be chopped off the end. This code makes
+        // sure that the end date is still the day after the last date we care about, so it
+        // can get chopped off without consequence.
+        if ($is_problematic_timezone) {
+            $offset_difference = $end->getOffset() - $start->getOffset();
+            $interval = DateInterval::createFromDateString($offset_difference . ' seconds');
+            $end->add($interval);
+        }
         $date_range = new DatePeriod($start, $this->chart_interval->date_interval(), $end);
         $filled_in_data = [];
         foreach ($date_range as $date) {
-            // There is no 00:00:00 on 2024-03-31 as that's when Beirut switches off DST
-            if (Timezone::site_timezone()->getName() === 'Asia/Beirut' && $date->format('H:i:s') === "01:00:00") {
+            // If the timezone switches at midnight, there will be a date where there is no midnight. It'll be something
+            // like 1am instead. All dates after the day that switches will also be at 1am even though they have a
+            // midnight. This alters those back to midnight so they can be matched against correctly.
+            if ($is_problematic_timezone && $date->format('H:i:s') === "01:00:00") {
                 $date->setTime(0, 0, 0);
             }
             $stat = $this->get_statistic_for_date($partial_day_range, $date, $attributes);

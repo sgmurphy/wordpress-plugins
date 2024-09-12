@@ -151,6 +151,13 @@ function pagelayer_POSTchecked($name, $default = false){
 
 }
 
+// For check isset value
+function pagelayer_isset($var, $name, $default = ''){
+
+	return isset($var[$name]) ? $var[$name] : $default;
+
+}
+
 function pagelayer_POSTselect($name, $value, $default = false){
 
 	if(empty($_POST)){
@@ -2589,39 +2596,6 @@ function pagelayer_enabled_icons(){
 	
 }
 
-// Install the Pro version
-function pagelayer_install_pro(){
-	
-	global $pagelayer;
-	
-	// Include the necessary stuff
-	include_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
-
-	// Includes necessary for Plugin_Upgrader and Plugin_Installer_Skin
-	include_once( ABSPATH . 'wp-admin/includes/file.php' );
-	include_once( ABSPATH . 'wp-admin/includes/misc.php' );
-	include_once( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-
-	// Filter to prevent the activate text
-	add_filter('install_plugin_complete_actions', 'pagelayer_install_plugin_complete_actions', 10, 3);
-
-	$upgrader = new Plugin_Upgrader( new Plugin_Installer_Skin(  ) );
-	$installed = $upgrader->install(PAGELAYER_API.'download.php?version=latest&license='.$pagelayer->license['license']);
-	
-	if ( !is_wp_error( $installed ) && $installed ) {
-		echo 'Activating Pagelayer Pro !';
-		$activate = activate_plugin(PAGELAYER_PREMIUM_BASE);
-		
-		if ( is_null($activate) ) {
-			echo '<div id="message" class="updated"><p>'. __('Done! Pagelayer Pro is now installed and activated.', 'pagelayer'). '</p></div><br />';
-			echo '<br><br><b>Done! Pagelayer Pro is now installed and activated.</b>';
-		}
-	}
-	
-	return $installed;
-	
-}
-
 // Prevent pro activate text for installer
 function pagelayer_install_plugin_complete_actions($install_actions, $api, $plugin_file){
 	
@@ -3700,7 +3674,7 @@ function pagelayer_is_empty_array($arr){
 }
 
 // Pagelayer load font family
-function pagelayer_load_font_family($font, $font_weight, $font_style){
+function pagelayer_load_font_family($font, $font_weight='', $font_style=''){
 	global $pagelayer;
 
 	// Load global fonts

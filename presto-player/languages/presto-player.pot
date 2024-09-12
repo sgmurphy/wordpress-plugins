@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-28T20:41:44+00:00\n"
+"POT-Creation-Date: 2024-09-11T19:40:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -2204,6 +2204,10 @@ msgstr ""
 #: admin/settings/app.js:118
 #: admin/settings/components/Group.js:55
 msgid "Update Settings"
+msgstr ""
+
+#: admin/settings/components/CustomCSS.js:41
+msgid "Error loading Code Editor..."
 msgstr ""
 
 #: admin/settings/components/Integration.js:37

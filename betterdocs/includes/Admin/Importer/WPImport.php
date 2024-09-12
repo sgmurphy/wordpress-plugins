@@ -218,7 +218,7 @@ class WPImport extends WP_Importer {
      */
     private function modify_post_type( $post ) {
         // Check if [post_type] is not equal to 'docs'
-        if ( isset( $post['post_type'] ) && $post['post_type'] !== 'docs' && $post['post_type'] !== 'attachment' ) {
+        if ( isset( $post['post_type'] ) && $post['post_type'] !== 'docs' && $post['post_type'] !== 'attachment' && $post['post_type'] != 'betterdocs_faq' ) {
             // Remove [terms] if [post_type] is not equal to 'docs'
             unset( $post['terms'] );
             // Replace [post_type] with 'docs'

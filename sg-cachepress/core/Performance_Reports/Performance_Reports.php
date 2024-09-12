@@ -26,8 +26,8 @@ class Performance_Reports {
 	 * @since 7.4.0
 	 */
 	public function __construct() {
-		$currentDate = time();
-		$cron_first_time = ( date( 'j', $currentDate ) <= 20 ) ? strtotime( '20 ' . date( 'M Y', $currentDate ) ) : strtotime( '20 ' . date( 'M Y', strtotime( '+1 month', $currentDate ) ) );
+		$current_date    = time();
+		$cron_first_time = ( gmdate( 'j', $current_date ) <= 20 ) ? strtotime( '20 ' . gmdate( 'M Y', $current_date ) ) : strtotime( '20 ' . gmdate( 'M Y', strtotime( '+1 month', $current_date ) ) );
 
 		// Initiate the Email Service Class.
 		$this->performance_reports_email = new Email_Service(
@@ -95,7 +95,7 @@ class Performance_Reports {
 	}
 
 	/**
-	 * Get assets from remote json.
+	 * Get assets from remote JSON.
 	 *
 	 * @since 7.4.0
 	 *
@@ -131,7 +131,7 @@ class Performance_Reports {
 		// Set the default locale.
 		$assets['default']['lang'] = 'default';
 
-		// Return the correct assets, title and marketing urls.
+		// Return the correct assets, title and marketing URLs.
 		return $assets['default'];
 	}
 
@@ -229,7 +229,7 @@ class Performance_Reports {
 				return array(
 					'score' => $score,
 					'total' => $feature['config']['max_score'],
-					'text'  => __( $score . ' out of ' . $feature['config']['max_score'], 'sg-cachepress' ),
+					'text'  => $score . __( ' out of ', 'sg-cachepress' ) . $feature['config']['max_score'],
 				);
 
 			break;
@@ -251,7 +251,7 @@ class Performance_Reports {
 				return array(
 					'score' => $score,
 					'total' => $feature['config']['max_score'],
-					'text'  => __( $score . ' out of ' . $feature['config']['max_score'], 'sg-cachepress' ),
+					'text'  => $score . __( ' out of ', 'sg-cachepress' ) . $feature['config']['max_score'],
 				);
 
 			break;
@@ -297,7 +297,7 @@ class Performance_Reports {
 		return array(
 			'score' => $score,
 			'total' => $feature_config['max_score'],
-			'text'  => __( $score . ' out of ' . $feature_config['max_score'], 'sg-cachepress' ),
+			'text'  => $score . __( ' out of ', 'sg-cachepress' ) . $feature_config['max_score'],
 		);
 	}
 
@@ -353,7 +353,7 @@ class Performance_Reports {
 	}
 
 	/**
-	 * Update the performance report receipient when admin email is updated.
+	 * Update the performance report recipient when admin email is updated.
 	 *
 	 * @since 7.4.0
 	 *
@@ -370,17 +370,17 @@ class Performance_Reports {
 			return;
 		}
 
-		// Bail if the receipient does not match the previous admin email address set.
+		// Bail if the recipient does not match the previous admin email address set.
 		if ( $old_value !== $current_receipient ) {
 			return;
 		}
 
-		// Update the receipient to the new admin email set.
+		// Update the recipient to the new admin email set.
 		update_option( 'siteground_optimizer_performace_receipient', $new_value );
 	}
 
 	/**
-	 * This function registers montly interval for the cron.
+	 * This function registers monthly interval for the CRON.
 	 *
 	 * @since 7.4.0
 	 *

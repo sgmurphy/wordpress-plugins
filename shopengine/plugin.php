@@ -506,6 +506,17 @@ final class Plugin {
 			$btn['url']   = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=elementor'), 'install-plugin_elementor');
 		}
 
+		if(file_exists(WP_PLUGIN_DIR . '/blocks-for-shopengine/shopengine-gutenberg-addon.php')) {
+
+			$btn2['label'] = esc_html__('Activate Blocks for ShopEngine', 'shopengine');
+			$btn2['url']   = wp_nonce_url('plugins.php?action=activate&plugin=blocks-for-shopengine/shopengine-gutenberg-addon.php&plugin_status=all&paged=1', 'activate-plugin_blocks-for-shopengine/shopengine-gutenberg-addon.php');
+
+		} else {
+
+			$btn2['label'] = esc_html__('Install Blocks for ShopEngine', 'shopengine');
+			$btn2['url']   = wp_nonce_url(self_admin_url('update.php?action=install-plugin&plugin=blocks-for-shopengine'), 'install-plugin_blocks-for-shopengine');
+		}
+
 		Utils\Notice::push(
 			[
 				'id'          => 'missing-elementor',
@@ -513,7 +524,8 @@ final class Plugin {
 				'is_required' => true,
 				'dismissible' => true,
 				'btn'         => $btn,
-				'message'     => sprintf(esc_html__('ShopEngine requires Elementor version %1$s+, which is currently NOT RUNNING.', 'shopengine'), '3.0.0'),
+				'btn2'        => $btn2,
+				'message'     => esc_html__('To use ShopEngine, install Elementor (For the Elementor Builder) OR Blocks for ShopEngine (For Gutenberg Builder).', 'shopengine'),
 			]
 		);
 	}

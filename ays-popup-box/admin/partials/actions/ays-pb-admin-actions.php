@@ -74,6 +74,22 @@ $text_decoration_options = array(
     'underline' => __('Underline', "ays-popup-box"),
 );
 
+$font_weight_options = array(
+    'normal' => __('Normal', "ays-popup-box"),
+    'lighter' => __('Lighter', "ays-popup-box"),
+    'bold' => __('Bold', "ays-popup-box"),
+    'bolder' => __('Bolder', "ays-popup-box"),
+    '100' => '100',
+    '200' => '200',
+    '300' => '300',
+    '400' => '400',
+    '500' => '500',
+    '600' => '600',
+    '700' => '700',
+    '800' => '800',
+    '900' => '900',
+);
+
 $border_styles = array(
     'solid' => __('Solid',"ays-popup-box"),
     'dotted' => __('Dotted',"ays-popup-box"),
@@ -130,6 +146,7 @@ $options = array(
     'notification_button_1_text_decoration' => 'none',
     'notification_button_1_letter_spacing' => 0,
     'notification_button_1_font_size' => 15,
+    'notification_button_1_font_weight' => 'normal',
     'notification_button_1_border_radius' => 6,
     'notification_button_1_border_width' => 0,
     'notification_button_1_border_color' => '#FFFFFF',
@@ -507,6 +524,9 @@ $notification_button_1_letter_spacing = (isset($options['notification_button_1_l
 
 // Notification type | Button 1 font size
 $notification_button_1_font_size = (isset($options['notification_button_1_font_size']) && $options['notification_button_1_font_size'] != '') ? absint( esc_attr($options['notification_button_1_font_size']) ) : 15;
+
+// Notification type | Button 1 font weight
+$notification_button_1_font_weight = (isset($options['notification_button_1_font_weight']) && $options['notification_button_1_font_weight'] != '') ? stripslashes( esc_attr($options['notification_button_1_font_weight']) ) : 'normal';
 
 // Notification type | Button 1 border radius
 $notification_button_1_border_radius = (isset($options['notification_button_1_border_radius']) && $options['notification_button_1_border_radius'] != '') ? absint( esc_attr($options['notification_button_1_border_radius']) ) : 6;
@@ -1246,7 +1266,31 @@ $custom_class = (isset($popupbox['custom_class']) && $popupbox['custom_class'] !
 // Custom CSS
 $custom_css = (isset($popupbox['custom_css']) && $popupbox['custom_css'] != '') ? stripslashes( esc_attr($popupbox['custom_css']) ) : '';
 
-$users_role   = (isset($popupbox['users_role']) && $popupbox['users_role'] != "") ? json_decode($popupbox['users_role'], true) : array();
+// Display popup once per user
+$show_only_once = (isset($options['show_only_once']) && $options['show_only_once'] == 'on') ? 'on' : 'off';
+
+// Display once per session
+$cookie = (isset($popupbox['cookie']) && $popupbox['cookie'] != '') ? abs( intval($popupbox['cookie']) ) : 0;
+
+// Display for logged-in users
+$log_user = (isset($popupbox['log_user']) && $popupbox['log_user'] != '') ? stripslashes( esc_attr($popupbox['log_user']) ) : 'off';
+
+// Display for logged-in users | Display for certain user roles
+$users_role = (isset($popupbox['users_role']) && $popupbox['users_role'] != '') ? json_decode($popupbox['users_role'], true) : array();
+
+// Display for guests
+$guest = (isset($popupbox['guest']) && $popupbox['guest'] != '') ? stripslashes( esc_attr($popupbox['guest']) ) : 'off';
+
+// Hide popup on mobile
+$ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? stripslashes( esc_attr($options['pb_mobile']) ) : 'off';
+
+// Hide popup on PC
+$options['hide_on_pc'] = (isset($options['hide_on_pc']) && $options['hide_on_pc'] != '') ? stripslashes( esc_attr($options['hide_on_pc']) ) : 'off';
+$ays_pb_hide_on_pc = (isset($options['hide_on_pc']) && $options['hide_on_pc'] == 'on') ? true : false;
+
+// Hide popup on tablets
+$options['hide_on_tablets'] = (isset($options['hide_on_tablets']) && $options['hide_on_tablets'] != '') ? stripslashes( esc_attr($options['hide_on_tablets']) ) : 'off';
+$ays_pb_hide_on_tablets = (isset($options['hide_on_tablets']) && $options['hide_on_tablets'] == 'on') ? true : false;
 
 if(isset($_POST["ays_submit"]) || isset($_POST["ays_submit_top"])){
     $_POST["id"] = $id;
@@ -1259,22 +1303,11 @@ if(isset($_POST["ays_apply"]) || isset($_POST["ays_apply_top"])){
     $this->popupbox_obj->add_or_edit_popupbox($_POST);
 }
 
-$log_user          = (isset($popupbox["log_user"]) && $popupbox["log_user"] != "") ? $popupbox["log_user"] : "off";
-$guest             = (isset($popupbox["guest"]) && $popupbox["guest"] != "") ? $popupbox["guest"] : "off";
-
 if( isset( $popupbox['view_place'] ) && $popupbox['view_place'] != null){
     $id != null ? $view_place = explode( "***", $popupbox['view_place']) : $view_place = array();
 }
 
 $ays_pb_timer_position = (- absint(intval($border_size)) -40) . 'px';
-
-//Hide popupbox on mobile
-$ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? esc_attr($options['pb_mobile']) : 'off';
-
-//Show PopupBox only once
-$show_only_once = (isset($options['show_only_once']) && $options['show_only_once'] == 'on') ? 'on' : 'off';
-
-$cookie             = (isset($popupbox['cookie']) && $popupbox['cookie'] != "") ? esc_attr( abs($popupbox['cookie']) ) : "";
 
 $ays_pb_show_hide_timer_box = true;
 if ($enable_autoclose_delay_text_mobile) {
@@ -1363,14 +1396,6 @@ $not_default_view_types = array(
     'win98'     => 'win98',
     'cmd'       => 'cmd',
 );
-
-//Hide on PC
-$options['hide_on_pc'] = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] != "" ) ? esc_attr($options['hide_on_pc']) : "off";
-$ays_pb_hide_on_pc = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? true : false;
-
-//Hide on tablets
-$options['hide_on_tablets'] = ( isset( $options['hide_on_tablets'] ) && $options['hide_on_tablets'] != "" ) ? esc_attr($options['hide_on_tablets']) : "off";
-$ays_pb_hide_on_tablets = ( isset( $options['hide_on_tablets'] ) && $options['hide_on_tablets'] == "on" ) ? true : false;
 
 $show_popup_triggers_tooltip = array(
     'pageLoaded' => 'On page load - Trigger displays the popup automatically on the page load. Define the time delay of the popup in Open Delay option.',
@@ -2041,6 +2066,34 @@ $ays_users_roles = $wp_roles->roles;
                                         </div>
                                         <div class="col-sm-9">
                                             <input id="ays_pb_notification_button_1_font_size" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_notification_button_1_font_size" type="number" value="<?php echo $notification_button_1_font_size; ?>">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_button_1_font_weight">
+                                                <?php echo __('Font weight', "ays-popup-box") ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Specify the font weight for the button. Note: By default, it is set as Normal.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select name="ays_pb_notification_button_1_font_weight" id="ays_pb_notification_button_1_font_weight" class="ays_pb_aysDropdown">
+                                                <?php
+                                                    foreach ($font_weight_options as $key => $font_weight) {
+                                                        $selected = '';
+                                                        if ($key == $notification_button_1_font_weight) {
+                                                            $selected = 'selected';
+                                                        }
+                                                ?>
+                                                <option value="<?php echo $key ;?>" <?php echo $selected ;?>>
+                                                    <?php echo $font_weight; ?>
+                                                </option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <hr>

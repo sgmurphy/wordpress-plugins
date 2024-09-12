@@ -2378,18 +2378,6 @@ class L_Theplus_Elementor_Plugin_Options
         return $this->option_metabox;
     }
 	
-    public function get_option_key($field_id)
-    {
-        $option_tabs = $this->option_fields();
-        foreach ($option_tabs as $option_tab) { //search all tabs
-            foreach ($option_tab['fields'] as $field) { //search all fields
-                if ($field['id'] == $field_id) {
-                    return $option_tab['id'];
-                }
-            }
-        }
-        return $this->key; //return default key if field id not found
-    }
     /**
      * Public getter method for retrieving protected/private variables
      * @since  1.0.0
@@ -2398,7 +2386,7 @@ class L_Theplus_Elementor_Plugin_Options
      */
     public function __get($field)
     {
-        
+
         // Allowed fields to retrieve
         if (in_array($field, array('key','fields','title','options_page'), true)) {
             return $this->{$field};

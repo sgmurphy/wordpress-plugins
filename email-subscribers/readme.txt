@@ -6,7 +6,7 @@ Tags: email marketing, email subscribers, newsletters, autoresponders, email aut
 Requires at least: 3.9
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 5.7.32
+Stable tag: 5.7.33
 License: GPLv3
 
 License URI: http://www.gnu.org/licenses
@@ -438,12 +438,17 @@ Refer [here](https://www.icegram.com/documentation/es-faq/).
 
 == Upgrade Notice ==
 
-= 5.7.32 =
+= 5.7.33 =
 
-* New: Added option to export campaign reports in CSV [MAX]
-* Fix: Welcome/confirmation emails were not getting sent for subscribers added through REST API
+* Update: Improved dashboard UI
+* Fix: Arbitrary shortcode execution vulnerability - CVE-2024-8254 [Thanks to Wordfence team]
 
 == Changelog ==
+
+**5.7.33 (12.09.2024)**
+
+* Update: Improved dashboard UI
+* Fix: Arbitrary shortcode execution vulnerability - CVE-2024-8254 [Thanks to Wordfence team]
 
 **5.7.32 (29.08.2024)**
 

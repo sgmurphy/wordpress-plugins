@@ -1375,6 +1375,9 @@ class Ays_Pb_Public {
             // Notification type | Button 1 font size
             $notification_button_1_font_size = (isset($options['notification_button_1_font_size']) && $options['notification_button_1_font_size'] != '') ? absint( esc_attr($options['notification_button_1_font_size']) ) . 'px' : '15px';
 
+            // Notification type | Button 1 font weight
+            $notification_button_1_font_weight = (isset($options['notification_button_1_font_weight']) && $options['notification_button_1_font_weight'] != '') ? stripslashes( esc_attr($options['notification_button_1_font_weight']) ) : 'normal';
+
             // Notification type | Button 1 border radius
             $notification_button_1_border_radius = (isset($options['notification_button_1_border_radius']) && $options['notification_button_1_border_radius'] != '') ? absint( esc_attr($options['notification_button_1_border_radius']) ) . 'px' : '6px';
 
@@ -1445,6 +1448,7 @@ class Ays_Pb_Public {
                             background: " . $notification_button_1_bg_color . ";
                             color: " . $notification_button_1_text_color . ";
                             font-size: " . $notification_button_1_font_size . ";
+                            font-weight: " . $notification_button_1_font_weight . ";
                             border-radius: " . $notification_button_1_border_radius . ";
                             border: " . $notification_button_1_border . ";
                             padding: " . $notification_button_1_padding . ";

@@ -32,12 +32,47 @@ class ContentController extends AbstractController
 
     protected function data(): array
     {
-        return get_option(self::OPTION, []) ?: [];
+        $data = get_option(self::OPTION, []) ?: [];
+
+        unset($data['terms']);
+        return $data;
     }
 
     protected function fields(): array
     {
         return $this->getContentFields();
+    }
+
+    /**
+     * Special prep for data storage
+     *
+     * @return void
+     */
+    protected function store()
+    {
+        $option = get_option(self::OPTION, []);
+
+
+        $_POST['ag_settings']['terms'] = collect($option['terms'] ?? [])
+            ->map(fn($value) => $value ? 1 : false)
+            ->undot()
+            ->toArray();
+
+        parent::store();
+    }
+
+    public function enqueue(): void
+    {
+        global $hook_suffix;
+
+        if ('age-gate_page_age-gate-content' === $hook_suffix) {
+            wp_enqueue_script('age-gate-admin-content', AGE_GATE_URL . 'dist/admin-content.js', ['age-gate-admin'], AGE_GATE_VERSION, true);
+
+            wp_localize_script( 'age-gate-admin-content', 'ag_content_params', [
+                'save_error' => esc_html__('Error: an error occured while saving. Please try again', 'age-gate'),
+                'load_error' => esc_html__('Error: an error occured while loading. Refreshing the page recommended', 'age-gate'),
+            ]);
+        }
     }
 
     protected function optionStored($data): void

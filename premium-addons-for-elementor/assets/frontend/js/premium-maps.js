@@ -103,7 +103,14 @@ jQuery(window).on("elementor/frontend/init", function () {
             if (mapSettings.cluster && MarkerClusterer) {
 
                 new MarkerClusterer(map, premiumMapMarkers, {
-                    imagePath: '' != mapSettings.cluster_icon ? mapSettings.cluster_icon : "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+                    imagePath: '' != mapSettings.cluster_icon ? mapSettings.cluster_icon : "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                    styles: [
+                        {
+                            url: mapSettings.cluster_icon || "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png", // The URL of your cluster icon
+                            width: mapSettings.cluster_icon_size,
+                            height: mapSettings.cluster_icon_size
+                        }
+                    ]
                 });
             }
 

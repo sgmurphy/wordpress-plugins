@@ -3,7 +3,7 @@
 Plugin Name: WPC Smart Quick View for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Smart Quick View allows users to get a quick look of products without opening the product page.
-Version: 4.1.1
+Version: 4.1.2
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: woo-smart-quick-view
@@ -17,7 +17,7 @@ WC tested up to: 9.2
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.1.1' );
+! defined( 'WOOSQ_VERSION' ) && define( 'WOOSQ_VERSION', '4.1.2' );
 ! defined( 'WOOSQ_LITE' ) && define( 'WOOSQ_LITE', __FILE__ );
 ! defined( 'WOOSQ_FILE' ) && define( 'WOOSQ_FILE', __FILE__ );
 ! defined( 'WOOSQ_URI' ) && define( 'WOOSQ_URI', plugin_dir_url( __FILE__ ) );
@@ -316,7 +316,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 
 									if ( ! empty( $thumb_ids ) ) {
 										foreach ( $thumb_ids as $thumb_id ) {
-											if ( self::get_setting( 'content_image_lightbox', 'no' ) !== 'no' ) {
+											if ( self::get_setting( 'content_image_effect', 'no' ) !== 'no' ) {
 												$image_full = wp_get_attachment_image_src( $thumb_id, 'full' );
 
 												echo '<div class="thumbnail" data-id="' . esc_attr( $thumb_id ) . '">' . wp_get_attachment_image( $thumb_id, $image_size, false, [
@@ -583,25 +583,25 @@ if ( ! function_exists( 'woosq_init' ) ) {
                         </div>
                         <div class="wpclever_settings_page_content">
 							<?php if ( $active_tab === 'settings' ) {
-								$button_type            = self::get_setting( 'button_type', 'button' );
-								$button_icon            = self::get_setting( 'button_icon', 'no' );
-								$button_normal_icon     = self::get_setting( 'button_normal_icon', 'woosq-icon-1' );
-								$view                   = self::get_setting( 'view', 'popup' );
-								$effect                 = self::get_setting( 'effect', 'mfp-3d-unfold' );
-								$next_prev              = self::get_setting( 'next_prev', 'yes' );
-								$sidebar_position       = self::get_setting( 'sidebar_position', '01' );
-								$sidebar_heading        = self::get_setting( 'sidebar_heading', 'no' );
-								$back_to_close          = self::get_setting( 'back_to_close', 'no' );
-								$auto_close             = self::get_setting( 'auto_close', 'yes' );
-								$perfect_scrollbar      = self::get_setting( 'perfect_scrollbar', 'yes' );
-								$loop                   = self::get_setting( 'loop', 'no' );
-								$mini_cart              = self::get_setting( 'mini_cart', 'yes' );
-								$cart                   = self::get_setting( 'cart', 'yes' );
-								$content_image          = self::get_setting( 'content_image', 'all' );
-								$content_image_lightbox = self::get_setting( 'content_image_lightbox', 'no' );
-								$add_to_cart_button     = self::get_setting( 'add_to_cart_button', 'single' );
-								$view_details_button    = self::get_setting( 'content_view_details_button', 'no' );
-								$suggested              = self::get_setting( 'related_products', [] );
+								$button_type          = self::get_setting( 'button_type', 'button' );
+								$button_icon          = self::get_setting( 'button_icon', 'no' );
+								$button_normal_icon   = self::get_setting( 'button_normal_icon', 'woosq-icon-1' );
+								$view                 = self::get_setting( 'view', 'popup' );
+								$effect               = self::get_setting( 'effect', 'mfp-3d-unfold' );
+								$next_prev            = self::get_setting( 'next_prev', 'yes' );
+								$sidebar_position     = self::get_setting( 'sidebar_position', '01' );
+								$sidebar_heading      = self::get_setting( 'sidebar_heading', 'no' );
+								$back_to_close        = self::get_setting( 'back_to_close', 'no' );
+								$auto_close           = self::get_setting( 'auto_close', 'yes' );
+								$perfect_scrollbar    = self::get_setting( 'perfect_scrollbar', 'yes' );
+								$loop                 = self::get_setting( 'loop', 'no' );
+								$mini_cart            = self::get_setting( 'mini_cart', 'yes' );
+								$cart                 = self::get_setting( 'cart', 'yes' );
+								$content_image        = self::get_setting( 'content_image', 'all' );
+								$content_image_effect = self::get_setting( 'content_image_effect', 'no' );
+								$add_to_cart_button   = self::get_setting( 'add_to_cart_button', 'single' );
+								$view_details_button  = self::get_setting( 'content_view_details_button', 'no' );
+								$suggested            = self::get_setting( 'related_products', [] );
 
 								if ( ! is_array( $suggested ) ) {
 									// backward compatible before 3.3.3
@@ -884,10 +884,10 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                         <tr>
                                             <th scope="row"><?php esc_html_e( 'Product images effect', 'woo-smart-quick-view' ); ?></th>
                                             <td>
-                                                <label> <select name="woosq_settings[content_image_lightbox]">
-                                                        <option value="no" <?php selected( $content_image_lightbox, 'no' ); ?>><?php esc_html_e( 'None', 'woo-smart-quick-view' ); ?></option>
-                                                        <option value="yes" <?php selected( $content_image_lightbox, 'yes' ); ?>><?php esc_html_e( 'Lightbox', 'woo-smart-quick-view' ); ?></option>
-                                                        <option value="zoom" <?php selected( $content_image_lightbox, 'zoom' ); ?>><?php esc_html_e( 'Zoom', 'woo-smart-quick-view' ); ?></option>
+                                                <label> <select name="woosq_settings[content_image_effect]">
+                                                        <option value="no" <?php selected( $content_image_effect, 'no' ); ?>><?php esc_html_e( 'None', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="fancybox" <?php selected( $content_image_effect, 'fancybox' ); ?> <?php echo esc_attr( apply_filters( 'woosq_enable_fancybox', false ) ? '' : 'disabled' ); ?>><?php esc_html_e( 'Fancybox', 'woo-smart-quick-view' ); ?></option>
+                                                        <option value="zoom" <?php selected( $content_image_effect, 'zoom' ); ?>><?php esc_html_e( 'Zoom', 'woo-smart-quick-view' ); ?></option>
                                                     </select> </label>
                                             </td>
                                         </tr>
@@ -1111,7 +1111,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
                                     </p>
                                     <p><strong>Extra features for Premium Version:</strong></p>
                                     <ul style="margin-bottom: 0">
-                                        <li>- Add lightbox/zoom effect for product images.</li>
+                                        <li>- Add fancybox/zoom effect for product images.</li>
                                         <li>- Show/hide or re-arrange the part of content in the popup.</li>
                                         <li>- Add "View Product Details" button.</li>
                                         <li>- Get the lifetime update & premium support.</li>
@@ -1167,13 +1167,13 @@ if ( ! function_exists( 'woosq_init' ) ) {
 					wp_enqueue_script( 'slick', WOOSQ_URI . 'assets/libs/slick/slick.min.js', [ 'jquery' ], WOOSQ_VERSION, true );
 
 					// fancybox
-					if ( self::get_setting( 'content_image_lightbox', 'no' ) === 'yes' ) {
+					if ( self::get_setting( 'content_image_effect', 'no' ) === 'fancybox' ) {
 						wp_enqueue_style( 'fancybox', WOOSQ_URI . 'assets/libs/fancybox/jquery.fancybox.min.css' );
 						wp_enqueue_script( 'fancybox', WOOSQ_URI . 'assets/libs/fancybox/jquery.fancybox.min.js', [ 'jquery' ], WOOSQ_VERSION, true );
 					}
 
 					// zoom
-					if ( self::get_setting( 'content_image_lightbox', 'no' ) === 'zoom' ) {
+					if ( self::get_setting( 'content_image_effect', 'no' ) === 'zoom' ) {
 						wp_enqueue_script( 'zoom', WOOSQ_URI . 'assets/libs/zoom/jquery.zoom.min.js', [ 'jquery' ], WOOSQ_VERSION, true );
 					}
 
@@ -1217,7 +1217,7 @@ if ( ! function_exists( 'woosq_init' ) ) {
 							'next_prev'               => self::get_setting( 'next_prev', 'yes' ),
 							'next'                    => self::localization( 'next', esc_html__( 'Next (Right arrow key)', 'woo-smart-quick-view' ) ),
 							'prev'                    => self::localization( 'prev', esc_html__( 'Previous (Left arrow key)', 'woo-smart-quick-view' ) ),
-							'thumbnails_effect'       => self::get_setting( 'content_image_lightbox', 'no' ),
+							'thumbnails_effect'       => self::get_setting( 'content_image_effect', 'no' ),
 							'related_slick_params'    => apply_filters( 'woosq_related_slick_params', json_encode( apply_filters( 'woosq_related_slick_params_arr', [
 								'slidesToShow'   => 2,
 								'slidesToScroll' => 2,

@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 
 define('PAGELAYER_BASE', plugin_basename(PAGELAYER_FILE));
 define('PAGELAYER_PREMIUM_BASE', 'pagelayer-pro/pagelayer-pro.php');
-define('PAGELAYER_VERSION', '1.8.8');
+define('PAGELAYER_VERSION', '1.8.9');
 define('PAGELAYER_DIR', dirname(PAGELAYER_FILE));
 define('PAGELAYER_SLUG', 'pagelayer');
 define('PAGELAYER_URL', plugins_url('', PAGELAYER_FILE));
@@ -683,16 +683,16 @@ function pagelayer_enqueue_fonts($suffix = '-header'){
 
 	foreach($pagelayer->css as $k => $set){
 	
-		$font_family = @$set['font-family'];
+		$font_family = pagelayer_isset($set, 'font-family');
 
 		if(empty($font_family)){
 			$key = str_replace(['_mobile', '_tablet'], '', $k);
-			$font_family = @$pagelayer->css[$key]['font-family'];
+			$font_family = isset($pagelayer->css[$key]['font-family'])? $pagelayer->css[$key]['font-family']: '';
 		}
 
 		// Fetch body font if given
 		if(!empty($font_family)){
-			pagelayer_load_font_family($font_family, @$set['font-weight'], @$set['font-style']);	
+			pagelayer_load_font_family($font_family, pagelayer_isset($set, 'font-weight'), pagelayer_isset($set, 'font-style'));	
 		}
 	
 	}
@@ -1093,7 +1093,7 @@ function pagelayer_global_styles(){
 		$matches = [];
 		preg_match('/_(mobile|tablet)$/is', $k, $matches);
 		$key = str_replace(['_mobile', '_tablet'], '', $k);
-		$screen = @$matches[1];
+		$screen = isset($matches[1]) ? $matches[1] : '';
 		
 		//echo $key.' - '.$k;pagelayer_print($matches);
 		

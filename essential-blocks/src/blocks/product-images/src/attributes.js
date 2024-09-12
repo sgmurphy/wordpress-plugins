@@ -55,7 +55,7 @@ const attributes = {
     },
     useAdaptiveHeight: {
         type: "boolean",
-        default: true,
+        default: false,
     },
     galleryArrowColor: {
         type: "string",
@@ -114,7 +114,10 @@ const attributes = {
         defaultTabAlign: "flex-start",
         defaultMobileAlign: "flext-start",
     }),
-    ...generateResponsiveRangeAttributes(LARGE_IMAGE_HEIGHT),
+    ...generateResponsiveRangeAttributes(LARGE_IMAGE_HEIGHT, {
+        defaultRange: 410,
+        defaultUnit: 'px'
+    }),
     ...generateResponsiveRangeAttributes(LARGE_IMAGE_WIDTH),
 };
 

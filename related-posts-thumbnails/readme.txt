@@ -5,7 +5,7 @@ Author URI: https://loginpress.pro/?utm_source=related-posts-lite&utm_medium=aut
 Tags: easy related posts, Related Posts thumbnails, Free Related Posts, related posts, similar related posts
 Requires at least: 3.6
 Tested up to: 6.6
-Stable tag: 4.0.1
+Stable tag: 4.1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -72,10 +72,14 @@ If there are no images of the specified size in the post, or file does not exist
 
 == Upgrade Notice ==
 
-= 4.0.1 =
+= 4.1.0 =
 * Upgrade immediately.
 
 == Changelog ==
+
+= 4.1.0 – 2024-09-11 =
+* Security Fix: Fixed Opt-out and Opt-in consent.
+* Enhancement: Code re-factorization and optimization.
 
 = 4.0.1 - 2024-08-22 =
 * Enhancement: Code re-factorization and optimization.

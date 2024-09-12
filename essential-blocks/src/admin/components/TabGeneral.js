@@ -79,7 +79,7 @@ export default function TabGeneral() {
 
                                 <div className="teaser-box">
                                     <img
-                                        src={`${EssentialBlocksLocalize.image_url}/admin/teaser-arrow.png`}
+                                        src={`${EssentialBlocksLocalize.image_url}/admin/pro-teaser.jpg`}
                                         alt={__(
                                             "Upgrade to pro",
                                             "essential-blocks"
@@ -277,51 +277,93 @@ export default function TabGeneral() {
                         >
                             <div className="changelog-wrapper">
                                 <div className="changelog-title">
-                                    {__("Version: 4.9.1", "essential-blocks")}
+                                    {__("Version: 5.0.0", "essential-blocks")}
                                     <span className="changelog-date">
-                                        {__("03/09/2024", "essential-blocks")}
+                                        {__("12/09/2024", "essential-blocks")}
                                     </span>
                                 </div>
                                 <ul className="changelog-content">
                                     <li>
                                         {__(
-                                            "Added: Responsive typography support",
+                                            "Added: New Block | Text",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Added: Product Grid | Product image clicable option",
+                                            "Added: New Block | Taxonomy",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Post Carousel | Posts not showing for default query",
+                                            "Added: New Block | Post Meta",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: NFT Gallery | API updated to v2.0",
+                                            "Added: New Block | Breadcrumbs",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Slider | Loading icon showing all time if image is transparent",
+                                            "Added: New Block | Woo Add to Cart",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Image Gallery | Image size settings reverted to default",
+                                            "Added: New Block | Woo Product Price",
                                             "essential-blocks"
                                         )}
                                     </li>
                                     <li>
                                         {__(
-                                            "Fixed: Toggle Content | z-index conflict with Astra theme",
+                                            "Added: New Block | Woo Product Images",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Added: New Block | Woo Product Rating",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Added: New Block | Woo Product Details",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Added: Product Grid | Related product query option",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Advanced Heading | Dynamic Title loading issue in FSE",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Row Block | Columns equal height not working in frontend",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Slider Block| Loading animation always showing",
+                                            "essential-blocks"
+                                        )}
+                                    </li>
+                                    <li>
+                                        {__(
+                                            "Fixed: Synced Pattern issue fix",
                                             "essential-blocks"
                                         )}
                                     </li>

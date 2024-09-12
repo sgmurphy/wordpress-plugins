@@ -56,6 +56,20 @@ export const Modal = () => {
 	}, [openOnNewPage, setOpen, incrementActivity, open]);
 
 	useEffect(() => {
+		const search = new URLSearchParams(window.location.search);
+
+		if (search.has('ext-close')) {
+			setOpen(false);
+			search.delete('ext-close');
+			window.history.replaceState(
+				{},
+				'',
+				window.location.pathname + '?' + search.toString(),
+			);
+		}
+	}, [setOpen, incrementActivity]);
+
+	useEffect(() => {
 		const handleOpen = () => setOpen(true);
 		const handleClose = () => setOpen(false);
 		window.addEventListener('extendify::open-library', handleOpen);

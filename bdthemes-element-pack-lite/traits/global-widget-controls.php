@@ -18,6 +18,18 @@ defined( 'ABSPATH' ) || die();
 
 trait Global_Widget_Controls {
 
+	protected function register_bdt_link_new_tab_controls() {
+		$this->add_control(
+			'bdt_link_new_tab',
+			[ 
+				'label'              => esc_html__( 'Link Open in a New Tab', 'bdthemes-element-pack' ) . BDTEP_NC,
+				'type'               => Controls_Manager::SWITCHER,
+				'separator'          => 'before',
+				'frontend_available' => true,
+			]
+		);
+	}
+
 	protected function register_title_animation_controls() {
 		$this->add_control(
 			'title_style',
@@ -7819,5 +7831,24 @@ trait Global_Widget_Controls {
 
 		$this->end_controls_tabs();
 
+	}
+
+	// Function to recursively search for the particles value
+	public function ep_find_recursive_item( $sections, $key ) {
+		foreach ($sections as $section) {
+			if (is_array($section)) {
+				if (isset($section['settings'][$key]) && $section['settings'][$key] === 'yes') {
+					return true;
+					break;					
+				} else {
+
+					$result = $this->ep_find_recursive_item($section, $key);
+					if ($result !== false) {
+						return $result;
+					}
+				}				
+			}
+		}
+		return false;
 	}
 }

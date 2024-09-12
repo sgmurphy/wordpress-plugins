@@ -438,7 +438,7 @@ global $pagelayer, $pl_error;
 }
 
 // The actual function to import the theme
-function pagelayer_import_theme($template_name, $pagelayer_theme_path = ''){
+function pagelayer_import_theme($template_name, $pagelayer_theme_path = '', $to_import = array()){
 
 global $wpdb, $wp_rewrite;
 global $pagelayer, $pl_error, $sitepad;
@@ -806,6 +806,11 @@ global $pagelayer, $pl_error, $sitepad;
 		
 		// Now check the pages if it exist in this installation ?
 		foreach($data[$data_type] as $k => $v){
+			
+			// Do we have to import selected pages ? 
+			if(!empty($to_import[$data_type]) && !in_array($k, $to_import[$data_type])){
+				continue;
+			}
 			
 			$path = pagelayer_cleanpath($pagelayer_theme_path.'/data/'.$data_type.'/'.$k);
 			

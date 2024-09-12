@@ -3,7 +3,7 @@
 <div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
 <?php echo $view->getAdminTabs(HMWP_Classes_Tools::getValue('page', 'hmwp_log')); ?>
     <div class="hmwp_row d-flex flex-row p-0 m-0">
-        <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+        <div class="hmwp_col flex-grow-1 p-0 pr-2 mr-2 mb-3">
 
 
 
@@ -39,7 +39,7 @@
 
             </form>
         </div>
-        <div class="hmwp_col hmwp_col_side p-0 m-0 mr-2">
+        <div class="hmwp_col hmwp_col_side p-0 pr-2 mr-2">
             <div class="card col-sm-12 m-0 p-0 rounded-0">
                 <div class="card-body f-gray-dark text-left">
                     <h3 class="card-title"><?php echo esc_html__('Events Log', 'hide-my-wp'); ?></h3>

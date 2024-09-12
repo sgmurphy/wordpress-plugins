@@ -1,6 +1,6 @@
 === Super Page Cache ===
 Contributors: optimole, salvatorefresta, isaumya
-Tags: cloudflare, caching ,performance, page caching, pagespeed, cdn
+Tags: cloudflare, caching ,performance, page caching, pagespeed
 Requires at least: 5.3
 Requires PHP: 7.4
 Tested up to: 6.6
@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Speed up your WordPress website, improve your pagespeed & seo by optimising your images, html, js, css and caching onto global CDN using any Cloudflare Plan.
+Supercharge Your Pagespeed and SEO by Powerful Caching, JS/CSS, Media, and Cloudflare's Global CDN.
 
 == Description ==
 
