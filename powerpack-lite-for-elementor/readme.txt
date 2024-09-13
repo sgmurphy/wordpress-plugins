@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.7.27
+Stable tag: 2.7.28
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -234,6 +234,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.7.28 - September 13, 2024 =
+* 	Fixed: Info Box - Selector for icon hover style options
+* 	Fixed: Info List - Some of the style controls were not responsive
+* 	Fixed: Image Comparison - Divider width was not working for vertical layout
+* 	Fixed: Dual Heading - Default spacing between headings
+* 	Fixed: Counter - Position of prefix and suffix was not inline
 
 = 2.7.27 - August 20, 2024 =
 * 	Fixed: Gravity Forms - Submit Button styling options were not working when button is set to inline position

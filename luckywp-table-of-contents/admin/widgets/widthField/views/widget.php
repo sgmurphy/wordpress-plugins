@@ -12,16 +12,16 @@ use luckywp\tableOfContents\core\helpers\Html;
 
 ?>
 <div class="lwptocWidthField">
-    <?= Html::dropDownList(null, $type, Core::$plugin->getWidthsList(), [
+    <?php echo Html::dropDownList(null, $type, Core::$plugin->getWidthsList(), [
         'class' => 'lwptocWidthField_typeInput',
     ]) ?>
-    <div class="lwptocWidthField_custom"<?= $type == 'custom' ? '' : ' style="display:none;"' ?>>
-        <?= Html::textInput(null, $size, [
+    <div class="lwptocWidthField_custom"<?php echo $type == 'custom' ? '' : ' style="display:none;"' ?>>
+        <?php echo Html::textInput(null, $size, [
             'class' => 'lwptocWidthField_sizeInput',
         ]) ?>
-        <?= Html::dropDownList(null, $unit, Core::$plugin->blockSizeUnitsList, [
+        <?php echo Html::dropDownList(null, $unit, Core::$plugin->blockSizeUnitsList, [
             'class' => 'lwptocWidthField_unitInput',
         ]) ?>
     </div>
-    <?= Html::hiddenInput($name, $value, ['class' => 'lwptocWidthField_input']) ?>
+    <?php echo Html::hiddenInput($name, $value, ['class' => 'lwptocWidthField_input']) ?>
 </div>

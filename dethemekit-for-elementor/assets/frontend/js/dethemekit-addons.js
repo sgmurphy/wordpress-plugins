@@ -135,17 +135,12 @@
             DethemeKitProgressBarWidgetHandler($scope, "frontend");
         }
 
-        elementorFrontend.waypoint($scope, function () {
-            if ("dots" !== type) {
-                DethemeKitProgressBarWidgetHandler($(this));
-            } else {
-                DethemeKitProgressDotsHandler($(this));
-            }
+        if ("dots" !== type) {
+            DethemeKitProgressBarWidgetHandler($(this));
+        } else {
+            DethemeKitProgressDotsHandler($(this));
+        }
 
-        }, {
-            offset: Waypoint.viewportHeight() - 150,
-            triggerOnce: true
-        });
     };
 
     /****** DethemeKit Video Box Handler ******/
@@ -216,9 +211,7 @@
 
                 //Check if Autoplay on viewport option is enabled
                 if ($videoBoxElement.data("play-viewport")) {
-                    elementorFrontend.waypoint($videoBoxElement, function () {
-                        playVideo();
-                    });
+                    playVideo();
                 } else {
                     playVideo();
                 }
@@ -297,75 +290,63 @@
 
             });
 
-            //Make sure Elementor Waypoint is defined
-            if (typeof elementorFrontend.waypoint !== 'undefined') {
+            if ('down' === direction) {
 
-                var stickyWaypoint = elementorFrontend.waypoint(
-                    $videoBoxElement,
-                    function (direction) {
-                        if ('down' === direction) {
+                $videoBoxElement.removeClass('dethemekit-video-box-sticky-hide').addClass('dethemekit-video-box-sticky-apply dethemekit-video-box-filter-sticky');
 
-                            $videoBoxElement.removeClass('dethemekit-video-box-sticky-hide').addClass('dethemekit-video-box-sticky-apply dethemekit-video-box-filter-sticky');
-
-                            //Fix conflict with Elementor motion effects
-                            if ($scope.hasClass("elementor-motion-effects-parent")) {
-                                $scope.removeClass("elementor-motion-effects-perspective").find(".elementor-widget-container").addClass("dethemekit-video-box-transform");
-                            }
-
-                            if ($videoBoxElement.data("mask")) {
-                                //Fix Sticky position issue when drop-shadow is applied
-                                $scope.find(".dethemekit-video-box-mask-filter").removeClass("dethemekit-video-box-mask-filter");
-
-                                $videoBoxElement.find(':first-child').removeClass('dethemekit-video-box-mask-media');
-
-                                $videoImageContainer.removeClass(hoverEffect).removeClass('dethemekit-video-box-mask-media').css({
-                                    'transition': 'width 0.2s, height 0.2s',
-                                    '-webkit-transition': 'width 0.2s, height 0.2s'
-                                });
-                            }
-
-                            $(document).trigger('dethemekit_after_sticky_applied', [$scope]);
-
-                            // Entrance Animation Option
-                            if ($videoInnerContainer.data("video-animation") && " " != $videoInnerContainer.data("video-animation")) {
-                                $videoInnerContainer.css("opacity", "0");
-                                var animationDelay = $videoInnerContainer.data('delay-animation');
-                                setTimeout(function () {
-
-                                    $videoInnerContainer.css("opacity", "1").addClass("animated " + $videoInnerContainer.data("video-animation"));
-
-                                }, animationDelay * 1000);
-                            }
-
-                        } else {
-
-                            $videoBoxElement.removeClass('dethemekit-video-box-sticky-apply  dethemekit-video-box-filter-sticky').addClass('dethemekit-video-box-sticky-hide');
-
-                            //Fix conflict with Elementor motion effects
-                            if ($scope.hasClass("elementor-motion-effects-parent")) {
-                                $scope.addClass("elementor-motion-effects-perspective").find(".elementor-widget-container").removeClass("dethemekit-video-box-transform");
-                            }
-
-                            if ($videoBoxElement.data("mask")) {
-                                //Fix Sticky position issue when drop-shadow is applied
-                                $videoBoxElement.parent().addClass("dethemekit-video-box-mask-filter");
-
-                                $videoBoxElement.find(':first-child').eq(0).addClass('dethemekit-video-box-mask-media');
-                                $videoImageContainer.addClass('dethemekit-video-box-mask-media');
-                            }
-
-                            $videoImageContainer.addClass(hoverEffect).css({
-                                'transition': 'all 0.2s',
-                                '-webkit-transition': 'all 0.2s'
-                            });
-
-                            $videoInnerContainer.removeClass("animated " + $videoInnerContainer.data("video-animation"));
-                        }
-                    }, {
-                    offset: 0 + '%',
-                    triggerOnce: false
+                //Fix conflict with Elementor motion effects
+                if ($scope.hasClass("elementor-motion-effects-parent")) {
+                    $scope.removeClass("elementor-motion-effects-perspective").find(".elementor-widget-container").addClass("dethemekit-video-box-transform");
                 }
-                );
+
+                if ($videoBoxElement.data("mask")) {
+                    //Fix Sticky position issue when drop-shadow is applied
+                    $scope.find(".dethemekit-video-box-mask-filter").removeClass("dethemekit-video-box-mask-filter");
+
+                    $videoBoxElement.find(':first-child').removeClass('dethemekit-video-box-mask-media');
+
+                    $videoImageContainer.removeClass(hoverEffect).removeClass('dethemekit-video-box-mask-media').css({
+                        'transition': 'width 0.2s, height 0.2s',
+                        '-webkit-transition': 'width 0.2s, height 0.2s'
+                    });
+                }
+
+                $(document).trigger('dethemekit_after_sticky_applied', [$scope]);
+
+                // Entrance Animation Option
+                if ($videoInnerContainer.data("video-animation") && " " != $videoInnerContainer.data("video-animation")) {
+                    $videoInnerContainer.css("opacity", "0");
+                    var animationDelay = $videoInnerContainer.data('delay-animation');
+                    setTimeout(function () {
+
+                        $videoInnerContainer.css("opacity", "1").addClass("animated " + $videoInnerContainer.data("video-animation"));
+
+                    }, animationDelay * 1000);
+                }
+
+            } else {
+
+                $videoBoxElement.removeClass('dethemekit-video-box-sticky-apply  dethemekit-video-box-filter-sticky').addClass('dethemekit-video-box-sticky-hide');
+
+                //Fix conflict with Elementor motion effects
+                if ($scope.hasClass("elementor-motion-effects-parent")) {
+                    $scope.addClass("elementor-motion-effects-perspective").find(".elementor-widget-container").removeClass("dethemekit-video-box-transform");
+                }
+
+                if ($videoBoxElement.data("mask")) {
+                    //Fix Sticky position issue when drop-shadow is applied
+                    $videoBoxElement.parent().addClass("dethemekit-video-box-mask-filter");
+
+                    $videoBoxElement.find(':first-child').eq(0).addClass('dethemekit-video-box-mask-media');
+                    $videoImageContainer.addClass('dethemekit-video-box-mask-media');
+                }
+
+                $videoImageContainer.addClass(hoverEffect).css({
+                    'transition': 'all 0.2s',
+                    '-webkit-transition': 'all 0.2s'
+                });
+
+                $videoInnerContainer.removeClass("animated " + $videoInnerContainer.data("video-animation"));
             }
 
             var closeBtn = $scope.find('.dethemekit-video-box-sticky-close');
@@ -724,17 +705,13 @@
 
         var $counterElement = $scope.find(".dethemekit-counter");
 
-        elementorFrontend.waypoint($counterElement, function () {
+        var counterSettings = $counterElement.data(),
+        incrementElement = $counterElement.find(".dethemekit-counter-init"),
+        iconElement = $counterElement.find(".icon");
 
-            var counterSettings = $counterElement.data(),
-                incrementElement = $counterElement.find(".dethemekit-counter-init"),
-                iconElement = $counterElement.find(".icon");
+        $(incrementElement).numerator(counterSettings);
 
-            $(incrementElement).numerator(counterSettings);
-
-            $(iconElement).addClass("animated " + iconElement.data("animation"));
-
-        });
+        $(iconElement).addClass("animated " + iconElement.data("animation"));
 
     };
 
@@ -1230,17 +1207,12 @@
 
         if ($modal.data("modal-animation") && " " != $modal.data("modal-animation")) {
             var animationDelay = $modal.data('delay-animation');
-            var waypoint = new Waypoint({
-                element: $modal,
-                handler: function () {
-                    setTimeout(function () {
-                        $modal.css("opacity", "1"),
-                            $modal.addClass("animated " + $modal.data("modal-animation"));
-                    }, animationDelay * 1000);
-                    this.destroy();
-                },
-                offset: Waypoint.viewportHeight() - 150,
-            });
+
+            setTimeout(function () {
+                $modal.css("opacity", "1"),
+                    $modal.addClass("animated " + $modal.data("modal-animation"));
+            }, animationDelay * 1000);
+            this.destroy();
         }
     };
 
@@ -1719,21 +1691,15 @@
         items
             .each(function (index, item) {
                 if ($listItems.data("list-animation") && " " != $listItems.data("list-animation")) {
-                    var waypoint = new Waypoint({
-                        element: item,
-                        handler: function () {
-                            var element = $(this.element),
-                                delay = element.data('delay');
-                            setTimeout(function () {
-                                element.next('.dethemekit-icon-list-divider , .dethemekit-icon-list-divider-inline').css("opacity", "1");
-                                element.next('.dethemekit-icon-list-divider-inline , .dethemekit-icon-list-divider').addClass("animated " + $listItems.data("list-animation"));
-                                element.css("opacity", "1"),
-                                    element.addClass("animated " + $listItems.data("list-animation"));
-                            }, delay);
-                            this.destroy();
-                        },
-                        offset: Waypoint.viewportHeight() - 150,
-                    });
+                    var element = $(this.element),
+                    delay = element.data('delay');
+                    setTimeout(function () {
+                        element.next('.dethemekit-icon-list-divider , .dethemekit-icon-list-divider-inline').css("opacity", "1");
+                        element.next('.dethemekit-icon-list-divider-inline , .dethemekit-icon-list-divider').addClass("animated " + $listItems.data("list-animation"));
+                        element.css("opacity", "1"),
+                        element.addClass("animated " + $listItems.data("list-animation"));
+                    }, delay);
+                    this.destroy();
                 }
             });
     };

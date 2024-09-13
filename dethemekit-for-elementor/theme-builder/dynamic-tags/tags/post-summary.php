@@ -43,7 +43,7 @@ class De_Post_Summary extends Tag {
 	public function render() {
     add_filter( 'excerpt_more',function(){return '';}, 20 );
     add_filter( 'excerpt_length', function(){$settings = $this->get_settings(); return $settings['length'];}, 20 ); 
-		echo  $this->excerpt();
+		echo esc_html( $this->excerpt() );
 	}
   
   public function excerpt() {

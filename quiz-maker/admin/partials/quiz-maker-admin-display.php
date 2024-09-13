@@ -351,7 +351,7 @@ $new_questions_page_url = sprintf('?page=%s&action=%s', 'quiz-maker-questions', 
                             echo sprintf( esc_attr( __( "%s Nope! %s All your content and assigned settings of the plugin will remain unchanged even after switching to the Pro version. You don’t need to redo what you have already built with the free version. For the detailed instruction, please take a look at our %s upgrade guide. %s", $this->plugin_name ) ),
                                 '<strong>',
                                 '</strong>',
-                                '<a href="https://ays-pro.com/wordpress-quiz-maker-user-manual#frag_upgrade" target="_blank">',
+                                '<a href="https://quiz-plugin.com/docs/plugin-setup-and-installation/" target="_blank">',
                                 '</a>'
                             ); 
                         ?>
@@ -512,7 +512,7 @@ $new_questions_page_url = sprintf('?page=%s&action=%s', 'quiz-maker-questions', 
         <p class="ays-quiz-faq-footer">
             <?php 
                 echo sprintf( esc_attr( __( "For more advanced needs, please take a look at our %s Quiz Maker plugin User Manual. %s", $this->plugin_name ) ),
-                    '<a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank">',
+                    '<a href="https://quiz-plugin.com/docs/" target="_blank">',
                     '</a>'
                 ); 
             ?>

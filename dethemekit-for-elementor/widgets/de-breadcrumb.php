@@ -200,7 +200,9 @@ class De_Breadcrumb extends Widget_Base {
 					'default' => array_keys( $menus )[0],
 					'save_default' => true,
 					'separator' => 'after',
-					'description' => sprintf( __( 'Go to the <a href="%s" target="_blank">Menus screen</a> to manage your menus.', 'dethemekit-addons-for-elementor' ), admin_url( 'nav-menus.php' ) ),
+					'description' => sprintf( 
+						/* translators: 1: menu url. */
+						esc_html__( 'Go to the <a href="%1$s" target="_blank">Menus screen</a> to manage your menus.', 'dethemekit-addons-for-elementor' ), admin_url( 'nav-menus.php' ) ),
           'condition' => [ 'breadcrumb_source' => 'menu' ],
         ]
 			);
@@ -209,7 +211,9 @@ class De_Breadcrumb extends Widget_Base {
 				'source_menu',
 				[
 					'type' => Controls_Manager::RAW_HTML,
-					'raw' => '<strong>' . __( 'There are no menus in your site.', 'dethemekit-addons-for-elementor' ) . '</strong><br>' . sprintf( __( 'Go to the <a href="%s" target="_blank">Menus screen</a> to create one.', 'dethemekit-addons-for-elementor' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
+					'raw' => '<strong>' . __( 'There are no menus in your site.', 'dethemekit-addons-for-elementor' ) . '</strong><br>' . sprintf( 
+						/* translators: 1: menu url. */
+						esc_html__( 'Go to the <a href="%1$s" target="_blank">Menus screen</a> to create one.', 'dethemekit-addons-for-elementor' ), admin_url( 'nav-menus.php?action=edit&menu=0' ) ),
 					'separator' => 'after',
 					'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
           'condition' => [ 'breadcrumb_source' => 'menu' ],

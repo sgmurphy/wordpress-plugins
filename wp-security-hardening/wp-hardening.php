@@ -6,10 +6,10 @@ if (!defined('ABSPATH')) exit ('Peekaboo!');
 Plugin Name: WP Hardening
 Plugin URI: https://www.getastra.com/
 Description: Harden your WordPress security by fixing 25 common security loopholes by just a click.
-Version: 1.2.6
+Version: 1.2.8
 Author: WebProtect.ai
 Author URI: https://webprotect.ai
-Stable tag: 1.2.6
+Stable tag: 1.2.8
 */
 
 

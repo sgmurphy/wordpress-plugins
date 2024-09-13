@@ -15,7 +15,7 @@ if(isset($_GET['ays_quiz_tab'])){
             <input type="hidden" name="ays_quiz_tab" value="<?php echo esc_attr($ays_quiz_tab); ?>">
             <div class="ays-quiz-heading-box">
                 <div class="ays-quiz-wordpress-user-manual-box">
-                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+                    <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
                 </div>
             </div>
             <h1 class="wp-heading-inline">

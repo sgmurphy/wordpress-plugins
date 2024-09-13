@@ -4,7 +4,7 @@ Donate link: https://ays-pro.com/wordpress/quiz-maker
 Tags:  exam, quiz, quizzes, education, quiz maker
 Requires at least: 4.0
 Tested up to: 6.6.2
-Stable tag: 6.6.1.7
+Stable tag: 6.6.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,7 @@ QUIZ MAKER plugin allows you to make an unlimited number of Quizzes, Exams and T
 * [Quiz Maker Homepage](https://ays-pro.com/wordpress/quiz-maker)
 * [Quiz Maker Free Demo](https://quiz-plugin.com/wordpress-quiz-plugin-free-demo)
 * [Quiz Maker Pro Demo](https://quiz-plugin.com/wordpress-quiz-plugin-pro-demo)
-* [Quiz Maker Documentation](https://ays-pro.com/wordpress-quiz-maker-user-manual)
+* [Quiz Maker Documentation](https://quiz-plugin.com/docs/)
 
 https://www.youtube.com/watch?v=oKPOdbZahK0
 
@@ -155,7 +155,7 @@ You can choose one of them and then customize it with our 50+ style options (col
 
 You can restrict your users by enabling and selecting user roles from the dashboard and only selected users with given roles can pass your quiz. If you don't want to restrict your quiz by role, we have created another opportunity for you, just enable **"Only for logged in users"** option and write some message to non-logged-in users, in this way you can enlarge your community. If your quiz is interesting non-registered users will register on your website for passing the quiz and you will have ultra **traffic** on your website. Please note that by selecting restriction by user roles, the quiz will automatically select only for logged-in users option.
 
-[PRO](https://ays-pro.com/wordpress/quiz-maker) | [DEMO](https://quiz-plugin.com/wordpress-quiz-plugin-pro-demo/) | [DOCUMENTATION](https://ays-pro.com/wordpress-quiz-maker-user-manual) | [ALL FEATURES](https://ays-pro.com/quiz-maker-all-features)
+[PRO](https://ays-pro.com/wordpress/quiz-maker) | [DEMO](https://quiz-plugin.com/wordpress-quiz-plugin-pro-demo/) | [DOCUMENTATION](https://quiz-plugin.com/docs/) | [ALL FEATURES](https://ays-pro.com/quiz-maker-all-features)
 
 = Quiz social sharing =
 
@@ -172,7 +172,7 @@ We have developed extra shortcodes to present more data and statistics about you
 
 **New Integration** is available with [Chart Builder Plugin](https://wordpress.org/plugins/chart-builder). The integration will allow you to create beautiful charts based on your quiz data and share them with your website visitors.
 
-For more detailed information please check the [Documentation](https://ays-pro.com/wordpress-quiz-maker-user-manual).
+For more detailed information please check the [Documentation](https://quiz-plugin.com/docs/).
 
 
 = 3RD PARTY OR EXTERNAL SERVICE DISCLAIMER =
@@ -244,7 +244,7 @@ The privacy policy can be found at this URL https://ipinfo.io/privacy-policy
 
 PayPal integration (paid quiz), Stripe integration (paid quiz), Mailchimp integration, Campaign Monitor integration, Zapier integration, Slack integration, Recaptcha integration, ActiveCampaign integration, Mad Mimi integration, ConvertKit integration, GetResponse integration, Sendinblue integration, MailerLite integration, Mailpoet integration, WooCommerce integration, Easy Digital Downloads integration, GamiPress integration, MyCred integration.
 
-*[How to upgrade Free to Pro version Without losing your data?](https://ays-pro.com/wordpress-quiz-maker-user-manual/#frag_upgrade)
+*[How to upgrade Free to Pro version Without losing your data?](https://quiz-plugin.com/docs/plugin-setup-and-installation/)
 
 
 
@@ -305,7 +305,7 @@ That's it. Simple and easy installation of the quiz plugin WordPress. The second
 *   Click on the **Choose file** and choose quiz-maker.zip file (You can also simply drag the zip file into the Upload section).
 *   Click on the **Install** button.
 
-Here it is. Once activated [configure any options](https://ays-pro.com/wordpress-quiz-maker-user-manual) as desired and you can enjoy our best WordPress quiz plugin. Build your best WP quiz within a few minutes.
+Here it is. Once activated [configure any options](https://quiz-plugin.com/docs/) as desired and you can enjoy our best WordPress quiz plugin. Build your best WP quiz within a few minutes.
 
 
 == Frequently Asked Questions ==
@@ -388,7 +388,7 @@ There are plenty of reasons! Firstly, you can create **advanced level quizzes an
 
 = Is there any documentation or user guide? =
 
-Sure! Check out the following [User Manual](https://ays-pro.com/wordpress-quiz-maker-user-manual) to find out all the possibilities the plugin gives. There you will find descriptions about options, instructions on how to use them, detailed video tutorials, installation of the plugin, and so on. In case of any question or support request, do not hesitate to reach out to our support team specialist via the following [FREE support forum](https://wordpress.org/support/plugin/quiz-maker).
+Sure! Check out the following [User Manual](https://quiz-plugin.com/docs/) to find out all the possibilities the plugin gives. There you will find descriptions about options, instructions on how to use them, detailed video tutorials, installation of the plugin, and so on. In case of any question or support request, do not hesitate to reach out to our support team specialist via the following [FREE support forum](https://wordpress.org/support/plugin/quiz-maker).
 
 = How to upgrade to the PRO version without losing my data? =
 
@@ -417,6 +417,10 @@ Do you wonder how to create a Math Quiz with hard mathematical equations in Word
 For example, to add a squared symbol, you need to write down the following sign ^2. (do not forget to insert $ character to mark the beginning and ending).
 
 == Changelog ==
+
+= 6.6.1.8 =
+* Changed: Quiz Maker Documentation link
+* Fixed: Moving to next question without waiting the specified time
 
 = 6.6.1.7 =
 * Added: Default text customization section on the General Settings Page

@@ -2248,6 +2248,12 @@ class De_Product_Display extends Widget_Base {
             'post_status'           => 'publish',
             'ignore_sticky_posts'   => 1,
             'posts_per_page'        => $per_page,
+            'tax_query'   => array( array(
+                'taxonomy'  => 'product_visibility',
+                'terms'     => array( 'exclude-from-catalog' ),
+                'field'     => 'name',
+                'operator'  => 'NOT IN',
+            ) )
         );
 
         switch( $product_type ){
@@ -2471,8 +2477,9 @@ class De_Product_Display extends Widget_Base {
                                     $fetchproduct = new \WP_Query( $args );
 
                                     if( $fetchproduct->have_posts() ){
+                                        $taburl = "#dethemekittab" . $tabuniqid . $m;
                                         ?>
-                                            <li><a class="<?php if($m==1){ echo 'htactive';}?>" href="#dethemekittab<?php echo $tabuniqid.esc_attr($m);?>">
+                                            <li><a class="<?php if($m==1){ echo 'htactive';}?>" href="<?php echo esc_url($taburl);?>">
                                                 <?php echo esc_attr( $prod_cats->name,'dethemekit' );?>
                                             </a></li>
                                         <?php
@@ -2519,7 +2526,7 @@ class De_Product_Display extends Widget_Base {
 
                         if( $products->have_posts() ):
                     ?>
-                        <div class="ht-tab-pane <?php if( $z==1 ){ echo 'htactive'; } ?>" id="<?php echo 'dethemekittab'.$tabuniqid.$z;?>">
+                        <div class="ht-tab-pane <?php if( $z==1 ){ echo 'htactive'; } ?>" id="<?php echo esc_attr('dethemekittab'.$tabuniqid.$z);?>">
                             <div class="ht-row">
 
                                 <?php
@@ -2552,8 +2559,11 @@ class De_Product_Display extends Widget_Base {
                                                     }
                                                 ?>
                                                 <div class="ht-product-image">
-                                                    <?php  if( $settings['thumbnails_style'] == 2 && $gallery_images_ids ): ?>
-                                                        <div class="ht-product-image-slider ht-product-image-thumbnaisl-<?php echo $tabuniqid; ?>">
+                                                    <?php  
+                                                        if( $settings['thumbnails_style'] == 2 && $gallery_images_ids ): 
+                                                            $classes = "ht-product-image-slider ht-product-image-thumbnaisl-" . $tabuniqid;
+                                                    ?>
+                                                        <div class="<?php echo esc_attr( $classes ); ?>">
                                                             <?php
                                                                 foreach ( $gallery_images_ids as $gallery_attachment_id ) {
                                                                     echo '<a href="'.esc_url( get_the_permalink() ).'" class="item">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_thumbnail' ).'</a>';
@@ -2739,8 +2749,11 @@ class De_Product_Display extends Widget_Base {
                                             }
                                         ?>
                                         <div class="ht-product-image">
-                                            <?php  if( $settings['thumbnails_style'] == 2 && $gallery_images_ids ): ?>
-                                                <div class="ht-product-image-slider ht-product-image-thumbnaisl-<?php echo $tabuniqid; ?>" data-slick='{"rtl":<?php if( is_rtl() ){ echo 'true'; }else{ echo 'false'; } ?> }'>
+                                            <?php  
+                                                if( $settings['thumbnails_style'] == 2 && $gallery_images_ids ): 
+                                                    $classes = "ht-product-image-slider ht-product-image-thumbnaisl-" . $tabuniqid;
+                                            ?>
+                                                <div class="<?php echo esc_attr($classes); ?>" data-slick='{"rtl":<?php if( is_rtl() ){ echo 'true'; }else{ echo 'false'; } ?> }'>
                                                     <?php
                                                         foreach ( $gallery_images_ids as $gallery_attachment_id ) {
                                                             echo '<a href="'.esc_url( get_the_permalink() ).'" class="item">'.wp_get_attachment_image( $gallery_attachment_id, 'woocommerce_thumbnail' ).'</a>';

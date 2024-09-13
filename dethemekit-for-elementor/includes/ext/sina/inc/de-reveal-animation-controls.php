@@ -40,8 +40,11 @@ class De_Reveal_Animation_Controls{
 
 	public function __construct() {
 		add_action('elementor/element/common/_section_style/after_section_end', [$this, 'register_controls']);
-		add_action('elementor/element/column/section_advanced/after_section_end', [$this, 'column_register_controls']);
+		// add_action('elementor/element/after_section_end', [$this, 'register_controls']);
+		// add_action('elementor/element/column/section_advanced/after_section_end', [$this, 'column_register_controls']);
+		// add_action('elementor/element/section/section_advanced/after_section_end', [$this, 'section_register_controls']);
 		add_action('elementor/element/section/section_advanced/after_section_end', [$this, 'section_register_controls']);
+		add_action('elementor/element/container/section_layout/after_section_end', [$this, 'section_register_controls']);
 
 		add_filter( 'elementor/widget/render_content', [$this, 'render_template_content'], 10, 2 );
 		add_filter( 'elementor/widget/print_template', [$this, 'update_template_content'], 10, 2 );

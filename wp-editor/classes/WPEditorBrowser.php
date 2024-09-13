@@ -262,6 +262,7 @@ class WPEditorBrowser {
         //$result .= "Size: " . ( $_FILES["file-0"]["size"] / 1024) . " Kb<br />";
         //$result .= "Temp file: " . $_FILES["file-0"]["tmp_name"] . "<br />";
 
+        $complete_directory = preg_replace('#^phar://#i', '', $complete_directory);
         if ( file_exists( $complete_directory . $_FILES["file-0"]["name"] ) ) {
           $error = -1;
           $error_message = $_FILES["file-0"]["name"] . __( ' already exists', 'wp-editor' );
@@ -399,6 +400,8 @@ class WPEditorBrowser {
       if ( WPWINDOWS ) {
         $slash = '\\';
       }
+
+      $file_path = preg_replace('#^phar://#i', '', $file_path);
       if ( file_exists( $file_path ) ) {
         $content = file_get_contents( $file_path );
         $filename = basename( $file_path );

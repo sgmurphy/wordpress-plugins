@@ -27,7 +27,7 @@ export default {
     },
 
     getAppropriateUrlParams (params) {
-      if (!this.$root.settings.activation.disableUrlParams) {
+      if ('disableUrlParams' in this.$root.settings.activation && !this.$root.settings.activation.disableUrlParams) {
         return params
       }
 

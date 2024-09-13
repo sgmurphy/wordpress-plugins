@@ -71,7 +71,9 @@ class Version_Control {
        <div class="pa-header-wrapper">
           <div class="pa-title-left">
              <h1 class="pa-title-main"><?php echo Helper_Functions::name(); ?></h1>
-             <h3 class="pa-title-sub"><?php echo sprintf(__('Thank you for using %s. This plugin has been developed by %s and we hope you enjoy using it.','dethemekit-addons-for-elementor'), Helper_Functions::name(), Helper_Functions::author() ); ?></h3>
+             <h3 class="pa-title-sub"><?php echo sprintf(
+                /* translators: 1: plugin name, 2: author. */
+                esc_html__('Thank you for using %1$s. This plugin has been developed by %2$s and we hope you enjoy using it.','dethemekit-addons-for-elementor'), Helper_Functions::name(), Helper_Functions::author() ); ?></h3>
           </div>
           <?php if( ! Helper_Functions::is_hide_logo() ) : ?>
                 <div class="pa-title-right">
@@ -86,13 +88,17 @@ class Version_Control {
                    <tr>
                       <th>
                          <h4 class="pa-roll-back"><?php echo __('Rollback to Previous Version', 'dethemekit-addons-for-elementor'); ?></h4>
-                         <span class="pa-roll-back-span"><?php echo sprintf( __('Experiencing an issue with DethemeKit Addons for Elementor version %s? Rollback to a previous version before the issue appeared.', 'dethemekit-addons-for-elementor'), DETHEMEKIT_ADDONS_VERSION ); ?></span>
+                         <span class="pa-roll-back-span"><?php echo sprintf( 
+                            /* translators: 1: version. */
+                            esc_html__('Experiencing an issue with DethemeKit Addons for Elementor version %1$s? Rollback to a previous version before the issue appeared.', 'dethemekit-addons-for-elementor'), DETHEMEKIT_ADDONS_VERSION ); ?></span>
                       </th>
                    </tr>
                    <tr class="pa-roll-row">
                       <th><?php echo __('Rollback Version', 'dethemekit-addons-for-elementor'); ?></th>
                       <td>
-                         <div><?php echo  sprintf( '<a target="_blank" href="%1$s" class="button pa-btn pa-rollback-button elementor-button-spinner">%2$s</a>', wp_nonce_url( admin_url( 'admin-post.php?action=dethemekit_addons_rollback' ), 'dethemekit_addons_rollback' ), __('Rollback to Version ' . DETHEMEKIT_ADDONS_STABLE_VERSION, 'dethemekit-addons-for-elementor') ); ?></div>
+                         <div><?php echo sprintf( 
+                            /* translators: 1: url, 2: version. */
+                            esc_html__( '<a target="_blank" href="%1$s" class="button pa-btn pa-rollback-button elementor-button-spinner">Rollback to Version %2$s</a>', 'dethemekit-addons-for-elementor'), wp_nonce_url( admin_url( 'admin-post.php?action=dethemekit_addons_rollback' ), DETHEMEKIT_ADDONS_STABLE_VERSION ) ); ?></div>
                          <p class="pa-roll-desc">
                              <span><?php echo __('Warning: Please backup your database before making the rollback.', 'dethemekit-addons-for-elementor'); ?></span>
                          </p>

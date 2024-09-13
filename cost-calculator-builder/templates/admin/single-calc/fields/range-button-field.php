@@ -88,7 +88,7 @@
 				</div>
 				<div class="row ccb-p-t-15">
 					<div class="col-6">
-						<div class="ccb-input-wrapper" :class="{ 'disabled': !rangeField.multiply && rangeField.allowCurrency }">
+						<div class="ccb-input-wrapper" :class="{ 'disabled': !rangeField.multiply && rangeField.allowCurrency || rangeField.fieldCurrency }">
 							<span class="ccb-input-label"><?php esc_html_e( 'Name of value (kg, gr, pcs)', 'cost-calculator-builder' ); ?></span>
 							<input type="text" maxlength="18" class="ccb-heading-5 ccb-light" v-model.trim="rangeField.sign" placeholder="<?php esc_attr_e( 'Enter unit symbol', 'cost-calculator-builder' ); ?>">
 						</div>
@@ -134,7 +134,7 @@
 									</div>
 									<span class="ccb-error-tip default" v-if="isObjectHasPath(errors, ['unit'] ) && errors.unit" v-html="errors.unit"></span>
 								</div>
-								<div class="ccb-input-wrapper" style="margin-left: 10px; width: 160px;" v-if="!rangeField.allowCurrency">
+								<div class="ccb-input-wrapper" style="margin-left: 10px; width: 160px;" :class="{'disabled': rangeField.fieldCurrency || rangeField.allowCurrency }">
 									<input type="text" maxlength="18" class="ccb-heading-5 ccb-light" v-model.trim="rangeField.unitSymbol" placeholder="<?php esc_attr_e( 'Unit (kg, cm,...)', 'cost-calculator-builder' ); ?>">
 								</div>
 							</div>
@@ -275,7 +275,7 @@
 						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
 				<div class="row ccb-p-t-15">
 					<div class="col-12">
 						<div class="ccb-input-wrapper">

@@ -4,7 +4,7 @@ Donate link: http://wpeditor.net/
 Tags: code editor, plugin editor, theme editor, page editor, post editor, pages, posts, html, codemirror, plugins, themes, editor, fancybox, post.php, post-new.php, ajax, syntax highlighting, html syntax highlighting
 Requires at least: 3.9
 Tested up to: 6.4.3
-Stable tag: 1.2.9
+Stable tag: 1.2.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,9 @@ Yes! While we don't have a need for further developers at this time, any financi
 5. Fancybox integration
 
 == Changelog ==
+
+= 1.2.9.1 =
+* Sanitize inputs
 
 = 1.2.9 =
 * Sanitize outputs

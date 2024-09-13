@@ -118,15 +118,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'wearerequired/traduttore-registry' => array(
-            'pretty_version' => '2.1.3',
-            'version' => '2.1.3.0',
-            'reference' => '0a267c7e12928a17360f6157d358cc2a169734a1',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../wearerequired/traduttore-registry',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'woocommerce/action-scheduler' => array(
             'pretty_version' => '3.7.0',
             'version' => '3.7.0.0',

@@ -26,6 +26,7 @@ use AmeliaBooking\Infrastructure\Common\Exceptions\NotFoundException;
 use AmeliaBooking\Infrastructure\Common\Exceptions\QueryExecutionException;
 use AmeliaBooking\Infrastructure\Repository\Bookable\Service\PackageCustomerServiceRepository;
 use AmeliaBooking\Infrastructure\Repository\Booking\Appointment\AppointmentRepository;
+use AmeliaBooking\Infrastructure\Repository\User\ProviderRepository;
 use AmeliaBooking\Infrastructure\Repository\User\UserRepository;
 use AmeliaBooking\Infrastructure\Services\Google\AbstractGoogleCalendarService;
 use AmeliaBooking\Infrastructure\Services\Outlook\AbstractOutlookCalendarService;
@@ -284,6 +285,9 @@ class UserApplicationService
         /** @var AbstractOutlookCalendarService $outlookCalendarService */
         $outlookCalendarService = $this->container->get('infrastructure.outlook.calendar.service');
 
+        /** @var ProviderRepository $providerRepository */
+        $providerRepository = $this->container->get('domain.users.providers.repository');
+
 
         // If cabinet is for provider, return provider with services and schedule
         if ($cabinetType === AbstractUser::USER_ROLE_PROVIDER) {
@@ -294,6 +298,17 @@ class UserApplicationService
 
             $providerService->modifyPeriodsWithSingleLocationAfterFetch($user->getWeekDayList());
             $providerService->modifyPeriodsWithSingleLocationAfterFetch($user->getSpecialDayList());
+
+            /** @var Provider $provider */
+            $provider = $providerRepository->getById($user->getId()->getValue());
+
+            if ($provider->getGoogleCalendar()) {
+                $user->setGoogleCalendar($provider->getGoogleCalendar());
+            }
+
+            if ($provider->getOutlookCalendar()) {
+                $user->setOutlookCalendar($provider->getOutlookCalendar());
+            }
 
             $user->setPassword($password);
         }

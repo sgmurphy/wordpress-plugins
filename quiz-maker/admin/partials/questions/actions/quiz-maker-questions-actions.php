@@ -349,7 +349,7 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
             <input type="hidden" class="quiz_wp_editor_height" value="<?php echo $quiz_wp_editor_height; ?>">
             <div class="ays-quiz-heading-box">
                 <div class="ays-quiz-wordpress-user-manual-box">
-                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+                    <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
                 </div>
             </div>
             <h1 class="wp-heading-inline">

@@ -6,7 +6,7 @@ Tags: cost calculator, calculator, calculator form builder, cost estimation, shi
 Requires at least: 4.6
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 3.2.30
+Stable tag: 3.2.31
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,6 +162,10 @@ Also, you can import the demo sample using Tools -> Import -> WordPress Import.
 Demo sample XML file included in plugin archive.
 
 == Changelog ==
+
+= 3.2.31 =
+- Fix: Name of value in Quantity and Basic slider element settings is not disabled when the Measuring unit setting is enabled.
+- Fix: Numerical values entered in the Formula field are not saved, only symbols are saved.
 
 = 3.2.30 =
 - Enhancement: User is redirected to the Templates library after saving a calculator as a template.

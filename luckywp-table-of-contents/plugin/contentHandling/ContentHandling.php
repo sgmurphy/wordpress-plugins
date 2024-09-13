@@ -92,7 +92,7 @@ class ContentHandling
         $html = preg_replace('#<\s*script[^>]*>.*?</script\s*>#imsu', '', $html);
         $html = preg_replace('#<\s*style[^>]*>.*?</style\s*>#imsu', '', $html);
 
-        $label = strip_tags($html);
+        $label = wp_strip_all_tags($html);
         $label = html_entity_decode($label, ENT_HTML5, 'UTF-8');
         $label = apply_filters('lwptoc_heading_label', $label, $html);
 

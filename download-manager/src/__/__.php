@@ -221,7 +221,7 @@ class __
      */
     static function sanitize_array($array, $sanitize = '')
     {
-        if (!is_array($array)) return esc_attr($array);
+        if (!is_array($array)) return __::sanitize_var($array, $sanitize);
         foreach ($array as $key => &$value) {
             $validate = is_array($sanitize) && isset($sanitize[$key]) ? $sanitize[$key] : $sanitize;
             if (is_array($value))
@@ -268,22 +268,7 @@ class __
 
                 case 'kses':
                     $allowedtags = wp_kses_allowed_html('post');
-                    /*$allowedtags['div'] = array('class' => true);
-                    $allowedtags['strong'] = array('class' => true);
-                    $allowedtags['b'] = array('class' => true);
-                    $allowedtags['i'] = array('class' => true);
-                    $allowedtags['a'] = array('class' => true, 'href' => true);
-	                $allowedtags['ul'] = array('class' => true);
-	                $allowedtags['ol'] = array('class' => true);
-	                $allowedtags['li'] = array('class' => true);
-	                $allowedtags['hr'] = array('class' => true);
-	                $allowedtags['table'] = array('class' => true);
-	                $allowedtags['tr'] = array('class' => true);
-	                $allowedtags['th'] = array('class' => true);
-	                $allowedtags['thead'] = array('class' => true);
-	                $allowedtags['tfoot'] = array('class' => true);
-	                $allowedtags['tbody'] = array('class' => true);
-	                $allowedtags['td'] = array('class' => true);*/
+	                $value = __::decode_html($value);
                     $value = wp_kses($value, $allowedtags);
                     break;
 
@@ -317,6 +302,10 @@ class __
                     $value = preg_replace("/([^a-zA-Z0-9])/", '', $value);
                     break;
 
+	            case 'safetxt':
+		            $value = preg_replace("/([^a-zA-Z0-9_|\-\s])/", '', $value);
+		            break;
+
                 case 'username':
                     $value = preg_replace("/([^a-zA-Z0-9_\-\s])/", '', $value);
                     break;
@@ -333,6 +322,13 @@ class __
         }
         return $value;
     }
+
+	public static function decode_html($html){
+		$html = htmlspecialchars_decode($html);
+		$html = html_entity_decode($html, ENT_QUOTES);
+		$html = stripslashes_deep($html);
+		return $html;
+	}
 
     /**
      * @usage Escape script tag

@@ -113,6 +113,7 @@ class WPEditorAjax {
 					$real_file = str_replace( '\\\\', '\\', $real_file );
 				}
 
+				$real_file = preg_replace('#^phar://#i', '', $real_file); 
 				if ( file_exists( $real_file ) ) {
 
 					if ( is_writable( $real_file ) ) {

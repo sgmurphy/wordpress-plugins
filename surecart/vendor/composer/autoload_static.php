@@ -4,12 +4,11 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit92fdc5c7b613aa04758a833233277c11
+class ComposerStaticInit33db6eed1d2307b5fb920d2bc336ecff
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '58503241293cd2bb807f4b8afcd303ef' => __DIR__ . '/..' . '/wearerequired/traduttore-registry/inc/namespace.php',
         '09274e489ba2f7aa73f570ebb25e818b' => __DIR__ . '/../..' . '/core/core/config.php',
         '9fd9118c4694682c5336fdfe5d3dc5f0' => __DIR__ . '/../..' . '/core/app-core/config.php',
         '37e6c5242b1b45513994b42aca1b8bbd' => __DIR__ . '/..' . '/woocommerce/action-scheduler/action-scheduler.php',
@@ -1088,10 +1087,10 @@ class ComposerStaticInit92fdc5c7b613aa04758a833233277c11
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit92fdc5c7b613aa04758a833233277c11::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit33db6eed1d2307b5fb920d2bc336ecff::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit33db6eed1d2307b5fb920d2bc336ecff::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit33db6eed1d2307b5fb920d2bc336ecff::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit33db6eed1d2307b5fb920d2bc336ecff::$classMap;
 
         }, null, ClassLoader::class);
     }

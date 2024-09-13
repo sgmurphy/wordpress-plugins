@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="ays-quiz-heading-box" style="text-align: right;float:unset;">
             <div class="ays-quiz-wordpress-user-manual-box">
-                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
             </div>
         </div>
         <h1 class="text-center"><?php echo get_admin_page_title(); ?></h1>

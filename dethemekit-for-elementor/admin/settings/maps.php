@@ -70,7 +70,9 @@ class Maps {
            <div class="pa-header-wrapper">
               <div class="pa-title-left">
                   <h1 class="pa-title-main"><?php echo Helper_Functions::name(); ?></h1>
-                 <h3 class="pa-title-sub"><?php echo sprintf(__('Thank you for using %s. This plugin has been developed by %s and we hope you enjoy using it.','dethemekit-addons-for-elementor'), Helper_Functions::name(), Helper_Functions::author()); ?></h3>
+                 <h3 class="pa-title-sub"><?php echo sprintf( 
+                    /* translators: 1: plugin name, 2: author. */
+                    esc_html__('Thank you for using %1$s. This plugin has been developed by %1$s and we hope you enjoy using it.','dethemekit-addons-for-elementor'), Helper_Functions::name(), Helper_Functions::author()); ?></h3>
               </div>
               <?php if( ! Helper_Functions::is_hide_logo()) : ?>
                     <div class="pa-title-right">

@@ -372,7 +372,7 @@
             <input type="hidden" name="ays_quiz_tab" value="<?php echo esc_attr($ays_quiz_tab); ?>">
             <div class="ays-quiz-heading-box">
                 <div class="ays-quiz-wordpress-user-manual-box">
-                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+                    <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
                 </div>
             </div>
             <h1 class="wp-heading-inline">
@@ -2819,7 +2819,7 @@
                                                     <?php echo __("Use this shortcode to assess the overall performance of the quiz.", $this->plugin_name); ?>
                                                 </p>
                                                 <div>
-                                                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                    <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                                 </div>
                                             </div>
                                             <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-sum-quiz-points-shortcode">
@@ -2930,7 +2930,7 @@
                                                     <?php echo __("So, the quiz takers can see what quizzes they passed and made a purchase for and the amount they paid at once. ", $this->plugin_name); ?>
                                                 </p>
                                                 <div>
-                                                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                    <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                                 </div>
                                             </div>
                                             <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-quiz-orders-shortcode">

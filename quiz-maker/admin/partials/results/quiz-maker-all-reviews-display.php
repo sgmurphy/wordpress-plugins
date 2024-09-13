@@ -6,7 +6,7 @@ $tab_url = "?page=".$this->plugin_name."-results&ays_result_tab=";
 <div class="wrap ays-quiz-list-table ays_reviews_table">
     <div class="ays-quiz-heading-box">
         <div class="ays-quiz-wordpress-user-manual-box">
-            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
         </div>
     </div>
     <h1 class="wp-heading-inline">
@@ -41,7 +41,7 @@ $tab_url = "?page=".$this->plugin_name."-results&ays_result_tab=";
                             ); ?>
                         </p>
                         <div>
-                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                         </div>
                     </div>
                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-export-results">

@@ -37,7 +37,9 @@ class Modules_Settings {
             [
                 'home_url'  => home_url(),
                 'i18n' => [
-					'rollback_confirm' => __( 'Are you sure you want to reinstall version ' . DETHEMEKIT_ADDONS_STABLE_VERSION . ' ?', 'dethemekit-addons-for-elementor' ),
+					'rollback_confirm' => sprintf( 
+                        /* translators: 1: version. */
+                        __( 'Are you sure you want to reinstall version %1$s ?', 'dethemekit-addons-for-elementor' ), DETHEMEKIT_ADDONS_STABLE_VERSION ),
 					'rollback_to_previous_version' => __( 'Rollback to Previous Version', 'dethemekit-addons-for-elementor' ),
 					'yes' => __( 'Yes', 'dethemekit-addons-for-elementor' ),
 					'cancel' => __( 'Cancel', 'dethemekit-addons-for-elementor' ),
@@ -164,7 +166,9 @@ class Modules_Settings {
             <div class="pa-header-wrapper">
                 <div class="pa-title-left">
                     <h1 class="pa-title-main"><?php echo Helper_Functions::name(); ?></h1>
-                    <h3 class="pa-title-sub"><?php echo sprintf(__('Thank you for using %s. This plugin has been developed by %s and we hope you enjoy using it.','dethemekit-addons-for-elementor'), Helper_Functions::name(), Helper_Functions::author() ); ?></h3>
+                    <h3 class="pa-title-sub"><?php echo sprintf(
+                        /* translators: 1: plugin name, 2: author. */
+                        esc_html__('Thank you for using %1$s. This plugin has been developed by %1$s and we hope you enjoy using it.','dethemekit-addons-for-elementor'), Helper_Functions::name(), Helper_Functions::author() ); ?></h3>
                 </div>
                 <?php if( ! Helper_Functions::is_hide_logo() ) : ?>
                 <div class="pa-title-right">

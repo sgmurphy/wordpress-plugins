@@ -70,17 +70,17 @@ class Settings
     {
         global $stabs;
         $tabs = array();
-        $tabs['basic'] = array('id' => 'basic','icon'=>'fa fa-cog', 'link' => 'edit.php?post_type=wpdmpro&page=settings', 'title' => 'Basic', 'callback' => array($this, 'basic'));
-        $tabs['wpdmui'] = array('id' => 'wpdmui','icon'=>'fas fa-fill-drip', 'link' => 'edit.php?post_type=wpdmpro&page=settings', 'title' => 'User Interface', 'callback' => array($this, 'userInterface'));
-        $tabs['frontend'] = array('id' => 'frontend','icon'=>'fa fa-desktop', 'link' => 'edit.php?post_type=wpdmpro&page=settings&tab=frontend', 'title' => 'Frontend Access', 'callback' => array($this, 'Frontend'));
+        $tabs['basic'] = array('id' => 'basic','icon'=>'fa fa-cog', 'link' => 'edit.php?post_type=wpdmpro&page=wpdm-settings', 'title' => 'Basic', 'callback' => array($this, 'basic'));
+        $tabs['wpdmui'] = array('id' => 'wpdmui','icon'=>'fas fa-fill-drip', 'link' => 'edit.php?post_type=wpdmpro&page=wpdm-settings', 'title' => 'User Interface', 'callback' => array($this, 'userInterface'));
+        $tabs['frontend'] = array('id' => 'frontend','icon'=>'fa fa-desktop', 'link' => 'edit.php?post_type=wpdmpro&page=wpdm-settings&tab=frontend', 'title' => 'Frontend Access', 'callback' => array($this, 'Frontend'));
 
         // Add buddypress settings menu when buddypress plugin is active
         if (function_exists('bp_is_active')) {
-            $tabs['buddypress'] = array('id' => 'buddypress','icon'=>'fa fa-users', 'link' => 'edit.php?post_type=wpdmpro&page=settings&tab=buddypress', 'title' => 'BuddyPress', 'callback' => array($this, 'Buddypress'));
+            $tabs['buddypress'] = array('id' => 'buddypress','icon'=>'fa fa-users', 'link' => 'edit.php?post_type=wpdmpro&page=wpdm-settings&tab=buddypress', 'title' => 'BuddyPress', 'callback' => array($this, 'Buddypress'));
         }
 
         if(defined('WPDM_CLOUD_STORAGE')){
-            $tabs['cloud-storage'] = array('id' => 'cloud-storage','icon'=>'fa fa-cloud-arrow-up',  'link' => 'edit.php?post_type=wpdmpro&page=settings&tab=cloud-storage', 'title' => 'Cloud Storage', 'callback' => array($this, 'cloudStorage'));
+            $tabs['cloud-storage'] = array('id' => 'cloud-storage','icon'=>'fa fa-cloud-arrow-up',  'link' => 'edit.php?post_type=wpdmpro&page=wpdm-settings&tab=cloud-storage', 'title' => 'Cloud Storage', 'callback' => array($this, 'cloudStorage'));
         }
 
         if(!$stabs) $stabs = array();
@@ -90,7 +90,7 @@ class Settings
 
         $stabs = apply_filters("add_wpdm_settings_tab", $stabs);
 
-        $stabs['privacy'] = array('id' => 'privacy','icon'=>'fas fa-user-shield',  'link' => 'edit.php?post_type=wpdmpro&page=settings&tab=privacy', 'title' => 'Privacy', 'callback' => array($this, 'privacy'));
+        $stabs['privacy'] = array('id' => 'privacy','icon'=>'fas fa-user-shield',  'link' => 'edit.php?post_type=wpdmpro&page=wpdm-settings&tab=privacy', 'title' => 'Privacy', 'callback' => array($this, 'privacy'));
 
     }
 

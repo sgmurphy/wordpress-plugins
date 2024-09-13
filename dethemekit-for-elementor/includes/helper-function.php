@@ -384,8 +384,12 @@ if( class_exists('WooCommerce') ){
             $post    = get_post( $id );
             $product = get_product( $id );
             if ( $product ) { 
-                include ( apply_filters( 'dethemekit_quickview_tmp', DETHEMEKIT_ADDONS_PATH.'includes/quickview-content.php' ) ); 
-                
+                $status = get_post_status( $id );
+                $product_visibility = $product->get_catalog_visibility();
+
+                if ( $status === 'publish' && $product_visibility !== 'hidden' ) {
+                    include ( apply_filters( 'dethemekit_quickview_tmp', DETHEMEKIT_ADDONS_PATH.'includes/quickview-content.php' ) ); 
+                }
             }
             
         }
@@ -415,8 +419,8 @@ if( class_exists('WooCommerce') ){
             if ( $current_stock > 0 ) {
                 echo '<div class="dethemekit-stock-progress-bar">';
                     echo '<div class="wlstock-info">';
-                        echo '<div class="wltotal-sold">' . __( $order_text, 'dethemekit-pro' ) . '<span>' . esc_html( $total_sold ) . '</span></div>';
-                        echo '<div class="wlcurrent-stock">' . __( $available_text, 'dethemekit-pro' ) . '<span>' . esc_html( $current_stock ) . '</span></div>';
+                        echo '<div class="wltotal-sold">' . $order_text . '<span>' . esc_html( $total_sold ) . '</span></div>';
+                        echo '<div class="wlcurrent-stock">' . $available_text . '<span>' . esc_html( $current_stock ) . '</span></div>';
                     echo '</div>';
                     echo '<div class="wlprogress-area" title="' . __( 'Sold', 'dethemekit-pro' ) . ' ' . esc_attr( $percentage ) . '%">';
                         echo '<div class="wlprogress-bar"style="width:' . esc_attr( $percentage ) . '%;"></div>';

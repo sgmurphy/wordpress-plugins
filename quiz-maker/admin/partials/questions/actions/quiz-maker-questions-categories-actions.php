@@ -62,7 +62,7 @@ $quiz_wp_editor_height = (isset($gen_options['quiz_wp_editor_height']) && $gen_o
     <div class="container-fluid">
         <div class="ays-quiz-heading-box">
             <div class="ays-quiz-wordpress-user-manual-box">
-                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
             </div>
         </div>
         <h1><?php echo $heading; ?></h1>

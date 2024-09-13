@@ -21,23 +21,33 @@ use luckywp\tableOfContents\core\helpers\Html;
 echo $before . Html::beginTag('div', $containerOptions) . Html::beginTag('div', $innerContainerOptions);
 ?>
 <?php if ($toggle || $title) { ?>
-    <div class="lwptoc_header"<?= $headerStyles ? ' style="' . implode('', $headerStyles) . '"' : '' ?>>
+    <div class="lwptoc_header"<?php echo $headerStyles ? ' style="' . implode('', $headerStyles) . '"' : '' ?>>
         <?php
         if ($title) {
-            echo Html::tag($titleTag, $title, [
-                'class' => 'lwptoc_title',
-                'style' => $titleStyles ? implode('', $titleStyles) : null,
-            ]);
+            echo '<'
+                . $titleTag
+                . ' class="lwptoc_title"'
+                . ($titleStyles ? ' style="' . esc_attr(implode('', $titleStyles)) . '"' : '')
+                . '>'
+                . esc_html($title)
+                . '</'
+                . $titleTag
+                . '>';
         }
         ?>
         <?php if ($toggle) { ?>
             <span class="lwptoc_toggle">
-                <a href="#" class="lwptoc_toggle_label" data-label="<?= $hideItems ? $labelHide : $labelShow ?>"><?= $hideItems ? $labelShow : $labelHide ?></a>
+                <?php echo '<a href="#" class="lwptoc_toggle_label" data-label="'
+                    . htmlspecialchars(esc_html($hideItems ? $labelHide : $labelShow), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8')
+                    . '">'
+                    . esc_html($hideItems ? $labelShow : $labelHide)
+                    . '</a>'
+                ?>
             </span>
         <?php } ?>
     </div>
 <?php } ?>
-<div class="lwptoc_items<?= $hideItems ? '' : ' lwptoc_items-visible' ?>"<?= $itemsStyles ? ' style="' . implode('', $itemsStyles) . '"' : '' ?>>
+<div class="lwptoc_items<?php echo $hideItems ? '' : ' lwptoc_items-visible' ?>"<?php echo $itemsStyles ? ' style="' . implode('', $itemsStyles) . '"' : '' ?>>
     <?php lwptoc_items($items) ?>
 </div>
-<?= '</div></div>' . $after ?>
+<?php echo '</div></div>' . $after ?>

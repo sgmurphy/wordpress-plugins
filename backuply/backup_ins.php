@@ -5,6 +5,10 @@
 * (c) Backuply Team
 */
 
+if(!defined('ABSPATH')){
+	die('HACKING ATTEMPT!');
+}
+
 //PHP Options
 if(!set_time_limit(300)){
 	set_time_limit(60);

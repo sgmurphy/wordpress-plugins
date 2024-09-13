@@ -217,10 +217,26 @@ function observerCallbackCurtain(entries, observer) {
             if (contentEl) { contentEl.style.opacity = 0 }
           },
           onCover: function(contentEl, revealerEl) { 
-            if (contentEl) { contentEl.style.opacity = 1 }
+            if (contentEl) { 
+              contentEl.style.opacity = 1
+              
+              const nodelist = contentEl.querySelectorAll(".elementor-element");
+
+              for (let i = 0; i < nodelist.length; i++) {
+                nodelist[i].style.opacity = 1;
+              }
+            }
           },
           onComplete: function(contentEl, revealerEl) { 
-            if (contentEl) { contentEl.style.opacity = 1 } 
+            if (contentEl) { 
+              contentEl.style.opacity = 1 
+              
+              const nodelist = contentEl.querySelectorAll(".elementor-element");
+
+              for (let i = 0; i < nodelist.length; i++) {
+                nodelist[i].style.opacity = 1;
+              }            
+            } 
           },
         });  
       } else {

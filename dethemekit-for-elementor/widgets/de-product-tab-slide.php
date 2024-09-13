@@ -1313,6 +1313,12 @@ class De_Product_Tabs_Widget extends Widget_Base {
             'post_status'           => 'publish',
             'ignore_sticky_posts'   => 1,
             'posts_per_page'        => $per_page,
+            'tax_query'   => array( array(
+                'taxonomy'  => 'product_visibility',
+                'terms'     => array( 'exclude-from-catalog' ),
+                'field'     => 'name',
+                'operator'  => 'NOT IN',
+            ) )
         );
 
         switch( $product_type ){
@@ -1435,8 +1441,9 @@ class De_Product_Tabs_Widget extends Widget_Base {
                                     $fetchproduct = new \WP_Query( $args );
 
                                     if( $fetchproduct->have_posts() ){
+                                        $taburl = "#dethemekittab" . $tabuniqid . $m;
                                         ?>
-                                            <li><a class="<?php if($m==1){ echo 'htactive';}?>" href="#dethemekittab<?php echo $tabuniqid.esc_attr($m);?>">
+                                            <li><a class="<?php if($m==1){ echo 'htactive';}?>" href="<?php echo esc_url($taburl);?>">
                                                 <?php echo esc_attr( $prod_cats->name,'dethemekit' );?>
                                             </a></li>
                                         <?php
@@ -1482,7 +1489,7 @@ class De_Product_Tabs_Widget extends Widget_Base {
 
                     if( $products->have_posts() ):
                     ?>
-                    <div class="ht-tab-pane <?php if($j==1){echo 'htactive';} ?>" id="<?php echo 'dethemekittab'.$tabuniqid.$j;?>">
+                    <div class="ht-tab-pane <?php if($j==1){echo 'htactive';} ?>" id="<?php echo esc_attr('dethemekittab'.$tabuniqid.$j);?>">
                         
                         <div class="ht-row rico2">
                             <div class="<?php echo esc_attr( $collumval );?>">

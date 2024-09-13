@@ -2856,13 +2856,13 @@ function final_restore_response($output, $error_str = '') {
 	$config = backuply_get_config();
 	$url = $output['ajax_url'];
 
-	if(empty($config['BACKUPLY_KEY'])) {
+	if(empty($config['RESTORE_KEY'])) {
 		backuply_status_log('Unable to find security key', 'error');
 		backuply_kill_process();
 		return;
 	}
 
-	$url .= '?action=backuply_restore_response&security='. $config['BACKUPLY_KEY'].'&user_id='.$output['user_id']. '&sess_key='.$output['sess_key'];
+	$url .= '?action=backuply_restore_response&security='. $config['RESTORE_KEY'].'&user_id='.$output['user_id']. '&sess_key='.$output['sess_key'];
 	if(!empty($output['restore_db'])){
 		$url .= '&restore_db=true';
 	}

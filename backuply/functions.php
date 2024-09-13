@@ -218,7 +218,7 @@ function backuply_verify_self($key, $restore_key = false) {
 	$config = backuply_get_config();
 	
 	if(!empty($restore_key)){
-		if(urldecode($key) == $config['RESTORE_KEY']) {
+		if(!empty($config['RESTORE_KEY']) && urldecode($key) == $config['RESTORE_KEY']) {
 			return true;
 		}
 		
@@ -275,7 +275,7 @@ function backuply_timeout_check($is_restore) {
 function backuply_set_config() {
 	
 	$write['BACKUPLY_KEY'] = backuply_csrf_get_token();
-	$write['RESTORE_KEY'] = backuply_csrf_get_token();
+	// $write['RESTORE_KEY'] = backuply_csrf_get_token();
 	
 	update_option('backuply_config_keys', $write);
 }
@@ -1471,20 +1471,33 @@ function backuply_sync_remote_backup_logs($location_id, $fname){
 	
 }
 
-
-
 //Fix the serialization in Cloned DB Tables
 function backuply_wp_clone_sql($table, $field_prefix, $keepalive, $i = null){
 
 	global $wpdb;
-	
+
 	if(empty($wpdb)){
 		backuply_log('Fix Serialization failed: unable to connect to the database');
 		return false;
 	}
 	
-	$cnt_qry = "SELECT count('".$field_prefix."_id') as count_".$field_prefix." FROM `".$wpdb->prefix.$table . "`;";
+	if(empty($table) || empty($field_prefix)){
+		return false;
+	}
+	
+	$possible_tables = ['options', 'postmeta', 'commentmeta'];
+	$possible_fields = ['option', 'meta'];
 
+	// We make sure here that we do not process any unwanted data.
+	if(!in_array($table, $possible_tables, true) || !in_array($field_prefix, $possible_fields, true)){
+		return false;
+	}
+
+	if($wpdb->has_cap('identifier_placeholders')){
+		$cnt_qry = $wpdb->prepare("SELECT count(%i) as %i FROM %i", [$field_prefix.'_id', 'count_'.$field_prefix, $wpdb->prefix.$table]);
+	} else {
+		$cnt_qry = $wpdb->prepare("SELECT count(%s) as %s FROM `".$wpdb->prefix.$table . "`", [$field_prefix.'_id', 'count_'.$field_prefix]);
+	}
 	$result = $wpdb->get_results($cnt_qry);
 	$result = json_decode(json_encode($result[0]), true);
 	$cnt_res = $result['count_'.$field_prefix];
@@ -1492,12 +1505,8 @@ function backuply_wp_clone_sql($table, $field_prefix, $keepalive, $i = null){
 	$count = 10000;
 	$limit = 0;
 
-	$org_query = "SELECT `".$field_prefix."_id`, `".$field_prefix."_value` FROM `".$wpdb->prefix.$table."` ORDER BY ".$field_prefix."_id";
-	
-	
 	if(is_null($i)){
 		$i = $cnt_res;
-		
 		backuply_status_log('Repairing '. $wpdb->prefix.$table, 'repairing', 80);
 	}
 	
@@ -1508,11 +1517,14 @@ function backuply_wp_clone_sql($table, $field_prefix, $keepalive, $i = null){
 		if(time() > $keepalive){
 			return (int) $i;
 		}
-		
-		$query = $org_query.' LIMIT '.$limit.', '.$count.';';
-		
+
+		if($wpdb->has_cap('identifier_placeholders')){
+			$query = $wpdb->prepare("SELECT %i, %i FROM %i ORDER BY %i LIMIT %d, %d", [$field_prefix.'_id', $field_prefix.'_value', $wpdb->prefix.$table, $field_prefix.'_id', $limit, $count]);
+		} else {
+			$query = $wpdb->prepare("SELECT `".$field_prefix."_id`, `".$field_prefix."_value` FROM `".$wpdb->prefix.$table."` ORDER BY %s LIMIT %d, %d", [$field_prefix.'_id', $limit, $count]);
+		}
+
 		$result = $wpdb->get_results($query);
-		
 		
 		// If there are no more rows we need to break the loop
 		if(empty($result[0])){
@@ -1544,12 +1556,11 @@ function backuply_wp_clone_sql($table, $field_prefix, $keepalive, $i = null){
 				
 				$sresult = $wpdb->query($update_query);
 			}
-		}
-		
-		$i--;
-	}
 
-	$limit = $limit + $count;
+			$i--;
+			$limit++;
+		}
+	}
 	
 	return true;
 }
@@ -1719,6 +1730,9 @@ function backuply_restore_curl($info = array()) {
 // Shifts the Config keys from file to db for user below 1.2.0.
 function backuply_keys_to_db(){
 	$config = backuply_get_config();
+	if(isset($config['RESTORE_KEY'])){
+		unset($config['RESTORE_KEY']); // Restore Key gets generated every time a restore is created.
+	}
 
 	update_option('backuply_config_keys', $config);
 	unlink(BACKUPLY_BACKUP_DIR . '/backuply_config.php');

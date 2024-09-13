@@ -4,16 +4,18 @@ Donate link: https://www.webprotect.ai
 Tags:  discontinued
 Requires at least: 4.3
 Tested up to: 6.0.3
-Stable tag: 1.2.6
+Stable tag: 1.2.8
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 The WP Hardening is a one-click tool to fix standard security recommendations on your WordPress website.
 
-== IMPORTANT: This plugin is discontinued ==
+== Discontinuation Notice ==
 
-<strong>This is to inform you that this plugin is no longer being maintained or updated. We have placed a discontinuation request with the WordPress team, and the plugin will soon be 'closed' for new installations.
+<strong>IMPORTANT: This plugin is discontinued</strong>
+
+This is to inform you that this plugin is no longer being maintained or updated. We have placed a discontinuation request with the WordPress team, and the plugin will soon be 'closed' for new installations.
 
 This plugin was launched as a side project and has sadly reached the end of its journey. Thank you for your understanding and for using our plugin. We apologize for any inconvenience this may cause.
 
@@ -23,7 +25,7 @@ This plugin was launched as a side project and has sadly reached the end of its 
 <li><strong>No Support:</strong> Support for this plugin is no longer available.</li>
 </ol>
 
-We recommend that you deactivate and delete this plugin from your WordPress site as soon as possible. Please seek alternative plugins to replace the functionality provided by this plugin.</strong>
+We recommend that you deactivate and delete this plugin from your WordPress site as soon as possible. Please seek alternative plugins to replace the functionality provided by this plugin.
 
 == Description ==
 

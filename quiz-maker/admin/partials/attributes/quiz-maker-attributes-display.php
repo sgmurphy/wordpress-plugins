@@ -28,7 +28,7 @@
                             ); ?>
                         </p>
                         <div>
-                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                         </div>
                     </div>
                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=custom-field-list-table">

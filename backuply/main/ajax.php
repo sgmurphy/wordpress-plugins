@@ -322,7 +322,7 @@ function backuply_restore_response($is_last = false) {
 	
 	$keepalive = (int) time() + 25;
 
-	if(!backuply_verify_self(backuply_optreq('security'))){
+	if(!backuply_verify_self(backuply_optreq('security'), true)){
 		backuply_status_log('Security Check Failed', 'error');
 		die();
 	}
@@ -331,8 +331,9 @@ function backuply_restore_response($is_last = false) {
 		$session_data = array('time' => time(), 'key' => backuply_optreq('sess_key'), 'user_id' => backuply_optreq('user_id'));
 	
 		update_option('backuply_restore_session_key', $session_data, false);
-		
 		backuply_status_log('Repairing database serialization', 'info', 78);
+
+		// NOTE:: If you add any table here make sure to update the same in the backuply_wp_clone_sql function as well.
 		$clones = ['options' => 'option', 'postmeta' => 'meta', 'commentmeta' => 'meta'];
 		backuply_update_serialization($keepalive, $clones);
 	}
@@ -413,7 +414,7 @@ Backuply';
 	backuply_delete_rinfo_on_restore();
 	backuply_copy_log_file(true);
 	backuply_clean_restoration_file();
-	
+
 	die();
 }
 
@@ -423,7 +424,6 @@ function backuply_update_serialization($keepalive, $options = array(), $i = null
 	if(!function_exists('backuply_wp_clone_sql')){
 		include_once BACKUPLY_DIR . '/functions.php';
 	}
-	
 
 	$keys = array_keys($options);
 	$repair_log = get_option('backuply_sql_repair_log');
@@ -437,9 +437,11 @@ function backuply_update_serialization($keepalive, $options = array(), $i = null
 
 	if(!is_numeric($res)) {
 		delete_option('backuply_sql_repair_log');
-		unset($options[$keys[0]]);
+		if(isset($options[$keys[0]])){
+			unset($options[$keys[0]]);
+		}
 	}
-	
+
 	if($res === false){
 		backuply_status_log('Something went wrong while repairing database', 'error');
 		die();
@@ -452,8 +454,8 @@ function backuply_update_serialization($keepalive, $options = array(), $i = null
 	}
 	
 	$config = backuply_get_config();
-	if(empty($config['BACKUPLY_KEY'])){
-		backuply_status_log('Backuply key not found!', 'error');
+	if(empty($config['RESTORE_KEY'])){
+		backuply_status_log('Restore key not found!', 'error');
 		die();
 	}
 	
@@ -476,7 +478,7 @@ function backuply_update_serialization($keepalive, $options = array(), $i = null
 		$body['i'] = $res;
 	}
 	
-	$url = admin_url('admin-ajax.php'). '?action=backuply_update_serialization&security='. $config['BACKUPLY_KEY'];
+	$url = admin_url('admin-ajax.php'). '?action=backuply_update_serialization&security='. $config['RESTORE_KEY'];
 	
 	wp_remote_post($url, array(
 		'body' => $body,
@@ -492,7 +494,7 @@ function backuply_update_serialization($keepalive, $options = array(), $i = null
 function backuply_update_serialization_ajax() {
 
 	//Security Check
-	if(!backuply_verify_self(backuply_optreq('security'))){
+	if(!backuply_verify_self(backuply_optreq('security'), true)){
 		backuply_status_log('Security Check Failed', 'error');
 		die();
 	}
@@ -502,10 +504,10 @@ function backuply_update_serialization_ajax() {
 	
 	$keepalive = time() + 25;
 
+	$i = !empty(backuply_optpost('i')) ? (int) backuply_optpost('i') : null;
+	$options = map_deep(wp_unslash($_POST['options']), 'sanitize_text_field');
 	
-	$i = !empty(backuply_optpost('i')) ? backuply_optpost('i') : null;
-	
-	backuply_update_serialization($keepalive, sanitize_post($_POST['options']) ,$i);
+	backuply_update_serialization($keepalive, $options, $i);
 }
 
 function backuply_get_restore_key(){
@@ -537,7 +539,7 @@ function backuply_get_restore_key(){
 function backuply_creating_session(){
 	
 	// Security Check
-	if(!backuply_verify_self(backuply_optreq('security'))){
+	if(!backuply_verify_self(backuply_optreq('security'), true)){
 		backuply_status_log('Security Check Failed', 'error');
 		die();
 	}
@@ -573,7 +575,7 @@ function backuply_creating_session(){
 		$username = $user->user_login;
 		$user = get_user_by('login', $username);
 	}
-	
+
 	if(isset($user) && is_object($user) && property_exists($user, 'ID')){
 		clean_user_cache(get_current_user_id());
 		clean_user_cache($user->ID);

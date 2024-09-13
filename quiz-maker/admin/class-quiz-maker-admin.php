@@ -1713,7 +1713,7 @@ class Quiz_Maker_Admin
                             $pro_content[] = '</p>';
 
                             $pro_content[] = '<div>';
-                                $pro_content[] = '<a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"> '. __("See Documentation", $this->plugin_name). '</a>';
+                                $pro_content[] = '<a href="https://quiz-plugin.com/docs/" target="_blank"> '. __("See Documentation", $this->plugin_name). '</a>';
                             $pro_content[] = '</div>';
                         $pro_content[] = '</div>';
 
@@ -1766,7 +1766,7 @@ class Quiz_Maker_Admin
                             $admin_note_content[] = '</p>';
 
                             $admin_note_content[] = '<div>';
-                                $admin_note_content[] = '<a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"> '. __("See Documentation", $this->plugin_name). '</a>';
+                                $admin_note_content[] = '<a href="https://quiz-plugin.com/docs/" target="_blank"> '. __("See Documentation", $this->plugin_name). '</a>';
                             $admin_note_content[] = '</div>';
                         $admin_note_content[] = '</div>';
 
@@ -3770,7 +3770,7 @@ class Quiz_Maker_Admin
         $sidebar_content = '
         <p><strong>' . __( 'For more information:', AYS_QUIZ_NAME ) . '</strong></p>' .
         '<p><a href="https://www.youtube.com/watch?v=oKPOdbZahK0" target="_blank">' . __( 'YouTube video tutorials' , AYS_QUIZ_NAME ) . '</a></p>' .
-        '<p><a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank">' . __( 'Documentation', AYS_QUIZ_NAME ) . '</a></p>' .
+        '<p><a href="https://quiz-plugin.com/docs/" target="_blank">' . __( 'Documentation', AYS_QUIZ_NAME ) . '</a></p>' .
         '<p><a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank">' . __( 'Quiz Maker plugin premium version', AYS_QUIZ_NAME ) . '</a></p>' .
         '<p><a href="https://quiz-plugin.com/wordpress-quiz-plugin-free-demo" target="_blank">' . __( 'Quiz Maker plugin free demo', AYS_QUIZ_NAME ) . '</a></p>';
 

@@ -441,7 +441,7 @@ class dtk_Ajax_Load {
     ob_start();
         $document->print_elements_with_wrapper( $data );
     $content = ob_get_clean();
-    echo $this->clean_response($content,$id);
+    echo esc_html( $this->clean_response($content,$id) );
 
     \Elementor\Plugin::$instance->documents->restore_document();
     $wp_query->query_vars = $query_vars;

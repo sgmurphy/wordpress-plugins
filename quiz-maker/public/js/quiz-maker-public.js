@@ -941,9 +941,11 @@
                             $(e.target).parents('.ays-field').addClass('correct_div checked_answer_div');
                             $(e.target).next('label').addClass('correct answered');
 
-                            if(myOptions.answers_rw_texts && (myOptions.answers_rw_texts == 'on_passing' || myOptions.answers_rw_texts == 'on_both')){
-                                if(! $(e.target).parents('.step').hasClass('not_influence_to_score')){
-                                    $(e.target).parents().eq(3).find('.right_answer_text').slideDown(250);
+                            if(myOptions.answers_rw_texts && (myOptions.answers_rw_texts == 'on_passing' || myOptions.answers_rw_texts == 'on_both' || myOptions.answers_rw_texts == 'disable' || myOptions.answers_rw_texts == 'on_results_page')){
+                                if( myOptions.answers_rw_texts != 'on_results_page' ){
+                                    if(! $(e.target).parents('.step').hasClass('not_influence_to_score')){
+                                        $(e.target).parents().eq(3).find('.right_answer_text').slideDown(250);
+                                    }
                                 }
                                 explanationTimeout = setTimeout(function(){
                                     if (checked_inputs.parents('div[data-question-id]').find('input.ays_next').hasClass('ays_display_none') && checked_inputs.parents('div[data-question-id]').find('i.ays_next_arrow').hasClass('ays_display_none')) {
@@ -972,9 +974,11 @@
                             $(e.target).parents('.ays-quiz-answers').find('input[name="ays_answer_correct[]"][value="1"]').next().next().addClass('correct answered');
                             $(e.target).parents('.ays-field').addClass('wrong_div');
                             
-                            if(myOptions.answers_rw_texts && (myOptions.answers_rw_texts == 'on_passing' || myOptions.answers_rw_texts == 'on_both')){
-                                if(! $(e.target).parents('.step').hasClass('not_influence_to_score')){
-                                    $(e.target).parents().eq(3).find('.wrong_answer_text').slideDown(250);
+                            if(myOptions.answers_rw_texts && (myOptions.answers_rw_texts == 'on_passing' || myOptions.answers_rw_texts == 'on_both' || myOptions.answers_rw_texts == 'disable' || myOptions.answers_rw_texts == 'on_results_page')){
+                                if( myOptions.answers_rw_texts != 'on_results_page' ){
+                                    if(! $(e.target).parents('.step').hasClass('not_influence_to_score')){
+                                        $(e.target).parents().eq(3).find('.wrong_answer_text').slideDown(250);
+                                    }
                                 }
                                 explanationTimeout = setTimeout(function(){
                                     if (checked_inputs.parents('div[data-question-id]').find('input.ays_next').hasClass('ays_display_none') && 

@@ -121,6 +121,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 2.7.6.4 =
+رفع مشکل
+
 = 2.7.6.3 =
 اضافه شدن ترجمه المنتور و المنتور پرو 3.24
 

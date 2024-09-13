@@ -17,7 +17,7 @@ $plus_icon_svg = "<span class=''><img src='". AYS_QUIZ_ADMIN_URL ."/images/icons
 <div class="wrap ays-quiz-list-table ays_questions_list_table">
     <div class="ays-quiz-heading-box">
         <div class="ays-quiz-wordpress-user-manual-box">
-            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
         </div>
     </div>
     <h1 class="wp-heading-inline">
@@ -78,7 +78,7 @@ $plus_icon_svg = "<span class=''><img src='". AYS_QUIZ_ADMIN_URL ."/images/icons
                             ); ?>
                         </p>
                         <div>
-                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                         </div>
                     </div>
                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=question-export-import">
@@ -101,7 +101,7 @@ $plus_icon_svg = "<span class=''><img src='". AYS_QUIZ_ADMIN_URL ."/images/icons
                             <?php echo __("The feature allows you to save time by exporting and importing already-created questions quickly and easily. You can download the example file formats (XLSX, CSV, JSON, Simple XLSX), add your questions/answers there, and import the file to the plugin. You just need to make sure that the file you are importing has the same structure as our example file.", $this->plugin_name); ?>
                         </p>
                         <div>
-                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                         </div>
                     </div>
                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=question-export-import">

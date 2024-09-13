@@ -3,15 +3,19 @@ Contributors: tychesoftwares
 Donate link: https://www.paypal.me/TycheSoftwares
 Tags: woocommerce, payment, gateway, fee, discount
 Requires at least: 4.4
-Tested up to: 6.5.5
+Tested up to: 6.6.2
 Stable tag: 2.13.0
 Requires PHP: 7.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Set fees and discounts for WooCommerce payment gateways.
+Set extra fees or discounts for WooCommerce payment gateways and custom payment gateways. Additional fees can be set globally or per product basis.
 
 == Description ==
+
+> ###🚀&nbsp;&nbsp;New Launch: Flexi BOGO for WooCommerce
+>
+> The only BOGO plugin with a revenue tracking feature. **Now, at an attractive introductory price**. [Check out our new plugin here](https://www.tychesoftwares.com/products/woocommerce-flexi-bogo-plugin/?utm_source=wprepo&utm_medium=pluginpagetop&utm_campaign=WCPGBasedFees).
 
 **[Payment Gateway Based Fees and Discounts for WooCommerce](https://www.tychesoftwares.com/store/premium-plugins/payment-gateway-based-fees-and-discounts-for-woocommerce-plugin/?utm_source=wprepo&utm_medium=topprolink&utm_campaign=WCPGBasedFees)** plugin extends WooCommerce by adding options to set **fees or discounts based on customer selected payment gateway**.
 
@@ -41,6 +45,8 @@ Plugin requires **minimum setup**: after enabling the fee/discount for selected 
 * customer countries and more.
 
 ### Some of our Pro plugins
+
+1. **[Flexi BOGO for WooCommerce](https://www.tychesoftwares.com/products/woocommerce-flexi-bogo-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=WCPGBasedFees "Flexi BOGO for WooCommerce")**
 
 1. **[Payment Gateway Based Fees and Discounts for WooCommerce - Pro](https://www.tychesoftwares.com/store/premium-plugins/payment-gateway-based-fees-and-discounts-for-woocommerce-plugin/?utm_source=wprepo&utm_medium=link&utm_campaign=WCPGBasedFees "Payment Gateway Based Fees and Discounts for WooCommerce - Pro")**
 

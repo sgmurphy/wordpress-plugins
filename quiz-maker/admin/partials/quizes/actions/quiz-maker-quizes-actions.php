@@ -1382,7 +1382,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             <input type="hidden" class="quiz_wp_editor_height" value="<?php echo $quiz_wp_editor_height; ?>">
             <div class="ays-quiz-heading-box">
                 <div class="ays-quiz-wordpress-user-manual-box">
-                    <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
+                    <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("View Documentation", $this->plugin_name); ?></a>
                 </div>
             </div>
             <h1 class="wp-heading-inline">
@@ -6069,7 +6069,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                 <?php echo __("You just need to configure the calculation system depending on the type of quiz you want to create.", $this->plugin_name); ?>
                                             </p>
                                             <div>
-                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                             </div>
                                         </div>
                                         <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-calculate-score">
@@ -7262,7 +7262,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                 <?php echo __("By using this feature, you can display what percentage of which personality traits the particular user has.", $this->plugin_name); ?>
                                             </p>
                                             <div>
-                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                             </div>
                                         </div>
                                         <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-top-keywords">
@@ -7440,7 +7440,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                         <?php echo __("Write warning messages, redirect them to your desired URL and all this just in one feature.", $this->plugin_name); ?>
                                                     </p>
                                                     <div>
-                                                        <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("Learn More", $this->plugin_name); ?></a>
+                                                        <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("Learn More", $this->plugin_name); ?></a>
                                                     </div>
                                                 </div>
                                                 <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-attempts-count">
@@ -7594,7 +7594,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                             <?php echo __("If this option is enabled, and the user tries to open the quiz in more than one tab simultaneously, the quiz will not be opened.", $this->plugin_name); ?>
                                                         </p>
                                                         <div>
-                                                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                                         </div>
                                                     </div>
                                                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-extra-security">
@@ -7795,7 +7795,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                 ); ?>
                                             </p>
                                             <div>
-                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                             </div>
                                         </div>
                                         <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-only-selected-users">
@@ -8175,7 +8175,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                             ); ?>
                                         </p>
                                         <div>
-                                            <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                            <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                         </div>
                                     </div>
                                     <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-custom-field-option">
@@ -8304,7 +8304,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                 ); ?>
                                             </p>
                                             <div>
-                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                             </div>
                                         </div>
                                         <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-user">
@@ -8583,7 +8583,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                                 ); ?>
                                             </p>
                                             <div>
-                                                <a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
+                                                <a href="https://quiz-plugin.com/docs/" target="_blank"><?php echo __("See Documentation", $this->plugin_name); ?></a>
                                             </div>
                                         </div>
                                         <div class="pro-features-popup-button" data-link="https://ays-pro.com/wordpress/quiz-maker?utm_source=dashboard&utm_medium=quiz-free&utm_campaign=pro-popup-send-mail-to-admin">
@@ -8787,638 +8787,638 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
             </div>
             
             <div id="tab8" class="ays-integrations-tab ays-quiz-tab-content <?php echo ($ays_quiz_tab == 'tab8') ? 'ays-quiz-tab-content-active' : ''; ?>">
-              <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
-                <div class="ays-quiz-accordion-container">
-                    <?php echo $quiz_accordion_svg_html; ?>
-                    <p class="ays-subtitle"><?php echo __('Integrations settings',$this->plugin_name)?></p>
+                <div class="ays-quiz-accordion-options-main-container" data-collapsed="false">
+                    <div class="ays-quiz-accordion-container">
+                        <?php echo $quiz_accordion_svg_html; ?>
+                        <p class="ays-subtitle"><?php echo __('Integrations settings',$this->plugin_name)?></p>
+                    </div>
+                    <hr class="ays-quiz-bolder-hr"/>
+                    <div class="ays-quiz-accordion-options-box">
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/mailchimp_logo.png" alt="">
+                                <h5><?php echo __('MailChimp Settings',$this->plugin_name)?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
+                                        <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                            <a href="https://www.youtube.com/watch?v=joPQrsF0a60" target="_blank">
+                                                <?php echo __("How to integrate MailChimp - video", $this->plugin_name); ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+                                        
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_mailchimp">
+                                                <?php echo __('Enable MailChimp',$this->plugin_name)?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_mailchimp"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_mailchimp_list">
+                                                <?php echo __('MailChimp list',$this->plugin_name)?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select id="ays_mailchimp_list" class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected>Select list</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_double_opt_in">
+                                                <?php echo __('Enable double opt-in',$this->plugin_name)?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="checkbox" class="ays-enable-timer1"/>
+                                            <span class="ays_option_description"><?php echo __( 'Send contacts an opt-in confirmation email when their email address added to the list.', $this->plugin_name ); ?></span>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- MailChimp Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/paypal_logo.png" alt="">
+                                <h5><?php echo __('PayPal Settings',$this->plugin_name)?></h5>
+                            </legend>                    
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
+                                        <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
+                                            <a href="https://www.youtube.com/watch?v=IwT-2d9OE1g" target="_blank">
+                                                <?php echo __("How to integrate PayPal - video", $this->plugin_name); ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+                                        
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_paypal">
+                                                <?php echo __('Enable PayPal',$this->plugin_name)?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_paypal" value="on"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_paypal_amount">
+                                                <?php echo __('Amount',$this->plugin_name)?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="ays-text-input ays-text-input-short" id="ays_paypal_amount" value="20"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_paypal_currency">
+                                                <?php echo __('Currency',$this->plugin_name)?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select id="ays_paypal_currency" class="ays-text-input ays-text-input-short">
+                                                <option>USD - <?php echo __( 'United States Dollar', $this->plugin_name ); ?></option>
+                                                <option>EUR - <?php echo __( 'Euro', $this->plugin_name ); ?></option>
+                                                <option>GBP - <?php echo __( 'British Pound Sterling', $this->plugin_name ); ?></option>
+                                                <option>AUD - <?php echo __( 'Australian dollar', $this->plugin_name ); ?></option>
+                                                <option>CHF - <?php echo __( 'Swiss Franc', $this->plugin_name ); ?></option>
+                                                <option>JPY - <?php echo __( 'Japanese Yen', $this->plugin_name ); ?></option>
+                                                <option>INR - <?php echo __( 'Indian Rupee', $this->plugin_name ); ?></option>
+                                                <option>CNY - <?php echo __( 'Chinese Yuan', $this->plugin_name ); ?></option>
+                                                <option>CAD - <?php echo __( 'Canadian Dollar', $this->plugin_name ); ?></option>
+                                                <option>AED - <?php echo __( 'United Arab Emirates Dirham', $this->plugin_name ); ?></option>
+                                                <option>RUB - <?php echo __( 'Russian Ruble', $this->plugin_name ); ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_stripe_currency">
+                                                <?php echo __('Payment details',$this->plugin_name); ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <textarea type="text" class="ays-textarea ays-disable-setting" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade to Developer/Agency", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- PayPal Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/stripe_logo.png" alt="">
+                                <h5><?php echo __('Stripe Settings',$this->plugin_name)?></h5>
+                            </legend>
+                            <div class="col-sm-12 only_pro" style="padding:20px;">
+                                <div class="pro_features" style="justify-content:flex-end;">
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_enable_stripe">
+                                            <?php echo __('Enable Stripe',$this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="checkbox" class="ays-enable-timer1" />
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_stripe_amount">
+                                            <?php echo __('Amount',$this->plugin_name)?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="ays-text-input ays-text-input-short" />
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_stripe_currency">
+                                            <?php echo __('Currency',$this->plugin_name)?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <select class="ays-text-input ays-text-input-short">
+                                            <option>USD - <?php echo __( 'United States Dollar', $this->plugin_name ); ?></option>
+                                            <option>EUR - <?php echo __( 'Euro', $this->plugin_name ); ?></option>
+                                            <option>GBP - <?php echo __( 'British Pound Sterling', $this->plugin_name ); ?></option>
+                                            <option>AUD - <?php echo __( 'Australian dollar', $this->plugin_name ); ?></option>
+                                            <option>CHF - <?php echo __( 'Swiss Franc', $this->plugin_name ); ?></option>
+                                            <option>JPY - <?php echo __( 'Japanese Yen', $this->plugin_name ); ?></option>
+                                            <option>INR - <?php echo __( 'Indian Rupee', $this->plugin_name ); ?></option>
+                                            <option>CNY - <?php echo __( 'Chinese Yuan', $this->plugin_name ); ?></option>
+                                            <option>CAD - <?php echo __( 'Canadian Dollar', $this->plugin_name ); ?></option>
+                                            <option>AED - <?php echo __( 'United Arab Emirates Dirham', $this->plugin_name ); ?></option>
+                                            <option>RUB - <?php echo __( 'Russian Ruble', $this->plugin_name ); ?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_stripe_currency">
+                                            <?php echo __('Payment details',$this->plugin_name); ?>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <textarea type="text" class="ays-textarea ays-disable-setting" disabled></textarea>
+                                    </div>
+                                </div>
+                                <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade to Developer/Agency", "quiz-maker"); ?></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </fieldset> <!-- Stripe Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/recaptcha_logo.png" alt="">
+                                <h5><?php echo __('reCAPTCHA Settings',$this->plugin_name)?></h5>
+                            </legend>
+                            <div class="col-sm-12 only_pro" style="padding:20px;">
+                                <div class="pro_features" style="justify-content:flex-end;">
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <label for="ays_quiz_enable_recaptcha"><?php echo __('Enable reCAPTCHA', $this->plugin_name) ?></label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="checkbox" class="ays-enable-timer1"/>
+                                    </div>
+                                </div>
+                                <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                    <div class="ays-quiz-new-upgrade-button-box">
+                                        <div>
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                            <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                        </div>
+                                        <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade to Developer/Agency", "quiz-maker"); ?></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </fieldset> <!-- Stripe Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>                        
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/campaignmonitor_logo.png" alt="">
+                                <h5><?php echo __('Campaign Monitor Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+                                        
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_monitor">
+                                                <?php echo __('Enable Campaign Monitor', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_monitor"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_monitor_list">
+                                                <?php echo __('Campaign Monitor list', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select id="ays_monitor_list" class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- Campaign Monitor Settings -->
+                        <hr/>                
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/zapier_logo.png" alt="">
+                                <h5><?php echo __('Zapier Integration Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+           
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_zapier">
+                                                <?php echo __('Enable Zapier Integration', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_zapier"/>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <button type="button" id="testZapier" class="btn btn-outline-secondary">
+                                                <?= __("Send test data", $this->plugin_name) ?>
+                                            </button>
+                                            <a class="ays_help" data-toggle="tooltip" style="font-size: 16px;"
+                                               title="<?= __('We will send you a test data, and you can catch it in your ZAP for configure it.', $this->plugin_name) ?>">
+                                                <i class="ays_fa ays_fa_info_circle"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div id="testZapierFields" class="d-none">
+                                        <input type="checkbox"/>
+                                        <input type="checkbox"/>
+                                        <input type="checkbox"/>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- Zapier Integration Settings -->
+                        <hr/>                
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/activecampaign_logo.png" alt="">
+                                <h5><?php echo __('ActiveCampaign Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_active_camp">
+                                                <?php echo __('Enable ActiveCampaign', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_active_camp"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_active_camp_list">
+                                                <?php echo __('ActiveCampaign list', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select id="ays_active_camp_list" class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
+                                                <option value=""><?= __("Just create contact", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_active_camp_automation">
+                                                <?php echo __('ActiveCampaign automation', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select id="ays_active_camp_automation" class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
+                                                <option value=""><?= __("Just create contact", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- ActiveCampaign Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/slack_logo.png" alt="">
+                                <h5><?php echo __('Slack Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+          
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_slack">
+                                                <?php echo __('Enable Slack integration', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_slack"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_slack_conversation">
+                                                <?php echo __('Slack conversation', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select id="ays_slack_conversation" class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select Channel", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- Slack Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/sheets_logo.png" alt="">
+                                <h5><?php echo __('Google Sheet Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <hr/>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label for="ays_enable_google">
+                                                <?php echo __('Enable Google integration', $this->plugin_name) ?>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1" id="ays_enable_google" value="on" />
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- Google Sheets -->
+                        <hr/>
+                        <fieldset>
+                            <legend>                        
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/mad-mimi-logo.png" alt="">
+                                <h5><?php echo __('Mad Mimi Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label><?php echo __('Enable Mad Mimi', $this->plugin_name); ?></label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label><?php echo __('Select List', $this->plugin_name); ?></label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- Mad Mimi Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>                        
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/convertkit_logo.png" alt="">
+                                <h5><?php echo __('ConvertKit Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label ><?php echo __('Enable ConvertKit', $this->plugin_name); ?></label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label><?php echo __('ConvertKit List', $this->plugin_name); ?></label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- ConvertKit Settings -->
+                        <hr/>
+                        <fieldset>
+                            <legend>                        
+                                <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/get_response.png" alt="">
+                                <h5><?php echo __('GetResponse Settings', $this->plugin_name) ?></h5>
+                            </legend>
+                            <div class="form-group row">
+                                <div class="col-sm-12 only_pro" style="padding:20px;">
+                                    <div class="pro_features" style="justify-content:flex-end;">
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label><?php echo __('Enable GetResponse', $this->plugin_name); ?></label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <input type="checkbox" class="ays-enable-timer1"/>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-4">
+                                            <label><?php echo __('GetResponse List', $this->plugin_name); ?></label>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <select class="ays-text-input ays-text-input-short">
+                                                <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
+                                        <div class="ays-quiz-new-upgrade-button-box">
+                                            <div>
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
+                                                <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
+                                            </div>
+                                            <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </fieldset> <!-- GetResponse Settings -->
+                        <?php
+                            if(has_action('ays_qm_quiz_page_integrations')){
+                                $args = apply_filters( 'ays_qm_quiz_page_integrations_options', array(), $options );
+                                do_action( 'ays_qm_quiz_page_integrations', $args);
+                            }
+                        ?>
+                    </div>
                 </div>
-                <hr class="ays-quiz-bolder-hr"/>
-               <div class="ays-quiz-accordion-options-box">
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/mailchimp_logo.png" alt="">
-                        <h5><?php echo __('MailChimp Settings',$this->plugin_name)?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
-                                <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                                    <a href="https://www.youtube.com/watch?v=joPQrsF0a60" target="_blank">
-                                        <?php echo __("How to integrate MailChimp - video", $this->plugin_name); ?>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-                                
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_mailchimp">
-                                        <?php echo __('Enable MailChimp',$this->plugin_name)?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_mailchimp"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_mailchimp_list">
-                                        <?php echo __('MailChimp list',$this->plugin_name)?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="ays_mailchimp_list" class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected>Select list</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_double_opt_in">
-                                        <?php echo __('Enable double opt-in',$this->plugin_name)?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="checkbox" class="ays-enable-timer1"/>
-                                    <span class="ays_option_description"><?php echo __( 'Send contacts an opt-in confirmation email when their email address added to the list.', $this->plugin_name ); ?></span>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- MailChimp Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/paypal_logo.png" alt="">
-                        <h5><?php echo __('PayPal Settings',$this->plugin_name)?></h5>
-                    </legend>                    
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <div class="ays-quiz-heading-box ays-quiz-unset-float ays-quiz-unset-margin">
-                                <div class="ays-quiz-wordpress-user-manual-box ays-quiz-wordpress-text-align">
-                                    <a href="https://www.youtube.com/watch?v=IwT-2d9OE1g" target="_blank">
-                                        <?php echo __("How to integrate PayPal - video", $this->plugin_name); ?>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 only_pro ays-quiz-margin-top-20" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-                                
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_paypal">
-                                        <?php echo __('Enable PayPal',$this->plugin_name)?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_paypal" value="on"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_paypal_amount">
-                                        <?php echo __('Amount',$this->plugin_name)?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <input type="text" class="ays-text-input ays-text-input-short" id="ays_paypal_amount" value="20"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_paypal_currency">
-                                        <?php echo __('Currency',$this->plugin_name)?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="ays_paypal_currency" class="ays-text-input ays-text-input-short">
-                                        <option>USD - <?php echo __( 'United States Dollar', $this->plugin_name ); ?></option>
-                                        <option>EUR - <?php echo __( 'Euro', $this->plugin_name ); ?></option>
-                                        <option>GBP - <?php echo __( 'British Pound Sterling', $this->plugin_name ); ?></option>
-                                        <option>AUD - <?php echo __( 'Australian dollar', $this->plugin_name ); ?></option>
-                                        <option>CHF - <?php echo __( 'Swiss Franc', $this->plugin_name ); ?></option>
-                                        <option>JPY - <?php echo __( 'Japanese Yen', $this->plugin_name ); ?></option>
-                                        <option>INR - <?php echo __( 'Indian Rupee', $this->plugin_name ); ?></option>
-                                        <option>CNY - <?php echo __( 'Chinese Yuan', $this->plugin_name ); ?></option>
-                                        <option>CAD - <?php echo __( 'Canadian Dollar', $this->plugin_name ); ?></option>
-                                        <option>AED - <?php echo __( 'United Arab Emirates Dirham', $this->plugin_name ); ?></option>
-                                        <option>RUB - <?php echo __( 'Russian Ruble', $this->plugin_name ); ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_stripe_currency">
-                                        <?php echo __('Payment details',$this->plugin_name); ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <textarea type="text" class="ays-textarea ays-disable-setting" disabled></textarea>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade to Developer/Agency", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- PayPal Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/stripe_logo.png" alt="">
-                        <h5><?php echo __('Stripe Settings',$this->plugin_name)?></h5>
-                    </legend>
-                    <div class="col-sm-12 only_pro" style="padding:20px;">
-                        <div class="pro_features" style="justify-content:flex-end;">
-
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_enable_stripe">
-                                    <?php echo __('Enable Stripe',$this->plugin_name); ?>
-                                </label>
-                            </div>
-                            <div class="col-sm-1">
-                                <input type="checkbox" class="ays-enable-timer1" />
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_stripe_amount">
-                                    <?php echo __('Amount',$this->plugin_name)?>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <input type="text" class="ays-text-input ays-text-input-short" />
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_stripe_currency">
-                                    <?php echo __('Currency',$this->plugin_name)?>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <select class="ays-text-input ays-text-input-short">
-                                    <option>USD - <?php echo __( 'United States Dollar', $this->plugin_name ); ?></option>
-                                    <option>EUR - <?php echo __( 'Euro', $this->plugin_name ); ?></option>
-                                    <option>GBP - <?php echo __( 'British Pound Sterling', $this->plugin_name ); ?></option>
-                                    <option>AUD - <?php echo __( 'Australian dollar', $this->plugin_name ); ?></option>
-                                    <option>CHF - <?php echo __( 'Swiss Franc', $this->plugin_name ); ?></option>
-                                    <option>JPY - <?php echo __( 'Japanese Yen', $this->plugin_name ); ?></option>
-                                    <option>INR - <?php echo __( 'Indian Rupee', $this->plugin_name ); ?></option>
-                                    <option>CNY - <?php echo __( 'Chinese Yuan', $this->plugin_name ); ?></option>
-                                    <option>CAD - <?php echo __( 'Canadian Dollar', $this->plugin_name ); ?></option>
-                                    <option>AED - <?php echo __( 'United Arab Emirates Dirham', $this->plugin_name ); ?></option>
-                                    <option>RUB - <?php echo __( 'Russian Ruble', $this->plugin_name ); ?></option>
-                                </select>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_stripe_currency">
-                                    <?php echo __('Payment details',$this->plugin_name); ?>
-                                </label>
-                            </div>
-                            <div class="col-sm-8">
-                                <textarea type="text" class="ays-textarea ays-disable-setting" disabled></textarea>
-                            </div>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade to Developer/Agency", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                    </div>
-                </fieldset> <!-- Stripe Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/recaptcha_logo.png" alt="">
-                        <h5><?php echo __('reCAPTCHA Settings',$this->plugin_name)?></h5>
-                    </legend>
-                    <div class="col-sm-12 only_pro" style="padding:20px;">
-                        <div class="pro_features" style="justify-content:flex-end;">
-                            
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="ays_quiz_enable_recaptcha"><?php echo __('Enable reCAPTCHA', $this->plugin_name) ?></label>
-                            </div>
-                            <div class="col-sm-1">
-                                <input type="checkbox" class="ays-enable-timer1"/>
-                            </div>
-                        </div>
-                        <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                            <div class="ays-quiz-new-upgrade-button-box">
-                                <div>
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                    <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                </div>
-                                <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade to Developer/Agency", "quiz-maker"); ?></div>
-                            </div>
-                        </a>
-                    </div>
-                </fieldset> <!-- Stripe Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>                        
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/campaignmonitor_logo.png" alt="">
-                        <h5><?php echo __('Campaign Monitor Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-                                
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_monitor">
-                                        <?php echo __('Enable Campaign Monitor', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_monitor"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_monitor_list">
-                                        <?php echo __('Campaign Monitor list', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="ays_monitor_list" class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- Campaign Monitor Settings -->
-                <hr/>                
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/zapier_logo.png" alt="">
-                        <h5><?php echo __('Zapier Integration Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-   
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_zapier">
-                                        <?php echo __('Enable Zapier Integration', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_zapier"/>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button type="button" id="testZapier" class="btn btn-outline-secondary">
-                                        <?= __("Send test data", $this->plugin_name) ?>
-                                    </button>
-                                    <a class="ays_help" data-toggle="tooltip" style="font-size: 16px;"
-                                       title="<?= __('We will send you a test data, and you can catch it in your ZAP for configure it.', $this->plugin_name) ?>">
-                                        <i class="ays_fa ays_fa_info_circle"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div id="testZapierFields" class="d-none">
-                                <input type="checkbox"/>
-                                <input type="checkbox"/>
-                                <input type="checkbox"/>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- Zapier Integration Settings -->
-                <hr/>                
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/activecampaign_logo.png" alt="">
-                        <h5><?php echo __('ActiveCampaign Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_active_camp">
-                                        <?php echo __('Enable ActiveCampaign', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_active_camp"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_active_camp_list">
-                                        <?php echo __('ActiveCampaign list', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="ays_active_camp_list" class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
-                                        <option value=""><?= __("Just create contact", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_active_camp_automation">
-                                        <?php echo __('ActiveCampaign automation', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="ays_active_camp_automation" class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
-                                        <option value=""><?= __("Just create contact", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- ActiveCampaign Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/slack_logo.png" alt="">
-                        <h5><?php echo __('Slack Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-  
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_slack">
-                                        <?php echo __('Enable Slack integration', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_slack"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_slack_conversation">
-                                        <?php echo __('Slack conversation', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select id="ays_slack_conversation" class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select Channel", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- Slack Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/sheets_logo.png" alt="">
-                        <h5><?php echo __('Google Sheet Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <hr/>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label for="ays_enable_google">
-                                        <?php echo __('Enable Google integration', $this->plugin_name) ?>
-                                    </label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1" id="ays_enable_google" value="on" />
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- Google Sheets -->
-                <hr/>
-                <fieldset>
-                    <legend>                        
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/mad-mimi-logo.png" alt="">
-                        <h5><?php echo __('Mad Mimi Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label><?php echo __('Enable Mad Mimi', $this->plugin_name); ?></label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label><?php echo __('Select List', $this->plugin_name); ?></label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- Mad Mimi Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>                        
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/convertkit_logo.png" alt="">
-                        <h5><?php echo __('ConvertKit Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label ><?php echo __('Enable ConvertKit', $this->plugin_name); ?></label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label><?php echo __('ConvertKit List', $this->plugin_name); ?></label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- ConvertKit Settings -->
-                <hr/>
-                <fieldset>
-                    <legend>                        
-                        <img class="ays_integration_logo" src="<?php echo AYS_QUIZ_ADMIN_URL; ?>/images/integrations/get_response.png" alt="">
-                        <h5><?php echo __('GetResponse Settings', $this->plugin_name) ?></h5>
-                    </legend>
-                    <div class="form-group row">
-                        <div class="col-sm-12 only_pro" style="padding:20px;">
-                            <div class="pro_features" style="justify-content:flex-end;">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label><?php echo __('Enable GetResponse', $this->plugin_name); ?></label>
-                                </div>
-                                <div class="col-sm-1">
-                                    <input type="checkbox" class="ays-enable-timer1"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-4">
-                                    <label><?php echo __('GetResponse List', $this->plugin_name); ?></label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <select class="ays-text-input ays-text-input-short">
-                                        <option value="" disabled selected><?= __("Select List", $this->plugin_name) ?></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <a href="https://ays-pro.com/wordpress/quiz-maker" target="_blank" class="ays-quiz-new-upgrade-button-link">
-                                <div class="ays-quiz-new-upgrade-button-box">
-                                    <div>
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/locked_24x24.svg'?>">
-                                        <img src="<?php echo AYS_QUIZ_ADMIN_URL.'/images/icons/unlocked_24x24.svg'?>" class="ays-quiz-new-upgrade-button-hover">
-                                    </div>
-                                    <div class="ays-quiz-new-upgrade-button"><?php echo __("Upgrade", "quiz-maker"); ?></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </fieldset> <!-- GetResponse Settings -->
-                <?php
-                    if(has_action('ays_qm_quiz_page_integrations')){
-                        $args = apply_filters( 'ays_qm_quiz_page_integrations_options', array(), $options );
-                        do_action( 'ays_qm_quiz_page_integrations', $args);
-                    }
-                ?>
-               </div>
-              </div>
             </div>
             <!-- <hr>
             <div class="form-group row ays-quiz-general-bundle-container">
@@ -9465,7 +9465,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                     );
                                 $pro_content[] = '</p>';
                                 $pro_content[] = '<div>';
-                                    $pro_content[] = '<a href="https://ays-pro.com/wordpress-quiz-maker-user-manual" target="_blank"> '. __("See Documentation", $this->plugin_name). '</a>';
+                                    $pro_content[] = '<a href="https://quiz-plugin.com/docs/" target="_blank"> '. __("See Documentation", $this->plugin_name). '</a>';
                                 $pro_content[] = '</div>';
                             $pro_content[] = '</div>';
 

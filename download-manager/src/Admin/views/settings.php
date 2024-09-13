@@ -185,7 +185,7 @@ if ( ! defined( "ABSPATH" ) ) {
                     window.history.pushState({
                         "html": res,
                         "pageTitle": "response.pageTitle"
-                    }, "", "edit.php?post_type=wpdmpro&page=settings&tab=" + section);
+                    }, "", "edit.php?post_type=wpdmpro&page=wpdm-settings&tab=" + section);
                     $('#wpdm-lsp').fadeOut(function () {
                         $(this).remove();
                     });

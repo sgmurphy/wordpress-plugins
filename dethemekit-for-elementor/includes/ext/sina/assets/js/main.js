@@ -91,6 +91,15 @@
 			if ( this.el.classList.contains('elementor-section') ) {
 				// Content element.
 				this.content = this.el.querySelector('.elementor-container');
+			} else if ( this.el.dataset.element_type === 'container' ) {
+				// Content element.
+				var container = this.el.querySelector('.elementor-element');
+				if ( container.dataset.element_type === 'container' ) {
+					this.content = container;
+				} else {
+					this.content = this.el.querySelector('.elementor-widget');
+				}
+
 			} else {
 				// Content element.
 				this.content = this.el.querySelector('.elementor-widget-container');
@@ -100,6 +109,12 @@
 				this.content.classList.add('block-revealer__content');
 				if( this.options.isContentHidden) {
 					this.content.style.opacity = 0;
+
+					const nodelist = this.content.querySelectorAll(".elementor-element");
+
+					for (let i = 0; i < nodelist.length; i++) {
+						nodelist[i].style.opacity = 0;
+					}
 				}
 				// Revealer element (the one that animates)
 				this.revealer = createDOMEl('div', 'block-revealer__element');

@@ -233,9 +233,9 @@ class dtk_Skin_Posts extends Skin_Base {
   public function end_grid(){
 
     if($this->grid_settings['current']) for($i = $this->grid_settings['current']; $i < $this->grid_settings['length'];$i++){
-      echo "<!-- start part [".$i."] finishing -->";
-      echo $this->grid[$i];
-      echo "<!-- end part [".$i."] finishing -->";
+      echo esc_html( "<!-- start part [".$i."] finishing -->" );
+      echo esc_html( $this->grid[$i] );
+      echo esc_html( "<!-- end part [".$i."] finishing -->" );
     }
     $this->grid_settings['current'] = 0;
 
@@ -283,7 +283,7 @@ class dtk_Skin_Posts extends Skin_Base {
     $parent_settings[$this->get_id().'_post_slider'] = isset($parent_settings[$this->get_id().'_post_slider'])? $parent_settings[$this->get_id().'_post_slider'] : "";
      if($parent_settings[$this->get_id().'_post_slider'] == "yes") $classes .= ' swiper-slide';
      if ($this->grid_settings['allow']) {
-        echo $this->get_grid();
+        echo esc_html( $this->get_grid() );
         ?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class( [ $classes ] ); ?>>
 		<?php
@@ -316,13 +316,13 @@ class dtk_Skin_Posts extends Skin_Base {
         apply_filters( 'dtk_dynamic_filter', "", $post,"",$this->parent->get_settings());//this is for pre-use of custom values
         $template = $this->get_template();
         $new_template = apply_filters( 'dtk_dynamic_filter', $template, $post,"",$this->parent->get_settings());
-        echo  $new_template ? $new_template : $template;
+        echo  $new_template ? esc_html( $new_template ) : esc_html( $template );
       }
-        else echo $this->get_template(); 
+        else echo esc_html( $this->get_template() ); 
     }
 
-			else  echo '<div style="display:table;border:1px solid #c6ced5; background:#dde1e5; width:100%; height:100%; min-height:200px;text-align:center; padding:20px;"><span style="vertical-align:middle;display: table-cell;color:#8995a0;">'.
-        __( "Please select a default template! ", 'detheme-kit').'</span></div>';
+			else  echo esc_html( '<div style="display:table;border:1px solid #c6ced5; background:#dde1e5; width:100%; height:100%; min-height:200px;text-align:center; padding:20px;"><span style="vertical-align:middle;display: table-cell;color:#8995a0;">' ) .
+        __( "Please select a default template! ", 'detheme-kit') . esc_html( '</span></div>' );
 
     do_action( 'dtk_before_render_post_footer', $this );
 		$this->render_post_footer();
@@ -376,7 +376,7 @@ class dtk_Skin_Posts extends Skin_Base {
       ] );
 
       ?>
-      <div <?php echo $this->parent->get_render_attribute_string( 'container' ); ?>>
+      <div <?php echo esc_html( $this->parent->get_render_attribute_string( 'container' ) ); ?>>
       <?php
 	}
 
@@ -451,7 +451,7 @@ class dtk_Skin_Posts extends Skin_Base {
 
 		?>
 		<nav class="elementor-pagination" role="navigation" aria-label="<?php esc_attr_e( 'Pagination', 'elementor-pro' ); ?>">
-			<?php echo implode( PHP_EOL, $links ); ?>
+			<?php echo esc_html( implode( PHP_EOL, $links ) ); ?>
 		</nav>
 		<?php
 
@@ -472,9 +472,9 @@ class dtk_Skin_Posts extends Skin_Base {
     $target= $this->parent->get_id();
 
 		?>
-		<nav class="ecs-lazyload elementor-pagination" data-targetid="<?php echo $target; ?>">
-            <?php echo $animation; ?>
-			<a href="<?php echo $next_page_link; ?>" >
+		<nav class="ecs-lazyload elementor-pagination" data-targetid="<?php echo esc_attr( $target ); ?>">
+            <?php echo esc_html( $animation ); ?>
+			<a href="<?php echo esc_url( $next_page_link ); ?>" >
         &gt;
       </a>
 		</nav>
@@ -498,9 +498,9 @@ class dtk_Skin_Posts extends Skin_Base {
 		}
 
 		?>
-		<nav class="elementor-button-wrapper elementor-pagination ecs-load-more-button" data-settings="<?php echo $data; ?>">
-			<a href="<?php echo $next_page_link; ?>" class="elementor-button-link elementor-button <?php echo $class; ?>" role="button">
-				<span><?php echo $settings['de_loadmore_text']; ?></span>
+		<nav class="elementor-button-wrapper elementor-pagination ecs-load-more-button" data-settings="<?php echo esc_attr( $data ); ?>">
+			<a href="<?php echo $next_page_link; ?>" class="elementor-button-link elementor-button <?php echo esc_attr( $class ); ?>" role="button">
+				<span><?php echo esc_html( $settings['de_loadmore_text'] ); ?></span>
 			</a>
 		</nav>
 		<?php
@@ -521,7 +521,7 @@ class dtk_Skin_Posts extends Skin_Base {
 
       $message = '<div class="elementor-posts-nothing-found">' . $message . '</div>';
       do_action( 'dtk_not_found', $this );
-      echo  $message;
+      echo esc_html( $message );
       $this->render_loop_footer();
   }
   

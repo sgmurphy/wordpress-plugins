@@ -98,15 +98,15 @@ class Messages {
     public static function download_limit_exceeded($ID = null){
         $message = get_option("__wpdm_download_limit_exceeded");
         $message = self::decode_html($message);
-        $message = wpdm_escs($message);
+	    $message = __::sanitize_var($message, 'kses');
         $message = trim($message) !== '' ? $message : __( "Download Limit Exceeded!", "download-manager" );
         return $message;
     }
 
     public static function login_required($ID = null){
         $message = get_option("wpdm_login_msg");
-        $message = self::decode_html($message);
-        $message = wpdm_escs($message);
+	    $message = self::decode_html($message);
+	    $message = __::sanitize_var($message, 'kses');
         $message = trim($message) !== '' ? $message : WPDM()->user->login->modalLoginFormBtn(['class' => 'btn btn-danger', 'label' => '<i class="fas fa-lock mr-3"></i>'.__( "Login", "download-manager" )]);
         return $message;
     }
@@ -114,7 +114,7 @@ class Messages {
     public static function permission_denied($ID = null, $default = ''){
         $message = get_option("__wpdm_permission_denied_msg");
         $message = self::decode_html($message);
-        $message = wpdm_escs($message);
+	    $message = __::sanitize_var($message, 'kses');
 		if(trim($message === '')) $message = wpdm_escs($default);
         $message = trim($message) !== '' ? $message : WPDM()->ui->button('<i class="fas fa-lock mr-3"></i>'.__( "Access Denied", "download-manager" ), ['class' => 'btn btn-danger']);
         return $message;

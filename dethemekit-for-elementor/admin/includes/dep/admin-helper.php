@@ -89,7 +89,9 @@ class Admin_Helper {
             $actions[ self::DUPLICATE_ACTION ] = sprintf(
                 '<a href="%1$s" title="%2$s"><span class="screen-reader-text">%2$s</span>%3$s</a>',
                 esc_url( self::get_duplicate_url( $post->ID ) ),
-                sprintf( esc_attr__( 'Duplicate - %s', 'dethemekit-addons-for-elementor' ), esc_attr( $post->post_title ) ),
+                sprintf( 
+                    /* translators: 1: post title. */
+                    esc_attr__( 'Duplicate - %1$s', 'dethemekit-addons-for-elementor' ), esc_attr( $post->post_title ) ),
                 __( 'Clone This', 'dethemekit-addons-for-elementor' )
             );
             
@@ -193,7 +195,9 @@ class Admin_Helper {
             'comment_status' => $post->comment_status,
             'to_ping'        => $post->to_ping,
             'post_author'    => $current_user->ID,
-            'post_title'     => sprintf( __( 'Duplicated: %s - [#%d]', 'dethemekit-addons-for-elementor' ), $post->post_title,
+            'post_title'     => sprintf( 
+                /* translators: 1: post title, 2: post ID. */
+                __( 'Duplicated: %1$s - [#%2$d]', 'dethemekit-addons-for-elementor' ), $post->post_title,
                 $post->ID )
         ];
         

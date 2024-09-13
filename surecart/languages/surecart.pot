@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-30T20:38:49+00:00\n"
+"POT-Creation-Date: 2024-09-12T20:08:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -54,7 +54,7 @@ msgstr ""
 #: src/WordPress/Admin/Menus/AdminMenuPageService.php:170
 #: src/WordPress/Admin/Notices/AdminNoticesService.php:104
 #: src/WordPress/Admin/SSLCheck/AdminSSLCheckService.php:31
-#: src/WordPress/CompatibilityService.php:151
+#: src/WordPress/CompatibilityService.php:157
 #: src/WordPress/HealthService.php:32
 #: src/WordPress/HealthService.php:73
 #: src/WordPress/HealthService.php:82
@@ -257,7 +257,7 @@ msgstr ""
 
 #: src/Controllers/Admin/Abandoned/AbandonedCheckoutListTable.php:223
 #: src/Controllers/Admin/Tables/ListTable.php:110
-#: src/WordPress/PostTypes/FormPostTypeService.php:334
+#: src/WordPress/PostTypes/FormPostTypeService.php:339
 #: admin/user-profile.php:10
 #: admin/user-profile.php:18
 #: dashboard/components/RecentOrders.js:184
@@ -867,7 +867,7 @@ msgstr ""
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:52
 #: src/Models/Affiliation.php:136
 #: affiliations/ViewAffiliation.js:212
-#: licenses/modules/Details/index.js:14
+#: licenses/modules/Details/index.js:22
 #: util.js:88
 #: Blocks/Dashboard/CustomerLicenses/edit.js:75
 #: sc-license.js:108
@@ -880,7 +880,7 @@ msgstr ""
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:127
 #: src/Models/Affiliation.php:136
 #: affiliations/ViewAffiliation.js:213
-#: licenses/modules/Details/index.js:20
+#: licenses/modules/Details/index.js:28
 #: util.js:89
 #: sc-license.js:114
 msgid "Inactive"
@@ -940,6 +940,7 @@ msgid "No order bumps found."
 msgstr ""
 
 #: src/Controllers/Admin/Bumps/BumpsListTable.php:194
+#: src/Controllers/Admin/Orders/OrdersListTable.php:244
 #: src/Controllers/Admin/Products/ProductsListTable.php:307
 #: src/Controllers/Admin/Upsells/UpsellsListTable.php:189
 #: invoices/store/entities.js:70
@@ -986,7 +987,7 @@ msgstr ""
 #: coupons/modules/NewRestriction.js:91
 #: invoices/modules/Customer.js:17
 #: invoices/store/entities.js:94
-#: licenses/modules/Customer.js:41
+#: licenses/modules/Customer.js:42
 #: orders/modules/Customer.js:16
 #: store/add-entities.js:88
 #: subscriptions/edit/modules/Customer.js:12
@@ -1051,7 +1052,7 @@ msgstr ""
 #: abandoned-checkouts/modules/Customer.js:26
 #: checkouts/modules/SelectCustomer/index.js:107
 #: invoices/modules/Customer.js:27
-#: licenses/modules/Customer.js:53
+#: licenses/modules/Customer.js:54
 #: orders/modules/Customer.js:28
 #: subscriptions/edit/modules/Customer.js:24
 #: subscriptions/show/modules/Customer.js:28
@@ -1309,7 +1310,7 @@ msgstr ""
 #: src/WordPress/Admin/Menus/AdminMenuPageService.php:197
 #: admin/licenses/index.php:7
 #: components/data-tables/licenses-data-table/index.js:26
-#: licenses/License.js:78
+#: licenses/License.js:85
 #: Controllers/LicenseController.php:69
 #: Controllers/LicenseController.php:79
 #: Controllers/LicenseController.php:131
@@ -1349,7 +1350,7 @@ msgstr ""
 
 #: src/Controllers/Admin/Licenses/LicensesListTable.php:125
 #: components/data-tables/purchases-data-table/purchase-item.js:37
-#: licenses/modules/Details/index.js:17
+#: licenses/modules/Details/index.js:25
 #: licenses/modules/Purchase.js:78
 #: sc-license.js:111
 #: sc-licenses-list.js:83
@@ -1442,10 +1443,6 @@ msgstr ""
 #: Blocks/CustomerDashboardButton/edit.js:85
 #: Blocks/PriceSelector/edit.js:112
 msgid "Type"
-msgstr ""
-
-#: src/Controllers/Admin/Orders/OrdersListTable.php:244
-msgid "Plan Renewal"
 msgstr ""
 
 #: src/Controllers/Admin/Orders/OrdersListTable.php:247
@@ -1584,7 +1581,7 @@ msgid "Search Orders"
 msgstr ""
 
 #: src/Controllers/Admin/ProductGroups/ProductGroupsListTable.php:184
-#: src/WordPress/PostTypes/FormPostTypeService.php:338
+#: src/WordPress/PostTypes/FormPostTypeService.php:343
 #: Blocks/Form/components/Mode.js:19
 #: Blocks/Form/components/Mode.js:38
 msgid "Live"
@@ -5382,7 +5379,7 @@ msgstr ""
 
 #: src/WordPress/Admin/Menus/AdminMenuPageService.php:212
 #: src/WordPress/PostTypes/CartPostTypeService.php:153
-#: src/WordPress/PostTypes/FormPostTypeService.php:97
+#: src/WordPress/PostTypes/FormPostTypeService.php:98
 msgid "Forms"
 msgstr ""
 
@@ -5418,7 +5415,7 @@ msgstr ""
 msgid "Account seeded successfully."
 msgstr ""
 
-#: src/WordPress/CompatibilityService.php:152
+#: src/WordPress/CompatibilityService.php:158
 msgid "<p>The Gutenberg plugin is currently active. SureCart blocks might not perform as expected within the block editor. If you encounter any issues, consider disabling the Gutenberg plugin.<p>"
 msgstr ""
 
@@ -5567,7 +5564,7 @@ msgid "Deleting This is Restricted"
 msgstr ""
 
 #: src/WordPress/Pages/PageService.php:120
-#: src/WordPress/PostTypes/FormPostTypeService.php:146
+#: src/WordPress/PostTypes/FormPostTypeService.php:151
 msgid "Store Checkout"
 msgstr ""
 
@@ -5628,7 +5625,7 @@ msgid "Search Carts"
 msgstr ""
 
 #: src/WordPress/PostTypes/CartPostTypeService.php:251
-#: src/WordPress/PostTypes/FormPostTypeService.php:230
+#: src/WordPress/PostTypes/FormPostTypeService.php:235
 #: src/WordPress/PostTypes/ProductCollectionsPagePostTypeService.php:44
 #: src/WordPress/PostTypes/ProductPagePostTypeService.php:44
 #: src/WordPress/PostTypes/ProductUpsellPagePostTypeService.php:44
@@ -5636,7 +5633,7 @@ msgid "No checkout forms found."
 msgstr ""
 
 #: src/WordPress/PostTypes/CartPostTypeService.php:252
-#: src/WordPress/PostTypes/FormPostTypeService.php:231
+#: src/WordPress/PostTypes/FormPostTypeService.php:236
 #: src/WordPress/PostTypes/ProductCollectionsPagePostTypeService.php:45
 #: src/WordPress/PostTypes/ProductPagePostTypeService.php:45
 #: src/WordPress/PostTypes/ProductUpsellPagePostTypeService.php:45
@@ -5644,7 +5641,7 @@ msgid "No checkout forms found in Trash."
 msgstr ""
 
 #: src/WordPress/PostTypes/CartPostTypeService.php:253
-#: src/WordPress/PostTypes/FormPostTypeService.php:232
+#: src/WordPress/PostTypes/FormPostTypeService.php:237
 #: src/WordPress/PostTypes/ProductCollectionsPagePostTypeService.php:46
 #: src/WordPress/PostTypes/ProductPagePostTypeService.php:46
 #: src/WordPress/PostTypes/ProductUpsellPagePostTypeService.php:46
@@ -5679,86 +5676,86 @@ msgstr ""
 msgid "Cart updated."
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:221
+#: src/WordPress/PostTypes/FormPostTypeService.php:226
 msgctxt "post type general name"
 msgid "Checkout Forms"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:222
+#: src/WordPress/PostTypes/FormPostTypeService.php:227
 msgctxt "post type singular name"
 msgid "Checkout Form"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:223
+#: src/WordPress/PostTypes/FormPostTypeService.php:228
 msgctxt "Checkout Form"
 msgid "Add New"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:224
+#: src/WordPress/PostTypes/FormPostTypeService.php:229
 msgid "Add new Checkout Form"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:225
+#: src/WordPress/PostTypes/FormPostTypeService.php:230
 msgid "New Checkout Form"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:226
+#: src/WordPress/PostTypes/FormPostTypeService.php:231
 msgid "Edit Checkout Form"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:227
+#: src/WordPress/PostTypes/FormPostTypeService.php:232
 msgid "View Checkout Form"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:228
+#: src/WordPress/PostTypes/FormPostTypeService.php:233
 msgid "All Checkout Forms"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:229
+#: src/WordPress/PostTypes/FormPostTypeService.php:234
 msgid "Search Checkout Forms"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:233
+#: src/WordPress/PostTypes/FormPostTypeService.php:238
 msgid "Checkout Forms list navigation"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:234
+#: src/WordPress/PostTypes/FormPostTypeService.php:239
 msgid "Checkout Forms list"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:235
+#: src/WordPress/PostTypes/FormPostTypeService.php:240
 msgid "Checkout Form published."
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:236
+#: src/WordPress/PostTypes/FormPostTypeService.php:241
 msgid "Checkout Form published privately."
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:237
+#: src/WordPress/PostTypes/FormPostTypeService.php:242
 msgid "Checkout Form reverted to draft."
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:238
+#: src/WordPress/PostTypes/FormPostTypeService.php:243
 msgid "Checkout Form scheduled."
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:239
+#: src/WordPress/PostTypes/FormPostTypeService.php:244
 msgid "Checkout Form updated."
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:291
+#: src/WordPress/PostTypes/FormPostTypeService.php:296
 msgid "Published In"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:292
+#: src/WordPress/PostTypes/FormPostTypeService.php:297
 msgid "Mode"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:293
+#: src/WordPress/PostTypes/FormPostTypeService.php:298
 msgid "Shortcode"
 msgstr ""
 
-#: src/WordPress/PostTypes/FormPostTypeService.php:362
+#: src/WordPress/PostTypes/FormPostTypeService.php:367
 msgid "(no title)"
 msgstr ""
 
@@ -6414,6 +6411,7 @@ msgstr[1] ""
 #: customers/modules/ShippingAddress/EditAddressModal.js:86
 #: dashboard/DatePicker.js:25
 #: hocs/withConfirm.js:54
+#: licenses/modules/modals/EditKeyModal.js:132
 #: orders/modules/Fulfillment/components/AddTracking.js:117
 #: orders/modules/Fulfillment/CreateFulfillment.js:352
 #: orders/modules/OrderStatusConfirmModal.js:78
@@ -7016,7 +7014,7 @@ msgstr ""
 
 #: abandoned-checkouts/modules/Details.js:74
 #: invoices/modules/Details.js:70
-#: licenses/modules/Details/index.js:41
+#: licenses/modules/Details/index.js:56
 #: orders/modules/Details.js:74
 #: subscriptions/show/modules/Details.js:186
 msgid "Created on %s"
@@ -9537,15 +9535,15 @@ msgstr ""
 msgid "Shipping Address"
 msgstr ""
 
-#: licenses/License.js:45
+#: licenses/License.js:51
 msgid "License updated."
 msgstr ""
 
-#: licenses/License.js:55
+#: licenses/License.js:62
 msgid "Save License"
 msgstr ""
 
-#: licenses/License.js:81
+#: licenses/License.js:88
 msgid "View License"
 msgstr ""
 
@@ -9597,25 +9595,47 @@ msgstr ""
 msgid "%1s of %2s Activations Used"
 msgstr ""
 
-#: licenses/modules/Details/index.js:28
+#: licenses/modules/Details/index.js:36
 #: store/add-entities.js:152
 #: Controllers/LicenseController.php:134
 msgid "License"
 msgstr ""
 
-#: licenses/modules/Details/index.js:35
+#: licenses/modules/Details/index.js:50
+#: licenses/modules/modals/EditKeyModal.js:104
 #: settings/upgrade/UpgradeSettings.js:65
 #: sc-license.js:139
 msgid "License Key"
 msgstr ""
 
-#: licenses/modules/Details/index.js:49
+#: licenses/modules/Details/index.js:70
+#: licenses/modules/modals/EditKeyModal.js:85
+msgid "Edit License Key"
+msgstr ""
+
+#: licenses/modules/Details/index.js:76
 #: products/modules/Licensing.js:63
 msgid "Activation Limit"
 msgstr ""
 
-#: licenses/modules/Details/index.js:58
+#: licenses/modules/Details/index.js:85
 msgid "Enter the number of unique activations for this key. Leave blank for infinite."
+msgstr ""
+
+#: licenses/modules/modals/EditKeyModal.js:71
+msgid "License Key updated."
+msgstr ""
+
+#: licenses/modules/modals/EditKeyModal.js:97
+msgid "Changing the license key will invalidate the current license key."
+msgstr ""
+
+#: licenses/modules/modals/EditKeyModal.js:116
+msgid "Regenerate License Key"
+msgstr ""
+
+#: licenses/modules/modals/EditKeyModal.js:129
+msgid "Save and Update Key"
 msgstr ""
 
 #: onboarding/components/ConfirmExit.js:9

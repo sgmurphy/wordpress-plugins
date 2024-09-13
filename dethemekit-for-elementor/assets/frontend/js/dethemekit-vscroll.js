@@ -249,28 +249,20 @@
 
                 var $section = sections[section].selector;
 
-                elementorFrontend.waypoint(
-                    $section,
-                    function () {
+                var $this = $(this),
+                sectionId = $this.attr("id");
 
-                        var $this = $(this),
-                            sectionId = $this.attr("id");
+                if (!isScrolling) {
 
-                        if (!isScrolling) {
+                    currentSection = sectionId;
 
-                            currentSection = sectionId;
+                    $itemsList.removeClass("active");
+                    $menuItems.removeClass("active");
 
-                            $itemsList.removeClass("active");
-                            $menuItems.removeClass("active");
+                    $("[data-menuanchor=" + sectionId + "]", $instance).addClass("active");
 
-                            $("[data-menuanchor=" + sectionId + "]", $instance).addClass("active");
-
-                        }
-                    }, {
-                    offset: 0 !== index ? "0%" : "-1%",
-                    triggerOnce: false
                 }
-                );
+
                 index++;
             }
 
