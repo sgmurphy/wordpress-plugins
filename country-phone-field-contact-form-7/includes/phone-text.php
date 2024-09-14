@@ -119,7 +119,7 @@ function nbcpf_phonetext_validation_filter( $result, $tag ) {
     $value = str_replace($extension , '', str_replace(" ", "" , $value));
     $str_array = str_split($value);
 
-	if ( ( $tag->is_required() && '' == $value ) || ($value == $extension)) {
+	if ( ( $tag->is_required() && '' == $value ) ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
 	elseif ( $tag->has_option( 'numberonly') ) {

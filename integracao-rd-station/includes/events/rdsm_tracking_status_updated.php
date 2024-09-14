@@ -11,10 +11,14 @@ class RDSMTrackingStatusUpdated implements RDSMEventsInterface {
   }
 
   public function update_tracking_code() {
-    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce($_POST['rd_form_nonce'],'rd-form-nonce')) {
+    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['rd_form_nonce'])), 'rd-form-nonce')) {
       wp_die( '0', 400 );
     }
-    $enabled = $_POST['checked'];
+
+    if (!isset($_POST['checked'])) {
+      wp_die('0', 400);
+    }
+    $enabled = sanitize_text_field(wp_unslash($_POST['checked']));
     $access_token = get_option('rdsm_access_token');
     $refresh_token = get_option('rdsm_refresh_token');
 

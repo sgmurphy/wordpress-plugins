@@ -9,7 +9,7 @@
  * License URI:         https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least:	4.7
  * Tested up to:		6.5
- * Version:				1.2.2
+ * Version:				1.2.5
  * Text Domain:         rife-elementor-extensions
  * Elementor tested up to: 3.17
  *

@@ -11,14 +11,14 @@ class RDSMLogFile implements RDSMEventsInterface {
   }
 
   public function load_log_file() {
-    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce($_POST['rd_form_nonce'],'rd-form-nonce')) {
+    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['rd_form_nonce'])), 'rd-form-nonce')) {
       wp_die( '0', 400 );
     }
     wp_send_json(RDSMLogFileHelper::get_log_file());
   }
 
   public function clear_log_file() {
-    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce($_POST['rd_form_nonce'],'rd-form-nonce')) {
+    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['rd_form_nonce'])), 'rd-form-nonce')) {
       wp_die( '0', 400 );
     }
     wp_send_json(RDSMLogFileHelper::clear_log_file());

@@ -798,9 +798,16 @@ function wpf_report() {
 		wp_send_json_error( WPF()->notice->get_notices() );
 	}
 	
+	$postid  = intval( $_POST['postid'] );
+	$forumid = wpforo_post( $postid, 'forumid' );
+	
+	if( ! WPF()->perm->can_report( $forumid ) ) {
+		WPF()->notice->add( 'You are not allowed to report.', 'error' );
+		wp_send_json_error( WPF()->notice->get_notices() );
+	}
+	
 	############### Sending Email  ##################
 	$report_text = substr( strip_tags( (string) $_POST['reportmsg'] ), 0, 1000 );
-	$postid      = intval( $_POST['postid'] );
 	$reporter    = '<a href="' . WPF()->current_user['profile_url'] . '">' . ( WPF()->current_user['display_name'] ? WPF()->current_user['display_name'] : urldecode(
 			(string) WPF()->current_user['user_nicename']
 		) ) . '</a>';
@@ -825,15 +832,14 @@ function wpf_report() {
 	$headers      = wpforo_admin_mail_headers();
 	
 	add_filter( 'wp_mail_content_type', 'wpforo_set_html_content_type', 999 );
-	if( @wp_mail( $admin_email, $subject, $message, $headers ) ) {
-		remove_filter( 'wp_mail_content_type', 'wpforo_set_html_content_type' );
-	} else {
-		remove_filter( 'wp_mail_content_type', 'wpforo_set_html_content_type' );
+	if( ! @wp_mail( $admin_email, $subject, $message, $headers ) ) {
 		WPF()->notice->add( 'Can\'t send report email', 'error' );
 		wp_send_json_error( WPF()->notice->get_notices() );
 	}
+	remove_filter( 'wp_mail_content_type', 'wpforo_set_html_content_type' );
 	
 	############### Sending Email end  ##############
+	do_action( 'wpforo_after_post_report', $postid, $forumid, $_POST['reportmsg'] );
 	WPF()->notice->add( 'Message has been sent', 'success' );
 	wp_send_json_success( WPF()->notice->get_notices() );
 }
@@ -2717,14 +2723,14 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'mf' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-forums',
-			'title'  => '&#9776;&nbsp;&nbsp;' . __( 'Forums', 'wpforo' ),
+			'title'  => '' . __( 'Forums', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'forums' ) ),
 			'parent' => 'wpf-community',
 		];
 		$wp_admin_bar->add_node( $args );
 		$args = [
 			'id'     => 'wpf-new-forum',
-			'title'  => '&#43;&nbsp;&nbsp;' . __( 'Add New Forum', 'wpforo' ),
+			'title'  => '' . __( 'Add New Forum', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'forums' ) . '&action=add' ),
 			'parent' => 'wpf-forums',
 		];
@@ -2733,7 +2739,7 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'ms' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-settings',
-			'title'  => '&#9881;&nbsp;&nbsp;' . __( 'Settings', 'wpforo' ),
+			'title'  => '' . __( 'Settings', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'settings' ) ),
 			'parent' => 'wpf-community',
 		];
@@ -2742,7 +2748,7 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'mt' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-tools',
-			'title'  => '&#128295;&nbsp;&nbsp;' . __( 'Tools', 'wpforo' ),
+			'title'  => '' . __( 'Tools', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'tools' ) ),
 			'parent' => 'wpf-community',
 		];
@@ -2751,7 +2757,7 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'aum' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-moderation',
-			'title'  => '&#128479;&nbsp;&nbsp;' . __( 'Moderation', 'wpforo' ) . wpforo_wp_admin_bar_red_circle_number(
+			'title'  => '' . __( 'Moderation', 'wpforo' ) . wpforo_wp_admin_bar_red_circle_number(
 					$admin_bar_numbers['mod_count']
 				),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'moderations' ) ),
@@ -2762,14 +2768,14 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'ms' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpforo-accesses',
-			'title'  => '&#33;&nbsp;&nbsp;' . __( 'Accesses', 'wpforo' ),
+			'title'  => '' . __( 'Accesses', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=wpforo-accesses' ),
 			'parent' => 'wpf-community',
 		];
 		$wp_admin_bar->add_node( $args );
 		$args = [
 			'id'     => 'wpforo-new-accesses',
-			'title'  => '&#43;&nbsp;&nbsp;' . __( 'Add New Forum Access', 'wpforo' ),
+			'title'  => '' . __( 'Add New Forum Access', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=wpforo-accesses&wpfaction=wpforo_access_save_form' ),
 			'parent' => 'wpforo-accesses',
 		];
@@ -2778,7 +2784,7 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'vm' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-members',
-			'title'  => '&#128100;&nbsp;&nbsp;' . __( 'Members', 'wpforo' ) . wpforo_wp_admin_bar_red_circle_number(
+			'title'  => '' . __( 'Members', 'wpforo' ) . wpforo_wp_admin_bar_red_circle_number(
 					wpforo_get_memb_attention_count()
 				),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'members' ) ),
@@ -2789,14 +2795,14 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'vmg' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-usergroups',
-			'title'  => '&#128101;&nbsp;&nbsp;' . __( 'Usergroups', 'wpforo' ),
+			'title'  => '' . __( 'Usergroups', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'usergroups' ) ),
 			'parent' => 'wpf-community',
 		];
 		$wp_admin_bar->add_node( $args );
 		$args = [
 			'id'     => 'wpf-new-ugroup',
-			'title'  => '&#43;&nbsp;&nbsp;' . __( 'Add New Usergroup', 'wpforo' ),
+			'title'  => '' . __( 'Add New Usergroup', 'wpforo' ),
 			'href'   => admin_url(
 				'admin.php?page=' . wpforo_prefix_slug( 'usergroups' ) . '&wpfaction=wpforo_usergroup_save_form'
 			),
@@ -2807,14 +2813,14 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'mp' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-phrases',
-			'title'  => '&#9873;&nbsp;&nbsp;' . __( 'Phrases', 'wpforo' ),
+			'title'  => '' . __( 'Phrases', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'phrases' ) ),
 			'parent' => 'wpf-community',
 		];
 		$wp_admin_bar->add_node( $args );
 		$args = [
 			'id'     => 'wpf-new-phrase',
-			'title'  => '&#43;&nbsp;&nbsp;' . __( 'Add New Phrase', 'wpforo' ),
+			'title'  => '' . __( 'Add New Phrase', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'phrases' ) . '&wpfaction=phrase_add_form' ),
 			'parent' => 'wpf-phrases',
 		];
@@ -2823,7 +2829,7 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( WPF()->usergroup->can( 'mth' ) || wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-themes',
-			'title'  => '&#127912;&nbsp;&nbsp;' . __( 'Themes', 'wpforo' ),
+			'title'  => '' . __( 'Themes', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'themes' ) ),
 			'parent' => 'wpf-community',
 		];
@@ -2832,7 +2838,7 @@ function wpforo_admin_bar_menu( $wp_admin_bar ) {
 	if( wpforo_current_user_is( 'admin' ) ) {
 		$args = [
 			'id'     => 'wpf-addons',
-			'title'  => '&#128268;&nbsp;&nbsp;' . __( 'Addons', 'wpforo' ),
+			'title'  => '' . __( 'Addons', 'wpforo' ),
 			'href'   => admin_url( 'admin.php?page=' . wpforo_prefix_slug( 'addons' ) ),
 			'parent' => 'wpf-community',
 		];

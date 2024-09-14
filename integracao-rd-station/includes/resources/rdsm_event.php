@@ -274,19 +274,19 @@ class RDSMEvent {
 
   private function set_utmz($form_data) {
     if (isset($form_data["c_utmz"])) return $form_data["c_utmz"];
-    if (isset($_COOKIE["__utmz"])) return $_COOKIE["__utmz"];
+    if (isset($_COOKIE["__utmz"])) return sanitize_text_field(wp_unslash($_COOKIE["__utmz"]));
   }
 
   private function set_traffic_source($form_data) {
     if (isset($form_data["traffic_source"])) return $form_data["traffic_source"];
-    if (isset($_COOKIE["__trf_src"])) return $_COOKIE["__trf_src"];
+    if (isset($_COOKIE["__trf_src"])) return sanitize_text_field(wp_unslash($_COOKIE["__trf_src"]));
   }
 
   private function set_client_id($form_data) {
     if (isset($form_data["client_id"])) return $form_data["client_id"];
     if (isset($_COOKIE["rdtrk"])) {
       $client_id_format = "/(\w{8}-\w{4}-4\w{3}-\w{4}-\w{12})/";
-      preg_match($client_id_format, $_COOKIE["rdtrk"], $matches);
+      preg_match($client_id_format, sanitize_text_field(wp_unslash($_COOKIE["rdtrk"], $matches)));
       return $matches[0];
     }
   }

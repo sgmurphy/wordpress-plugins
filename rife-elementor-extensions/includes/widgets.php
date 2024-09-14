@@ -47,16 +47,38 @@ class Widgets {
 		);
 
 		//fronted.js - plugin front-end actions
-		wp_register_script(
-			'a13ree-frontend',
-			A13REE_ASSETS_URL .'js/frontend.js' ,
-			[
-				'elementor-waypoints',
-				'jquery',
-			],
-			A13REE_VERSION,
-			true
-		);
+        if(wp_script_is('elementor-waypoints','registered') || wp_script_is('elementor-waypoints','queue')){
+            wp_register_script(
+                'a13ree-frontend',
+                A13REE_ASSETS_URL .'js/frontend.js' ,
+                [
+                    'elementor-waypoints',
+                    'jquery',
+                ],
+                A13REE_VERSION,
+                true
+            );
+        }else{
+            wp_register_script(
+                'a13-waypoints',
+                A13REE_ASSETS_URL .'js/waypoints.js' ,
+                [
+                    'jquery',
+                ],
+                A13REE_VERSION,
+                true
+            );
+            wp_register_script(
+                'a13ree-frontend',
+                A13REE_ASSETS_URL .'js/frontend.js' ,
+                [
+                    'a13-waypoints',
+                ],
+                A13REE_VERSION,
+                true
+            );
+        }
+
 	}
 
 

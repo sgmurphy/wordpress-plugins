@@ -56,12 +56,25 @@ class TableRenderer
     {
         $props = $body['props'];
 
+        $borderCss = [];
+
+        if (isset($props['tableBorder']) && $props['tableBorder'] !== '') {
+            $borderCss = [
+                'border' => $props['tableBorder'],
+            ];
+        } else {
+            $borderCss = [
+                'border-width' => $props['borderWidth'] ?? '',
+                'border-color' => $props['borderColor'] ?? '',
+                'border-style' => $props['borderStyle'] ?? '',
+            ];
+        }
+
         $tblStyle = self::generate_css_string([
-            "border" => $props['tableBorder'],
             "border-spacing" => "{$props['tableSpacingX']}px {$props['tableSpacingY']}px",
             "border-collapse" => $props['borderCollapse'] ?? '',
             "min-width" => $props['minWidth'] ?? '',
-        ]);
+        ] + $borderCss);
 
         $attrs_string = self::generate_attrs_string([
 
@@ -72,6 +85,9 @@ class TableRenderer
             "data-wptb-table-directives" => $props['directives'] ?? false,
             "data-wptb-responsive-directives" => $props['responsiveDirectives'] ?? false,
             "data-wptb-cells-width-auto-count" => $props['cellsWidthAutoCount'] ?? false,
+
+            "data-wptb-sortable-table-vertical" => $props['sortVertical'] ?? false,
+            "data-wptb-sortable-table-horizontal" => $props['sortHorizontal'] ?? false,
 
             
             "data-wptb-apply-table-container-max-width" => $props['enableMaxWidth'] ?? false,
@@ -178,8 +194,8 @@ class TableRenderer
 
             "data-y-index" => $props['yIndex'] ?? false,
             "data-x-index" => $props['xIndex'] ?? false,
-            "data-sorted-vertical" => $props['sortedVertical'] ?? false,
-            "data-sorted-horizontal" => $props['sortedHorizontal'] ?? false,
+            "data-sorted-vertical" => $props['ySort'] ?? false,
+            "data-sorted-horizontal" => $props['xSort'] ?? false,
             "data-wptb-css-td-auto-width" => $props['autoWidth'] ?? false,
             "data-wptb-css-td-auto-height" => $props['autoHeight'] ?? false,
             "data-wptb-cell-vertical-alignment" => $props['vAlign'] ?? false,
@@ -190,6 +206,10 @@ class TableRenderer
         $blocks = "";
 
         $isFirst = true;
+
+        if ($props['hideOnMobile'] ?? false) {
+            $classNames .= ' wptb-hide-on-mobile';
+        }
 
         if ($props['isEmpty']) {
             $classNames .= ' wptb-empty';

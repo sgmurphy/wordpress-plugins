@@ -22,7 +22,9 @@ WPF()->notice->dismissAddonNoteOnPage();
                     <thead>
                     <tr>
                         <th style="font-size:16px; padding-bottom:15px;"><strong><?php _e( 'wpForo Addons', 'wpforo' ); ?></strong></th>
-                        <th style="font-size:16px; padding-bottom:15px; width:205px; text-align:center; border-bottom:1px solid #008EC2;"><a href="http://gvectors.com/forum/" style="color:#008EC2; overflow:hidden; outline:none;" target="_blank">Addons Support Forum</a></th>
+                        <th style="font-size:16px; padding-bottom:15px; width:205px; text-align:center; border-bottom:1px solid #008EC2;"><a href="http://gvectors.com/forum/"
+                                                                                                                                             style="color:#008EC2; overflow:hidden; outline:none;"
+                                                                                                                                             target="_blank">Addons Support Forum</a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,10 +49,12 @@ WPF()->notice->dismissAddonNoteOnPage();
     <div class="wpforo-addons-wrapper">
 		<?php
 		foreach( wpforo_get_addons_info() as $key => $addon ) {
-			$installed = class_exists( $addon['class'] );
+			$plugin    = basename( dirname( $addon['ABSPATH'] ) ) . '/' . basename( $addon['ABSPATH'] );
+			$installed = is_plugin_active( $plugin );
 			?>
             <div class="wpforo-addon-block">
-                <div id="wpforo-addon-<?php echo $key ?>" class="addon-thumb" style="background:url(<?php echo ( $installed ) ? str_replace( '.png', '-off.png', $addon['thumb'] ) : $addon['thumb']; ?>) top center no-repeat;">
+                <div id="wpforo-addon-<?php echo $key ?>" class="addon-thumb"
+                     style="background:url(<?php echo ( $installed ) ? str_replace( '.png', '-off.png', $addon['thumb'] ) : $addon['thumb']; ?>) top center no-repeat;">
                     &nbsp;
                 </div>
                 <div class="contenthover">
@@ -75,7 +79,18 @@ WPF()->notice->dismissAddonNoteOnPage();
                     <div class="addon-desc"><?php echo $addon['desc']; ?></div>
                 </div>
             </div>
-            <script language="javascript">jQuery(document).ready(function ($) { $('#wpforo-addon-<?php echo $key ?>').contenthover({ overlay_width: 290, overlay_height:<?php echo ( $installed ) ? '100' : '180'; ?>, effect: 'slide', slide_direction: 'right', overlay_x_position: 'right', overlay_y_position: 'center', overlay_background: '#e5e5e5', overlay_opacity: 0.9 }) })</script>
+            <script language="javascript">jQuery(document).ready(function ($) {
+					$('#wpforo-addon-<?php echo $key ?>').contenthover({
+						overlay_width: 290,
+						overlay_height:<?php echo ( $installed ) ? '100' : '180'; ?>,
+						effect: 'slide',
+						slide_direction: 'right',
+						overlay_x_position: 'right',
+						overlay_y_position: 'center',
+						overlay_background: '#e5e5e5',
+						overlay_opacity: 0.9,
+					});
+				});</script>
 		<?php } ?>
     </div>
     <div style="clear:both;"></div>

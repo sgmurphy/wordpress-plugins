@@ -2423,6 +2423,14 @@ class Settings extends stdClass {
 						"description_original" => "",
 						"docurl"               => "https://wpforo.com/docs/wpforo-v2/settings/spam-protection/#wpforo-spam-control",
 					],
+					"should_unapprove_after_report"    => [
+						"type"                 => "radio",
+						"label"                => esc_html__( "Make the reported post unapproved.", "wpforo" ),
+						"label_original"       => "Make the reported post unapproved.",
+						"description"          => esc_html__( "When a post is reported set it under moderation.", "wpforo" ),
+						"description_original" => "When a post is reported set it under moderation.",
+						"docurl"               => "https://wpforo.com/docs/wpforo-v2/settings/spam-protection/#wpforo-spam-control",
+					],
 					"spam_filter_level_topic"          => [
 						"type"                 => "number",
 						"min"                  => 0,
@@ -4142,7 +4150,7 @@ class Settings extends stdClass {
 				'wpforo'
 			),
 			'after_user_approve_email_subject'             => __( '[blogname] - Your Account Has been Approved', 'wpforo' ),
-			'after_user_approve_email_message'             => __( 'Hi [user_login] , Thank you for your registration. Your account has been approved. Your can login here: [login_link]', 'wpforo' ),
+			'after_user_approve_email_message'             => __( 'Hi [user_login] , Thank you for your registration. Your account has been approved. You can login here: [login_link]', 'wpforo' ),
 		];
 		$this->_subscriptions = [
 			'subscribe_confirmation'               => true,
@@ -4204,6 +4212,7 @@ class Settings extends stdClass {
 		$this->_antispam      = [
 			'spam_filter'                      => true,
 			'spam_user_ban'                    => false,
+			'should_unapprove_after_report'    => false,
 			'spam_filter_level_topic'          => mt_rand( 30, 60 ),
 			'spam_filter_level_post'           => mt_rand( 30, 60 ),
 			'new_user_max_posts'               => 3,
@@ -4292,5 +4301,60 @@ class Settings extends stdClass {
 		if( ! $this->seo['seo_profile'] ) $this->seo['members_sitemap'] = false;
 		
 		do_action( 'wpforo_settings_after_init', $this );
+	}
+	
+	public function export( $groups = [] ) {
+		if( empty( $groups ) ) {
+			if( is_null( $this->info ) ) $this->init_info();
+			$groups = array_merge( array_keys( $this->info->core ), array_keys( $this->info->addons ) );
+		}
+		
+		if( ! empty( $groups ) ) {
+			$settings = [];
+			foreach( $groups as $group ) {
+				if( ! empty( $this->$group ) ) {
+					$settings[ $group ] = $this->$group;
+				}
+			}
+			
+			$json = json_encode( $settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+			
+			header( 'Content-Type: application/json' );
+			header( 'Content-Disposition: attachment; filename="wpforo-settings-' . date( 'Y-m-d_H-i-s' ) . '.json"' );
+			header( 'Content-Length: ' . strlen( $json ) );
+			echo $json;
+			exit();
+		}
+	}
+	
+	public function import( $json, $groups = null ) {
+		if( $json ) {
+			$settings = json_decode( $json, true );
+			
+			if( is_array( $settings ) && ! empty( $settings ) ) {
+				if( is_null( $this->info ) ) $this->init_info();
+				
+				foreach( $settings as $group => $setting ) {
+					if( ! is_null( $groups ) && ! in_array( $group, $groups, true ) ) continue;
+					
+					if( wpfkey( $this->info->core, $group, 'base' ) ) {
+						$is_base = $this->info->core[ $group ]['base'];
+					} elseif( wpfkey( $this->info->addons, $group, 'base' ) ) {
+						$is_base = $this->info->addons[ $group ]['base'];
+					}
+					
+					if( isset( $is_base ) ) {
+						$option_name = preg_replace( '#^wpforo_#iu', '', $group, 1 );
+						if( $option_name === 'profiles' && wpfval( $setting, 'default_cover' ) ) {
+							$setting['default_cover'] = preg_replace( '#^.*?/wp-content/uploads/wpforo/covers/#iu', WPF()->folders['covers']['url//'] . '/', $setting['default_cover'], 1 );
+						}
+						if( $is_base ) $option_name = 'wpforo_' . $option_name;
+						wpforo_update_option( $option_name, $setting, false );
+					}
+					
+				}
+			}
+			
+		}
 	}
 }

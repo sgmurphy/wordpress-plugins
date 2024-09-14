@@ -2,11 +2,11 @@
 
 Contributors: rwattner, dgovea
 Donate Link: https://www.paypal.me/StickyHeaderEffects
-Tags: Elementor, Elementor Page Builder, Elements, Elementor Add-ons, Add-ons, Page Builder, Widgets, Briefcasewp
+Tags: Elementor, Elementor Page Builder, Add-ons, Header, Sticky Header
 Requires at least: 5.3
-Tested up to: 6.4
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 1.6.10
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Options and features that extend Elementor Pro's sticky header capabilities.
 
 == Description ==
 
-Sticky Header Effects for Elementor adds options to Elementor Pro to change the header background when the visitor starts scrolling down the page. Choose the scroll distance to change the header height, background color, and bottom border. Other customizable features include transparent header, shrink logo, change logo color, background blur, and hide header on scroll down.
+Sticky Header Effects for Elementor adds options to Elementor Pro to change the header styling when the visitor starts scrolling down the page. Choose the scroll distance to change the header height, background color, and bottom border. Other customizable features include transparent header, shrink logo, change logo color, background blur, and hide header on scroll down.
 
 This plugin is cross-browser compatible and fully responsive. Meaning it will work on all browsers as well as tablets and mobile devices.
 
@@ -88,6 +88,11 @@ Sticky Header Options for Elementor is extremely light-weight. You also have the
 3. Current effects settings.
 
 == Changelog ==
+= 1.7 =
+- Maintenance: Wordpress 6.5 compatibility update
+- Notice: Plugin will only receive minimal support
+- Added: Pro features that would have never been released(Disable Fully Transparent Background, Background Type, Custom Menu Toggle Button, Bottom Shadow, Blur Background settings)
+
 = 1.6.11 =
 - Maintenance: Wordpress 6.5 compatibility update
 
@@ -255,6 +260,11 @@ Tweaked: Logo color change optimized so "full color" option no longer overwrites
 - Initial stable release
 
 == Upgrade Notice ==
+= 1.7 =
+- Maintenance: Wordpress 6.5 compatibility update
+- Notice: Plugin will only receive minimal support
+- Added: Pro features that would have never been released(Disable Fully Transparent Background, Background Type, Custom Menu Toggle Button, Bottom Shadow, Blur Background settings)
+
 = 1.6.11 =
 - Maintenance: Wordpress 6.5 compatibility update
 
@@ -412,4 +422,4 @@ The bottom border feature adds bottom border width and color options when user s
 == Donate ==
 Enjoy using *Sticky Header Effects*? Please consider making a **[donation](https://www.paypal.me/StickyHeaderEffects)**
 Every donation helps the continued development, maintenance, and support for this plugin.
-**Thank you very much your support!**
+**Thank you very much for your support!**

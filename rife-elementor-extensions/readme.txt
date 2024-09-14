@@ -55,6 +55,29 @@ It can be found under name "Writing Effect Headline" in "Basic" Widgets in Eleme
 == Changelog ==
 ----------------
 
+= 1.2.5(14.09.2024) =
+
+Fixed:
+- missing license in js library files
+
+----------------
+
+= 1.2.4(14.09.2024) =
+
+Fixed:
+- missing js library files
+
+----------------
+
+= 1.2.3(14.09.2024) =
+
+Tested with WordPress 6.6
+
+Fixed:
+- Works with updated Elementor (self-hosted waypoints.js)
+
+----------------
+
 = 1.2.2(30.06.2024) =
 
 Tested with WordPress 6.5

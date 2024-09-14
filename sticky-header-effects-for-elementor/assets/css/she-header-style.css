@@ -56,13 +56,42 @@ Sticky Header Effects Style
 }
 
 /* TRANSPARENT HEADER */
-.she-header-transparent-yes,
-.elementor-editor-active .she-header-transparent-yes {
+.she-header-transparent-yes:not(.elementor-sticky--active), 
+.elementor-editor-active .she-header-transparent-yes:not(.elementor-sticky--active) {
 	transition: all 0.4s ease-in-out, top 0s;
 	width: 100%;
-	background-color: rgba(0, 0, 0, 0) !important;
+	background-color: rgba(0, 0, 0, 0);
 	position: absolute !important;
 	z-index: 99;
+}
+
+/* Custom Hamburger Menu */
+
+.she-header-yes .elementor-menu-toggle:before,
+.she-header-yes .elementor-menu-toggle:after,
+.she-header-yes .elementor-menu-toggle i:after {
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}
+
+.she-header-yes .elementor-menu-toggle {
+    position: relative;
+    transition: color 0.4s ease-in-out, background-color 0.4s ease-in-out;
+}
+
+.she-header-yes .elementor-menu-toggle.elementor-active:before {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.she-header-yes .elementor-menu-toggle:after {
+    transform: translate(-50%, calc(-50% - 0.25em));
+}
+
+.she-header-yes .elementor-menu-toggle.elementor-active:after {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.she-header-yes .elementor-menu-toggle i:after {
+    transform: translate(-50%, -50%);
 }
 
 /* ADMIN BAR OFFSET */

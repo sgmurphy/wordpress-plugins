@@ -18,7 +18,7 @@ class RDSMSiteInitialized implements RDSMEventsInterface {
 
     if (!empty($tracking_code)) {
       if (!is_admin()) {
-        echo html_entity_decode($this->tracking_code_script_tag($tracking_code));
+        echo esc_html(html_entity_decode($this->tracking_code_script_tag($tracking_code)));
 
         return true;
       }
@@ -29,6 +29,12 @@ class RDSMSiteInitialized implements RDSMEventsInterface {
   }
 
   private function tracking_code_script_tag($path) {
-    return "<script type='text/javascript' async src='". $path ."'></script>";
+    $handle = 'tracking-code-script-' . md5($path);
+    
+    $version = file_exists($path) ? filemtime($path) : false;
+
+    wp_enqueue_script($handle, $path, array(), $version, true);
+
+    return '';
   }
 }

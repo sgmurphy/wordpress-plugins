@@ -45,13 +45,39 @@ class Module extends Module_Base {
 		);
 
 		$element->add_control(
+			'donate_notice',
+			[
+				'type' => Controls_Manager::ALERT,
+				'alert_type' => 'alert',
+				'heading' => esc_html__( 'Donations', 'she-header' ),
+				'content' => esc_html__( 'Unfortunitely this plugin has come to an end. If you have enjoyed using it please consider ' , 'she-header' ) . ' <br><a href="https://www.paypal.me/StickyHeaderEffects">' . esc_html__( 'DONATING HERE', 'she-header' ) . '</a>' . ' <br><br>' . esc_html__( 'Instead of realeasing a paid Pro verion I will be adding a few Pro features to this free version. However, I will only be providing minimal support from now on.', 'she-header' ) ,
+				'condition' => [
+					'transparent!' => '',
+				],
+			]
+		);
+		
+		$element->add_control(
+			'upgrade_notice',
+			[
+				'type' => Controls_Manager::NOTICE,
+				'notice_type' => 'info',
+				'dismissible' => true,
+				'heading' => esc_html__( 'New FREE Pro Features', 'she-header' ),
+				'content' => esc_html__( 'Disable Fully Transparent Background, Background Type, Custom Menu Toggle Button, Bottom Shadow, Blur Background settings' , 'she-header' ) ,
+				'condition' => [
+					'transparent!' => '',
+				],
+			]
+		);
+
+		$element->add_control(
 			'sticky_header_notice',
 			[
 				'raw' => __( 'IMPORTANT: This plugin does NOT control the sticky position of the header. Please use the above Motion Effects tab sticky options to make the header sticky', 'she-header' ),
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 				'condition' => [
-
 					'transparent!' => '',
 				],
 			]
@@ -80,8 +106,7 @@ class Module extends Module_Base {
 			]
 		);
 
-
-$element->add_responsive_control(
+		$element->add_responsive_control(
 			'scroll_distance',
 			[
 				'label' => __( 'Scroll Distance (px)', 'she-header' ),
@@ -119,79 +144,635 @@ $element->add_responsive_control(
 		$element->add_control(
 			'transparent_header_show',
 			[
-				'label' => __( 'Transparent Header', 'she-header' ),
+				'label' => __('Transparent Header', 'she-header'),
 				'type' => Controls_Manager::SWITCHER,
 				'separator' => 'before',
-				'label_on' => __( 'On', 'she-header' ),
-				'label_off' => __( 'Off', 'bew-header' ),
+				'label_on' => __('On', 'she-header'),
+				'label_off' => __('Off', 'bew-header'),
 				'return_value' => 'yes',
 				'default' => '',
 				'frontend_available' => true,
+				'prefix_class'  => 'she-header-transparent-',
 				'condition' => [
+
 					'transparent!' => '',
 				],
-				'description' => __( 'Sets the header position to "absolute" so negative margins are not needed', 'she-header' ),
+				'selectors' => [
+					'{{WRAPPER}}.she-header-yes.she-header-transparent-yes' => 'background-color: rgba(0,0,0,0);',
+					'.she-header-transparent-yes' => 'position:absolute;',
+				],
+				'description' => __('Sets the header position to "absolute" so negative margins are not needed', 'she-header'),
 			]
 		);
 
 		$element->add_control(
 			'transparent_note',
 			[
-				'raw' => __( 'IMPORTANT: This will make the header overlap the main page so extra spacing at the top of sections may be necesary. **May only work on frontend', 'she-header' ),
+				'raw' => __('This will make the header overlap the main page so extra spacing at the top of sections may be needed<br><br>
+				Does NOT work on/override elementor sticky settings', 'she-header'),
 				'type' => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
+				'content_classes' => 'elementor-control-notice elementor-control-notice-type-info',
 				'condition' => [
-					'transparent_header_show' => 'yes',
+
 					'transparent!' => '',
-					],
+					'transparent_header_show' => 'yes',
+				],
 			]
 		);
-
+		
 		$element->add_control(
-			'transparent_important',
+			'disable_transparent_background',
 			[
-				'label' => __( 'Above Header Sections', 'she-header' ),
-				'raw' => __( '<br>"Scroll Distance" settings and Elementor "Motion Effects > Offset" settings should be set to the height of any section above the header.<br>Example: Above header section min-height = 60px. Set both scroll distance and motion effects offset to 60px', 'she-header' ),
-				'type' => Controls_Manager::RAW_HTML,
-				'content_classes' => 'elementor-descriptor',
+				'label' => __('Disable Fully Transparent Background', 'she-header'),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __('On', 'she-header'),
+				'label_off' => __('Off', 'bew-header'),
+				'return_value' => 'yes',
+				'default' => '',
+				'frontend_available' => true,
 				'condition' => [
-					'transparent_header_show' => 'yes',
 					'transparent!' => '',
-					],
+					'transparent_header_show' => 'yes',
+				],
+				'selectors' => [
+					'{{WRAPPER}}.she-header-yes.she-header-transparent-yes' => 'background-color: none !important;',
+				],
+				'description' => __('By default, activating the transparent header option sets the initial background color to fully transparent. This will, instead, use the background color set under Elementor style tab<br><br>TIP: This can be useful for free users', 'she-header'),
 			]
 		);
 
 		$element->add_control(
 			'background_show',
 			[
-				'label' => __( 'Background Color', 'she-header' ),
+				'label' => __('Background Color', 'she-header'),
 				'type' => Controls_Manager::SWITCHER,
 				'separator' => 'before',
-				'label_on' => __( 'On', 'she-header' ),
-				'label_off' => __( 'Off', 'bew-header' ),
+				'label_on' => __('On', 'she-header'),
+				'label_off' => __('Off', 'bew-header'),
 				'return_value' => 'yes',
 				'default' => '',
 				'frontend_available' => true,
+				'prefix_class'  => 'she-header-custom-background-',
 				'condition' => [
 					'transparent!' => '',
 				],
-				'description' => __( 'Choose what color to change the background to after scrolling', 'she-header' ),
+				'description' => __('Choose what color to change the background to after scrolling', 'she-header'),
 			]
 		);
 
 		$element->add_control(
+			'background_type',
+			[
+				'label' => __('Background Type', 'she-header'),
+				'type' => Controls_Manager::CHOOSE,
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+				],
+				'label_block' => false,
+				'render_type' => 'ui',
+				'options' => [
+					'classic' => [
+						'title' => __('Classic', 'she-header'),
+						'icon' => 'eicon-paint-brush',
+					],
+					'gradient' => [
+						'title' => __('Gradient', 'she-header'),
+						'icon' => 'eicon-barcode',
+					],
+				],
+				'default' => 'classic'
+			]
+		);
+		
+		$element->add_control(
 			'background',
 			[
-				'label' => __( 'Color', 'she-header' ),
+				'label' => __('Color', 'she-header'),
 				'type' => Controls_Manager::COLOR,
+				'default' => '',
+				'title' => __('Background Color', 'she-header'),
+// 				'selectors' => [
+// 					'{{WRAPPER}}.she-header' => 'opacity: 1 !important; background-color: {{VALUE}}',
+// 				],
 				'condition' => [
-				    'background_show' => 'yes',
+					'background_show' => 'yes',
 					'transparent!' => '',
 				],
 				'render_type' => 'none',
 				'frontend_available' => true,
 			]
 		);
+		
+		$element->add_control(
+			'gradient_transition_notice',
+			[
+				'raw' => __( 'Please note that gradients will not be transitioned', 'she-header' ),
+				'type' => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'condition' => [
+					'background_type' => ['gradient'],
+					'transparent!' => '',
+				],
+			 ]
+			);
+		
+		$element->add_control(
+			'color_stop',
+			[
+				'label' => __('Location', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => ['%'],
+				'default' => [
+					'unit' => '%',
+					'size' => 0,
+				],
+				'render_type' => 'ui',
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+					'background_type' => ['gradient'],
+				],
+				'of_type' => 'gradient',
+			]
+		);
+
+		$element->add_control(
+			'color_b',
+			[
+				'label' => __('Second Color', 'she-header'),
+				'type' => Controls_Manager::COLOR,
+				'default' => '#f2295b',
+				'render_type' => 'ui',
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+					'background_type' => ['gradient'],
+				],
+				'of_type' => 'gradient',
+			]
+		);
+
+		$element->add_control(
+			'color_b_stop',
+			[
+				'label' => __('Location', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => ['%'],
+				'default' => [
+					'unit' => '%',
+					'size' => 100,
+				],
+				'render_type' => 'ui',
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+					'background_type' => ['gradient'],
+				],
+				'of_type' => 'gradient',
+			]
+		);
+
+		$element->add_control(
+			'gradient_type',
+			[
+				'label' => __('Type', 'she-header'),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'linear' => __('Linear', 'she-header'),
+					'radial' => __('Radial', 'she-header'),
+				],
+				'default' => 'linear',
+				'render_type' => 'ui',
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+					'background_type' => ['gradient'],
+				],
+				'of_type' => 'gradient',
+			]
+		);
+
+		$element->add_control(
+			'gradient_angle',
+			[
+				'label' => __('Angle', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'size_units' => ['deg'],
+				'default' => [
+					'unit' => 'deg',
+					'size' => 180,
+				],
+				'range' => [
+					'deg' => [
+						'step' => 10,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}}.she-header' => 'background-color: transparent; background-image: linear-gradient({{SIZE}}{{UNIT}}, {{background.VALUE}} {{color_stop.SIZE}}{{color_stop.UNIT}}, {{color_b.VALUE}} {{color_b_stop.SIZE}}{{color_b_stop.UNIT}})',
+				],
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+					'background_type' => ['gradient'],
+					'gradient_type' => 'linear',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+
+		$element->add_control(
+			'gradient_position',
+			[
+				'label' => __('Position', 'she-header'),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'center center' => __('Center Center', 'she-header'),
+					'center left' => __('Center Left', 'she-header'),
+					'center right' => __('Center Right', 'she-header'),
+					'top center' => __('Top Center', 'she-header'),
+					'top left' => __('Top Left', 'she-header'),
+					'top right' => __('Top Right', 'she-header'),
+					'bottom center' => __('Bottom Center', 'she-header'),
+					'bottom left' => __('Bottom Left', 'she-header'),
+					'bottom right' => __('Bottom Right', 'she-header'),
+				],
+				'default' => 'center center',
+				'selectors' => [
+					'{{WRAPPER}}.she-header' => 'background-color: transparent; background-image: radial-gradient(at {{VALUE}}, {{background.VALUE}} {{color_stop.SIZE}}{{color_stop.UNIT}}, {{color_b.VALUE}} {{color_b_stop.SIZE}}{{color_b_stop.UNIT}})',
+				],
+				'condition' => [
+					'background_show' => 'yes',
+					'transparent!' => '',
+					'background_type' => ['gradient'],
+					'gradient_type' => 'radial',
+				],
+				'of_type' => 'gradient',
+			]
+		);
+
+	$element->add_control(
+		'mobile_menu_toggle_animation',
+		[
+			'label' => __('Custom Menu Toggle Button', 'she-header'),
+			'type' => Controls_Manager::SWITCHER,
+			'separator' => 'before',
+			'label_on' => __('On', 'she-header'),
+			'label_off' => __('Off', 'she-header'),
+			'return_value' => 'yes',
+			'default' => '',
+			'frontend_available' => true,
+			'condition' => [
+				'transparent!' => '',
+			],
+			'description' => __('Customize and add animation to the Elementor menu icon<br>*Only supports Elementor nav menu', 'she-header'),
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle:before,
+					.she-header-yes .elementor-menu-toggle:after,
+					.she-header-yes .elementor-menu-toggle i:after' => 'content: "";
+					position: absolute;
+					background: currentColor;
+					top: 50%;
+					left: 50%;',
+
+				'.she-header-yes .elementor-menu-toggle' => 'position: relative;
+					transition: color 0.4s ease-in-out, background-color 0.4s ease-in-out;',
+
+				'.she-header-yes .elementor-menu-toggle.elementor-active:before' => 'transform: translate(-50%,-50%) rotate(-45deg);',
+
+				'.she-header-yes .elementor-menu-toggle.elementor-active:after' => 'transform: translate(-50%,-50%) rotate(45deg);',
+
+				'.she-header-yes .elementor-menu-toggle i:after' => 'transform: translate(-50%,-50%);',
+
+				'.she-header-yes .elementor-menu-toggle i:before,
+					.she-header-yes .elementor-menu-toggle.elementor-active i:after' => 'opacity: 0;',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_note',
+		[
+			'raw' => __('This option ONLY works on the WordPress menu widget hamburger icon.<br><br>Tip: Set the nav menu toggle button size first. All of these settings are scaled off of that size', 'she-header'),
+			'type' => Controls_Manager::RAW_HTML,
+			'content_classes' => 'elementor-control-notice elementor-control-notice-type-info',
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_type',
+		[
+			'label' => __('Toggle Button Type', 'she-header'),
+			'type' => Controls_Manager::CHOOSE,
+			'default' => 'lines',
+			'options' => [
+				'lines' => [
+					'title' => __('Lines', 'she-header'),
+					'icon' => 'eicon-menu-bar',
+
+				],
+				'dots' => [
+					'title' => __('Dots/Squares', 'she-header'),
+					'icon' => 'eicon-ellipsis-v',
+				],
+			],
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+		]
+	);
+
+	$element->add_control(
+		'lines_note',
+		[
+			'raw' => __('<b>Lines</b><br>Separately adjustable line weight and width', 'she-header'),
+			'type' => Controls_Manager::RAW_HTML,
+			'content_classes' => 'elementor-descriptor',
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+		]
+	);
+
+	$element->add_control(
+		'dots_note',
+		[
+			'raw' => __('<b>Dots/Squares</b><br>Line weight and width are equal with an adjustable width for the active(close button) lines', 'she-header'),
+			'type' => Controls_Manager::RAW_HTML,
+			'content_classes' => 'elementor-descriptor',
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_only_two',
+		[
+			'label' => __('Only 2', 'she-header'),
+			'type' => Controls_Manager::SWITCHER,
+			'label_on' => __('On', 'she-header'),
+			'label_off' => __('Off', 'she-header'),
+			'return_value' => 'yes',
+			'default' => '',
+			'frontend_available' => true,
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+			'description' => __('If 3 is too many, try only 2', 'she-header'),
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle i:after' => 'display: none;',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_weight',
+		[
+			'label' => __('Weight', 'she-header'),
+			'type' => Controls_Manager::SLIDER,
+			'size_units' => ['em', 'rem', '%', 'px'],
+			'range' => [
+				'em' => [
+					'min' => 0,
+					'max' => 1,
+					'step' => 0.01,
+				],
+				'rem' => [
+					'min' => 0,
+					'max' => 2,
+					'step' => 0.01,
+				],
+				'%' => [
+					'min' => 0,
+					'max' => 33,
+					'step' => 0.1,
+				],
+				'px' => [
+					'min' => 0,
+					'max' => 50,
+					'step' => 1,
+				],
+			],
+			'default' => [
+				'size' => 0.12,
+				'unit' => 'em',
+			],
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+			'frontend_available' => true,
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle:before,
+					.she-header-yes .elementor-menu-toggle:after,
+					.she-header-yes .elementor-menu-toggle i:after' => '
+					height: {{SIZE}}{{UNIT}};',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_width',
+		[
+			'label' => __('Width', 'she-header'),
+			'type' => Controls_Manager::SLIDER,
+			'size_units' => ['em', 'rem', '%', 'px'],
+			'range' => [
+				'em' => [
+					'min' => 0,
+					'max' => 2,
+					'step' => 0.01,
+				],
+				'rem' => [
+					'min' => 0,
+					'max' => 5,
+					'step' => 0.1,
+				],
+				'%' => [
+					'min' => 0,
+					'max' => 100,
+					'step' => 1,
+				],
+				'px' => [
+					'min' => 0,
+					'max' => 100,
+					'step' => 1,
+				],
+			],
+			'default' => [
+				'size' => 1,
+				'unit' => 'em',
+			],
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'mobile_menu_toggle_type' => ['lines'],
+				'transparent!' => '',
+			],
+			'frontend_available' => true,
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle:before,
+					.she-header-yes .elementor-menu-toggle:after,
+					.she-header-yes .elementor-menu-toggle i:after' => '
+					width: {{SIZE}}{{UNIT}};',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_active_width',
+		[
+			'label' => __('Active Width(Close Button)', 'she-header'),
+			'type' => Controls_Manager::SLIDER,
+			'size_units' => ['em', 'rem', '%', 'px'],
+			'range' => [
+				'em' => [
+					'min' => 0,
+					'max' => 2,
+					'step' => 0.01,
+				],
+				'rem' => [
+					'min' => 0,
+					'max' => 5,
+					'step' => 0.1,
+				],
+				'%' => [
+					'min' => 0,
+					'max' => 100,
+					'step' => 1,
+				],
+				'px' => [
+					'min' => 0,
+					'max' => 100,
+					'step' => 1,
+				],
+			],
+			'default' => [
+				'size' => 1,
+				'unit' => 'em',
+			],
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'mobile_menu_toggle_type' => ['dots'],
+				'transparent!' => '',
+			],
+			'frontend_available' => true,
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle:before,
+					.she-header-yes .elementor-menu-toggle:after,
+					.she-header-yes .elementor-menu-toggle i:after' => '
+					height: {{mobile_menu_toggle_weight.SIZE}}{{mobile_menu_toggle_weight.UNIT}};
+					width: {{mobile_menu_toggle_weight.SIZE}}{{mobile_menu_toggle_weight.UNIT}};
+					transition: transform 0.3s cubic-bezier(0.28, 0.55, 0.385, 1.65) 0.3s, width 0.3s cubic-bezier(0.28, 0.55, 0.385, 1.65) !important;',
+
+				'.she-header-yes .elementor-menu-toggle.elementor-active:before,
+					.she-header-yes .elementor-menu-toggle.elementor-active:after,
+					.she-header-yes .elementor-menu-toggle.elementor-active i:after' => 'width: {{SIZE}}{{UNIT}} !important;
+					transition: transform 0.3s cubic-bezier(0.28, 0.55, 0.385, 1.65), width 0.3s cubic-bezier(0.28, 0.55, 0.385, 1.65) 0.3s !important;',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_gap',
+		[
+			'label' => __('Gap', 'she-header'),
+			'type' => Controls_Manager::SLIDER,
+			'size_units' => ['em', 'rem', '%', 'px'],
+			'range' => [
+				'em' => [
+					'min' => 0,
+					'max' => 1,
+					'step' => 0.01,
+				],
+				'rem' => [
+					'min' => 0,
+					'max' => 2,
+					'step' => 0.01,
+				],
+				'%' => [
+					'min' => 0,
+					'max' => 300,
+					'step' => 1,
+				],
+				'px' => [
+					'min' => 0,
+					'max' => 50,
+					'step' => 1,
+				],
+			],
+			'default' => [
+				'size' => 0.12,
+				'unit' => 'em',
+			],
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+			'frontend_available' => true,
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle:before,
+					.she-header-yes .elementor-menu-toggle:after,
+					.she-header-yes .elementor-menu-toggle i:after' => '
+					transform: translate(-50%,calc(-50% + {{SIZE}}{{UNIT}} * 2));',
+				'.she-header-yes .elementor-menu-toggle:after' => 'transform: translate(-50%,calc(-50% - {{SIZE}}{{UNIT}} * 2));',
+			],
+		]
+	);
+
+	$element->add_control(
+		'mobile_menu_toggle_radius',
+		[
+			'label' => __('Radius', 'she-header'),
+			'type' => Controls_Manager::SLIDER,
+			'size_units' => ['em', 'rem', '%', 'px'],
+			'range' => [
+				'em' => [
+					'min' => 0,
+					'max' => 1,
+					'step' => 0.01,
+				],
+				'rem' => [
+					'min' => 0,
+					'max' => 2,
+					'step' => 0.01,
+				],
+				'%' => [
+					'min' => 0,
+					'max' => 100,
+					'step' => 1,
+				],
+				'px' => [
+					'min' => 0,
+					'max' => 100,
+					'step' => 1,
+				],
+			],
+			'default' => [
+				'size' => 0.12,
+				'unit' => 'em',
+			],
+			'condition' => [
+				'mobile_menu_toggle_animation' => 'yes',
+				'transparent!' => '',
+			],
+			'frontend_available' => true,
+			'selectors' => [
+				'.she-header-yes .elementor-menu-toggle:before,
+					.she-header-yes .elementor-menu-toggle:after,
+					.she-header-yes .elementor-menu-toggle i:after' => '
+					border-radius: {{SIZE}}{{UNIT}};',
+			],
+		]
+	);
 
 		$element->add_control(
 			'bottom_border',
@@ -210,7 +791,6 @@ $element->add_responsive_control(
 				'description' => __( 'Choose bottom border size and color', 'she-header' ),
 			]
 		);
-
 
 		$element->add_control(
 			'custom_bottom_border_color',
@@ -244,6 +824,112 @@ $element->add_responsive_control(
 				'description' => __( 'Note: A border size(even 0px) must be set on the header for the transition to work both ways', 'she-header' ),
 				'condition' => [
 				    'bottom_border' => 'yes',
+					'transparent!' => '',
+				],
+				'frontend_available' => true,
+			]
+		);
+		
+		$element->add_control(
+			'bottom_shadow',
+			[
+				'label' => __('Bottom Shadow', 'she-header'),
+				'type' => Controls_Manager::SWITCHER,
+				'separator' => 'before',
+				'label_on' => __('On', 'she-header'),
+				'label_off' => __('Off', 'she-header'),
+				'return_value' => 'yes',
+				'default' => '',
+				'frontend_available' => true,
+				'condition' => [
+					'transparent!' => '',
+				],
+				'description' => __('Choose bottom shadow options after scrolling', 'she-header'),
+				'selectors' => [
+					'.she-header-yes' => 'box-shadow: 0 0 0 0 rgb(0 0 0 / 0%); clip-path: inset(0 0 -100vh 0);',
+					'.she-header-yes.she-header' => 'box-shadow: 0 {{bottom_shadow_vertical.SIZE}}{{bottom_shadow_vertical.UNIT}} {{bottom_shadow_blur.SIZE}}{{bottom_shadow_blur.UNIT}} {{bottom_shadow_spread.SIZE}}{{bottom_shadow_spread.UNIT}} {{bottom_shadow_color.VALUE}}; clip-path: inset(0 0 -100vh 0);',
+				],
+			]
+		);
+
+		$element->add_control(
+			'bottom_shadow_color',
+			[
+				'label' => __('Color', 'she-header'),
+				'type' => Controls_Manager::COLOR,
+				'default' => 'rgba(0, 0, 0, 0.15)',
+				'condition' => [
+					'bottom_shadow' => 'yes',
+					'transparent!' => '',
+				],
+				'render_type' => 'none',
+				'frontend_available' => true,
+			]
+		);
+
+		$element->add_control(
+			'bottom_shadow_vertical',
+			[
+				'label' => __('Vertical', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 5,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'size_units' => ['px'],
+				'condition' => [
+					'bottom_shadow' => 'yes',
+					'transparent!' => '',
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$element->add_control(
+			'bottom_shadow_blur',
+			[
+				'label' => __('Blur', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 10,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'size_units' => ['px'],
+				'condition' => [
+					'bottom_shadow' => 'yes',
+					'transparent!' => '',
+				],
+				'frontend_available' => true,
+			]
+		);
+
+		$element->add_control(
+			'bottom_shadow_spread',
+			[
+				'label' => __('Spread', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 0,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'size_units' => ['px'],
+				'condition' => [
+					'bottom_shadow' => 'yes',
 					'transparent!' => '',
 				],
 				'frontend_available' => true,
@@ -354,6 +1040,65 @@ $element->add_control(
 		]
 	);
 
+		// $element->add_control(
+		// 	'logo_color_before_new',
+		// 	[
+		// 		'label' => __('Before Scrolling', 'she-header'),
+		// 		'type' => Controls_Manager::SELECT,
+		// 		'options' => [
+		// 			'' => __('None', 'she-header'),
+		// 			'brightness(0) invert(1) !important' => __('White', 'she-header'),
+		// 			'brightness(0) invert(0) !important' => __('Black', 'she-header'),
+		// 		],
+		// 		'default' => '',
+		// 		'frontend_available' => true,
+		// 		'condition' => [
+		// 			'change_logo_color' => 'yes',
+		// 		],
+		// 		'selectors' => [
+		// 			'{{WRAPPER}} .elementor-widget-theme-site-logo img' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
+		// 			'{{WRAPPER}} .logo img' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
+		// 		],
+		// 	]
+		// );
+
+		// // ---------------------------------- LOGO COLOR AFTER
+
+		// $element->add_control(
+		// 	'logo_color_after_new',
+		// 	[
+		// 		'label' => __('After Scrolling', 'she-header'),
+		// 		'type' => Controls_Manager::SELECT,
+		// 		'options' => [
+		// 			'none !important' => __('None', 'she-header'),
+		// 			'brightness(0) invert(1) !important' => __('White', 'she-header'),
+		// 			'brightness(0) invert(0) !important' => __('Black', 'she-header'),
+		// 		],
+		// 		'default' => 'none !important',
+		// 		'frontend_available' => true,
+		// 		'condition' => [
+		// 			'change_logo_color' => 'yes',
+		// 		],
+		// 		'selectors' => [
+		// 			'{{WRAPPER}} .elementor-widget-theme-site-logo img.change-logo-color' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
+		// 			'{{WRAPPER}} .logo img.change-logo-color' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
+		// 		],
+		// 	]
+		// );
+
+
+		// $element->add_control(
+		// 	'logo_color_depricted_notice',
+		// 	[
+		// 		'type' => Controls_Manager::DEPRECATED_NOTICE,
+		// 		'raw' => __( 'IMPORTANT: The settings below have been depricated and should be avoided. They only remain to not cause conflict.', 'she-header' ),
+		// 		'type' => Controls_Manager::RAW_HTML,
+		// 		'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
+		// 		'condition' => [
+		// 			'change_logo_color' => 'yes',
+		// 		],
+		// 	]
+		// );
 // ---------------------------------- LOGO COLOR NOTICE
 
 $element->add_control(
@@ -546,21 +1291,93 @@ $element->add_control(
 	$element->end_controls_tab();
 	$element->end_controls_tabs();
 	
+		// ---------------------------------- BLUR BACKGROUND
 		$element->add_control(
 			'blur_bg',
 			[
-				'label' => __( 'Blur Background', 'she-header' ),
+				'label' => __('Blur Background', 'she-header'),
 				'type' => Controls_Manager::SWITCHER,
 				'separator' => 'before',
-				'label_on' => __( 'On', 'she-header' ),
-				'label_off' => __( 'Off', 'she-header' ),
+				'label_on' => __('On', 'she-header'),
+				'label_off' => __('Off', 'she-header'),
 				'return_value' => 'yes',
 				'default' => '',
 				'frontend_available' => true,
 				'condition' => [
+
 					'transparent!' => '',
 				],
-				'description' => __( 'Add a modern blur effect to a semi-transparent header background color after scrolling', 'she-header' ),
+				'description' => __('Add a modern blur effect to a semi-transparent header background color after scrolling', 'she-header'),
+				'selectors' => [
+					'{{WRAPPER}}.she-header' => 'backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);',
+					'{{WRAPPER}}.she-header' => 'backdrop-filter: blur({{blur_bg_blur_amount.SIZE}}{{blur_bg_blur_amount.UNIT}}) saturate({{blur_bg_saturate_amount.SIZE}}) !important; -webkit-backdrop-filter: blur({{blur_bg_blur_amount.SIZE}}{{blur_bg_blur_amount.UNIT}}) saturate({{blur_bg_saturate_amount.SIZE}}) !important;',
+				],
+			]
+		);
+
+		// ---------------------------------- BLUR BACKGROUND PRO SETTINGS
+
+		$element->add_control(
+			'blur_bg_note',
+			[
+				'raw' => __('Tip: Low saturation works best with no background color<br><br>DEFAULTS: Blur 20px, Saturation 1.80', 'she-header'),
+				'type' => Controls_Manager::RAW_HTML,
+				'content_classes' => 'elementor-descriptor',
+				'condition' => [
+					'transparent!' => '',
+					'blur_bg' => 'yes',
+				],
+			]
+		);
+
+		$element->add_control(
+			'blur_bg_blur_amount',
+			[
+				'label' => __('Blur Amount (Px)', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'unit' => 'px',
+					'size' => 20,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 50,
+					],
+				],
+				'size_units' => ['px'],
+				'condition' => [
+
+					'transparent!' => '',
+					'blur_bg' => 'yes',
+				],
+				'description' => __('', 'she-header'),
+				'frontend_available' => true,
+			]
+		);
+
+		$element->add_control(
+			'blur_bg_saturate_amount',
+			[
+				'label' => __('Saturation Amount', 'she-header'),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'size' => 1.8,
+				],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 10,
+						'step' => 0.1,
+					],
+				],
+				'condition' => [
+
+					'transparent!' => '',
+					'blur_bg' => 'yes',
+				],
+				'description' => __('', 'she-header'),
+				'frontend_available' => true,
 			]
 		);
 
@@ -590,7 +1407,6 @@ $element->add_control(
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				'condition' => [
-					
 					'hide_header' => 'yes',
 					'transparent!' => '',
 				],

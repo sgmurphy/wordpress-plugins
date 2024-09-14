@@ -4,6 +4,7 @@ import {
 	BaseControl,
 	Button,
 	Disabled,
+	Flex,
 	Placeholder,
 	RangeControl,
 	SelectControl,
@@ -41,6 +42,7 @@ export default function ( { attributes, setAttributes, clientId } ) {
 		forceDisplayItemMeta,
 		displayItemAuthor,
 		displayItemPublished,
+		displayItemModified,
 		forceDisplayItemTerms,
 		displayItemExcerpt,
 		categoryLabelTaxonomy,
@@ -200,38 +202,45 @@ export default function ( { attributes, setAttributes, clientId } ) {
 									} )
 								}
 							>
-								{ taxonomiesTerms.map( ( taxonomyTerms ) => {
-									const _taxonomy = find( taxonomies, [
-										'slug',
-										taxonomyTerms.taxonomy,
-									] );
+								<Flex direction="column">
+									{ taxonomiesTerms.map(
+										( taxonomyTerms ) => {
+											const _taxonomy = find(
+												taxonomies,
+												[
+													'slug',
+													taxonomyTerms.taxonomy,
+												]
+											);
 
-									const onChangeTaxonomyTermId = (
-										value
-									) => {
-										setAttributes( {
-											taxonomy: _taxonomy.slug,
-											termId: toNumber( value ),
-										} );
-									};
+											const onChangeTaxonomyTermId = (
+												value
+											) => {
+												setAttributes( {
+													taxonomy: _taxonomy.slug,
+													termId: toNumber( value ),
+												} );
+											};
 
-									return (
-										!! _taxonomy && (
-											<TreeSelect
-												key={ `${ _taxonomy.slug }-${ termId }` }
-												label={ _taxonomy.name }
-												noOptionLabel="-"
-												onChange={
-													onChangeTaxonomyTermId
-												}
-												selectedId={ termId }
-												tree={ buildTermsTree(
-													taxonomyTerms.terms
-												) }
-											/>
-										)
-									);
-								} ) }
+											return (
+												!! _taxonomy && (
+													<TreeSelect
+														key={ `${ _taxonomy.slug }-${ termId }` }
+														label={ _taxonomy.name }
+														noOptionLabel="-"
+														onChange={
+															onChangeTaxonomyTermId
+														}
+														selectedId={ termId }
+														tree={ buildTermsTree(
+															taxonomyTerms.terms
+														) }
+													/>
+												)
+											);
+										}
+									) }
+								</Flex>
 							</ToolsPanelItem>
 
 							<ToolsPanelItem
@@ -693,6 +702,42 @@ export default function ( { attributes, setAttributes, clientId } ) {
 								onChange={ ( value ) =>
 									setAttributes( {
 										displayItemPublished: value,
+									} )
+								}
+							/>
+						</ToolsPanelItem>
+					) }
+
+					{ ( taxonomy === 'category' ||
+						taxonomy === 'post_tag' ||
+						forceDisplayItemMeta ) && (
+						<ToolsPanelItem
+							hasValue={ () =>
+								displayItemModified !==
+								metadata.attributes.displayItemModified.default
+							}
+							isShownByDefault
+							label={ __(
+								'Display modified date of each items',
+								'snow-monkey-blocks'
+							) }
+							onDeselect={ () =>
+								setAttributes( {
+									displayItemModified:
+										metadata.attributes.displayItemModified
+											.default,
+								} )
+							}
+						>
+							<ToggleControl
+								label={ __(
+									'Display modified date of each items',
+									'snow-monkey-blocks'
+								) }
+								checked={ displayItemModified }
+								onChange={ ( value ) =>
+									setAttributes( {
+										displayItemModified: value,
 									} )
 								}
 							/>

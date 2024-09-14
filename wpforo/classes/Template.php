@@ -1745,7 +1745,7 @@ class Template {
 					}
 				break;
 				case 'report':
-					if( WPF()->perm->forum_can( 'r', $forumid ) && $login ) {
+					if( WPF()->perm->can_report( $forumid ) ) {
 						$button_html[] = '<span wpf-tooltip="' . esc_attr( wpforo_phrase( 'Report', false ) ) . '" class="wpf-action wpforo-report" data-postid="' . wpforo_bigintval(
 								$postid
 							) . '"><i class="fas fa-exclamation-triangle"></i><span class="wpf-button-text">' . wpforo_phrase( 'Report', false ) . '</span></span>';
@@ -2788,14 +2788,14 @@ class Template {
 			if( is_null( $orderby ) ) $orderby = WPF()->current_object['orderby'];
 			?>
             <label>
-                <select onchange="window.location.assign(this.value)">
-                    <option value="<?php echo $topic_url ?>?orderby=votes" <?php wpfo_check( $orderby, 'votes', 'selected' ) ?>>
+                <select onchange="window.location.assign('?orderby=' + this.value)">
+                    <option value="votes" <?php wpfo_check( $orderby, 'votes', 'selected' ) ?>>
 						<?php wpforo_phrase( 'Most Voted' ) ?>
                     </option>
-                    <option value="<?php echo $topic_url ?>?orderby=oldest" <?php wpfo_check( $orderby, 'oldest', 'selected' ) ?>>
+                    <option value="oldest" <?php wpfo_check( $orderby, 'oldest', 'selected' ) ?>>
 						<?php wpforo_phrase( 'Oldest' ) ?>
                     </option>
-                    <option value="<?php echo $topic_url ?>?orderby=newest" <?php wpfo_check( $orderby, 'newest', 'selected' ) ?>>
+                    <option value="newest" <?php wpfo_check( $orderby, 'newest', 'selected' ) ?>>
 						<?php wpforo_phrase( 'Newest' ) ?>
                     </option>
                 </select>
@@ -3083,7 +3083,7 @@ class Template {
 		$links   = '';
 		foreach( $filters as $filter => $label ) {
 			$links .= sprintf(
-				'<span class="wpf-member-template-link wpf-ajax-link %1$s"><a href="%2$s">%3$s</a></span>',
+				'<span class="wpf-member-template-link wpf-ajax-link %1$s"><a href="%2$s" rel="nofollow">%3$s</a></span>',
 				( $active_filter === $filter ? 'wpf-active' : '' ),
 				WPF()->member->get_activity_url( $filter, $boardid, $user ),
 				$label
@@ -3121,7 +3121,7 @@ class Template {
 		$links   = '';
 		foreach( $filters as $filter => $label ) {
 			$links .= sprintf(
-				'<span class="wpf-member-template-link wpf-ajax-link %1$s"><a href="%2$s">%3$s</a></span>',
+				'<span class="wpf-member-template-link wpf-ajax-link %1$s"><a href="%2$s" rel="nofollow">%3$s</a></span>',
 				( $active_filter === $filter ? 'wpf-active' : '' ),
 				WPF()->member->get_favored_url( $filter, $boardid, $user ),
 				$label

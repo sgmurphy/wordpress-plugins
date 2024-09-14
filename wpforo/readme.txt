@@ -1,9 +1,9 @@
-﻿=== wpForo Forum ===
+=== wpForo Forum ===
 Contributors: gVectors Team
 Tags: forum, forums, forum plugin, bbpress, community
 Requires at least: 5.1
 Tested up to: 6.6
-Stable tag: 2.3.5
+Stable tag: 2.4.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -48,7 +48,7 @@ Free Migration Tool Go2wpForo: [https://wpforo.com/docs/wpforo-v2/migrate-to-wpf
 
 = Forum Integration =
 
-wpForo forum plugin is well integrated with many Profile Builder and Paid Membership plugins, such as **BuddyPress**, **Ultimate Members**, **WooCommerce Membership**, **MemberPress**, **Groups** and **SureMembers** plugins.
+wpForo forum plugin is well integrated with many Profile Builder and Paid Membership plugins, such as **BuddyPress**, **Ultimate Members**, **WooCommerce Membership**, **Paid Memberships Pro**, **MemberPress**, **Groups** and **SureMembers** plugins.
 
 = Forum Translation =
 
@@ -179,7 +179,20 @@ IMPORTANT NOTES for UPDATE
  - After the update, please flush Redis Object Cache if you have this cache enabled
 
 
-= wpForo Forum 2.3.0 - 2.3.5 | 01.06.2024 =
+= wpForo Forum 2.4.0 | 14.09.2024 =
+
+[wpForo Forum v2.4 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-2-4-is-released/)
+
+* Added: Export and Import of settings. Allows you to export and import different groups of settings separately.
+* Added: Automatically change a post status to unapproved when an eligible user report it.
+* Added: reCAPTCHA to the [Add Topic] form in stand-alone topic creation page (/add-topic/)
+* SEO Optimization: Prevent indexing dynamic URLs with get parameters for when page is generated after selecting options in dropdown menus.
+* SEO Optimization: Added `rel="nofollow"` to links in  the user activity and favored pages.
+* Changed: Topic and post shortlinks previously showed a 404 error if the content was private or unapproved. Now, they redirect to the login page to authorize the user before displaying the content.
+* New Addon: [wpForo - Advanced Reactions](https://gvectors.com/product/wpforo_reactions/)
+
+
+= wpForo Forum 2.3.0 - 2.3.5 | 01.08.2024 =
 
 [wpForo Forum v2.3 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-2-3-is-released/)
 

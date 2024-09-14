@@ -944,7 +944,8 @@ Author: gVectors Team
         #wpforo #wpforo-wrap .wpfl-4 .wpf-child-post .wpforo-post-meta{margin: 30px 25px 10px 25px;}
         #wpforo #wpforo-wrap .wpfl-4 .wpforo-post .wpforo-post-signature{margin-top: 30px;}
         #wpforo #wpforo-wrap .wpfl-4 .wpforo-post .wpforo-post-footer .reacted-users:not(:empty){padding: 5px 15px; font-size: 12px; display: flex;}
-        #wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep{padding: 20px 0 5px 10px;margin: 5px 0 0 12px;font-size: 13px;text-transform: uppercase;font-weight: bold;}
+		#wpforo #wpforo-wrap .wpfl-4 .wpforo-post .wpforo-post-footer .reacted-users:not(:empty) a{margin: 0 4px;}
+		#wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep{padding: 20px 0 5px 10px;margin: 5px 0 0 12px;font-size: 13px;text-transform: uppercase;font-weight: bold;}
         #wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep i{margin-right: 3px;}
         #wpforo #wpforo-wrap .wpfl-4 .wpf-replies-sep span{font-weight: bold;}
         #wpforo #wpforo-wrap .wpf-form-wrapper.wpfel-4 .wpf-post-create .wpf-field-name-title{display:none;}

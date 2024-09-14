@@ -28,20 +28,47 @@ class RD_Metabox {
 	public function form_identifier_box_content() {
 	    $identifier = get_post_meta(get_the_ID(), 'form_identifier', true);
 	    $use_post_title = get_post_meta(get_the_ID(), 'use_post_title', true); ?>
-		<input id="rd_form_nonce" name="rd_form_nonce" type="hidden" value="<?=wp_create_nonce('rd-form-nonce')?>" />
-	    <input type="text" name="form_identifier" value="<?php echo $identifier; ?>">
+		<input id="rd_form_nonce" name="rd_form_nonce" type="hidden" value="<?php echo esc_attr(wp_create_nonce('rd-form-nonce'))?>" />
+	    <input type="text" name="form_identifier" value="<?php echo esc_attr($identifier); ?>">
 	    <span class="rd-integration-tips">
-				<?php _e('This identifier will help you to identify the Lead source.', 'integracao-rd-station') ?>
+				<?php esc_html_e('This identifier will help you to identify the Lead source.', 'integracao-rd-station') ?>
 			</span>
 	    <?php
 	}
 
-	public function rd_save_meta_boxes($post_id){
-		if ( isset( $_POST['form_identifier'] ) ) update_post_meta( $post_id, 'form_identifier', $_POST['form_identifier'] );
-		if ( isset( $_POST['use_post_title'] ) )  update_post_meta( $post_id, 'use_post_title', $_POST['use_post_title'] );
-		if ( isset( $_POST['form_id'] ) ) update_post_meta( $post_id, 'form_id', $_POST['form_id'] );
-		if ( isset( $_POST['gf_mapped_fields'] ) ) update_post_meta( $post_id, 'gf_mapped_fields_'.$_POST['form_id'], $_POST['gf_mapped_fields'] );
-		if ( isset( $_POST['cf7_mapped_fields'] ) ) update_post_meta( $post_id, 'cf7_mapped_fields_'.$_POST['form_id'], $_POST['cf7_mapped_fields'] );
+	public function rd_save_meta_boxes($post_id) {
+		if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['rd_form_nonce'])), 'rd-form-nonce')) {
+			return;
+		}
+
+		if (!current_user_can('edit_post', $post_id)) {
+			return $post_id;
+		}
+
+		if (isset($_POST['form_identifier'])) {
+			$form_identifier = sanitize_text_field(wp_unslash($_POST['form_identifier']));
+			update_post_meta($post_id, 'form_identifier', $form_identifier);
+		}
+
+		if (isset($_POST['use_post_title'])) {
+			$use_post_title = sanitize_text_field(wp_unslash($_POST['use_post_title']));
+			update_post_meta($post_id, 'use_post_title', $use_post_title);
+		}
+
+		if (isset($_POST['form_id'])) {
+			$form_id = sanitize_text_field(wp_unslash($_POST['form_id']));
+			update_post_meta($post_id, 'form_id', $form_id);
+		}
+
+		if (isset($_POST['gf_mapped_fields'])) {
+			$gf_mapped_fields = array_map('sanitize_text_field', wp_unslash($_POST['gf_mapped_fields']));
+			update_post_meta($post_id, 'gf_mapped_fields_' . $form_id, $gf_mapped_fields);
+		}
+
+		if (isset($_POST['cf7_mapped_fields'])) {
+			$cf7_mapped_fields = array_map('sanitize_text_field', wp_unslash($_POST['cf7_mapped_fields']));
+			update_post_meta($post_id, 'cf7_mapped_fields_' . $form_id, $cf7_mapped_fields);
+		}
 	}
 }
 

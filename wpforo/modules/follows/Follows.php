@@ -227,7 +227,7 @@ class Follows {
 	 *
 	 * @return bool
 	 */
-	public function delete( $args, $operator = 'AND' ) {
+	public function delete( $args, string $operator = 'AND' ): bool {
 		if( is_numeric( $args ) ) {
 			$args = [ 'followid' => wpforo_bigintval( $args ) ];
 		} elseif( is_string( $args ) ) {
@@ -396,7 +396,7 @@ class Follows {
 	 *
 	 * @return bool
 	 */
-	public function unfollow( $userid, $itemid, $itemtype = 'user' ) {
+	public function unfollow( $userid, $itemid, string $itemtype = 'user' ): bool {
 		return $this->delete( [ 'userid' => $userid, 'itemid' => $itemid, 'itemtype' => $itemtype ] );
 	}
 	
@@ -405,7 +405,7 @@ class Follows {
 	 *
 	 * @return bool
 	 */
-	public function unfollow_by_key( $confirmkey ) {
+	public function unfollow_by_key( string $confirmkey ): bool {
 		return $this->delete( $confirmkey );
 	}
 	

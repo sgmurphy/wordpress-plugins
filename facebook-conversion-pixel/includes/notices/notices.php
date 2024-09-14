@@ -81,9 +81,9 @@ function fca_pc_admin_review_notice() {
 	if( $show_review_option ) {
 
 		$nonce = wp_create_nonce( 'fca_pc_leave_review' );
-		$review_url = add_query_arg( array( 'fca_pc_review_notice' => 'review', 'fca_pc_nonce' => $nonce ) );
-		$postpone_url = add_query_arg( array( 'fca_pc_review_notice' => 'later', 'fca_pc_nonce' => $nonce ) );
-		$forever_dismiss_url = add_query_arg( array( 'fca_pc_review_notice' => 'dismiss', 'fca_pc_nonce' => $nonce ) );
+		$review_url = esc_url( add_query_arg( array( 'fca_pc_review_notice' => 'review', 'fca_pc_nonce' => $nonce ) ) );
+		$postpone_url = esc_url( add_query_arg( array( 'fca_pc_review_notice' => 'later', 'fca_pc_nonce' => $nonce ) ) );
+		$forever_dismiss_url = esc_url( add_query_arg( array( 'fca_pc_review_notice' => 'dismiss', 'fca_pc_nonce' => $nonce ) ) );
 
 		echo '<div id="fca-qc-review-notice" class="notice notice-success is-dismissible" style="padding-bottom: 8px; padding-top: 8px;">';
 		

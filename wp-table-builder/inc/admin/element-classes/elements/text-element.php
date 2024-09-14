@@ -207,7 +207,13 @@ class Text_Element extends Element_Base
 			"padding" => $attrs['padding'] ?? '',
 			"margin" => $attrs['margin'] ?? '',
 		]);
-		$html = wp_kses_post($attrs['text']);
+		// $html = wp_kses_post($attrs['text']);
+		$html = $attrs['text']; // TODO: Fix this
+
+		$html = preg_replace('/<script\b[^>]*>(.*?)((<\/script>)|$)/is', '', $html);
+		// Remove all attributes that start with "on" (e.g., onclick, onmouseover)
+		$html = preg_replace('/<([^>]*)(\s+on\w+="[^"]*")([^>]*)>/i', '<$1$3>', $html);
+		$html = preg_replace("/<([^>]*)(\s+on\w+='[^']*')([^>]*)>/i", '<$1$3>', $html);
 		$elId = self::$elemId++;
 		$innerAttrs = "";
 		if (isset($attrs['isFirst']) && $attrs['isFirst']) {

@@ -20,7 +20,7 @@ class RDSMEventsAPI {
   }
 
   public function post($event) {
-    $body = array('body' => json_encode($event->payload, JSON_UNESCAPED_UNICODE));
+    $body = array('body' => wp_json_encode($event->payload, JSON_UNESCAPED_UNICODE));
     $args = array_merge($this->default_request_args, $body);
     
     $response = $this->api_client->post(RDSM_EVENTS, $args);

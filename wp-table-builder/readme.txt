@@ -3,7 +3,7 @@ Contributors: dotcamp, wptb, imtiazrayhan, istiakrayhan, permafrost06, erdembirc
 Tags: table, table builder, drag and drop
 Requires at least: 4.9
 Tested up to: 6.6
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 Requires PHP: 7.4
 License: GPL3+
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -89,6 +89,18 @@ That's it. You're done!
 8. Shortcode in WP Table Builder.
 
 == Changelog ==
+
+= 1.6.3 =
+* NEW: Added option for hiding column on mobile
+* FIX: Button font size not saving
+* FIX: Sorting not saving
+* FIX: Table size getting smaller
+* FIX: Saving unordered list
+* FIX: Border not loading in some tables
+* FIX: Link color not getting saved
+* FIX: Button width & id when no link
+* FIX: Button content alignment
+* FIX: Button label not getting saved properly
 
 = 1.6.2 =
 * FIX: HTML element issues

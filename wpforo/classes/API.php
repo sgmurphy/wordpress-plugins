@@ -128,7 +128,7 @@ class API {
 	
 	public function __construct() {
 		add_action( 'wpforo_after_init', function() {
-			if( ! is_admin() ) {
+			if( ! wpforo_is_admin() ) {
 				$this->init_wp_recaptcha();
 				$this->hooks();
 			}
@@ -208,7 +208,7 @@ class API {
 			}
 			
 			//Load reCAPTCHA API and Widget for Topic and Post Editor
-			if( $template === 'forum' || $template === 'topic' || $template === 'post' ) {
+			if( in_array( $template, [ 'forum', 'topic', 'post', 'add-topic' ], true ) ) {
 				add_action( 'wp_enqueue_scripts', [ $this, 'rc_enqueue' ] );
 				add_action( 'wpforo_verify_form_end', [ $this, 'rc_verify' ] );
 				if( wpforo_setting( 'recaptcha', 'topic_editor' ) ) {

@@ -11,12 +11,17 @@ class RDSMIntegrationFormChanged implements RDSMEventsInterface {
   }
 
   public function get_custom_fields() {
-    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce($_POST['rd_form_nonce'],'rd-form-nonce')) {
+    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['rd_form_nonce'])), 'rd-form-nonce')) {
       wp_die( '0', 400 );
     }
-    $form_id = $_POST['form_id'];
-    $post_id = $_POST['post_id'];
-    $integrationType = $_POST['type'];
+
+    if (!isset($_POST['form_id']) || !isset($_POST['post_id']) || !isset($_POST['type'])) {
+      wp_die('0', 400);
+    }
+
+    $form_id = sanitize_text_field(wp_unslash($_POST['form_id']));
+    $post_id = sanitize_text_field(wp_unslash($_POST['post_id']));
+    $integrationType = sanitize_text_field(wp_unslash($_POST['type']));
     $select_items = array();
     $contacts_fields = $this->rdstation_fields();
     $fields = $contacts_fields["fields"];

@@ -33,7 +33,7 @@ if( $type === 'topics' ) {
 	$args['order']     = 'DESC';
 	$args['offset']    = ( $paged - 1 ) * wpforo_setting( 'topics', 'topics_per_page' );
 	$args['row_count'] = wpforo_setting( 'topics', 'topics_per_page' );
-
+	
 	switch( $view ) {
 		case 'unread':
 			$args['read'] = false;
@@ -124,7 +124,7 @@ if( $type === 'topics' ) {
 				<?php echo apply_filters( 'wpforo_recent_posts_page_title', $page_title, $args, $view ); ?>
             </h1>
             <div class="wpforo-feed" style="float: none;">
-                <?php wpforo_mark_all_read_link() ?>
+				<?php wpforo_mark_all_read_link() ?>
 				<?php if( wpforo_setting( 'rss', 'feed' ) ): ?>
                     <sep> &nbsp;|&nbsp;</sep>
                     <span class="wpf-feed-forums">
@@ -148,35 +148,35 @@ if( $type === 'topics' ) {
             <div class="wpf-head-buttons">
                 <div class="wpf-head-filter">
                     <select onchange="window.location.assign(this.value)">
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) ) ) ?>" <?php wpfo_check( $view, 'recent', 'selected' ) ?>>
+                        <option value="?view=<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'recent', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Recent Posts' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=unread' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'unread', 'selected' ) ?>>
+                        <option value="?view=unread<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'unread', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Unread Posts' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=no-replies' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'no-replies', 'selected' ) ?>>
+                        <option value="?view=no-replies<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'no-replies', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Not Replied Topics' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=solved' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'solved', 'selected' ) ?>>
+                        <option value="?view=solved<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'solved', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Solved Topics' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=unsolved' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'unsolved', 'selected' ) ?>>
+                        <option value="?view=unsolved<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'unsolved', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Unsolved Topics' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=closed' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'closed', 'selected' ) ?>>
+                        <option value="?view=closed<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'closed', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Closed Topics' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=opened' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'opened', 'selected' ) ?>>
+                        <option value="?view=opened<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'opened', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Open Topics' ) ?>
                         </option>
-                        <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=sticky' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'sticky', 'selected' ) ?>>
+                        <option value="?view=sticky<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'sticky', 'selected' ) ?>>
 							<?php wpforo_phrase( 'Sticky Topics' ) ?>
                         </option>
 						<?php if( wpforo_current_user_is( 'admin' ) || wpforo_current_user_is( 'moderator' ) ): ?>
-                            <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=private' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'private', 'selected' ) ?>>
+                            <option value="?view=private<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'private', 'selected' ) ?>>
 								<?php wpforo_phrase( 'Private Topics' ) ?>
                             </option>
-                            <option value="<?php echo esc_url( wpforo_home_url( wpforo_settings_get_slug( 'recent' ) . '?view=unapproved' . $prefix_query ) ) ?>" <?php wpfo_check( $view, 'unapproved', 'selected' ) ?>>
+                            <option value="?view=unapproved<?php echo $prefix_query ?>" <?php wpfo_check( $view, 'unapproved', 'selected' ) ?>>
 								<?php wpforo_phrase( 'Unapproved Posts' ) ?>
                             </option>
 						<?php endif; ?>
@@ -229,11 +229,16 @@ if( $type === 'topics' ) {
                             </td>
                             <td class="wpf-spost-title" colspan="2">
 								<?php wpforo_topic_title( $topic, $topic_url, '{i}{p}{au}{t}{/a}{n}{v}', true, 'wpf-spost-title-link' ) ?>
-                                <p style="font-size:12px"><?php wpforo_member_link( $member, 'by' ); ?> <?php if( wpfkey( $topic, 'created' ) ) wpforo_date( $topic['created'] ); ?> &nbsp;|&nbsp; <span style="text-transform: lowercase;"><?php wpforo_phrase( 'Last post' ) ?>:</span> <?php if( wpfkey( $last_post, 'created' ) ) wpforo_date( $last_post['created'] ); ?></p>
+                                <p style="font-size:12px"><?php wpforo_member_link( $member, 'by' ); ?> <?php if( wpfkey( $topic, 'created' ) ) wpforo_date( $topic['created'] ); ?> &nbsp;|&nbsp; <span
+                                            style="text-transform: lowercase;"><?php wpforo_phrase( 'Last post' ) ?>:</span> <?php if( wpfkey( $last_post, 'created' ) ) {
+										wpforo_date(
+											$last_post['created']
+										);
+									} ?></p>
                                 <div class="wpf-spost-forum">
-                                    <span class="wpf-spost-forum-label"><?php wpforo_phrase('Forum') ?></span>
-                                    <?php $forum_icon = ( isset($forum['icon']) && $forum['icon']) ? $forum['icon'] : 'fas fa-comments'; ?>
-                                    <i class="<?php echo esc_attr($forum_icon) ?>" style="color: <?php echo esc_attr($forum['color']) ?>"></i>
+                                    <span class="wpf-spost-forum-label"><?php wpforo_phrase( 'Forum' ) ?></span>
+									<?php $forum_icon = ( isset( $forum['icon'] ) && $forum['icon'] ) ? $forum['icon'] : 'fas fa-comments'; ?>
+                                    <i class="<?php echo esc_attr( $forum_icon ) ?>" style="color: <?php echo esc_attr( $forum['color'] ) ?>"></i>
                                     <a href="<?php echo $forum['url'] ?>"><?php echo esc_html( $forum['title'] ); ?></a>
                                 </div>
                             </td>
@@ -247,13 +252,19 @@ if( $type === 'topics' ) {
 											<?php $poster = wpforo_member( $post ); ?>
                                             <li>
 
-                                                <i class="fas fa-reply fa-rotate-180 wpfsx wpfcl-0"></i> &nbsp; <a href="<?php echo esc_url( wpforo_post( $post['postid'], 'url' ) ); ?>" title="<?php wpforo_phrase( 'REPLY:' ) ?> <?php echo esc_html( wpforo_text( $post['body'], 100, false ) ) ?>"><?php echo( ( $post_body = esc_html( wpforo_text( $post['body'], wpforo_setting( 'topics', 'layout_extended_intro_posts_length' ), false ) ) ) ? $post_body : esc_html( $post['title'] ) ) ?></a>
+                                                <i class="fas fa-reply fa-rotate-180 wpfsx wpfcl-0"></i> &nbsp; <a href="<?php echo esc_url( wpforo_post( $post['postid'], 'url' ) ); ?>"
+                                                                                                                   title="<?php wpforo_phrase( 'REPLY:' ) ?> <?php echo esc_html(
+													                                                                   wpforo_text( $post['body'], 100, false )
+												                                                                   ) ?>"><?php echo( ( $post_body = esc_html(
+														wpforo_text( $post['body'], wpforo_setting( 'topics', 'layout_extended_intro_posts_length' ), false )
+													) ) ? $post_body : esc_html( $post['title'] ) ) ?></a>
                                                 <div class="wpf-spost-topic-recent-posts"><?php wpforo_date( $post['created'] ); ?>&nbsp; <?php wpforo_member_link( $poster, 'by %s', 5 ); ?> </div>
                                                 <br class="wpf-clear">
                                             </li>
 										<?php endforeach ?>
 										<?php if( intval( $topic['posts'] ) > ( $intro_posts + 1 ) ): ?>
-                                            <li style="text-align:right;"><a href="<?php echo esc_url( (string) $topic_url ) ?>"><?php wpforo_phrase( 'view all posts', true, 'lower' ); ?> <i class="fas fa-angle-right" aria-hidden="true"></i></a></li>
+                                            <li style="text-align:right;"><a href="<?php echo esc_url( (string) $topic_url ) ?>"><?php wpforo_phrase( 'view all posts', true, 'lower' ); ?> <i
+                                                            class="fas fa-angle-right" aria-hidden="true"></i></a></li>
 										<?php endif ?>
                                     </ul>
                                 </td>
@@ -292,28 +303,29 @@ if( $type === 'topics' ) {
 								<?php endif; ?>
                             </td>
                             <td class="wpf-spost-title">
-                                <a href="<?php echo esc_url( WPF()->post->get_url( $postid ) ) ?>" class="wpf-spost-title-link" title="<?php wpforo_phrase( 'View entire post' ) ?>"><?php echo esc_html( $title ) ?> &nbsp;<i class="fas fa-chevron-right" style="font-size:11px;"></i></a>
+                                <a href="<?php echo esc_url( WPF()->post->get_url( $postid ) ) ?>" class="wpf-spost-title-link"
+                                   title="<?php wpforo_phrase( 'View entire post' ) ?>"><?php echo esc_html( $title ) ?> &nbsp;<i class="fas fa-chevron-right" style="font-size:11px;"></i></a>
                                 <p style="font-size:12px"><?php wpforo_member_link( $member, 'by' ); ?>, <?php wpforo_date( $post['created'] ); ?></p>
                                 <div class="wpf-spost-forum">
-                                    <span class="wpf-spost-forum-label"><?php wpforo_phrase('Forum') ?></span>
-                                    <?php $forum_icon = ( isset($forum['icon']) && $forum['icon']) ? $forum['icon'] : 'fas fa-comments'; ?>
-                                    <i class="<?php echo esc_attr($forum_icon) ?>" style="color: <?php echo esc_attr($forum['color']) ?>"></i>
+                                    <span class="wpf-spost-forum-label"><?php wpforo_phrase( 'Forum' ) ?></span>
+									<?php $forum_icon = ( isset( $forum['icon'] ) && $forum['icon'] ) ? $forum['icon'] : 'fas fa-comments'; ?>
+                                    <i class="<?php echo esc_attr( $forum_icon ) ?>" style="color: <?php echo esc_attr( $forum['color'] ) ?>"></i>
                                     <a href="<?php echo $forum['url'] ?>"><?php echo esc_html( $forum['title'] ); ?></a>
                                 </div>
                             </td>
                         </tr>
-	                    <?php if( apply_filters('wpforo_recent_posts_intro', true, $post) ): ?>
+						<?php if( apply_filters( 'wpforo_recent_posts_intro', true, $post ) ): ?>
                             <tr class="wpf-ptr">
                                 <td class="wpf-spost-icon">&nbsp;</td>
                                 <td colspan="2" class="wpf-stext">
-                                    <?php
-                                    $body = wpforo_content_filter( $body, $post );
-                                    $body = preg_replace( '#\[attach][^\[\]]*\[/attach]#i', '', strip_tags( $body ) );
-                                    wpforo_text( $body, 200 );
-                                    ?>
+									<?php
+									$body = wpforo_content_filter( $body, $post );
+									$body = preg_replace( '#\[attach][^\[\]]*\[/attach]#i', '', strip_tags( $body ) );
+									wpforo_text( $body, 200 );
+									?>
                                 </td>
                             </tr>
-                        <?php endif; ?>
+						<?php endif; ?>
 					<?php endforeach ?>
                 </table>
 			<?php else: ?>

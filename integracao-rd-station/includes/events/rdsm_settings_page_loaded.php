@@ -8,7 +8,7 @@ class RDSMSettingsPageLoaded implements RDSMEventsInterface {
   }
 
   public function check_authorization() {
-    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce($_POST['rd_form_nonce'],'rd-form-nonce')) {
+    if (!isset($_POST['rd_form_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['rd_form_nonce'])), 'rd-form-nonce')) {
       wp_die( '0', 400 );
     }
     $response = array('token' => get_option('rdsm_access_token'));

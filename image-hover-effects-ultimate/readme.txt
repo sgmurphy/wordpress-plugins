@@ -1,16 +1,16 @@
 === Image Hover Effects Ultimate (Image Gallery, Effects, Lightbox, Comparison or Magnifier) ===
-Contributors: biplob018
+Contributors: biplob018, richardmallick
 Donate link: https://www.oxilab.org
-Tags: responsive image effects, awesome css3 effects, awesome image effects,  css3 effects, effects, top image effects for wordpress,  hover effect. 
+Tags: responsive image effects, awesome css3 effects, awesome image effects,  css3 effects, top image effects for wordpress. 
 Requires at least: 3.0.1
-Stable tag: 9.9.3
-Tested up to: 6.4.3
+Stable tag: 9.9.4
+Tested up to: 6.6.2
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
-Create Awesome Image Hover Effects as Image Gallery, Lightbox, Comparison or Magnifier with Impressive, Lightweight, Responsive Image Hover Effects Ultimate. Use 500+ modern and elegant CSS hover effects and animations.
+Create stunning image hover effects like gallery, lightbox, comparison, or magnifier with 500+ modern, elegant, lightweight animations.
 
 == Description ==
 
@@ -324,6 +324,10 @@ Its too easy Chose your style from Effects List and click at Clone.
 
 == Changelog ==
 == Upgrade Notice ==
+
+= 2.9.4 = 
+*Compatible with 6.6.2
+*Fixed Ajax Bugs
 
 = 9.9.3 =
 *Update Admin Ajax

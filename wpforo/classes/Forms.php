@@ -988,7 +988,7 @@ class Forms {
 			case 'email':
 				$f['value'] = sprintf( '<a href="mailto:%1$s" rel="nofollow">%2$s</a>', $f['value'], $f['value'] );
 			break;
-			case 'phone':
+			case 'tel':
 				$f['value'] = sprintf( '<a href="tel:%1$s" rel="nofollow">%2$s</a>', $f['value'], $f['value'] );
 			break;
 			case 'file':
@@ -1301,7 +1301,7 @@ class Forms {
 			if( in_array( wpfval( $f, 'type' ), [ 'textarea', 'tinymce' ], true ) ) {
 				$f['value'] = wpautop( wpforo_kses( stripslashes( (string) $f['value'] ) ) );
 			} elseif( wpfval( $f, 'type' ) === 'file' ) {
-				$f['value'] = wpfval( $f['value'], 'fileurl' );
+				$f['value'] = wpfval( $f['value'], 'fileurl' ) ?: $f['value'];
 			} elseif( $f['name'] === 'timezone' ) {
 				$f['value'] = str_replace( '_', ' ', $f['value'] );
 			} elseif( $f['fieldKey'] === 'secondary_groupids' ) {

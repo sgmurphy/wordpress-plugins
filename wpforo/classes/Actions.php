@@ -116,6 +116,8 @@ class Actions {
 			add_action( 'wpforo_action_topics_settings_save', [ $this, 'topics_settings_save' ] );
 			add_action( 'wpforo_action_um_settings_save', [ $this, 'um_settings_save' ] );
 			add_action( 'wpforo_action_legal_settings_save', [ $this, 'legal_settings_save' ] );
+			add_action( 'wpforo_action_settings_export', [ $this, 'settings_export' ] );
+			add_action( 'wpforo_action_settings_import', [ $this, 'settings_import' ] );
 			
 			add_action( 'wpforo_action_board_add', [ $this, 'board_add' ] );
 			add_action( 'wpforo_action_board_edit', [ $this, 'board_edit' ] );
@@ -2912,6 +2914,46 @@ class Actions {
 		}
 		
 		WPF()->notice->add( 'Successfully Done', 'success' );
+		wp_safe_redirect( wp_get_raw_referer() );
+		exit();
+	}
+	
+	public function settings_export() {
+		check_admin_referer( 'wpforo_settings_export' );
+		
+		if( $groups = (array) wpfval( $_POST, 'groups' ) ) {
+			WPF()->settings->export( $groups );
+		} else {
+			WPF()->notice->add( 'Invalid groups: One or more checkboxes must be selected.', 'error' );
+		}
+		
+		wp_safe_redirect( wp_get_raw_referer() );
+		exit();
+	}
+	
+	public function settings_import() {
+		check_admin_referer( 'wpforo_settings_import' );
+		
+		if( wpfval( $_FILES, 'wpfsimpjson', 'tmp_name' ) && wpfval( $_FILES, 'wpfsimpjson', 'type' ) === 'application/json' ) {
+			$json = file_get_contents( $_FILES['wpfsimpjson']['tmp_name'] );
+			if( $json ) {
+				json_decode( $json );
+				if( json_last_error() == JSON_ERROR_NONE ) {
+					if( ( $groups = (array) wpfval( $_POST, 'groups' ) ) ) {
+						WPF()->settings->import( $json, $groups );
+						WPF()->notice->add( 'Successfully Done', 'success' );
+						wp_safe_redirect( wp_get_raw_referer() );
+						exit();
+					} else {
+						WPF()->notice->add( 'Invalid groups: One or more checkboxes must be selected.', 'error' );
+						wp_safe_redirect( wp_get_raw_referer() );
+						exit();
+					}
+				}
+			}
+		}
+		
+		WPF()->notice->add( 'You should choose the right JSON file.', 'error' );
 		wp_safe_redirect( wp_get_raw_referer() );
 		exit();
 	}

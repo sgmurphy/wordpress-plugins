@@ -238,7 +238,7 @@ add_action('init', 'maspik_insert_to_table');
         }
         
         // If the table exists and rowtocheck is 'text_blacklist', check for the specific row
-        if ($rowtocheck) {
+        if ($rowtocheck == 'text_blacklist') {
             $row_exists = $wpdb->get_var($wpdb->prepare(
                 "SELECT COUNT(*) FROM {$table_name} WHERE option_name = %s",
                 $rowtocheck
@@ -1733,8 +1733,8 @@ function Maspik_admin_notice() {
         ?>
         <div class="notice notice-warning is-dismissible">
             <p>
-                <?php esc_html_e('We want to keep improving <b>Maspik plugin</b> - please allow us to track usage, we only collect non-sensitive information.', 'contact-forms-anti-spam'); ?>
-                <button id="allow-sharing-button" class="button button-primary"> <?php esc_html_e('Allow', 'contact-forms-anti-spam'); ?></button>
+                <?php esc_html_e('Maspik: Help us improve spam blocking! Please allow us to collect non-sensitive information.', 'contact-forms-anti-spam'); ?>
+                <button id="allow-sharing-button" class="button button-primary"> <?php esc_html_e('of course!', 'contact-forms-anti-spam'); ?></button>
             </p>
         </div>
         <script>
@@ -2077,77 +2077,69 @@ function Maspik_spamlog_download_csv() {
 }
 
 // Check if the IP exists in the API
-function check_ip_in_api($ip,$form) {
-    // Create a transient key based only on IP
-    $transient_key = 'maspik_ip_check_' . md5($ip);
-    // Check if the result is cached in transients
-    $cached_result = get_transient($transient_key);
-    if (false !== $cached_result) {
-        return $cached_result;
-    }
-    // API URL with parameters
-    $url = add_query_arg(array(
-        'ip' => $ip,
-        'form' => $form,
-        'referer' => get_site_url()
-    ), 'https://api.wpmaspik.com/check_ip');
+function check_ip_in_api($ip, $form) {
+    $option_key = 'maspik_recent_ip_checks';
 
-    // Set headers
-    $args = array(
-        'headers' => array(
-            'x-api-key' => MASPIK_API_KEY 
-        )
-    );
+    try {
+        // Get the existing array or create a new one if it doesn't exist
+        $recent_checks = get_option($option_key, array());
 
-    // Make GET request
-    $response = wp_remote_get($url, $args);
+        // Check if the IP already exists in the array
+        foreach ($recent_checks as $check) {
+            if (isset($check['ip']) && $check['ip'] === $ip) {
+                return isset($check['result']) ? $check['result'] : false;
+            }
+        }
 
-    // Handle errors
-    if (is_wp_error($response)) {
+        // If we get here, the IP is not in the array - perform a new check
+        $url = add_query_arg(array(
+            'ip' => $ip,
+            'form' => $form,
+            'referer' => get_site_url()
+        ), 'https://api.wpmaspik.com/check_ip');
+
+        $args = array(
+            'headers' => array(
+                'x-api-key' => MASPIK_API_KEY 
+            ),
+            'timeout' => 5  // Set timeout for the request
+        );
+
+        $response = wp_remote_get($url, $args);
+
+        if (is_wp_error($response)) {
+            error_log('Maspik IP Check API Error: ' . $response->get_error_message());
+            return false;
+        }
+
+        $body = wp_remote_retrieve_body($response);
+        $result = json_decode($body, true);
+
+        if (empty($body) || !is_array($result)) {
+            error_log('Maspik IP Check API Error: Invalid response');
+            return false;
+        }
+
+        $exists = isset($result['exists']) && $result['exists'] === true;
+
+        // Add the new result to the beginning of the array
+        array_unshift($recent_checks, array(
+            'ip' => $ip,
+            'result' => $exists
+        ));
+
+        // Save only the last 10 checksha
+        $recent_checks = array_slice($recent_checks, 0, 10);
+
+        // Update the option
+        update_option($option_key, $recent_checks);
+
+        return $exists;
+    } catch (Exception $e) {
+        error_log('Maspik IP Check Error: ' . $e->getMessage());
         return false;
     }
-
-    // Convert response body to JSON
-    $body = wp_remote_retrieve_body($response);
-    $result = json_decode($body, true);
-
-    // Check if the response is empty or invalid
-    if (empty($body) || is_null($result)) {
-        return false;
-    }
-
-    // Check if the IP exists in the list
-    $exists = isset($result['exists']) && $result['exists'] === true;
-
-    // Set transient cache duration based on the result
-    if ($exists === true) {
-        // Cache for 12 hours if the IP exists in the list
-        // manage better in the next version
-        $cache_duration = 30 * MINUTE_IN_SECONDS; //HOUR_IN_SECONDS
-    } else {
-        // Cache for 30 minutes if the IP does not exist in the list
-        //$cache_duration = 10 * MINUTE_IN_SECONDS;
-    }
-
-    // Cache the result in a transient
-    set_transient($transient_key, $exists, $cache_duration);
-
-    return $exists;
 }
-
-// Add this to your plugin's main file or functions.php
-if (!wp_next_scheduled('maspik_clean_expired_ip_transients')) {
-    wp_schedule_event(time(), 'twicedaily', 'maspik_clean_expired_ip_transients');
-}
-
-add_action('maspik_clean_expired_ip_transients', 'maspik_clean_expired_ip_check_transients');
-
-function maspik_clean_expired_ip_check_transients() {
-    global $wpdb;
-    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_maspik_ip_check_%' AND option_value < " . time());
-    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_maspik_ip_check_%' AND option_name NOT IN (SELECT CONCAT('_transient_', SUBSTRING(option_name, 20)) FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_maspik_ip_check_%')");
-}
-
 
 // Set default values for various settings
 function maspik_make_default_values() {

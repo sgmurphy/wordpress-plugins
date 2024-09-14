@@ -500,6 +500,13 @@ body[class*=forums_page_wpforo] #wpfooter{position: static;}
 #wpf-setbox .wpf-box-wrap.wpf-box-addons{justify-content: flex-start;}
 #wpf-setbox .wpf-box-wrap.wpf-box-addons .wpf-box{margin-bottom: 10px;}
 .wpf-clear{clear: both;}
+#wpf-setbox .wpf-section-imp-exp{text-align: right; padding-top: 8px;}
+#wpf-setbox .wpf-section-imp-exp a:hover{ text-decoration: none; }
+#wpf-setbox .wpf-section-imp-exp button{ display: inline-flex;justify-content: center;align-items: center; }
+#wpf-setbox .wpf-opt-checkbox-wrap { padding: 5px 0; }
+#wpf-setbox .wpf-opt-row-imp-exp label{ cursor: pointer; font-size: 15px; }
+#wpf-setbox .wpf-opt-row-imp-exp input[type=checkbox]{width: 25px; height: 25px; cursor: pointer;}
+#wpf-setbox .wpf-opt-row-imp-exp input[type=checkbox]:checked::before{content: "\2713";font-size: 25px;font-weight: bold;display: block;text-align: center;color: #43A6DF;margin-top: 10px; margin-left: 0;}
 
 /************************************************************/
 /* Single Settings #########################################*/
