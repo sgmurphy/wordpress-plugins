@@ -3,10 +3,10 @@
 /**
  * @package WP Encryption
  *
- * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2024, Go Web Smarty
+ * @author     WP Encryption
+ * @copyright  Copyright (C) 2019-2024, WP Encryption
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
- * @link       https://gowebsmarty.com
+ * @link       https://wpencryption.com
  * @since      Class available since Release 4.7.0
  *
  *

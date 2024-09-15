@@ -7,7 +7,7 @@
  * Plugin Name:       WP Encryption - One Click SSL & Force HTTPS
  * Plugin URI:        https://wpencryption.com
  * Description:       Secure your WordPress site with free SSL certificate and force HTTPS. Enable HTTPS padlock. Just activating this plugin won't help! - Please run the SSL install form of WP Encryption found on left panel.
- * Version:           7.4.0
+ * Version:           7.5.0
  * Author:            WP Encryption SSL HTTPS
  * Author URI:        https://wpencryption.com
  * License:           GNU General Public License v3.0
@@ -20,7 +20,7 @@
  * @package     WP Encryption
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  * 
- * @copyright   Copyright (C) 2019-2024, Go Web Smarty (vj@gowebsmarty.com)
+ * @copyright   Copyright (C) 2019-2024, WP Encryption (support@wpencryption.com)
  *
  * 
  */
@@ -34,7 +34,7 @@ if ( !defined( 'ABSPATH' ) ) {
  * Definitions
  */
 if ( !defined( 'WPLE_PLUGIN_VER' ) ) {
-    define( 'WPLE_PLUGIN_VER', '7.4.0' );
+    define( 'WPLE_PLUGIN_VER', '7.5.0' );
 }
 if ( !defined( 'WPLE_BASE' ) ) {
     define( 'WPLE_BASE', plugin_basename( __FILE__ ) );
@@ -108,6 +108,14 @@ if ( function_exists( 'wple_fs' ) ) {
         do_action( 'wple_fs_loaded' );
     }
 }
+function wple_fs_legacy_checkout(  $template  ) {
+    if ( false !== strpos( $template, '&billing_cycle=annual' ) ) {
+        $template = str_replace( '&billing_cycle=annual', '&billing_cycle=annual&checkout_style=legacy', $template );
+    }
+    return $template;
+}
+
+wple_fs()->add_filter( 'templates/checkout.php', 'wple_fs_legacy_checkout' );
 require_once WPLE_DIR . 'classes/le-trait.php';
 /**
  * Plugin Activator hook

@@ -5,7 +5,7 @@ Requires at least: 5.4
 License: GPL3
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 7.4.0
+Stable tag: 7.5.0
 
 Lifetime SSL solution & Security - Install free SSL certificate & enable HTTPS redirect, HTTPS mail, fix SSL errors, SSL score, SSL details & monitoring.
 
@@ -174,6 +174,10 @@ Security is an important subject regarding SSL/TLS certificates, of course. It i
 6. Mixed Content Scanner to identify insecure contents on HTTPS site
 
 == Changelog ==
+
+= 7.5.0 =
+* Freemius sdk update to 2.7.4
+* Legacy checkout
 
 = 7.4.0 =
 * Important - Leaf signature issue fix with dynamic CA bundle. Update immediately.

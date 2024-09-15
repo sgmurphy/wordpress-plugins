@@ -9,7 +9,6 @@ namespace Hybridauth\Adapter;
 
 use Hybridauth\Exception\InvalidOpenidIdentifierException;
 use Hybridauth\Exception\AuthorizationDeniedException;
-use Hybridauth\Exception\InvalidOpenidResponseException;
 use Hybridauth\Exception\UnexpectedApiResponseException;
 use Hybridauth\Data;
 use Hybridauth\HttpClient;
@@ -37,6 +36,15 @@ abstract class OpenID extends AbstractAdapter implements AdapterInterface
      * @var string
      */
     protected $openidIdentifier = '';
+
+    /**
+     * IPD API Documentation
+     *
+     * OPTIONAL.
+     *
+     * @var string
+     */
+    protected $apiDocumentation = '';
 
     /**
      * {@inheritdoc}
@@ -244,7 +252,7 @@ abstract class OpenID extends AbstractAdapter implements AdapterInterface
      */
     protected function fetchUserGender(User\Profile $userProfile, $gender)
     {
-        $gender = strtolower($gender);
+        $gender = strtolower((string)$gender);
 
         if ('f' == $gender) {
             $gender = 'female';

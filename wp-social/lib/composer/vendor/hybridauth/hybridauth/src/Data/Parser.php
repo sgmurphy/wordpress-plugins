@@ -63,7 +63,7 @@ final class Parser
     {
         libxml_use_internal_errors(true);
 
-        $result = preg_replace('/([<<\/])([a-z0-9-]+):/i', '$1', $result);
+        $result = preg_replace('/([<\/])([a-z0-9-]+):/i', '$1', $result);
         $xml = simplexml_load_string($result);
 
         libxml_use_internal_errors(false);
@@ -106,13 +106,12 @@ final class Parser
      * needs to be improved
      *
      * @param $birthday
-     * @param $seperator
      *
      * @return array
      */
-    public function parseBirthday($birthday, $seperator)
+    public function parseBirthday($birthday)
     {
-        $birthday = date_parse($birthday);
+        $birthday = date_parse((string) $birthday);
 
         return [$birthday['year'], $birthday['month'], $birthday['day']];
     }

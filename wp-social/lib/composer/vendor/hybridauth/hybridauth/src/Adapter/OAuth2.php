@@ -260,6 +260,10 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
         if ($this->config->exists('tokens')) {
             $this->setAccessToken($this->config->get('tokens'));
         }
+        
+        if ($this->config->exists('supportRequestState')) {
+            $this->supportRequestState = $this->config->get('supportRequestState');
+        }
 
         $this->setCallback($this->config->get('callback'));
         $this->setApiEndpoints($this->config->get('endpoints'));
@@ -421,8 +425,9 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
          * http://tools.ietf.org/html/rfc6749#section-4.1.1
          */
         if ($this->supportRequestState
-            && $this->getStoredData('authorization_state') != $state
+            && (!$state || $this->getStoredData('authorization_state') != $state)
         ) {
+            $this->deleteStoredData('authorization_state');
             throw new InvalidAuthorizationStateException(
                 'The authorization state [state=' . substr(htmlentities($state), 0, 100) . '] '
                 . 'of this page is either invalid or has already been consumed.'
@@ -710,6 +715,7 @@ abstract class OAuth2 extends AbstractAdapter implements AdapterInterface
     public function apiRequest($url, $method = 'GET', $parameters = [], $headers = [], $multipart = false)
     {
         // refresh tokens if needed
+        $this->maintainToken();
         if ($this->hasAccessTokenExpired() === true) {
             $this->refreshAccessToken();
         }

@@ -3,7 +3,7 @@
  * Plugin Name: BEAF - Ultimate Before After Image Slider & Gallery
  * Plugin URI: https://themefic.com/plugins/beaf/
  * Description: Would you like to show a comparison of two images? With BEAF, you can easily create before and after image sliders or galleries. Elementor Supported.
- * Version: 4.5.21
+ * Version: 4.5.22
  * Author: Themefic
  * Author URI: https://themefic.com/
  * License: GPL-2.0+
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //define all necessary constants
 define( 'BEAF_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'BEAF_VERSION', '4.5.21' );
+define( 'BEAF_VERSION', '4.5.22' );
 define( 'BEAF_ADMIN_PATH', BEAF_PLUGIN_PATH . 'admin/' );
 define( 'BEAF_OPTIONS_PATH', BEAF_ADMIN_PATH . 'tf-options/' );
 //define assets url
@@ -75,7 +75,7 @@ class BAFG_Before_After_Gallery {
 		if ( ! defined( 'BAFG_PLUGIN_PATH' ) ) {
 			define( 'BAFG_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 		}
- 
+
 		/*
 		 * BAFG meta fields
 		 */
@@ -133,7 +133,7 @@ class BAFG_Before_After_Gallery {
 			if ( ! empty( $files ) ) {
 				$class = 'notice notice-error';
 				$message = '<strong>' . $files . '</strong>' . __( ' file is missing! It is required to function properly!', 'bafg' );
-printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($message) );
+				printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr( $message ) );
 
 			}
 		}
@@ -155,7 +155,7 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 		$version = time();
 
 		wp_enqueue_style( 'bafg_twentytwenty', plugin_dir_url( __FILE__ ) . 'assets/css/twentytwenty.css', array(), BEAF_VERSION );
-		wp_enqueue_style( 'bafg-style', plugin_dir_url( __FILE__ ) . 'assets/css/bafg-style.css', array(), BEAF_VERSION );		
+		wp_enqueue_style( 'bafg-style', plugin_dir_url( __FILE__ ) . 'assets/css/bafg-style.css', array(), BEAF_VERSION );
 
 		$debug_mode = is_array( get_option( 'beaf_settings' ) ) && ! empty( get_option( 'beaf_settings' )['enable_debug_mode'] ) ? get_option( 'beaf_settings' )['enable_debug_mode'] : '';
 
@@ -271,12 +271,12 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 		}
 
 	}
-		/*
-		metabox included
-		*/
-		public function bafg_meta_fields() {
-			require_once( 'metabox/bafg-metaboxs.php' );
-		}
+	/*
+			 metabox included
+			 */
+	public function bafg_meta_fields() {
+		require_once( 'metabox/bafg-metaboxs.php' );
+	}
 	/*
 	 * BAFG shortcode callback
 	 */
@@ -294,8 +294,8 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 		$a_image = ! empty( $meta['bafg_after_image'] ) ? $meta['bafg_after_image'] : '';
 		$orientation = ! empty( $meta['bafg_image_styles'] ) ? $meta['bafg_image_styles'] : 'horizontal';
 		$offset = ! empty( $meta['bafg_default_offset'] ) ? $meta['bafg_default_offset'] : '0.5';
-		$before_label = ! empty( $meta['bafg_before_label'] ) ? $meta['bafg_before_label'] : esc_html(__('Before', 'bafg'));
-		$after_label = ! empty( $meta['bafg_after_label'] ) ? $meta['bafg_after_label'] :  esc_html(__('After', 'bafg'));
+		$before_label = ! empty( $meta['bafg_before_label'] ) ? $meta['bafg_before_label'] : esc_html( __( 'Before', 'bafg' ) );
+		$after_label = ! empty( $meta['bafg_after_label'] ) ? $meta['bafg_after_label'] : esc_html( __( 'After', 'bafg' ) );
 		$overlay = ! empty( $meta['bafg_no_overlay'] ) ? $meta['bafg_no_overlay'] : '';
 		$move_slider_on_hover = ! empty( $meta['bafg_move_slider_on_hover'] ) ? $meta['bafg_move_slider_on_hover'] : '';
 		$click_to_move = ! empty( $meta['bafg_click_to_move'] ) ? $meta['bafg_click_to_move'] : '';
@@ -326,8 +326,7 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 			<div class="bafg-twentytwenty-container <?php echo esc_attr( 'slider-' . $id . '' ); ?> <?php echo esc_attr( $bafg_custom_color ) ?> "
 				bafg-orientation="<?php echo esc_attr( $orientation ); ?>" bafg-default-offset="<?php echo esc_attr( $offset ); ?>"
 				bafg-before-label="<?php echo esc_html( $before_label ); ?>"
-				bafg-after-label="<?php echo esc_attr($after_label ); ?>"
-				bafg-overlay="<?php echo esc_attr( $overlay ); ?>"
+				bafg-after-label="<?php echo esc_attr( $after_label ); ?>" bafg-overlay="<?php echo esc_attr( $overlay ); ?>"
 				bafg-move-slider-on-hover="<?php echo esc_attr( $move_slider_on_hover ); ?>"
 				bafg-click-to-move="<?php echo esc_attr( $click_to_move ); ?>">
 
@@ -361,7 +360,9 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 
 				if ( ! empty( $bafg_before_label_background ) || ! empty( $bafg_before_label_color ) ) {
 					?>
-					. <?php echo esc_attr('slider-' . $id . ' '); ?>
+					.
+
+					<?php echo esc_attr( 'slider-' . $id . ' ' ); ?>
 					.twentytwenty-before-label::before {
 						background:
 							<?php echo esc_attr( $bafg_before_label_background );
@@ -379,7 +380,9 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 				?>
 				<?php if ( ! empty( $bafg_after_label_background ) || ! empty( $bafg_after_label_color ) ) {
 					?>
-					. <?php echo esc_attr( 'slider-' . $id . ' '); ?>
+					.
+
+					<?php echo esc_attr( 'slider-' . $id . ' ' ); ?>
 					.twentytwenty-after-label::before {
 						background:
 							<?php echo esc_attr( $bafg_after_label_background );
@@ -474,7 +477,7 @@ printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_attr($mes
 				while ( $gallery_query->have_posts() ) :
 					$gallery_query->the_post();
 
-					echo '<div class="bafg-col-' . esc_attr($col) . '">';
+					echo '<div class="bafg-col-' . esc_attr( $col ) . '">';
 					echo do_shortcode( '[bafg id="' . get_the_id() . '"]' );
 					echo '</div>';
 

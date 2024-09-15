@@ -3,10 +3,10 @@
 /**
  * @package WP Encryption
  *
- * @author     Go Web Smarty
- * @copyright  Copyright (C) 2019-2024, Go Web Smarty
+ * @author     WP Encryption
+ * @copyright  Copyright (C) 2019-2024, WP Encryption
  * @license    http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3
- * @link       https://gowebsmarty.com
+ * @link       https://wpencryption.com
  * @since      Class available since Release 1.0.0
  *
  *
@@ -172,7 +172,7 @@ class WPLE_Admin {
             delete_option( 'wple_plan_choose' );
             update_option( 'wple_version', WPLE_PLUGIN_VER );
         } else {
-            if ( version_compare( get_option( 'wple_version' ), '6.6.0', '<=' ) ) {
+            if ( version_compare( get_option( 'wple_version' ), '7.4.0', '<=' ) ) {
                 delete_option( 'wple_plan_choose' );
                 update_option( 'wple_version', WPLE_PLUGIN_VER );
             }
@@ -975,23 +975,23 @@ class WPLE_Admin {
         ob_start();
         ?>
 
-    <h2 class="pricing-intro-head"><?php 
+        <h2 class="pricing-intro-head"><?php 
         esc_html_e( 'SAVE MORE THAN $90+ EVERY YEAR IN SSL CERTIFICATE FEE', 'wp-letsencrypt-ssl' );
         ?></h2>
 
-    <h4 class="pricing-intro-subhead">Purchase once and use for lifetime - Trusted Globally by <b>250,000+</b> WordPress Users (Looking for <a href="<?php 
+        <h4 class="pricing-intro-subhead">Purchase once and use for lifetime - Trusted Globally by <b>250,000+</b> WordPress Users (Looking for <a href="<?php 
         echo admin_url( '/admin.php?page=wp_encryption&gopro=3' );
         ?>">Annual</a> | <a href="<?php 
         echo admin_url( '/admin.php?page=wp_encryption&gopro=2' );
         ?>">Unlimited Sites License?</a>)</h4>
 
-    <div style="text-align:center">
-      <img src="<?php 
+        <div style="text-align:center">
+            <img src="<?php 
         echo WPLE_URL;
         ?>admin/assets/limited-offer.png" style="max-width:650px" />
-    </div>
+        </div>
 
-    <!-- <div class="plan-toggler" style="margin:60px 0 -20px !important">
+        <!-- <div class="plan-toggler" style="margin:60px 0 -20px !important">
         <span>Annual</span><label class="toggle">
           <input class="toggle-checkbox initplan-switch" type="checkbox" <?php 
         // if ($cpanel == 1) {
@@ -1003,69 +1003,69 @@ class WPLE_Admin {
         </label>
       </div> -->
 
-    <div id="quick-pricing-table">
-      <div class="free-pricing-col wplepricingcol">
-        <div class="quick-pricing-head free">
-          <h3>FREE</h3>
-          <large>$0</large>
-        </div>
-        <ul>
-          <li><strong>Manual</strong> domain verification</li>
-          <li><strong>Manual</strong> SSL installation</li>
-          <li><strong>Manual</strong> SSL renewal <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="You will manually need to re-generate SSL certificate every 90 days once using WP Encryption"></span></li>
-          <li><strong>Mixed</strong> Content Scanner <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Scan your site to detect which insecure assets are causing browser padlock to not show"></span></li>
-          <!-- <li><strong>Expires</strong> in 90 days <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="You will manually need to re-generate SSL certificate every 90 days using WP Encryption"></span></li> -->
-          <li><strong>Basic</strong> support</li>
-        </ul>
-        <div class="pricing-btn-block">
-          <a href="<?php 
+        <div id="quick-pricing-table">
+            <div class="free-pricing-col wplepricingcol">
+                <div class="quick-pricing-head free">
+                    <h3>FREE</h3>
+                    <large>$0</large>
+                </div>
+                <ul>
+                    <li><strong>Manual</strong> domain verification</li>
+                    <li><strong>Manual</strong> SSL installation</li>
+                    <li><strong>Manual</strong> SSL renewal <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="You will manually need to re-generate SSL certificate every 90 days once using WP Encryption"></span></li>
+                    <li><strong>Mixed</strong> Content Scanner <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Scan your site to detect which insecure assets are causing browser padlock to not show"></span></li>
+                    <!-- <li><strong>Expires</strong> in 90 days <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="You will manually need to re-generate SSL certificate every 90 days using WP Encryption"></span></li> -->
+                    <li><strong>Basic</strong> support</li>
+                </ul>
+                <div class="pricing-btn-block">
+                    <a href="<?php 
         echo admin_url( '/admin.php?page=wp_encryption&gofree=1' );
         ?>" class="pricingbtn free">Select Plan</a>
-        </div>
-      </div>
+                </div>
+            </div>
 
-      <div class="pro-pricing-col wplepricingcol proplan">
-        <div class="quick-pricing-head pro">
-          <span class="wple-trending">Popular</span>
-          <h3>PRO</h3>
-          <div class="quick-price-row">
-            <large>$49<sup></sup></large>
-            <small>/lifetime</small>
-          </div>
-        </div>
-        <ul>
-          <li><strong>Automatic</strong> domain verification</li>
-          <li><strong>Automatic</strong> SSL installation</li>
-          <li><strong>Automatic</strong> SSL renewal</li>
-          <li><strong>Wildcard</strong> SSL support <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="One SSL certificate to cover all your sub-domains"></span></li>
-          <li><strong>Multisite</strong> mapped domains <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Install SSL for different domains mapped to your multisite network with MU domain mapping plugin"></span></li>
-          <li><strong>DNS</strong> Automation <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Automatic Domain verification with DNS if HTTP domain verification fails"></span></li>
-          <li><strong>Vulnerability</strong> Scanner <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Automate daily scanning of your site for known vulnerabilities and get notified instantly"></span></li>
-          <li><strong>Never</strong> expires <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Never worry about SSL again - Your SSL certificate will be automatically renewed in background 30 days prior to its expiry dates"></span></li>
-          <li><strong>Priority</strong> support <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="gowebsmarty.in"></span></li>
-        </ul>
-        <div class="pricing-btn-block">
-          <a href="<?php 
+            <div class="pro-pricing-col wplepricingcol proplan">
+                <div class="quick-pricing-head pro">
+                    <span class="wple-trending">Popular</span>
+                    <h3>PRO</h3>
+                    <div class="quick-price-row">
+                        <large>$49<sup></sup></large>
+                        <small>/lifetime</small>
+                    </div>
+                </div>
+                <ul>
+                    <li><strong>Automatic</strong> domain verification</li>
+                    <li><strong>Automatic</strong> SSL installation</li>
+                    <li><strong>Automatic</strong> SSL renewal</li>
+                    <li><strong>Wildcard</strong> SSL support <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="One SSL certificate to cover all your sub-domains"></span></li>
+                    <li><strong>Multisite</strong> mapped domains <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Install SSL for different domains mapped to your multisite network with MU domain mapping plugin"></span></li>
+                    <li><strong>DNS</strong> Automation <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Automatic Domain verification with DNS if HTTP domain verification fails"></span></li>
+                    <li><strong>Vulnerability</strong> Scanner <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Automate daily scanning of your site for known vulnerabilities and get notified instantly"></span></li>
+                    <li><strong>Never</strong> expires <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Never worry about SSL again - Your SSL certificate will be automatically renewed in background 30 days prior to its expiry dates"></span></li>
+                    <li><strong>Priority</strong> support <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="gowebsmarty.in"></span></li>
+                </ul>
+                <div class="pricing-btn-block">
+                    <a href="<?php 
         echo admin_url( '/admin.php?page=wp_encryption&gopro=1' );
         ?>" class="pricingbtn free">Select Plan</a>
+                </div>
+            </div>
+
         </div>
-      </div>
 
-    </div>
-
-    <br />
-    <?php 
+        <br />
+        <?php 
         if ( $cpanel != '' ) {
             ?>
-      <div class="quick-refund-policy">
-        <strong>7 Days Refund Policy</strong>
-        <p>We're showing this recommendation because you have cPanel hosting where our PRO plugin is 100% guaranteed to work. Your purchase will be completely refunded if WP Encryption fail to work on your site.</p>
-      </div>
-    <?php 
+            <div class="quick-refund-policy">
+                <strong>7 Days Refund Policy</strong>
+                <p>We're showing this recommendation because you have cPanel hosting where our PRO plugin is 100% guaranteed to work. Your purchase will be completely refunded if WP Encryption fail to work on your site.</p>
+            </div>
+        <?php 
         }
         ?>
 
-  <?php 
+    <?php 
         $table = ob_get_clean();
         return $table;
     }
@@ -1074,64 +1074,64 @@ class WPLE_Admin {
         ob_start();
         ?>
 
-    <h2 class="pricing-intro-head">FLAWLESS SSL SOLUTION FOR LOWEST PRICE EVER <small>(Limited Offer)</small></h2>
-    <h4 class="pricing-intro-subhead">Upgrade to PRO today for <strong>Fully automatic SSL</strong> & get automatic <strong>CDN + Security</strong> for FREE! - Trusted Globally by <b>250,000+</b> WordPress Users <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="A complete bundle worth $360!"></span></h4>
+        <h2 class="pricing-intro-head">FLAWLESS SSL SOLUTION FOR LOWEST PRICE EVER <small>(Limited Offer)</small></h2>
+        <h4 class="pricing-intro-subhead">Upgrade to PRO today for <strong>Fully automatic SSL</strong> & get automatic <strong>CDN + Security</strong> for FREE! - Trusted Globally by <b>250,000+</b> WordPress Users <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="A complete bundle worth $360!"></span></h4>
 
-    <div style="text-align:center">
-      <img src="<?php 
+        <div style="text-align:center">
+            <img src="<?php 
         echo WPLE_URL;
         ?>admin/assets/limited-offer.png" style="max-width:650px" />
-    </div>
-
-    <div id="quick-pricing-table" class="non-cpanel-plans">
-      <div class="free-pricing-col wplepricingcol">
-        <div class="quick-pricing-head free">
-          <h3>FREE</h3>
-          <large>$0</large>
         </div>
-        <ul>
-          <li><strong>Manual</strong> domain verification</li>
-          <li><strong>Manual</strong> SSL installation</li>
-          <li><strong>Manual</strong> SSL renewal <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="You will manually need to re-generate SSL certificate every 90 days once using WP Encryption"></span></li>
-          <li><strong>Basic</strong> support</li>
-        </ul>
-        <div class="pricing-btn-block">
-          <a href="<?php 
+
+        <div id="quick-pricing-table" class="non-cpanel-plans">
+            <div class="free-pricing-col wplepricingcol">
+                <div class="quick-pricing-head free">
+                    <h3>FREE</h3>
+                    <large>$0</large>
+                </div>
+                <ul>
+                    <li><strong>Manual</strong> domain verification</li>
+                    <li><strong>Manual</strong> SSL installation</li>
+                    <li><strong>Manual</strong> SSL renewal <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="You will manually need to re-generate SSL certificate every 90 days once using WP Encryption"></span></li>
+                    <li><strong>Basic</strong> support</li>
+                </ul>
+                <div class="pricing-btn-block">
+                    <a href="<?php 
         echo admin_url( '/admin.php?page=wp_encryption&gofree=1' );
         ?>" class="pricingbtn free">Select Plan</a>
-        </div>
-      </div>
+                </div>
+            </div>
 
-      <div class="pro-pricing-col wplepricingcol firewallplan">
-        <div class="quick-pricing-head pro">
-          <span class="wple-trending">Popular</span>
-          <h3>PRO</h3>
-          <div class="quick-price-row">
-            <large>$29</large>
-            <small>/year</small>
-          </div>
-        </div>
-        <ul>
-          <li><strong>Automatic</strong> Domain Verification</li>
-          <li><strong>Automatic</strong> SSL Installation</li>
-          <li><strong>Automatic</strong> SSL Renewal</li>
-          <li><strong>Wildcard</strong> SSL support <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="One SSL certificate to cover all your sub-domains"></span></li>
-          <li><strong>Multisite</strong> mapped domains <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Install SSL for different domains mapped to your multisite network with MU domain mapping plugin"></span></li>
-          <li><strong>Vulnerability</strong> Scanner <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Automate daily scanning of your site for known vulnerabilities and get notified instantly"></span></li>
-          <li><strong>Automatic</strong> CDN <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Your site is cached and served from 45+ full-scale edge locations worldwide for faster delivery and lowest TTFB thus improving Google pagespeed score"></span></li>
-          <li><strong>Security</strong> Firewall <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="All your site traffic routed through secure StackPath firewall offering protection against DDOS attacks, XSS, SQL injection, File inclusion, Common WordPress exploits, CSRF, etc.,"></span></li>
-          <li><strong>100%</strong> Compatible <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Guaranteed to work on ANY hosting platform"></span></li>
-          <li><strong>One Year</strong> Support & Updates</li>
-        </ul>
-        <div class="pricing-btn-block">
-          <a href="<?php 
+            <div class="pro-pricing-col wplepricingcol firewallplan">
+                <div class="quick-pricing-head pro">
+                    <span class="wple-trending">Popular</span>
+                    <h3>PRO</h3>
+                    <div class="quick-price-row">
+                        <large>$29</large>
+                        <small>/year</small>
+                    </div>
+                </div>
+                <ul>
+                    <li><strong>Automatic</strong> Domain Verification</li>
+                    <li><strong>Automatic</strong> SSL Installation</li>
+                    <li><strong>Automatic</strong> SSL Renewal</li>
+                    <li><strong>Wildcard</strong> SSL support <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="One SSL certificate to cover all your sub-domains"></span></li>
+                    <li><strong>Multisite</strong> mapped domains <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Install SSL for different domains mapped to your multisite network with MU domain mapping plugin"></span></li>
+                    <li><strong>Vulnerability</strong> Scanner <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Automate daily scanning of your site for known vulnerabilities and get notified instantly"></span></li>
+                    <li><strong>Automatic</strong> CDN <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Your site is cached and served from 45+ full-scale edge locations worldwide for faster delivery and lowest TTFB thus improving Google pagespeed score"></span></li>
+                    <li><strong>Security</strong> Firewall <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="All your site traffic routed through secure StackPath firewall offering protection against DDOS attacks, XSS, SQL injection, File inclusion, Common WordPress exploits, CSRF, etc.,"></span></li>
+                    <li><strong>100%</strong> Compatible <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="Guaranteed to work on ANY hosting platform"></span></li>
+                    <li><strong>One Year</strong> Support & Updates</li>
+                </ul>
+                <div class="pricing-btn-block">
+                    <a href="<?php 
         echo admin_url( '/admin.php?page=wp_encryption&gofirewall=1' );
         ?>" class="pricingbtn free">Select Plan</a>
-        </div>
-      </div>
+                </div>
+            </div>
 
-    </div>
-    <!-- <div class="intro-pricing-refund">
+        </div>
+        <!-- <div class="intro-pricing-refund">
         7 days money back guarantee <span class="dashicons dashicons-editor-help wple-tooltip" data-tippy="If you are not satisfied with the service within 7 days of purchase, We will refund your purchase no questions asked"></span>
       </div> -->
 

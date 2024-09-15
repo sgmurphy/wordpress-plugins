@@ -22,34 +22,34 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 						'subtitle' => __( 'Choose a method to make a before after slider using a single image, 2 images, 3 images, and Videos.', 'bafg' ),
 						'options' => array(
 							'method_1' => __( 'Method 1 (Using 2 images)', 'bafg' ),
-							'method_2' => array( 
-								'label'   => sprintf(
-									/* translators: %1$s, %2$s is replaced with "tooltip " */ 
+							'method_2' => array(
+								'label' => sprintf(
+									/* translators: %1$s, %2$s is replaced with "tooltip " */
 									esc_html__( 'Method 2 (Using 1 image ) %1$s', 'bafg' ),
-									'<div class="bafg-tooltip method-3-tooltip"><span>?</span><div class="bafg-tooltip-info">Pro feature!</div></div>', 
-								), 
+									'<div class="bafg-tooltip method-3-tooltip"><span>?</span><div class="bafg-tooltip-info">Pro feature!</div></div>',
+								),
 								'is_pro' => true
 							),
 							'method_3' => array(
-								'label'   => sprintf(
-									/* translators: %1$s, %2$s is replaced with "tooltip & link" */ 
+								'label' => sprintf(
+									/* translators: %1$s, %2$s is replaced with "tooltip & link" */
 									esc_html__( 'Method 3 (Using 3 images ) %1$s Pro feature! 3 image slider addon required to activate this. %2$s', 'bafg' ),
 									'<div class="bafg-tooltip method-3-tooltip"><span>?</span><div class="bafg-tooltip-info">',
-									'<a href="'.esc_url('https://themefic.com/wp-content/uploads/2023/07/3-image-slider-addon.png').'" target="_blank"> More info</a></div></div>',
-								), 
+									'<a href="' . esc_url( 'https://themefic.com/wp-content/uploads/2023/07/3-image-slider-addon.png' ) . '" target="_blank"> More info</a></div></div>',
+								),
 								'is_pro' => true
 							),
 							'method_4' => array(
-								'label'   => sprintf(
-									/* translators: %1$s, %2$s is replaced with "tooltip & link" */ 
+								'label' => sprintf(
+									/* translators: %1$s, %2$s is replaced with "tooltip & link" */
 									esc_html__( 'Method 4 (Using Video) %1$s Pro feature! Video slider addon required to activate this. %2$s', 'bafg' ),
 									'<div class="bafg-tooltip method-3-tooltip"><span>?</span><div class="bafg-tooltip-info">',
-									'<a href="'.esc_url('https://themefic.com/wp-content/uploads/2023/07/3-image-slider-addon.png').'" target="_blank"> More info</a></div></div>',
+									'<a href="' . esc_url( 'https://themefic.com/wp-content/uploads/2023/07/3-image-slider-addon.png' ) . '" target="_blank"> More info</a></div></div>',
 								),
 								'is_pro' => true
 							),
 						),
-					
+
 						'default' => 'method_1',
 					), $post ),
 
@@ -210,7 +210,7 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'type' => 'text',
 					'label' => __( 'Before Video', 'bafg' ),
 					'placeholder' => __( 'Before Video URL', 'bafg' ),
-					'subtitle' => '<small>'.esc_html(__( 'Use video url eg. ', 'bafg' )).'<code>'.esc_url('https://www.youtube.com/watch?v=aR8vA8BY0oA').'</code></small>',
+					'subtitle' => '<small>' . esc_html( __( 'Use video url eg. ', 'bafg' ) ) . '<code>' . esc_url( 'https://www.youtube.com/watch?v=aR8vA8BY0oA' ) . '</code></small>',
 					'dependency' => array(
 						array( 'bafg_slider_video_type', '==', 'youtube' ),
 						array( 'bafg_before_after_method', '==', 'method_4' ),
@@ -222,8 +222,8 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'id' => '',
 					'type' => 'text',
 					'label' => __( 'After Video', 'bafg' ),
-					'placeholder' => __( 'After Video URL', 'bafg' ), 
-					'subtitle' => '<small>'.esc_html(__( 'Use video url eg. ', 'bafg' )).'<code>'.esc_url('https://www.youtube.com/watch?v=aR8vA8BY0oA').'</code></small>',
+					'placeholder' => __( 'After Video URL', 'bafg' ),
+					'subtitle' => '<small>' . esc_html( __( 'Use video url eg. ', 'bafg' ) ) . '<code>' . esc_url( 'https://www.youtube.com/watch?v=aR8vA8BY0oA' ) . '</code></small>',
 					'dependency' => array(
 						array( 'bafg_slider_video_type', '==', 'youtube' ),
 						array( 'bafg_before_after_method', '==', 'method_4' ),
@@ -235,8 +235,8 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'id' => '',
 					'type' => 'text',
 					'label' => __( 'Before Vimeo Video', 'bafg' ),
-					'placeholder' => __( 'Before Vimeo Video URL', 'bafg' ), 
-					'subtitle' => '<small>'.esc_html(__( 'Use video url eg. ', 'bafg' )).'<code>'.esc_url('https://vimeo.com/186470604').'</code></small>',
+					'placeholder' => __( 'Before Vimeo Video URL', 'bafg' ),
+					'subtitle' => '<small>' . esc_html( __( 'Use video url eg. ', 'bafg' ) ) . '<code>' . esc_url( 'https://vimeo.com/186470604' ) . '</code></small>',
 					'dependency' => array(
 						array( 'bafg_slider_video_type', '==', 'vimeo' ),
 						array( 'bafg_before_after_method', '==', 'method_4' ),
@@ -248,8 +248,8 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'id' => '',
 					'type' => 'text',
 					'label' => __( 'After Vimeo Video', 'bafg' ),
-					'placeholder' => __( 'After Vimeo Video URL', 'bafg' ), 
-					'subtitle' => '<small>'.esc_html(__( 'Use video url eg. ', 'bafg' )).'<code>'.esc_url('https://vimeo.com/294247197').'</code></small>',
+					'placeholder' => __( 'After Vimeo Video URL', 'bafg' ),
+					'subtitle' => '<small>' . esc_html( __( 'Use video url eg. ', 'bafg' ) ) . '<code>' . esc_url( 'https://vimeo.com/294247197' ) . '</code></small>',
 					'dependency' => array(
 						array( 'bafg_slider_video_type', '==', 'vimeo' ),
 						array( 'bafg_before_after_method', '==', 'method_4' ),
@@ -261,8 +261,8 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'id' => '',
 					'type' => 'video',
 					'label' => __( 'Before Self Hosted Video', 'bafg' ),
-					'placeholder' => __( 'Before Self Hosted Video URL', 'bafg' ), 
-					'subtitle' => '<small>'.esc_html(__( 'HTML5 video player supports only ', 'bafg' )).'<code>'.esc_html(__( 'MP4, WebM, and Ogg', 'bafg' )).'</code> '. esc_html(__('formats.','bafg')) .'</small>',
+					'placeholder' => __( 'Before Self Hosted Video URL', 'bafg' ),
+					'subtitle' => '<small>' . esc_html( __( 'HTML5 video player supports only ', 'bafg' ) ) . '<code>' . esc_html( __( 'MP4, WebM, and Ogg', 'bafg' ) ) . '</code> ' . esc_html( __( 'formats.', 'bafg' ) ) . '</small>',
 					// 'dependency' => array( 'bafg_slider_video_type', '==', 'self' ),
 					'dependency' => array(
 						array( 'bafg_before_after_method', '==', 'method_4' ),
@@ -275,8 +275,8 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'id' => '',
 					'type' => 'video',
 					'label' => __( 'After Self Hosted Video', 'bafg' ),
-					'placeholder' => __( 'After Self Hosted Video URL', 'bafg' ), 
-					'subtitle' => '<small>'.esc_html(__( 'HTML5 video player supports only ', 'bafg' )).'<code>'.esc_html(__( 'MP4, WebM, and Ogg', 'bafg' )).'</code> '. esc_html(__('formats.','bafg')) .'</small>',
+					'placeholder' => __( 'After Self Hosted Video URL', 'bafg' ),
+					'subtitle' => '<small>' . esc_html( __( 'HTML5 video player supports only ', 'bafg' ) ) . '<code>' . esc_html( __( 'MP4, WebM, and Ogg', 'bafg' ) ) . '</code> ' . esc_html( __( 'formats.', 'bafg' ) ) . '</small>',
 					'dependency' => array(
 						array( 'bafg_slider_video_type', '==', 'self' ),
 						array( 'bafg_before_after_method', '==', 'method_4' ),
@@ -471,15 +471,15 @@ BEAF_Metabox::metabox( 'beaf_meta', array(
 					'subtitle' => __( 'Set a custom label for the after image.', 'bafg' ),
 					'field_width' => 50,
 				),
-				apply_filters( 'show_label_outside_image', array(
-					'id' => '',
-					'type' => 'switch',
-					'label' => __( 'Show Label Outside Of Image', 'bafg' ),
-					'default' => false,
-					'subtitle' => __( 'Show Label Outside of Image', 'bafg' ),
-					'is_pro' => true,
-					'field_width' => 50,
-				), $post ),
+				// apply_filters( 'show_label_outside_image', array(
+				// 	'id' => '',
+				// 	'type' => 'switch',
+				// 	'label' => __( 'Show Label Outside Of Image', 'bafg' ),
+				// 	'default' => false,
+				// 	'subtitle' => __( 'Show Label Outside of Image', 'bafg' ),
+				// 	'is_pro' => true,
+				// 	'field_width' => 50,
+				// ), $post ),
 				apply_filters( 'bafg_auto_slide', array(
 					'id' => '',
 					'type' => 'switch',
