@@ -1,5 +1,11 @@
 ﻿== Changelog ==
 
+= 1.2.70.4 =
+* Added more donation data for field mapping in GiveWP integration.
+* Remove deprecated jQuery codes.
+* Security: Fixed XSS from post-meta shortcode in email campaign builder.
+* Remove redundant Divi shortcodes when present.
+
 = 1.2.70.3 =
 * Updated Brevo API from sendinblue.com to brevo.com.
 * Improved Paid Memberships Pro checkout integration.

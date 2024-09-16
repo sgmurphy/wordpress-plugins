@@ -9,12 +9,12 @@
         $("tr[id*='mailoptin_rcp_mapped_fields']").slideUp();
         $("tr[id*='mailoptin_rcp_select_tags']").slideUp();
         $("tr[id*='mailoptin_rcp_text_tags']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     }
 
     rcp.connection_lists_handler = function () {
         $("tr[id*='mailoptin_rcp_mapped_fields']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     }
 
     rcp.subscribe_member_handler = function () {
@@ -29,7 +29,7 @@
     }
 
     rcp.init = function () {
-        $("select[name*='mailoptin_rcp_subscribe_method']").change(rcp.subscribe_member_handler).change();
+        $("select[name*='mailoptin_rcp_subscribe_method']").on('change', rcp.subscribe_member_handler).trigger('change');
         $(document).on('change', "select[name*='mailoptin_rcp_integration_connections']", rcp.connection_service_handler);
         $(document).on('change', "select[name*='mailoptin_rcp_integration_lists']", rcp.connection_lists_handler);
     }

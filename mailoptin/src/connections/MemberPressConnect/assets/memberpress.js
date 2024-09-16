@@ -75,9 +75,9 @@
 
 
     memberpress.init = function () {
-        $("select[name='mailoptinMemberPressSelectIntegration']").change(function () {
+        $("select[name='mailoptinMemberPressSelectIntegration']").on('change', function () {
             memberpress.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinMemberPressSelectList']", function () {
             memberpress.connection_email_list_handler(this)

@@ -74,9 +74,9 @@
     };
 
     gwp.init = function () {
-        $("select[name='mailoptinGWPSelectIntegration']").change(function () {
+        $("select[name='mailoptinGWPSelectIntegration']").on('change', function () {
             gwp.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinGWPSelectList']", function () {
             gwp.connection_email_list_handler(this)

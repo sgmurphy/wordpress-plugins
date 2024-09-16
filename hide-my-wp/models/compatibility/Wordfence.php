@@ -15,6 +15,7 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
 
     public function __construct() {
         parent::__construct();
+
         //
         add_filter('hmwp_process_init', array($this, 'checkWordfenceScan'));
         add_filter('hmwp_process_hide_urls', array($this, 'checkWordfenceScan'));
@@ -105,6 +106,12 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
      * @return false|mixed
      */
     public function checkWordfenceScan($status) {
+
+        //on manual stan start
+        if(HMWP_Classes_Tools::isAjax() && HMWP_Classes_Tools::getValue('action') == 'wordfence_scan'){
+            $this->witelistWordfence();
+            $status = false;
+        }
 
         if($this->wfConfig('wf_scanRunning') || $this->wfConfig('scanStartAttempt')){
             $action = HMWP_Classes_Tools::getValue('action');

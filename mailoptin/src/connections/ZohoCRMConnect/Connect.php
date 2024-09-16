@@ -268,7 +268,7 @@ class Connect extends AbstractZohoCRMConnect implements ConnectionInterface
 
                     logic(selected_email_list);
 
-                    $("select[name='connection_email_list']", parent).change(function () {
+                    $("select[name='connection_email_list']", parent).on('change', function () {
                         logic($(this).val());
                     });
                 });

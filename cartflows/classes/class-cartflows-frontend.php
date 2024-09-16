@@ -429,6 +429,7 @@ class Cartflows_Frontend {
 
 		$fb_tracking_settings = Cartflows_Helper::get_facebook_settings();
 		$ga_tracking_settings = Cartflows_Helper::get_google_analytics_settings();
+		$tik_pixel_settings   = Cartflows_Helper::get_tiktok_settings();
 
 		$localize = array(
 			'ajax_url'               => admin_url( 'admin-ajax.php', 'relative' ),
@@ -442,6 +443,7 @@ class Cartflows_Frontend {
 			'is_checkout_page'       => $is_checkout,
 			'fb_setting'             => $fb_tracking_settings,
 			'ga_setting'             => $ga_tracking_settings,
+			'tik_setting'            => $tik_pixel_settings,
 			'active_checkout_cookie' => CARTFLOWS_ACTIVE_CHECKOUT,
 			'is_optin'               => $is_optin,
 		);

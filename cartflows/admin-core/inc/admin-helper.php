@@ -47,6 +47,13 @@ class AdminHelper {
 	public static $facebook = null;
 
 	/**
+	 * TikTok.
+	 *
+	 * @var object instance
+	 */
+	public static $tiktok = null;
+
+	/**
 	 * Google_analytics_settings.
 	 *
 	 * @var object instance
@@ -313,6 +320,40 @@ class AdminHelper {
 	}
 
 	/**
+	 * Get Common settings.
+	 *
+	 * @return array.
+	 */
+	public static function get_tiktok_settings() {
+
+		$options = array();
+
+		$tiktok_default = array(
+			'tiktok_pixel_id'                => '',
+			'enable_tiktok_begin_checkout'   => 'disable',
+			'enable_tiktok_add_to_cart'      => 'disable',
+			'enable_tiktok_view_content'     => 'disable',
+			'enable_tiktok_add_payment_info' => 'disable',
+			'enable_tiktok_purchase_event'   => 'disable',
+			'enable_tiktok_optin_lead'       => 'disable',
+			'tiktok_pixel_tracking'          => 'disable',
+			'tiktok_pixel_tracking_for_site' => 'disable',
+		);
+
+		$tiktok = self::get_admin_settings_option( '_cartflows_tiktok', false, false );
+
+		$tiktok = wp_parse_args( $tiktok, $tiktok_default );
+
+		$tiktok = apply_filters( 'cartflows_tiktok_settings_default', $tiktok );
+
+		foreach ( $tiktok as $key => $data ) {
+			$options[ '_cartflows_tiktok[' . $key . ']' ] = $data;
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Get User role settings.
 	 *
 	 * @return array.
@@ -490,10 +531,11 @@ class AdminHelper {
 		$general_settings   = self::get_common_settings();
 		$permalink_settings = self::get_permalink_settings();
 		$fb_settings        = self::get_facebook_settings();
+		$tik_settings       = self::get_tiktok_settings();
 		$ga_settings        = self::get_google_analytics_settings();
 		$urm_settings       = self::get_user_role_management_settings();
 		$auto_fields        = self::get_google_auto_fields_settings();
-		$options            = array_merge( $general_settings, $permalink_settings, $fb_settings, $ga_settings, $urm_settings, $auto_fields );
+		$options            = array_merge( $general_settings, $permalink_settings, $fb_settings, $tik_settings, $ga_settings, $urm_settings, $auto_fields );
 		$options            = apply_filters( 'cartflows_admin_global_data_options', $options );
 
 		return $options;

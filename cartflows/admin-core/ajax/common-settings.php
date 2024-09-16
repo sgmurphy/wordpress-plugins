@@ -179,6 +179,11 @@ class CommonSettings extends AjaxBase {
 			$new_settings = $this->sanitize_form_inputs( wp_unslash( $_POST['_cartflows_google_auto_address'] ) ); //phpcs:ignore
 			AdminHelper::update_admin_settings_option( '_cartflows_google_auto_address', $new_settings, false );
 		}
+
+		if ( isset( $_POST['_cartflows_tiktok'] ) ) { //phpcs:ignore
+			$new_settings = $this->sanitize_form_inputs( wp_unslash( $_POST['_cartflows_tiktok'] ) ); //phpcs:ignore
+			AdminHelper::update_admin_settings_option( '_cartflows_tiktok', $new_settings, false );
+		}
 	}
 
 	/**

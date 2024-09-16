@@ -205,7 +205,7 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
                             $str_new_array[$str_item_term] = $str_item_num;
                         }
 
-                        $new_array_key = AWS_Plurals::singularize( $str_item_term );
+                        $new_array_key = AWS_Helpers::singularize( $str_item_term );
 
                         if ( $new_array_key && strlen( $str_item_term ) > 3 && strlen( $new_array_key ) > 2 ) {
                             if ( ! isset( $str_new_array[$new_array_key] ) ) {
@@ -631,8 +631,10 @@ if ( ! class_exists( 'AWS_Helpers' ) ) :
          */
         static public function singularize( $search_term ) {
 
+            $lang = apply_filters( 'aws_current_scrapping_lang', 'en' );
+
             $search_term_len = strlen( $search_term );
-            $search_term_norm = AWS_Plurals::singularize( $search_term );
+            $search_term_norm = AWS_Plurals::singularize( $search_term, $lang );
 
             if ( $search_term_norm && $search_term_len > 3 && strlen( $search_term_norm ) > 2 ) {
                 $search_term = $search_term_norm;

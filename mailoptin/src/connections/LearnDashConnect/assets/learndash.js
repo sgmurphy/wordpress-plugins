@@ -75,9 +75,9 @@
 
 
     learndash.init = function () {
-        $("select[name='mailoptinLearnDashSelectIntegration']").change(function () {
+        $("select[name='mailoptinLearnDashSelectIntegration']").on('change', function () {
             learndash.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinLearnDashSelectList']", function () {
             learndash.connection_email_list_handler(this)

@@ -40,7 +40,7 @@ function RunOpt( $op = 0, $push = true )
 
 function _AddMenus( $accepted = false )
 {
-	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.22.5', __FILE__ ) );
+	add_menu_page( Plugin::GetPluginString( 'TitleLong' ), Plugin::GetNavMenuTitle(), 'manage_options', 'seraph_accel_manage',																		$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent', Plugin::FileUri( 'icon.png?v=2.22.6', __FILE__ ) );
 	add_submenu_page( 'seraph_accel_manage', esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), esc_html_x( 'Title', 'admin.Manage', 'seraphinite-accelerator' ), 'manage_options', 'seraph_accel_manage',	$accepted ? 'seraph_accel\\_ManagePage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 	add_submenu_page( 'seraph_accel_manage', Wp::GetLocString( 'Settings' ), Wp::GetLocString( 'Settings' ), 'manage_options', 'seraph_accel_settings',										$accepted ? 'seraph_accel\\_SettingsPage' : 'seraph_accel\\Plugin::OutputNotAcceptedPageContent' );
 }
@@ -778,7 +778,7 @@ function _OnContentTest( $buffer )
 function _ManagePage()
 {
 	Plugin::CmnScripts( array( 'Cmn', 'Gen', 'Ui', 'Net', 'AdminUi' ) );
-	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.5' );
+	wp_register_script( Plugin::ScriptId( 'Admin' ), add_query_arg( Plugin::GetFileUrlPackageParams(), Plugin::FileUrl( 'Admin.js', __FILE__ ) ), array_merge( array( 'jquery' ), Plugin::CmnScriptId( array( 'Cmn', 'Gen', 'Ui', 'Net' ) ) ), '2.22.6' );
 	Plugin::Loc_ScriptLoad( Plugin::ScriptId( 'Admin' ) );
 	wp_enqueue_script( Plugin::ScriptId( 'Admin' ) );
 
@@ -1679,7 +1679,7 @@ class API
 	const CACHE_OP_DEL = 2;
 	const CACHE_OP_SRVDEL = 10;
 
-	static function OperateCache( $op = CACHE_OP_DEL, $obj = null )
+	static function OperateCache( $op = API::CACHE_OP_DEL, $obj = null )
 	{
 		$args = array( 'uri' => ( array )$obj, 'op' => $op, 'type' => $obj ? 'uri' : '' );
 
@@ -1712,6 +1712,91 @@ class API
 		}
 
 		return( Plugin::AsyncTaskPost( 'CacheOp', $args ) );
+	}
+
+	static function GetCacheStatus( $obj, $headers = array() )
+	{
+		global $seraph_accel_sites;
+
+		$obj = Net::UrlParse( $obj, Net::URLPARSE_F_QUERY | Net::URLPARSE_F_PRESERVEEMPTIES );
+		if( !$obj )
+			return( null );
+
+		$userAgent = (isset($headers[ 'User-Agent' ])?$headers[ 'User-Agent' ]:'');
+
+		$sett = Plugin::SettGet();
+		$settCache = Gen::GetArrField( $sett, array( 'cache' ), array() );
+
+		$pathOrig = Gen::GetArrField( $obj, array( 'path' ), '' );
+		$path = CachePathNormalize( $pathOrig, $pathIsDir );
+		$args = Gen::GetArrField( $obj, array( 'query' ), array() );
+		$addrSite = GetRequestHost( array( 'SERVER_NAME' => Gen::GetArrField( $obj, array( 'host' ), '' ), 'SERVER_PORT' => Gen::GetArrField( $obj, array( 'port' ) ) ) );
+		$siteId = GetCacheSiteIdAdjustPath( $seraph_accel_sites, $addrSite, $siteSubId, $path );
+		if( $siteId === null )
+			return( array( 'err' => 'siteIdUnk' ) );
+
+		$ctxCache = new AnyObj();
+
+		$userId = 0;
+		$sessId = null;
+		$viewId = GetCacheViewId( $ctxCache, $settCache, $userAgent, $path, $pathOrig, $args );
+		$cacheRootPath = GetCacheDir();
+		$siteCacheRootPath = $cacheRootPath . '/s/' . $siteId;
+		$ctxCache -> viewPath = GetCacheViewsDir( $siteCacheRootPath, $siteSubId ) . '/' . $viewId;
+		$ctxsPath = $ctxCache -> viewPath . '/c';
+
+		{
+			$ctxCache -> userId = $userId;
+			$ctxCache -> userSessId = null;
+			$sessId = '@';
+			$ctxCache -> isUserSess = false;
+
+			$ctxPathId = $userId . '/s/' . $sessId;
+			$stateCookId = '@';
+			$ctxPathId .= '/s/' . $stateCookId;
+		}
+
+		$objectId = '@';
+		if( $pathIsDir )
+			$objectId .= 'd';
+
+		if( !empty( $args ) )
+		{
+			$argsCumulative = '';
+			foreach( $args as $argKey => $argVal )
+				$argsCumulative .= $argKey . $argVal;
+
+			$objectId = $objectId . '.' . @md5( $argsCumulative );
+			unset( $argsCumulative );
+		}
+
+		$dataPath = GetCacheDataDir( $siteCacheRootPath );
+
+		$dscFile = $ctxsPath . '/' . $ctxPathId . '/o';
+		if( $path )
+			$dscFile .= '/' . $path;
+		$dscFile .= '/' . $objectId . '.html.dat';
+		$dscFilePending = $dscFile . '.p';
+		$dscFilePending2 = $dscFilePending . 'p';
+
+		$res = array( 'dscFile' => substr( $dscFile, strlen( $cacheRootPath ) ) );
+
+		$dscFileTm = @filemtime( $dscFile );
+		if( $dscFileTm === false )
+		{
+			$res[ 'cache' ] = false;
+			$dsc = null;
+		}
+		else
+		{
+			$res[ 'cache' ] = true;
+			$dsc = CacheReadDsc( $dscFile );
+		}
+
+		$res[ 'optimization' ] = $dsc ? ( (isset($dsc[ 't' ])?$dsc[ 't' ]:null) ? false : true ) : null;
+		$res[ 'status' ] = @file_exists( $dscFilePending2 ) ? 'revalidating' : ( @file_exists( $dscFilePending ) ? 'pending' : ( $dscFileTm === false ? 'none' : 'done' ) );
+
+		return( $res );
 	}
 }
 

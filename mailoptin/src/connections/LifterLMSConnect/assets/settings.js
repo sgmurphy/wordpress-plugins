@@ -4,7 +4,7 @@
 
     llms.save_settings = function (event) {
         event.preventDefault();
-        $('.llms-save input[type="submit"]').click();
+        $('.llms-save input[type="submit"]').trigger('click');
     }
 
     llms.init = function () {

@@ -89,6 +89,13 @@ class Cartflows_Helper {
 	 */
 	private static $facebook = null;
 
+	/**
+	 * Facebook pixel global data
+	 *
+	 * @var tiktok
+	 */
+	private static $tiktok = null;
+
 
 	/**
 	 * Returns an option from the database for the admin settings page.
@@ -733,6 +740,37 @@ class Cartflows_Helper {
 		return self::$facebook;
 	}
 
+	/**
+	 * Get tiktok pixel settings.
+	 *
+	 * @return tiktok tiktok settings array.
+	 */
+	public static function get_tiktok_settings() {
+
+		if ( null === self::$tiktok ) {
+
+			$tiktok_default = array(
+				'tiktok_pixel_id'                => '',
+				'enable_tiktok_begin_checkout'   => 'disable',
+				'enable_tiktok_add_to_cart'      => 'disable',
+				'enable_tiktok_view_content'     => 'disable',
+				'enable_tiktok_add_payment_info' => 'disable',
+				'enable_tiktok_purchase_event'   => 'disable',
+				'enable_tiktok_optin_lead'       => 'disable',
+				'tiktok_pixel_tracking'          => 'disable',
+				'tiktok_pixel_tracking_for_site' => 'disable',
+			);
+
+			$tiktok = self::get_admin_settings_option( '_cartflows_tiktok', false, false );
+
+			$tiktok = wp_parse_args( $tiktok, $tiktok_default );
+
+			self::$tiktok = apply_filters( 'cartflows_tiktok_settings_default', $tiktok );
+
+		}
+
+		return self::$tiktok;
+	}
 
 	/**
 	 * Prepare response data for facebook.

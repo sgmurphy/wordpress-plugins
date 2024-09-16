@@ -126,6 +126,8 @@ if ( ! class_exists( 'Cartflows_Batch_Processing_Sync_Library' ) ) :
 
 			$api_url = add_query_arg( $query_args, $this->site_url . 'wp-json/cartflows-server/v1/flows-and-steps/' );
 
+			wcf()->logger->sync_log( 'Template sync URL: ' . $api_url );
+
 			$response = wp_remote_get( $api_url, $api_args );
 
 			$is_error = AdminHelper::has_api_error( $response );

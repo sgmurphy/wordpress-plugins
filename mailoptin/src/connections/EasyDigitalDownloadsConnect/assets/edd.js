@@ -74,14 +74,14 @@
     };
 
     edd.init = function () {
-        $("select[name='mailoptinEDDSelectIntegration']").change(function () {
+        $("select[name='mailoptinEDDSelectIntegration']").on('change', function () {
             edd.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinEDDSelectList']", function () {
             edd.connection_email_list_handler(this)
         });
-    }
+    };
 
     $(window).on('load', edd.init);
 

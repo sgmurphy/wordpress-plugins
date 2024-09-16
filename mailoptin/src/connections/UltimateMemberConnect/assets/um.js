@@ -74,9 +74,9 @@
     };
 
     um.init = function () {
-        $("select[name='mailoptinUMSelectIntegration']").change(function () {
+        $("select[name='mailoptinUMSelectIntegration']").on('change', function () {
             um.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinUMSelectList']", function () {
             um.connection_email_list_handler(this)

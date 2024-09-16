@@ -588,6 +588,12 @@ if ( ! class_exists( 'Cartflows_Block_Helper' ) ) {
 					'--wcf-payment-section-desc-bg-color' => $attr['informationbgColor'],
 					'--wcf-payment-section-bg-color'      => $attr['sectionbgColor'],
 				),
+				' .cartflows_step-template .select2-container--default .select2-results__option--highlighted[aria-selected], .cartflows_step-template .select2-container--default .select2-results__option--highlighted[data-selected]' => array(
+					'background-color' => $attr['globalbgColor'],
+				),
+				' .cartflows_step-template .select2-container--default .select2-results__option--highlighted[aria-selected] ' => array(
+					'box-shadow' => '0 0 2px',
+				),
 				' .wcf-embed-checkout-form .woocommerce .woocommerce-checkout input[type="checkbox"]:focus, .wcf-embed-checkout-form .woocommerce .woocommerce-checkout #order_review input[type="checkbox"]:focus, .wcf-embed-checkout-form .woocommerce .woocommerce-checkout .woocommerce-account-fields input[type="checkbox"]:focus, .wcf-embed-checkout-form.wcf-embed-checkout-form-modern-checkout .woocommerce .woocommerce-checkout input[type="checkbox"]:focus, .wcf-embed-checkout-form.wcf-embed-checkout-form-modern-checkout .woocommerce #order_review input[type="checkbox"]:focus ' => array(
 					'box-shadow' => '0 0 2px',
 				),

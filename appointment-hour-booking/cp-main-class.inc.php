@@ -2624,7 +2624,7 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
 
         // calculate dates
         $this->item = intval($this->get_param("cal"));
-        if ($this->get_option('date_format', 'mm/dd/yy') == 'dd/mm/yy')
+        if ($this->get_option('date_format', 'mm/dd/yy') == 'dd/mm/yy' || $this->get_option('date_format', 'mm/dd/yy') == 'd M, y')
         {
             $from = str_replace('/','.',$from);
             $to = str_replace('/','.',$to);
@@ -2673,6 +2673,29 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
         $separator = get_option('CP_APPB_CSV_SEPARATOR',",");
         if ($separator == '') $separator = ',';
 
+		
+        if ($this->item)
+        {
+            $form = json_decode($this->cleanJSON($this->get_option('form_structure', CP_APPBOOK_DEFAULT_form_structure)));
+            $form = $form[0];
+        }
+        else
+            $form = array();
+
+        $filename = $this->generateSafeFileName(strtolower($this->get_option('form_name','export'))).'_'.date("m_d_y");
+
+        header("Content-type: application/octet-stream");
+        header("Content-Disposition: attachment; filename=".$filename.".csv");
+		
+        $end = count($fields);
+        for ($i=0; $i<$end; $i++)
+        {
+            $hlabel = $this->iconv("utf-8", "ISO-8859-1//TRANSLIT//IGNORE", $this->get_form_field_label($fields[$i],$form));
+			if ($hlabel == 'cancelled') $hlabel = 'status';
+            echo '"'.str_replace('"','""', $this->clean_csv_value($hlabel)).'"'.$separator; // phpcs:ignore WordPress.Security.EscapeOutput
+        }
+        echo "\n";		
+		
         // print table
         for($i=0; $i<count($selection); $i++)
         {
@@ -2717,28 +2740,6 @@ class CP_AppBookingPlugin extends CP_APPBOOK_BaseClass {
             }
             echo "\n";
         }
-
-
-        if ($this->item)
-        {
-            $form = json_decode($this->cleanJSON($this->get_option('form_structure', CP_APPBOOK_DEFAULT_form_structure)));
-            $form = $form[0];
-        }
-        else
-            $form = array();
-
-        $filename = $this->generateSafeFileName(strtolower($this->get_option('form_name','export'))).'_'.date("m_d_y");
-
-        header("Content-type: application/octet-stream");
-        header("Content-Disposition: attachment; filename=".$filename.".csv");
-
-        $end = count($fields);
-        for ($i=0; $i<$end; $i++)
-        {
-            $hlabel = $this->iconv("utf-8", "ISO-8859-1//TRANSLIT//IGNORE", $this->get_form_field_label($fields[$i],$form));
-            echo '"'.str_replace('"','""', $this->clean_csv_value($hlabel)).'"'.$separator; // phpcs:ignore WordPress.Security.EscapeOutput
-        }
-        echo "\n";
 
         exit;
     }

@@ -3,7 +3,7 @@
  * Plugin Name: The Post Grid
  * Plugin URI: https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/
  * Description: Fast & Easy way to display WordPress post in Grid, List & Isotope view ( filter by category, tag, author..)  without a single line of coding.
- * Author: RadiusTheme
+ * Author: Post Grid Team by RadiusTheme
  * Version: 7.7.12
  * Text Domain: the-post-grid
  * Domain Path: /languages

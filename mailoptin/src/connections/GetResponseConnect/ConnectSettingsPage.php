@@ -26,7 +26,7 @@ class ConnectSettingsPage
                 $('#getresponse360_registered_domain_row').toggle(is_checked());
                 $('#getresponse360_country_row').toggle(is_checked());
 
-                $('#getresponse_is_360').change(function () {
+                $('#getresponse_is_360').on('change', function () {
                     $('#getresponse360_registered_domain_row').toggle(this.checked);
                     $('#getresponse360_country_row').toggle(this.checked);
                 })

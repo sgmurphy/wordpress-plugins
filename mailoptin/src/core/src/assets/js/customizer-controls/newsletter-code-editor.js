@@ -59,7 +59,7 @@
             session.setValue(textarea_val);
         }
         editor.on('change', function () {
-            $("input[data-customize-setting-link*='[code_your_own]']").val(session.getValue()).change();
+            $("input[data-customize-setting-link*='[code_your_own]']").val(session.getValue()).trigger('change');
         });
 
         // remove the temporary iframe hide css.
@@ -85,7 +85,7 @@
 
         $(document).on('click', '#newsletter_editor_content_btn', function (e) {
             e.preventDefault();
-            $('.mo-automation-code-toolbar-btn.mo-newsletter-editor').click();
+            $('.mo-automation-code-toolbar-btn.mo-newsletter-editor').trigger('click');
         });
 
         $(document).on('click', '.mo-automation-code-toolbar-btn', function (e) {

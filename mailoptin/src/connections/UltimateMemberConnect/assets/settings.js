@@ -9,12 +9,12 @@
         $("tr[id*='mailoptin_ultimatemember_mapped_fields']").slideUp();
         $("tr[id*='mailoptin_ultimatemember_select_tags']").slideUp();
         $("tr[id*='mailoptin_ultimatemember_text_tags']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     };
 
     um.connection_lists_handler = function () {
         $("tr[id*='mailoptin_ultimatemember_mapped_fields']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     };
 
     um.subscribe_customer_handler = function () {
@@ -30,7 +30,7 @@
     };
 
     um.init = function () {
-        $("select[name*='mailoptin_ultimatemember_subscribe_customers']").change(um.subscribe_customer_handler).change();
+        $("select[name*='mailoptin_ultimatemember_subscribe_customers']").on('change', um.subscribe_customer_handler).trigger('change');
         $(document).on('change', "select[name*='mailoptin_ultimatemember_integration_connections']", um.connection_service_handler);
         $(document).on('change', "select[name*='mailoptin_ultimatemember_integration_lists']", um.connection_lists_handler);
     };

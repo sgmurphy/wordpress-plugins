@@ -38,7 +38,7 @@ if(!$sorted) {
                             ?> <div id="hmwp_securitycheck_widget" class="card col-sm-12 p-0 m-0 mb-3 border-0 bg-white postbox <?php echo postbox_classes('hmwp_securitycheck_widget', $page) ?>">
                                 <div class="postbox-header hmwp_header">
                                     <h3 class="card-title p-2 m-0 hndle"><?php echo esc_html__('Security Status', 'hide-my-wp'); ?></h3>
-                                    <div class="handle-actions hide-if-no-js">
+                                    <div class="handle-actions hide-if-no-js mr-2">
                                         <button type="button" class="handlediv" aria-expanded="true">
                                             <span class="toggle-indicator" aria-hidden="true"></span>
                                         </button>
@@ -55,7 +55,7 @@ if(!$sorted) {
                                  class="card col-sm-12 p-0 m-0 mb-3 border-0 bg-white postbox <?php echo postbox_classes('hmwp_features_widget', $page) ?>">
                                 <div class="postbox-header hmwp_header">
                                     <h3 class="card-title p-2 m-0 hndle"><?php echo HMWP_Classes_Tools::getOption('hmwp_plugin_name') . ' ' . esc_html__('Features', 'hide-my-wp'); ?></h3>
-                                    <div class="handle-actions hide-if-no-js">
+                                    <div class="handle-actions hide-if-no-js mr-2">
                                         <button type="button" class="handlediv" aria-expanded="true">
                                             <span class="toggle-indicator" aria-hidden="true"></span>
                                         </button>

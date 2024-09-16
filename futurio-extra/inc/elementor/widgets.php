@@ -81,7 +81,6 @@ final class Futurio_Elementor_Extension {
 		//fronted.js - plugin front-end actions
 		wp_register_script(
 		'futurio-extra-frontend', FUTURIO_EXTRA_PLUGIN_URL . 'inc/elementor/widgets/js/frontend.js', [
-			'elementor-waypoints',
 			'jquery',
 		], FUTURIO_EXTRA_CURRENT_VERSION, true
 		);

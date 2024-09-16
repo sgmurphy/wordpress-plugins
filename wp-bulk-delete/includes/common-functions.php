@@ -185,12 +185,21 @@ function wpbd_get_wc_order_count(){
 	global $wpdb;
 	//Get WC order type with count
 	$results  = array();
-	$query    = "SELECT COUNT(`id`) as `count`, `type`, REPLACE(`type`, 'shop_', '') as `type_name` FROM `{$wpdb->prefix}wc_orders` WHERE `type` = 'shop_order' ";
-	$results  = $wpdb->get_results($query);
-	$results  = (array)reset($results);
-	$results['type_name'] = ucfirst( $results['type_name'] ). '';
+	$table_name = $wpdb->prefix . 'wc_orders';
+	$table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$table_name}'");
 
-	return $results;
+	if ( $table_exists ) {
+		$query    = "SELECT COUNT(`id`) as `count`, `type`, REPLACE(`type`, 'shop_', '') as `type_name` FROM `{$wpdb->prefix}wc_orders` WHERE `type` = 'shop_order' ";
+		$results  = $wpdb->get_results($query);
+		$results  = (array)reset($results);
+		
+		if( isset( $results['type_name'] ) && !empty( $results['type_name'] ) ){
+			$results['type_name'] = ucfirst( $results['type_name'] ). '';
+		}
+		return $results;
+	}else{
+		return $results;
+	}
 }
 
 /**
@@ -386,4 +395,32 @@ function wpdb_render_common_header( $page_title  ){
     </div>
     <?php
     
+}
+
+function check_wc_is_activated() {
+    // Define the WooCommerce plugin file path
+    $woocommerce_plugin_path = 'woocommerce/woocommerce.php';
+    // Check if WooCommerce is activated
+    if ( is_plugin_active($woocommerce_plugin_path) ) {
+        return '';
+    }elseif(file_exists(WP_PLUGIN_DIR . '/' . $woocommerce_plugin_path)) {
+        return '<div class="wpbd-pro-badge">WooCommerce Not Activated</div>';
+    }else{
+        return '<div class="wpbd-pro-badge">WooCommerce Not Installed</div>';
+    }
+}
+
+/**
+ * Get WP Post Status
+ *
+ * @since 1.3.1
+ * @return array
+ */
+function get_wp_post_status(){
+
+	$get_post_status  = get_post_stati();
+	$get_post_status  = array_filter( $get_post_status, function($key) { return strpos( $key, 'wc-' ) !== 0 && strpos( $key, 'request-' ) !== 0; }, ARRAY_FILTER_USE_KEY );
+	$wpbd_post_status = array_diff_key( $get_post_status, array_flip( ['inherit', 'auto-draft'] ) );
+
+	return $wpbd_post_status;
 }

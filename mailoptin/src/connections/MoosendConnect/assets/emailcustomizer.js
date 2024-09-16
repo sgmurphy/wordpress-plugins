@@ -21,7 +21,7 @@
     };
 
     mo.fetch_segments = function () {
-        $("select[data-customize-setting-link*='connection_email_list']").change(function (e) {
+        $("select[data-customize-setting-link*='connection_email_list']").on('change', function (e) {
             var list_id = this.value;
 
             if ($("select[data-customize-setting-link*='connection_service']").val() !== 'MoosendConnect') return;

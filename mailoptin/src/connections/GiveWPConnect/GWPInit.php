@@ -520,9 +520,35 @@ class GWPInit
         return [];
     }
 
-    public function get_field_value($value, $email)
+    /**
+     * @param $value
+     * @param $email
+     * @param false|\Give_Payment $payment
+     *
+     * @return int|mixed|string
+     */
+    public function get_field_value($value, $email, $payment = false)
     {
         if ( ! empty($value)) {
+
+            $hash_map = [
+                'first_name'                    => $payment->first_name,
+                'last_name'                     => $payment->last_name,
+                'prefix'                        => $payment->title_prefix,
+                'email'                         => $payment->email,
+                'ID'                            => $payment->user_id,
+                'mogwp_donation_transaction_id' => $payment->transaction_id,
+                'mogwp_donation_id'             => $payment->ID,
+                'mogwp_donation_total'          => $payment->total,
+                'mogwp_donation_form_title'     => $payment->form_title,
+                'mogwp_donation_form_id'        => $payment->form_id,
+                'mogwp_donation_form_price_id'  => $payment->price_id,
+                'mogwp_donation_date'           => $payment->date,
+                'mogwp_donation_completed_date' => $payment->completed_date,
+                'mogwp_donation_gateway'        => $payment->gateway,
+            ];
+
+            if (isset($hash_map[$value])) return $hash_map[$value];
 
             $user_data = get_user_by('email', $email);
 
@@ -567,16 +593,28 @@ class GWPInit
     {
         $user_fields = [
             ''              => '&mdash;&mdash;&mdash;',
+            'first_name'    => __('Donor First Name', 'mailoptin'),
+            'last_name'     => __('Donor Last Name', 'mailoptin'),
+            'prefix'        => __('Donor Prefix/Salutation', 'mailoptin'),
+            'email'         => __('Donor Email Address', 'mailoptin'),
             'ID'            => __('User ID', 'mailoptin'),
             'user_login'    => __('Username', 'mailoptin'),
             'user_nicename' => __('User Nicename', 'mailoptin'),
             'user_url'      => __('Website URL', 'mailoptin'),
             'display_name'  => __('Display Name', 'mailoptin'),
             'nickname'      => __('Nickname', 'mailoptin'),
-            'first_name'    => __('First Name', 'mailoptin'),
-            'last_name'     => __('Last Name', 'mailoptin'),
             'description'   => __('Biographical Info ', 'mailoptin')
         ];
+
+        $user_fields['mogwp_donation_transaction_id'] = esc_html__('Last Donation Transaction ID', 'mailoptin');
+        $user_fields['mogwp_donation_id']             = esc_html__('Last Donation ID', 'mailoptin');
+        $user_fields['mogwp_donation_total']          = esc_html__('Last Donation Total Amount', 'mailoptin');
+        $user_fields['mogwp_donation_form_title']     = esc_html__('Last Donation Form Title', 'mailoptin');
+        $user_fields['mogwp_donation_form_id']        = esc_html__('Last Donation Form ID', 'mailoptin');
+        $user_fields['mogwp_donation_form_price_id']  = esc_html__('Last Donation Form Price ID', 'mailoptin');
+        $user_fields['mogwp_donation_date']           = esc_html__('Last Donation Date', 'mailoptin');
+        $user_fields['mogwp_donation_completed_date'] = esc_html__('Last  Donation Completed Date', 'mailoptin');
+        $user_fields['mogwp_donation_gateway']        = esc_html__('Last Donation Payment Gateway', 'mailoptin');
 
         return apply_filters('mo_gwp_custom_users_mapped_fields', $user_fields);
     }
@@ -629,7 +667,7 @@ class GWPInit
 
         foreach ($field_map as $key => $value) {
             if ($value) {
-                $payload[$key] = GWPInit::get_instance()->get_field_value($value, $email);
+                $payload[$key] = GWPInit::get_instance()->get_field_value($value, $email, $payment);
             }
         }
 
@@ -685,7 +723,7 @@ class GWPInit
             // If no field is mapped, skip it.
             if (empty($value)) continue;
 
-            $field_value = GWPInit::get_instance()->get_field_value($value, $email);
+            $field_value = GWPInit::get_instance()->get_field_value($value, $email, $payment);
 
             if (empty($field_value)) continue;
 

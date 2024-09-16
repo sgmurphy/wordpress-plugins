@@ -106,7 +106,7 @@
       "slug": "everest-forms-survey-polls-quiz",
       "name": "Everest Forms Survey, Polls and Quiz",
       "image": "extensions-json/sections/images/survey-polls-quiz.png",
-      "excerpt": "Allows you to create an intuitive survey, poll and quiz forms easily. It also provides admin reporting for data-driven decisions and other aditional fields like Likert and Scale Rating.",
+      "excerpt": "Allows you to create an intuitive survey, poll and quiz forms easily. It also provides admin reporting for data-driven decisions and other additional fields like Likert and Scale Rating.",
       "link": "https://docs.everestforms.net/docs/survey-polls-and-quiz/?utm_source=dashboard-all-feature&utm_medium=card-documentation-link",
       "released_date": "22/03/2019",
       "plan": [
@@ -253,23 +253,6 @@
       "setting_url": "",
       "demo_video_url": "Q1-dja7m3Sc",
       "popular_rank": 15
-    },
-    {
-      "title": "Calculations",
-      "slug": "everest-forms-calculations",
-      "name": "Everest Forms Calculations",
-      "image": "extensions-json/sections/images/calculations.png",
-      "excerpt": "Calculations add-on allows you to perform calculations on the number/range fields within the form.",
-      "link": "https://docs.everestforms.net/docs/calculations/?utm_source=dashboard-all-feature&utm_medium=card-documentation-link",
-      "released_date": "29/03/2022",
-      "plan": [
-        "personal",
-        "agency",
-        "themegrill agency"
-      ],
-      "setting_url": "",
-      "demo_video_url": "WCsHC7NQ2QQ",
-      "popular_rank": 16
     },
     {
       "title": "Post Submissions",
@@ -853,6 +836,39 @@
       ],
       "setting_url": "",
        "demo_video_url": ""
+    },
+    {
+      "title": "Aweber",
+      "slug": "everest-forms-aweber",
+      "name": "Everest Forms- Aweber",
+      "image": "extensions-json/sections/images/aweber.webp",
+      "excerpt": "Connect your Aweber account with Everest Forms to automate data collection from forms effortlessly and efficiently.",
+      "link": "https://docs.everestforms.net/docs/aweber/?utm_source=dashboard-all-features&utm_medium=card-documentation-link",
+      "released_date": "13/09/2024",
+      "plan": [
+        "personal",
+        "agency",
+        "themegrill agency"
+      ],
+      "setting_url": "admin.php?page=evf-settings&tab=integration&section=aweber",
+       "demo_video_url": ""
+    },
+    {
+      "title": "Calculations",
+      "slug": "everest-forms-calculations",
+      "name": "Everest Forms Calculations",
+      "image": "extensions-json/sections/images/calculations.png",
+      "excerpt": "Calculations add-on allows you to perform calculations on the number/range fields within the form.",
+      "link": "https://docs.everestforms.net/docs/calculations/?utm_source=dashboard-all-feature&utm_medium=card-documentation-link",
+      "released_date": "29/03/2022",
+      "plan": [
+        "personal",
+        "agency",
+        "themegrill agency"
+      ],
+      "setting_url": "",
+      "demo_video_url": "WCsHC7NQ2QQ",
+      "popular_rank": 16
     }
   ]
 }

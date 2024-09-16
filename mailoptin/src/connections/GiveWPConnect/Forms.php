@@ -223,7 +223,7 @@ class Forms
                 continue;
             }
 
-            $field_value = GWPInit::get_instance()->get_field_value($value, $user_info['email']);
+            $field_value = GWPInit::get_instance()->get_field_value($value, $user_info['email'], $payment);
 
             if (empty($field_value)) continue;
 

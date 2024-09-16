@@ -24,6 +24,7 @@ class Futurio_Extra_Widget_Writing_Effect_Headline extends Widget_Base {
     public function get_categories() {
         return ['basic'];
     }
+	
 
     protected function register_controls() {
 

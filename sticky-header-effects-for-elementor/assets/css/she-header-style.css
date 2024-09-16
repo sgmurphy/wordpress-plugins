@@ -23,7 +23,7 @@ Sticky Header Effects Style
 	padding-top: 0;
 }
 
-.she-header:not(.elementor-sticky) {
+.she-header:not(.elementor-sticky--active) {
 	position: fixed !important;
 	top: 0 !important;
 }

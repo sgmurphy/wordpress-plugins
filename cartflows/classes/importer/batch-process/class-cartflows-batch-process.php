@@ -222,7 +222,7 @@ if ( ! class_exists( 'CartFlows_Batch_Process' ) ) :
 					return;
 				}
 
-				if ( 'cartflows_page_cartflows_settings' === $current_screen->id ) {
+				if ( 'toplevel_page_cartflows' === $current_screen->id || 'cartflows_page_cartflows_settings' === $current_screen->id ) {
 
 					// Process import.
 					$this->process_batch();

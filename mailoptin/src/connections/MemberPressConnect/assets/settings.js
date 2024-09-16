@@ -97,10 +97,10 @@
 
     memberpress.init = function () {
         memberpress.is_mailoptin_enabled();
-        $("#mo_memberpress_hidden_area select[name='mailoptinMemberPressSubscribeMembers']").change(memberpress.subscribe_members_handler).change();
-        $("#mo_memberpress_hidden_area select[name='mailoptinMemberPressSelectIntegration']").change(function () {
+        $("#mo_memberpress_hidden_area select[name='mailoptinMemberPressSubscribeMembers']").on('change', memberpress.subscribe_members_handler).trigger('change');
+        $("#mo_memberpress_hidden_area select[name='mailoptinMemberPressSelectIntegration']").on('change', function () {
             memberpress.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "#mo_memberpress_hidden_area select[name='mailoptinMemberPressSelectList']", function () {
             memberpress.connection_email_list_handler(this)

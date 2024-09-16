@@ -198,11 +198,10 @@ class Rate_My_Post_Common
 
     public static function enabled_post_types()
     {
-        $bucket = ['crw'];
+        $bucket = ['crw', 'post'];
 
         $options = get_option("rmp_options", []);
 
-        if ( ! empty($options['posts'] && $options['posts'] == 2)) $bucket[] = 'post';
         if ( ! empty($options['pages'] && $options['pages'] == 2)) $bucket[] = 'page';
 
         if ( ! empty($options['cptRating']) && is_array($options['cptRating'])) {
@@ -216,9 +215,12 @@ class Rate_My_Post_Common
     {
         global $post;
 
-        if ( ! isset($post->post_type)) return false;
+        if (isset($post->post_type)) {
 
-        if (in_array($post->post_type, self::enabled_post_types())) return true;
+            $is_post_type_check_success = in_array($post->post_type, self::enabled_post_types());
+
+            if (apply_filters('rmp_is_show_for_post_edit_screen', $is_post_type_check_success, $post)) return true;
+        }
 
         return false;
     }

@@ -74,9 +74,9 @@
 
 
     tutorlms.init = function () {
-        $("select[name='mailoptinTutorLMSSelectIntegration']").change(function () {
+        $("select[name='mailoptinTutorLMSSelectIntegration']").on('change', function () {
             tutorlms.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinTutorLMSSelectList']", function () {
             tutorlms.connection_email_list_handler(this)

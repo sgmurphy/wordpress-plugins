@@ -298,7 +298,9 @@ class Cartflows_Checkout_Form extends Widget_Base {
 					'default'   => self::$gcp_primary_theme_color,
 					'selectors' => array(
 						'{{WRAPPER}} .wcf-embed-checkout-form,
-						{{WRAPPER}} .wcf-embed-checkout-form-modern-checkout' => '--wcf-primary-color: {{VALUE}};',
+						{{WRAPPER}} .wcf-embed-checkout-form-modern-checkout,
+						.cartflows_step-template .select2-container--default .select2-results__option--highlighted[aria-selected],
+						.cartflows_step-template .select2-container--default .select2-results__option--highlighted[data-selected]' => '--wcf-primary-color: {{VALUE}};',
 
 						/* Only Modern Checkout related CSS */
 						'{{WRAPPER}} .wcf-embed-checkout-form.wcf-embed-checkout-form-modern-checkout .woocommerce form .form-row input.input-text:focus,

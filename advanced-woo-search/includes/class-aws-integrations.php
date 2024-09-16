@@ -516,6 +516,11 @@ if ( ! class_exists( 'AWS_Integrations' ) ) :
                 include_once( AWS_DIR . '/includes/modules/class-aws-alg-wc-ean.php' );
             }
 
+            // Breakdance builder
+            if ( defined( 'BREAKDANCE_PLUGIN_URL' ) ) {
+                include_once( AWS_DIR . '/includes/modules/class-aws-breakdance.php' );
+            }
+
         }
 
         /*

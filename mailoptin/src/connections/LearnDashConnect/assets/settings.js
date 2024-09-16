@@ -9,12 +9,12 @@
         $("tr[id*='mailoptin_learndash_mapped_fields']").slideUp();
         $("tr[id*='mailoptin_learndash_select_tags']").slideUp();
         $("tr[id*='mailoptin_learndash_text_tags']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     }
 
     learndash.connection_lists_handler = function () {
         $("tr[id*='mailoptin_learndash_mapped_fields']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     }
 
     learndash.subscribe_student_handler = function () {
@@ -32,7 +32,7 @@
     }
 
     learndash.init = function () {
-        $("select[name*='mailoptin_learndash_subscribe_students']").change(learndash.subscribe_student_handler).change();
+        $("select[name*='mailoptin_learndash_subscribe_students']").on('change', learndash.subscribe_student_handler).trigger('change');
         $(document).on('change', "select[name*='mailoptin_learndash_integration_connections']", learndash.connection_service_handler);
         $(document).on('change', "select[name*='mailoptin_learndash_integration_lists']", learndash.connection_lists_handler);
     }

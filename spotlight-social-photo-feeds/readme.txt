@@ -2,7 +2,7 @@
 
 Contributors: RebelCode, spotlightsocialfeeds, markzahra, Mekku, jeangalea, gabygalea
 Plugin URI: https://spotlightwp.com
-Tags: Instagram, Instagram feed, Instagram feeds, Instagram block, Instagram embed, social media, social media feed, Instagram widget, link in bio, Instagram gallery, shoppable Instagram, hashtag feed
+Tags: Instagram, Instagram feed, Instagram embed, Instagram widget, Instagram block
 Requires at least: 5.7
 Requires PHP: 7.1
 Tested up to: 6.6

@@ -106,6 +106,42 @@
 		}
 	};
 
+	// Trigger TikTok events on form submit.
+	const trigger_tiktok_events = function () {
+		if (
+			'enable' === cartflows.tik_setting.tiktok_pixel_tracking &&
+			cartflows.tik_setting.tiktok_pixel_id !== ''
+		) {
+			/* global ttq */
+			const add_payment_info_event =
+				cartflows.tik_setting.enable_tiktok_add_payment_info;
+			if (
+				'enable' === add_payment_info_event &&
+				cartflows.is_checkout_page
+			) {
+				jQuery( 'form.woocommerce-checkout' ).on(
+					'submit',
+					function () {
+						ttq.track(
+							'AddPaymentInfo',
+							JSON.parse( cartflows.tiktok_add_payment_info_data )
+						);
+					}
+				);
+			} else if (
+				cartflows.is_optin &&
+				'enable' === cartflows.tik_setting.enable_tiktok_optin_lead
+			) {
+				jQuery( 'form.woocommerce-checkout' ).on(
+					'submit',
+					function () {
+						ttq.track( 'Lead', { plugin: 'CartFlows' } );
+					}
+				);
+			}
+		}
+	};
+
 	/**
 	 *
 	 * @param {string} next_step_url
@@ -177,6 +213,7 @@
 		if ( '1' !== cartflows.is_pb_preview ) {
 			trigger_facebook_events();
 			trigger_google_events();
+			trigger_tiktok_events();
 		}
 	} );
 } )( jQuery );

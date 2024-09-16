@@ -607,7 +607,7 @@ div.ays-quiz-container[id^="ays-quiz-container-"] .ays-quiz-share-btn-icon {
 	content: "\f082";
 }
 .ays-share-btn-twitter .ays-quiz-share-btn-icon:before {
-	content: "\f081";
+	/*content: "\f081";*/
 }
 
 
@@ -724,17 +724,17 @@ div.ays-quiz-container[id^="ays-quiz-container-"] .ays-quiz-share-btn-icon {
 	color: #fff;
 }
 .ays-share-btn.ays-share-btn-branded.ays-share-btn-twitter {
-	background: #55acee;
-	border-color: #3ea1ec;
+	background: #000000;
+	border-color: #000000;
 }
 .ays-share-btn.ays-share-btn-branded.ays-share-btn-twitter:hover,
 .ays-share-btn.ays-share-btn-branded.ays-share-btn-twitter:focus {
-	background: #3ea1ec;
-	border-color: #2795e9;
+	background: #000000;
+	border-color: #000000;
 }
 .ays-share-btn.ays-share-btn-branded.ays-share-btn-twitter:active {
-	background: #2795e9;
-	border-color: #1689e0;
+	background: #000000;
+	border-color: #000000;
 }
 .ays-share-btn.ays-share-btn-branded.ays-share-btn-facebook {
 	background: #3b5998;

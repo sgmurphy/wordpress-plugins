@@ -563,6 +563,9 @@
 
       if ( typeof ywzm_data != 'undefined' ) {
 
+        // prevent botton duplication
+        this.element.find('.yith_expand').remove();
+
         $( '<a href="#" class="yith_expand" style="display: inline;"></a>' ).insertAfter( this.mouseTrap );
         $( '.expand-button-hidden' ).clone().appendTo( $( '.yith_expand') );
         $( '.yith_expand .expand-button-hidden' ).show();

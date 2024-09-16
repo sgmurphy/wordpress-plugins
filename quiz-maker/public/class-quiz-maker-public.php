@@ -2440,6 +2440,10 @@ class Quiz_Maker_Public
             $quiz_enable_vkontakte_share_button = true;
         }
         
+        $ays_social_twitter_x_icon = "
+            <svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 512 512' width='14' height='14' style='fill: #fff;'>
+                <path d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'></path>
+            </svg>";
         
         if(isset($options['enable_social_buttons']) && $options['enable_social_buttons'] == 'on'){
             $ays_social_buttons .= "<div class='ays-quiz-social-shares'>";
@@ -2471,12 +2475,12 @@ class Quiz_Maker_Public
 
             if ( $quiz_enable_twitter_share_button ) {
                 $ays_social_buttons .= "
-                <!-- Branded Twitter button -->
+                <!-- Branded X button -->
                 <a class='ays-share-btn ays-to-share ays-share-btn-branded ays-share-btn-twitter'
-                   href='https://twitter.com/share?url=" . $actual_link . "'
-                   title='Share on Twitter'>
-                    <span class='ays-quiz-share-btn-icon'></span>
-                    <span class='ays-share-btn-text'>Twitter</span>
+                   href='https://x.com/share?url=" . $actual_link . "'
+                   title='Share on X'>
+                    <span class='ays-quiz-share-btn-icon'>". $ays_social_twitter_x_icon ."</span>
+                    <!-- <span class='ays-share-btn-text'></span> -->
                 </a>";
             }
 
@@ -2560,12 +2564,20 @@ class Quiz_Maker_Public
             }
 
             foreach($ays_social_links_array as $media => $link){
+
+                $icon_html = "";
+                $custom_media = $media;
+                if( strtolower($media) == 'twitter' ){
+                    $icon_html = $ays_social_twitter_x_icon;
+                    $custom_media = 'X';
+                }
+
                 $ays_social_links .= "<!-- Branded " . $media . " button -->
                     <a class='ays-share-btn ays-share-btn-branded ays-share-btn-rounded ays-share-btn-" . strtolower($media) . "'
                         href='" . $link . "'
                         target='_blank'
-                        title='" . $media . " link'>
-                        <span class='ays-quiz-share-btn-icon'></span>
+                        title='" . $custom_media . " link'>
+                        <span class='ays-quiz-share-btn-icon'>". $icon_html ."</span>
                     </a>";
             }
                     

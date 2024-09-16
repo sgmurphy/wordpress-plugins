@@ -39,6 +39,11 @@ body .wcf-pre-checkout-offer-wrapper{
 
 }
 
+.cartflows_step-template .select2-container--default .select2-results__option--highlighted[aria-selected],
+.cartflows_step-template .select2-container--default .select2-results__option--highlighted[data-selected] {
+	background-color: <?php echo FLBuilderColor::hex_or_rgb( $settings->global_primary_color ); ?>
+}
+
 .fl-node-<?php echo $id; ?> .wcf-embed-checkout-form-two-step .wcf-embed-checkout-form-note:before {
 	border-top-color: <?php echo ( '' !== FLBuilderColor::hex_or_rgb( $settings->global_primary_color ) ? FLBuilderColor::hex_or_rgb( $settings->global_primary_color ) . ';' : '' ); ?>
 }

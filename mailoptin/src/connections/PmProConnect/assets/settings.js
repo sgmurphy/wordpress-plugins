@@ -9,12 +9,12 @@
         $("tr[id*='mailoptin_pmpro_mapped_fields']").slideUp();
         $("tr[id*='mailoptin_pmpro_select_tags']").slideUp();
         $("tr[id*='mailoptin_pmpro_text_tags']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     }
 
     pmpro.connection_lists_handler = function () {
         $("tr[id*='mailoptin_pmpro_mapped_fields']").slideUp();
-        $("input[name='save_mailoptin_settings']").click();
+        $("input[name='save_mailoptin_settings']").trigger('click');
     }
 
     pmpro.subscribe_member_handler = function () {
@@ -29,7 +29,7 @@
     }
 
     pmpro.init = function () {
-        $("select[name*='mailoptin_pmpro_subscribe_method']").change(pmpro.subscribe_member_handler).change();
+        $("select[name*='mailoptin_pmpro_subscribe_method']").on('change', pmpro.subscribe_member_handler).trigger('change');
         $(document).on('change', "select[name*='mailoptin_pmpro_integration_connections']", pmpro.connection_service_handler);
         $(document).on('change', "select[name*='mailoptin_pmpro_integration_lists']", pmpro.connection_lists_handler);
     }

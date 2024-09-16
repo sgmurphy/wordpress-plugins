@@ -6783,7 +6783,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                             <div class="col-sm-4">
                                 <label for="ays_social_buttons">
                                     <?php echo __('Show the Social buttons',$this->plugin_name)?>
-                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social buttons for sharing quiz page URL. LinkedIn, Facebook, Twitter, VKontakte',$this->plugin_name)?>">
+                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social buttons for sharing quiz page URL. LinkedIn, Facebook, X, VKontakte',$this->plugin_name)?>">
                                         <i class="ays_fa ays_fa_info_circle"></i>
                                     </a>
                                 </label>
@@ -6844,10 +6844,12 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 <hr/>
                                 <div class="form-group row">
                                     <div class="col-sm-4">
-                                        <label for="ays_quiz_enable_twitter_share_button">
-                                            <i class="ays_fa ays_fa_twitter_square"></i>
-                                            <?php echo __('Enable Twitter button',$this->plugin_name)?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display Twitter social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
+                                        <label class="ays_quiz_enable_twitter_share_button_row" for="ays_quiz_enable_twitter_share_button">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="16">
+                                                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                                            </svg>
+                                            <span><?php echo __('Enable X button',$this->plugin_name); ?></span>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display X social button so that the users can share the page on which your quiz is posted.',$this->plugin_name); ?>">
                                                 <i class="ays_fa ays_fa_info_circle"></i>
                                             </a>
                                         </label>
@@ -6877,7 +6879,7 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                         <div class="form-group row ays_toggle_parent ays-quiz-result-message-vars-parent">
                             <div class="col-sm-4">
                                 <label for="ays_enable_social_links">
-                                    <?php echo __('Enable Social Media links',$this->plugin_name)?>
+                                    <?php echo __('Enable Social Media links',$this->plugin_name); ?>
                                     <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Display social media links at the end of the quiz to allow users to visit your pages in the Social media.',$this->plugin_name)?>">
                                         <i class="ays_fa ays_fa_info_circle"></i>
                                     </a>
@@ -6944,9 +6946,12 @@ $quiz_wrong_answers_font_weight = (isset($options[ 'quiz_wrong_answers_font_weig
                                 <div class="form-group row">
                                     <div class="col-sm-4">
                                         <label for="ays_twitter_link">
-                                            <i class="ays_fa ays_fa_twitter_square"></i>
-                                            <?php echo __('Twitter link',$this->plugin_name)?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Twitter profile or page link for showing after quiz finish.',$this->plugin_name)?>">
+                                            <!-- <i class="ays_fa ays_fa_twitter_square"></i> -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="16">
+                                                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+                                            </svg>
+                                            <span><?php echo __('X link',$this->plugin_name); ?></span>
+                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __('X profile or page link for showing after quiz finish.',$this->plugin_name); ?>">
                                                 <i class="ays_fa ays_fa_info_circle"></i>
                                             </a>
                                         </label>

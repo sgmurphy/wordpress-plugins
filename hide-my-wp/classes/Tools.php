@@ -1533,6 +1533,7 @@ class HMWP_Classes_Tools
             HMWP_Classes_Tools::isPluginActive('wp-super-cache/wp-cache.php') ||
             HMWP_Classes_Tools::isPluginActive('swift-performance/performance.php') ||
             HMWP_Classes_Tools::isPluginActive('swift-performance-lite/performance.php') ||
+            HMWP_Classes_Tools::isPluginActive('nitropack/main.php') ||
             WP_CACHE);
     }
 

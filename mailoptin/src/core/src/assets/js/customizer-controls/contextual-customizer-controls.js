@@ -434,7 +434,7 @@
                 api.control('mo_optin_campaign[' + mailoptin_optin_campaign_id + '][note_acceptance_checkbox]', controlAcceptanceCheckbox);
             });
 
-            $('input[data-customize-setting-link*=use_custom_html]').change(function () {
+            $('input[data-customize-setting-link*=use_custom_html]').on('change', function () {
                 $('li[id*=custom_html_content]').toggle(this.checked);
                 $('#sub-accordion-section-mo_fields_section li.customize-control')
                     .not('li[id*=use_custom_html], li[id*=custom_html_content]')
@@ -442,13 +442,13 @@
 
                 api.section('mo_success_section').active(!this.checked);
 
-            }).change();
+            }).trigger('change');
 
-            $('select[data-customize-setting-link*=who_see_optin]').change(function () {
+            $('select[data-customize-setting-link*=who_see_optin]').on('change', function () {
                 var value = $(this).val();
                 $('li[id*=show_to_roles]').toggle(value === 'show_to_roles');
                 $('li[id*=prefill_logged_user_data]').toggle(value !== 'show_non_logged_in');
-            }).change();
+            }).trigger('change');
 
             // handles click to select on input readonly fields
             $('.mo-click-select').on('click', function () {
@@ -470,9 +470,9 @@
             //add event handler to detect when opening sound is changed and play the sound to allow admin to preview it
             $('select[data-customize-setting-link*=optin_sound], input[data-customize-setting-link*=optin_custom_sound]').on('change', function (event) {
                 var value = $('select[data-customize-setting-link*=optin_sound]').val();
-                if(value !== 'none' && value !== '') {
+                if (value !== 'none' && value !== '') {
                     var audio_sound_url = value !== 'custom' ? mailoptin_globals.public_sound + value : $('li[id*=optin_custom_sound]').find('input').val();
-                    var audio = new Audio( audio_sound_url);
+                    var audio = new Audio(audio_sound_url);
                     audio.addEventListener('canplaythrough', function () {
                         this.play()
                             .catch(function (reason) {
@@ -480,18 +480,18 @@
                             });
                     });
                     audio.addEventListener('error', function () {
-                        console.error( 'Error occurred when trying to load popup opening sound.' );
+                        console.error('Error occurred when trying to load popup opening sound.');
                     });
                 }
 
                 $('li[id*=optin_custom_sound]').toggle(value === 'custom');
-            }).change();
+            }).trigger('change');
 
             // handle situations when field mapping view is showing and save button is clicked.
             jQuery('#save').on('click', function (e) {
 
                 if ($('.mo-optin-map-custom-field-settings-content:visible').length > 0) {
-                    $('.mo-optin-map-custom-field-close').click();
+                    $('.mo-optin-map-custom-field-close').trigger('click');
                 }
             });
 
@@ -552,7 +552,7 @@
                 //Then try loading themes
                 $.post(ajaxurl, data)
 
-                //If we succeeded, display them
+                    //If we succeeded, display them
                     .done(function (data) {
 
                         //Replace the loader with our themes
@@ -568,7 +568,7 @@
                                 e.preventDefault();
 
                                 //Save changes
-                                $('#save').click();
+                                $('#save').trigger('click');
 
                                 //Display the loader
                                 $(switchThemesPopup)
@@ -588,7 +588,7 @@
                                 //Save the data
                                 $.post(ajaxurl, data)
 
-                                //Reload the page if we succeeded
+                                    //Reload the page if we succeeded
                                     .done(function () {
                                         location.reload(true);
                                     })

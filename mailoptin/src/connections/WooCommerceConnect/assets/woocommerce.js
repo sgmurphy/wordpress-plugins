@@ -90,9 +90,9 @@
     };
 
     woo.init = function () {
-        $("select[name='mailoptinWooCommerceSelectIntegration']").change(function () {
+        $("select[name='mailoptinWooCommerceSelectIntegration']").on('change', function () {
             woo.connection_service_handler(this, $(this).data('type'));
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinWooCommerceSelectList']", function () {
             woo.connection_email_list_handler(this)

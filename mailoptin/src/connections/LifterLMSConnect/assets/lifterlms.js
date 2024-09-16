@@ -73,9 +73,9 @@
     };
 
     llms.init = function () {
-        $("select[name='mailoptinLLMSSelectIntegration']").change(function () {
+        $("select[name='mailoptinLLMSSelectIntegration']").on('change', function () {
             llms.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinLLMSSelectList']", function () {
             llms.connection_email_list_handler(this)

@@ -34,6 +34,14 @@ class Cartflows_Tracking {
 	/**
 	 * Member Variable
 	 *
+	 * @var object tik_pixel_settings
+	 */
+	private static $tik_pixel_settings;
+
+
+	/**
+	 * Member Variable
+	 *
 	 * @var object ga_settings
 	 */
 	private static $ga_settings;
@@ -53,8 +61,9 @@ class Cartflows_Tracking {
 	 */
 	public function __construct() {
 
-		self::$fb_pixel_settings = Cartflows_Helper::get_facebook_settings();
-		self::$ga_settings       = Cartflows_Helper::get_google_analytics_settings();
+		self::$fb_pixel_settings  = Cartflows_Helper::get_facebook_settings();
+		self::$tik_pixel_settings = Cartflows_Helper::get_tiktok_settings();
+		self::$ga_settings        = Cartflows_Helper::get_google_analytics_settings();
 
 		add_action( 'wp_head', array( $this, 'add_tracking_code' ) );
 
@@ -77,6 +86,10 @@ class Cartflows_Tracking {
 			$vars['add_payment_info_data'] = wp_json_encode( $this->prepare_cart_data_ga_response() );
 		}
 
+		if ( 'enable' === self::$tik_pixel_settings['enable_tiktok_add_payment_info'] ) {
+			$vars['tiktok_add_payment_info_data'] = wp_json_encode( $this->prepare_cart_data_tiktok_response() );
+		}
+
 		return $vars;
 	}
 
@@ -93,6 +106,7 @@ class Cartflows_Tracking {
 
 		$this->add_facebook_pixel_tracking_code();
 		$this->add_google_analytics_tracking_code();
+		$this->add_tiktok_pixel_tracking_code();
 	}
 
 
@@ -151,7 +165,7 @@ class Cartflows_Tracking {
 	public function trigger_viewcontent_events() {
 
 		$event_script = '';
-
+		
 		// Check if ViewContent is enable or disable.
 		if ( 'enable' === self::$fb_pixel_settings['facebook_pixel_view_content'] ) {
 			$view_content  = wp_json_encode( $this->prepare_viewcontent_data_fb_response() );
@@ -574,6 +588,333 @@ class Cartflows_Tracking {
 		}
 
 		return $product_data;
+	}
+
+	/**
+	 * Function for tiktok pixel.
+	 */
+	public function add_tiktok_pixel_tracking_code() {
+
+		if ( 'enable' === self::$tik_pixel_settings['tiktok_pixel_tracking'] ) {
+
+			$sanitized_tiktok_id = isset( self::$tik_pixel_settings['tiktok_pixel_id'] ) ? esc_attr( self::$tik_pixel_settings['tiktok_pixel_id'] ) : '';
+			$tiktok_id           = trim( $sanitized_tiktok_id );
+			$identify_data       = wp_json_encode( $this->prepare_identify_data_for_tiktok() );
+
+			$tik_script = "
+			<!-- TikTok Pixel Script By CartFlows -->
+
+			<script type='text/javascript'>
+				!function (w, d, t) {
+				w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie','holdConsent','revokeConsent','grantConsent'],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+				var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r='https://analytics.tiktok.com/i18n/pixel/events.js',o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement('script')
+				;n.type='text/javascript',n.async=!0,n.src=r+'?sdkid='+e+'&lib='+t;e=document.getElementsByTagName('script')[0];e.parentNode.insertBefore(n,e)};
+
+
+				ttq.load('" . esc_js( $tiktok_id ) . "');
+				ttq.instance('" . esc_js( $tiktok_id ) . "').identify($identify_data);
+				ttq.page();
+				}(window, document, 'ttq');
+			</script>
+
+			<!-- End TikTok Pixel Script By CartFlows -->";
+
+			if ( 'enable' === self::$tik_pixel_settings['tiktok_pixel_tracking_for_site'] ) {
+				echo $tik_script; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$this->trigger_tiktok_viewcontent_events();
+			} elseif ( wcf()->utils->is_step_post_type() ) {
+				echo $tik_script; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$this->trigger_tiktok_viewcontent_events();
+			}
+
+			// Trigger other events on CartFlows pages only.
+			if ( wcf()->is_woo_active && wcf()->utils->is_step_post_type() && $tiktok_id ) {
+				$this->trigger_other_tiktok_events( $tiktok_id );
+			}
+		}
+	}
+
+	/**
+	 * Trigger the View Content events for tiktok pixel.
+	 */
+	public function trigger_tiktok_viewcontent_events() {
+
+		$event_script = '';
+
+		// Check if ViewContent is enable or disable.
+		if ( 'enable' === self::$tik_pixel_settings['enable_tiktok_view_content'] ) {
+			$view_content = $this->prepare_viewcontent_data_tiktok_response();
+
+			if ( ! empty( $view_content ) ) {
+				$view_content_data = wp_json_encode( $this->prepare_viewcontent_data_tiktok_response() );
+				$event_script     .= "
+				<script type='text/javascript'>
+					setTimeout(function () {
+						ttq.track('ViewContent', " . $view_content_data . ');
+					}, 1200);
+				</script>';
+			}
+		}
+
+		echo $event_script; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Prepare view content data for tiktok response.
+	 *
+	 * @return array
+	 */
+	public function prepare_viewcontent_data_tiktok_response() {
+		global $post, $wcf_step;
+
+		$params = array();
+
+		$step_id      = ( $wcf_step ) ? ( $wcf_step->get_current_step() ) : ( get_the_ID() );
+		$content_name = get_post_field( 'post_title', $step_id );
+		$contents     = array();
+		$total_value  = 0;
+
+		// Checkout Page View Content Data.
+		if ( wcf()->is_woo_active ) {
+			if ( _is_wcf_thankyou_type() ) {
+				if ( isset( $_GET['wcf-order'] ) && ! empty( $_GET['wcf-order'] ) ) {//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$order_id = intval( $_GET['wcf-order'] );//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$order    = wc_get_order( $order_id );
+				
+					// Check if the order exists.
+					if ( $order ) {
+						$total_value = $order->get_total();
+
+						foreach ( $order->get_items() as $item_id => $item ) {
+							$product = $item->get_product();
+					
+							$contents[] = array(
+								'content_id'   => $product->get_id(),
+								'content_name' => $product->get_name(),
+								'content_type' => 'product',
+							);
+						}
+					}
+				}
+			} elseif ( _is_wcf_checkout_type() || _is_wcf_landing_type() ) {
+				$total_value = self::format_number( WC()->cart->cart_contents_total + WC()->cart->tax_total );
+				$items       = WC()->cart->get_cart();
+
+				if ( $items ) {
+					foreach ( $items as $item ) {
+						$product_id   = $item['product_id'];
+						$product_name = get_the_title( $product_id );
+	
+						$contents[] = array(
+							'content_id'   => (string) $product_id,
+							'content_name' => $product_name,
+							'content_type' => 'product', 
+						);
+					}
+				}
+			}
+
+			// Set TikTok parameters.
+			$params['contents'] = $contents;
+			$params['value']    = $total_value;
+			$params['currency'] = get_woocommerce_currency();
+
+			// Added filter for offer pages view content event compatibility.
+			$params = apply_filters( 'cartflows_tiktok_view_content_offer', $params, $step_id );
+
+			if ( empty( $params['contents'] ) ) {
+				return array();
+			}
+		}
+
+		return $params;
+	}
+
+	/**
+	 * Prepare identify data for tiktok response.
+	 *
+	 * @return array
+	 */
+	public function prepare_identify_data_for_tiktok() {
+		$user          = wp_get_current_user();
+		$identify_data = array();
+		
+		if ( ! empty( $user ) && 0 !== $user->ID ) {
+			// Check if user has an email, and hash it using SHA-256.
+			if ( ! empty( $user->user_email ) ) {
+				$identify_data['email'] = hash( 'sha256', $user->user_email );
+			} else {
+				$identify_data['email'] = hash( 'sha256', $user->get( 'billing_email' ) );  
+			}
+		
+			// Check if user has an phone number, and hash it using SHA-256.
+			$phone_number = get_user_meta( $user->ID, 'user_phone', true );
+			if ( ! empty( $phone_number ) ) {
+				$identify_data['phone_number'] = hash( 'sha256', $phone_number );
+			} else {
+				$identify_data['phone_number'] = hash( 'sha256', $user->get( 'billing_phone' ) );
+			}
+		}
+	
+		return $identify_data;
+	}
+
+	/**
+	 * Prepare cart data for tiktok response.
+	 *
+	 * @param string $event event type.
+	 *
+	 * @return array
+	 */
+	public function prepare_cart_data_tiktok_response( $event = '' ) {
+
+		$params = array();
+
+		if ( ! wcf()->is_woo_active ) {
+			return $params;
+		}
+
+		// Calculate cart total and get cart items.
+		$cart_total = self::format_number( WC()->cart->cart_contents_total + WC()->cart->tax_total );
+		$cart_items = WC()->cart->get_cart();
+		$contents   = array();
+
+		// Loop through each cart item to get the required data.
+		foreach ( $cart_items as $cart_item ) {
+			$product    = $cart_item['data'];
+			$contents[] = array(
+				'content_id'   => $cart_item['product_id'],
+				'content_name' => $product->get_name(), 
+				'quantity'     => $cart_item['quantity'],
+				'price'        => wc_get_price_to_display( $product ),
+				'content_type' => 'product',
+			);
+		}
+
+		// Prepare params.
+		$params['contents'] = $contents;
+		$params['value']    = $cart_total;
+		$params['currency'] = get_woocommerce_currency(); 
+
+		if ( 'add_to_cart' !== $event ) {
+			$params['num_items'] = WC()->cart->get_cart_contents_count();
+		}
+	
+		return $params;
+	}
+
+	/**
+	 * Prepare purchase data for tiktok response.
+	 *
+	 * @param integer $order_id order id.
+	 *
+	 * @return array
+	 */
+	public function prepare_purchase_data_tiktok_response( $order_id ) {
+
+		$purchase_data = array();
+		$order         = wc_get_order( $order_id );
+	
+		if ( ! $order ) {
+			return $purchase_data;
+		}
+	
+		// Check if the checkout has already been tracked.
+		$is_checkout_tracked = $order->get_meta( '_wcf_tiktok_checkout_tracked' );
+		if ( $is_checkout_tracked ) {
+			return $purchase_data;
+		}
+	
+		// Do not trigger purchase event if it is an opt-in.
+		$is_optin = $order->get_meta( '_wcf_optin_id' );
+		if ( $is_optin ) {
+			return $purchase_data;
+		}
+	
+		// Prepare data for TikTok CompletePayment event.
+		$purchase_data['transaction_id'] = $order_id;
+		$purchase_data['currency']       = $order->get_currency();
+		$purchase_data['value']          = $order->get_total();
+		$purchase_data['content_type']   = 'product';  // Set content type to 'product'.
+		$purchase_data['plugin']         = 'CartFlows';
+	
+		// Initialize contents array.
+		$contents = array();
+	
+		// Iterating through each WC_Order_Item_Product objects.
+		foreach ( $order->get_items() as $item_key => $item ) {
+			$product = $item->get_product(); // Get the WC_Product object.
+	
+			// Append each product details to contents array.
+			$contents[] = array(
+				'content_id'   => (string) $product->get_id(),
+				'content_name' => $product->get_name(),
+				'quantity'     => $item->get_quantity(),
+				'price'        => wc_get_price_to_display( $product ),
+				'content_type' => 'product',
+			);
+		}
+	
+		// Add contents to the purchase data.
+		$purchase_data['contents'] = $contents;
+	
+		// Mark the order as tracked for this event.
+		$order->update_meta_data( '_wcf_tiktok_checkout_tracked', true );
+		$order->save();
+	
+		return $purchase_data;
+	}
+
+	/**
+	 * Trigger the other events for tiktok pixel.
+	 *
+	 * @param string $tiktok_id TikTok pixel ID.
+	 */
+	public function trigger_other_tiktok_events( $tiktok_id ) {
+
+		$event_script = '';
+		
+		if ( _is_wcf_checkout_type() && 'enable' === self::$tik_pixel_settings['enable_tiktok_add_to_cart'] ) {
+			$cart_data = $this->prepare_cart_data_tiktok_response( 'add_to_cart' );
+			if ( ! empty( $cart_data ) ) {
+				$cart_data = wp_json_encode( $cart_data );
+
+				$event_script .= "
+				<script type='text/javascript'>
+					setTimeout(function () {
+						ttq.instance('" . esc_js( $tiktok_id ) . "').track( 'AddToCart', $cart_data );
+					}, 1300);
+				</script>";
+			}
+		}
+
+		if ( _is_wcf_checkout_type() && 'enable' === self::$tik_pixel_settings['enable_tiktok_begin_checkout'] ) {
+			$checkout_data = $this->prepare_cart_data_tiktok_response();
+			if ( ! empty( $checkout_data ) ) {
+				$checkout_data = wp_json_encode( $checkout_data );
+
+				$event_script .= "
+				<script type='text/javascript'>
+					ttq.instance('" . esc_js( $tiktok_id ) . "').track( 'InitiateCheckout', $checkout_data );
+				</script>";
+			}
+		}
+
+		if ( isset( $_GET['wcf-order'] ) && 'enable' === self::$tik_pixel_settings['enable_tiktok_purchase_event'] ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$order_id         = intval( $_GET['wcf-order'] ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$purchase_details = $this->prepare_purchase_data_tiktok_response( $order_id );
+			if ( ! empty( $purchase_details ) ) {
+				$purchase_details = wp_json_encode( $purchase_details );
+				$event_script    .= "
+				<script type='text/javascript'>
+					ttq.instance('" . esc_js( $tiktok_id ) . "').track( 'CompletePayment', $purchase_details );
+				</script>";
+			}
+		}
+
+		do_action( 'cartflows_tiktok_pixel_events' );
+
+		echo $event_script; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

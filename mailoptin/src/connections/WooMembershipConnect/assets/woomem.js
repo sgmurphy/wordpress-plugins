@@ -72,9 +72,9 @@
     };
 
     woo.init = function () {
-        $("select[name='mailoptinWooMemSelectIntegration']").change(function () {
+        $("select[name='mailoptinWooMemSelectIntegration']").on('change', function () {
             woo.connection_service_handler(this);
-        }).change();
+        }).trigger('change');
 
         $(document).on('change', "select[name='mailoptinWooMemSelectList']", function () {
             woo.connection_email_list_handler(this)

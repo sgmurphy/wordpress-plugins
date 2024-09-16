@@ -9,11 +9,11 @@ Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Post Grid Plugin offers various options such as grid, list, filter & slider. Post Grid is easy to use as Shortcode, Gutenberg Blocks, Elementor Addon
+Port Grid is the leading WordPress Grid Plugin for creating News, Magazine, and Blogging websites using Shortcodes, Gutenberg Blocks, Elementor Addon.
 
 == Description ==
 
-Post Grid Plugin allows you to create grid, list, grid hover, filter and slider views effortlessly. Post Grid Plugin is user-friendly and can be used as a shortcode, Gutenberg Blocks, or Elementor Addon.
+Port Grid is the leading WordPress Post Grid Plugin for creating News, Magazine, and Blogging websites. Post Grid Plugin allows you to create grid, list, grid hover, filter and slider views effortlessly. Post Grid Plugin is simple to use through Shortcodes, Gutenberg Blocks, and the Elementor Addon.
 
 
 👉 [Plugin Demo](https://www.radiustheme.com/demo/plugins/the-post-grid/) | [Elementor Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-elementor/) | [Gutenberg Demo](https://www.radiustheme.com/demo/plugins/the-post-grid-gutenberg/) | [Documentation](https://www.radiustheme.com/docs/the-post-grid/) | [Get Pro](https://www.radiustheme.com/downloads/the-post-grid-pro-for-wordpress/) 👈
@@ -235,21 +235,25 @@ If you like The Post Grid Plugin, then consider checking out our other WordPress
 
 * Yes, from settings you can enable or disable which way you wab to use the thene.
 
+= How can I report security bugs? =
+
+* You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/the-post-grid)
+
 
 == Screenshots ==
 
-01. Gutenberg Layout
-02. Gutenberg Controls
-03. Layout 1
-03. Layout 1
-04. Layout 2 Single
-05. Isotope Layout
-06. Shortcode Post Source
-07. Shortcode Layout Settings
-08. Shortcode Style
-09. Elementor Widget list
-10. Elementor post grid widget
-11. Elementor Page builder
+01. Elementor addons
+02. Gutenberg Blocks
+03. Shortcode Generator
+04. Advanced query build elementor
+05. Advanced query builder gutenberg
+06. Grid layouts gutenberg
+07. List layouts gutenberg
+08. Multiple pagination elementor
+09. Quick query elementor
+10. Pre made sections
+11. Pre made layouts
+12. Archive page builder
 
 == Changelog ==
 

@@ -1573,11 +1573,11 @@ WDTColumn.prototype.getPremiumPopover = function (e) {
             '<div class="arrow"></div>' +
             '<h3 class="popover-header">' +
             '<i class="wpdt-icon-star-full m-r-5" style="color: #FFC078;"></i>' +
-            wdtWpDataTablesPopoverStrings.title +
+            (wdtWpDataTablesPopoverStrings.title ? wdtWpDataTablesPopoverStrings.title : 'This is a premium feature') +
             '<button type="button" class="closePopover">' +
             '<span aria-hidden="true"><i class="wpdt-icon-times-full"></i></span></button></h3>' +
-            '<div class="popover-body"><span>' + wdtWpDataTablesPopoverStrings.description + '</span> ' +
-            '<div class="popover-footer"><a id="wdt-premium-compare-link">' + wdtWpDataTablesPopoverStrings.compare_link + '</a></div></div' +
+            '<div class="popover-body"><span>' + (wdtWpDataTablesPopoverStrings.description ? wdtWpDataTablesPopoverStrings.description : 'This feature is available only in premium version of wpDataTables') + '</span> ' +
+            '<div class="popover-footer"><a id="wdt-premium-compare-link">' + (wdtWpDataTablesPopoverStrings.compare_link ? wdtWpDataTablesPopoverStrings.compare_link : 'Compare and View Pricing') + '</a></div></div' +
             '</div>',
         content: function () {
             var content = jQuery(this).attr("data-popover-content");

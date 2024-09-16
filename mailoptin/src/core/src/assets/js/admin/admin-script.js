@@ -38,7 +38,7 @@
         $(this).parent().parent().remove();
     });
 
-    $('form#mo-clear-stat').submit(function (e) {
+    $('form#mo-clear-stat').on('submit', function (e) {
         e.stopImmediatePropagation();
 
         var response = confirm(mailoptin_globals.js_clear_stat_text);
@@ -122,7 +122,7 @@
             if ($(tab_selector).length === 0) return;
 
             $('.mailoptin-settings-wrap .nav-tab-wrapper a').removeClass('nav-tab-active');
-            $(tab_selector).addClass('nav-tab-active').blur();
+            $(tab_selector).addClass('nav-tab-active').trigger('blur');
             var clicked_group = $(tab_selector).attr('href');
             if (typeof(localStorage) !== 'undefined') {
                 localStorage.setItem(option_name + "_active-tab", $(tab_selector).attr('href'));
@@ -151,7 +151,7 @@
                 active_tab += '-tab';
             }
             else {
-                active_tab = $('.mailoptin-settings-wrap .nav-tab-wrapper a:first')
+                active_tab = $('.mailoptin-settings-wrap .nav-tab-wrapper a').first()
             }
 
             open_tab(active_tab);

@@ -56,11 +56,11 @@ if ( ! class_exists( 'AWS_Order' ) ) :
             }
 
             if ( ! isset( $filters['on_sale'] ) && isset( $_GET['on_sale'] ) ) {
-                $filters['on_sale'] = in_array( sanitize_text_field( $_GET['on_sale'] ), array( '1', 'true', true, 'yes' ) );
+                $filters['on_sale'] = in_array( strval(sanitize_text_field( $_GET['on_sale'] )), array( '1', 'true', 'yes' ) );
             }
 
             if ( ! isset( $filters['in_status'] ) && isset( $_GET['in_stock'] ) ) {
-                $filters['in_status'] = in_array( sanitize_text_field( $_GET['in_stock'] ), array( '1', 'true', true, 'yes', 'instock', 'in_stock' ) );
+                $filters['in_status'] = in_array( strval(sanitize_text_field( $_GET['in_stock'] )), array( '1', 'true', 'yes', 'instock', 'in_stock' ) );
             }
 
             if ( ! isset( $filters['price_min'] ) && isset( $_GET['min_price'] ) ) {
@@ -210,10 +210,17 @@ if ( ! class_exists( 'AWS_Order' ) ) :
             foreach( $this->products as $product_id ) {
 
                 if ( isset( $filters['in_status'] ) ) {
-                    $f_stock = 'outofstock' !== get_post_meta( $product_id, '_stock_status', true );
+
+                    if ( is_bool( $filters['in_status'] ) ) {
+                        $f_stock = 'outofstock' !== get_post_meta( $product_id, '_stock_status', true );
+                    } else {
+                        $f_stock = get_post_meta( $product_id, '_stock_status', true );
+                    }
+
                     if ( $f_stock !== $filters['in_status'] ) {
                         continue;
                     }
+
                 }
 
                 if ( isset( $filters['on_sale'] ) ) {

@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: woocommerce, funnel builder, sales funnels, elementor, beaver builder
 Requires at least: 5.8
 Tested up to: 6.6
-Stable tag: 2.0.10
+Stable tag: 2.0.11
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -321,6 +321,11 @@ This includes, but is not limited to:
 5. Easily edit anything with your page builder.
 
 == Changelog ==
+
+= Version 2.0.11 - Monday, 16th September 2024 =
+* New: Introduced native support for TikTok Pixel to track activities on CartFlows Optin, Landing, Checkout, and Thank You pages.
+* Improvement: Enhanced the checkout fields UI to resolve spacing inconsistencies.
+* Fix: Addressed an issue where outdated templates occasionally appeared for supported page builders.
 
 = Version 2.0.10 - Tuesday, 27th August 2024 =
 * New: Added a setting in the backend to modify the "no shipping" message displayed during checkout.
