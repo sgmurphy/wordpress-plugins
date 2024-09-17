@@ -10,7 +10,7 @@ class Wptc_Settings extends Wptc_Settings_Init {
 
 	public function __construct(){
 		if(WPTC_ENV === 'production'){
-			$this->server_ips =  array( '52.33.122.174', '52.27.206.180');
+			$this->server_ips =  array( '52.33.122.174', '52.27.206.180', '52.25.129.179', '35.166.193.49');
 		} else {
 			$this->server_ips =  array( '52.32.120.186');
 		}

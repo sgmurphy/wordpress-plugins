@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Node\Expression;
@@ -36,7 +36,7 @@ class NameExpression extends AbstractExpression
         $compiler->addDebugInfo($this);
 
         if ($this->getAttribute('is_defined_test')) {
-            if ($this->isSpecial()) {
+            if (isset($this->specialVars[$name])) {
                 $compiler->repr(true);
             } elseif (\PHP_VERSION_ID >= 70400) {
                 $compiler
@@ -53,7 +53,7 @@ class NameExpression extends AbstractExpression
                     ->raw(', $context))')
                 ;
             }
-        } elseif ($this->isSpecial()) {
+        } elseif (isset($this->specialVars[$name])) {
             $compiler->raw($this->specialVars[$name]);
         } elseif ($this->getAttribute('always_defined')) {
             $compiler
@@ -87,13 +87,23 @@ class NameExpression extends AbstractExpression
         }
     }
 
+    /**
+     * @deprecated since Twig 3.11 (to be removed in 4.0)
+     */
     public function isSpecial()
     {
+        trigger_deprecation('twig/twig', '3.11', 'The "%s()" method is deprecated and will be removed in Twig 4.0.', __METHOD__);
+
         return isset($this->specialVars[$this->getAttribute('name')]);
     }
 
+    /**
+     * @deprecated since Twig 3.11 (to be removed in 4.0)
+     */
     public function isSimple()
     {
+        trigger_deprecation('twig/twig', '3.11', 'The "%s()" method is deprecated and will be removed in Twig 4.0.', __METHOD__);
+
         return !$this->isSpecial() && !$this->getAttribute('is_defined_test');
     }
 }

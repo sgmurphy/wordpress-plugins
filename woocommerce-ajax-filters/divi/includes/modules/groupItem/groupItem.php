@@ -16,10 +16,6 @@ class ET_Builder_Module_br_filters_group_item extends ET_Builder_Module {
 		$this->settings_text               = esc_html__( 'Filter Settings', 'et_builder' );
 		$this->main_css_element            = '%%order_class%%';
 
-        $this->whitelisted_fields = array(
-            'filter_id',
-        );
-
         $filter_id = '0';
         $query = new WP_Query(array('post_type' => 'br_product_filter', 'nopaging' => true, 'fields' => 'ids'));
         $posts = $query->get_posts();

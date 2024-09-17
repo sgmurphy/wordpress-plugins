@@ -16,7 +16,7 @@ ob_start();
  * Plugin Name:       Popup Box
  * Plugin URI:        http://ays-pro.com/wordpress/popup-box
  * Description:       Pop up anything you want! Create informative and promotional popups all in one plugin. Boost your website traffic with eye-catching popups. 
- * Version:           4.8.0
+ * Version:           4.8.1
  * Author:            Popup Box Team
  * Author URI:        http://ays-pro.com/
  * License:           GPL-2.0+

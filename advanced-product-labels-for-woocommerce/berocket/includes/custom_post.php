@@ -30,6 +30,7 @@ array(
 
 if ( ! class_exists('BeRocket_custom_post_class') ) {
     class BeRocket_custom_post_class {
+        public $version = '1.0';
         public $meta_boxes = array();
         public $default_settings = array();
         public $post_settings, $post_name;

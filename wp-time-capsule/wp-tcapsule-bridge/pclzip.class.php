@@ -689,7 +689,7 @@ endif;
 		if(($field == 'responseParams')||($field == 'requestParams')||($field == 'taskResults')){
 
 		$fieldParams = base64_decode($backupData->$field);
-		$fieldParams = unserialize($fieldParams);
+		$fieldParams = unserialize($fieldParams, ['allowed_classes' => false]);
 		}
 		else
 		{

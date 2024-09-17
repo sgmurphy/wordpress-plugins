@@ -117,7 +117,7 @@ class Wptc_Staging extends WPTC_Privileges {
 			return false;
 		}
 
-		$unserialized_details = unserialize($serialized_details);
+		$unserialized_details = unserialize($serialized_details, ['allowed_classes' => false]);
 		if (empty($unserialized_details)) {
 			if(empty($param)){
 				
@@ -1366,13 +1366,35 @@ class Wptc_Staging extends WPTC_Privileges {
 		foreach ($tables as $table => $type) {
 			$db_prefix = $this->get_staging_db_prefix('prefix');
 			$new_table  = $db_prefix . '_' . $table;
-			$this->staging_common->clone_table_structure($table, $new_table);
+			// $this->staging_common->clone_table_structure($table, $new_table);
+
+			$table_meta = $this->staging_common->get_table_data($table);
+			extract($table_meta);
+
+			if ($is_new) {
+				$result = $this->staging_common->clone_table_structure($table, $new_table);
+
+				if ($result === false) {
+					$this->processed_db->update_iterator($table, -1); //Done
+					continue;
+				}
+			}
 
 			if (empty($type) || $type !== 'full' || $type === 'schema') {
 				continue;
 			}
 
-			$this->staging_common->clone_table_content($table, $new_table, $limit = WPTC_STAGING_DEFAULT_COPY_DB_ROWS_LIMIT, $offset = 0);
+			$limit = $this->options->get_option('internal_staging_db_rows_copy_limit');
+
+			if (empty($limit)) {
+				$limit = WPTC_STAGING_DEFAULT_COPY_DB_ROWS_LIMIT; //fallback to default value
+			}
+
+			if(empty($offset)){
+				$offset = 0;
+			}
+
+			$this->staging_common->clone_table_content($table, $new_table, $limit, $offset);
 		}
 	}
 

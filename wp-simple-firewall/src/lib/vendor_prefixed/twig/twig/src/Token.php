@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig;
@@ -48,7 +48,7 @@ final class Token
 
     public function __toString()
     {
-        return sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
+        return \sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
     }
 
     /**
@@ -140,7 +140,7 @@ final class Token
                 $name = 'SPREAD_TYPE';
                 break;
             default:
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
+                throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
         }
 
         return $short ? $name : 'AptowebDeps\Twig\Token::'.$name;
@@ -180,7 +180,7 @@ final class Token
             case self::SPREAD_TYPE:
                 return 'spread operator';
             default:
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
+                throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
         }
     }
 }

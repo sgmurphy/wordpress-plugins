@@ -790,6 +790,146 @@ if (!function_exists('stripslashes_from_strings_only')) {
 	}
 }
 
+if (!function_exists('get_bloginfo')) {
+	function get_bloginfo( $show = '', $filter = 'raw' ) {
+		switch ( $show ) {
+			case 'home':    // Deprecated.
+			case 'siteurl': // Deprecated.
+				_deprecated_argument(
+					__FUNCTION__,
+					'2.2.0',
+					sprintf(
+						/* translators: 1: 'siteurl'/'home' argument, 2: bloginfo() function name, 3: 'url' argument. */
+						__( 'The %1$s option is deprecated for the family of %2$s functions. Use the %3$s option instead.' ),
+						'<code>' . $show . '</code>',
+						'<code>bloginfo()</code>',
+						'<code>url</code>'
+					)
+				);
+				// Intentional fall-through to be handled by the 'url' case.
+			case 'url':
+				$output = home_url();
+				break;
+			case 'wpurl':
+				$output = site_url();
+				break;
+			case 'description':
+				$output = get_option( 'blogdescription' );
+				break;
+			case 'rdf_url':
+				$output = get_feed_link( 'rdf' );
+				break;
+			case 'rss_url':
+				$output = get_feed_link( 'rss' );
+				break;
+			case 'rss2_url':
+				$output = get_feed_link( 'rss2' );
+				break;
+			case 'atom_url':
+				$output = get_feed_link( 'atom' );
+				break;
+			case 'comments_atom_url':
+				$output = get_feed_link( 'comments_atom' );
+				break;
+			case 'comments_rss2_url':
+				$output = get_feed_link( 'comments_rss2' );
+				break;
+			case 'pingback_url':
+				$output = site_url( 'xmlrpc.php' );
+				break;
+			case 'stylesheet_url':
+				$output = get_stylesheet_uri();
+				break;
+			case 'stylesheet_directory':
+				$output = get_stylesheet_directory_uri();
+				break;
+			case 'template_directory':
+			case 'template_url':
+				$output = get_template_directory_uri();
+				break;
+			case 'admin_email':
+				$output = get_option( 'admin_email' );
+				break;
+			case 'charset':
+				$output = get_option( 'blog_charset' );
+				if ( '' === $output ) {
+					$output = 'UTF-8';
+				}
+				break;
+			case 'html_type':
+				$output = get_option( 'html_type' );
+				break;
+			case 'version':
+				global $wp_version;
+				$output = $wp_version;
+				break;
+			case 'language':
+				/*
+				 * translators: Translate this to the correct language tag for your locale,
+				 * see https://www.w3.org/International/articles/language-tags/ for reference.
+				 * Do not translate into your own language.
+				 */
+				$output = __( 'html_lang_attribute' );
+				if ( 'html_lang_attribute' === $output || preg_match( '/[^a-zA-Z0-9-]/', $output ) ) {
+					$output = determine_locale();
+					$output = str_replace( '_', '-', $output );
+				}
+				break;
+			case 'text_direction':
+				_deprecated_argument(
+					__FUNCTION__,
+					'2.2.0',
+					sprintf(
+						/* translators: 1: 'text_direction' argument, 2: bloginfo() function name, 3: is_rtl() function name. */
+						__( 'The %1$s option is deprecated for the family of %2$s functions. Use the %3$s function instead.' ),
+						'<code>' . $show . '</code>',
+						'<code>bloginfo()</code>',
+						'<code>is_rtl()</code>'
+					)
+				);
+				if ( function_exists( 'is_rtl' ) ) {
+					$output = is_rtl() ? 'rtl' : 'ltr';
+				} else {
+					$output = 'ltr';
+				}
+				break;
+			case 'name':
+			default:
+				$output = get_option( 'blogname' );
+				break;
+		}
+	
+		if ( 'display' === $filter ) {
+			if (
+				str_contains( $show, 'url' )
+				|| str_contains( $show, 'directory' )
+				|| str_contains( $show, 'home' )
+			) {
+				/**
+				 * Filters the URL returned by get_bloginfo().
+				 *
+				 * @since 2.0.5
+				 *
+				 * @param string $output The URL returned by bloginfo().
+				 * @param string $show   Type of information requested.
+				 */
+				$output = apply_filters( 'bloginfo_url', $output, $show );
+			} else {
+				/**
+				 * Filters the site information returned by get_bloginfo().
+				 *
+				 * @since 0.71
+				 *
+				 * @param mixed  $output The requested non-URL site information.
+				 * @param string $show   Type of information requested.
+				 */
+				$output = apply_filters( 'bloginfo', $output, $show );
+			}
+		}
+	
+		return $output;
+	}
+}
 if (!function_exists('map_deep')) {
 	function map_deep( $value, $callback ) {
 		if ( is_array( $value ) ) {

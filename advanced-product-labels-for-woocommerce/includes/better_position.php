@@ -529,6 +529,7 @@ class BeRocket_products_label_better_position extends BeRocket_plugin_variations
         $type        = 'berocket_term';
         $table_name  = $wpdb->prefix . $type . 'meta';
         if ( ! $is_database || is_admin() ) {
+	        $charset_collate = '';
             if ( ! empty ( $wpdb->charset ) ) {
                 $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset}";
             }

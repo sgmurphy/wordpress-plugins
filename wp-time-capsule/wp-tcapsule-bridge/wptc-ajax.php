@@ -224,7 +224,7 @@ class WPTC_Restore_Download {
 				$this->restore_app_functions->disable_maintenance_mode();
 				$this->proper_restore_complete_exit(array('error' => 'Didnt get Files to Restore'));
 			}
-			$data = unserialize($data);
+			$data = unserialize($data, ['allowed_classes' => false]);
 		}
 
 		$files_to_restore = array();
@@ -785,7 +785,7 @@ class WPTC_Restore_Download {
 			return true;
 		}
 
-		$files_to_restore_tmp = unserialize($selected_files_temp_restore);
+		$files_to_restore_tmp = unserialize($selected_files_temp_restore, ['allowed_classes' => false]);
 
 		wptc_log($files_to_restore_tmp, "--------files_to_restore_tmp--------");
 

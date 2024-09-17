@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Node;
@@ -40,35 +40,35 @@ class WithNode extends Node
 
         $parentContextName = $compiler->getVarName();
 
-        $compiler->write(sprintf("\$%s = \$context;\n", $parentContextName));
+        $compiler->write(\sprintf("\$%s = \$context;\n", $parentContextName));
 
         if ($this->hasNode('variables')) {
             $node = $this->getNode('variables');
             $varsName = $compiler->getVarName();
             $compiler
-                ->write(sprintf('$%s = ', $varsName))
+                ->write(\sprintf('$%s = ', $varsName))
                 ->subcompile($node)
                 ->raw(";\n")
-                ->write(sprintf("if (!is_iterable(\$%s)) {\n", $varsName))
+                ->write(\sprintf("if (!is_iterable(\$%s)) {\n", $varsName))
                 ->indent()
-                ->write("throw new RuntimeError('Variables passed to the \"with\" tag must be a hash.', ")
+                ->write("throw new RuntimeError('Variables passed to the \"with\" tag must be a mapping.', ")
                 ->repr($node->getTemplateLine())
                 ->raw(", \$this->getSourceContext());\n")
                 ->outdent()
                 ->write("}\n")
-                ->write(sprintf("\$%s = CoreExtension::toArray(\$%s);\n", $varsName, $varsName))
+                ->write(\sprintf("\$%s = CoreExtension::toArray(\$%s);\n", $varsName, $varsName))
             ;
 
             if ($this->getAttribute('only')) {
                 $compiler->write("\$context = [];\n");
             }
 
-            $compiler->write(sprintf("\$context = \$this->env->mergeGlobals(array_merge(\$context, \$%s));\n", $varsName));
+            $compiler->write(\sprintf("\$context = \$this->env->mergeGlobals(array_merge(\$context, \$%s));\n", $varsName));
         }
 
         $compiler
             ->subcompile($this->getNode('body'))
-            ->write(sprintf("\$context = \$%s;\n", $parentContextName))
+            ->write(\sprintf("\$context = \$%s;\n", $parentContextName))
         ;
     }
 }

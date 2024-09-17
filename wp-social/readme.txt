@@ -3,7 +3,7 @@ Contributors: XpeedStudio, Ataurr, emranio
 Tags: Social login, WordPress Social login and register, Social share,  Social counter, Social,  WooCommerce social login and register
 Requires at least: 5.0
 Tested up to: 6.6
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 Requires PHP: 7.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -162,6 +162,9 @@ Visit [wpmet](https://wpmet.com) to learn more about how to get the best of Word
 
 
 == Changelog ==
+Version 3.0.6 // 2024-09-17
+-Fixed: Minimum PHP required version issue
+
 Version 3.0.5 // 2024-09-15
 -Updated: Hybridauth and phpseclib libraries
 

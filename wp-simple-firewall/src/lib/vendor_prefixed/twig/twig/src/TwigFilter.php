@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig;
@@ -48,6 +48,7 @@ final class TwigFilter
             'preserves_safety' => null,
             'node_class' => FilterExpression::class,
             'deprecated' => false,
+            'deprecating_package' => '',
             'alternative' => null,
         ], $options);
     }
@@ -128,6 +129,11 @@ final class TwigFilter
     public function isDeprecated(): bool
     {
         return (bool) $this->options['deprecated'];
+    }
+
+    public function getDeprecatingPackage(): string
+    {
+        return $this->options['deprecating_package'];
     }
 
     public function getDeprecatedVersion(): string

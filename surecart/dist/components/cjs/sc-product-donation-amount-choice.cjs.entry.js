@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
 const util = require('./util-efd68af1.js');
-const watchers = require('./watchers-357888e8.js');
+const watchers = require('./watchers-5bc5ca20.js');
 require('./index-00f0fc21.js');
 require('./utils-a086ed6e.js');
 require('./getters-8b2c88a6.js');
@@ -16,7 +16,7 @@ require('./google-62bdaeea.js');
 require('./currency-ba038e2f.js');
 require('./price-f1f1114d.js');
 require('./address-07819c5b.js');
-require('./mutations-7f57e396.js');
+require('./mutations-8260a74b.js');
 require('./mutations-7113e932.js');
 require('./store-96a02d63.js');
 require('./mutations-8d7c4499.js');

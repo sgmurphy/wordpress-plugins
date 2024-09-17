@@ -163,7 +163,7 @@ class Wptc_Init{
 		if ( !empty($HTTP_RAW_POST_DATA_LOCAL) 
 			&& strpos($HTTP_RAW_POST_DATA_LOCAL, 'IWP_JSON_PREFIX') !== false ) {
 		    $request_data_array = explode('_IWP_JSON_PREFIX_', $HTTP_RAW_POST_DATA_LOCAL);
-		    $request_raw_data = $request_data_array[1];
+		    $request_raw_data = $request_data_array[1] ?? '';
 		    $data = trim(base64_decode($request_raw_data));
 		    if ($data){
 		        $request_data = json_decode($data, true);

@@ -1292,7 +1292,7 @@ class Wptc_ExcludeOption extends Wptc_Exclude {
 			);
 		}
 
-		$settings       = unserialize($raw_settings);
+		$settings       = unserialize($raw_settings, ['allowed_classes' => false]);
 
 		if($settings['size'] < (10 * 1024 * 1024)){
 			$settings['size'] = 10 * 1024 * 1024;

@@ -1,5 +1,5 @@
 <?php
-namespace WPSMTP;
+namespace WPSMTP\Logger;
 
 class Table {
 

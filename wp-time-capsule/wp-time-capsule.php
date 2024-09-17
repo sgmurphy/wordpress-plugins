@@ -4,9 +4,9 @@ Plugin Name: Backup and Staging by WP Time Capsule
 Plugin URI: https://wptimecapsule.com
 Description: Backup and Staging by WP Time Capsule is an incremental schedule backup plugin that backups up your website to Dropbox, Google Drive, Amazon S3, etc.
 Author: Revmakx
-Version: 1.22.21
+Version: 1.22.22
 Author URI: http://www.revmakx.com
-Tested up to: 6.5.5
+Tested up to: 6.6.2
 License:           GPL-2.0+
 License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
 /************************************************************
@@ -813,7 +813,7 @@ function run_tc_backup_wptc($type = '') {
 	if (!$options->get_option('is_running')) {
 		$options->create_dump_dir();
 		$options->set_option('is_running', true);
-		$contents = @unserialize($options->get_option('this_cookie'));
+		$contents = @unserialize($options->get_option('this_cookie'), ['allowed_classes' => false]);
 		$backup_id = $contents['backupID'];
 
 		if (!empty($backup_id)) {
@@ -2535,7 +2535,7 @@ function set_refresh_token_g_drive(&$config){
 	$config->set_option('gdrive_old_token', wp_unslash($_POST['credsData']['g_drive_refresh_token']));
 	$connected_obj = WPTC_Factory::get('g_drive');
 	$email = trim($config->get_option('main_account_email', true));
-	$refresh_token_arr = unserialize(wp_unslash($_POST['credsData']['g_drive_refresh_token']));
+	$refresh_token_arr = unserialize(wp_unslash($_POST['credsData']['g_drive_refresh_token']), ['allowed_classes' => false]);
 	$result['authorize_url'] = network_admin_url() . 'admin.php?page=wp-time-capsule&wptc_account_email='.$email. '&cloud_auth_action=g_drive&code='.$refresh_token_arr['refresh_token'];
 	die(json_encode($result));
 	return true;
@@ -3586,7 +3586,7 @@ function get_admin_notices_wptc(){
 		return false;
 	}
 
-	$notice = unserialize($notice);
+	$notice = unserialize($notice, ['allowed_classes' => false]);
 
 	if ($notice['do_not_delete']) {
 		return $notice;

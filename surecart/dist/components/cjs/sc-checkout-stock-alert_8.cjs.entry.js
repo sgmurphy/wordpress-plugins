@@ -12,7 +12,7 @@ const mutations$1 = require('./mutations-7113e932.js');
 const fetch = require('./fetch-2dba325c.js');
 const index$2 = require('./index-fb76df07.js');
 const mutations$2 = require('./mutations-8d7c4499.js');
-const mutations$3 = require('./mutations-7f57e396.js');
+const mutations$3 = require('./mutations-8260a74b.js');
 const addQueryArgs = require('./add-query-args-17c551b6.js');
 const watchers = require('./watchers-fecceee2.js');
 require('./watchers-ce17ff92.js');
@@ -209,6 +209,7 @@ const ScFormComponentsValidator = class {
         this.addTaxIDField();
       }
     }
+    this.handleOrderChange();
     this.removeCheckoutListener = mutations.onChange('checkout', () => this.handleOrderChange());
     this.removePaymentRequiresShippingListener = mutations.onChange('paymentMethodRequiresShipping', () => this.handleOrderChange());
   }

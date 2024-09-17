@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 const index = require('./index-f1e4d53b.js');
 const watchers = require('./watchers-51b054bd.js');
-const error = require('./error-5026d1a9.js');
+const error = require('./error-25dd031d.js');
 require('./index-00f0fc21.js');
 require('./google-55083ae7.js');
 require('./currency-ba038e2f.js');
@@ -16,7 +16,7 @@ require('./mutations-164b66b1.js');
 require('./get-query-arg-53bf21e2.js');
 require('./add-query-args-17c551b6.js');
 require('./price-f1f1114d.js');
-require('./mutations-7f57e396.js');
+require('./mutations-8260a74b.js');
 require('./mutations-7113e932.js');
 require('./store-96a02d63.js');
 require('./mutations-8d7c4499.js');

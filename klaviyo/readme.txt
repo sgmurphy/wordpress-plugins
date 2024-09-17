@@ -3,7 +3,9 @@ Contributors: klaviyo, bialecki, bawhalley
 Tags: analytics, email, marketing, klaviyo, woocommerce
 Requires at least: 4.4
 Tested up to: 6.5
-Stable tag: 3.3.5
+Stable tag: 3.4.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Klaviyo for WooCommerce
 
@@ -83,6 +85,12 @@ For detailed instructions on integrating Klaviyo and WooCommerce please visit ou
 
 
 == Changelog ==
+= 3.4.0 2024-09-17 =
+* Added - Adds license information to readme.txt
+* Changed - Updates klaviyo onsite javascript url to the new format
+* Fixed - Update plugins TypeError when saved transient value is not an object.
+* Fixed - Avoid conflict with Woo Pay.
+
 = 3.3.5 2024-03-25 =
 * Added - Notifications for common setup issues from settings page.
 

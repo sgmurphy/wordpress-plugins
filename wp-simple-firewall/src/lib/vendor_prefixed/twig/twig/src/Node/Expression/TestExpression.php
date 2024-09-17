@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Node\Expression;
@@ -25,16 +25,13 @@ class TestExpression extends CallExpression
             $nodes['arguments'] = $arguments;
         }
 
-        parent::__construct($nodes, ['name' => $name], $lineno);
+        parent::__construct($nodes, ['name' => $name, 'type' => 'test'], $lineno);
     }
 
     public function compile(Compiler $compiler): void
     {
-        $name = $this->getAttribute('name');
-        $test = $compiler->getEnvironment()->getTest($name);
+        $test = $compiler->getEnvironment()->getTest($this->getAttribute('name'));
 
-        $this->setAttribute('name', $name);
-        $this->setAttribute('type', 'test');
         $this->setAttribute('arguments', $test->getArguments());
         $this->setAttribute('callable', $test->getCallable());
         $this->setAttribute('is_variadic', $test->isVariadic());

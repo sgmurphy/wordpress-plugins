@@ -7,7 +7,7 @@ const mutations = require('./mutations-164b66b1.js');
 const index$1 = require('./index-f9d999d6.js');
 const price = require('./price-f1f1114d.js');
 const media = require('./media-71bcf49e.js');
-const mutations$1 = require('./mutations-7f57e396.js');
+const mutations$1 = require('./mutations-8260a74b.js');
 const getters = require('./getters-1e382cac.js');
 const quantity = require('./quantity-993ab1ec.js');
 require('./index-00f0fc21.js');

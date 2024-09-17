@@ -1296,3 +1296,6 @@ No, you can work seamlessly with this Elementor addons.
 It's due to your servers' PHP settings. Increase your server PHP memory limit from the wp-config.php file or php.ini file. For help, please contact your hosting provider and ask to increase
 * PHP memory_limit = 512M
 * max_execution_time = 300
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/elementskit-lite)

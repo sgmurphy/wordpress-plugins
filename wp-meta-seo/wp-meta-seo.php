@@ -4,7 +4,7 @@
  * Plugin Name: WP Meta SEO
  * Plugin URI: http://www.joomunited.com/wordpress-products/wp-meta-seo
  * Description: WP Meta SEO is a plugin for WordPress to fill meta for content, images and main SEO info in a single view.
- * Version: 4.5.15
+ * Version: 4.5.16
  * Text Domain: wp-meta-seo
  * Domain Path: /languages
  * Author: JoomUnited
@@ -133,7 +133,7 @@ if (!defined('WPMSEO_VERSION')) {
     /**
      * Plugin version
      */
-    define('WPMSEO_VERSION', '4.5.15');
+    define('WPMSEO_VERSION', '4.5.16');
 }
 
 if (!defined('WPMS_CLIENTID')) {
@@ -1230,3 +1230,15 @@ add_action(
     },
     11
 );
+
+/**
+ * Remove hello elementor meta description that uses excerpt.
+ *
+ * @return void
+ */
+function wpmsRemoveHelloElementorMetaDesc()
+{
+    remove_action('wp_head', 'hello_elementor_add_description_meta_tag');
+}
+
+add_action('init', 'wpmsRemoveHelloElementorMetaDesc');

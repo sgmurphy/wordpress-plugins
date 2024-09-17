@@ -48,7 +48,7 @@
  * © SpryMedia Ltd - datatables.net/license
  */
 
-/*! Buttons for DataTables 3.0.2
+/*! Buttons for DataTables 3.1.2
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -56,22 +56,22 @@
  * © SpryMedia Ltd - datatables.net/license
  */
 
-/*! SearchPanes 2.3.0
+/*! SearchPanes 2.3.2
      * © SpryMedia Ltd - datatables.net/license
      */
 
-/*! SearchPanes 2.3.0
+/*! SearchPanes 2.3.2
  * © SpryMedia Ltd - datatables.net/license
  */
 
-/*! Select for DataTables 2.0.4
+/*! Select for DataTables 2.1.0
  * © SpryMedia Ltd - datatables.net/license/mit
  */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**!
- * Sortable 1.15.2
+ * Sortable 1.15.3
  * @author	RubaXa   <trash@rubaxa.org>
  * @author	owenm    <owen23355@gmail.com>
  * @license MIT

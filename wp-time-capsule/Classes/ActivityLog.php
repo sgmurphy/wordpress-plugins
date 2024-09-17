@@ -132,10 +132,11 @@ class WPTC_List_Table extends WP_List_Table {
 		}
 
 		if ($this->type === 'others') {
-			return  "SELECT * FROM " . $this->wpdb->base_prefix . "wptc_activity_log WHERE type = '" . $this->type . "' AND show_user = 1 ";
+			return  "SELECT * FROM " . $this->wpdb->base_prefix . "wptc_activity_log WHERE type='others' AND show_user = 1 ";
 		}
 
-		return  "SELECT * FROM " . $this->wpdb->base_prefix . "wptc_activity_log WHERE type = '" . $this->type . "' AND show_user = 1 GROUP BY action_id";
+		
+		return  $this->wpdb->prepare("SELECT * FROM `". $this->wpdb->base_prefix . "wptc_activity_log` WHERE type=%s AND show_user = 1 GROUP BY action_id", $this->type);
 	}
 
 	private function order_query($query){
@@ -207,7 +208,7 @@ class WPTC_List_Table extends WP_List_Table {
 			//Open the line
 			echo '<tr class="act-tr">';
 
-			$Ldata = unserialize($rec->log_data);
+			$Ldata = unserialize($rec->log_data, ['allowed_classes' => false]);
 			$user_time = WPTC_Factory::get('config')->cnvt_UTC_to_usrTime($Ldata['log_time']);
 			WPTC_Factory::get('processed-files')->modify_schedule_backup_time($user_time);
 			$user_tz_now = date("M d, Y @ g:i:s a", $user_time);
@@ -341,7 +342,7 @@ class WPTC_List_Table extends WP_List_Table {
 		$detailed = '';
 		$timezone = WPTC_Factory::get('config')->get_option('wptc_timezone');
 		foreach ($sub_records as $srec) {
-			$Moredata = unserialize($srec->log_data);
+			$Moredata = unserialize($srec->log_data, ['allowed_classes' => false]);
 			$user_tmz = new DateTime('@' . $Moredata['log_time'], new DateTimeZone(date_default_timezone_get()));
 			$user_tmz->setTimeZone( new DateTimeZone($timezone ) );
 			$user_tmz_now = $user_tmz->format("M d @ g:i:s a");
@@ -365,7 +366,7 @@ class WPTC_List_Table extends WP_List_Table {
 			return false;
 		}
 
-		$action_id     = $data['action_id'];
+		$action_id     = intval($data['action_id']);
 		$from_limit    = $data['limit'];
 		$detailed      = '';
 		$load_more     = false;

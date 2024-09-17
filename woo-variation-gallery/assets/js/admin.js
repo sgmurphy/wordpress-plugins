@@ -2,7 +2,7 @@
  * Variation Gallery for WooCommerce
  *
  * Author: Emran Ahmed ( emran.bd.08@gmail.com )
- * Date: 8/25/2024, 1:57:19 PM
+ * Date: 9/17/2024, 5:19:40 PM
  * Released under the GPLv3 license.
  */
 /******/ (function() { // webpackBootstrap

@@ -27,3 +27,7 @@ export declare const removeCheckoutLineItem: (id: any) => Promise<void>;
  * Add the checkout line item.
  */
 export declare const addCheckoutLineItem: (data: any) => Promise<void>;
+/**
+ * Track order bump offers.
+ */
+export declare const trackOrderBump: (bumpId: string) => void;

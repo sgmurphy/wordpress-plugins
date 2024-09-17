@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig;
@@ -27,6 +27,7 @@ use AptowebDeps\Twig\Node\NodeOutputInterface;
 use AptowebDeps\Twig\Node\PrintNode;
 use AptowebDeps\Twig\Node\TextNode;
 use AptowebDeps\Twig\TokenParser\TokenParserInterface;
+use AptowebDeps\Twig\Util\ReflectionCallable;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -54,7 +55,7 @@ class Parser
 
     public function getVarName(): string
     {
-        return sprintf('__internal_parse_%d', $this->varNameSalt++);
+        return \sprintf('__internal_parse_%d', $this->varNameSalt++);
     }
 
     public function parse(TokenStream $stream, $test = null, bool $dropNeedle = false): ModuleNode
@@ -156,13 +157,14 @@ class Parser
 
                     if (!$subparser = $this->env->getTokenParser($token->getValue())) {
                         if (null !== $test) {
-                            $e = new SyntaxError(sprintf('Unexpected "%s" tag', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
+                            $e = new SyntaxError(\sprintf('Unexpected "%s" tag', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
 
-                            if (\is_array($test) && isset($test[0]) && $test[0] instanceof TokenParserInterface) {
-                                $e->appendMessage(sprintf(' (expecting closing tag for the "%s" tag defined near line %s).', $test[0]->getTag(), $lineno));
+                            $callable = (new ReflectionCallable($test))->getCallable();
+                            if (\is_array($callable) && $callable[0] instanceof TokenParserInterface) {
+                                $e->appendMessage(\sprintf(' (expecting closing tag for the "%s" tag defined near line %s).', $callable[0]->getTag(), $lineno));
                             }
                         } else {
-                            $e = new SyntaxError(sprintf('Unknown "%s" tag.', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
+                            $e = new SyntaxError(\sprintf('Unknown "%s" tag.', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
                             $e->addSuggestions($token->getValue(), array_keys($this->env->getTokenParsers()));
                         }
 

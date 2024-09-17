@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\NodeVisitor;
@@ -121,7 +121,7 @@ final class SandboxNodeVisitor implements NodeVisitorInterface
     private function wrapNode(Node $node, string $name): void
     {
         $expr = $node->getNode($name);
-        if ($expr instanceof NameExpression || $expr instanceof GetAttrExpression) {
+        if (($expr instanceof NameExpression || $expr instanceof GetAttrExpression) && !$expr->isGenerator()) {
             $node->setNode($name, new CheckToStringNode($expr));
         }
     }

@@ -1,20 +1,31 @@
 <?php
 
-namespace WPSMTP;
+namespace WPSMTP\Logger;
 
+use SolidWP\Mail\Admin\SettingsScreen;
 use WP_Error;
+use WPSMTP\Admin;
 
 class Process {
 
 	private $mail_id;
 	private $wsOptions;
 
+	/**
+	 * The new solid mail settings.
+	 *
+	 * @var false|mixed|null
+	 */
+	private $solidMailOptions;
+
 	public function __construct() {
 		global $wpdb;
 
 		$this->wsOptions = get_option( 'wp_smtp_options' );
 
-		if ( ! isset( $this->wsOptions['disable_logs'] ) || 'yes' !== $this->wsOptions['disable_logs'] ) {
+		$this->solidMailOptions = get_option( SettingsScreen::SETTINGS_SLUG );
+
+		if ( ! isset( $this->solidMailOptions['disable_logs'] ) || 'yes' !== $this->solidMailOptions['disable_logs'] ) {
 			add_filter( 'wp_mail', array( $this, 'log_mails' ), PHP_INT_MAX );
 		}
 

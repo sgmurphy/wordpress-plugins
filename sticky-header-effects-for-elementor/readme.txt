@@ -6,7 +6,7 @@ Tags: Elementor, Elementor Page Builder, Add-ons, Header, Sticky Header
 Requires at least: 5.3
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -88,6 +88,9 @@ Sticky Header Options for Elementor is extremely light-weight. You also have the
 3. Current effects settings.
 
 == Changelog ==
+= 1.7.2 =
+- Fixed: Bugs
+
 = 1.7.1 =
 - Fixed: Improved method for not overriding elementor sticky settings.
 
@@ -263,6 +266,9 @@ Tweaked: Logo color change optimized so "full color" option no longer overwrites
 - Initial stable release
 
 == Upgrade Notice ==
+= 1.7.2 =
+- Fixed: Bugs
+
 = 1.7.1 =
 - Fixed: Improved method for not overriding elementor sticky settings.
 

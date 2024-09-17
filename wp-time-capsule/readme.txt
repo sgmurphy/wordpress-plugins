@@ -3,8 +3,8 @@
 Contributors: dark-prince, amritanandh, WPTimeCapsule
 Tags: backup, staging, migration, backup before update, auto updates.
 Requires at least: 3.9.14
-Tested up to: 6.5.5
-Stable tag: 1.22.21
+Tested up to: 6.6.2
+Stable tag: 1.22.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,14 @@ Installing WP Time Capsule is simple and easy. Install it like any other WordPre
 7. **Cloning** - Use the meta SQL file from your cloud storage to clone/migrate your site to a new location.
 
 == Changelog ==
+= 1.22.22 =
+*Release Date - 17 Sep 2024*
+
+* Improvement : Manual decrypting of the encrypted DB file feature is improved. Now file extensions are properly checked.
+* Improvement : Improved decoding mechanism.
+* Improvement : Improved activity log for queries.
+* Fix : Update in staging did not work in a few cases.
+* Fix : Staging to live failed in a few cases.
 
 = 1.22.21 =
 *Release Date - 11 Jul 2024*
@@ -452,34 +460,4 @@ Installing WP Time Capsule is simple and easy. Install it like any other WordPre
 *Release Date - 27 Mar 2019*
 
 * Fix: Stop the Backup when Dropbox API limit is reached.
-
-= 1.21.3 =
-*Release Date - 13 Mar 2019*
-
-* Fix: Dropbox API increased the server load.
-
-= 1.21.2 =
-*Release Date - 8 Jan 2019*
-
-* Fix: Fatal error on multisite staging site.
-
-= 1.21.1 =
-*Release Date - 16 Dec 2018*
-
-* Fix: Fatal error on PHP 5.4.
-
-= 1.21.0 =
-*Release Date - 14 Dec 2018*
-
-* Feature: Support for Wasabi Cloud Storage.
-* Feature: You can configure the initial setup in bulk.
-* Feature: WPTC staging plugin will be updated to the latest version automatically.
-* Feature: Live site white-label settings are applied to your staging site.
-
-* Improvement: By default, WP Redis cache plugin files are excluded during the staging creation. 
-
-* Fix: DB rows per batch limit value didn't get updated after making the changes.
-* Fix: Staging Database tables are not deleted while deleting staging the site.
-* Fix: Plugin screenshot settings were hidden in a few scenarios.
-
 

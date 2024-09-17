@@ -18,18 +18,6 @@ class ET_Builder_Module_br_filters_group extends ET_Builder_Module {
 		$this->child_item_text = esc_html__( 'Filters', 'et_builder' );
 		$this->main_css_element = '%%order_class%%';
 
-        $this->whitelisted_fields = array(
-            'group_id',
-            'display_inline',
-            'display_inline_count',
-            'min_filter_width_inline',
-            'hidden_clickable',
-            'hidden_clickable_hover',
-            'group_is_hide',
-            'group_is_hide_theme',
-            'group_is_hide_icon_theme',
-        );
-
         $this->fields_defaults = array(
             'group_id' => array('0'),
             'display_inline' => array('off'),

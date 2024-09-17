@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Node\Expression;
@@ -68,7 +68,7 @@ class BlockReferenceExpression extends AbstractExpression
             ;
         }
 
-        $compiler->raw(sprintf('->unwrap()->%s', $method));
+        $compiler->raw(\sprintf('->unwrap()->%s', $method));
 
         return $this->compileBlockArguments($compiler);
     }

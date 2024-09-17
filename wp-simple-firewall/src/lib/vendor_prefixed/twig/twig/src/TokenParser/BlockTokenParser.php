@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\TokenParser;
@@ -39,7 +39,7 @@ final class BlockTokenParser extends AbstractTokenParser
         $stream = $this->parser->getStream();
         $name = $stream->expect(/* Token::NAME_TYPE */ 5)->getValue();
         if ($this->parser->hasBlock($name)) {
-            throw new SyntaxError(sprintf("The block '%s' has already been defined line %d.", $name, $this->parser->getBlock($name)->getTemplateLine()), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+            throw new SyntaxError(\sprintf("The block '%s' has already been defined line %d.", $name, $this->parser->getBlock($name)->getTemplateLine()), $stream->getCurrent()->getLine(), $stream->getSourceContext());
         }
         $this->parser->setBlock($name, $block = new BlockNode($name, new Node([]), $lineno));
         $this->parser->pushLocalScope();
@@ -51,7 +51,7 @@ final class BlockTokenParser extends AbstractTokenParser
                 $value = $token->getValue();
 
                 if ($value != $name) {
-                    throw new SyntaxError(sprintf('Expected endblock for block "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+                    throw new SyntaxError(\sprintf('Expected endblock for block "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
                 }
             }
         } else {

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-12T20:08:13+00:00\n"
+"POT-Creation-Date: 2024-09-16T21:43:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -98,16 +98,16 @@ msgstr ""
 msgid "Test Mode"
 msgstr ""
 
-#: src/BlockLibrary/FormModeSwitcherService.php:161
+#: src/BlockLibrary/FormModeSwitcherService.php:166
 msgid "live mode"
 msgstr ""
 
-#: src/BlockLibrary/FormModeSwitcherService.php:161
+#: src/BlockLibrary/FormModeSwitcherService.php:166
 msgid "test mode"
 msgstr ""
 
 #. translators: %s: live mode or test mode.
-#: src/BlockLibrary/FormModeSwitcherService.php:164
+#: src/BlockLibrary/FormModeSwitcherService.php:169
 msgid ""
 "Are you sure you want to change this form to %1$s? \n"
 "\n"
@@ -1669,7 +1669,7 @@ msgstr ""
 #: src/Controllers/Admin/Products/ProductsListTable.php:347
 #: checkouts/modules/SelectShipping.js:130
 #: sc-line-item-shipping2.js:26
-#: sc-order-bump2.js:72
+#: sc-order-bump2.js:77
 #: sc-price2.js:30
 #: sc-shipping-choices2.js:68
 #: sc-upsell-totals.js:20
@@ -1832,7 +1832,7 @@ msgstr ""
 
 #. translators: used as in time period: "for 3 months"
 #: src/Controllers/Admin/Subscriptions/SubscriptionsListTable.php:240
-#: sc-order-bump2.js:60
+#: sc-order-bump2.js:65
 #: sc-price-choice-container2.js:42
 #: sc-price-choice-container2.js:58
 #: sc-price-choice-container2.js:67
@@ -6063,7 +6063,7 @@ msgstr ""
 #: settings/shipping/zone/ShippingZoneForm.js:237
 #: settings/tax-override/TaxOverrideModal.js:272
 #: sc-customer-edit.js:123
-#: sc-order-bump2.js:79
+#: sc-order-bump2.js:84
 #: sc-wordpress-user-edit.js:61
 msgid "Save"
 msgstr ""
@@ -6928,7 +6928,7 @@ msgstr ""
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:71
 #: sc-customer-details2.js:43
 #: sc-customer-edit.js:113
-#: sc-form-components-validator2.js:131
+#: sc-form-components-validator2.js:132
 #: sc-order-billing-address2.js:104
 msgid "Billing Address"
 msgstr ""
@@ -9530,7 +9530,7 @@ msgstr ""
 #: Blocks/Dashboard/CustomerBillingDetails/edit.js:60
 #: sc-customer-details2.js:43
 #: sc-customer-edit.js:98
-#: sc-form-components-validator2.js:129
+#: sc-form-components-validator2.js:130
 #: sc-order-shipping-address2.js:113
 msgid "Shipping Address"
 msgstr ""
@@ -20239,40 +20239,40 @@ msgstr ""
 msgid "Another step will appear after submitting your order to add this payment method."
 msgstr ""
 
-#: sc-order-bump2.js:35
+#: sc-order-bump2.js:36
 msgid "Order bump applied."
 msgstr ""
 
-#: sc-order-bump2.js:42
+#: sc-order-bump2.js:43
 msgid "Order bump Removed."
 msgstr ""
 
 #. translators: %s: old price
-#: sc-order-bump2.js:69
+#: sc-order-bump2.js:74
 msgid "Originally priced at %s."
 msgstr ""
 
 #. translators: %1$s: amount off, %2$s: currency
-#: sc-order-bump2.js:79
+#: sc-order-bump2.js:84
 msgid "You save %1$s%2$s."
 msgstr ""
 
 #. translators: %s: amount percent off
-#: sc-order-bump2.js:84
+#: sc-order-bump2.js:89
 msgid "You save %s%%."
 msgstr ""
 
-#: sc-order-bump2.js:84
+#: sc-order-bump2.js:89
 msgid "Save %s%%"
 msgstr ""
 
 #. translators: %s: order bump name
-#: sc-order-bump2.js:99
+#: sc-order-bump2.js:104
 msgid "Product: %s."
 msgstr ""
 
 #. translators: %s: Product description
-#: sc-order-bump2.js:101
+#: sc-order-bump2.js:106
 msgid "Product description: %s."
 msgstr ""
 

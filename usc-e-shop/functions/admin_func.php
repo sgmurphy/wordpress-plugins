@@ -557,11 +557,11 @@ function wel_get_circulating_amount() {
 	$next_month      = wp_date( 'Y-m-d H:i:s', $next_month_time );
 
 	$table_name = $wpdb->prefix . 'usces_order';
-	$normal     = $wpdb->get_var(
+	$normal_res = $wpdb->get_row(
 		$wpdb->prepare(
 			"SELECT SUM(
 				order_item_total_price + order_shipping_charge + order_cod_fee + order_tax - order_usedpoint + order_discount
-			    ) AS total_full_price
+			    ) AS total_full_price, COUNT(*) AS count
 			FROM {$table_name}
 			WHERE order_status NOT LIKE %s
 			AND order_status NOT LIKE %s
@@ -573,28 +573,51 @@ function wel_get_circulating_amount() {
 			'%%pending%%',
 			$last_month,
 			$this_month
-		)
+		),
+		ARRAY_A
+	);
+
+	$normal = array(
+		'total_full_price' => isset( $normal_res['total_full_price'] ) ? (int) $normal_res['total_full_price'] : 0,
+		'count'            => isset( $normal_res['count'] ) ? (int) $normal_res['count'] : 0,
+	);
+
+	$continue = array(
+		'total_con_price' => 0,
+		'count'           => 0,
 	);
 	if ( defined( 'WCEX_DLSELLER' ) ) {
 		$access_table = $wpdb->prefix . 'usces_continuation';
 		if ( $access_table !== $wpdb->get_var( "SHOW TABLES LIKE '$access_table'" ) ) {
-			$continue = 0;
+			$conres = array(
+				'total_con_price' => 0,
+				'count'           => 0,
+			);
 		} else {
 			$this_month = substr( $this_month, 0, 10 );
 			$next_month = substr( $next_month, 0, 10 );
-			$continue = $wpdb->get_var(
+			$conres     = $wpdb->get_row(
 				$wpdb->prepare(
-					"SELECT SUM( con_price ) AS total_con_price FROM {$access_table}
+					"SELECT SUM( con_price ) AS total_con_price, COUNT(*) AS count FROM {$access_table}
 					WHERE con_status = %s
 					AND con_next_charging >= %s AND con_next_charging <= %s",
 					'continuation',
 					$this_month,
 					$next_month
-				)
+				),
+				ARRAY_A
 			);
 		}
+
+		$continue = array(
+			'total_con_price' => isset( $conres['total_con_price'] ) ? (int) $conres['total_con_price'] : 0,
+			'count'           => isset( $conres['count'] ) ? (int) $conres['count'] : 0,
+		);
 	}
-	$result = (int) $normal + (int) $continue;
+	$result = array(
+		'amount' => (int) $normal['total_full_price'] + (int) $continue['total_con_price'],
+		'count'  => (int) $normal['count'] + (int) $continue['count'],
+	);
 	return $result;
 }
 
@@ -646,6 +669,60 @@ function wel_get_categories() {
 	}
 
 	return $result;
+}
+
+/**
+ * Get total number of item categories.
+ *
+ * @return int
+ */
+function wel_get_cat_total_num() {
+
+	$item_category = get_category_by_slug( 'item' );
+	if ( $item_category ) {
+		$args = array(
+			'child_of'   => $item_category->term_id,
+			'taxonomy'   => 'category',
+			'hide_empty' => false,
+		);
+
+		$subcategories     = get_categories( $args );
+		$subcategory_count = count( $subcategories );
+
+	} else {
+		$subcategory_count = 0;
+	}
+
+	return (int) $subcategory_count;
+}
+
+/**
+ * Get total number of SKU.
+ *
+ * @return int
+ */
+function wel_get_sku_total_num() {
+	global $wpdb;
+
+	$status    = array();
+	$sku_table = $wpdb->prefix . 'usces_skus';
+
+	$data = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT COUNT(*) AS sku_num FROM {$wpdb->posts} LEFT JOIN {$sku_table} ON ID = post_id
+			WHERE post_mime_type = %s AND post_type = %s AND post_status <> %s",
+			'item',
+			'post',
+			'trash'
+		)
+	);
+
+	if ( $data ) {
+		$res = (int) $data;
+	} else {
+		$res = 0;
+	}
+	return $res;
 }
 
 /**

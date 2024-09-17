@@ -7,7 +7,7 @@ const mutations$3 = require('./mutations-164b66b1.js');
 const index$1 = require('./index-a9c75016.js');
 const mutations = require('./mutations-8d7c4499.js');
 const mutations$2 = require('./mutations-7113e932.js');
-const mutations$1 = require('./mutations-7f57e396.js');
+const mutations$1 = require('./mutations-8260a74b.js');
 const animationRegistry = require('./animation-registry-d7c0b19d.js');
 const getters = require('./getters-20c3c3fd.js');
 require('./index-00f0fc21.js');

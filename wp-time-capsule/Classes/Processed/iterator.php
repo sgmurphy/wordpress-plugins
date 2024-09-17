@@ -52,7 +52,7 @@ class WPTC_Processed_iterator extends WPTC_Processed_Base {
 	}
 
 	public function get_table($name) {
-		$single_table_result = $this->db->get_results("SELECT * FROM {$this->db->base_prefix}wptc_processed_{$this->getTableName()} WHERE name = '$name'");
+		$single_table_result = $this->db->get_results("SELECT * FROM {$this->db->base_prefix}wptc_processed_{$this->getTableName()} WHERE `name`='$name'");
 
 		if (!empty($single_table_result)) {
 			return $single_table_result[0];
@@ -60,7 +60,7 @@ class WPTC_Processed_iterator extends WPTC_Processed_Base {
 	}
 
 	public function get_unfnished_folder() {
-		$sql = "SELECT * FROM {$this->db->base_prefix}wptc_processed_{$this->getTableName()} WHERE `offset` != -1 LIMIT 1";
+		$sql = "SELECT * FROM {$this->db->base_prefix}wptc_processed_{$this->getTableName()} WHERE `offset`!='-1' LIMIT 1";
 		$response = $this->db->get_results($sql);
 
 		// wptc_log($response, '-------get_unfnished_folder---response----');

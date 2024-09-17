@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Profiler\Dumper;
@@ -26,7 +26,7 @@ final class BlackfireDumper
         $this->dumpProfile('main()', $profile, $data);
         $this->dumpChildren('main()', $profile, $data);
 
-        $start = sprintf('%f', microtime(true));
+        $start = \sprintf('%f', microtime(true));
         $str = <<<EOF
 file-format: BlackfireProbe
 cost-dimensions: wt mu pmu
@@ -48,9 +48,9 @@ EOF;
             if ($p->isTemplate()) {
                 $name = $p->getTemplate();
             } else {
-                $name = sprintf('%s::%s(%s)', $p->getTemplate(), $p->getType(), $p->getName());
+                $name = \sprintf('%s::%s(%s)', $p->getTemplate(), $p->getType(), $p->getName());
             }
-            $this->dumpProfile(sprintf('%s==>%s', $parent, $name), $p, $data);
+            $this->dumpProfile(\sprintf('%s==>%s', $parent, $name), $p, $data);
             $this->dumpChildren($name, $p, $data);
         }
     }

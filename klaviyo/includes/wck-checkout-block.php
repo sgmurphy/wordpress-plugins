@@ -32,7 +32,7 @@ add_action(
 add_action(
 	'woocommerce_blocks_checkout_block_registration',
 	function ( $integration_registry ) {
-		require __DIR__ . '/blocks/CheckoutIntegration.php';
+		require_once __DIR__ . '/blocks/CheckoutIntegration.php';
 		$integration_registry->register(
 			new WCK\Blocks\CheckoutIntegration()
 		);

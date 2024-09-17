@@ -18,7 +18,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return false;
 		}
 
-		$settings = unserialize($settings_serialized);
+		$settings = unserialize($settings_serialized, ['allowed_classes' => false]);
 		return $settings['update_settings'];
 	}
 
@@ -534,7 +534,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return false;
 		}
 
-		$settings = unserialize($settings_serialized);
+		$settings = unserialize($settings_serialized, ['allowed_classes' => false]);
 		$settings['update_settings']['status'] = 'no';
 		$this->config->set_option('wptc_auto_update_settings', serialize($settings));
 		wptc_log(array(), '---------Turned off auto update------------');
@@ -549,7 +549,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return false;
 		}
 
-		$settings = unserialize($settings_serialized);
+		$settings = unserialize($settings_serialized, ['allowed_classes' => false]);
 		$settings['update_settings']['themes']['status'] = false;
 		$this->config->set_option('wptc_auto_update_settings', serialize($settings));
 		wptc_log(array(), '---------Turned off auto update for themes------------');
@@ -579,7 +579,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 		$settings['auto_update'] = $this->get_auto_update_settings();
 
 		if(!empty($settings['auto_update']['plugins']['included'])){
-			$plugins_included = $this->get_slug_from_array(unserialize($settings['auto_update']['plugins']['included']));
+			$plugins_included = $this->get_slug_from_array(unserialize($settings['auto_update']['plugins']['included'], ['allowed_classes' => false]));
 		} else {
 			$plugins_included = array();
 		}
@@ -587,7 +587,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 		$settings['auto_update']['plugins']['included'] = $plugins_included;
 
 		if(!empty($settings['auto_update']['themes']['included'])){
-			$themes_included = unserialize($settings['auto_update']['themes']['included']);
+			$themes_included = unserialize($settings['auto_update']['themes']['included'], ['allowed_classes' => false]);
 		} else {
 			$themes_included = array();
 		}
@@ -627,7 +627,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return false;
 		}
 
-		$settings = unserialize($settings_serialized);
+		$settings = unserialize($settings_serialized, ['allowed_classes' => false]);
 
 		// wptc_log($settings,'-----------$settings----------------');
 
@@ -637,7 +637,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 		}
 
 		$items = $settings['update_settings'][$type]['included'];
-		$items = unserialize($items);
+		$items = unserialize($items, ['allowed_classes' => false]);
 
 		if (empty($items)) {
 			wptc_log(array(),'-----------list empty ----------------');
@@ -672,7 +672,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return false;
 		}
 
-		$settings = unserialize($settings_serialized);
+		$settings = unserialize($settings_serialized, ['allowed_classes' => false]);
 
 		// wptc_log($settings,'-----------$settings----------------');
 
@@ -756,7 +756,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return ;
 		}
 
-		$existing_plugins_list = !empty($settings['update_settings']['plugins']['included']) ? unserialize($settings['update_settings']['plugins']['included']) : array();
+		$existing_plugins_list = !empty($settings['update_settings']['plugins']['included']) ? unserialize($settings['update_settings']['plugins']['included'], ['allowed_classes' => false]) : array();
 
 		wptc_log($existing_plugins_list,'-----------$existing_plugins_list----------------');
 
@@ -802,7 +802,7 @@ class Wptc_Backup_Before_Auto_Update_Settings {
 			return ;
 		}
 
-		$existing_themes_list = !empty($settings['update_settings']['themes']['included']) ? unserialize($settings['update_settings']['themes']['included']) : array();
+		$existing_themes_list = !empty($settings['update_settings']['themes']['included']) ? unserialize($settings['update_settings']['themes']['included'], ['allowed_classes' => false]) : array();
 
 		if (!in_array($theme, $existing_themes_list)) {
 			array_push($existing_themes_list, $theme);

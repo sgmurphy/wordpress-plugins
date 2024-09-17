@@ -1584,7 +1584,7 @@ jQuery(document).ready(function($) {
 				if ( '05' !== $data['status'] ) {
 					if ( '04' === $data['status'] ) {
 						$res = usces_change_order_receipt( $order_id, 'receipted' );
-						do_action( 'usces_action_conv_bank_receipted', $order_id, $data );
+						do_action( 'usces_action_zeus_conv_receipted', $order_id, $data );
 					} else {
 						$res = usces_change_order_receipt( $order_id, 'noreceipt' );
 					}

@@ -101,7 +101,7 @@ const ScStripePaymentElement = class {
     const styles = getComputedStyle(this.el);
     return {
       mode: ((_a = mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.remaining_amount_due) > 0 ? 'payment' : 'setup',
-      amount: (_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.amount_due,
+      amount: (_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.remaining_amount_due,
       currency: (_c = mutations.state.checkout) === null || _c === void 0 ? void 0 : _c.currency,
       setupFutureUsage: ((_d = mutations.state.checkout) === null || _d === void 0 ? void 0 : _d.reusable_payment_method_required) ? 'off_session' : null,
       appearance: {

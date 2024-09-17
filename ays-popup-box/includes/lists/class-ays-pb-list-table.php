@@ -1011,19 +1011,69 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         return $result;
     }
 
-    public function add_or_edit_popupbox($data){
-
+    public function add_or_edit_popupbox($data) {
 		global $wpdb;
-		$pb_table = $wpdb->prefix . "ays_pb";
+		$pb_table = $wpdb->prefix . 'ays_pb';
 
-        $check_nonce = isset($_POST["pb_action"]) && wp_verify_nonce( sanitize_text_field( $_POST["pb_action"] ), 'pb_action' );
+        $check_nonce = isset($_POST['pb_action']) && wp_verify_nonce(sanitize_text_field($_POST['pb_action']), 'pb_action');
 
-        if( !$check_nonce ) {
+        if (!$check_nonce) {
             return;
         }
 
         // Id
-		$id = ( $data["id"] != NULL ) ? absint( intval( $data["id"] ) ) : null;
+		$id = (isset($data['id']) && $data['id'] != '') ? absint( intval($data['id']) ) : null;
+
+        // Tab
+        $ays_pb_tab = (isset($data['ays_pb_tab']) && $data['ays_pb_tab'] != '') ? sanitize_text_field($data['ays_pb_tab']) : 'tab1';
+
+        // Author
+        $author = (isset($data['ays_pb_author']) && $data['ays_pb_author'] != '') ? stripcslashes( sanitize_text_field($data['ays_pb_author']) ) : '';
+
+        // Popup title
+		$title = (isset($data['ays-pb']['popup_title']) && $data['ays-pb']['popup_title'] != '') ? wp_unslash( sanitize_text_field($data['ays-pb']['popup_title']) ) : 'Demo Title';
+
+        // Enable popup
+        $switch = (isset($data['ays-pb']['onoffswitch']) && $data['ays-pb']['onoffswitch'] == 'on') ? 'On' : 'Off';
+
+        // Shortcode
+		$shortcode = (isset($data['ays-pb']['shortcode']) && $data['ays-pb']['shortcode'] != '') ? wp_unslash( sanitize_text_field($data['ays-pb']["shortcode"]) ) : '';
+
+        // Custom content
+        if (is_multisite()) {
+            if (is_super_admin()) {
+                $custom_html = (isset($data['ays-pb']['custom_html']) && $data['ays-pb']['custom_html'] != '') ? stripslashes($data['ays-pb']['custom_html']) : '';
+            } else {
+                $custom_html = (isset($data['ays-pb']['custom_html']) && $data['ays-pb']['custom_html'] != '') ? wp_kses_post($data['ays-pb']['custom_html']) : '';
+            }
+        } else {
+            if (current_user_can('unfiltered_html')) {
+                $custom_html = (isset($data['ays-pb']['custom_html']) && $data['ays-pb']['custom_html'] != '') ? stripslashes($data['ays-pb']['custom_html']) : '';
+            } else {
+                $custom_html = (isset($data['ays-pb']['custom_html']) && $data['ays-pb']['custom_html'] != '') ? stripslashes( wp_kses_post($data['ays-pb']['custom_html']) ) : '';
+            }
+        }
+
+        // Video
+        $video_theme_url = (isset($data['ays_video_theme_url']) && !empty($data['ays_video_theme_url'])) ? wp_http_validate_url($data['ays_video_theme_url']) : '';
+
+        // Image type | Main image
+        $image_type_img_src = (isset($data['ays_pb_image_type_img_src']) && $data['ays_pb_image_type_img_src'] != '') ? sanitize_url($data['ays_pb_image_type_img_src']) : '';
+
+        // Image type | Redirect URL
+        $image_type_img_redirect_url = (isset($data['ays_pb_image_type_img_redirect_url']) && $data['ays_pb_image_type_img_redirect_url'] != '') ? sanitize_url($data['ays_pb_image_type_img_redirect_url']) : '';
+
+        // Image type | Redirect to the new tab
+        $image_type_img_redirect_to_new_tab = (isset($data['ays_pb_image_type_img_redirect_to_new_tab']) && $data['ays_pb_image_type_img_redirect_to_new_tab'] == 'on') ? 'on' : 'off';
+
+        // Facebook type | Facebook page URL
+        $facebook_page_url = (isset($data['ays_pb_facebook_page_url']) && $data['ays_pb_facebook_page_url'] != '') ? sanitize_url($data['ays_pb_facebook_page_url']) : '';
+
+        // Facebook type | Hide FB page cover photo
+        $hide_fb_page_cover_photo = (isset($data['ays_pb_hide_fb_page_cover_photo']) && $data['ays_pb_hide_fb_page_cover_photo'] == 'on') ? 'on' : 'off';
+
+        // Facebook type | Use small FB header
+        $use_small_fb_header = (isset($data['ays_pb_use_small_fb_header']) && $data['ays_pb_use_small_fb_header'] == 'on') ? 'on' : 'off';
 
         // Width
 		$width = ( isset( $data['ays-pb']["width"] ) && $data['ays-pb']["width"] != '' ) ? absint( intval( $data['ays-pb']["width"] ) ) : '';
@@ -1058,12 +1108,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Show once per session
 		$cookie = ( isset( $data['ays-pb']["cookie"] ) && $data['ays-pb']["cookie"] != '' ) ? absint( intval( $data['ays-pb']["cookie"] ) ) : 0;
-
-        //Title
-		$title = ( isset( $data['ays-pb']["popup_title"] ) && $data['ays-pb']["popup_title"] != '' ) ? wp_unslash(sanitize_text_field( $data['ays-pb']["popup_title"] )) : 'Demo Title';
-
-        //Shortcode
-		$shortcode = ( isset( $data['ays-pb']["shortcode"] ) && $data['ays-pb']["shortcode"] != '' ) ? wp_unslash(sanitize_text_field( $data['ays-pb']["shortcode"] )) : '';
 
         //Description
         if (is_multisite()) {
@@ -1126,21 +1170,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Custom Class
 		$custom_css = ( isset( $data['ays-pb']["custom-css"] ) && $data['ays-pb']["custom-css"] != '' ) ? wp_unslash(stripslashes( esc_attr( $data['ays-pb']["custom-css"] ) ) ) : '';
-
-        //Custom Html
-        if (is_multisite()) {
-            if (is_super_admin()) {
-                $custom_html = ( isset( $data['ays-pb']["custom_html"] ) && $data['ays-pb']["custom_html"] != '' ) ? stripslashes( ($data['ays-pb']["custom_html"]) ) : '';
-            } else {
-                $custom_html = ( isset( $data['ays-pb']["custom_html"] ) && $data['ays-pb']["custom_html"] != '' ) ? wp_kses_post( $data['ays-pb']["custom_html"] ) : '';
-            }
-        } else {
-            if (current_user_can('unfiltered_html')) {
-                $custom_html = ( isset( $data['ays-pb']["custom_html"] ) && $data['ays-pb']["custom_html"] != '' ) ? stripslashes( ($data['ays-pb']["custom_html"]) ) : '';
-            } else {
-                $custom_html = ( isset( $data['ays-pb']["custom_html"] ) && $data['ays-pb']["custom_html"] != '' ) ? stripslashes( wp_kses_post($data['ays-pb']["custom_html"]) ) : '';
-            }
-        }
 
         //Show All
 		$show_all = ( isset( $data['ays-pb']["show_all"] ) && $data['ays-pb']["show_all"] != '' ) ? wp_unslash(sanitize_text_field( $data['ays-pb']["show_all"] )) : 'all';
@@ -1429,27 +1458,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Disable scrolling mobile
         $disable_scroll_mobile = (isset($data['disable_scroll_mobile']) && $data['disable_scroll_mobile'] == 'on') ? 'on' : 'off';
 
-        //video options
-        $video_theme_url = (isset($data['ays_video_theme_url']) && !empty($data['ays_video_theme_url'])) ? wp_http_validate_url($data['ays_video_theme_url']) : "";
-
-        // Image type img src
-        $image_type_img_src = (isset($data['ays_pb_image_type_img_src']) && $data['ays_pb_image_type_img_src'] != '') ? sanitize_url($data['ays_pb_image_type_img_src']) : "";
-
-        // Image type img redirect url
-        $image_type_img_redirect_url = (isset($data['ays_pb_image_type_img_redirect_url']) && $data['ays_pb_image_type_img_redirect_url'] != '') ? sanitize_url($data['ays_pb_image_type_img_redirect_url']) : "";
-
-        // Image type img redirect to the new tab
-        $image_type_img_redirect_to_new_tab = (isset($data['ays_pb_image_type_img_redirect_to_new_tab']) && $data['ays_pb_image_type_img_redirect_to_new_tab'] == 'on') ? 'on' : 'off';
-
-        // Facebook page URL
-        $facebook_page_url = (isset($data['ays_pb_facebook_page_url']) && $data['ays_pb_facebook_page_url'] != '') ? sanitize_url($data['ays_pb_facebook_page_url']) : "";
-
-        // Hide FB page cover photo
-        $hide_fb_page_cover_photo = (isset($data['ays_pb_hide_fb_page_cover_photo']) && $data['ays_pb_hide_fb_page_cover_photo'] == 'on') ? 'on' : 'off';
-
-        // Use small FB header
-        $use_small_fb_header = (isset($data['ays_pb_use_small_fb_header']) && $data['ays_pb_use_small_fb_header'] == 'on') ? 'on' : 'off';
-
         // Notification type active columns
         $notification_type_components = (isset($data['ays_notification_type_components']) && !empty($data['ays_notification_type_components'])) ? array_map('sanitize_text_field', $data['ays_notification_type_components']) : array();
 
@@ -1464,6 +1472,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         // Notification type | Logo redirect to the new tab
         $notification_logo_redirect_to_new_tab = (isset($data['ays_pb_notification_logo_redirect_to_new_tab']) && $data['ays_pb_notification_logo_redirect_to_new_tab'] == 'on') ? 'on' : 'off';
+
+        // Notification type | Logo max-width
+        $notification_logo_max_width = (isset($data['ays_pb_notification_logo_max_width']) && $data['ays_pb_notification_logo_max_width'] != '') ? absint( intval($data['ays_pb_notification_logo_max_width']) ) : 100;
 
         // Notification type | Main content
         $notification_main_content = (isset($data['ays_pb_notification_main_content']) && $data['ays_pb_notification_main_content'] != '') ? wp_kses_post($data['ays_pb_notification_main_content']) : '';
@@ -1616,7 +1627,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         // --------- end Check & get post type-----------   
      
-        $switch = (isset($data['ays-pb']["onoffswitch"]) &&  $data['ays-pb']["onoffswitch"] == 'on') ? 'On' : 'Off';
         $log_user = (isset($data['ays-pb']["log_user"]) &&  $data['ays-pb']["log_user"] == 'on') ? 'On' : 'Off';
         $guest = (isset($data['ays-pb']["guest"]) &&  $data['ays-pb']["guest"] == 'on') ? 'On' : 'Off';
         $switchoverlay = (isset($data['ays-pb']["onoffoverlay"]) &&  $data['ays-pb']["onoffoverlay"] == 'on') ? 'On' : 'Off';
@@ -1650,8 +1660,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             $view_place = isset($data['ays-pb']["ays_pb_view_place"]) ? sanitize_text_field( implode( "***", $data['ays-pb']["ays_pb_view_place"] ) ) : '';
         }
         $JSON_user_role = json_encode($users_role);
-
-        $author = ( isset($data['ays_pb_author']) && $data['ays_pb_author'] != "" ) ? stripcslashes( sanitize_text_field( $data['ays_pb_author'] ) ) : '';
 
         // Change the author of the current pb
         $pb_create_author = ( isset($data['ays_pb_create_author']) && $data['ays_pb_create_author'] != "" ) ? absint( sanitize_text_field( $data['ays_pb_create_author'] ) ) : '';
@@ -1836,6 +1844,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_logo_image' => $notification_logo_image,
             'notification_logo_redirect_url' => $notification_logo_redirect_url,
             'notification_logo_redirect_to_new_tab' => $notification_logo_redirect_to_new_tab,
+            'notification_logo_max_width' => $notification_logo_max_width,
             'notification_main_content' => $notification_main_content,
             'notification_button_1_text' => $notification_button_1_text,
             'notification_button_1_hover_text' => $notification_button_1_hover_text,
@@ -2132,7 +2141,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 			$message = "updated";
 		}
 
-        $ays_pb_tab = isset($data['ays_pb_tab']) ? sanitize_text_field($data['ays_pb_tab']) : 'tab1';
 		if( $pb_result >= 0 ){
 			if($submit_type != ''){
                 if($id == null){

@@ -62,7 +62,7 @@ class WPKlaviyoAnalytics {
 			return;
 		}
 
-		$klaviyo_js_source = '//static.klaviyo.com/onsite/js/klaviyo.js?company_id=' . $this->klaviyo_public_key;
+		$klaviyo_js_source = '//static.klaviyo.com/onsite/js/' . $this->klaviyo_public_key . '/klaviyo.js';
 		wp_enqueue_script( self::KLAVIYO_JS_HANDLE, $klaviyo_js_source, null, WCK_API::VERSION, true );
 		add_filter(
 			'script_loader_tag',

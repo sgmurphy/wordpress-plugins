@@ -4,10 +4,8 @@
  * The 404page core plugin class
  */
 
- 
-// If this file is called directly, abort
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
 }
 
 
@@ -1259,5 +1257,3 @@ if ( !class_exists( 'PP_404Page' ) ) {
   }
   
 }
-
-?>

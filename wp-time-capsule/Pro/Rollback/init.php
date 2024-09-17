@@ -76,7 +76,7 @@ class Wptc_Rollback extends WPTC_Privileges{
 	}
 
 	private function tokenize_upgrade_details($result){
-		$update_details = unserialize($result->update_details);
+		$update_details = unserialize($result->update_details, ['allowed_classes' => false]);
 
 		if ($this->request['type'] === 'plugin') {
 			$update_details = $update_details['plugin'];

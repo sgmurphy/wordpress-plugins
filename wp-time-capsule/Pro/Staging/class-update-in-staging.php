@@ -82,7 +82,7 @@ class WPTC_Update_In_Staging{
 			$this->logger->log("No update requests for staging", 'staging', $this->staging_id);
 			return false;
 		}
-		$upgrade_details = unserialize($raw_upgrade_details);
+		$upgrade_details = unserialize($raw_upgrade_details, ['allowed_classes' => false]);
 		wptc_log($upgrade_details, '---------$upgrade_details------------');
 		if (empty($upgrade_details) || !is_array($upgrade_details)) {
 			$this->logger->log("Update request data is corrupted so skipped updates in the staging", 'staging', $this->staging_id);

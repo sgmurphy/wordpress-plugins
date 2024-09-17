@@ -1578,7 +1578,7 @@ function usces_the_itemImageCaption( $number = 0, $post = '', $out = '' ) {
 			$pictid = $usces->get_mainpictid( $code );
 			if ( $pictid ) {
 				$attach_ob = get_post( $pictid );
-				$excerpt   = $attach_ob->post_excerpt;
+				$excerpt   = ( isset( $attach_ob->post_excerpt ) ) ? $attach_ob->post_excerpt : '';
 			} else {
 				$excerpt = '';
 			}
@@ -1587,7 +1587,7 @@ function usces_the_itemImageCaption( $number = 0, $post = '', $out = '' ) {
 			$ind     = $number - 1;
 			if ( isset( $pictids[ $ind ] ) ) {
 				$attach_ob = get_post( $pictids[ $ind ] );
-				$excerpt   = $attach_ob->post_excerpt;
+				$excerpt   = ( isset( $attach_ob->post_excerpt ) ) ? $attach_ob->post_excerpt : '';
 			} else {
 				$excerpt = '';
 			}

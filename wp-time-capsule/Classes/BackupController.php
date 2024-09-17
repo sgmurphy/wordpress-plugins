@@ -320,7 +320,7 @@ class WPTC_BackupController {
 
 		$this->config->set_option('wptc_profiling_start', time());
 		wptc_manual_debug('', 'backup_execute');
-		$contents = @unserialize($this->config->get_option('this_cookie'));
+		$contents = @unserialize($this->config->get_option('this_cookie'), ['allowed_classes' => false]);
 		$backup_id = $contents['backupID'];
 
 		wptc_set_time_limit(60);

@@ -554,8 +554,7 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Frontend' ) ):
 			$classes = apply_filters( 'woo_variation_gallery_slider_image_html_class', $classes, $attachment_id, $image );
 
 
-			$template
-				= '<div class="wvg-single-gallery-image-container"><img loading="lazy" width="%d" height="%d" src="%s" class="%s" alt="%s" title="%s" data-caption="%s" data-src="%s" data-large_image="%s" data-large_image_width="%d" data-large_image_height="%d" srcset="%s" sizes="%s" %s /></div>';
+			$template = '<div class="wvg-single-gallery-image-container"><img loading="lazy" width="%d" height="%d" src="%s" class="%s" alt="%s" title="%s" data-caption="%s" data-src="%s" data-large_image="%s" data-large_image_width="%d" data-large_image_height="%d" srcset="%s" sizes="%s" %s /></div>';
 
 			$inner_html = sprintf( $template,
 				esc_attr( $image['src_w'] ),
@@ -575,12 +574,12 @@ if ( ! class_exists( 'Woo_Variation_Gallery_Frontend' ) ):
 
 			if ( ! $options['has_only_thumbnail'] ) {
 				if ( isset( $image['video_link'] ) && ! empty( $image['video_link'] ) && $image['video_embed_type'] === 'iframe' ) {
-					$template   = '<div class="wvg-single-gallery-iframe-container" style="padding-bottom: %d%%"><iframe src="%s" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
+					$template   = '<div class="wvg-single-gallery-iframe-container" style="--_video_ratio: %s"><iframe src="%s" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
 					$inner_html = sprintf( $template, $image['video_ratio'], $image['video_embed_url'] );
 				}
 
 				if ( isset( $image['video_link'] ) && ! empty( $image['video_link'] ) && $image['video_embed_type'] === 'video' ) {
-					$template   = '<div class="wvg-single-gallery-video-container" style="padding-bottom: %d%%"><video preload="auto" controls controlsList="nodownload" src="%s"></video></div>';
+					$template   = '<div class="wvg-single-gallery-video-container" style="--_video_ratio: %s"><video preload="auto" controls controlsList="nodownload" src="%s"></video></div>';
 					$inner_html = sprintf( $template, $image['video_ratio'], $image['video_link'] );
 				}
 			}

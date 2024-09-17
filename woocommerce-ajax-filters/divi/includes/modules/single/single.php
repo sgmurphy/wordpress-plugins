@@ -81,6 +81,11 @@ class ET_Builder_Module_br_filter_single extends ET_Builder_Module {
         add_filter('BeRocket_AAPF_template_full_content', array($this, 'header_replace'), 4000, 1);
         add_filter('BeRocket_AAPF_template_full_element_content', array($this, 'header_replace'), 4000, 1);
         $html = '';
+        if( empty($atts['filter_id']) ) {
+            if( ! empty($this->fields_defaults['filter_id']) && ! empty($this->fields_defaults['filter_id'][0]) ) {
+                $atts['filter_id'] = $this->fields_defaults['filter_id'][0];
+            }
+        }
         if( ! empty($atts['filter_id']) ) {
             $html .= trim(do_shortcode('[br_filter_single filter_id='.$atts['filter_id'].']'));
         }

@@ -8,7 +8,7 @@ import { u as updateFormState } from './mutations-8871d02a.js';
 import { a as apiFetch } from './fetch-2525e763.js';
 import { s as speak } from './index-c5a96d53.js';
 import { c as createErrorNotice, r as removeNotice, a as createInfoNotice } from './mutations-0a628afa.js';
-import { c as clearCheckout } from './mutations-dc690b18.js';
+import { c as clearCheckout } from './mutations-8c68bd4f.js';
 import { a as addQueryArgs, g as getQueryArgs } from './add-query-args-f4c5962b.js';
 import { s as state$2 } from './watchers-7ddfd1b5.js';
 import './watchers-6aa4e294.js';
@@ -205,6 +205,7 @@ const ScFormComponentsValidator = class {
         this.addTaxIDField();
       }
     }
+    this.handleOrderChange();
     this.removeCheckoutListener = onChange('checkout', () => this.handleOrderChange());
     this.removePaymentRequiresShippingListener = onChange('paymentMethodRequiresShipping', () => this.handleOrderChange());
   }

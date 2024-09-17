@@ -101,6 +101,7 @@ __("No valid address [no error details]");
 __("Automatic");
 __("No address or lat/lng specified");
 __("Communication error, please try again later");
+__("Your server's IP has been blocked by Siteground's antibot system.  Please contact Siteground and your hosting service to resolve.");
 __("JSON error");
 __("Error when checking license");
 __("Widget title");

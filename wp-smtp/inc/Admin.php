@@ -1,14 +1,26 @@
 <?php
 namespace WPSMTP;
 
+use SolidWP\Mail\Admin\SettingsScreen;
+use WPSMTP\Logger\Db;
+use WPSMTP\Logger\Table;
+
 class Admin {
 
 	private $wsOptions;
+
+	/**
+     * The new solid mail setting.
+     *
+	 * @var false|mixed|null
+	 */
+	private $solidMailOptions;
 
 	public static $phpmailer_error;
 
 	public function __construct() {
 		$this->wsOptions = get_option( 'wp_smtp_options' );
+		$this->solidMailOptions = get_option( SettingsScreen::SETTINGS_SLUG );
 
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -18,11 +30,34 @@ class Admin {
 	}
 
 	public function add_menu() {
-		add_menu_page( __( 'WP SMTP'),  __( 'WP SMTP'), 'manage_options', 'wp-smtp/wp-smtp.php', array( $this, 'render_setup_menu' ) );
+        $icon_url = WPSMTP_ASSETS_URL.'images/Solid-Mail-Icon.svg';
 
-		if( ! isset( $this->wsOptions['disable_logs'] ) || 'yes' !== $this->wsOptions['disable_logs'] ) {
-			add_submenu_page( 'wp-smtp/wp-smtp.php',  __( 'Mail Logs'),  __( 'Mail Logs'), 'manage_options','wpsmtp_logs', array( $this, 'render_log_menu' ) );
+		add_menu_page( __( 'Solid Mail', 'wp-smtp' ), __( 'Solid Mail', 'wp-smtp' ), 'manage_options', 'solidwp-mail', array(
+			$this,
+			'render_solidsmtp'
+		), $icon_url );
+
+		if ( ! isset( $this->solidMailOptions['disable_logs'] ) || 'yes' !== $this->solidMailOptions['disable_logs'] ) {
+			add_submenu_page( 'solidwp-mail', __( 'Mail Logs', 'wp-smtp' ), __( 'Mail Logs', 'wp-smtp' ), 'manage_options', 'solidwp-mail-logs', array(
+				$this,
+				'render_solidsmtp'
+			) );
 		}
+
+		// Add the Settings submenu
+		add_submenu_page( 'solidwp-mail', __( 'Settings', 'wp-smtp' ), __( 'Settings', 'wp-smtp' ), 'manage_options', 'solidwp-mail-settings', array(
+			$this,
+			'render_solidsmtp'
+		) );
+	}
+
+	/**
+	 * Render the hook point for the app.
+	 *
+	 * @return void
+	 */
+	public function render_solidsmtp() {
+		require_once WPSMTP_PATH . 'src/admin-views/admin-root.php';
 	}
 
 	public function enqueue_scripts() {

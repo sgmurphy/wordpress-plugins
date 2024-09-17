@@ -5,7 +5,7 @@ import { s as state } from './store-dde63d4d.js';
 import { s as state$1, o as onChange } from './mutations-b8f9af9f.js';
 import { o as openWormhole } from './consumer-32cc6385.js';
 import { a as formLoading, f as formBusy } from './getters-2c9ecd8c.js';
-import { l as lockCheckout, b as unLockCheckout } from './mutations-dc690b18.js';
+import { l as lockCheckout, b as unLockCheckout, t as trackOrderBump } from './mutations-8c68bd4f.js';
 import { c as createOrUpdateCheckout } from './index-d7508e37.js';
 import { s as speak } from './index-c5a96d53.js';
 import { a as isBumpInOrder } from './index-bc0c0045.js';
@@ -321,6 +321,10 @@ const ScOrderBump = class {
       });
       speak(wp.i18n.__('Order bump Removed.', 'surecart'));
     }
+  }
+  componentDidLoad() {
+    var _a;
+    trackOrderBump((_a = this.bump) === null || _a === void 0 ? void 0 : _a.id);
   }
   newPrice() {
     var _a, _b, _c, _d, _e, _f;

@@ -382,17 +382,17 @@ class UploadHandler
             return false;
         }
 
+        $mimes = array(
+            'sql'    => 'application/sql',
+            'gz'     => 'application/gzip',
+            'crypt'  => 'application/octet-stream',
+        );
 
+        $allowed_extesions = ['sql', 'gz', 'crypt'];
 
-        $allowed_extensions = array('.sql', '.gz', '.crypt');
-        $found = false;
-        foreach ($allowed_extensions as $extension) {
-            if(strrpos($file->name, $extension) + strlen($extension) === strlen($file->name)){
-                $found = true;
-            }
-        }
+        $file_extension = pathinfo($file->name, PATHINFO_EXTENSION);
 
-        if (!$found) {
+        if(!in_array($file_extension, $allowed_extesions)){
             $file->error = $this->get_error_message('accept_file_types');
             return false;
         }

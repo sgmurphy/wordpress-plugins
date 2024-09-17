@@ -5,7 +5,7 @@ Plugin URI: https://www.mappresspro.com
 Author URI: https://www.mappresspro.com
 Pro Update URI: https://www.mappresspro.com
 Description: MapPress makes it easy to add Google Maps and Leaflet Maps to WordPress
-Version: 2.92.1
+Version: 2.93
 Author: Chris Richardson
 Text Domain: mappress-google-maps-for-wordpress
 Thanks to all the translators and to Scott DeJonge for his wonderful icons
@@ -41,7 +41,7 @@ if (is_dir(dirname( __FILE__ ) . '/pro')) {
 }
 
 class Mappress {
-	const VERSION = '2.92.1';
+	const VERSION = '2.93';
 
 	static
 		$api,
@@ -619,7 +619,7 @@ class Mappress {
 					self::$options->filters[$type] = $filters;
 				}
 				self::$options->save();
-			}
+			}			
 		}
 
 		update_option('mappress_version', self::VERSION);
@@ -765,12 +765,16 @@ class Mappress {
 				}
 			}
 		}
+		
+		// Escape poi fields
+		if (isset(self::$options->poiFields)) 
+			$l10n['options']['poiFields'] = Mappress_Settings::sanitize_poi_fields(self::$options->poiFields);		
 
 		// Global settings
 		$options = array('alignment', 'clustering', 'clusteringOptions', 'country', 'defaultIcon', 'directions', 'directionsList',
 		'directionsPopup', 'directionsServer', 'engine', 'filtersOpen', 'filtersPos', 'geocoder', 'geolocate',
 		'highlight', 'highlightIcon', 'iconScale', 'initialOpenInfo', 'layout', 'lines', 'lineOpts',
-		'mashupClick', 'menuControl', 'mini', 'poiFields', 'poiList', 'poiListKml', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
+		'mashupClick', 'menuControl', 'mini', 'poiList', 'poiListKml', 'poiListOpen', 'poiListPageSize', 'poiListViewport', 'poiZoom', 'radius', 'scrollWheel', 'search',
 		'searchBox', 'searchParam', 'searchPlaceholder', 'size', 'sizes', 'sort', 'streetViewControl', 'style', 'thumbHeight', 'thumbWidth', 'thumbs', 'thumbsList', 'thumbsPopup', 
 		'tooltips', 'units', 'userLocation');
 

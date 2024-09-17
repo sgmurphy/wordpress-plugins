@@ -97,6 +97,42 @@ jQuery(function ($) {
         });
     }
 
+    const debounce = (func, wait = 500, immediate = false) => {
+        let timeoutId;
+
+        return (...args) => {
+          const context = this;
+          const callNow = immediate &&!timeoutId;
+
+          const later = () => {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+            if (!immediate) {
+              func.apply(context, args);
+            }
+          };
+
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(later, wait);
+
+          if (callNow) {
+            func.apply(context, args);
+          }
+        };
+    };
+
+    // function to remove disabled class from elementor publish/update button
+    const enableElementorSaveButton = debounce(() => {
+        $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
+        $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+        // new elementor top editor bar
+        if (typeof $e !== 'undefined' && $e.internal) {
+            $e.internal('document/save/set-is-modified', { status: true });
+        } else {
+            console.warn('Elementor API not available');
+        }
+    }, 100);
+
     // Save Meta box data
     var onChangeWpms = false;
     var uploadImg = '#metaseo_wpmseo_twitter-image_button, #metaseo_wpmseo_opengraph-image_button';
@@ -124,71 +160,60 @@ jQuery(function ($) {
             onChangeWpms = true;
             tmpData['title'] = $('#metaseo_wpmseo_title').val();
             tmpData['desc'] = $('#metaseo_wpmseo_desc').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('itemAdded itemRemoved', '#metaseo_wpmseo_specific_keywords', function () {
             onChangeWpms = true;
             tmpData['keyword'] = $('#metaseo_wpmseo_specific_keywords').tagsinput('items').join(', ');
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_keywords', function () {
             onChangeWpms = true;
             tmpData['sEKeyword'] = $('#metaseo_wpmseo_keywords').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_metaseo_canonical', function () {
             onChangeWpms = true;
             tmpData['canonicalUrl'] = $('#metaseo_wpmseo_metaseo_canonical').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_opengraph-title', function () {
             onChangeWpms = true;
             tmpData['fbTitle'] = $('#metaseo_wpmseo_opengraph-title').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_opengraph-desc', function () {
             onChangeWpms = true;
             tmpData['fbDesc'] = $('#metaseo_wpmseo_opengraph-desc').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_opengraph-image', function () {
             onChangeWpms = true;
             tmpData['fbImg'] = $('#metaseo_wpmseo_opengraph-image').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_twitter-title', function () {
             onChangeWpms = true;
             tmpData['twTitle'] = $('#metaseo_wpmseo_twitter-title').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_twitter-desc', function () {
             onChangeWpms = true;
             tmpData['twDesc'] = $('#metaseo_wpmseo_twitter-desc').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('keyup', '#metaseo_wpmseo_twitter-image', function () {
             onChangeWpms = true;
             tmpData['fbImg'] = $('#metaseo_wpmseo_opengraph-image').val();
             tmpData['twImg'] = $('#metaseo_wpmseo_twitter-image').val();
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         })
         .on('click', uploadImg, function () {
             onChangeWpms = true;
-            $('#elementor-panel-saver-button-publish').removeClass('elementor-disabled');
-            $('#elementor-panel-saver-button-save-options').removeClass('elementor-disabled');
+            enableElementorSaveButton();
         });
 
-    $(document).on('click', '#elementor-panel-saver-button-publish', function () {
+    $(document).on('click', '#elementor-panel-saver-button-publish, #elementor-editor-wrapper-v2 button.MuiButton-root.MuiButtonGroup-firstButton', function () {
         if (onChangeWpms) {
             // call ajax to save post
             const postID = parseInt($('#wpms-metabox-on-elementor .metaseo-progress-bar').data('post_id'));

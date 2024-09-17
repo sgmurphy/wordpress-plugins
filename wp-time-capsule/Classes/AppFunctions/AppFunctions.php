@@ -888,6 +888,7 @@ class Wptc_App_Functions extends Wptc_App_Functions_Init {
 
 		$privileges_args = array();
 		$privileged_feature = array();
+		$privileged_feature['pro'] = array();
 
 		foreach ($site_info->subscription_features as $subscription) {
 			$privileged_feature[$subscription->type][] = 'Wptc_' . ucfirst( $subscription->feature );
@@ -898,7 +899,7 @@ class Wptc_App_Functions extends Wptc_App_Functions_Init {
 			do_action('set_revision_limit_wptc', $site_info->revision_limit, true);
 		}
 
-		//Remove on production
+		// Remove on production
 		array_push($privileges_args, 'Wptc_Rollback');
 		array_push($privileged_feature['pro'], 'Wptc_Rollback');
 

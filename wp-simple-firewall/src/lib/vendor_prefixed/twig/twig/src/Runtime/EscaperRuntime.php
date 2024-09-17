@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Runtime;
@@ -19,6 +19,7 @@ use AptowebDeps\Twig\Markup;
 
 final class EscaperRuntime implements RuntimeExtensionInterface
 {
+    /** @var array<string, callable(string $string, string $charset): string> */
     private $escapers = [];
 
     /** @internal */
@@ -37,8 +38,8 @@ final class EscaperRuntime implements RuntimeExtensionInterface
     /**
      * Defines a new escaper to be used via the escape filter.
      *
-     * @param string                                    $strategy The strategy name that should be used as a strategy in the escape call
-     * @param callable(string $string, string $charset) $callable A valid PHP callable
+     * @param string                                            $strategy The strategy name that should be used as a strategy in the escape call
+     * @param callable(string $string, string $charset): string $callable A valid PHP callable
      */
     public function setEscaper($strategy, callable $callable)
     {
@@ -48,7 +49,7 @@ final class EscaperRuntime implements RuntimeExtensionInterface
     /**
      * Gets all defined escapers.
      *
-     * @return array<callable(string $string, string $charset)> An array of escapers
+     * @return array<string, callable(string $string, string $charset): string> An array of escapers
      */
     public function getEscapers()
     {
@@ -201,7 +202,7 @@ final class EscaperRuntime implements RuntimeExtensionInterface
 
                     $codepoint = mb_ord($char, 'UTF-8');
                     if (0x10000 > $codepoint) {
-                        return sprintf('\u%04X', $codepoint);
+                        return \sprintf('\u%04X', $codepoint);
                     }
 
                     // Split characters outside the BMP into surrogate pairs
@@ -210,7 +211,7 @@ final class EscaperRuntime implements RuntimeExtensionInterface
                     $high = 0xD800 | ($u >> 10);
                     $low = 0xDC00 | ($u & 0x3FF);
 
-                    return sprintf('\u%04X\u%04X', $high, $low);
+                    return \sprintf('\u%04X\u%04X', $high, $low);
                 }, $string);
 
                 if ('UTF-8' !== $charset) {
@@ -231,7 +232,7 @@ final class EscaperRuntime implements RuntimeExtensionInterface
                 $string = preg_replace_callback('#[^a-zA-Z0-9]#Su', function ($matches) {
                     $char = $matches[0];
 
-                    return sprintf('\\%X ', 1 === \strlen($char) ? \ord($char) : mb_ord($char, 'UTF-8'));
+                    return \sprintf('\\%X ', 1 === \strlen($char) ? \ord($char) : mb_ord($char, 'UTF-8'));
                 }, $string);
 
                 if ('UTF-8' !== $charset) {
@@ -289,14 +290,14 @@ final class EscaperRuntime implements RuntimeExtensionInterface
                             return $entityMap[$ord];
                         }
 
-                        return sprintf('&#x%02X;', $ord);
+                        return \sprintf('&#x%02X;', $ord);
                     }
 
                     /*
                     * Per OWASP recommendations, we'll use hex entities for any other
                     * characters where a named entity does not exist.
                     */
-                    return sprintf('&#x%04X;', mb_ord($chr, 'UTF-8'));
+                    return \sprintf('&#x%04X;', mb_ord($chr, 'UTF-8'));
                 }, $string);
 
                 if ('UTF-8' !== $charset) {
@@ -315,7 +316,7 @@ final class EscaperRuntime implements RuntimeExtensionInterface
 
                 $validStrategies = implode('", "', array_merge(['html', 'js', 'url', 'css', 'html_attr'], array_keys($this->escapers)));
 
-                throw new RuntimeError(sprintf('Invalid escaping strategy "%s" (valid ones: "%s").', $strategy, $validStrategies));
+                throw new RuntimeError(\sprintf('Invalid escaping strategy "%s" (valid ones: "%s").', $strategy, $validStrategies));
         }
     }
 

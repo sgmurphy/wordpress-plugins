@@ -9,7 +9,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Node;
@@ -44,10 +44,10 @@ class IncludeNode extends Node implements NodeOutputInterface
             $template = $compiler->getVarName();
 
             $compiler
-                ->write(sprintf("$%s = null;\n", $template))
+                ->write(\sprintf("$%s = null;\n", $template))
                 ->write("try {\n")
                 ->indent()
-                ->write(sprintf('$%s = ', $template))
+                ->write(\sprintf('$%s = ', $template))
             ;
 
             $this->addGetTemplate($compiler);
@@ -60,9 +60,9 @@ class IncludeNode extends Node implements NodeOutputInterface
                 ->write("// ignore missing template\n")
                 ->outdent()
                 ->write("}\n")
-                ->write(sprintf("if ($%s) {\n", $template))
+                ->write(\sprintf("if ($%s) {\n", $template))
                 ->indent()
-                ->write(sprintf('yield from $%s->unwrap()->yield(', $template))
+                ->write(\sprintf('yield from $%s->unwrap()->yield(', $template))
             ;
 
             $this->addTemplateArguments($compiler);

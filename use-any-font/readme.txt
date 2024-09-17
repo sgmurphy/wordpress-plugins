@@ -2,8 +2,8 @@
 Contributors: dnesscarkey
 Tags: custom fonts, font manager, font uploader, typography, google fonts
 Requires at least: 4.0
-Tested up to: 6.6.1
-Stable tag: 6.3.09
+Tested up to: 6.6.2
+Stable tag: 6.3.10
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -169,6 +169,9 @@ Please do write us after integration and we will add it in our supported list.
 1. Screenshot #6. Assign fonts to custom elements.
 
 == Changelog ==
+
+= 6.3.10 =
+* Fixed editor issue with Genesis and some non block themes. 
 
 = 6.3.09 =
 * Added noonce for Js Font Upload.

@@ -3,6 +3,17 @@ $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
 $id = isset($_GET['popupbox']) ? absint( intval($_GET['popupbox']) ) : null;
 $ays_pb_tab = isset($_GET['ays_pb_tab']) ? sanitize_text_field($_GET['ays_pb_tab']) : 'tab1';
 
+if (isset($_POST['ays_submit']) || isset($_POST['ays_submit_top'])) {
+    $_POST['id'] = $id;
+    $this->popupbox_obj->add_or_edit_popupbox($_POST);
+}
+
+if (isset($_POST['ays_apply']) || isset($_POST['ays_apply_top'])) {
+    $_POST['id'] = $id;
+    $_POST['submit_type'] = 'apply';
+    $this->popupbox_obj->add_or_edit_popupbox($_POST);
+}
+
 $show_warning_note = !isset($_COOKIE['ays_pb_show_warning_note']);
 
 $heading = '';
@@ -133,6 +144,7 @@ $options = array(
     'notification_logo_image' => '',
     'notification_logo_redirect_url' => '',
     'notification_logo_redirect_to_new_tab' => 'off',
+    'notification_logo_max_width' => 100,
     'notification_main_content' => 'Write the custom notification banner text here.',
     'notification_button_1_text' => 'Click!',
     'notification_button_1_hover_text' => 'Click!',
@@ -485,6 +497,9 @@ $notification_logo_redirect_url = (isset($options['notification_logo_redirect_ur
 
 // Notification type | Logo redirect to the new tab
 $notification_logo_redirect_to_new_tab = (isset($options['notification_logo_redirect_to_new_tab']) && $options['notification_logo_redirect_to_new_tab'] == 'on') ? true : false;
+
+// Notification type | Logo max-width
+$notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) : 100;
 
 // Notification type | Main content
 $notification_main_content = (isset($options['notification_main_content']) && $options['notification_main_content'] != '') ? stripslashes($options['notification_main_content']) : 'Write the custom notification banner text here.';
@@ -1292,17 +1307,6 @@ $ays_pb_hide_on_pc = (isset($options['hide_on_pc']) && $options['hide_on_pc'] ==
 $options['hide_on_tablets'] = (isset($options['hide_on_tablets']) && $options['hide_on_tablets'] != '') ? stripslashes( esc_attr($options['hide_on_tablets']) ) : 'off';
 $ays_pb_hide_on_tablets = (isset($options['hide_on_tablets']) && $options['hide_on_tablets'] == 'on') ? true : false;
 
-if(isset($_POST["ays_submit"]) || isset($_POST["ays_submit_top"])){
-    $_POST["id"] = $id;
-    $this->popupbox_obj->add_or_edit_popupbox($_POST);
-}
-
-if(isset($_POST["ays_apply"]) || isset($_POST["ays_apply_top"])){
-    $_POST["id"] = $id;
-    $_POST["submit_type"] = 'apply';
-    $this->popupbox_obj->add_or_edit_popupbox($_POST);
-}
-
 if( isset( $popupbox['view_place'] ) && $popupbox['view_place'] != null){
     $id != null ? $view_place = explode( "***", $popupbox['view_place']) : $view_place = array();
 }
@@ -1789,56 +1793,93 @@ $ays_users_roles = $wp_roles->roles;
                             ?>
                         </ul>
                         <div class="ays_pb_component_option" style="display: none;" data-window="logo">
-                            <hr>
-                            <div class="form-group row">
-                                <div class="col-sm-3">
-                                    <label for="ays_pb_notification_logo_image">
-                                        <?php  echo __('Banner logo', "ays-popup-box" ) ?>
-                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Add a logo for the notification banner.", "ays-popup-box"); ?>" >
-                                            <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                        </a>
-                                    </label>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('General', "ays-popup-box") ?></p>
                                 </div>
-                                <div class="col-sm-9">
-                                    <a href="javascript:void(0)" class="button ays-pb-notification-type-add-logo-img">
-                                        <?php echo $notification_logo_image != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
-                                    </a>
-                                    <div class="<?php echo $notification_logo_image != '' ? '' : 'display_none'; ?> ays-pb-notification-logo-container-main">
-                                        <div class="ays-pb-notification-logo-container">
-                                            <span class="ays-remove-notification-type-logo-img"></span>
-                                            <img src="<?php echo $notification_logo_image ?>" id="ays_pb_notification_logo">
-                                            <input type="hidden" name="ays_pb_notification_logo_image" id="ays_pb_notification_logo_image" value="<?php echo $notification_logo_image ; ?>"/>
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_logo_image">
+                                                <?php  echo __('Banner logo', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Add a logo for the notification banner.", "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <a href="javascript:void(0)" class="button ays-pb-notification-type-add-logo-img">
+                                                <?php echo $notification_logo_image != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
+                                            </a>
+                                            <div class="<?php echo $notification_logo_image != '' ? '' : 'display_none'; ?> ays-pb-notification-logo-container-main">
+                                                <div class="ays-pb-notification-logo-container">
+                                                    <span class="ays-remove-notification-type-logo-img"></span>
+                                                    <img src="<?php echo $notification_logo_image ?>" id="ays_pb_notification_logo">
+                                                    <input type="hidden" name="ays_pb_notification_logo_image" id="ays_pb_notification_logo_image" value="<?php echo $notification_logo_image ; ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ays-pb-notification-logo-settings-container <?php echo $notification_logo_image != '' ? '' : 'display_none' ?>">
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_notification_logo_redirect_url">
+                                                    <?php  echo __('Redirect URL', "ays-popup-box" ) ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "The URL for redirecting after the user clicks on the logo.", "ays-popup-box"); ?>" >
+                                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="ays_pb_notification_logo_redirect_url" class="ays-text-input" name="ays_pb_notification_logo_redirect_url" value="<?php echo $notification_logo_redirect_url ?>" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-3">
+                                                <label for="ays_pb_notification_logo_redirect_to_new_tab">
+                                                    <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
+                                                        <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                    </a>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="checkbox" id="ays_pb_notification_logo_redirect_to_new_tab" name="ays_pb_notification_logo_redirect_to_new_tab" <?php echo $notification_logo_redirect_to_new_tab ? 'checked' : ''; ?>>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="ays-pb-notification-logo-settings-container <?php echo $notification_logo_image != '' ? '' : 'display_none' ?>">
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_pb_notification_logo_redirect_url">
-                                            <?php  echo __('Redirect URL', "ays-popup-box" ) ?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "The URL for redirecting after the user clicks on the logo.", "ays-popup-box"); ?>" >
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="ays_pb_notification_logo_redirect_url" class="ays-text-input" name="ays_pb_notification_logo_redirect_url" value="<?php echo $notification_logo_redirect_url ?>" />
-                                    </div>
+                            <div class="ays-pb-accordion-options-main-container">
+                                <div class="ays-pb-accordion-header">
+                                    <?php echo $pb_acordion_svg_html; ?>
+                                    <p class="ays-subtitle"><?php echo  __('Styles', "ays-popup-box") ?></p>
                                 </div>
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-3">
-                                        <label for="ays_pb_notification_logo_redirect_to_new_tab">
-                                            <?php  echo __('Redirect to the new tab', "ays-popup-box" ) ?>
-                                            <a class="ays_help" data-toggle="tooltip" title="<?php echo __( "Tick this option to redirect to another tab.", "ays-popup-box"); ?>" >
-                                                <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
-                                            </a>
-                                        </label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="checkbox" id="ays_pb_notification_logo_redirect_to_new_tab" name="ays_pb_notification_logo_redirect_to_new_tab" <?php echo $notification_logo_redirect_to_new_tab ? 'checked' : ''; ?>>
+                                <hr class="ays-pb-bolder-hr"/>
+                                <div class="ays-pb-accordion-body">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
+                                            <label for="ays_pb_notification_logo_max_width">
+                                                <?php  echo __('Max-width', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the max-width of the logo in pixels.', "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div style="display: flex; gap: 10px">
+                                                <div>
+                                                    <input type="number" id="ays_pb_notification_logo_max_width" class="ays-text-input" name="ays_pb_notification_logo_max_width" value="<?php echo $notification_logo_max_width ?>" />
+                                                </div>
+                                                <div class="ays_dropdown_max_width">
+                                                    <input type="text" value="px" class="ays-form-hint-for-size" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

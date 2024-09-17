@@ -43,7 +43,7 @@ class Module extends Module_Base {
 				'prefix_class'  => 'she-header-'
 			]
 		);
-
+		
 		$element->add_control(
 			'donate_notice',
 			[
@@ -78,6 +78,7 @@ class Module extends Module_Base {
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
 				'condition' => [
+
 					'transparent!' => '',
 				],
 			]
@@ -106,7 +107,8 @@ class Module extends Module_Base {
 			]
 		);
 
-		$element->add_responsive_control(
+
+$element->add_responsive_control(
 			'scroll_distance',
 			[
 				'label' => __( 'Scroll Distance (px)', 'she-header' ),
@@ -154,11 +156,10 @@ class Module extends Module_Base {
 				'frontend_available' => true,
 				'prefix_class'  => 'she-header-transparent-',
 				'condition' => [
-
 					'transparent!' => '',
 				],
 				'selectors' => [
-					'{{WRAPPER}}.she-header-yes.she-header-transparent-yes' => 'background-color: rgba(0,0,0,0);',
+					'.she-header-transparent-yes' => 'background-color: rgba(0,0,0,0) !important;',
 					'.she-header-transparent-yes' => 'position:absolute;',
 				],
 				'description' => __('Sets the header position to "absolute" so negative margins are not needed', 'she-header'),
@@ -173,53 +174,30 @@ class Module extends Module_Base {
 				'type' => Controls_Manager::RAW_HTML,
 				'content_classes' => 'elementor-control-notice elementor-control-notice-type-info',
 				'condition' => [
-
 					'transparent!' => '',
 					'transparent_header_show' => 'yes',
 				],
-			]
-		);
-		
-		$element->add_control(
-			'disable_transparent_background',
-			[
-				'label' => __('Disable Fully Transparent Background', 'she-header'),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => __('On', 'she-header'),
-				'label_off' => __('Off', 'bew-header'),
-				'return_value' => 'yes',
-				'default' => '',
-				'frontend_available' => true,
-				'condition' => [
-					'transparent!' => '',
-					'transparent_header_show' => 'yes',
-				],
-				'selectors' => [
-					'{{WRAPPER}}.she-header-yes.she-header-transparent-yes' => 'background-color: none !important;',
-				],
-				'description' => __('By default, activating the transparent header option sets the initial background color to fully transparent. This will, instead, use the background color set under Elementor style tab<br><br>TIP: This can be useful for free users', 'she-header'),
 			]
 		);
 
 		$element->add_control(
 			'background_show',
 			[
-				'label' => __('Background Color', 'she-header'),
+				'label' => __( 'Background Color', 'she-header' ),
 				'type' => Controls_Manager::SWITCHER,
 				'separator' => 'before',
-				'label_on' => __('On', 'she-header'),
-				'label_off' => __('Off', 'bew-header'),
+				'label_on' => __( 'On', 'she-header' ),
+				'label_off' => __( 'Off', 'bew-header' ),
 				'return_value' => 'yes',
 				'default' => '',
 				'frontend_available' => true,
-				'prefix_class'  => 'she-header-custom-background-',
 				'condition' => [
 					'transparent!' => '',
 				],
-				'description' => __('Choose what color to change the background to after scrolling', 'she-header'),
+				'description' => __( 'Choose what color to change the background to after scrolling', 'she-header' ),
 			]
 		);
-
+		
 		$element->add_control(
 			'background_type',
 			[
@@ -244,19 +222,14 @@ class Module extends Module_Base {
 				'default' => 'classic'
 			]
 		);
-		
+
 		$element->add_control(
 			'background',
 			[
-				'label' => __('Color', 'she-header'),
+				'label' => __( 'Color', 'she-header' ),
 				'type' => Controls_Manager::COLOR,
-				'default' => '',
-				'title' => __('Background Color', 'she-header'),
-// 				'selectors' => [
-// 					'{{WRAPPER}}.she-header' => 'opacity: 1 !important; background-color: {{VALUE}}',
-// 				],
 				'condition' => [
-					'background_show' => 'yes',
+				    'background_show' => 'yes',
 					'transparent!' => '',
 				],
 				'render_type' => 'none',
@@ -410,8 +383,8 @@ class Module extends Module_Base {
 				'of_type' => 'gradient',
 			]
 		);
-
-	$element->add_control(
+		
+		$element->add_control(
 		'mobile_menu_toggle_animation',
 		[
 			'label' => __('Custom Menu Toggle Button', 'she-header'),
@@ -792,6 +765,7 @@ class Module extends Module_Base {
 			]
 		);
 
+
 		$element->add_control(
 			'custom_bottom_border_color',
 			[
@@ -846,8 +820,8 @@ class Module extends Module_Base {
 				],
 				'description' => __('Choose bottom shadow options after scrolling', 'she-header'),
 				'selectors' => [
-					'.she-header-yes' => 'box-shadow: 0 0 0 0 rgb(0 0 0 / 0%); clip-path: inset(0 0 -100vh 0);',
-					'.she-header-yes.she-header' => 'box-shadow: 0 {{bottom_shadow_vertical.SIZE}}{{bottom_shadow_vertical.UNIT}} {{bottom_shadow_blur.SIZE}}{{bottom_shadow_blur.UNIT}} {{bottom_shadow_spread.SIZE}}{{bottom_shadow_spread.UNIT}} {{bottom_shadow_color.VALUE}}; clip-path: inset(0 0 -100vh 0);',
+					'body:not(.elementor-editor-active) .she-header-yes' => 'box-shadow: 0 0 0 0 rgb(0 0 0 / 0%); clip-path: inset(0 0 -100vh 0);',
+					'body:not(.elementor-editor-active) .she-header-yes.she-header' => 'box-shadow: 0 {{bottom_shadow_vertical.SIZE}}{{bottom_shadow_vertical.UNIT}} {{bottom_shadow_blur.SIZE}}{{bottom_shadow_blur.UNIT}} {{bottom_shadow_spread.SIZE}}{{bottom_shadow_spread.UNIT}} {{bottom_shadow_color.VALUE}}; clip-path: inset(0 0 -100vh 0);',
 				],
 			]
 		);
@@ -873,7 +847,7 @@ class Module extends Module_Base {
 				'label' => __('Vertical', 'she-header'),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
-					'size' => 5,
+					'size' => 0,
 				],
 				'range' => [
 					'px' => [
@@ -896,7 +870,7 @@ class Module extends Module_Base {
 				'label' => __('Blur', 'she-header'),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
-					'size' => 10,
+					'size' => 30,
 				],
 				'range' => [
 					'px' => [
@@ -1040,65 +1014,6 @@ $element->add_control(
 		]
 	);
 
-		// $element->add_control(
-		// 	'logo_color_before_new',
-		// 	[
-		// 		'label' => __('Before Scrolling', 'she-header'),
-		// 		'type' => Controls_Manager::SELECT,
-		// 		'options' => [
-		// 			'' => __('None', 'she-header'),
-		// 			'brightness(0) invert(1) !important' => __('White', 'she-header'),
-		// 			'brightness(0) invert(0) !important' => __('Black', 'she-header'),
-		// 		],
-		// 		'default' => '',
-		// 		'frontend_available' => true,
-		// 		'condition' => [
-		// 			'change_logo_color' => 'yes',
-		// 		],
-		// 		'selectors' => [
-		// 			'{{WRAPPER}} .elementor-widget-theme-site-logo img' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
-		// 			'{{WRAPPER}} .logo img' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
-		// 		],
-		// 	]
-		// );
-
-		// // ---------------------------------- LOGO COLOR AFTER
-
-		// $element->add_control(
-		// 	'logo_color_after_new',
-		// 	[
-		// 		'label' => __('After Scrolling', 'she-header'),
-		// 		'type' => Controls_Manager::SELECT,
-		// 		'options' => [
-		// 			'none !important' => __('None', 'she-header'),
-		// 			'brightness(0) invert(1) !important' => __('White', 'she-header'),
-		// 			'brightness(0) invert(0) !important' => __('Black', 'she-header'),
-		// 		],
-		// 		'default' => 'none !important',
-		// 		'frontend_available' => true,
-		// 		'condition' => [
-		// 			'change_logo_color' => 'yes',
-		// 		],
-		// 		'selectors' => [
-		// 			'{{WRAPPER}} .elementor-widget-theme-site-logo img.change-logo-color' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
-		// 			'{{WRAPPER}} .logo img.change-logo-color' => '-webkit-filter:{{VALUE}}; filter:{{VALUE}}; transition: all .4s ease-in-out 0s;',
-		// 		],
-		// 	]
-		// );
-
-
-		// $element->add_control(
-		// 	'logo_color_depricted_notice',
-		// 	[
-		// 		'type' => Controls_Manager::DEPRECATED_NOTICE,
-		// 		'raw' => __( 'IMPORTANT: The settings below have been depricated and should be avoided. They only remain to not cause conflict.', 'she-header' ),
-		// 		'type' => Controls_Manager::RAW_HTML,
-		// 		'content_classes' => 'elementor-panel-alert elementor-panel-alert-warning',
-		// 		'condition' => [
-		// 			'change_logo_color' => 'yes',
-		// 		],
-		// 	]
-		// );
 // ---------------------------------- LOGO COLOR NOTICE
 
 $element->add_control(
@@ -1291,7 +1206,6 @@ $element->add_control(
 	$element->end_controls_tab();
 	$element->end_controls_tabs();
 	
-		// ---------------------------------- BLUR BACKGROUND
 		$element->add_control(
 			'blur_bg',
 			[
@@ -1314,9 +1228,7 @@ $element->add_control(
 				],
 			]
 		);
-
-		// ---------------------------------- BLUR BACKGROUND PRO SETTINGS
-
+		
 		$element->add_control(
 			'blur_bg_note',
 			[
@@ -1347,7 +1259,6 @@ $element->add_control(
 				],
 				'size_units' => ['px'],
 				'condition' => [
-
 					'transparent!' => '',
 					'blur_bg' => 'yes',
 				],
@@ -1372,7 +1283,6 @@ $element->add_control(
 					],
 				],
 				'condition' => [
-
 					'transparent!' => '',
 					'blur_bg' => 'yes',
 				],

@@ -80,7 +80,7 @@ Our exit intent trigger is included in the free plan. Create any type of exit po
 
 * Ways to automate Poptin with Zapier:
   - Send an autoresponder with a Gmail account
-  - Add new Poptin leads to a Google Sheets spreadsheet
+  - Add Poptin leads to a Google Sheets spreadsheet
   - Integration with Aweber
   - Integration with Salesforce and Pardot
   - Integration with Intercom

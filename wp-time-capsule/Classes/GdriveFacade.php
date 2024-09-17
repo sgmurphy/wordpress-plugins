@@ -120,7 +120,7 @@ class WPTC_GdriveFacade {
 	private function get_refresh_old_token() {
 		$token_obj = $this->config->get_option('gdrive_old_token');
 		if (!empty($token_obj)) {
-			$token_arr = unserialize($token_obj);
+			$token_arr = unserialize($token_obj, ['allowed_classes' => false]);
 			return $token_arr['refresh_token'];
 		} else {
 			return false;

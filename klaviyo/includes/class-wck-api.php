@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WCK_API {
 
-	const VERSION                    = '3.3.5';
+	const VERSION                    = '3.4.0';
 	const KLAVIYO_BASE_URL           = 'klaviyo/v1';
 	const ORDERS_ENDPOINT            = 'orders';
 	const EXTENSION_VERSION_ENDPOINT = 'version';
@@ -71,10 +71,16 @@ class WCK_API {
 	 * @param stdClass $plugins_transient Optional arg if the transient value is already in scope e.g. during update check.
 	 * @return bool
 	 */
-	public static function is_most_recent_version( stdClass $plugins_transient = null ) {
+	public static function is_most_recent_version( $plugins_transient = null ) {
 		if ( ! $plugins_transient ) {
 			$plugins_transient = get_site_transient( 'update_plugins' );
 		}
+
+		// Other plugins can mess with the saved transient value. Let's default back to stdClass in that case.
+		if (! is_object($plugins_transient)) {
+			$plugins_transient = new stdClass();
+		}
+
 		// True if response property isn't set, we don't want to alert on a false positive here.
 		if ( ! isset( $plugins_transient->response ) ) {
 			return true;

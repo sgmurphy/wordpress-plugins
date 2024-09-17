@@ -2,18 +2,18 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Plugin Name: WP SMTP
- * Description: WP SMTP can help us to send emails via SMTP instead of the PHP mail() function and email logger built-in.
- * Version: 1.2.7
- * Author: WPOmnia
- * Author URI: https://www.wpomnia.com/
+ * Plugin Name: Solid Mail
+ * Description: Solid Mail can help us to send emails via SMTP instead of the PHP mail() function and email logger built-in.
+ * Version: 2.0.0
+ * Author: SolidWP
+ * Author URI: https://www.solidwp.com/
  * Text Domain: wp-smtp
  * Domain Path: /lang
  * License: GPLv3 or Later
  *
  * Copyright 2012-2022 Yehuda Hassine yehudahas@gmail.com
  * Copyright 2022-2022 WPChill heyyy@wpchill.com
- * Copyright 2023 WPOmnia contact@wpomnia.com
+ * Copyright 2023 SolidWP contact@so.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 3, as
@@ -39,9 +39,10 @@ define( 'WPSMTP_PATH', plugin_dir_path( WPSMTP__FILE__ ) );
 define( 'WPSMTP_URL', plugins_url( '/', WPSMTP__FILE__ ) );
 define( 'WPSMTP_ASSETS_PATH', WPSMTP_PATH . 'assets/' );
 define( 'WPSMTP_ASSETS_URL', WPSMTP_URL . 'assets/' );
-define( 'WPSMTP_VERSION', '1.2.7' );
+define( 'WPSMTP_VERSION', '2.0.0' );
 
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/vendor-prefixed/autoload.php';
 
 class WP_SMTP {
 
@@ -52,7 +53,6 @@ class WP_SMTP {
 		// We setup the vars here also so we make sure that the functions that use them have access to them
 		$this->setup_vars();
 		$this->hooks();
-		$this->check_credentials();
 	}
 
 	public function setup_vars(){
@@ -65,18 +65,27 @@ class WP_SMTP {
 
 		add_filter( 'plugin_action_links', array( $this, 'wp_smtp_settings_link' ), 10, 2 );
 		add_action( 'init', array( $this,'load_textdomain' ) );
-		add_action( 'phpmailer_init', array( $this,'wp_smtp' ) );
-		add_action( 'admin_notices', array( $this, 'retype_credentials_notice' ) );
-		add_action( 'wp_smtp_admin_update', array( $this, 'check_credentials' ) );
+		//add_action( 'phpmailer_init', array( $this,'wp_smtp' ) );
+		//add_action( 'admin_notices', array( $this, 'retype_credentials_notice' ) );
+		//add_action( 'wp_smtp_admin_update', array( $this, 'check_credentials' ) );
 		add_action( 'wp_loaded', array( $this, 'wp_smtp_form_actions' ), 15 );
-		add_action( 'wp_loaded', array( $this, 'setup_vars' ), 20 );
-		add_action( 'wp_loaded', array( $this, 'load_admin_requirements'), 30 );
+		add_action( 'wp_loaded', array( $this, 'setup_vars' ), 15 );
+		add_action( 'wp_loaded', array( $this, 'load_admin_requirements'), 16 );
 
+		// add the new code bootstrap.
+		require_once __DIR__ . '/src/functions/boot.php';
+		$core = solid_mail_plugin();
+		add_action(
+			'plugins_loaded',
+			static function () use ($core): void {
+				$core->init();
+			}
+		);
 	}
 
 	public function load_admin_requirements() {
 		new WPSMTP\Admin();
-		new WPSMTP\Process();
+		new WPSMTP\Logger\Process();
 	}
 
 	public function wp_smtp_activate(){
@@ -93,12 +102,12 @@ class WP_SMTP {
 
 		add_option( 'wp_smtp_options', $wsOptions );
 
-		\WPSMTP\Table::install();
+		\WPSMTP\Logger\Table::install();
 
 	}
 
 	public function wp_smtp_deactivate() {
-		if( $this->wsOptions['deactivate'] == 'yes' ) {
+		if( $this->wsOptions['deactivate'] === 'yes' ) {
 			delete_option( 'wp_smtp_options' );
 			delete_option( 'wp_smtp_encrypted' );
 		}
@@ -122,7 +131,7 @@ class WP_SMTP {
 		$phpmailer->Host = $this->wsOptions["host"];
 		$phpmailer->SMTPSecure = $this->wsOptions["smtpsecure"];
 		$phpmailer->Port = $this->wsOptions["port"];
-		$phpmailer->SMTPAuth = ($this->wsOptions["smtpauth"]=="yes") ? TRUE : FALSE;
+		$phpmailer->SMTPAuth = $this->wsOptions["smtpauth"] === "yes";
 
 		if( $phpmailer->SMTPAuth ){
 			$phpmailer->Username = base64_decode( $this->wsOptions["username"] );
@@ -133,10 +142,10 @@ class WP_SMTP {
 	public function wp_smtp_settings_link($action_links,$plugin_file) {
 		if( $plugin_file == plugin_basename( __FILE__ ) ) {
 
-			$ws_settings_link = '<a href="admin.php?page=wpsmtp_logs">' . __("Logs") . '</a>';
+			$ws_settings_link = '<a href="admin.php?page=solidwp-mail-logs">' . __( 'Logs', 'LION' ) . '</a>';
 			array_unshift($action_links,$ws_settings_link);
 
-			$ws_settings_link = '<a href="admin.php?page=' . dirname( plugin_basename(__FILE__) ) . '/wp-smtp.php">' . __("Settings") . '</a>';
+			$ws_settings_link = '<a href="admin.php?page=solidwp-mail">' . __( "Settings", 'LION' ) . '</a>';
 			array_unshift($action_links,$ws_settings_link);
 		}
 
@@ -148,24 +157,24 @@ class WP_SMTP {
 	 *
 	 * @param array $options WP SMTP options
 	 * 
-	 * @return mixed
+	 * @return bool|void
 	 * @since 1.2.5
 	 */
-	public function check_credentials( $options = array(), $pass_ajax = false ) {
+	public function check_credentials( array $options = array(), $pass_ajax = false ) {
 
 		if ( ! is_admin() || ( ! $pass_ajax && defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
 
-		$encription = get_option( 'wp_smtp_status' );
+		$encryption = get_option( 'wp_smtp_status' );
 
 		// Connecting to host can be a resource heavy task, so we only do it if we need to.
-		if ( 'encrypted' === $encription ) {
+		if ( 'encrypted' === $encryption ) {
 			return true;
 		}
 
 		// Connecting to host can be a resource heavy task, so we only do it if we need to.
-		if ( 'not_encrypted' === $encription ) {
+		if ( 'not_encrypted' === $encryption ) {
 			add_action( 'admin_notices', array( $this, 'retype_credentials_notice' ) );
 			add_action( 'wp_smtp_admin_notices', array( $this, 'retype_credentials_wp_smtp_notice' ) );
 
@@ -240,7 +249,7 @@ class WP_SMTP {
 		?>
 		<div class="notice notice-error is-dismissible">
 			<h3><?php echo esc_html__( 'WP SMTP connection error', 'wp-smtp' ); ?></h3>
-			<p><?php echo esc_html__( 'Seems like there are some problems with the enterd information. Please re-check & re-enter it and hit the "Save changes" button.', 'wp-smtp' ); ?></p>
+			<p><?php echo esc_html__( 'Seems like there are some problems with the entered information. Please re-check & re-enter it and hit the "Save changes" button.', 'wp-smtp' ); ?></p>
 			<?php
 			// This might be a problem introduced in version 1.2.4 of the plugin when we started to base64_encode the username and password. Let the user know
 			if ( version_compare( '1.2.8', WPSMTP_VERSION, '>' ) ) {
@@ -259,11 +268,11 @@ class WP_SMTP {
 		// Catch the SMTP settings
 		if (isset($_POST['wp_smtp_update']) && isset($_POST['wp_smtp_nonce_update'])) {
 			if (!wp_verify_nonce(trim($_POST['wp_smtp_nonce_update']), 'my_ws_nonce')) {
-				wp_die('Security check not passed!');
+				wp_die( __( 'Security check not passed!', 'LION' ) );
 			}
 
 			if ( ! current_user_can( 'manage_options' ) ) {
-				wp_die('Security check not passed!');
+				wp_die( __( 'Security check not passed!', 'LION' ) );
 			}
 
 			$this->wsOptions                 = array();

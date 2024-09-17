@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Extension;
@@ -16,6 +16,7 @@ namespace AptowebDeps\Twig\Extension;
 use AptowebDeps\Twig\Environment;
 use AptowebDeps\Twig\FileExtensionEscapingStrategy;
 use AptowebDeps\Twig\Node\Expression\ConstantExpression;
+use AptowebDeps\Twig\Node\Expression\Filter\RawFilter;
 use AptowebDeps\Twig\Node\Node;
 use AptowebDeps\Twig\NodeVisitor\EscaperNodeVisitor;
 use AptowebDeps\Twig\Runtime\EscaperRuntime;
@@ -54,7 +55,7 @@ final class EscaperExtension extends AbstractExtension
         return [
             new TwigFilter('escape', [EscaperRuntime::class, 'escape'], ['is_safe_callback' => [self::class, 'escapeFilterIsSafe']]),
             new TwigFilter('e', [EscaperRuntime::class, 'escape'], ['is_safe_callback' => [self::class, 'escapeFilterIsSafe']]),
-            new TwigFilter('raw', [self::class, 'raw'], ['is_safe' => ['all']]),
+            new TwigFilter('raw', null, ['is_safe' => ['all'], 'node_class' => RawFilter::class]),
         ];
     }
 
@@ -119,8 +120,8 @@ final class EscaperExtension extends AbstractExtension
     /**
      * Defines a new escaper to be used via the escape filter.
      *
-     * @param string                                $strategy The strategy name that should be used as a strategy in the escape call
-     * @param callable(Environment, string, string) $callable A valid PHP callable
+     * @param string                                        $strategy The strategy name that should be used as a strategy in the escape call
+     * @param callable(Environment, string, string): string $callable A valid PHP callable
      *
      * @deprecated since Twig 3.10
      */
@@ -129,7 +130,7 @@ final class EscaperExtension extends AbstractExtension
         trigger_deprecation('twig/twig', '3.10', 'The "%s()" method is deprecated, use the "AptowebDeps\Twig\Runtime\EscaperRuntime::setEscaper()" method instead (be warned that Environment is not passed anymore to the callable).', __METHOD__);
 
         if (!isset($this->environment)) {
-            throw new \LogicException(sprintf('You must call "setEnvironment()" before calling "%s()".', __METHOD__));
+            throw new \LogicException(\sprintf('You must call "setEnvironment()" before calling "%s()".', __METHOD__));
         }
 
         $this->escapers[$strategy] = $callable;
@@ -143,7 +144,7 @@ final class EscaperExtension extends AbstractExtension
     /**
      * Gets all defined escapers.
      *
-     * @return array<callable(Environment, string, string)> An array of escapers
+     * @return array<string, callable(Environment, string, string): string> An array of escapers
      *
      * @deprecated since Twig 3.10
      */
@@ -162,7 +163,7 @@ final class EscaperExtension extends AbstractExtension
         trigger_deprecation('twig/twig', '3.10', 'The "%s()" method is deprecated, use the "AptowebDeps\Twig\Runtime\EscaperRuntime::setSafeClasses()" method instead.', __METHOD__);
 
         if (!isset($this->escaper)) {
-            throw new \LogicException(sprintf('You must call "setEnvironment()" before calling "%s()".', __METHOD__));
+            throw new \LogicException(\sprintf('You must call "setEnvironment()" before calling "%s()".', __METHOD__));
         }
 
         $this->escaper->setSafeClasses($safeClasses);
@@ -176,22 +177,10 @@ final class EscaperExtension extends AbstractExtension
         trigger_deprecation('twig/twig', '3.10', 'The "%s()" method is deprecated, use the "AptowebDeps\Twig\Runtime\EscaperRuntime::addSafeClass()" method instead.', __METHOD__);
 
         if (!isset($this->escaper)) {
-            throw new \LogicException(sprintf('You must call "setEnvironment()" before calling "%s()".', __METHOD__));
+            throw new \LogicException(\sprintf('You must call "setEnvironment()" before calling "%s()".', __METHOD__));
         }
 
         $this->escaper->addSafeClass($class, $strategies);
-    }
-
-    /**
-     * Marks a variable as being safe.
-     *
-     * @param string $string A PHP variable
-     *
-     * @internal
-     */
-    public static function raw($string)
-    {
-        return $string;
     }
 
     /**

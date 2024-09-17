@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Cache;
@@ -52,11 +52,11 @@ class FilesystemCache implements CacheInterface
             if (false === @mkdir($dir, 0777, true)) {
                 clearstatcache(true, $dir);
                 if (!is_dir($dir)) {
-                    throw new \RuntimeException(sprintf('Unable to create the cache directory (%s).', $dir));
+                    throw new \RuntimeException(\sprintf('Unable to create the cache directory (%s).', $dir));
                 }
             }
         } elseif (!is_writable($dir)) {
-            throw new \RuntimeException(sprintf('Unable to write in the cache directory (%s).', $dir));
+            throw new \RuntimeException(\sprintf('Unable to write in the cache directory (%s).', $dir));
         }
 
         $tmpFile = tempnam($dir, basename($key));
@@ -75,7 +75,7 @@ class FilesystemCache implements CacheInterface
             return;
         }
 
-        throw new \RuntimeException(sprintf('Failed to write cache file "%s".', $key));
+        throw new \RuntimeException(\sprintf('Failed to write cache file "%s".', $key));
     }
 
     public function getTimestamp(string $key): int

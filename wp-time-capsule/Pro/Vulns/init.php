@@ -270,7 +270,7 @@ class Wptc_Vulns extends WPTC_Privileges{
 			return false;
 		}
 
-		$settings = unserialize($settings_serialized);
+		$settings = unserialize($settings_serialized, ['allowed_classes' => false]);
 
 		return empty($settings) ? array() : $settings;
 	}
@@ -283,7 +283,7 @@ class Wptc_Vulns extends WPTC_Privileges{
 
 		$vulns_settings = $this->get_vulns_settings();
 
-		$excluded_themes = empty($vulns_settings['themes']['excluded']) ? array() : unserialize($vulns_settings['themes']['excluded']);
+		$excluded_themes = empty($vulns_settings['themes']['excluded']) ? array() : unserialize($vulns_settings['themes']['excluded'], ['allowed_classes' => false]);
 
 		if (empty($excluded_themes)) {
 			$excluded_themes = array();
@@ -306,7 +306,7 @@ class Wptc_Vulns extends WPTC_Privileges{
 
 		$plugins = array();
 		$vulns_settings = $this->get_vulns_settings();
-		$excluded_plugins = empty($vulns_settings['plugins']['excluded']) ? array() : unserialize($vulns_settings['plugins']['excluded']);
+		$excluded_plugins = empty($vulns_settings['plugins']['excluded']) ? array() : unserialize($vulns_settings['plugins']['excluded'], ['allowed_classes' => false]);
 
 		$i=0;
 		foreach ($all_plugins as $slug => $plugin) {
@@ -378,8 +378,8 @@ class Wptc_Vulns extends WPTC_Privileges{
 	public function get_format_vulns_settings_to_send_server(){
 		$vulns_settings = $this->get_vulns_settings();
 
-		$excluded_themes = empty($vulns_settings['themes']['excluded']) ? array() : unserialize($vulns_settings['themes']['excluded']);
-		$excluded_plugins = empty($vulns_settings['plugins']['excluded']) ? array() : unserialize($vulns_settings['plugins']['excluded']);
+		$excluded_themes = empty($vulns_settings['themes']['excluded']) ? array() : unserialize($vulns_settings['themes']['excluded'], ['allowed_classes' => false]);
+		$excluded_plugins = empty($vulns_settings['plugins']['excluded']) ? array() : unserialize($vulns_settings['plugins']['excluded'], ['allowed_classes' => false]);
 
 		return array(
 			'status' => ($vulns_settings['status'] === 'yes' ) ? true : false,

@@ -915,6 +915,32 @@ class MetaSeoContentListTable extends WP_List_Table
                 unset($posts_metas);
             }
 
+            // import taxonomies meta description and title from yoast
+            $yoast_taxonomies = get_option('wpseo_taxonomy_meta');
+            foreach ($yoast_taxonomies as $taxonomy_slug => $terms) {
+                foreach ($terms as $term_id => $meta_data) {
+                    $term_obj = get_term($term_id);
+                    if ($term_obj instanceof WP_Term) {
+                        // Update taxonomies meta title and desc that was set in yoast
+                        $existing_title = get_term_meta($term_id, 'wpms_category_metatitle', true);
+                        if (isset($meta_data['wpseo_title']) && '' !== $meta_data['wpseo_title']) {
+                            if ($existing_title) {
+                                update_term_meta($term_id, 'wpms_category_metatitle', wpseo_replace_vars($meta_data['wpseo_title'], $term_obj), $existing_title);
+                            } else {
+                                update_term_meta($term_id, 'wpms_category_metatitle', wpseo_replace_vars($meta_data['wpseo_title'], $term_obj));
+                            }
+                        }
+                        $existing_desc = get_term_meta($term_id, 'wpms_category_metadesc', true);
+                        if (isset($meta_data['wpseo_desc']) && '' !== $meta_data['wpseo_desc']) {
+                            if ($existing_desc) {
+                                update_term_meta($term_id, 'wpms_category_metadesc', wpseo_replace_vars($meta_data['wpseo_desc'], $term_obj), $existing_desc);
+                            } else {
+                                update_term_meta($term_id, 'wpms_category_metadesc', wpseo_replace_vars($meta_data['wpseo_desc'], $term_obj));
+                            }
+                        }
+                    }
+                }
+            }
 
             $ret['success'] = true;
 

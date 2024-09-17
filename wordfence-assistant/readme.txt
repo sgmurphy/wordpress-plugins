@@ -2,8 +2,8 @@
 Contributors: mmaunder, wfryan, wfmattr
 Tags: wordfence, wordfence assistant, wordfence helper, wordfence security assistant, wordfence security helper 
 Requires at least: 3.9
-Tested up to: 5.7
-Stable tag: 1.0.9
+Tested up to: 6.6
+Stable tag: 1.0.10
 
 Wordfence Assistant provides data management utilities for Wordfence users.  
 
@@ -24,6 +24,10 @@ If you have been locked out of your WordPress installation, we provide a user-fr
 To install Wordfence assistant, simply install it as you would any other WordPress plugin. Once installed you'll see a "WF Assistant" menu on the left side of your administrative interface. If you click the menu option the data management options are self explanatory.
 
 == Changelog ==
+
+= 1.0.10 =
+* Incremented version number to update "Tested up to"
+* NOTE: To allow us to provide better support, Wordfence Assistant will be removed from the wordpress.org plugin repository soon and instead be made available via our support channels
 
 = 1.0.9 =
 * Incremented version number to work around build issues

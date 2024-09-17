@@ -131,7 +131,7 @@ class Custom2Template implements TemplateInterface {
 
 					if ( $element['for'] === 'images' && isset( $element['attr_code'] ) ) {
 						$images = $this->productEngine->custom_xml_images( $product );
-						if ( ! empty( $images ) ) {
+						if ( ! empty( $images ) && is_array($images) ) {
 							foreach ( $images as $image ) {
 								$element['elementTextInfo'] = $image;
 								$element['attr_type']       = 'text';
@@ -247,7 +247,11 @@ class Custom2Template implements TemplateInterface {
 		// Make XML Element Text
 		if ( ! empty( $element['elementTextInfo'] ) ) {
 			if ( 'attribute' === $element['attr_type'] ) {
-				$output = ProductHelper::get_attribute_value_by_type( $element['attr_code'], $product, $this->config );
+				$parent_product = null;
+				if ( $product && $product->is_type( 'variation' ) ) {
+					$parent_product = wc_get_product( $product->get_parent_id() );
+				}
+				$output = ProductHelper::get_attribute_value_by_type( $element['attr_code'], $product, $this->config, null, $parent_product );
 				$output = ProductHelper::str_replace( $output, $element['attr_code'], $this->config );
 			} elseif ( 'return' === $element['attr_type'] ) {
 //				$output = $this->getReturnTypeValue( $element, $product );

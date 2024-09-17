@@ -281,7 +281,7 @@ class WPTC_Stage_To_Live{
 		$raw_result = $this->config->get_option('same_server_replace_old_url_data');
 		$tables = false;
 		if (!empty($raw_result)) {
-			$tables = @unserialize($raw_result);
+			$tables = @unserialize($raw_result, ['allowed_classes' => false]);
 		}
 
 		$old_url       = site_url();
@@ -313,6 +313,7 @@ class WPTC_Stage_To_Live{
 
 	private function get_hash_by_folders(){
 		wptc_manual_debug('', 'start_get_hash_by_folder_S2L');
+		wptc_log('', '---------------get_hash_by_folders-----------------');
 
 		$break = false;
 		$loop = $temp_counter = 0;
@@ -336,6 +337,7 @@ class WPTC_Stage_To_Live{
 			}
 
 			// wptc_log(array(), '--------Running--------');
+			
 			if(wptc_is_dir($path)){
 				$this->get_hash_dir($relative_path, $dir_meta->offset, $temp_counter, $deep_dirs);
 			} else {
@@ -352,7 +354,9 @@ class WPTC_Stage_To_Live{
 
 		$file = $iterator->getPathname();
 
+		// wptc_log($file, '---------------process_file-----------------');
 		if (!$iterator->isReadable()) {
+			wptc_log($file, '--------iterator process_file not readable--------');
 			return ;
 		}
 
@@ -392,6 +396,7 @@ class WPTC_Stage_To_Live{
 
 		$is_recursive = ($deep_dirs) ? false : true;
 
+		// wptc_log($path, '---------------get_hash_dir-----------------');
 		try{
 			$seek_file_iterator->process_iterator($path, $offset, $is_recursive);
 		} catch(Exception $e){
@@ -795,7 +800,7 @@ class WPTC_Stage_To_Live{
 			return false;
 		}
 
-		$is_wptc_request = @unserialize(base64_decode($_REQUEST['data']));
+		$is_wptc_request = @unserialize(base64_decode($_REQUEST['data']), ['allowed_classes' => false]);
 
 		wptc_log($is_wptc_request, '---------------$is_wptc_request-----------------');
 

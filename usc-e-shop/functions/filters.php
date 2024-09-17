@@ -1539,7 +1539,11 @@ function usces_responce_wcsite() {
  * Welcart activate.
  */
 function usces_wcsite_activate() {
-	$usces                             = get_option( 'usces', array() );
+	$usces       = get_option( 'usces', array() );
+	$circulating = wel_get_circulating_amount();
+	$sku_num     = wel_get_sku_total_num();
+	$cat_num     = wel_get_cat_total_num();
+
 	$metas['usces_company_name']       = $usces['company_name'];
 	$metas['usces_company_tel']        = $usces['tel_number'];
 	$metas['usces_company_number']     = $usces['business_registration_number'];
@@ -1547,8 +1551,11 @@ function usces_wcsite_activate() {
 	$metas['usces_company_location']   = $usces['address1'] . ' ' . $usces['address2'];
 	$metas['usces_inquiry_mail']       = $usces['inquiry_mail'];
 	$metas['usces_base_country']       = $usces['system']['base_country'];
-	$metas['usces_circulating_amount'] = wel_get_circulating_amount();
+	$metas['usces_circulating_amount'] = $circulating['amount'];
+	$metas['usces_circulating_count']  = $circulating['count'];
 	$metas['usces_categories']         = wel_get_categories();
+	$metas['usces_cat_num']            = $cat_num;
+	$metas['usces_sku_num']            = $sku_num;
 	$metas['usces_themes']             = wel_get_themes();
 	$metas['usces_plugins']            = wel_get_plugins();
 	$metas['usces_used_sett']          = wel_get_activ_pay_methd();

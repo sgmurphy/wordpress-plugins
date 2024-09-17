@@ -2,9 +2,9 @@
 Contributors: optinmonster, griffinjt, smub
 Tags: popup, popups, optin, conversion, marketing, newsletter, popup builder, popup maker, email marketing, exit popup, ecommerce, woocommerce, lightbox
 Requires at least: 4.7.0
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.3
-Stable tag: 2.16.4
+Stable tag: 2.16.5
 License: GNU General Public License v2.0 or later
 
 🤩 Make popups & optin forms to get more email newsletter subscribers, leads, and sales - #1 most popular popup builder plugin! 🚀
@@ -108,7 +108,7 @@ These personalization features of OptinMonster popups make them highly effective
 
 Unlike other WordPress lead generation plugins, OptinMonster comes with reliable A/B split testing and accurate analytics without slowing down your site.
 
-Most of them use wp-ajax to setup nalytics. This slows down your site and also results in unreliable analytics due to cache plugin settings.
+Most of them use wp-ajax to setup analytics. This slows down your site and also results in unreliable analytics due to cache plugin settings.
 
 Similarly, A/B testing in a most WordPress popup plugins is broken because caching plugins can skew the data.
 
@@ -179,7 +179,7 @@ Here is a list of our popular marketing integrations:
 * <a href="https://optinmonster.com/integrations/constant-contact/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">Constant Contact</a>
 * <a href="https://optinmonster.com/integrations/mailchimp/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">Mailchimp</a>
 * <a href="https://optinmonster.com/integrations/aweber/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">AWeber</a>
-* <a href="https://optinmonster.com/integrations/aweber/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">Infusionsoft (Keap)</a>
+* <a href="https://optinmonster.com/integrations/keap/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">Infusionsoft (Keap)</a>
 * <a href="https://optinmonster.com/integrations/active-campaign/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">ActiveCampaign</a>
 * <a href="https://optinmonster.com/integrations/convertkit/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">ConvertKit</a>
 * <a href="https://optinmonster.com/integrations/sendinblue/?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">Brevo (formerly Sendinblue)</a>
@@ -255,7 +255,7 @@ Yes! OptinMonster integrates with many WordPress plugins out of the box and we'v
 * <a href="https://optinmonster.com/docs/how-to-use-wordpress-shortcodes-with-optinmonster?utm_source=orgplugin&utm_medium=link&utm_campaign=wpreadme" rel="friend">Contact Form 7 Popup</a> - Easily create Contact Form 7 popups with OptinMonster.
 * <a href="https://optinmonster.com/docs/how-to-integrate-optinmonster-with-memberpress/?utm_source=orgplugin&amp;utm_medium=link&amp;utm_campaign=wpreadme" rel="friend">MemberPress</a> - Create popups for your membership site or course
 * <a href="https://optinmonster.com/docs/how-to-integrate-optinmonster-with-easy-digital-downloads/?utm_source=orgplugin&amp;utm_medium=link&amp;utm_campaign=wpreadme" rel="friend">Easy Digital Downloads</a> - Create popups to sell digital downloads and encourage users to buy
-* <a href="https://automatorplugin.com/">Uncanny Automator</a> - Easily integrate OptinMosnter with hundreds of other WordPress plugins and apps, creating endless automations.
+* <a href="https://automatorplugin.com/">Uncanny Automator</a> - Easily integrate OptinMonster with hundreds of other WordPress plugins and apps, creating endless automations.
 
 If your plugin utilizes Shortcodes, you should be able to use those shortcodes directly in your OptinMonster popups. Imagine the endless possibilities!
 
@@ -281,7 +281,7 @@ We made OptinMonster popup builder to be both easy and powerful with these field
 * Chatbots
 * Progress Bars
 * Social Icons
-* FontAwesome Icons
+* Font Awesome Icons
 * Spacers and Dividers
 * Columns field – create multi-column layouts
 * Google ReCAPTCHA
@@ -327,6 +327,11 @@ We also recommend <a href="http://www.wpbeginner.com/">WPBeginner</a> for the be
 == Changelog ==
 
 **Most Recent Changes:**
+
+= Popup Builder 2.16.5 =
+* Support for improved campaign publishing from within the campaign builder.
+* Improved frontend output when no campaigns are assigned to the site.
+* Various npm package updates used for generating our JavaScript code.
 
 = Popup Builder 2.16.4 =
 * Fixed an issue where "Never load on..." output settings were hidden.

@@ -37,7 +37,7 @@ class Wptc_Bridge{
 	}
 
 	public function decode_request_data(){
-		$this->params = unserialize(base64_decode($this->params['data']));
+		$this->params = unserialize(base64_decode($this->params['data']), ['allowed_classes' => false]);
 	}
 
 	public function find_action(){

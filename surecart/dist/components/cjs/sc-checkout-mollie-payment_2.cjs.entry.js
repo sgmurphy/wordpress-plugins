@@ -8,7 +8,7 @@ require('./watchers-ce17ff92.js');
 const getters = require('./getters-ea9c2b72.js');
 const mutations = require('./mutations-164b66b1.js');
 const getters$1 = require('./getters-8b2c88a6.js');
-const mutations$1 = require('./mutations-7f57e396.js');
+const mutations$1 = require('./mutations-8260a74b.js');
 const fetch = require('./fetch-2dba325c.js');
 const MockProcessor = require('./MockProcessor-3e4abd31.js');
 const mutations$2 = require('./mutations-8d7c4499.js');

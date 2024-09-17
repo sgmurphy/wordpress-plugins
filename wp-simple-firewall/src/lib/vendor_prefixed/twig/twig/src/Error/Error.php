@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Error;
@@ -145,15 +145,15 @@ class Error extends \Exception
 
         if ($this->name) {
             if (\is_string($this->name) || (\is_object($this->name) && method_exists($this->name, '__toString'))) {
-                $name = sprintf('"%s"', $this->name);
+                $name = \sprintf('"%s"', $this->name);
             } else {
                 $name = json_encode($this->name);
             }
-            $this->message .= sprintf(' in %s', $name);
+            $this->message .= \sprintf(' in %s', $name);
         }
 
         if ($this->lineno && $this->lineno >= 0) {
-            $this->message .= sprintf(' at line %d', $this->lineno);
+            $this->message .= \sprintf(' at line %d', $this->lineno);
         }
 
         if ($dot) {

@@ -9,7 +9,7 @@ const store = require('./store-96a02d63.js');
 const mutations = require('./mutations-164b66b1.js');
 const consumer = require('./consumer-21fdeb72.js');
 const getters = require('./getters-1e382cac.js');
-const mutations$1 = require('./mutations-7f57e396.js');
+const mutations$1 = require('./mutations-8260a74b.js');
 const index$1 = require('./index-a9c75016.js');
 const index$2 = require('./index-fb76df07.js');
 const index$3 = require('./index-f9d999d6.js');
@@ -325,6 +325,10 @@ const ScOrderBump = class {
       });
       index$2.speak(wp.i18n.__('Order bump Removed.', 'surecart'));
     }
+  }
+  componentDidLoad() {
+    var _a;
+    mutations$1.trackOrderBump((_a = this.bump) === null || _a === void 0 ? void 0 : _a.id);
   }
   newPrice() {
     var _a, _b, _c, _d, _e, _f;

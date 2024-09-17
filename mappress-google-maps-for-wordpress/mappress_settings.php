@@ -296,6 +296,10 @@ class Mappress_Settings {
 		// If all sizes were deleted, add one back in
 		if (!isset($settings->sizes) || empty($settings->sizes))
 		$settings->sizes = array( array('width' => '100%', 'height' => '350px') );
+
+		// Sanitize POI fields
+		if (isset($settings->poiFields)) 
+			$settings->poiFields = self::sanitize_poi_fields($settings->poiFields);
 		
 		// Merge in old values so they're not lost, e.g. stylesMapbox and stylesGoogle
 		$options = Mappress_Options::get();
@@ -303,6 +307,7 @@ class Mappress_Settings {
 				
 		// Default icon may be null, in which case update will have skipped it
 		$options->defaultIcon = $settings->defaultIcon;
+		
 		$options->save();
 		Mappress::ajax_response('OK');
 	}
@@ -572,6 +577,21 @@ class Mappress_Settings {
 			<div id="mapp-options-page"></div>
 		<?php
 	}
+	
+	static function sanitize_poi_fields($poi_fields) {
+		if (isset($poi_fields) && is_array($poi_fields)) {
+			$allowed_html = wp_kses_allowed_html('post');            
+			foreach($poi_fields as &$field) {
+				if (isset($field['key']))
+					$field['key'] = wp_kses($field['key'], $allowed_html);
+				
+				if (isset($field['label']))
+					$field['label'] = wp_kses($field['label'], $allowed_html);
+			}
+		}
+		return $poi_fields;
+	}
+		
 
 	static function support_page() {
 		$options = Mappress::$options;

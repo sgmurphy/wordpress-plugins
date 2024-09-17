@@ -4,7 +4,7 @@ Tags: contact form, custom form, form builder, forms, survey
 Requires at least: 5.2
 Tested up to: 6.6.1
 Requires PHP: 7.2
-Stable tag: 3.0.3
+Stable tag: 3.0.3.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -308,8 +308,12 @@ Yes you can! Join in on our [GitHub repository](https://github.com/wpeverest/eve
 
 == Changelog ==
 
+= 3.0.3.1       - 17-09-2024
+* Fix           - Issue with add new form template designs.
+* Fix           - Copy/Paste not working in word limit.
+
 = 3.0.3        - 16-09-2024
-* Feature      - Add new templates.
+* Feature      - Add new form page design.
 * Feature      - Entry submission RestApi.
 * Enhancement  - Send file directly as an attachment.
 * Fix          - Premium sidebar design issue.

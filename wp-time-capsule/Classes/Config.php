@@ -870,6 +870,7 @@ class WPTC_Config {
 
 		$privileged_feature = array();
 		$privileges_args = array();
+		$privileged_feature['pro'] = array();
 
 		foreach($sub_features as $plan_id => $single_sub){
 			foreach($single_sub as $key => $v){
@@ -878,7 +879,7 @@ class WPTC_Config {
 			}
 		}
 
-		//Remove on production
+		// Remove on production
 		array_push($privileges_args, 'Wptc_Rollback');
 		array_push($privileged_feature['pro'], 'Wptc_Rollback');
 
@@ -1320,7 +1321,7 @@ class WPTC_Config {
 
 	public function get_database_encryption_settings($type){
 		$settings = $this->get_option('database_encrypt_settings');
-		$settings = !empty($settings) ? unserialize($settings) : array();
+		$settings = !empty($settings) ? unserialize($settings, ['allowed_classes' => false]) : array();
 
 		if (empty($settings)) {
 			return false;

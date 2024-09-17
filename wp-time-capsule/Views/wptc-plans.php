@@ -281,7 +281,7 @@ class Wptc_Plans
 			return '';
 		}
 
-		$plans = unserialize($plans);
+		$plans = unserialize($plans, ['allowed_classes' => false]);
 
 		$html = '<div class="wptc-select-plans-div">
 					<span>Current Plan </span>

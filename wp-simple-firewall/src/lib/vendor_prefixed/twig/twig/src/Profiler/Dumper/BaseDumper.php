@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\Profiler\Dumper;
@@ -52,7 +52,7 @@ abstract class BaseDumper
         if ($profile->getDuration() * 1000 < 1) {
             $str = $start."\n";
         } else {
-            $str = sprintf("%s %s\n", $start, $this->formatTime($profile, $percent));
+            $str = \sprintf("%s %s\n", $start, $this->formatTime($profile, $percent));
         }
 
         $nCount = \count($profile->getProfiles());

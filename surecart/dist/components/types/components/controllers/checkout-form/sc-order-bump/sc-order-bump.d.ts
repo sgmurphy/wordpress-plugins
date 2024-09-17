@@ -12,6 +12,7 @@ export declare class ScOrderBump {
   scRemoveLineItem: EventEmitter<LineItemData>;
   /** Update the line item. */
   updateLineItem(add: boolean): void;
+  componentDidLoad(): void;
   newPrice(): any;
   renderInterval(): any;
   renderPrice(): any;

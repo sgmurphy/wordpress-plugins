@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Modified by Paul Goodchild on 19-July-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by Paul Goodchild on 12-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace AptowebDeps\Twig\NodeVisitor;
@@ -17,7 +17,6 @@ use AptowebDeps\Twig\Environment;
 use AptowebDeps\Twig\Node\BlockReferenceNode;
 use AptowebDeps\Twig\Node\Expression\BlockReferenceExpression;
 use AptowebDeps\Twig\Node\Expression\ConstantExpression;
-use AptowebDeps\Twig\Node\Expression\FilterExpression;
 use AptowebDeps\Twig\Node\Expression\FunctionExpression;
 use AptowebDeps\Twig\Node\Expression\GetAttrExpression;
 use AptowebDeps\Twig\Node\Expression\NameExpression;
@@ -57,8 +56,12 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
      */
     public function __construct(int $optimizers = -1)
     {
-        if ($optimizers > (self::OPTIMIZE_FOR | self::OPTIMIZE_RAW_FILTER)) {
-            throw new \InvalidArgumentException(sprintf('Optimizer mode "%s" is not valid.', $optimizers));
+        if ($optimizers > (self::OPTIMIZE_FOR | self::OPTIMIZE_RAW_FILTER | self::OPTIMIZE_TEXT_NODES)) {
+            throw new \InvalidArgumentException(\sprintf('Optimizer mode "%s" is not valid.', $optimizers));
+        }
+
+        if (-1 !== $optimizers && self::OPTIMIZE_RAW_FILTER === (self::OPTIMIZE_RAW_FILTER & $optimizers)) {
+            trigger_deprecation('twig/twig', '3.11', 'The "AptowebDeps\Twig\NodeVisitor\OptimizerNodeVisitor::OPTIMIZE_RAW_FILTER" option is deprecated and does nothing.');
         }
 
         $this->optimizers = $optimizers;
@@ -77,10 +80,6 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
     {
         if (self::OPTIMIZE_FOR === (self::OPTIMIZE_FOR & $this->optimizers)) {
             $this->leaveOptimizeFor($node);
-        }
-
-        if (self::OPTIMIZE_RAW_FILTER === (self::OPTIMIZE_RAW_FILTER & $this->optimizers)) {
-            $node = $this->optimizeRawFilter($node);
         }
 
         $node = $this->optimizePrintNode($node);
@@ -109,7 +108,7 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
             return $node;
         }
 
-        if (Node::class === get_class($node)) {
+        if (Node::class === \get_class($node)) {
             return new TextNode($text, $node->getTemplateLine());
         }
 
@@ -150,18 +149,6 @@ final class OptimizerNodeVisitor implements NodeVisitorInterface
             $exprNode->setAttribute('output', true);
 
             return $exprNode;
-        }
-
-        return $node;
-    }
-
-    /**
-     * Removes "raw" filters.
-     */
-    private function optimizeRawFilter(Node $node): Node
-    {
-        if ($node instanceof FilterExpression && 'raw' == $node->getNode('filter')->getAttribute('value')) {
-            return $node->getNode('node');
         }
 
         return $node;

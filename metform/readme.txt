@@ -886,3 +886,7 @@ MetForm doesn't give you trouble working while there are multiple other WordPres
 Check our [Documentation section here](https://help.wpmet.com/docs-cat/metform/)  to understand the alpha and omega of MetForm.
 
 But you can see this video https://www.youtube.com/watch?v=rvawKRgLC14
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/metform)

@@ -913,6 +913,9 @@ if ( ! class_exists( 'BeRocket_updater' ) ) {
                         $api = (array)$api;
                         $val = array_merge($api, $val);
                     }
+                    if( isset($val['upgrade_notice']) && ! is_string($val['upgrade_notice']) ) {
+                        $val['upgrade_notice'] = '';
+                    }
                     $val = (object)$val;
                     $value->response[ $plugin[ 'plugin' ] ] = $val;
                     

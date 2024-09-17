@@ -1,4 +1,4 @@
-﻿=== ShopEngine Elementor WooCommerce Builder Addon – All in One WooCommerce Solution ===
+=== ShopEngine Elementor WooCommerce Builder Addon – All in One WooCommerce Solution ===
 
 Contributors: xpeedstudio, Ataurr, emranio
 Tags: WooCommerce, WooCommerce Builder, Elementor, Elementor WooCommerce, Product Template, WooCommerce blocks, WooCommerce Product, Product Slider, Shopping Cart, Wishlist, Woo Builder, Variation Swatches
@@ -1037,3 +1037,6 @@ You will get support and updates of ShopEngine Elementor WooCommerce Builder for
 
 = What Payment Methods do you offer? =
 We accept both credit cards and PayPal for payment purposes.
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/shopengine)

@@ -1351,6 +1351,9 @@ class Ays_Pb_Public {
 
             $screen_shade = $ays_pb_template == 'notification' ? '' : "<div id='ays-pb-screen-shade_" . $id . "' overlay='overlay_" . $id . "' data-mobile-overlay='" . $enable_overlay_text_mobile . "'></div>";
 
+            // Notification type | Logo max-width
+            $notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) . 'px' : '100px';
+
             // Notification type | Button 1 background color
             $notification_button_1_bg_color = (isset($options['notification_button_1_bg_color']) && $options['notification_button_1_bg_color'] != '') ? stripslashes( esc_attr($options['notification_button_1_bg_color']) ) : '#F66123';
 
@@ -1442,6 +1445,10 @@ class Ays_Pb_Public {
                         .ays-pb-modal-check:checked ~ #ays-pb-screen-shade_".$id." {
                             opacity: 0.5;
                             pointer-events: auto;
+                        }
+
+                        .ays_notification_window.ays-pb-modal_".$id." .ays_pb_notification_logo img {
+                            max-width: " . $notification_logo_max_width . ";
                         }
 
                         .ays_notification_window.ays-pb-modal_".$id." div.ays_pb_notification_button_1 button {

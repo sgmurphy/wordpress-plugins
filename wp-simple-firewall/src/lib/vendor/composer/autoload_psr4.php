@@ -9,6 +9,7 @@ return array(
     'ZxcvbnPhp\\' => array($vendorDir . '/fernleafsystems/zxcvbn-php/src'),
     'Webauthn\\MetadataService\\' => array($vendorDir . '/web-auth/metadata-service/src'),
     'Webauthn\\' => array($vendorDir . '/web-auth/webauthn-lib/src'),
+    'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Polyfill\\Iconv\\' => array($vendorDir . '/symfony/polyfill-iconv'),

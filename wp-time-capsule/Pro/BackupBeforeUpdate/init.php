@@ -340,7 +340,7 @@ class Wptc_Backup_Before_Update extends WPTC_Privileges {
 			return false;
 		}
 
-		$upgrade_responses = unserialize($raw_data);
+		$upgrade_responses = unserialize($raw_data, ['allowed_classes' => false]);
 
 		wptc_log($upgrade_responses, '--------$upgrade_responses update_response_details--------');
 		$update_type = $upgrade_responses['update_type'];
@@ -983,7 +983,7 @@ class Wptc_Backup_Before_Update extends WPTC_Privileges {
 			//first update
 			$update_response_details['update_type'] = $this->process_upgrade_type_prefix;
 		} else {
-			$update_response_details = unserialize($raw_update_response_details);
+			$update_response_details = unserialize($raw_update_response_details, ['allowed_classes' => false]);
 		}
 
 		$update_response_details[$this->process_upgrade_item_type][] = array(
@@ -1571,7 +1571,7 @@ class Wptc_Backup_Before_Update extends WPTC_Privileges {
 			return $this->parse_bulk_upgrade_response();
 		}
 
-		$bulk_update_request = unserialize($raw_bulk_update_request);
+		$bulk_update_request = unserialize($raw_bulk_update_request, ['allowed_classes' => false]);
 
 		wptc_log($bulk_update_request, '--------$bulk_update_request--------');
 
