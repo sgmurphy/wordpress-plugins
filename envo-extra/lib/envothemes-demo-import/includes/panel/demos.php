@@ -2275,10 +2275,12 @@ if ( !class_exists( 'EnvoThemes_Demos' ) ) {
 			public function process_xml( $file ) {
 
 				$response = envo_Demos_Helpers::get_remote( $file );
+				$theme		 = wp_get_theme();
+				$url		 = 'https://envothemes.com/docs/docs/' . $theme->template . '/one-click-demo-import/import-failed-manual-import/';
 
 				// No sample data found
 				if ( $response === false ) {
-					return new WP_Error( 'xml_import_error', __( 'Can not retrieve sample data xml file. The server may be down at the moment please try again later. If you still have issues contact the theme developer for assistance.', 'envothemes-demo-import' ) );
+					return new WP_Error( 'xml_import_error', sprintf(__( 'Can not retrieve sample data xml file. The server may be down at the moment please try again later or try manual import. How to: %1$s', 'envothemes-demo-import' ), $url ) );
 				}
 
 				// Write sample data content to temp xml file
@@ -2293,7 +2295,7 @@ if ( !class_exists( 'EnvoThemes_Demos' ) ) {
 					$this->import_xml( $attachment_url );
 				} else {
 					// Import file can't be imported - we should die here since this is core for most people.
-					return new WP_Error( 'xml_import_error', __( 'The xml import file could not be accessed. Please try again or contact the theme developer.', 'envothemes-demo-import' ) );
+					return new WP_Error( 'xml_import_error', sprintf(__( 'The xml import file could not be accessed. Please try again or try manual import. How to: %1$s', 'envothemes-demo-import' ), $url ) );
 				}
 			}
 

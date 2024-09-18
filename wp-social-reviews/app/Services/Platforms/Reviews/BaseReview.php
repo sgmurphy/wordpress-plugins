@@ -5,9 +5,7 @@ namespace WPSocialReviews\App\Services\Platforms\Reviews;
 use WPSocialReviews\App\Models\Review;
 use WPSocialReviews\Framework\Support\Arr;
 use WPSocialReviews\App\Services\Platforms\Feeds\CacheHandler;
-use WPSocialReviews\App\Services\Platforms\Reviews\Airbnb;
 use WPSocialReviews\Database\Migrations\ReviewsMigrator;
-use WPSocialReviews\App\Services\Platforms\Reviews\Helper;
 use WPSocialReviews\App\Services\Helper as ServicesHelper;
 
 abstract class BaseReview
@@ -77,23 +75,34 @@ abstract class BaseReview
         }
     }
 
-    public function syncRemoteReviews($reviews)
+    public function syncRemoteReviews($reviews, $placeId = '')
     {
+        $currentReviewId = null;
+        $lastFetchedReviewsIds = get_option('last_fetched_reviews_id', []);
+        $lastFetchedReviewId = Arr::get($lastFetchedReviewsIds, $this->platform.'.'.$placeId, '');
+
+
         $remoteSyncReviewerNames = apply_filters('wpsocialreviews/reviewer_name_based_providers', [
-            'tripadvisor',
             'booking.com',
             'amazon'
         ]);
 
         $remoteSyncConsumerDisplayNames = apply_filters('wpsocialreviews/consumer_displayName_value_providers', []);
 
+
         foreach ($reviews as $index => $review) {
+            if(($this->platform === 'tripadvisor' || $this->platform === 'yelp')){
+                $currentReviewId = Arr::get($review, 'id');
+                // Skip reviews that have already been fetched
+                if ($currentReviewId === $lastFetchedReviewId) {
+                    continue; // Skip reviews already stored
+                }
+            }
+
             $exist = false;
-            if ($this->platform === 'airbnb') {
-                $fieldName = 'reviewer_img';
-            } elseif (in_array($this->platform, $remoteSyncReviewerNames)) {
+            if (in_array($this->platform, $remoteSyncReviewerNames)) {
                 $fieldName = 'reviewer_name';
-            } elseif($this->platform === 'google' || $this->platform === 'woocommerce' || $this->platform === 'aliexpress') {
+            } elseif($this->platform === 'yelp' || $this->platform === 'airbnb' || $this->platform === 'google' || $this->platform === 'tripadvisor' || $this->platform === 'woocommerce' || $this->platform === 'aliexpress') {
                 $fieldName = 'review_id';
             } else {
                 $fieldName = 'reviewer_url';
@@ -102,20 +111,18 @@ abstract class BaseReview
             $value = '';
             if ($this->platform === 'zomato') {
                 $value = Arr::get($review, 'review.user.profile_url');
-            } elseif ($this->platform === 'yelp') {
-                $value = Arr::get($review, 'user.profile_url');
             } elseif ($this->platform === 'aliexpress') {
                 $value = Arr::get($review, 'evaluationIdStr');
-            } elseif ($this->platform === 'tripadvisor' || $this->platform === 'booking.com' || $this->platform === 'woocommerce') {
+            } elseif ($this->platform === 'booking.com' || $this->platform === 'woocommerce') {
                 $value = Arr::get($review, 'reviewer_name');
+            } elseif ($this->platform === 'tripadvisor' || $this->platform === 'airbnb' || $this->platform === 'yelp') {
+                $value = Arr::get($review, 'id');
             } elseif ($this->platform === 'google') {
                 $value = Arr::get($review, 'reviewId');
-            } elseif ($this->platform === 'woocommerce'){
+            } elseif ($this->platform === 'woocommerce') {
                 $value = Arr::get($review, 'review_id');
             } elseif ($this->platform === 'facebook') {
                 $value = isset($review['reviewer']['id']) ? 'https://facebook.com/' . $review['reviewer']['id'] : $review['open_graph_story']['id'];
-            } elseif ($this->platform === 'airbnb') {
-                $value = Arr::get($review, 'reviewer.picture_url');
             } elseif($this->platform === 'amazon') {
                 $value = Arr::get($review, 'reviewer_name');
             } elseif(in_array($this->platform, $remoteSyncConsumerDisplayNames)) {
@@ -127,7 +134,7 @@ abstract class BaseReview
                 ->where($fieldName, $value)
                 ->first();
 
-            if(($this->platform === 'tripadvisor' || $this->platform === 'woocommerce') && Arr::get($review, 'review_id')) {
+            if(($this->platform === 'woocommerce') && Arr::get($review, 'review_id')) {
                 $exist = Review::where('platform_name', $this->platform)
                     ->where('review_id', Arr::get($review, 'review_id'))
                     ->first();
@@ -163,22 +170,34 @@ abstract class BaseReview
                 $reviewerText = wp_encode_emoji($reviewerText);
                 $reviewerText = mb_convert_encoding($reviewerText, 'UTF-8', 'UTF-8');
                 $reviewerText = ServicesHelper::customEncodeEmoji($reviewerText);
+                $newReview['reviewer_text'] = $reviewerText;
             }
 
             if(!empty($reviewTitle)) {
                 $reviewTitle = wp_encode_emoji($reviewTitle);
                 $reviewTitle = mb_convert_encoding($reviewTitle, 'UTF-8', 'UTF-8');
                 $reviewTitle = ServicesHelper::customEncodeEmoji($reviewTitle);
+                $newReview['review_title'] = $reviewTitle;
             }
 
-            $newReview['reviewer_text'] = $reviewerText;
-            $newReview['review_title'] = $reviewTitle;
+            if(!empty($currentReviewId)){
+                $newReview['review_id'] = $currentReviewId;
+            }
 
             if ($exist) {
                 Review::where('id', $exist->id)->update($newReview);
             } else {
                 Review::insert($newReview);
             }
+
+            // Update the last fetched review ID to the current one
+            $lastFetchedReviewId = $currentReviewId;
+        }
+
+        if(($this->platform === 'tripadvisor' || $this->platform === 'yelp')) {
+            // Save the last fetched review ID for the next run
+            $lastFetchedReviewsIds[$this->platform][$placeId] = $lastFetchedReviewId;
+            update_option('last_fetched_reviews_id', $lastFetchedReviewsIds);
         }
     }
 
@@ -223,10 +242,11 @@ abstract class BaseReview
         if ($apiSettings || !empty($apiSettings['api_key']) || !empty($apiSettings['url_value'])) {
             $settings = get_option('wpsr_' . $this->platform . '_global_settings');
             if (!$settings) {
+                $expiration = $this->platform === 'tripadvisor' ? 604800 : 86400;
                 $settings = array(
                     'global_settings' => array(
                         'auto_syncing'  => 'false',
-                        'expiration'    => 86400
+                        'expiration'    => $expiration,
                     )
                 );
             }
@@ -339,7 +359,7 @@ abstract class BaseReview
 //
 //        }
 
-        $url = Arr::get($credentials, 'url');
+        $url = Arr::get($credentials, 'url', '');
         $businessName = Arr::get($credentials, 'name', '');
         $businessId = Arr::get($credentials, 'place_id', '');
 
@@ -393,7 +413,8 @@ abstract class BaseReview
 
         if (!empty($settings) && is_array($settings)) {
             foreach ($settings as $setting) {
-                if (in_array($setting['place_id'], $expiredCaches)) {
+                $placeId = Arr::get($setting, 'place_id');
+                if (in_array($placeId, $expiredCaches)) {
                     $businessUrl = Arr::get($setting, 'url_value', '');
                     $businessName = Arr::get($setting, 'name', '');
                     $businessId = Arr::get($setting, 'place_id', '');
@@ -430,10 +451,7 @@ abstract class BaseReview
                         }
                     }
 
-                    $this->cacheHandler->createCache(
-                        'wpsr_reviews_' . $this->platform . '_business_info_' . $setting['place_id'],
-                        $setting['place_id']
-                    );
+                    $this->cacheHandler->createCache('wpsr_reviews_' . $this->platform . '_business_info_' . $placeId, $placeId);
                 }
             }
         }

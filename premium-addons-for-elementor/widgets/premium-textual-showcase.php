@@ -424,16 +424,11 @@ class Premium_Textual_Showcase extends Widget_Base {
 			$repeater->add_control(
 				'svg_sync',
 				array(
-					'label'      => __( 'Draw All Paths Together', 'premium-addons-for-elementor' ),
-					'type'       => Controls_Manager::SWITCHER,
-					'conditions' => array(
-						'terms' => array(
-							array(
-								'name'  => 'draw_svg',
-								'value' => 'yes',
-							),
-							$svg_draw_conds,
-						),
+					'label'     => __( 'Draw All Paths Together', 'premium-addons-for-elementor' ),
+					'type'      => Controls_Manager::SWITCHER,
+					'condition' => array(
+						'draw_svg'  => 'yes',
+						'item_type' => 'svg',
 					),
 				)
 			);
@@ -1059,14 +1054,9 @@ class Premium_Textual_Showcase extends Widget_Base {
 				array(
 					'label'      => __( 'Draw All Paths Together', 'premium-addons-for-elementor' ),
 					'type'       => Controls_Manager::SWITCHER,
-					'conditions' => array(
-						'terms' => array(
-							array(
-								'name'  => 'draw_svg_hov',
-								'value' => 'yes',
-							),
-							$svg_draw_conds_hov,
-						),
+                    'condition' => array(
+						'draw_svg_hov'  => 'yes',
+						'item_type_hov' => 'svg',
 					),
 				)
 			);

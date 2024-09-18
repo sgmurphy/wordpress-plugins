@@ -79,6 +79,7 @@ class PlatformController extends Controller
         $reviewsPlatforms   = apply_filters('wpsocialreviews/available_valid_reviews_platforms', []);
         $feedPlatforms      = apply_filters('wpsocialreviews/available_valid_feed_platforms', []);
         $platforms = $reviewsPlatforms + $feedPlatforms;
+        do_action('wpsocialreviews/active_platforms', $platforms);
 
         $hasAdminErrors = (new PlatformErrorManager())->getAdminErrors();
         return [

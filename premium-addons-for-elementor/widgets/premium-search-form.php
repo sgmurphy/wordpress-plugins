@@ -189,6 +189,20 @@ class Premium_Search_Form extends Widget_Base {
 			)
 		);
 
+        $this->add_control(
+			'highlighted_text_color',
+			array(
+				'label'     => __( 'Highlighted Text Color', 'premium-addons-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'.pa-highlighted-text-{{ID}}' => 'background-color: {{VALUE}};',
+				),
+                'condition'   => array(
+					'query_type' => 'elements',
+				),
+			)
+		);
+
 		if ( ! $papro_activated ) {
 
 			$get_pro = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/pro', 'editor-page', 'wp-editor', 'get-pro' );

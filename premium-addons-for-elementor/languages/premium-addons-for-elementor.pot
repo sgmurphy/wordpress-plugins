@@ -3948,7 +3948,7 @@ msgstr ""
 #: widgets/premium-progressbar.php:935 widgets/premium-svg-drawer.php:584
 #: widgets/premium-testimonials.php:331 widgets/premium-videobox.php:1628
 #: widgets/premium-vscroll.php:619
-msgid "Helpful Documentations"
+msgid "Help & Docs"
 msgstr ""
 
 #: modules/woocommerce/widgets/woo-products.php:1235

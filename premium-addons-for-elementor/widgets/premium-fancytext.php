@@ -637,22 +637,32 @@ class Premium_Fancytext extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Help & Docs', 'premium-addons-for-elementor' ),
 			)
 		);
 
-		$title = __( 'Getting started »', 'premium-addons-for-elementor' );
-
-		$doc_url = Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/fancy-text-widget-tutorial/', 'editor-page', 'wp-editor', 'get-support' );
-
-		$this->add_control(
-			'doc_1',
-			array(
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc_url, $title ),
-				'content_classes' => 'editor-pa-doc',
-			)
+		$docs = array(
+			'https://premiumaddons.com/docs/elementor-animated-text-widget-tutorial/' => __( 'Getting started »', 'premium-addons-for-elementor' ),
+			'https://www.youtube.com/watch?v=Q5aRlJdXFw0' => __( 'Check the video tutorial »', 'premium-addons-for-elementor' ),
 		);
+
+		$doc_index = 1;
+		foreach ( $docs as $url => $title ) {
+
+			$doc_url = Helper_Functions::get_campaign_link( $url, 'editor-page', 'wp-editor', 'get-support' );
+
+			$this->add_control(
+				'doc_' . $doc_index,
+				array(
+					'type'            => Controls_Manager::RAW_HTML,
+					'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc_url, $title ),
+					'content_classes' => 'editor-pa-doc',
+				)
+			);
+
+			++$doc_index;
+
+		}
 
 		$this->end_controls_section();
 

@@ -52,10 +52,8 @@ class Module {
 	 */
 	public function __construct() {
 
-		$modules = Admin_Helper::get_enabled_elements();
-
 		// Checks if Global Tooltips addon is enabled.
-		$global_tooltip = $modules['premium-global-tooltips'];
+		$global_tooltip = Admin_Helper::check_element_by_key( 'premium-global-tooltips' );
 
 		if ( ! $global_tooltip ) {
 			return;

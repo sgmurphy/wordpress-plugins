@@ -1126,6 +1126,7 @@ class Quiz_Maker_Admin
         $quiz_image_width_by_percentage_px                  = "pixels";
         $quick_quiz_image_height                            = "";
         $quick_quiz_image_sizing                            = "cover";
+        $quick_quiz_answers_font_size                       = 15;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1259,6 +1260,9 @@ class Quiz_Maker_Admin
 
             // Question image sizing
             $quick_quiz_image_sizing = (isset($_REQUEST['ays_quick_quiz_image_sizing']) && $_REQUEST['ays_quick_quiz_image_sizing'] != '') ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_image_sizing'] ) ) : 'cover';
+
+            // Answer Font Size | On desktop
+            $quick_quiz_answers_font_size = (isset($_REQUEST['ays_quick_quiz_answers_font_size']) && $_REQUEST['ays_quick_quiz_answers_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_answers_font_size'] ) ) : 15;
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1366,7 +1370,7 @@ class Quiz_Maker_Admin
             'form_title'                                    => '',
             'enable_bg_music'                               => 'off',
             'quiz_bg_music'                                 => '',
-            'answers_font_size'                             => '15',
+            'answers_font_size'                             => $quick_quiz_answers_font_size,
             'show_create_date'                              => $quick_quiz_show_create_date,
             'show_author'                                   => $quick_quiz_show_author,
             'enable_early_finish'                           => $quick_quiz_enable_early_finish,

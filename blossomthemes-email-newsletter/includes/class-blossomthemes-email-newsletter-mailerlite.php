@@ -6,62 +6,63 @@
  * @subpackage Blossomthemes_Email_Newsletter/includes
  * @author    blossomthemes
  */
-use MailerLiteApi\MailerLite;
+
+use MailerLite\MailerLite;
 use GuzzleHttp\Client as GuzzleClient;
 use Http\Adapter\Guzzle7\Client as GuzzleAdapter;
+
 class Blossomthemes_Email_Newsletter_Mailerlite {
 
 	/*Function to add main mailchimp action*/
 	function bten_mailerlite_action( $email, $sid, $fname ) {
+		$response = null;
 		if ( ! empty( $email ) && ! filter_var( $email, FILTER_VALIDATE_EMAIL ) === false ) {
 			// mailerlite API credentials
 			$blossomthemes_email_newsletter_setting = get_option( 'blossomthemes_email_newsletter_settings', true );
-			$apiKey                                 = $blossomthemes_email_newsletter_setting['mailerlite']['api-key'];
+			$apiKey                                 = $blossomthemes_email_newsletter_setting[ 'mailerlite' ][ 'api-key' ];
 
 			if ( ! empty( $apiKey ) ) {
-				// Check if server is local.
-				$is_local = ( $_SERVER['SERVER_ADDR'] === '127.0.0.1' || $_SERVER['SERVER_ADDR'] === '::1' );
-
-				// Create an options array for the Guzzle HTTP client. If the server is localhost, disable SSL verification by setting 'verify' to false.
-				$guzzle_client_options = array(
-					'verify' => ! $is_local,
-				);
-
-				// Instantiate a new Guzzle HTTP client with the specified options.
-				$guzzle_client = new GuzzleClient( $guzzle_client_options );
-
-				// Create a new Guzzle adapter. This adapter allows the MailerLite client to send HTTP requests using the Guzzle HTTP client.
-				$http_adapter = new GuzzleAdapter( $guzzle_client );
-
 				// Instantiate a new MailerLite client with the provided API key and the Guzzle adapter.
-				$mailer_lite_client = new MailerLite( $apiKey, $http_adapter );
-				$groupsApi          = $mailer_lite_client->groups();
-				$subscriber         = array(
+				$mailer_lite_client = new MailerLite( [ 'api_key' => $apiKey ] );
+
+				$groupsApi = $mailer_lite_client->groups;
+
+				$subscriber = array(
 					'email' => $email,
 					'name'  => $fname,
 				);
 
-				$obj  = new BlossomThemes_Email_Newsletter_Settings();
-				$data = $obj->mailerlite_lists();
+				try {
+					$subscriber = $mailer_lite_client->subscribers->create( $subscriber );
 
-				if ( ! empty( $data ) ) {
-					$listids = get_post_meta( $sid, 'blossomthemes_email_newsletter_setting', true );
+					$subscriber_id = $subscriber[ 'body' ][ 'data' ][ 'id' ];
 
-					if ( ! isset( $listids['mailerlite']['list-id'] ) ) {
-						$listid          = $blossomthemes_email_newsletter_setting['mailerlite']['list-id'];
-						$addedSubscriber = $groupsApi->addSubscriber( $listid, $subscriber, 1 ); // returns added subscriber
-						$response        = isset( $addedSubscriber->error ) ? $addedSubscriber->error->message : '200';
+					$obj  = new BlossomThemes_Email_Newsletter_Settings();
+					$data = $obj->mailerlite_lists();
 
-					} else {
-						foreach ( $listids['mailerlite']['list-id'] as $key => $value ) {
-							$addedSubscriber = $groupsApi->addSubscriber( $key, $subscriber, 1 );
+					if ( ! empty( $data ) ) {
+						$list_ids = get_post_meta( $sid, 'blossomthemes_email_newsletter_setting', true );
+
+						if ( ! isset( $list_ids[ 'mailerlite' ][ 'list-id' ] ) ) {
+							$list_id         = $blossomthemes_email_newsletter_setting[ 'mailerlite' ][ 'list-id' ];
+							$addedSubscriber = $groupsApi->assignSubscriber( $list_id, $subscriber_id, 1 ); // returns added subscriber
+						} else {
+							foreach ( $list_ids[ 'mailerlite' ][ 'list-id' ] as $key => $value ) {
+								$addedSubscriber = $groupsApi->assignSubscriber( $key, $subscriber_id, 1 );
+							}
 						}
 						$response = isset( $addedSubscriber->error ) ? $addedSubscriber->error->message : '200';
 					}
+				} catch ( \Exception $e ) {
+
 				}
+
 			}
-			return $response;
+
 		}
+
+		return $response;
 	}
 }
+
 new Blossomthemes_Email_Newsletter_Mailerlite();

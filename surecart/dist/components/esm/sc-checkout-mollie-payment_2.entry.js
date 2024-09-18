@@ -1,7 +1,7 @@
 import { r as registerInstance, h, F as Fragment } from './index-644f5478.js';
 import { s as state } from './watchers-7ddfd1b5.js';
-import './watchers-6aa4e294.js';
-import { s as state$1, c as availableMethodTypes, f as hasMultipleMethodChoices, e as getAvailableProcessor, b as availableManualPaymentMethods } from './getters-03bf9a6d.js';
+import './watchers-ecff8a65.js';
+import { s as state$1, c as availableMethodTypes, f as hasMultipleMethodChoices, e as getAvailableProcessor, b as availableManualPaymentMethods } from './getters-a6a88dc4.js';
 import { e as on, s as state$2 } from './mutations-b8f9af9f.js';
 import { a as checkoutIsLocked } from './getters-c162c255.js';
 import { l as lockCheckout, b as unLockCheckout } from './mutations-8c68bd4f.js';

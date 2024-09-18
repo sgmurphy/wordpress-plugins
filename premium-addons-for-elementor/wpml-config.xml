@@ -211,15 +211,15 @@
                 <field name="Testimonial: Link" editor_type="LINK">premium_testimonial_company_link>url</field>
                 <field name="Testimonial: Content" editor_type="AREA">premium_testimonial_content</field>
                 <field name="Testimonial: Heading" editor_type="LINE">heading</field>
-                <fields-in-item items_of="multiple_testimonials">
-                    <field name="Testimonial: Heading" editor_type="LINE">heading</field>
-                    <field name="Testimonial: Name" editor_type="LINE">person_name</field>
-                    <field name="Testimonial: Job Name" editor_type="LINE">company_name</field>
-                    <field name="Testimonial: Link" editor_type="LINK">link>url</field>
-                    <field name="Testimonial: Content" editor_type="AREA">content</field>
-                </fields-in-item>
-
             </fields>
+
+            <fields-in-item items_of="multiple_testimonials">
+                <field name="Testimonial: Heading" editor_type="LINE">heading</field>
+                <field name="Testimonial: Name" editor_type="LINE">person_name</field>
+                <field name="Testimonial: Job Name" editor_type="LINE">company_name</field>
+                <field name="Testimonial: Link" editor_type="LINK">link>url</field>
+                <field name="Testimonial: Content" editor_type="AREA">content</field>
+            </fields-in-item>
         </widget>
 
         <widget name="premium-addon-title">

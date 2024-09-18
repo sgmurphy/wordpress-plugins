@@ -1,5 +1,5 @@
 import { r as registerInstance, h, H as Host } from './index-644f5478.js';
-import { g as getProcessorByType } from './getters-03bf9a6d.js';
+import { g as getProcessorByType } from './getters-a6a88dc4.js';
 import { f as formBusy } from './getters-2c9ecd8c.js';
 import './util-64ee5262.js';
 import './index-1046c77e.js';

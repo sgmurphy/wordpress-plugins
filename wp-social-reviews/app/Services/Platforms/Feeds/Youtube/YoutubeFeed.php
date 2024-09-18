@@ -8,6 +8,8 @@ use WPSocialReviews\App\Services\Platforms\Feeds\Common\FeedFilters;
 use WPSocialReviews\App\Services\Platforms\Feeds\Config;
 use WPSocialReviews\App\Services\Platforms\Feeds\Youtube\Config as YoutubeConfig;
 use WPSocialReviews\Framework\Support\Arr;
+use WPSocialReviews\App\Models\Cache;
+use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -15,6 +17,7 @@ if (!defined('ABSPATH')) {
 
 class YoutubeFeed extends BaseFeed
 {
+    public $platform = 'youtube';
     protected $oauth;
     protected $cacheHandler;
     private $remoteFetchUrl = 'https://www.googleapis.com/youtube/v3/';
@@ -22,9 +25,10 @@ class YoutubeFeed extends BaseFeed
 
     public function __construct()
     {
-        parent::__construct('youtube');
+        parent::__construct($this->platform);
         $this->oauth        = new OAuth();
-        $this->cacheHandler = new CacheHandler('youtube');
+        $this->cacheHandler = new CacheHandler($this->platform);
+        // (new ImageOptimizationHandler($this->platform))->registerHooks();
     }
 
     public function pushValidPlatform($platforms)
@@ -402,7 +406,10 @@ class YoutubeFeed extends BaseFeed
             return ['error_message' => $youtubeApiKeyOrToken];
         }
 
-        $feeds = $this->getAPIData($youtubeFeedApiUrl . $youtubeApiKeyOrToken);
+        $args     = array(
+            'timeout'   => 60
+        );
+        $feeds = $this->getAPIData($youtubeFeedApiUrl . $youtubeApiKeyOrToken, $args);
         if (is_wp_error($feeds)) {
             $message = $feeds->get_error_message();
             return ['error_message' => $message];

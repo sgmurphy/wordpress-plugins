@@ -9,6 +9,8 @@ use WPSocialReviews\Framework\Support\Arr;
 use WPSocialReviews\App\Services\Platforms\Feeds\Config;
 use WPSocialReviews\App\Services\Platforms\Feeds\Twitter\Config as TwitterConfig;
 use WPSocialReviews\App\Services\Platforms\Feeds\Common\FeedFilters;
+use WPSocialReviews\App\Services\GlobalSettings;
+use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
 class TwitterFeed extends BaseFeed
 {
@@ -32,6 +34,7 @@ class TwitterFeed extends BaseFeed
     {
         parent::__construct($this->platform);
         $this->cacheHandler = new CacheHandler($this->platform);
+        // (new ImageOptimizationHandler($this->platform))->registerHooks();
     }
 
     public function pushValidPlatform($platforms)

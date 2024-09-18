@@ -51,7 +51,7 @@ class WPF_Form {
         <div class="wpf_lightbox_row ">
             <div class="wpf_lightbox_label"><label for="wpf_name"><?php _e('Form Title', 'wpf'); ?></label></div>
             <div class="wpf_lightbox_input">
-                <input id="wpf_name" class="wpf_towidth" type="text" value="<?php echo!empty($data['name']) ? $data['name'] : '' ?>" name="name" />
+                <input id="wpf_name" class="wpf_towidth" type="text" value="<?php echo!empty($data['name']) ? esc_attr( $data['name'] ) : '' ?>" name="name" />
             </div>
         </div>
         <div class="wpf_lightbox_row ">
@@ -381,12 +381,24 @@ class WPF_Form {
             }
             $data[$themplate_id]['layout'] = json_decode($layout, true);
             $data[$themplate_id]['data'] = array();
-            $_keys = array( 'name', 'empty', 'group','reset_button', 'type', 'page', 'sort', 'pagination', 'posts_per_page', 'result', 'out_of_stock', 'scroll', 'result_type', 'tax_relation', 'pagination_type', 'no_found_message', 'infinitybuffer', 'clear_label', 'variations' );
-            foreach ($_keys as $k) {
-                if (!empty($post[$k])) {
+
+            $text_fields = [ 'clear_label', 'no_found_message' ];
+            foreach ( $text_fields as $k ) {
+                if ( ! empty( $post[ $k ] ) ) {
+                    foreach ( $post[ $k ] as $lang => $value ) {
+                        $post[ $k ][ $lang ] = sanitize_text_field( $value );
+                    }
                     $data[$themplate_id]['data'][$k] = $post[$k];
                 }
             }
+
+            $_keys = array( 'name', 'empty', 'group','reset_button', 'type', 'page', 'sort', 'pagination', 'posts_per_page', 'result', 'out_of_stock', 'scroll', 'result_type', 'tax_relation', 'pagination_type', 'infinitybuffer', 'variations' );
+            foreach ($_keys as $k) {
+                if (!empty($post[$k])) {
+                    $data[$themplate_id]['data'][$k] = sanitize_text_field( $post[$k] );
+                }
+            }
+
             $data[$themplate_id]['data']['date'] = current_time('timestamp');
             $data = apply_filters('wpf_template_save', $data, $themplate_id);
             $option->set($data);
@@ -820,7 +832,7 @@ class WPF_Form {
 		if ( ! (
 			is_post_type_archive( 'product' )
 			|| is_page()
-			|| is_tax( array( 'product_cat', 'product_tag' ) )
+			|| is_tax( get_object_taxonomies( 'product' ) )
 		) ) {
 			/* assume there's no loop to display the results in, post the data to the Shop page instead */
 			$action = $shop_page;

@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-09-16T21:43:58+00:00\n"
+"POT-Creation-Date: 2024-09-17T20:39:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 
@@ -6396,7 +6396,7 @@ msgstr[1] ""
 #: components/subscriptions/Cancel.js:54
 #: components/subscriptions/CancelPendingUpdate.js:150
 #: coupons/components/DisableModal.js:30
-#: coupons/CreateCoupon.js:142
+#: coupons/CreateCoupon.js:144
 #: coupons/EditCoupon.js:246
 #: coupons/modules/Code.js:207
 #: coupons/modules/CustomerSelector.js:155
@@ -7563,7 +7563,7 @@ msgstr ""
 #: bumps/CreateBump.js:43
 #: checkouts/CreateCheckout.js:117
 #: components/Error.js:31
-#: coupons/CreateCoupon.js:60
+#: coupons/CreateCoupon.js:62
 #: hooks/useDataApi/index.js:53
 #: licenses/modules/Activations/Activation.js:107
 #: product-groups/CreateProductGroup.js:35
@@ -8756,33 +8756,33 @@ msgstr ""
 msgid "Disable"
 msgstr ""
 
-#: coupons/CreateCoupon.js:55
+#: coupons/CreateCoupon.js:57
 msgid "Coupon created."
 msgstr ""
 
-#: coupons/CreateCoupon.js:75
+#: coupons/CreateCoupon.js:77
 msgid "Create New Coupon"
 msgstr ""
 
-#: coupons/CreateCoupon.js:83
+#: coupons/CreateCoupon.js:85
 #: coupons/modules/Name.js:8
 msgid "Coupon Name"
 msgstr ""
 
-#: coupons/CreateCoupon.js:84
+#: coupons/CreateCoupon.js:86
 #: coupons/modules/Name.js:11
 msgid "This is an internal name for your coupon. This is not visible to customers."
 msgstr ""
 
-#: coupons/CreateCoupon.js:98
+#: coupons/CreateCoupon.js:100
 msgid "Promotion Code"
 msgstr ""
 
-#: coupons/CreateCoupon.js:103
+#: coupons/CreateCoupon.js:105
 msgid "Customers will enter this discount code at checkout. Leave this blank and we will generate one for you."
 msgstr ""
 
-#: coupons/CreateCoupon.js:139
+#: coupons/CreateCoupon.js:141
 msgid "Create Coupon"
 msgstr ""
 

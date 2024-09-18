@@ -48,72 +48,81 @@ echo '<div class="wpsr-container">';
     <div class="wpsr-fb-feed-header wpsr-col-12 wpsr-gap-<?php echo esc_attr($column_gaps); ?> <?php echo esc_attr($profile_photo_hide_class); ?>">
     <?php if(Arr::get($header, 'cover') &&  $header_settings['display_cover_photo'] === 'true') {?>
         <div class="wpsr-fb-feed-user-profile-banner" >
-            <img src="<?php echo esc_url($header['cover']['source']); ?>" alt="<?php echo esc_attr($header['name']); ?>">
+            <img src="<?php echo esc_url($header['cover']); ?>" alt="<?php echo esc_attr($header['name']); ?>">
         </div>
     <?php } ?>
-
-    <div class="wpsr-fb-feed-user-info-wrapper">
-        <div class="wpsr-fb-feed-user-info-head">
-            <div class="wpsr-fb-feed-header-info">
-                <?php if(Arr::get($header, 'picture') && $header_settings['display_profile_photo'] === 'true'){ ?>
-                    <a rel="nofollow" href="<?php echo esc_url($header['link'] ); ?>" target="_blank" class="wpsr-fb-feed-user-profile-pic">
-                        <img src="<?php echo esc_url($header['picture']['data']['url']) ?>" alt="<?php esc_attr($header['name']); ?>">
-                    </a>
-                <?php } ?>
-
-                <div class="wpsr-fb-feed-user-info">
-                    <?php if(Arr::get($header, 'name') && $header_settings['display_page_name'] === 'true'){ ?>
-                    <div class="wpsr-fb-feed-user-info-name-wrapper">
-                        <a class="wpsr-fb-feed-user-info-name" rel="nofollow" href="<?php echo esc_url($header['link']); ?>" title="<?php echo esc_attr($header['name']); ?>" target="_blank">
-                            <?php echo esc_html($header['name']); ?>
+    <?php if (!empty(Arr::get($header, 'name'))) { ?>
+        <div class="wpsr-fb-feed-user-info-wrapper">
+            <div class="wpsr-fb-feed-user-info-head">
+                <div class="wpsr-fb-feed-header-info">
+                    <?php if(Arr::get($header, 'picture') && $header_settings['display_profile_photo'] === 'true'){ ?>
+                        <a rel="nofollow" href="<?php echo esc_url($header['link'] ); ?>" target="_blank" class="wpsr-fb-feed-user-profile-pic">
+                            <img src="<?php echo esc_url($header['logo']) ?>" alt="<?php esc_attr($header['name']); ?>">
                         </a>
-                    </div>
                     <?php } ?>
 
-                    <?php if(Arr::get($header, 'about') && $header_settings['display_description'] === 'true'){ ?>
-                        <div class="wpsr-fb-feed-user-info-description">
-                            <p><?php echo esc_html($header['about']); ?></p>
+                    <div class="wpsr-fb-feed-user-info">
+                        <?php if(Arr::get($header, 'name') && $header_settings['display_page_name'] === 'true'){ ?>
+                        <div class="wpsr-fb-feed-user-info-name-wrapper">
+                            <a class="wpsr-fb-feed-user-info-name" rel="nofollow" href="<?php echo esc_url($header['link']); ?>" title="<?php echo esc_attr($header['name']); ?>" target="_blank">
+                                <?php echo esc_html($header['name']); ?>
+                            </a>
                         </div>
-                    <?php } ?>
+                        <?php } ?>
 
-                    <?php if(Arr::get($header, 'fan_count') !== 0 && $header_settings['display_likes_counter'] === 'true'){ ?>
-                    <div class="wpsr-fb-feed-user-statistics">
-                        <span>
-                            <?php
-                            $people_like_this = Arr::get($translations, 'people_like_this') ?: __('people like this', 'wp-social-reviews');
-                            echo GlobalHelper::shortNumberFormat($header['fan_count']).' '.$people_like_this;
-                            ?>
-                        </span>
+                        <?php if(Arr::get($header, 'about') && $header_settings['display_description'] === 'true'){ ?>
+                            <div class="wpsr-fb-feed-user-info-description">
+                                <p><?php echo esc_html($header['about']); ?></p>
+                            </div>
+                        <?php } ?>
+
+                        <div class="wpsr-fb-feed-user-statistics">
+                            <?php if(Arr::get($header, 'fan_count') !== 0 && $header_settings['display_likes_counter'] === 'true'){ ?>
+                            <span>
+                                <?php
+                                $people_like_this = Arr::get($translations, 'people_like_this') ?: __('likes', 'wp-social-reviews');
+                                echo GlobalHelper::shortNumberFormat(Arr::get($header, 'fan_count')).' '.$people_like_this;
+                                ?>
+                            </span>
+                            <?php } ?>
+
+                            <?php if(Arr::get($header, 'followers_count') !== 0 && $header_settings['display_followers_count'] === 'true'){ ?>
+                            <span>
+                                <?php
+                                $followers_label = Arr::get($translations, 'followers') ?: __('followers', 'wp-social-reviews');
+                                echo GlobalHelper::shortNumberFormat(Arr::get($header, 'followers_count')).' '.$followers_label;
+                                ?>
+                            </span>
+                            <?php } ?>
+                        </div>
                     </div>
-                    <?php } ?>
+
+                    <div class="wpsr-fb-feed-follow-button-group">
+                        <?php
+                            /**
+                             * facebook_feed_like_button hook.
+                             *
+                             * @hooked render_facebook_feed_like_button_html 10
+                             * */
+                            if (Arr::get($feed_settings, 'like_button_settings.like_button_position') !== 'footer') {
+                                do_action('wpsocialreviews/facebook_feed_like_button', $feed_settings, $header);
+                            }
+
+                            /**
+                             * facebook_feed_share_button hook.
+                             *
+                             * @hooked render_facebook_feed_share_button_html 10
+                             * */
+                            if (Arr::get($feed_settings, 'share_button_settings.share_button_position') !== 'footer') {
+                                do_action('wpsocialreviews/facebook_feed_share_button', $feed_settings, $header);
+                            }
+                        ?>
+                    </div>
+
                 </div>
-
-                <div class="wpsr-fb-feed-follow-button-group">
-                    <?php
-                        /**
-                         * facebook_feed_like_button hook.
-                         *
-                         * @hooked render_facebook_feed_like_button_html 10
-                         * */
-                        if (Arr::get($feed_settings, 'like_button_settings.like_button_position') !== 'footer') {
-                            do_action('wpsocialreviews/facebook_feed_like_button', $feed_settings, $header);
-                        }
-
-                        /**
-                         * facebook_feed_share_button hook.
-                         *
-                         * @hooked render_facebook_feed_share_button_html 10
-                         * */
-                        if (Arr::get($feed_settings, 'share_button_settings.share_button_position') !== 'footer') {
-                            do_action('wpsocialreviews/facebook_feed_share_button', $feed_settings, $header);
-                        }
-                    ?>
-                </div>
-
             </div>
         </div>
-    </div>
-
+    <?php } ?>
     </div>
 </div>
 <?php }

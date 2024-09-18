@@ -136,6 +136,31 @@ class PlatformData
             }
         }
 
+        if ( $this->platform === 'tiktok' ) {
+            $api_response = json_decode( Arr::get($response, 'body'), true );
+            $api_response_username = Arr::get($api_response, 'data.user.display_name', '');
+
+            $connectedAccounts =  apply_filters('wpsocialreviews/get_connected_source_list',[]);
+
+            $username = '';
+            if(!empty($connectedAccounts)){
+                foreach ($connectedAccounts as $account){
+                    $username = Arr::get($account, 'display_name', '');
+                    if($username === $api_response_username){
+                        break;
+                    }
+                }
+            }
+
+            if ( empty($username) ) {
+                return;
+            }
+
+            if ( $username !== $api_response_username ) {
+                return;
+            }
+        }
+
         $this->deleteRevokedAccount( $statuses_option );
 
         (new PlatformErrorManager($this->platform))->resetApiErrors();
@@ -166,10 +191,10 @@ class PlatformData
         $this->deleteRevokedAccount( $wpsr_statuses );
         $platformNameWithType = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
 
-        $error = __( 'An account admin has deauthorized the WP Social Ninja app used to power the WP Social Ninja plugin. The account was not reconnected within the 7 day limit and all '.$platformNameWithType.' account data was automatically deleted on your website due to Facebook data privacy rules.', 'wp-social-reviews' );
+        $error = __( 'An account admin has deauthorized the WP Social Ninja app used to power the WP Social Ninja plugin. The account was not reconnected within the 7 day limit and all '.$platformNameWithType.' account data was automatically deleted on your website due to '. $this->platform .' data privacy rules.', 'wp-social-reviews' );
         (new PlatformErrorManager($this->platform))->addError('platform_data_deleted', $error);
-
     }
+    
 
     public function deleteDataByUser($connectedAccount)
     {
@@ -177,7 +202,7 @@ class PlatformData
         $has_wpsr_optimize_images_table = get_option( 'wpsr_optimize_images_table_status', false);
 
         if($has_wpsr_optimize_images_table){
-            (new ImageOptimizationHandler())->cleanData($connectedAccount);
+            (new ImageOptimizationHandler($this->platform))->cleanData($connectedAccount);
         }
 
         (new PlatformErrorManager($this->platform))->resetApiErrors($userId);
@@ -236,6 +261,28 @@ class PlatformData
                 }
             }
         }
+
+        if($this->platform === 'tiktok') {
+            $sourceList = get_option('wpsr_tiktok_connected_sources_config', []);
+            $connectedAccounts = Arr::get($sourceList, 'sources', []);
+
+            foreach ($connectedAccounts as $connectedAccount) {
+                $user_id = Arr::get($connectedAccount, 'open_id');
+                $has_app_permission_error = Arr::get($connectedAccount, 'has_app_permission_error', false);
+
+                $errors = (new PlatformErrorManager($this->platform))->getErrors($this->platform);
+                $error_accounts = Arr::get($errors, 'accounts', []);
+
+                if($has_app_permission_error && in_array($user_id, array_keys($error_accounts))){
+                    $api_errors = Arr::get($error_accounts, $user_id.'.api');
+                    $connectedAccount['user_id'] =  $user_id;
+
+                    if($this->isAppPermissionError($api_errors)){
+                        $this->deleteDataByUser($connectedAccount);
+                    }
+                }
+            }
+        }
     }
 
     public function handleAppPermissionStatus()
@@ -281,12 +328,14 @@ class PlatformData
         $connectedIgAccounts = get_option('wpsr_instagram_verification_configs');
         $connectedFbFeedAccounts = get_option('wpsr_facebook_feed_connected_sources_config');
         $connectedFbReviewsAccounts = get_option('wpsr_reviews_facebook_business_info', []);
+        $connectedTikTokAccounts = get_option('wpsr_tiktok_connected_sources_config', []);
 
         $data = wp_parse_args(
             [
                 'instagram' => array_keys(Arr::get($connectedIgAccounts, 'connected_accounts', [])),
                 'facebook_feed' => array_keys(Arr::get($connectedFbFeedAccounts, 'sources', [])),
                 'facebook' => array_keys($connectedFbReviewsAccounts),
+                'tiktok' => array_keys(Arr::get($connectedTikTokAccounts, 'sources', []))
             ]
         );
 
@@ -342,7 +391,6 @@ class PlatformData
     public function beforeDeleteOldData($user_id)
     {
         $wpsr_statuses = get_option( $this->wpsr_status_option_key, [] );
-
         $already_unused_feed_warning_email_sent = Arr::get($wpsr_statuses, $this->platform.'.'.$this->wpsr_unused_feed_warning_email_sent_status_key);
         if($already_unused_feed_warning_email_sent){
             return;
@@ -353,7 +401,6 @@ class PlatformData
 
             $error = __( 'Your '.$platform.' has been not viewed in the last 53 days. Due to meta data privacy rules, all data for this feed will be deleted in 7 days time. To avoid automated data deletion, simply view the '.$platform.' feed on your website within the next 7 days.', 'wp-social-reviews' );
             (new PlatformErrorManager($this->platform))->addError('unused_feed', $error);
-
             $this->sendUnusedFeedEmail();
 
             $wpsr_statuses[$this->platform][$this->wpsr_unused_feed_warning_email_sent_status_key] = true;
@@ -403,9 +450,20 @@ class PlatformData
 
                 foreach ($connectedAccounts as $connectedAccount) {
                     $pageId = Arr::get($connectedAccount, 'page_id');
+                    do_action( 'wpsocialreviews/before_delete_old_data', $pageId );
                     if (isset($wpsr_statuses[$this->platform]['last_used'][$pageId]) && $wpsr_statuses[$this->platform]['last_used'][$pageId] < time() - (60 * DAY_IN_SECONDS)) {
                         $cacheHandler->clearCacheByAccount($pageId);
                     }
+                }
+            }
+        } else if($this->platform === 'tiktok') {
+            $sourceList = get_option('wpsr_tiktok_connected_sources_config', []);
+            $connectedAccounts = Arr::get($sourceList, 'sources', []);
+            foreach ($connectedAccounts as $connectedAccount) {
+                $openId = Arr::get($connectedAccount, 'open_id');
+                do_action( 'wpsocialreviews/before_delete_old_data', $openId );
+                if (isset($wpsr_statuses[$this->platform]['last_used'][$openId]) && $wpsr_statuses[$this->platform]['last_used'][$openId] < time() - (60 * DAY_IN_SECONDS)) {
+                    $this->deleteDataByUser($connectedAccount);
                 }
             }
         }
@@ -419,6 +477,7 @@ class PlatformData
         //personal account access token or app authorized permissions error
         $error_codes_to_check = array(
             190,
+            401 //TikTok error code for Unauthorized app
         );
 
         //business account access token or app authorized permissions error
@@ -427,7 +486,7 @@ class PlatformData
         );
 
         if (in_array( $error_code, $error_codes_to_check, true )) {
-            if (str_contains(Arr::get($response, 'error.message'), 'user has not authorized application') || str_contains(Arr::get($response, 'error.message'), 'Error validating access token')) {
+            if (str_contains(Arr::get($response, 'error.message'), 'user has not authorized application') || str_contains(Arr::get($response, 'error.message'), 'Error validating access token') || str_contains(Arr::get($response, 'error.message'), 'The access token is invalid or not found in the request.')) {
                 return true;
             }
             return in_array( $error_subcode, $error_subcodes_to_check, true );
@@ -448,9 +507,9 @@ class PlatformData
 
     protected function sendUnusedFeedEmail()
     {
-        if($this->platform !== 'instagram'){
-            return;
-        }
+//        if($this->platform !== 'instagram'){
+//            return;
+//        }
         $platform = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
 
         $subject         = sprintf(__( 'There has been a problem with your %s', 'wp-social-reviews' ), $platform);
@@ -466,9 +525,9 @@ class PlatformData
 
     protected function sendAppPermissionErrorEmail()
     {
-        if($this->platform !== 'instagram'){
-            return;
-        }
+//        if($this->platform !== 'instagram'){
+//            return;
+//        }
         $platform = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
 
         $plugin_settings_link = admin_url( 'admin.php?page=wpsocialninja.php#/');
@@ -479,8 +538,9 @@ class PlatformData
 
         $site_url      = sprintf( '<a href="%s">%s<a/>', esc_url( home_url() ), __( 'your website', 'wp-social-reviews' ) );
 
+        $policyPlatform = $this->platform === 'tiktok' ? 'TikTok' : 'Facebook';
         $data['platform'] = $platform;
-        $data['message']  = sprintf(__('An account admin has deauthorized the WP Social Ninja app used to power the WP Social Ninja plugin on %1$s. If the %2$s source is not reconnected within 7 days then all %2$s data will be automatically deleted on your website due to Facebook data privacy rules.', 'wp-social-reviews'), $site_url, $platform);
+        $data['message']  = sprintf(__('An account admin has deauthorized the WP Social Ninja app used to power the WP Social Ninja plugin on %1$s. If the %2$s source is not reconnected within 7 days then all %2$s data will be automatically deleted on your website due to %3$s data privacy rules.', 'wp-social-reviews'), $site_url, $platform, $policyPlatform);
         $data['direction'] = sprintf( __( 'To prevent the automated deletion of data for the account, please reconnect your source for the plugin platforms %s within 7 days.', 'wp-social-reviews' ), $configuration_page );
 
         (new EmailNotification())->send($subject, $title, $data);
@@ -488,21 +548,22 @@ class PlatformData
 
     protected function sendPlatformDataDeleteEmail()
     {
-        if($this->platform !== 'instagram'){
-            return;
-        }
+//        if($this->platform !== 'instagram'){
+//            return;
+//        }
         $platform = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
+        $policyPlatform = $this->platform === 'tiktok' ? 'TikTok' : 'Facebook';
 
         $plugin_settings_link = admin_url( 'admin.php?page=wpsocialninja.php#/');
         $configuration_page = sprintf( '<a href="%s">%s</a>', esc_url( $plugin_settings_link ), esc_html__( 'Configuration Modal', 'wp-social-reviews' ) );
 
         $subject         = sprintf(__( 'All %s Data has been Removed', 'wp-social-reviews' ), $platform);
-        $title          = __( 'An account admin has deauthorized the WP Social Ninja Facebook App used to power the WP Social Ninja plugin.', 'wp-social-reviews' );
+        $title         = sprintf(__( 'An account admin has deauthorized the WP Social Ninja %s App used to power the WP Social Ninja plugin.', 'wp-social-reviews' ), $policyPlatform);
 
         $site_url      = sprintf( '<a href="%s">%s<a/>', esc_url( home_url() ), __( 'your website', 'wp-social-reviews' ) );
 
         $data['platform'] = $platform;
-        $data['message']  = sprintf(__('The page was not reconnected within the 7 day limit and all %1$s data was automatically deleted on %2$s due to Facebook data privacy rules.', 'wp-social-reviews'), $platform, $site_url);
+        $data['message']  = sprintf(__('The page was not reconnected within the 7 day limit and all %1$s data was automatically deleted on %2$s due to %3$s data privacy rules.', 'wp-social-reviews'), $platform, $site_url, $policyPlatform);
         $data['direction'] = sprintf( __( 'To fix your feeds, reconnect all accounts that were in use on the %1$s %2$s.', 'wp-social-reviews' ), $platform, $configuration_page );
 
         (new EmailNotification())->send($subject, $title, $data);
@@ -510,9 +571,9 @@ class PlatformData
 
     public function sendScheduleEmailReport()
     {
-        if($this->platform !== 'instagram'){
-            return;
-        }
+//        if($this->platform !== 'instagram'){
+//            return;
+//        }
         $emailNotification = new EmailNotification();
         $settings = $emailNotification->getEmailReportSettings();
 
@@ -526,7 +587,6 @@ class PlatformData
             return;
         }
 
-        $platform = (new PlatformManager())->getPlatformOfficialName($this->platform);
         $platformWithType = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
 
         $plugin_settings_link = admin_url( 'admin.php?page=wpsocialninja.php#/');
@@ -537,8 +597,8 @@ class PlatformData
         $title          = sprintf(__( 'There\'s an Issue with an %s on Your Website', 'wp-social-reviews' ), $platformWithType);
 
         $data['platform'] = $platformWithType;
-        $data['message']  = sprintf(__('An %1$s on your website is currently unable to connect to the %2$s API to retrieve new posts. Rest assured, your feed is still visible using a cached version, but it cannot display the latest posts.', 'wp-social-reviews'), $platformWithType, $platform);
-        $data['direction'] = sprintf( __( 'This issue is caused by a problem with your %1$s account connection to the %1$s API. To find out more about the specific problem and receive clear instructions on how to resolve it, kindly visit the %2$sPlatforms Settings Page%3$s of the WP Social Ninja plugin on your website.', 'wp-social-reviews' ), $platform, '<a href="' . esc_url( $plugin_settings_link ) . '">', '</a>' );
+        $data['message']  = sprintf(__('An %1$s on your website is currently unable to connect to the %2$s API to retrieve new posts. Rest assured, your feed is still visible using a cached version, but it cannot display the latest posts.', 'wp-social-reviews'), $platformWithType, $platformWithType);
+        $data['direction'] = sprintf( __( 'This issue is caused by a problem with your %1$s account connection to the %1$s API. To find out more about the specific problem and receive clear instructions on how to resolve it, kindly visit the %2$sPlatforms Settings Page%3$s of the WP Social Ninja plugin on your website.', 'wp-social-reviews' ), $platformWithType, '<a href="' . esc_url( $plugin_settings_link ) . '">', '</a>' );
 
         $emailNotification->send($subject, $title, $data);
     }

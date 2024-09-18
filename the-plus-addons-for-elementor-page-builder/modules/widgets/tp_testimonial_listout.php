@@ -415,7 +415,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 				'default'     => '',
 				'label_block' => true,
 				'multiple'    => true,
-				'options'     => l_theplus_get_testimonial_categories(),
+				'options'     => $this->tpae_get_categories(),
 				'separator'   => 'before',
 			)
 		);
@@ -2168,7 +2168,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$settings      = $this->get_settings_for_display();
 		$query         = $this->get_query_args();
 		$post_name     = l_theplus_testimonial_post_name();
-		$taxonomy_name = l_theplus_testimonial_post_category();
+		$taxonomy_name = $this->tpae_get_post_cat();
 
 		$style          = ! empty( $settings['style'] ) ? $settings['style'] : '';
 		$layout         = ! empty( $settings['layout'] ) ? $settings['layout'] : 'carousel';
@@ -2203,7 +2203,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 			$animated_class = '';
 			$animation_attr = '';
 		} else {
-			$animate_offset  = l_theplus_scroll_animation();
+			$animate_offset  = '85%';
 			$animated_class  = 'animate-general';
 			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
 			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
@@ -2233,7 +2233,7 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 		$carousel_slider    = '';
 
 		if ( 'carousel' === $layout ) {
-			$carousel_direction = ! empty( $settings['carousel_direction'] ) ? esc_attr( tp_senitize_js_input ( $settings['carousel_direction'] ) ) : 'ltr';
+			$carousel_direction = ! empty( $settings['carousel_direction'] ) ? esc_attr( tp_senitize_js_input( $settings['carousel_direction'] ) ) : 'ltr';
 
 			if ( ! empty( $carousel_direction ) ) {
 				$carousel_data   = array(
@@ -2367,9 +2367,8 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 	protected function get_query_args() {
 		$settings      = $this->get_settings_for_display();
 		$post_name     = l_theplus_testimonial_post_name();
-		$taxonomy_name = l_theplus_testimonial_post_category();
-
-		$terms = get_terms(
+		$taxonomy_name = $this->tpae_get_post_cat();
+		$terms         = get_terms(
 			array(
 				'taxonomy'   => $taxonomy_name,
 				'hide_empty' => true,
@@ -2470,5 +2469,78 @@ class L_ThePlus_Testimonial_ListOut extends Widget_Base {
 			$data_slider  .= ' data-arrow_hover_icon_color="' . esc_attr( $settings['arrow_hover_icon_color'] ) . '" ';
 
 		return $data_slider;
+	}
+
+	/**
+	 * Get Testimonial-categories
+	 *
+	 * @since 5.6.9
+	 */
+	public function tpae_get_categories() {
+
+		$testimonial = $this->tpae_get_post_cat();
+
+		if ( ! empty( $testimonial ) ) {
+
+			$categories = get_categories(
+				array(
+					'taxonomy'   => $testimonial,
+					'hide_empty' => 0,
+				)
+			);
+
+			if ( empty( $categories ) || ! is_array( $categories ) ) {
+				return array();
+			}
+		}
+
+		return wp_list_pluck( $categories, 'name', 'term_id' );
+	}
+
+	/**
+	 * Get Testimonial-post
+	 *
+	 * @since 5.6.9
+	 */
+	public function tpae_get_post_cat() {
+		$post_type_options = get_option( 'post_type_options' );
+		$testi_post_type   = ! empty( $post_type_options['testimonial_post_type'] ) ? $post_type_options['testimonial_post_type'] : '';
+
+		$taxonomy_name = 'theplus_testimonial_cat';
+
+		if ( isset( $testi_post_type ) && ! empty( $testi_post_type ) ) {
+			if ( 'themes' === $testi_post_type ) {
+				$taxonomy_name = $this->tpae_get_options( 'testimonial_category_name' );
+			} elseif ( 'plugin' === $testi_post_type ) {
+				$get_name = $this->tpae_get_options( 'testimonial_category_plugin_name' );
+				if ( isset( $get_name ) && ! empty( $get_name ) ) {
+					$taxonomy_name = $this->tpae_get_options( 'testimonial_category_plugin_name' );
+				}
+			} elseif ( 'themes_pro' === $testi_post_type ) {
+				$taxonomy_name = 'testimonial_category';
+			}
+		} else {
+			$taxonomy_name = 'theplus_testimonial_cat';
+		}
+
+		return $taxonomy_name;
+	}
+
+	/**
+	 * Get tp options
+	 *
+	 * @since 5.6.9
+	 *
+	 * @param string $field use for get type.
+	 */
+	public function tpae_get_options( $field ) {
+
+		$post_type_options = get_option( 'post_type_options' );
+
+		if ( isset( $post_type_options[ $field ] ) && ! empty( $post_type_options[ $field ] ) ) {
+			return $post_type_options[ $field ];
+		}
+
+		return '';
 	}
 }

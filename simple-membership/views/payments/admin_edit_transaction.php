@@ -65,6 +65,47 @@ function swpm_handle_edit_txn()
 		// SwpmMiscUtils::redirect_to_url($redirect_to);
 	}
 
+    if ( isset($_POST['swpm_admin_cancel_subscr_submit']) ) {
+        check_admin_referer('swpm_admin_cancel_sub_nonce_action');
+
+        $subscr_id  = isset($_POST['swpm_admin_cancel_subscr_id']) ? sanitize_text_field($_POST['swpm_admin_cancel_subscr_id']) : '';
+        $gateway    = isset($_POST['swpm_admin_cancel_subscr_gateway']) ? sanitize_text_field($_POST['swpm_admin_cancel_subscr_gateway']) : '';
+        $member_id  = isset($_POST['swpm_admin_cancel_subscr_member_id']) ? sanitize_text_field($_POST['swpm_admin_cancel_subscr_member_id']) : '';
+
+        if (empty($subscr_id) || empty($gateway) || empty($member_id)){
+            wp_die( __('Some subscription cancel related required fields not found!', 'simple-membership') );
+        }
+
+        $subscription_utils = new SWPM_Utils_Subscriptions( $member_id );
+        $subscription_utils->load_subs_data_by_sub_id( $subscr_id );
+        $subscriptions_data = $subscription_utils->get_subscription_data($subscr_id);
+        if (empty($subscriptions_data)){
+            // Subscription record not found.
+            wp_die( __('Subscription record not found.', 'simple-membership') );
+        }
+
+        $response = $subscription_utils->dispatch_subscription_cancel_request($subscr_id, $gateway);
+        if ($response !== true){
+            wp_die($response);
+        }
+
+        // Subscription cancellation done, redirect to transactions list table page.
+        $txn_list_table_url = admin_url('admin.php?page=simple_wp_membership_payments') ;
+
+        $sub_cancel_msg = '<div class="swpm-yellow-box">';
+        $sub_cancel_msg .= '<div>';
+        $sub_cancel_msg .= __('Your subscription cancellation request has been successfully processed. The payment gateway may take a few seconds to complete the process.', 'simple-membership');
+        $sub_cancel_msg .= '</div>';
+        $sub_cancel_msg .= '<p>';
+        $sub_cancel_msg .= '<a href="'.$txn_list_table_url.'">'.__('Go to the transactions page', 'simple-membership').'</a>' .__(' to view another transaction.', 'simple-membership');
+		$sub_cancel_msg .= '</p>';
+        $sub_cancel_msg .= '</div>';
+
+        echo $sub_cancel_msg;
+		//Return from this function as we don't want to show the edit transaction form.
+        return;
+    }
+
 	//Show the transaction edit from.
 	swpm_show_edit_txn_form($post);
 }
@@ -87,7 +128,7 @@ function swpm_show_edit_txn_form($post)
 	//Get the member ID that maybe associated with this transaction.
 	$member_id = get_post_meta($post_id, 'member_id', true);
 	if (empty($member_id) && !empty($subscr_id)){
-		//Try to get the member ID from the subscriber ID reference.
+		//Try to get the member ID from the Subscription ID reference.
 		$member_record = SwpmMemberUtils::get_user_by_subsriber_id( $subscr_id );
 		if ( $member_record ) {
 			$member_id = $member_record->member_id;
@@ -126,12 +167,14 @@ function swpm_show_edit_txn_form($post)
 	
 	$payment_amount = get_post_meta($post_id, 'payment_amount', true);
 
-	$gateway = get_post_meta($post_id, 'gateway', true);
-	if (!empty($gateway)) {
-		$gateway = SwpmUtils::get_formatted_payment_gateway_name($gateway);
+	$gateway_raw = get_post_meta($post_id, 'gateway', true);
+	if (!empty($gateway_raw)) {
+		$gateway_formatted = SwpmUtils::get_formatted_payment_gateway_name($gateway_raw);
 	} else {
-		$gateway = '-';
+		$gateway_formatted = '-';
 	}
+
+	$txn_type_raw = get_post_meta($post_id, 'txn_type', true);
 
 	$status = get_post_meta($post_id, 'status', true);
 	$ip_address = get_post_meta($post_id, 'ip_address', true);
@@ -148,10 +191,16 @@ function swpm_show_edit_txn_form($post)
 	}
 
 	$is_live = get_post_meta($post_id, 'is_live', true);
-	if (!empty($is_live)) {
-		$is_live = __("Yes", 'simple-membership');
+	if( $is_live == 'yes' || $is_live == 'no' ){
+		//This field has been set using the new 'yes' or 'no' value.
+		$is_live = ucfirst($is_live);
 	} else {
-		$is_live = __("No", 'simple-membership');
+		//This field has been set using the old '1' or '0' value.
+		if (!empty($is_live)) {
+			$is_live = __("Yes", 'simple-membership');
+		} else {
+			$is_live = __("No", 'simple-membership');
+		}
 	}
 
 	$discount_amount = get_post_meta($post_id, 'discount_amount', true);
@@ -163,6 +212,39 @@ function swpm_show_edit_txn_form($post)
 	if (empty($custom)) {
 		$custom = '-';
 	}
+
+    $subscr_status = get_post_meta($post_id, 'subscr_status', true);
+
+    $is_subscr_agreement_post = false;
+    if ($status == 'subscription created' && in_array($gateway_raw, array('stripe-sca-subs', 'paypal_subscription_checkout'))){
+        $is_subscr_agreement_post = true;
+    }
+
+    $subscr_status_active = false;
+    $show_action_postbox = false;
+    $is_active_subscr_status_retrieved_via_api_call = false;
+
+    if ( $is_subscr_agreement_post && !in_array($subscr_status, array('canceled', 'cancelled')) ) {
+        $subscr_status_active = true;
+
+        // Show the actions postbox if active subscription status.
+        $show_action_postbox = $subscr_status_active;
+
+        // Get the actual subscription status value via api call.
+        $subscription_utils = new SWPM_Utils_Subscriptions( $member_id );
+        $subscription_utils->load_subs_data_by_sub_id( $subscr_id );
+        $subscriptions_data = $subscription_utils->get_subscription_data($subscr_id);
+        if ( $subscriptions_data ){
+            $subscr_status_retrieved_via_api_call = $subscriptions_data['status'];
+            if ( SWPM_Utils_Subscriptions::is_active_status( $subscr_status_retrieved_via_api_call ) ){
+                $is_active_subscr_status_retrieved_via_api_call = true;
+            } else {
+                // Update the 'subscr_status' meta value for older transactions records.
+                // When an admin enters the transaction details page, this postmeta will be updated based on the actual subscription status.
+                update_post_meta( $post_id, 'subscr_status', $subscr_status_retrieved_via_api_call );
+            }
+        }
+    }
 ?>
 
 	<div class="postbox">
@@ -183,17 +265,35 @@ function swpm_show_edit_txn_form($post)
 						<td><?php echo esc_attr(SwpmUtils::get_formatted_and_translated_date_according_to_wp_settings($txn_date)) ?></td>
 					</tr>
 					<tr>
-						<td><?php _e("Subscriber ID", "simple-membership"); ?></td>
+						<td><?php _e("Subscription ID", "simple-membership"); ?></td>
 						<td><?php echo esc_attr($subscr_id); ?></td>
 					</tr>
 					<tr>
 						<td><?php _e("Payment Gateway", "simple-membership"); ?></td>
-						<td><?php echo esc_attr($gateway); ?></td>
+						<td><?php echo esc_attr($gateway_formatted); ?></td>
 					</tr>
-					<tr>
+					<?php if (!empty($txn_type_raw)) { ?>
+						<!-- Some older transactions may not have the txn_type. So only show the transaction type field if it is set. -->
+						<tr>
+							<td><?php _e("Transaction Type", "simple-membership"); ?></td>
+							<td><?php echo esc_attr($txn_type_raw); ?></td>
+						</tr>
+					<?php } ?>
+                    <?php if ( $is_subscr_agreement_post && !$subscr_status_active && !$is_active_subscr_status_retrieved_via_api_call ){ ?>
+					<!-- If this is a subscription agreement (sub-created) type txn and the status is not active, we show the status using the 'subscr_status' post meta. -->
+                    <tr>
+                        <td><?php _e("Subscription Payment Status", "simple-membership"); ?></td>
+                        <td>
+                            <span class="swpm_status_subscription_cancelled"><?php echo ucfirst(esc_attr($subscr_status)); ?></span>
+                        </td>
+                    </tr>
+                    <?php } else { ?>
+						<tr>
 						<td><?php _e("Status", "simple-membership"); ?></td>
 						<td><?php echo ucfirst(esc_attr($status)); ?></td>
 					</tr>
+					<?php } ?>
+
 					<tr>
 						<td><?php _e("First Name", "simple-membership"); ?></td>
 						<td><input type="text" size="40" name="swpm_txn_first_name" value="<?php echo esc_attr($first_name); ?>" /></td>
@@ -256,8 +356,7 @@ function swpm_show_edit_txn_form($post)
 						<td><?php _e("Custom (System Data)", "simple-membership"); ?></td>
 						<td><?php echo esc_attr($custom); ?></td>
 					</tr>
-
-				</table>
+                </table>
 
 				<p class="submit">
 					<?php wp_nonce_field('swpm_admin_edit_txn_form_nonce_action', 'swpm_admin_edit_txn_form_nonce_field') ?>
@@ -266,6 +365,53 @@ function swpm_show_edit_txn_form($post)
 			</form>
 		</div>
 	</div>
+    <?php
+    // echo '<pre>' . print_r(get_post_meta($post_id), true) . '</pre>';
+    /**
+     * Check if it is a subscription agreement record.
+     * Then check if the gateway is stripe-sca or papal-ppcp.
+     * And also check if the 'subscr_status' is not set to 'cancelled'.
+     * Only then show the action postbox.
+     */
+    if ($show_action_postbox) {
+    ?>
+    <div class="postbox">
+        <h2>
+            <?php _e('Cancel Subscription', 'simple-membership') ?>
+        </h2>
+        <div class="inside">
+            <?php
+            /**
+             * For backward compatibility, we also need to check if the subscription is already cancelled or not via api call.
+             */
+            if ( $is_active_subscr_status_retrieved_via_api_call ){
+            ?>
+            <p><?php _e('You can use the button below to cancel the subscription. The subscription is canceled immediately once you confirm the cancellation.' , 'simple-membership'); ?> </p>
+            <div class="swpm-yellow-box">
+                <b><?php _e('NOTE:', 'simple-membership') ?></b> <?php _e('Canceled subscriptions cannot be reactivated. The user can purchase a new subscription if needed.', 'simple-membership'); ?>
+            </div>
+            <form method="post" class="swpm-admin-cancel-subscription-form">
+                <?php echo wp_nonce_field( 'swpm_admin_cancel_sub_nonce_action' );?>
+                <input type="hidden" name="swpm_admin_cancel_subscr_id" value="<?php echo esc_attr($subscr_id);?>">
+                <input type="hidden" name="swpm_admin_cancel_subscr_gateway" value="<?php echo esc_attr($gateway_raw);?>">
+                <input type="hidden" name="swpm_admin_cancel_subscr_member_id" value="<?php echo esc_attr($member_id);?>">
+                <button
+                        type="submit"
+                        class="swpm-cancel-subscription-button swpm-cancel-subscription-button-active"
+                        name="swpm_admin_cancel_subscr_submit"
+                        onclick="return confirm(' <?php _e( 'Are you sure that you want to cancel this subscription?', 'simple-membership' )?> ')"
+                >
+                    <?php _e('Cancel Subscription', 'simple-membership') ?>
+                </button>
+            </form>
+            <?php } else { ?>
+                <div class="swpm-yellow-box">
+                    <?php _e('This subscription has been cancelled already.', 'simple-membership') ?>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+    <?php } ?>
 
 <?php
 }

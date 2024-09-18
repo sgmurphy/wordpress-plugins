@@ -7,8 +7,8 @@ const pure = require('./pure-5be33f24.js');
 const watchers = require('./watchers-fecceee2.js');
 const mutations = require('./mutations-164b66b1.js');
 const store = require('./store-96a02d63.js');
-require('./watchers-ce17ff92.js');
-const getters = require('./getters-ea9c2b72.js');
+require('./watchers-7fad5b15.js');
+const getters = require('./getters-f0495158.js');
 const getters$1 = require('./getters-1e382cac.js');
 const mutations$2 = require('./mutations-8d7c4499.js');
 const mutations$1 = require('./mutations-7113e932.js');
@@ -126,11 +126,13 @@ const ScStripePaymentElement = class {
   }
   /** Update the payment element mode, amount and currency when it changes. */
   createOrUpdateElements() {
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
     // need an order amount, etc.
     if (!((_a = mutations.state === null || mutations.state === void 0 ? void 0 : mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.payment_method_required))
       return;
     if (!getters.state.instances.stripe)
+      return;
+    if (((_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.status) && ['paid', 'processing'].includes((_c = mutations.state.checkout) === null || _c === void 0 ? void 0 : _c.status))
       return;
     // create the elements if they have not yet been created.
     if (!getters.state.instances.stripeElements) {
@@ -142,8 +144,8 @@ const ScStripePaymentElement = class {
         .create('payment', {
         defaultValues: {
           billingDetails: {
-            name: (_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.name,
-            email: (_c = mutations.state.checkout) === null || _c === void 0 ? void 0 : _c.email,
+            name: (_d = mutations.state.checkout) === null || _d === void 0 ? void 0 : _d.name,
+            email: (_e = mutations.state.checkout) === null || _e === void 0 ? void 0 : _e.email,
             ...(!!address ? { address } : {}),
           },
         },

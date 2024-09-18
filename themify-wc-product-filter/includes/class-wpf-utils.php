@@ -385,7 +385,7 @@ class WPF_Utils {
 	public static function is_wpf_query( $query ) {
 		$is =
 			( is_post_type_archive( 'product' ) && $query->is_main_query() ) // Shop page
-			|| ( $query->is_tax( array( 'product_cat', 'product_tag' ) ) ) // product category and tag archive pages. Note that $query->get('post_type') is empty
+			|| ( $query->is_tax( get_object_taxonomies( 'product' ) ) ) // product category and tag archive pages. Note that $query->get('post_type') is empty
 			|| isset( $query->query['wpf_rand'] ) // [products] shortcode
 			|| isset( $query->query['tf_wc_query'] ) // Themify WooCommerce module
 			|| ( isset( $query->query['tbp_aap'] ) && $query->query['post_type'] === 'product' ) // Themify Builder Pro modules

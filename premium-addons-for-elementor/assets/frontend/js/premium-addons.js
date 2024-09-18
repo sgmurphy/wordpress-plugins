@@ -4521,7 +4521,7 @@
                     ],
                     autoplay: settings.carousel_play,
                     autoplaySpeed: settings.speed || 5000,
-                    rtl: rtl ? true : false,
+                    rtl: ('skin4' !== settings.skin && rtl) ? true : false,
                     speed: 500,
                     arrows: 'skin4' !== settings.skin ? true : false,
                     fade: 'skin4' === settings.skin ? true : false
@@ -4599,6 +4599,7 @@
                             speed: 500,
                             autoplay: settings.carousel_play,
                             autoplaySpeed: settings.speed || 5000,
+                            rtl: false
                         });
 
                         $multipleTestimonials.slick('slickGoTo', 1);
@@ -4709,6 +4710,7 @@
             }
 
             if ('onpage' === buttonAction) {
+
                 $container.on('click', '.premium-search__btn', handleSearch);
 
                 $search.on('keyup', function () {
@@ -4727,6 +4729,7 @@
                     }
 
                 });
+
             } else {
                 $container.on('click', '.premium-search__btn', function () {
 
@@ -4881,15 +4884,31 @@
 
                                 searchQuery = searchQuery.trim().toLowerCase();
 
-                                // Filter elements that contain the specified text (case-sensitive)
+                                // Filter elements that don't contain the specified text (case-sensitive)
                                 var $queriedElems = $textElems.filter(function () {
                                     return $(this).text().toLowerCase().indexOf(searchQuery) == -1;
                                 });
 
                                 $queriedElems.css('filter', 'blur(3px)');
                                 $fadeElems.css('opacity', '0.4');
+
+                                var $matchedElems = $textElems.filter(function () {
+                                    return $(this).text().toLowerCase().indexOf(searchQuery) !== -1;
+                                });
+
+                                $matchedElems.map(function (index, textElem) {
+
+                                    textElem = $(this).text().toLowerCase();
+
+                                    textElem = textElem.replace(new RegExp(searchQuery, 'g'), '<span class="pa-highlighted-text-' + widgetID + '">' + searchQuery + '</span>');
+
+                                    $(this).html(textElem);
+                                });
+
                             } else {
                                 $textElems.css('filter', 'blur(0px)');
+
+                                $textElems.find('.pa-highlighted-text-' + widgetID).removeClass('pa-highlighted-text-' + widgetID);
                                 $fadeElems.css('opacity', '1');
                             }
 
@@ -5024,7 +5043,7 @@
 
         };
 
-        var PremiumMobileMenuHandler = elementorModules.frontend.handlers.Base.extend({
+        var PremiumMobileMenuHandler = ModuleHandler.extend({
 
             observer: null, // Reference to the IntersectionObserver
             isNotScrolling: false, // Flag to determine if the user is scrolling manually
@@ -5136,20 +5155,23 @@
                     $items = this.elements.$items;
 
                 var currentPageURL = window.location.href;
+
                 // //Loop through each menu item
                 $items.each(function () {
-                    var $item = $(this);
-                    var menuItemHref = $item.find('a').attr('href');
-                    console.log(menuItemHref, currentPageURL);
+
+                    var $item = $(this),
+                        menuItemHref = $item.find('a').attr('href');
+
                     // Check if the menu item's link matches the current page URL
                     if (menuItemHref === currentPageURL) {
                         // Add the active class if it matches
                         $item.addClass('active-menu-item');
                     }
+
                 });
 
                 $items.on('click', function (e) {
-                    e.preventDefault();
+
                     var $this = $(this);
 
                     if (!$this.hasClass('active-menu-item')) {
@@ -5162,14 +5184,25 @@
 
                     // Scroll to the corresponding section
                     var targetId = $this.data('target');
+
                     if (targetId) {
+
                         var targetElement = $(targetId);
-                        $(window).animate({
-                            scrollTop: targetElement.offset().top
-                        }, 500, function () {
-                            // enable the IntersectionObserver after scroll completes
-                            self.isNotScrolling = false;
-                        });
+
+                        if (targetElement.length > 0) {
+
+                            e.preventDefault();
+
+                            $(window).animate({
+                                scrollTop: targetElement.offset().top
+                            }, 500, function () {
+
+                                // enable the IntersectionObserver after scroll completes.
+                                self.isNotScrolling = false;
+                            });
+
+                        }
+
                     }
                 });
             },

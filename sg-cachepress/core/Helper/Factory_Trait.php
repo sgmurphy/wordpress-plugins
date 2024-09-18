@@ -25,7 +25,7 @@ trait Factory_Trait {
 		$class_path = 'SiteGround_Optimizer\\' . $path . '\\' . $type;
 
 		if ( ! class_exists( $class_path ) ) {
-			throw new \Exception( 'Unknown dependency type "' . $type . '" in "' . $path . '".' );
+			throw new \Exception( 'Unknown dependency type "' . esc_html( $type ) . '" in "' . esc_html( $path ) . '".' );
 		}
 
 		// Define the class.

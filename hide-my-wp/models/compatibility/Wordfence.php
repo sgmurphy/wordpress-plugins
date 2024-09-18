@@ -105,22 +105,41 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
      *
      * @return false|mixed
      */
-    public function checkWordfenceScan($status) {
+    public function checkWordfenceScan( $status ) {
 
         //on manual stan start
-        if(HMWP_Classes_Tools::isAjax() && HMWP_Classes_Tools::getValue('action') == 'wordfence_scan'){
-            $this->witelistWordfence();
-            $status = false;
-        }
+        if( HMWP_Classes_Tools::isAjax()){
 
-        if($this->wfConfig('wf_scanRunning') || $this->wfConfig('scanStartAttempt')){
-            $action = HMWP_Classes_Tools::getValue('action');
-
-            if(in_array($action, array('wordfence_testAjax', 'wordfence_doScan','record_scan_metrics'))){
-                $status = false;
+            if($apiKey = HMWP_Classes_Tools::getValue( 'k' ) && 'wordfence_doScan' == HMWP_Classes_Tools::getValue( 'action' )){
+                if($apiKey == $this->wfConfig( 'apiKey' )){
+                    $this->witelistWordfence();
+                    $status = false;
+                }
             }
 
-            if(get_transient('hmwp_disable_hide_urls')){
+            //on manual stan start
+            if($action = HMWP_Classes_Tools::getValue( 'action' )){
+                if ( in_array( $action, array( 'wordfence_scan' ) ) ) {
+                    $status = false;
+                }
+            }
+        }
+
+        if ( $this->wfConfig( 'wf_scanRunning' ) || $this->wfConfig( 'scanStartAttempt' ) ) {
+
+            //on manual stan start
+            if( HMWP_Classes_Tools::isAjax()){
+
+                //on manual stan start
+                if($action = HMWP_Classes_Tools::getValue( 'action' )){
+                    if ( in_array( $action, array( 'wordfence_testAjax', 'wordfence_doScan', 'record_scan_metrics' ) ) ) {
+                        $status = false;
+                    }
+                }
+
+            }
+
+            if ( get_transient( 'hmwp_disable_hide_urls' ) ) {
                 $status = false;
             }
         }

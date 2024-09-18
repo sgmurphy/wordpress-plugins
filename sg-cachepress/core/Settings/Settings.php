@@ -96,7 +96,7 @@ class Settings {
 	 *
 	 * @since  5.7.13
 	 *
-	 * @return string/filesource  String containing the hashed json or a json file.
+	 * @return string/filesource  String containing the hashed JSON or a JSON file.
 	 */
 	public function export() {
 		// Init the Options Service.
@@ -116,11 +116,11 @@ class Settings {
 		}
 
 		// Return the string if we are not writing it to a file.
-		return base64_encode( json_encode( $settings ) );
+		return base64_encode( wp_json_encode( $settings ) );
 	}
 
 	/**
-	 * Prepare the json for import.
+	 * Prepare the JSON for import.
 	 *
 	 * @since  5.7.13
 	 *

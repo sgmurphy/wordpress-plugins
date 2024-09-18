@@ -2,8 +2,8 @@
 use Elementor\Plugin;
 use Elementor\Utils;
 
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 class L_Theplus_Elementor_Plugin_Options

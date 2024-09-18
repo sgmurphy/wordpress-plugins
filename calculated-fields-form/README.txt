@@ -4,7 +4,7 @@ Donate link: http://cff.dwbooster.com
 Tags: form,quote form,contact form,form builder,calculator form
 Requires at least: 3.0.5
 Tested up to: 6.6
-Stable tag: 5.2.36
+Stable tag: 5.2.37
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -455,6 +455,15 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 
 == Changelog ==
 
+= 5.2.37 =
+
+* Enhanced field appearance in the form builder
+* Improved predefined design template 02
+* Corrected slider control to prevent improper value assignments from affecting the field
+* Resolved minor issue with the calculate button's animation in certain scenarios
+* Modified date/time operations module to avoid empty date fields impacting operation results
+* Adjusted Stripe and Stripe Checkout add-ons to enable the use of transaction_id tags with them, not just PayPal (Platinum plugin version)
+
 = 5.2.36 =
 
 * Modernizes the predefined designs starting by the template 01.
@@ -488,9 +497,3 @@ A: There are multiple alternatives, by using the [PDF generator add-on](https://
 * Modifies the IRR operation by implementing more robust convergence methods (Developer and Platinum plugin versions)
 * Implements new PayPal Checkout add-on improvements (Platinum plugin distribution).
 * Modifies the Verification Code add-on to allow verifying both email addresses and phone numbers (Platinum plugin version).
-
-= 5.2.31 =
-
-* Fixes some issues in the Phone control.
-* Adds a new predefined template.
-* Improves the PayPal Checkout add-on (Platinum plugin distribution).

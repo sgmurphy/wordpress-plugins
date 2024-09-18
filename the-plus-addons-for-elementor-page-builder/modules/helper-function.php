@@ -394,42 +394,6 @@ function l_theplus_get_tags() {
 	return wp_list_pluck( $tags, 'name', 'term_id' );
 	
 }
-function l_theplus_get_testimonial_categories() {
-	
-		$testimonial=l_theplus_testimonial_post_category();
-		if($testimonial!=''){
-			$categories = get_categories(array('taxonomy' => $testimonial,'hide_empty' => 0));
-			
-			if ( empty( $categories ) || ! is_array( $categories ) ) {
-				return array();
-			}	
-		}
-	return wp_list_pluck( $categories, 'name', 'term_id' );
-}
-function l_theplus_get_client_categories() {
-	
-		$clients=l_theplus_client_post_category();
-		if($clients!=''){
-			$categories = get_categories(array('taxonomy' => $clients,'hide_empty' => 0));
-			
-			if ( empty( $categories ) || ! is_array( $categories ) ) {
-				return array();
-			}	
-		}
-	return wp_list_pluck( $categories, 'name', 'term_id' );
-}
-function l_theplus_get_team_member_categories() {
-	
-		$teams=l_theplus_team_member_post_category();
-		if($teams!=''){
-			$categories = get_categories(array('taxonomy' => $teams,'hide_empty' => 0));
-			
-			if ( empty( $categories ) || ! is_array( $categories ) ) {
-				return array();
-			}	
-		}
-	return wp_list_pluck( $categories, 'name', 'term_id' );
-}
 
 function l_theplus_orderby_arr() {
 	return array(

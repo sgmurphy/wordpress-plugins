@@ -472,8 +472,8 @@
 							}
 							else if(
 								(
-									! me.showDatepicker ||
-									'' == String( $('[id="'+me.name+'_date"]').val() ).trim()
+									! me.showDatepicker
+									|| '' == String( $('[id="'+me.name+'_date"]').val() ).trim()
 								) && me.showTimepicker
 							) return (h*3600000+m*60000)/86400000;
 						}

@@ -15,7 +15,7 @@
  * Plugin Name:       BlossomThemes Email Newsletter
  * Plugin URI:
  * Description:       Easily add email subscription form to your website using shortcode and widget.
- * Version:           2.2.7
+ * Version:           2.2.8
  * Author:            blossomthemes
  * Author URI:        https://blossomthemes.com
  * License:           GPL-2.0+
@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'BLOSSOMTHEMES_EMAIL_NEWSLETTER_FILE_PATH', __FILE__ );
 define( 'BLOSSOMTHEMES_EMAIL_NEWSLETTER_BASE_PATH', dirname( __FILE__ ) );
 define( 'BLOSSOMTHEMES_EMAIL_NEWSLETTER_FILE_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
-define( 'BLOSSOMTHEMES_EMAIL_NEWSLETTER_VERSION', '2.2.7' );
+define( 'BLOSSOMTHEMES_EMAIL_NEWSLETTER_VERSION', '2.2.8' );
 
 
 /**

@@ -8,9 +8,8 @@
 namespace AdTribes\PFP\Classes;
 
 use AdTribes\PFP\Abstracts\Abstract_Class;
-use AdTribes\PFP\Factories\Product_Feed_Query;
-use AdTribes\PFP\Factories\Product_Feed;
 use AdTribes\PFP\Helpers\Product_Feed_Helper;
+use AdTribes\PFP\Traits\Singleton_Trait;
 
 /**
  * Heartbeat class.
@@ -18,6 +17,8 @@ use AdTribes\PFP\Helpers\Product_Feed_Helper;
  * @since 13.3.5
  */
 class Heartbeat extends Abstract_Class {
+
+    use Singleton_Trait;
 
     /**
      * Get product feed processing status.
@@ -44,7 +45,7 @@ class Heartbeat extends Abstract_Class {
         $response       = array();
 
         foreach ( $project_hashes as $project_hash ) {
-            $feed = new Product_Feed( $project_hash );
+            $feed = Product_Feed_Helper::get_product_feed( $project_hash );
 
             if ( ! $feed->id ) {
                 continue;

@@ -658,7 +658,7 @@ class MyAccountTag extends FormProcessor
         ob_start();
         ?>
         <script type="text/javascript">
-            jQuery('.ppmyac-custom-file input').change(function (e) {
+            jQuery('.ppmyac-custom-file input').on('change',function (e) {
                 var files = [];
                 for (var i = 0; i < jQuery(this)[0].files.length; i++) {
                     files.push(jQuery(this)[0].files[i].name);

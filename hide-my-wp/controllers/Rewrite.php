@@ -31,7 +31,12 @@ class HMWP_Controllers_Rewrite extends HMWP_Classes_FrontController
 		    return;
 	    }
 
-	    //Init the main hooks
+        //if plugin paused from plugins
+        if(get_transient('hmwp_disable')){
+            return;
+        }
+
+        //Init the main hooks
 	    //start HMWP path process
 	    $this->initHooks();
 

@@ -1,10 +1,10 @@
-=== WP Social Ninja – Social Feed, Reviews & Chat Plugin for WP (Google Reviews, Photo Feeds & More) ===
+﻿=== WP Social Ninja – Social Feed, Reviews & Chat Plugin for WP (Google Reviews, Photo Feeds & More) ===
 Contributors: techjewel, adreastrian, devutpol, wpmanageninja
 Tags: Instagram feed, Google Reviews, Social feeds, Social reviews, Social chats
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 3.13.1
+Stable tag: 3.14.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -309,6 +309,19 @@ Yes, you can. WP Social Ninja is a fully-featured review plugin with unique feat
 8. Make templates your own way, and all will look perfect on any screen.
 
 == Changelog ==
+3.14.0 ( Date: 18 September, 2024 )
+- Added Optimize Images settings option in Settings -> Feed Platforms -> Facebook,TikTok Settings. This feature automatically stores local copies of Facebook,TikTok feed images on your server.
+– Added Facebook,TikTok Feed GDPR compliant settings option in Settings -> Advanced Settings.
+– Added Optimize Images reset option in Settings -> Feed Platforms -> Facebook,TikTok Settings.
+– Added Optimize Image resolution settings option in Template Editor -> Feed -> Images Resolution.
+– Added a warning notice in the wp social ninja admin area to alert you about critical issues with your Facebook,TikTok Feed and Facebook Reviews.
+– Added Email notification alerts for critical Facebook,TikTok Feed and Facebook Reviews issues. You will receive an email notification if there’s an unresolved issue with an Facebook,TikTok feed or Facebook Reviews on your website.
+- Fixed the review rating problem so you see the exact rating every time.
+- Fixed the Instagram feed animation issue so that images of different sizes and resolutions display perfectly on the screen.
+- Fixed the problem of missing Instagram videos - now all videos will be shown properly.
+- Improved Instagram image optimization by fixing the issue with multiple avatar downloads and ensuring images load from local storage.
+- Fixed the Instagram videos display issue in the free version so videos can now play directly from the template.
+
 3.13.1 ( Date: 03 April, 2024 )
 - Resolved Facebook Pages and Instagram accounts connectivity problems.
 - Fixed the string translation issue in the editor.

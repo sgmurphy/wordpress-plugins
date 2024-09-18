@@ -527,7 +527,7 @@ abstract class SwpmUtils {
 		if ( ! empty( $user_ip ) ) {
 			//Lets check if a payment has been confirmed from this user's IP and the profile needs to be completed (where username is empty).
 			$username = '';
-			$query    = 'SELECT * FROM ' . $wpdb->prefix . 'swpm_members_tbl WHERE last_accessed_from_ip=%s AND user_name=%s';
+			$query    = 'SELECT * FROM ' . $wpdb->prefix . 'swpm_members_tbl WHERE last_accessed_from_ip=%s AND user_name=%s ORDER BY member_id DESC';
 			$query    = $wpdb->prepare( $query, $user_ip, $username );
 			$result   = $wpdb->get_row( $query );
 			return $result;
@@ -589,13 +589,17 @@ abstract class SwpmUtils {
 
 	public static function get_user_ip_address() {
 		$user_ip = '';
-		if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) && ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+
+		if (isset($_SERVER['HTTP_CLIENT_IP']) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
+			$user_ip = $_SERVER['HTTP_CLIENT_IP'];
+		} else if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) && ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 			$user_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		} else {
 			$user_ip = $_SERVER['REMOTE_ADDR'];
 		}
 
 		if ( strstr( $user_ip, ',' ) ) {
+			// Return first IP if X-Forwarded-For contains multiple IPs.
 			$ip_values = explode( ',', $user_ip );
 			$user_ip   = $ip_values['0'];
 		}
@@ -750,6 +754,8 @@ abstract class SwpmUtils {
 				return 'Stripe Subscription';
 			case 'paypal':
 				return 'PayPal Standard';
+			case 'paypal_std_sub_checkout':
+				return 'PayPal Standard Subscription';
 			case 'paypal_buy_now_checkout':
 				return 'PayPal Buy Now (PPCP)';
 			case 'paypal_subscription_checkout':

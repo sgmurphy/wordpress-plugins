@@ -59,10 +59,8 @@ class Module {
 	 */
 	public function __construct() {
 
-		$modules = Admin_Helper::get_enabled_elements();
-
 		// Checks if Global Divider addon is enabled.
-		$global_divider = $modules['premium-shape-divider'];
+		$global_divider = Admin_Helper::check_element_by_key( 'premium-shape-divider' );
 
 		if ( ! $global_divider ) {
 			return;

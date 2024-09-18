@@ -6193,8 +6193,9 @@ a.premium-image-separator-link:active {
     transition: transform 500ms, -webkit-transform 500ms;
   }
 
-  .premium-adv-carousel__media-wrap .premium-adv-carousel__item-img {
-    width: 100%;
+  .premium-adv-carousel__media-wrap img.premium-adv-carousel__item-img,
+  .premium-adv-carousel__media-wrap .premium-adv-carousel__item-img img {
+      width: 100%;
     height: 100%;
     -webkit-transition: -webkit-transform 500ms;
     transition: -webkit-transform 500ms;

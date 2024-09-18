@@ -295,7 +295,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 				'default'     => '',
 				'label_block' => true,
 				'multiple'    => true,
-				'options'     => l_theplus_get_client_categories(),
+				'options'     => $this->tpae_get_categories(),
 				'separator'   => 'before',
 			)
 		);
@@ -1133,7 +1133,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 		$query      = new \WP_Query( $query_args );
 
 		$clients_name     = l_theplus_client_post_name();
-		$clients_taxonomy = l_theplus_client_post_category();
+		$clients_taxonomy = $this->tpae_get_post_cat();
 
 		$style  = ! empty( $settings['style'] ) ? $settings['style'] : 'style-1';
 		$layout = ! empty( $settings['layout'] ) ? $settings['layout'] : 'grid';
@@ -1165,7 +1165,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 			$animated_class = '';
 			$animation_attr = '';
 		} else {
-			$animate_offset  = l_theplus_scroll_animation();
+			$animate_offset  = '85%';
 			$animated_class  = 'animate-general';
 			$animation_attr  = ' data-animate-type="' . esc_attr( $ani_effects ) . '" data-animate-delay="' . esc_attr( $ani_delay ) . '"';
 			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
@@ -1321,7 +1321,7 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 		$category = array();
 
 		$clients_name     = l_theplus_client_post_name();
-		$clients_taxonomy = l_theplus_client_post_category();
+		$clients_taxonomy = $this->tpae_get_post_cat();
 
 		$terms = get_terms(
 			array(
@@ -1372,5 +1372,77 @@ class L_ThePlus_Clients_ListOut extends Widget_Base {
 		$query_args['offset'] = $offset;
 
 		return $query_args;
+	}
+
+	/**
+	 * Get Clients-categories
+	 *
+	 * @since 5.6.9
+	 */
+	public function tpae_get_categories() {
+
+		$clients = $this->tpae_get_post_cat();
+
+		if ( ! empty( $clients ) ) {
+			$categories = get_categories(
+				array(
+					'taxonomy'   => $clients,
+					'hide_empty' => 0,
+				)
+			);
+
+			if ( empty( $categories ) || ! is_array( $categories ) ) {
+				return array();
+			}
+		}
+
+		return wp_list_pluck( $categories, 'name', 'term_id' );
+	}
+
+	/**
+	 * Get Clents-post
+	 *
+	 * @since 5.6.9
+	 */
+	public function tpae_get_post_cat() {
+		$post_type_options = get_option( 'post_type_options' );
+		$client_post_type  = ! empty( $post_type_options['client_post_type'] ) ? $post_type_options['client_post_type'] : '';
+
+		$post_name = 'theplus_clients_cat';
+
+		if ( isset( $client_post_type ) && ! empty( $client_post_type ) ) {
+			if ( 'themes' === $client_post_type ) {
+				$post_name = $this->tpae_get_options( 'client_category_name' );
+			} elseif ( 'plugin' === $client_post_type ) {
+				$get_name = $this->tpae_get_options( 'client_category_plugin_name' );
+				if ( isset( $get_name ) && ! empty( $get_name ) ) {
+					$post_name = $this->tpae_get_options( 'client_category_plugin_name' );
+				}
+			} elseif ( 'themes_pro' === $client_post_type ) {
+				$post_name = 'clients_category';
+			}
+		} else {
+			$post_name = 'theplus_clients_cat';
+		}
+
+		return $post_name;
+	}
+
+	/**
+	 * Get tp options
+	 *
+	 * @since 5.6.9
+	 *
+	 * @param string $field use for get type.
+	 */
+	public function tpae_get_options( $field ) {
+
+		$post_type_options = get_option( 'post_type_options' );
+
+		if ( isset( $post_type_options[ $field ] ) && ! empty( $post_type_options[ $field ] ) ) {
+			return $post_type_options[ $field ];
+		}
+
+		return '';
 	}
 }

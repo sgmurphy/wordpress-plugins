@@ -1395,7 +1395,7 @@ class L_ThePlus_Gallery_ListOut extends Widget_Base {
 			$animated_class = '';
 			$animation_attr = '';
 		} else {
-			$animate_offset  = l_theplus_scroll_animation();
+			$animate_offset  = '85%';
 			$animated_class  = 'animate-general';
 			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
 			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';

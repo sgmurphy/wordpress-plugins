@@ -705,7 +705,7 @@ class GeneralSettings extends AbstractSettingsPage
         <script type="text/javascript">
             (function ($) {
                 $('#business_country').on('change', function () {
-                    $('#business_info').find('.button-primary').click();
+                    $('#business_info').find('.button-primary').trigger('click');
                 })
             })(jQuery)
         </script>

@@ -5,7 +5,7 @@ Donate link: https://www.patreon.com/meowapps
 Requires at least: 6.0
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 6.6.3
+Stable tag: 6.6.4
 
 Optimize your images effortlessly. Replace, regenerate, resize, improve, transform, and achieve perfect images for your site.
 
@@ -49,6 +49,9 @@ The Pro version adds support for Retina for full-size, support for lazy-loading 
 3. Check if it works! - if it doesn't, read the FAQ, the tutorial, and check the forums.
 
 == Changelog ==
+
+= 6.6.4 (2024/09/18) =
+* Fix: Make sure size names is an array.
 
 = 6.6.3 (2024/08/01) =
 * Fix: Make sure image is created prior to palette conversion.

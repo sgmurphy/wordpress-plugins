@@ -47,6 +47,9 @@ class SwpmStripeSubscriptionIpnHandler {
 				$ipn_data['subscr_id']     = $subscr_id;
 				$ipn_data['parent_txn_id'] = $customer;
 
+                // Update subscription status of the subscription agreement record in transactions cpt table.
+                SWPM_Utils_Subscriptions::update_subscription_agreement_record_status_to_cancelled($subscr_id);
+
 				swpm_handle_subsc_cancel_stand_alone( $ipn_data );
 			}
 
@@ -135,6 +138,7 @@ class SwpmStripeSubscriptionIpnHandler {
 					$ipn_data['ip']               = '';
 					$ipn_data['custom']           = $custom_field_value;
 					$ipn_data['gateway']          = 'stripe-sca-subs';
+					$ipn_data['txn_type']         = 'recurring_payment';
 					$ipn_data['status']           = 'subscription';
 
 					//TODO - Maybe handle the user access start date updating here (instead of "customer.subscription.updated" hook).

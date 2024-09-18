@@ -4,7 +4,7 @@ Tags: password protect, password, restrict content, sitewide, password protectio
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 6.6.1
-Stable tag: 1.9.3
+Stable tag: 1.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -280,6 +280,10 @@ Yes, the Pro version enables you to [automatically password protect child pages]
 N/A
 
 == Changelog ==
+
+= 1.9.4 =
+
+* [Feature] Added support for Show/Hide Password functionality in the master password listing, enhancing security and ease of use for managing master passwords.
 
 = 1.9.3 =
 

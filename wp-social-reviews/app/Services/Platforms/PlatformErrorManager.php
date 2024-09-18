@@ -80,7 +80,6 @@ class PlatformErrorManager
                         $connection_details['critical'] = true;
                     }
                 }
-
                 $this->errors[$this->platform]['accounts'][$userId][$type] = $errors;
                 $connection_details['error_message'] = $this->generateErrorMessage($errors, $accountDetails);
                 $log_item                              .= $connection_details['error_message']['admin_only'];
@@ -160,7 +159,7 @@ class PlatformErrorManager
 
             $current_log[]                 = $log_item;
             $this->errors[$this->platform]['error_log'] = $current_log;
-            
+
             $old_errors = get_option('wpsr_errors');
             $allErrors = wp_parse_args($this->errors, $old_errors);
             update_option('wpsr_errors', $allErrors, false);
@@ -168,6 +167,9 @@ class PlatformErrorManager
 
     public function generateErrorMessage($errors, $accounts)
     {
+        $platformWithType = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
+        $platform = (new PlatformManager())->getPlatformOfficialName($this->platform, true);
+
         $userName = Arr::get($accounts, 'username', '');
 
         $return_message = array(
@@ -178,7 +180,7 @@ class PlatformErrorManager
         );
 
         if(is_wp_error($errors)){
-            $return_message['error_message']       = __('HTTP Error: Unable to connect to the '.ucfirst($this->platform).' API.', 'wp-social-reviews'). ' ' . __( 'As a result, your feed won\'t be able to update at the moment.', 'wp-social-reviews');
+            $return_message['error_message']       = __('HTTP Error: Unable to connect to the '.$platform.' API.', 'wp-social-reviews'). ' ' . __( 'As a result, your feed won\'t be able to update at the moment.', 'wp-social-reviews');
             $return_message['admin_only']          = sprintf( __( 'Error connecting to %s:', 'wp-social-reviews' ), Arr::get($errors, 'url') );
 
             if ( isset( $errors ) && isset($errors->errors) ) {
@@ -205,15 +207,21 @@ class PlatformErrorManager
                 $return_message['admin_only']          = __( 'If you need to display more than 30 hashtag feeds on your site, consider connecting an additional business account from a separate Instagram Identity and Facebook page. Connecting an additional Instagram business account from the same Facebook page will not raise the limit.', 'wp-social-reviews' );
             } elseif ( (int) Arr::get($errors, 'error.code') === 10 ){
                 $return_message['error_message']       = sprintf( __( 'Account(%s): Error: Connected account for the user %s does not have permission to use this feed type.', 'wp-social-reviews' ), $userName, $userName );
-                $return_message['admin_only']          = sprintf(__( 'Simply tap on the "Continue with Instagram/Facebook" button on the "%s Configuration" modal to reconnect your account and update its permissions.', 'wp-social-reviews' ), ucfirst($this->platform));
+                $return_message['admin_only']          = sprintf(__( 'Simply tap on the "Continue with Instagram/Facebook" button on the "%s Configuration" modal to reconnect your account and update its permissions.', 'wp-social-reviews' ), $platformWithType);
             } elseif ( (int) Arr::get($errors, 'error.code') === 24 ){
                 $return_message['error_message']       = __( 'Error: Cannot retrieve posts for this hashtag.', 'wp-social-reviews' );
                 $return_message['admin_only']          = $errors['error']['error_user_msg'];
             } elseif ( (int) Arr::get($errors, 'error.code') === 190 && str_contains($errors['error']['message'], 'permission(s) must be granted before impersonating')){
                 $return_message['error_message']       = sprintf( __( 'API error %s:', 'wp-social-reviews' ), $errors['error']['code'] ) . ' ' . str_replace( '"', '', $errors['error']['message']);
-                $return_message['admin_only']          = sprintf(__( 'Simply tap on the "Continue with Instagram/Facebook" button on the "%s Configuration" modal to reconnect your account and update its permissions.', 'wp-social-reviews' ), ucfirst($this->platform));
+                $return_message['admin_only']          = sprintf(__( 'Simply tap on the "Continue with Instagram/Facebook" button on the "%s Configuration" modal to reconnect your account and update its permissions.', 'wp-social-reviews' ), $platformWithType);
+            } elseif ((int) Arr::get($errors, 'error.code') == 'invalid_grant' && str_contains($errors['error']['message'], 'Refresh token is invalid or expired.')) {
+                $return_message['error_message'] = sprintf(__('API error %s:', 'wp-social-reviews'), $errors['error']['code']) . ' ' . str_replace('"', '', $errors['error']['message']);
+                $return_message['admin_only'] = sprintf(
+                    __('The connection to TikTok has expired or is no longer valid. This usually happens if the refresh token is outdated or the app’s permissions have been changed. To restore the connection, please tap on the "Continue with TikTok" button on the "%s Configuration" modal. This will guide you through reconnecting your account and updating its permissions.', 'wp-social-reviews'),
+                    $platformWithType
+                );
             } else {
-                $return_message['error_message']       = sprintf(__( 'Account(%1$s): There has been a problem with your account(%1$s) %2$s Feed.', 'wp-social-reviews'), $userName, ucfirst($this->platform));
+                $return_message['error_message']       = sprintf(__( 'Account(%1$s): There has been a problem with your account(%1$s) %2$s.', 'wp-social-reviews'), $userName, $platformWithType);
                 $return_message['admin_only']          = sprintf( __( 'API error %s:', 'wp-social-reviews' ), $errors['error']['code'] ) . ' ' . str_replace( '"', '', $errors['error']['message']);
             }
         } else {
@@ -232,13 +240,8 @@ class PlatformErrorManager
     public function getAdminErrors()
     {
         $error_message = [];
-
         if(!empty($this->errors)){
             foreach($this->errors as $platform => $error) {
-                if($this->hasCriticalErrors($platform)) {
-                    $error_message[$platform] = $this->getCriticalErrors();
-                }
-
                 if(Arr::get($this->errors, $platform.'.upload_dir')){
                     $error_message[$platform]['upload_dir']['error_message'] = $this->errors[$platform]['upload_dir'];
                 }
@@ -260,6 +263,10 @@ class PlatformErrorManager
                     $error_message[$platform]['platform_data_deleted']['error_message'] = str_replace('account', 'account('.$accounts_revoked.')', $this->errors[$platform]['platform_data_deleted']);
                     $error_message[$platform]['platform_data_deleted']['direction_url_text'] = __('To fix your feeds, reconnect all accounts that were in use on the platform configuration.', 'wp-social-reviews');
                     $error_message[$platform]['platform_data_deleted']['direction_url'] = '';
+                } else {
+                    if($this->hasCriticalErrors($platform)) {
+                        $error_message[$platform] = $this->getCriticalErrors(Arr::get($error, 'connection'));
+                    }
                 }
             }
         }
@@ -269,7 +276,7 @@ class PlatformErrorManager
     public function getFrontEndErrors()
     {
         $error_messages = [];
-        if( Arr::get($this->errors, $this->platform.'.connection') ){
+        if( Arr::get($this->errors, $this->platform.'.connection') && !Arr::get($this->errors, $this->platform.'.platform_data_deleted')){
             foreach ($this->errors[$this->platform]['connection'] as $index => $connection_error){
                 if(!empty($connection_error)){
                     $error_messages[$index] = Arr::get($connection_error, 'error_message');
@@ -339,7 +346,7 @@ class PlatformErrorManager
         return $accounts_revoked;
     }
 
-    public function getCriticalErrors()
+    public function getCriticalErrors($connections = [])
     {
         $feed_platforms = (new PlatformManager())->feedPlatforms();
         $reviews_platforms = (new PlatformManager())->reviewsPlatforms();
@@ -358,44 +365,53 @@ class PlatformErrorManager
 
                 if (isset($this->errors[$platform]['connection'])) {
                     foreach ($this->errors[$platform]['connection'] as $index => $connection_errors) {
-                        if (isset($connection_errors['critical'])) {
-                            $errors = $this->getErrors($platform);
 
-                            $revoke_platform_data = get_option('wpsr_' . $platform . '_revoke_platform_data', []);
-                            $revoke_platform_data_timestamp = Arr::get($revoke_platform_data, 'revoke_platform_data_timestamp');
+                        if(array_key_exists($index, $connections)) {
+                            if (isset($connection_errors['critical'])) {
+                                $errors = $this->getErrors($platform);
 
-                            $username = Arr::get($errors, 'connection.' . $index . '.username');
-                            $sub_title = '';
-                            if ($revoke_platform_data_timestamp) {
-                                $revoke_platform_data_timestamp = date_i18n('l, d F Y', $revoke_platform_data_timestamp);
-                                $sub_title = sprintf(__('(%1$s account data will delete in %2$s)', 'wp-social-reviews'), $username, $revoke_platform_data_timestamp);
-                            }
+                                $revoke_platform_data = get_option('wpsr_' . $platform . '_revoke_platform_data', []);
+                                $revoke_platform_data_timestamp = Arr::get($revoke_platform_data, 'revoke_platform_data_timestamp');
 
-                            $error_message[$index]['error_type'] = 'connection';
-                            $error_message[$index]['main_title'] = ucfirst($platform) . __(' Feed is currently experiencing an error that may prevent your feeds from updating. This issue is likely caused by the following reasons:', 'wp-social-reviews');
-                            if ($errors['connection'][$index]['error_code'] === 190 && !str_contains(Arr::get($errors, 'connection.'.$index.'.error_message.error_message'), 'permission(s) must be granted before impersonating')) {
-                                $error_message[$index]['error_title'] = sprintf(__('Error in Account %s:', 'wp-social-reviews'), $username);
-                                $error_message[$index]['sub_title'] = sprintf(__('Action required within 7 days %s', 'wp-social-reviews'), $sub_title);
-                                $error_message[$index]['error_message'] = sprintf(__('An account ("%1$s") admin has deauthorized the WP Social Ninja app used to power the WP Social Ninja plugin. If the %2$s source is not reconnected within 7 days then all %2$s data will be automatically deleted on your website for this account (ID: %3$s) due to Facebook data privacy rules. To prevent the automated data deletion for the source, please reconnect your account within 7 days.', 'wp-social-reviews'), $index, ucfirst($platform), $accounts_revoked);
-                                $error_message[$index]['direction_url_text'] = __('More Information', 'wp-social-reviews');
-                                $error_message[$index]['direction_url'] = 'https://wpsocialninja.com/docs/instagram-api-error-message-reference-social-feeds-wp-social-ninja/#8-toc-title';
-                            } else {
-                                $connection_error_message = $errors['connection'][$index]['error_message'];
-                                $error_message[$index]['error_message'] = $connection_error_message['error_message'];
-                                $error_message[$index]['direction_url_text'] = $connection_error_message['admin_only'];
-                                $error_message[$index]['direction_url'] = '';
+                                $username = Arr::get($errors, 'connection.' . $index . '.username');
+                                $sub_title = '';
+                                if ($revoke_platform_data_timestamp) {
+                                    $revoke_platform_data_timestamp = date_i18n('l, d F Y', $revoke_platform_data_timestamp);
+                                    $sub_title = sprintf(__('(%1$s account data will delete in %2$s)', 'wp-social-reviews'), $username, $revoke_platform_data_timestamp);
+                                }
+
+                                $error_message[$index]['error_type'] = 'connection';
+                                $platformWithType = (new PlatformManager())->getPlatformOfficialName($platform, true);
+
+                                $error_message[$index]['main_title'] = $platformWithType . __(' is currently experiencing an error that may prevent your feeds from updating. This issue is likely caused by the following reasons:', 'wp-social-reviews');
+
+                                if (($errors['connection'][$index]['error_code'] === 190 || $errors['connection'][$index]['error_code'] === 401) && !str_contains(Arr::get($errors, 'connection.' . $index . '.error_message.error_message'), 'permission(s) must be granted before impersonating')) {
+                                    $error_message[$index]['error_title'] = sprintf(__('Error in Account %s:', 'wp-social-reviews'), $username);
+                                    $error_message[$index]['sub_title'] = sprintf(__('Action required within 7 days %s', 'wp-social-reviews'), $sub_title);
+                                    $error_message[$index]['error_message'] = sprintf(__('An account ("%1$s") admin has deauthorized the WP Social Ninja app used to power the WP Social Ninja plugin. If the %2$s source is not reconnected within 7 days then all %2$s data will be automatically deleted on your website for this account (ID: %3$s) due to %4$s data privacy rules. To prevent the automated data deletion for the source, please reconnect your account within 7 days.', 'wp-social-reviews'), $index, $platformWithType, $accounts_revoked, $platform);
+                                    $error_message[$index]['direction_url_text'] = __('More Information', 'wp-social-reviews');
+                                    if ($errors['connection'][$index]['error_code'] === 190) {
+                                        $error_message[$index]['direction_url'] = 'https://wpsocialninja.com/docs/instagram-api-error-message-reference-social-feeds-wp-social-ninja/#8-toc-title';
+                                    } elseif ($errors['connection'][$index]['error_code'] === 401) {
+                                        $error_message[$index]['direction_url'] = 'https://wpsocialninja.com/docs/tiktok-feed-configuration/#2-toc-title';
+                                    }
+                                } else {
+                                    $connection_error_message = $errors['connection'][$index]['error_message'];
+                                    $error_message[$index]['error_message'] = $connection_error_message['error_message'];
+                                    $error_message[$index]['direction_url_text'] = $connection_error_message['admin_only'];
+                                    $error_message[$index]['direction_url'] = '';
 //                                if ( !empty($accounts_revoked_string) ) {
 //                                    $error_message[$index]['error_message'] = $accounts_revoked_string;
 //                                }
+                                }
+                            }
+
+                            if (Arr::get($error_message, $index . '.error_message')) {
+                                $error_message[$index]['error_message'] = str_replace('Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api', '', Arr::get($error_message, $index . '.error_message'));
+                            } else {
+                                $error_message[$index]['error_message'] = '';
                             }
                         }
-
-                        if (Arr::get($error_message, $index.'.error_message')) {
-                            $error_message[$index]['error_message'] = str_replace('Please read the Graph API documentation at https://developers.facebook.com/docs/graph-api', '', Arr::get($error_message, $index.'.error_message'));
-                        } else {
-                            $error_message[$index]['error_message'] = '';
-                        }
-
                     }
 
                 }
@@ -423,6 +439,11 @@ class PlatformErrorManager
             $connected_accounts = Arr::get($configs, 'sources') ? $configs['sources'] : [];
         }
 
+        if($this->platform === 'tiktok'){
+            $configs = get_option('wpsr_tiktok_connected_sources_config', []);
+            $connected_accounts = Arr::get($configs, 'sources') ? $configs['sources'] : [];
+        }
+
         if(empty($connected_accounts) || empty($accounts)){
             return -1;
         }
@@ -444,6 +465,8 @@ class PlatformErrorManager
             100, // access token or permissions
             190, // app removed
             10, // app permissions or scopes
+            401, // Unauthorized (TikTok)
+            'invalid_grant', // access token expired or invalid (TikTok)
         );
 
         return in_array( $error_code, $critical_codes, true );

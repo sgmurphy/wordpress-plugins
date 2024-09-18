@@ -13,6 +13,7 @@ use WPSocialReviews\App\Services\Platforms\Feeds\Instagram\Config as InstagramCo
 use WPSocialReviews\App\Services\Platforms\PlatformData;
 use WPSocialReviews\App\Services\Platforms\PlatformErrorManager;
 use WPSocialReviews\Framework\Support\Arr;
+use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -39,6 +40,7 @@ class InstagramFeed extends BaseFeed
         $this->platfromData = new PlatformData($this->platform);
         $this->dataProtector = new DataProtector();
         $this->errorManager = new PlatformErrorManager($this->platform);
+        (new ImageOptimizationHandler($this->platform))->registerHooks();
 
         add_action('wpsr_instagram_access_token_refresh_weekly', array($this, 'doTokenRefreshes'));
         add_action('wpsr_instagram_send_email_report', array($this, 'maybeSendFeedIssueEmail'));
@@ -333,7 +335,6 @@ class InstagramFeed extends BaseFeed
                 );
             }
         }
-
         update_option('wpsr_instagram_verification_configs', array('connected_accounts' => $connected_accounts));
 
         foreach ($connected_accounts as $connected_account) {
@@ -422,7 +423,7 @@ class InstagramFeed extends BaseFeed
             $filterResponse = (new FeedFilters())->filterFeedResponse($this->platform, $feed_settings, $response);
         }
         $filterResponse['error_message'] = Arr::get($response, 'error_message', '');
-
+        
         $formatted_feed_template_meta['dynamic'] = $filterResponse;
         $configs                                 = $formatted_feed_template_meta;
 
@@ -430,8 +431,8 @@ class InstagramFeed extends BaseFeed
         $connected_ids            = (new Common())->findConnectedAccounts();
         $configs['connected_ids'] = $connected_ids;
         $account_ids = Arr::get($feed_settings, 'source_settings.account_ids', []);
-        $configs['header_connected_ids'] = array_intersect_key($connected_ids, array_flip($account_ids));
-
+        $connected_account_list = array_intersect_key($connected_ids, array_flip($account_ids));
+        $configs['header_connected_ids'] = $connected_account_list;
         if(defined('WPSOCIALREVIEWS_PRO') && class_exists('\WPSocialReviewsPro\App\Services\Platforms\Feeds\Shoppable')){
             $configs = (new \WPSocialReviewsPro\App\Services\Platforms\Feeds\Shoppable())->makeShoppableFeeds($configs, 'instagram');
         }
@@ -472,7 +473,7 @@ class InstagramFeed extends BaseFeed
 
         wp_send_json_success([
             'message'          => __('Success', 'wp-social-reviews'),
-            '$header_account'  => $connected_account,
+            'header_account'  => $connected_account,
             'image_settings'   => $image_settings,
             'settings'         => $settings,
             'template_details' => $templateDetails,
@@ -681,7 +682,14 @@ class InstagramFeed extends BaseFeed
 
         $accountCacheName = 'user_account_header_' . $accountToShow;
         $headerDetails = $this->cacheHandler->getFeedCache($accountCacheName);
+        $global_settings = get_option('wpsr_instagram_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
 
+        $optimized_images = Arr::get($global_settings, 'global_settings.optimized_images', 'false');
+        if($optimized_images == 'true' && !empty($headerDetails)){
+            $imageOptimizationObj =  new ImageOptimizationHandler('instagram');
+            $headerDetails['user_avatar'] = $imageOptimizationObj->getLocalHeaderUrl($accountToShow,'avatars');
+        }
         return [
             'header_details'    => $headerDetails
         ];
@@ -710,8 +718,18 @@ class InstagramFeed extends BaseFeed
     public function updateCachedFeeds($caches)
     {
         $this->cacheHandler->clearPageCaches($this->platform);
-
         $connectedAccounts = (new Common())->findConnectedAccounts();
+        foreach ($connectedAccounts as $accountId => $accountDetails) {
+            $instagramApiUrl = $this->getHeaderApiUrl($accountDetails, 'header');
+            $headerDetails   = (new Common())->makeRequest($instagramApiUrl);
+            if ($headerDetails) {
+                $connectedAccounts[$accountId]['user_avatar'] = Arr::get($headerDetails, 'profile_picture_url', '');
+            }       
+        }
+        if (!empty($connectedAccounts)) {
+            $this->updateVerificationConfigs($connectedAccounts);
+        }
+
         foreach ($caches as $index => $cache) {
             $optionName = $cache['option_name'];
             $feed_type  = '';

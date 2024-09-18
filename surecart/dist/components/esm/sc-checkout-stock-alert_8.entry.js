@@ -11,8 +11,8 @@ import { c as createErrorNotice, r as removeNotice, a as createInfoNotice } from
 import { c as clearCheckout } from './mutations-8c68bd4f.js';
 import { a as addQueryArgs, g as getQueryArgs } from './add-query-args-f4c5962b.js';
 import { s as state$2 } from './watchers-7ddfd1b5.js';
-import './watchers-6aa4e294.js';
-import { s as state$3 } from './getters-03bf9a6d.js';
+import './watchers-ecff8a65.js';
+import { s as state$3 } from './getters-a6a88dc4.js';
 import { p as parseFormData } from './form-data-dd63c61f.js';
 import { g as getQueryArg } from './get-query-arg-cb6b8763.js';
 import './index-1046c77e.js';
@@ -741,7 +741,6 @@ const ScSessionProvider = class {
     // success, refetch the checkout
     try {
       updateFormState('FINALIZE');
-      updateFormState('PAID');
       state.checkout = (await fetchCheckout({
         id,
         query: {
@@ -751,6 +750,7 @@ const ScSessionProvider = class {
       // TODO: should we even check this?
       if (((_a = state.checkout) === null || _a === void 0 ? void 0 : _a.status) && ['paid', 'processing'].includes((_b = state.checkout) === null || _b === void 0 ? void 0 : _b.status)) {
         setTimeout(() => {
+          updateFormState('PAID');
           this.scPaid.emit();
         }, 100);
       }

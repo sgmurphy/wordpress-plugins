@@ -10,7 +10,6 @@ use WPSocialReviews\App\Services\Platforms\Feeds\Twitter\TwitterFeed;
 use WPSocialReviews\App\Services\Platforms\Feeds\Youtube\YoutubeFeed;
 use WPSocialReviews\App\Services\Platforms\Feeds\Instagram\InstagramFeed;
 use WPSocialReviews\App\Services\Platforms\Chats\SocialChat;
-use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
 class PlatformHandler
 {
@@ -23,6 +22,5 @@ class PlatformHandler
         (new InstagramFeed())->registerHooks();
         (new FacebookFeed())->registerHooks();
         (new SocialChat())->registerHooks();
-        (new ImageOptimizationHandler())->registerHooks();
     }
 }

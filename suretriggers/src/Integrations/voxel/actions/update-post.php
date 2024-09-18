@@ -119,6 +119,8 @@ class UpdatePost extends AutomateAction {
 			}
 		}
 
+		$post_fields['post_status'] = isset( $selected_options['post_status'] ) && '' !== $selected_options['post_status'] ? $selected_options['post_status'] : '';
+
 		// Update Post fields.
 		Voxel::voxel_update_post( $post_fields, $post_id, $post_type );
 

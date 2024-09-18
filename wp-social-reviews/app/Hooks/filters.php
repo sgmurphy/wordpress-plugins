@@ -102,8 +102,9 @@ if (defined('WP_ROCKET_VERSION')) {
     });
 }
 
-add_filter('wpsocialreviews/display_frontend_error_message', function ($error_message = '', $account_ids = [], $hashtags = ''){
-    $errors = (new \WPSocialReviews\App\Services\Platforms\PlatformErrorManager('instagram'))->getFrontEndErrors();
+add_filter('wpsocialreviews/display_frontend_error_message', function ($platform, $error_message = '', $account_ids = [], $hashtags = ''){
+
+    $errors = (new \WPSocialReviews\App\Services\Platforms\PlatformErrorManager($platform))->getFrontEndErrors();
 
     if(!current_user_can('manage_options')){
         return false;
@@ -117,7 +118,7 @@ add_filter('wpsocialreviews/display_frontend_error_message', function ($error_me
                 return false;
             }
 
-            $error_account_id = (new \WPSocialReviews\App\Services\Platforms\PlatformErrorManager('instagram'))->connectedAccountHasError($account_ids, $index);
+            $error_account_id = (new \WPSocialReviews\App\Services\Platforms\PlatformErrorManager($platform))->connectedAccountHasError($account_ids, $index);
             if((int)$error_account_id === (int)$index || $index === 'error_message' || (isset($error['hashtag']) && strpos($hashtags, '#'.$error['hashtag']) !== false) || (strpos($error['admin_only'], 'http_request_failed') !== false) ){
                 $inner_html .= '<span>'.esc_html__($error['error_message']).'</span><br/>';
                 $inner_html .=  '<strong>'.esc_html__($error['admin_only']).'</strong><br/><br/>';

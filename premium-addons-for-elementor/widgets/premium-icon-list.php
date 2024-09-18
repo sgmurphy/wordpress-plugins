@@ -1484,7 +1484,7 @@ class Premium_Icon_List extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Help & Docs', 'premium-addons-for-elementor' ),
 			)
 		);
 

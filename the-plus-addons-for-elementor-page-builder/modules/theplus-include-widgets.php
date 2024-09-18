@@ -45,9 +45,6 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 				$this->init();
 				l_theplus_wpml_translate();
 			}
-			if(defined('THEPLUS_VERSION')){
-				add_filter( 'all_plugins',array($this,'tp_white_label_update_free') );
-			}
 		}
 		/**
 		 * Initalize integration hooks
@@ -55,32 +52,9 @@ if ( ! class_exists( 'L_Theplus_Widgets_Include' ) ) {
 		 * @return void
 		 */
 		public function init() {
-			add_action( 'elementor/widgets/register', array($this, 'add_widgets' ) );
-			
+			add_action( 'elementor/widgets/register', array($this, 'add_widgets' ) );	
 		}
 		
-		/*
-		 * White label
-		 * @since 3.0
-		 */
-		public function tp_white_label_update_free( $all_plugins ){				
-			$plugin_name =theplus_white_label_option('l_tp_plugin_name');
-			$tp_plugin_desc =theplus_white_label_option('l_tp_plugin_desc');
-			$tp_author_name =theplus_white_label_option('l_tp_author_name');
-			$tp_author_uri =theplus_white_label_option('l_tp_author_uri');
-
-			if(!empty($all_plugins[L_THEPLUS_PBNAME]) && is_array($all_plugins[L_THEPLUS_PBNAME])){
-				$all_plugins[L_THEPLUS_PBNAME]['Name']           = ! empty( $plugin_name )     ? $plugin_name      : $all_plugins[L_THEPLUS_PBNAME]['Name'];
-				$all_plugins[L_THEPLUS_PBNAME]['PluginURI']      = ! empty( $tp_author_uri )      ? $tp_author_uri       : $all_plugins[L_THEPLUS_PBNAME]['PluginURI'];
-				$all_plugins[L_THEPLUS_PBNAME]['Description']    = ! empty( $tp_plugin_desc )     ? $tp_plugin_desc      : $all_plugins[L_THEPLUS_PBNAME]['Description'];
-				$all_plugins[L_THEPLUS_PBNAME]['Author']         = ! empty( $tp_author_name )   ? $tp_author_name    : $all_plugins[L_THEPLUS_PBNAME]['Author'];
-				$all_plugins[L_THEPLUS_PBNAME]['AuthorURI']      = ! empty( $tp_author_uri )      ? $tp_author_uri       : $all_plugins[L_THEPLUS_PBNAME]['AuthorURI'];
-				$all_plugins[L_THEPLUS_PBNAME]['Title']          = ! empty( $plugin_name )     ? $plugin_name      : $all_plugins[L_THEPLUS_PBNAME]['Title'];
-				$all_plugins[L_THEPLUS_PBNAME]['AuthorName']     = ! empty( $tp_author_name )   ? $tp_author_name    : $all_plugins[L_THEPLUS_PBNAME]['AuthorName'];
-
-				return $all_plugins;
-			}
-		}
 		/**
 		* Widget Include required files
 		*

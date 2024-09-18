@@ -27,6 +27,7 @@ i18n.DASHBOARD = {
   AUTO_ATTACH_ALL: __( 'Auto-Attach All Media Entries', 'media-file-renamer' ),
   AUTO_ATTACH_SELECTED: __( 'Auto-Attach Selected Media Entries', 'media-file-renamer' ),
   LOCK_ALL: __( "Lock <strong>All</strong>", 'media-file-renamer' ),
+  TOGGLE_LOCK_SELECTED: __( "Toggle Lock&nbsp;<strong>{0}</strong>&nbsp;Entries", 'media-file-renamer' ),
   UNLOCK_ALL: __( "Unlock <strong>All</strong>", 'media-file-renamer' ),
   RENAME_ALL: __( "Rename <strong>All</strong>", 'media-file-renamer' ),
   UNDO_ALL: __( "Undo <strong>All</strong>", 'media-file-renamer' ),

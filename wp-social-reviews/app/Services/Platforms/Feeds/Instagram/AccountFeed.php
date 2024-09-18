@@ -38,11 +38,17 @@ class AccountFeed
             $accountDetails     = Arr::get($connectedAccounts, $accountId) ? $connectedAccounts[$accountId] : '';
 
             if(empty($accountDetails)) {
-                $error_message  .= sprintf(__('There are multiple accounts being used on this template. The account ID(%s) associated with your configuration settings has been deleted. To view your feed from this account, please reauthorize and reconnect it.', 'wp-social-reviews'), $accountId);
+                $multipleAccountsConnected = count($accountIds) > 1;
+                $base_error_message = __('The account ID(%s) associated with your configuration settings has been deleted. To view your feed from this account, please reauthorize and reconnect it.', 'wp-social-reviews');
+                if ($multipleAccountsConnected) {
+                    $error_message .= __('There are multiple accounts being used on this template. ', 'wp-social-reviews') . sprintf($base_error_message, $id);
+                } else {
+                    $error_message .= sprintf($base_error_message, $id);
+                }
                 continue;
             }
-
-            $userName = $accountDetails ? $accountDetails['username'] : '';
+            $user_avatar = Arr::get($accountDetails, 'user_avatar', '');
+            $userName = Arr::get($accountDetails, 'username', '');
             $has_account_error_code = Arr::get($accountDetails, 'error_code');
 
             if($has_account_error_code) {
@@ -57,13 +63,13 @@ class AccountFeed
             if ($accountDetails) {
                 $feedCacheName   = 'user_account_feed_id_' . $accountId;
                 $instagramApiUrl = $this->getApiUrl($accountDetails);
-                // return errors
+
                 if ( is_array($instagramApiUrl) && (new Common())->instagramError($instagramApiUrl)) {
                     $error_message .= $instagramApiUrl;
                 }
 	            $resultWithComments = $this->cacheHandler->getFeedCache($feedCacheName);
 
-                if (!$resultWithComments && empty($has_account_error_code)) {
+                if (!$resultWithComments && empty($has_account_error_code) || !empty($resultWithComments) && !Arr::has($resultWithComments[0], 'user_avatar')) {
                     $resultWithoutComments = (new Common())->expandWithoutComments($instagramApiUrl);
                     if ((new Common())->instagramError($resultWithoutComments)) {
                         $error_message .= sprintf(__('There has been a problem with your account(%s). ', 'wp-social-reviews'), $userName) . Arr::get($resultWithoutComments, 'error.message');
@@ -74,6 +80,8 @@ class AccountFeed
                         if(!empty($feeds) && is_array($feeds)){
                             foreach ($feeds as $key => $feed) {
                                 $feeds[$key]['username'] = $userName;
+                                $feeds[$key]['accountId'] = $accountId;
+                                $feeds[$key]['user_avatar'] = $user_avatar;
                             }
                         }
 

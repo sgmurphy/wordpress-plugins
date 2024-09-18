@@ -61,6 +61,10 @@ class Helper
 
     public static function shortNumberFormat($number)
     {
+        if(empty($number)){
+            return 0;
+        }
+
         $units = ['', 'K', 'M', 'B', 'T'];
         for ($i = 0; $number >= 1000; $i++) {
             $number /= 1000;
@@ -312,5 +316,13 @@ class Helper
     {
         $date_format = get_option('date_format');
         return date_i18n($date_format, $created_at);
+    }
+
+    public static function isLocalUrl($url)
+    {
+        if(empty($url)){
+            return false;
+        }
+        return strpos($url, "wp-content") !== false ? true : false;
     }
 }

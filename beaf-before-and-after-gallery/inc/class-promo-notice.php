@@ -13,14 +13,38 @@ class bafg_PROMO_NOTICE {
     private $bafg_promo_option = false; 
     private $error_message = ''; 
 
-    private $months = ['January', 'June', 'November', 'December'];
+    private $months = [
+        'January',  
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
     private $plugins_existes = ['uacf7', 'tf', 'ins', 'ebef'];
 
     public function __construct() {
 
         $bafg_pro_activated = get_option( 'bafg_pro_activated');
-        
+      
         if(in_array(gmdate('F'), $this->months) &&  $bafg_pro_activated != 'true' ){   
+
+            $bafg_promo__schudle_start_from = !empty(get_option( 'bafg_promo__schudle_start_from' )) ? get_option( 'bafg_promo__schudle_start_from' ) : 0;
+
+            if($bafg_promo__schudle_start_from == 0){
+                // delete option
+                delete_option('bafg_promo__schudle_option');
+
+            }elseif($bafg_promo__schudle_start_from  != 0 && $bafg_promo__schudle_start_from > time()){
+                return;
+            }  
+            
             add_filter('cron_schedules', array($this, 'bafg_custom_cron_interval'));
              
             if (!wp_next_scheduled('bafg_promo__schudle')) {
@@ -33,22 +57,40 @@ class bafg_PROMO_NOTICE {
             if(get_option( 'bafg_promo__schudle_option' )){
                 $this->bafg_promo_option = get_option( 'bafg_promo__schudle_option' );
             } 
- 
+             
+
+            $dashboard_banner = isset($this->bafg_promo_option['dashboard_banner']) ? $this->bafg_promo_option['dashboard_banner'] : '';
+
             // Admin Notice 
             $tf_existes = get_option( 'tf_promo_notice_exists' );
-            if( ! in_array($tf_existes, $this->plugins_existes) && is_array($this->bafg_promo_option) && strtotime($this->bafg_promo_option['end_date']) > time() && strtotime($this->bafg_promo_option['start_date']) < time()){
-                add_action( 'admin_notices', array( $this, 'tf_black_friday_2023_admin_notice' ) );
-                add_action( 'wp_ajax_tf_black_friday_notice_dismiss_callback', array($this, 'tf_black_friday_notice_dismiss_callback') );
+            if( ! in_array($tf_existes, $this->plugins_existes) && is_array($dashboard_banner) && strtotime($dashboard_banner['end_date']) > time() && strtotime($dashboard_banner['start_date']) < time() && $dashboard_banner['enable_status'] == true){
+                add_action( 'admin_notices', array( $this, 'bafg_black_friday_2023_admin_notice' ) );
+                add_action( 'wp_ajax_bafg_black_friday_notice_dismiss_callback', array($this, 'bafg_black_friday_notice_dismiss_callback') );
             }
 
             // side Notice Woo Product Meta Box Notice 
-            $tf_woo_existes = get_option( 'tf_promo_notice_woo_exists' );
-             if( is_array($this->bafg_promo_option) && strtotime($this->bafg_promo_option['end_date']) > time() && strtotime($this->bafg_promo_option['start_date']) < time()){   
-                add_action( 'add_meta_boxes', array($this, 'tf_black_friday_2023_woo_product') );
-                
+            $bafg_woo_existes = get_option( 'bafg_promo_notice_woo_exists' );
+            $service_banner = isset($this->bafg_promo_option['service_banner']) ? $this->bafg_promo_option['service_banner'] : array();
+            $promo_banner = isset($this->bafg_promo_option['promo_banner']) ? $this->bafg_promo_option['promo_banner'] : array();
+
+            $current_day = date('l'); 
+            if(isset($service_banner['enable_status']) && $service_banner['enable_status'] == true && in_array($current_day, $service_banner['display_days'])){ 
+             
+                $start_date = isset($service_banner['start_date']) ? $service_banner['start_date'] : '';
+                $end_date = isset($service_banner['end_date']) ? $service_banner['end_date'] : '';
+                $enable_side = isset($service_banner['enable_status']) ? $service_banner['enable_status'] : false;
+            }else{  
+                $start_date = isset($promo_banner['start_date']) ? $promo_banner['start_date'] : '';
+                $end_date = isset($promo_banner['end_date']) ? $promo_banner['end_date'] : '';
+                $enable_side = isset($promo_banner['enable_status']) ? $promo_banner['enable_status'] : false;
+            } 
+             if( is_array($this->bafg_promo_option) && strtotime($end_date) > time() && strtotime($start_date) < time() && $enable_side == true){   
+               
+                add_action( 'add_meta_boxes', array($this, 'bafg_black_friday_2023_woo_product') );
+              
 	            add_filter( 'get_user_option_meta-box-order_bafg', array($this, 'metabox_order') );
                 add_action( 'wp_ajax_bafg_black_friday_notice_bafg_dismiss_callback', array($this, 'bafg_black_friday_notice_bafg_dismiss_callback') ); 
-           
+               
             } 
             
 			
@@ -83,8 +125,11 @@ class bafg_PROMO_NOTICE {
             $bafg_promo__schudle_option = get_option( 'bafg_promo__schudle_option' ); 
             if(!empty($bafg_promo__schudle_option) && $bafg_promo__schudle_option['notice_name'] != $this->responsed['notice_name']){ 
                 // Unset the cookie variable in the current script
-                update_option( 'tf_dismiss_admin_notice', 1);
+                update_option( 'bafg_dismiss_admin_notice', 1);
                 update_option( 'bafg_dismiss_post_notice', 1); 
+                update_option( 'bafg_promo__schudle_start_from', time() + 43200);
+            }elseif(empty($bafg_promo__schudle_option)){
+                update_option( 'bafg_promo__schudle_start_from', time() + 43200);
             }
             update_option( 'bafg_promo__schudle_option', $this->responsed);
             
@@ -112,49 +157,50 @@ class bafg_PROMO_NOTICE {
      * Black Friday Deals 2023
      */
     
-    public function tf_black_friday_2023_admin_notice(){ 
+    public function bafg_black_friday_2023_admin_notice(){ 
         
-        $image_url = isset($this->bafg_promo_option['dasboard_url']) ? esc_url($this->bafg_promo_option['dasboard_url']) : '';
-        $deal_link = isset($this->bafg_promo_option['promo_url']) ? esc_url($this->bafg_promo_option['promo_url']) : ''; 
+        $dashboard_banner = isset($this->bafg_promo_option['dashboard_banner']) ? $this->bafg_promo_option['dashboard_banner'] : '';
+        $image_url = isset($dashboard_banner['banner_url']) ? esc_url($dashboard_banner['banner_url']) : '';
+        $deal_link = isset($dashboard_banner['redirect_url']) ? esc_url($dashboard_banner['redirect_url']) : ''; 
 
-        $tf_dismiss_admin_notice = get_option( 'tf_dismiss_admin_notice' );
+        $bafg_dismiss_admin_notice = get_option( 'bafg_dismiss_admin_notice' );
         $get_current_screen = get_current_screen();  
-        if(($tf_dismiss_admin_notice == 1  || time() >  $tf_dismiss_admin_notice ) && $get_current_screen->base == 'dashboard'   ){ 
+        if(($bafg_dismiss_admin_notice == 1  || time() >  $bafg_dismiss_admin_notice ) && $get_current_screen->base == 'dashboard'   ){ 
             // if very fist time then set the dismiss for our other plugbafg
-            update_option( 'tf_promo_notice_exists', 'bafg' );
+            update_option( 'bafg_promo_notice_exists', 'bafg' );
             ?>
             <style> 
-                .tf_black_friday_20222_admin_notice a:focus {
+                .bafg_black_friday_20222_admin_notice a:focus {
                     box-shadow: none;
                 } 
-                .tf_black_friday_20222_admin_notice {
+                .bafg_black_friday_20222_admin_notice {
                     padding: 7px;
                     position: relative;
                     z-index: 10;
                     max-width: 825px;
                 } 
-                .tf_black_friday_20222_admin_notice button:before {
+                .bafg_black_friday_20222_admin_notice button:before {
                     color: #fff !important;
                 }
-                .tf_black_friday_20222_admin_notice button:hover::before {
+                .bafg_black_friday_20222_admin_notice button:hover::before {
                     color: #d63638 !important;
                 }
                 
             </style>
-            <div class="notice notice-success tf_black_friday_20222_admin_notice"> 
+            <div class="notice notice-success bafg_black_friday_20222_admin_notice"> 
                 <a href="<?php echo esc_attr( $deal_link ); ?>" style="display: block; line-height: 0;" target="_blank" >
                     <img  style="width: 100%;" src="<?php echo esc_attr($image_url) ?>" alt="">
                 </a> 
                 <?php if( isset($this->bafg_promo_option['dasboard_dismiss']) && $this->bafg_promo_option['dasboard_dismiss'] == true): ?>
-                <button type="button" class="notice-dismiss tf_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo esc_html(__('Dismiss this notice.', 'bafg' )) ?></span></button>
+                <button type="button" class="notice-dismiss bafg_black_friday_notice_dismiss"><span class="screen-reader-text"><?php echo esc_html(__('Dismiss this notice.', 'bafg' )) ?></span></button>
                 <?php  endif; ?>
             </div>
             <script>
                 jQuery(document).ready(function($) {
-                    $(document).on('click', '.tf_black_friday_notice_dismiss', function( event ) {
-                        jQuery('.tf_black_friday_20222_admin_notice').css('display', 'none')
+                    $(document).on('click', '.bafg_black_friday_notice_dismiss', function( event ) {
+                        jQuery('.bafg_black_friday_20222_admin_notice').css('display', 'none')
                         data = {
-                            action : 'tf_black_friday_notice_dismiss_callback',
+                            action : 'bafg_black_friday_notice_dismiss_callback',
                         };
 
                         $.ajax({
@@ -176,14 +222,14 @@ class bafg_PROMO_NOTICE {
     } 
 
 
-    public function tf_black_friday_notice_dismiss_callback() {  
+    public function bafg_black_friday_notice_dismiss_callback() {  
 
         $bafg_promo_option = get_option( 'bafg_promo__schudle_option' );
         $restart = isset($bafg_promo_option['dasboard_restart']) && $bafg_promo_option['dasboard_restart'] != false ? $bafg_promo_option['dasboard_restart'] : false; 
         if($restart == false){
-            update_option( 'tf_dismiss_admin_notice', strtotime($bafg_promo_option['end_date']) ); 
+            update_option( 'bafg_dismiss_admin_notice', strtotime($bafg_promo_option['end_date']) ); 
         }else{
-            update_option( 'tf_dismiss_admin_notice', time() + (86400 * $restart) );  
+            update_option( 'bafg_dismiss_admin_notice', time() + (86400 * $restart) );  
         } 
 		wp_die();
 	}
@@ -193,19 +239,31 @@ class bafg_PROMO_NOTICE {
      * Black Friday Deals 2023 woo product
      */ 
 
-    public function tf_black_friday_2023_woo_product() { 
+    public function bafg_black_friday_2023_woo_product() { 
         $bafg_dismiss_post_notice = get_option( 'bafg_dismiss_post_notice' ); 
         if($bafg_dismiss_post_notice == 1  || time() >  $bafg_dismiss_post_notice ): 
-            add_meta_box( 'tf_black_friday_annous', ' ', array($this, 'tf_black_friday_2023_callback_woo_product'), 'bafg', 'side', 'high' );
+            add_meta_box( 'bafg_black_friday_annous', ' ', array($this, 'bafg_black_friday_2023_callback_woo_product'), 'bafg', 'side', 'high' );
         endif;
    
     }
-    public function tf_black_friday_2023_callback_woo_product() {
-        $image_url = isset($this->bafg_promo_option['side_url']) ? esc_url($this->bafg_promo_option['side_url']) : '';
-        $deal_link = isset($this->bafg_promo_option['promo_url']) ? esc_url($this->bafg_promo_option['promo_url']) : ''; 
+    public function bafg_black_friday_2023_callback_woo_product() {
+        $service_banner = isset($this->bafg_promo_option['service_banner']) ? $this->bafg_promo_option['service_banner'] : array();
+        $promo_banner = isset($this->bafg_promo_option['promo_banner']) ? $this->bafg_promo_option['promo_banner'] : array();
+
+        $current_day = date('l'); 
+        if($service_banner['enable_status'] == true && in_array($current_day, $service_banner['display_days'])){ 
+           
+            $image_url = esc_url($service_banner['banner_url']);
+            $deal_link = esc_url($service_banner['redirect_url']);  
+            $dismiss_status = $service_banner['dismiss_status'];
+        }else{
+            $image_url = esc_url($promo_banner['banner_url']);
+            $deal_link = esc_url($promo_banner['redirect_url']); 
+            $dismiss_status = $promo_banner['dismiss_status'];  
+        }  
       ?>
         <style>
-            #tf_black_friday_annous{
+            #bafg_black_friday_annous{
                 border: 0px solid;
                 box-shadow: none;
                 background: transparent;
@@ -218,16 +276,16 @@ class bafg_PROMO_NOTICE {
                 display: inline-block;
             }
 
-            #tf_black_friday_annous .bafgide {
+            #bafg_black_friday_annous .bafgide {
                 padding: 0;
                 margin-top: 0;
             }
 
-            #tf_black_friday_annous .postbox-header {
+            #bafg_black_friday_annous .postbox-header {
                 display: none;
                 visibility: hidden;
             }
-            #tf_black_friday_annous .inside{
+            #bafg_black_friday_annous .inside{
                 padding: 0px !important;
             }
         </style> 
@@ -236,8 +294,8 @@ class bafg_PROMO_NOTICE {
             <a href="<?php echo esc_attr($deal_link); ?>" target="_blank" >
                 <img  style="width: 100%;" src="<?php echo esc_attr($image_url); ?>" alt="">
             </a>  
-            <?php if( isset($this->bafg_promo_option['side_dismiss']) && $this->bafg_promo_option['side_dismiss'] == true): ?>
-                <button type="button" class="notice-dismiss bafg_friday_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
+            <?php if( isset($dismiss_status) && $dismiss_status == true): ?>
+                    <button type="button" class="notice-dismiss bafg_friday_notice_dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>
             <?php  endif; ?>
           
         </div>
@@ -270,7 +328,7 @@ class bafg_PROMO_NOTICE {
 				",", 
 				array(       // vvv  Arrange here as you desire
 					'submitdiv',
-					'tf_black_friday_annous',
+					'bafg_black_friday_annous',
 				)
 			),
 		);
@@ -289,9 +347,9 @@ class bafg_PROMO_NOTICE {
         wp_clear_scheduled_hook('bafg_promo__schudle'); 
 
         delete_option('bafg_promo__schudle_option');
-        delete_option('tf_dismiss_admin_notice');
+        delete_option('bafg_dismiss_admin_notice');
         delete_option('bafg_dismiss_post_notice');
-        delete_option('tf_promo_notice_exists');
+        delete_option('bafg_promo_notice_exists');
     }
  
 }

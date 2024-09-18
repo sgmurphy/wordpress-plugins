@@ -18,6 +18,10 @@ $thumbnail_url = $feed['snippet']['thumbnails'][$size]['url'];
         <img class="wpsr-yt-video-img-render" src="<?php echo esc_url($thumbnail_url); ?>"
              alt="<?php echo esc_attr($feed['snippet']['title']); ?>">
 
+        <?php if($layout_type === 'carousel'){ ?>
+        <div class="<?php echo esc_attr($animation_img_class); ?>"></div>
+        <?php } ?>
+
         <?php if (isset($template_meta['video_settings']['display_play_icon']) && $template_meta['video_settings']['display_play_icon'] === 'true') { ?>
             <svg class="wpsr-yt-play-icon" viewBox="0 0 68 48">
                 <g fill-rule="evenodd">

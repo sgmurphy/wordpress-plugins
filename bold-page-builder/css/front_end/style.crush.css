@@ -344,6 +344,10 @@ body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) .bt_bb_row_inne
 body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) .bt_bb_row_inner.bt_bb_fe_editing_box {
     padding: 10px 0;
     }
+body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) .bt_bb_accordion,
+body.logged-in.bt_bb_plugin_active:not(.bt_bb_fe_preview_toggle) .bt_bb_accordion.bt_bb_fe_editing_box {
+    padding: 0 10px;
+    }
 .bt_bb_dd_tip {
     position: fixed;
     margin-bottom: 3px;

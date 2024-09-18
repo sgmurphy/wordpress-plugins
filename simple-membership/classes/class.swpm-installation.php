@@ -234,6 +234,7 @@ class SwpmInstallation {
                 "\n\n{activation_link}" .
                 "\n\nThank You";
 
+
         $curr_email_act_mail_subj = $settings->get_value('email-activation-mail-subject', false);
         if ($curr_email_act_mail_subj === false) {
             $settings->set_value('email-activation-mail-subject', stripslashes($email_activation_mail_subject));
@@ -244,6 +245,24 @@ class SwpmInstallation {
             $settings->set_value('email-activation-mail-body', stripslashes($email_activation_mail_body));
         }
 
+	    $subscription_cancel_member_mail_subject = "Subscription payment agreement has been canceled or expired";
+	    $subscription_cancel_member_mail_body = "Dear {first_name}" .
+                "\n\nYour subscription payment agreement with the details below has been canceled or expired." .
+                "\n\nMember ID: {member_id}" .
+                "\nSubscription ID: {subscription_id}" .
+                "\n\nThank You";
+
+	    $curr_subscription_cancel_member_mail_subject = $settings->get_value('subscription-cancel-member-mail-subject', false);
+	    if ($curr_subscription_cancel_member_mail_subject === false) {
+		    $settings->set_value('subscription-cancel-member-mail-subject', stripslashes($subscription_cancel_member_mail_subject));
+	    }
+
+	    $curr_subscription_cancel_member_mail_body = $settings->get_value('subscription-cancel-member-mail-body', false);
+	    if ($curr_subscription_cancel_member_mail_body === false) {
+		    $settings->set_value('subscription-cancel-member-mail-body', stripslashes($subscription_cancel_member_mail_body));
+	    }
+
+        //Check if the plugin is being installed for the first time
         if (empty($installed_version)) {
             //Do fresh install tasks
             //Create the mandatory pages (if they are not there)

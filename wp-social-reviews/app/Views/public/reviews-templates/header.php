@@ -63,10 +63,10 @@ if($template_meta['enable_schema'] === 'true'){
     $business_total_rating   = Arr::get($template_meta, 'schema_settings.business_total_rating');
 
     $average_rating = Arr::get($business_info, 'average_rating', 0);
-    $ratingValue = $average_rating !== 0 ? $average_rating : $business_average_rating;
+    $ratingValue = $business_average_rating ? $business_average_rating : $average_rating;
 
     $total_rating = Arr::get($business_info, 'total_rating', 0);
-    $ratingCount = $total_rating !== 0 ? $total_rating : $business_total_rating;
+    $ratingCount = $business_total_rating ? $business_total_rating : $total_rating;
 
     $schema = '{
       "@context": "https://schema.org/",

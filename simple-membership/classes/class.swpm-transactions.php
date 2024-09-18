@@ -73,8 +73,8 @@ class SwpmTransactions {
 
 		//Save additional data based on the checkout gateway.
 		if( isset( $ipn_data['gateway'])) {
-			//Check if this is a PayPal subscription or a Stripe subscription checkout.
-			if ( $ipn_data['gateway'] == 'paypal_subscription_checkout' || $ipn_data['gateway'] == 'stripe-sca-subs' ) {
+			//Check if this is a PayPal std subscription, or PayPal PPCP subscription, or a Stripe subscription checkout.
+			if ( $ipn_data['gateway'] == 'paypal_subscription_checkout' || $ipn_data['gateway'] == 'stripe-sca-subs' || $ipn_data['gateway'] == 'paypal_std_sub_checkout' ) {
 				//Save the swpm_transactions CPT post ID of the original checkout in the member's proifle. Useful to retreive some of the original checkout txn data (example: custom_field data).
 				$member_record = SwpmMemberUtils::get_user_by_subsriber_id( $subscr_id );
 				if( ! $member_record ){
@@ -116,6 +116,11 @@ class SwpmTransactions {
 		//Add the discount_amount value to the txn_data array so it can be saved to the swpm_transactions CPT.
 		if ( isset( $ipn_data['discount_amount'] ) ) {
 			$txn_data['discount_amount'] = $ipn_data['discount_amount'];
+		}
+
+		//Add the txn_type value to the txn_data array so it can be saved to the swpm_transactions CPT.
+		if ( isset( $ipn_data['txn_type'] ) ) {
+			$txn_data['txn_type'] = $ipn_data['txn_type'];
 		}
 
         //Save the $txn_data to the swpm_transactions CPT as post meta.
@@ -194,7 +199,7 @@ class SwpmTransactions {
      *
      * @return object|null
      */
-	public static function get_transaction_row_by_txn_id (string $txn_id, bool $return_post_metas = false)
+	public static function get_transaction_row_by_txn_id ( $txn_id, $return_post_metas = false)
     {
         $meta_query = array(
 			array(
@@ -219,7 +224,7 @@ class SwpmTransactions {
      *
      * @return object|null
      */
-    public static function get_transaction_row_by_txn_id_and_email(string $txn_id, string $email, bool $return_post_metas = false)
+    public static function get_transaction_row_by_txn_id_and_email( $txn_id, $email, $return_post_metas = false)
     {
         $meta_query = array(
             'relation' => 'AND',
@@ -250,7 +255,7 @@ class SwpmTransactions {
      *
      * @return object|null
      */
-    public static function get_transaction_row_by_txn_id_and_subscription_id(string $txn_id, string $subscription_id, bool $return_post_metas = false)
+    public static function get_transaction_row_by_txn_id_and_subscription_id( $txn_id, $subscription_id, $return_post_metas = false)
     {
         $meta_query = array(
             'relation' => 'AND',
@@ -394,6 +399,7 @@ class SwpmTransactions {
             'payment_amount' => get_post_meta($post_id, 'payment_amount', true),
             'gateway' => get_post_meta($post_id, 'gateway', true),
             'status' => get_post_meta($post_id, 'status', true),
+            'subscr_status' => get_post_meta($post_id, 'subscr_status', true), // For subscription type transactions only.
             'ip_address' => get_post_meta($post_id, 'ip_address', true),
             'payment_button_id' => get_post_meta($post_id, 'payment_button_id', true),
             'is_live' => get_post_meta($post_id, 'is_live', true),

@@ -37,7 +37,25 @@ $devices = array(
 /**
  * Single post and page
  */
-
+Kirki::add_field( 'envo_extra', array(
+	'type'		 => 'radio-buttonset',
+	'settings'	 => 'posts_pages_header_image',
+	'label'		 => esc_attr__( 'Heading featured image', 'envo-extra' ),
+	'section'	 => 'posts_pages',
+	'transport' => 'auto',
+	'choices' => array(
+        'block' => esc_html__('Visible', 'envo-extra'),
+        'none' => esc_html__('Hidden', 'envo-extra'),
+    ),
+	'default'	 => 'block',
+	'priority'	 => 5,
+	'output' => array(
+            array(
+                'element' => '.singular-heading .single-image, .singular-heading .bg-single-image',
+                'property' => 'display',
+            ),
+        ),
+) );
 
 // Separator.  
 Kirki::add_field( 'envo_extra', array(
@@ -345,13 +363,32 @@ Kirki::add_field('envo_extra', array(
 /**
  * Blog posts archive
  */
+Kirki::add_field( 'envo_extra', array(
+	'type'		 => 'radio-buttonset',
+	'settings'	 => 'blog_posts_header_image',
+	'label'		 => esc_attr__( 'Header image', 'envo-extra' ),
+	'section'	 => 'blog_posts',
+	'transport' => 'auto',
+	'choices' => array(
+        'block' => esc_html__('Visible', 'envo-extra'),
+        'none' => esc_html__('Hidden', 'envo-extra'),
+    ),
+	'default'	 => 'block',
+	'priority'	 => 5,
+	'output' => array(
+            array(
+                'element' => '.home-heading .single-image, .home-heading .bg-single-image',
+                'property' => 'display',
+            ),
+        ),
+) );
 
 // Separator.  
 Kirki::add_field('envo_extra', array(
     'type' => 'custom',
     'settings' => 'blog_posts_title_font_separator_top',
     'section' => 'blog_posts',
-    'priority' => 10,
+    'priority' => 15,
     'default' => '<hr style="border-top: 1px solid #ccc; border-bottom: 1px solid #f8f8f8; margin: 0;">',
 ));
 
@@ -361,7 +398,7 @@ Kirki::add_field('envo_extra', array(
     'label' => esc_attr__('Title Font', 'envo-extra'),
     'section' => 'blog_posts',
     'settings' => 'blog_posts_title_font_devices',
-    'priority' => 10,
+    'priority' => 15,
 ));
 // Responsive field.
 foreach ($devices as $key => $value) {

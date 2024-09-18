@@ -33,6 +33,7 @@
 	};
 
 	function _getDateObj( date, format ){
+		if( date == 0 ) return 0;
 		try{ if ( date instanceof Date ) return date; } catch(err) {}
 		var d = new Date();
 
@@ -40,6 +41,13 @@
 		if( typeof date != 'undefined' ){
 			if( typeof date == 'number' ){
 				// d = new Date(Math.ceil(date*86400000));
+				if ( date < 1 ) {
+					d.setMilliseconds(0);
+					d.setHours(0);
+					d.setMinutes(0);
+					d.setSeconds(0);
+					date += d.valueOf()/86400000;
+				}
 				d = new Date(date*86400000);
 			}else if( typeof date == 'string' ){
 				var p;
@@ -103,7 +111,7 @@
 	// DATEOBJ( date_string, date_format_string )
 	lib.DATEOBJ = function( date, format ){
 		var d = _getDateObj( date, format );
-		if( d.valid() ) return d;
+		if( d && d.valid() ) return d;
 		return false;
 	};
 
@@ -118,7 +126,7 @@
 	// YEAR( date_string, date_format_string )
 	lib.YEAR = function( date, format ){
 		var d = _getDateObj( date, format );
-		if( d.valid() ) return d.getFullYear();
+		if( d && d.valid() ) return d.getFullYear();
 		return false;
 	};
 
@@ -130,7 +138,7 @@
         leading_zeros 	= tmp[ 'leading_zeros' ];
 
         var d = _getDateObj( date, format ), r = false;
-		if( d.valid() ){
+		if( d && d.valid() ){
             r = d.getMonth()+1;
             if(leading_zeros) r = _leadingZeros( r );
         }
@@ -173,7 +181,7 @@
         leading_zeros 	= tmp[ 'leading_zeros' ];
 
 		var d = _getDateObj( date, format ), r = false;
-		if( d.valid() )
+		if( d && d.valid() )
         {
             r = d.getDate();
             if( leading_zeros ) r = _leadingZeros( r );
@@ -189,7 +197,7 @@
         leading_zeros 	= tmp[ 'leading_zeros' ];
 
         var d = _getDateObj( date, format ), r = false;
-		if( d.valid() ){
+		if( d && d.valid() ){
             r = d.getDay()+1;
             if( leading_zeros ) r = _leadingZeros( r );
         }
@@ -206,7 +214,7 @@
 		var d   	= _getDateObj( date, format ), i, n,
 			r 		= false;
 
-		if ( d.valid() ) {
+		if ( d && d.valid() ) {
 
 			i = new Date(d.getFullYear(), 0, 1, 0, 0, 0, 0);
 			n = ( d - i ) / ( 24 * 60 * 60 * 1000 );
@@ -225,7 +233,7 @@
         leading_zeros 	= tmp[ 'leading_zeros' ];
 
 		var d = _getDateObj( date, format ), r = false;
-		if ( d.valid() ) {
+		if ( d && d.valid() ) {
 			r = d.getHours();
 			if ( leading_zeros ) r = _leadingZeros( r );
 		}
@@ -240,7 +248,7 @@
         leading_zeros 	= tmp[ 'leading_zeros' ];
 
 		var d = _getDateObj( date, format ), r = false;
-		if ( d.valid() ) {
+		if ( d && d.valid() ) {
 			r = d.getMinutes();
 			if ( leading_zeros ) r = _leadingZeros( r );
 		}
@@ -255,7 +263,7 @@
         leading_zeros 	= tmp[ 'leading_zeros' ];
 
 		var d = _getDateObj( date, format ), r = false;
-		if ( d.valid() ) {
+		if ( d && d.valid() ) {
 			r = d.getSeconds();
 			if ( leading_zeros ) r = _leadingZeros( r );
 		}
@@ -310,7 +318,7 @@
 
 		return_format = return_format || 'd';
 
-		if( d1.valid() && d2.valid() ){
+		if( d1 && d1.valid() && d2 && d2.valid() ){
 			if( d1.valueOf() > d2.valueOf() ){
 				d2 = _getDateObj( date_one, date_format );
 				d1 = _getDateObj( date_two, date_format );
@@ -419,7 +427,7 @@
 	lib.DATETIMESUM = function( date, format, number, to_increase, ignore_weekend){
 		var d = _getDateObj( date, format );
         ignore_weekend = ignore_weekend || false;
-		if( d.valid() ){
+		if( d && d.valid() ){
 			if( typeof number != 'number' && isNaN( parseFloat( number ) ) ) number = 0;
 			else number = parseFloat( number );
 
@@ -559,7 +567,7 @@
 	lib.GETDATETIMESTRING = function( date, format ){
 	  if( typeof format == 'undefined' ) format = default_format;
 
-	  if( date.valid() ){
+	  if( date && date.valid() ){
 		var m = date.getMonth() + 1,
 			d = date.getDate(),
 			h = date.getHours(),

@@ -123,7 +123,8 @@
                          .replace(/(\b)(on[a-z]+)\s*=/ig, "$1_$2=")
 						 .replace(/<style\b.*\bstyle>/ig, '')
                          .replace(/<style[^>]*>/ig, '')
-                         .replace(/(\b)style\s*=/ig, "$1_style=");
+                         .replace(/(\b)style\s*=/ig, "$1_style=")
+                         .replace(/(\b)cff_style\s*=/ig, "$1style=");
 		return value;
 	};
 

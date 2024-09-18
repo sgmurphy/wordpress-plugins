@@ -85,31 +85,31 @@ msgstr ""
 msgid "Get Premium"
 msgstr ""
 
-#: inc/admin-layouts.php:40, inc/admin-layouts.php:239
+#: inc/admin-layouts.php:40, inc/admin-layouts.php:250
 msgid "Layouts Directory"
 msgstr ""
 
-#: inc/admin-layouts.php:202
+#: inc/admin-layouts.php:213
 msgid "Invalid request."
 msgstr ""
 
-#: inc/admin-layouts.php:218
+#: inc/admin-layouts.php:229
 msgid "Theme Defined Layouts"
 msgstr ""
 
-#: inc/admin-layouts.php:304
+#: inc/admin-layouts.php:315
 msgid "Clone %s"
 msgstr ""
 
-#: inc/admin-layouts.php:341
+#: inc/admin-layouts.php:352
 msgid " - Results For:"
 msgstr ""
 
-#: inc/admin-layouts.php:402
+#: inc/admin-layouts.php:413
 msgid "Missing layout ID or no such layout exists"
 msgstr ""
 
-#: inc/admin-layouts.php:458
+#: inc/admin-layouts.php:469
 msgid "There was a problem fetching the layout. Please try again later."
 msgstr ""
 

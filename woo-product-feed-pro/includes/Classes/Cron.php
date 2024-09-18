@@ -11,12 +11,15 @@ use AdTribes\PFP\Abstracts\Abstract_Class;
 use AdTribes\PFP\Factories\Product_Feed_Query;
 use AdTribes\PFP\Factories\Product_Feed;
 use AdTribes\PFP\Helpers\Product_Feed_Helper;
+use AdTribes\PFP\Traits\Singleton_Trait;
 /**
  * Product Feed Cron class.
  *
  * @since 13.3.5
  */
 class Cron extends Abstract_Class {
+
+    use Singleton_Trait;
 
     /***************************************************************************
      * Cron actions
@@ -82,7 +85,7 @@ class Cron extends Abstract_Class {
      * @param int $id The project ID.
      **/
     public function update_project_history( $id ) {
-        $feed = new Product_Feed( $id );
+        $feed = Product_Feed_Helper::get_product_feed( $id );
         if ( ! $feed->id ) {
             return;
         }
@@ -111,17 +114,22 @@ class Cron extends Abstract_Class {
     private function get_product_counts_from_file( $file, $file_format, $feed ) {
         $products_count = 0;
 
+        // Check if file exists.
+        if ( ! file_exists( $file ) ) {
+            return $products_count;
+        }
+
         switch ( $file_format ) {
             case 'xml':
                 $xml          = simplexml_load_file( $file, 'SimpleXMLElement', LIBXML_NOCDATA );
                 $feed_channel = $feed->get_channel();
 
                 if ( 'Yandex' === $feed_channel['name'] ) {
-                    $products_count = isset( $xml->offers->offer ) ? count( $xml->offers->offer ) : 0;
+                    $products_count = isset( $xml->offers->offer ) && is_countable( $xml->offers->offer ) ? count( $xml->offers->offer ) : 0;
                 } elseif ( 'none' === $feed_channel['taxonomy'] ) {
-                    $products_count = is_countable( $xml->product ) ? count( $xml->product ) : 0;
+                    $products_count = isset( $xml->product ) && is_countable( $xml->product ) ? count( $xml->product ) : 0;
                 } else {
-                    $products_count = count( $xml->channel->item );
+                    $products_count = isset( $xml->channel->item ) && is_countable( $xml->channel->item ) ? count( $xml->channel->item ) : 0;
                 }
 
                 break;

@@ -407,6 +407,32 @@ class GlobalSearchController {
 	}
 
 	/**
+	 * List Taxonomy Terms.
+	 *
+	 * @param array $data Search Params.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	public function search_term_list( $data ) {
+		$taxonomy = $data['dynamic'];
+		$result   = [];
+		$terms    = Utilities::get_terms( '', $data['page'], $taxonomy );
+		foreach ( $terms['result'] as $tax_term ) {
+			$result[] = [
+				'label' => $tax_term->name,
+				'value' => $tax_term->term_id,
+			];
+		}
+
+		return [
+			'options' => $result,
+			'hasMore' => $terms['has_more'],
+		];
+	}
+
+	/**
 	 * Search users.
 	 *
 	 * @param array $data Search Params.
@@ -789,6 +815,29 @@ class GlobalSearchController {
 			'value' => -1,
 		];
 
+		foreach ( $taxonomies as $taxonomy => $taxonomy_obj ) {
+			$options[] = [
+				'label' => $taxonomy_obj->label,
+				'value' => $taxonomy_obj->name,
+			];
+		}
+
+		return [
+			'options' => $options,
+			'hasMore' => false,
+		];
+	}
+
+	/**
+	 * Get Taxonomies without any option.
+	 *
+	 * @param array $data data.
+	 *
+	 * @return array
+	 */
+	public function search_taxonomy_list_without_any( $data ) {
+		$taxonomies = get_taxonomies( [ 'public' => true ], 'objects' );
+		$options    = [];
 		foreach ( $taxonomies as $taxonomy => $taxonomy_obj ) {
 			$options[] = [
 				'label' => $taxonomy_obj->label,

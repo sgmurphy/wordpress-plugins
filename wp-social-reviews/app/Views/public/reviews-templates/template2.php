@@ -22,7 +22,6 @@ if (!empty($reviews)) {
                  data-product_thumbnail="<?php echo esc_attr($product_thumbnail_url); ?>"
                  data-product_name="<?php echo esc_attr($product_name); ?>"
             >
-                <div class="wpsr-review-header">
                     <?php
                     /**
                      * review_platform hook.
@@ -68,7 +67,7 @@ if (!empty($reviews)) {
                             $review->review_time);
                         ?>
                     </div>
-                </div>
+                <div class="wpsr-reviews-content-footer">
                 <?php
                 /**
                  * review_title hook.
@@ -90,6 +89,7 @@ if (!empty($reviews)) {
                     $template_meta['contentLanguage']
                 );
                 ?>
+                </div>
             </div>
         <?php
         /**

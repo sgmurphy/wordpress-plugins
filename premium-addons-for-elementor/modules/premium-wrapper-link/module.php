@@ -50,10 +50,8 @@ class Module {
 	 */
 	public function __construct() {
 
-		$modules = Admin_Helper::get_enabled_elements();
-
 		// Checks if Wrapper Link addon is enabled.
-		$wrapper_link = $modules['premium-wrapper-link'];
+		$wrapper_link = Admin_Helper::check_element_by_key( 'premium-wrapper-link' );
 
 		if ( ! $wrapper_link ) {
 			return;

@@ -1,5 +1,11 @@
 ﻿== Changelog ==
 
+= 4.15.14 =
+* Added WooCommerce compatibility to content protection where add-to-cart button is hidden for restricted product.
+* Added ppress_is_checkout_autoscroll_enabled filter to disable checkout autoscroll feature.
+* Updated Twitter social login to X.
+* Remove deprecated jQuery codes.
+
 = 4.15.13 =
 * Pro: [WooCommerce Memberships feature](https://profilepress.com/article/create-woocommerce-membership-website/?ref=changelog)
 * Added setting for disabling My Account tabs.

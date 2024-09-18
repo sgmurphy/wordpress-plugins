@@ -60,7 +60,7 @@ class PlatformManager
             }
             return get_option('wpsr_' . $platform . '_verification_configs');
         } else {
-            return  get_option('wpsr_reviews_' . $platform . '_settings');
+            return get_option('wpsr_reviews_' . $platform . '_settings');
         }
     }
 }

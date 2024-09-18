@@ -32,8 +32,8 @@ class Helper
     public static function secondsToMinutes($time)
     {
        $hours = floor($time / 3600);
-       $minutes = floor(($time % 3600) / 60);
-       $seconds = floor($time % 60);
+       $minutes = floor(($time - floor($time / 3600) * 3600) / 60);
+       $seconds = floor($time - floor($time / 60) * 60);
 
        $value = "";
        if ($hours > 0) {
@@ -42,8 +42,7 @@ class Helper
        $value .= "" . $minutes . ":" . ($seconds < 10 ? "0" : "");
        $value .= "" . $seconds;
 
-       // return like "M:S" or "HH:MM:SS" or "HH"MM:SS"
-       return $value;
+       return $value == '0:00' ? '0:01' : $value;
     }
 
     public static function getSiteUrl($attachment = [], $domain = false)

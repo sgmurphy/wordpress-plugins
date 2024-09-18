@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: HT Mega – Absolute Addons for Elementor.\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-08 11:09+0000\n"
+"POT-Creation-Date: 2024-09-18 03:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.6.11; wp-6.6.1\n"
+"X-Loco-Version: 2.6.11; wp-6.6.2\n"
 "X-Domain: htmega-addons"
 
 #: includes/widgets/htmega_twitter_feed.php:1686
@@ -235,15 +235,15 @@ msgstr ""
 msgid "13"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:25
-msgid "130+ Elemetor Custom Widgets"
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:33
+msgid "130+ Elemetor Widgets"
 msgstr ""
 
 #: includes/widgets/htmega_booked_calender.php:80
 msgid "14"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:26
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:34
 msgid "14+ Essential Modules"
 msgstr ""
 
@@ -263,7 +263,7 @@ msgstr ""
 msgid "17"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:27
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:35
 msgid "170+ Page Templates"
 msgstr ""
 
@@ -546,7 +546,7 @@ msgstr ""
 msgid "7 seconds"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:28
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:36
 msgid "790+ Elementor Blocks Template"
 msgstr ""
 
@@ -842,6 +842,7 @@ msgid "Advance Title style"
 msgstr ""
 
 #: includes/class.assests.php:577
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:39
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:944
 msgid "Advanced Slider"
 msgstr ""
@@ -872,7 +873,7 @@ msgid "After Border Width"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1227
-#: includes/widgets/htmega_post_grid_tab.php:1736
+#: includes/widgets/htmega_post_grid_tab.php:1739
 msgid "After Date"
 msgstr ""
 
@@ -1234,7 +1235,7 @@ msgstr ""
 
 #: includes/widgets/htmega_job_manager.php:83
 #: includes/widgets/htmega_newsticker.php:1243
-#: includes/widgets/htmega_post_grid_tab.php:1752
+#: includes/widgets/htmega_post_grid_tab.php:1755
 #: includes/widgets/htmega_wc_categories.php:150
 #: extensions/ht-builder/widgets/bl_post_archive.php:226
 msgid "Ascending"
@@ -1288,7 +1289,7 @@ msgstr ""
 
 #: includes/widgets/htmega_job_manager.php:101
 #: includes/widgets/htmega_newsticker.php:1095
-#: includes/widgets/htmega_post_grid_tab.php:1604
+#: includes/widgets/htmega_post_grid_tab.php:1607
 #: includes/widgets/htmega_singlepost.php:123
 #: includes/widgets/htmega_twitter_feed.php:694
 #: extensions/ht-builder/widgets/bl_post_meta_info.php:79
@@ -1306,7 +1307,7 @@ msgid "Author Info"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1103
-#: includes/widgets/htmega_post_grid_tab.php:1612
+#: includes/widgets/htmega_post_grid_tab.php:1615
 msgid "Authors"
 msgstr ""
 
@@ -1884,7 +1885,7 @@ msgid "Before Border Top Position"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1216
-#: includes/widgets/htmega_post_grid_tab.php:1725
+#: includes/widgets/htmega_post_grid_tab.php:1728
 msgid "Before Date"
 msgstr ""
 
@@ -3360,8 +3361,8 @@ msgstr ""
 #: includes/widgets/htmega_easy_digital_download.php:159
 #: includes/widgets/htmega_newsticker.php:1120
 #: includes/widgets/htmega_newsticker.php:1135
-#: includes/widgets/htmega_post_grid_tab.php:1629
-#: includes/widgets/htmega_post_grid_tab.php:1644
+#: includes/widgets/htmega_post_grid_tab.php:1632
+#: includes/widgets/htmega_post_grid_tab.php:1647
 #: includes/widgets/htmega_wc_categories.php:40
 #: includes/widgets/htmega_wc_categories.php:102
 msgid "Categories"
@@ -3370,7 +3371,7 @@ msgstr ""
 #: includes/widgets/htmega_newsticker.php:1096
 #: includes/widgets/htmega_post_grid_tab.php:125
 #: includes/widgets/htmega_post_grid_tab.php:522
-#: includes/widgets/htmega_post_grid_tab.php:1605
+#: includes/widgets/htmega_post_grid_tab.php:1608
 #: includes/widgets/htmega_singlepost.php:113
 #: includes/widgets/htmega_singlepost.php:242
 #: extensions/ht-builder/widgets/bl_post_archive.php:545
@@ -4193,7 +4194,7 @@ msgid "Comment"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1196
-#: includes/widgets/htmega_post_grid_tab.php:1705
+#: includes/widgets/htmega_post_grid_tab.php:1708
 #: extensions/ht-builder/widgets/bl_post_archive.php:209
 msgid "Comment count"
 msgstr ""
@@ -4211,6 +4212,7 @@ msgstr ""
 msgid "Compare"
 msgstr ""
 
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:40
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1468
 msgid "Conditional Display"
 msgstr ""
@@ -4542,7 +4544,7 @@ msgid "Custom CSS"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1204
-#: includes/widgets/htmega_post_grid_tab.php:1713
+#: includes/widgets/htmega_post_grid_tab.php:1716
 msgid "Custom Date"
 msgstr ""
 
@@ -4662,7 +4664,7 @@ msgstr ""
 #: includes/widgets/htmega_newsticker.php:141
 #: includes/widgets/htmega_newsticker.php:811
 #: includes/widgets/htmega_newsticker.php:1193
-#: includes/widgets/htmega_post_grid_tab.php:1702
+#: includes/widgets/htmega_post_grid_tab.php:1705
 #: includes/widgets/htmega_singlepost.php:133
 #: includes/widgets/htmega_verticle_time_line.php:326
 #: extensions/ht-builder/widgets/bl_post_archive.php:206
@@ -4757,7 +4759,7 @@ msgstr ""
 
 #: includes/widgets/htmega_job_manager.php:84
 #: includes/widgets/htmega_newsticker.php:1242
-#: includes/widgets/htmega_post_grid_tab.php:1751
+#: includes/widgets/htmega_post_grid_tab.php:1754
 #: includes/widgets/htmega_wc_categories.php:151
 #: extensions/ht-builder/widgets/bl_post_archive.php:225
 msgid "Descending"
@@ -5402,12 +5404,12 @@ msgid "Evernote"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1171
-#: includes/widgets/htmega_post_grid_tab.php:1680
+#: includes/widgets/htmega_post_grid_tab.php:1683
 msgid "Example: 10,11,105"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1168
-#: includes/widgets/htmega_post_grid_tab.php:1677
+#: includes/widgets/htmega_post_grid_tab.php:1680
 msgid "Exclude Posts"
 msgstr ""
 
@@ -5906,7 +5908,7 @@ msgstr ""
 msgid "Gerald Gilbert"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:23
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:31
 msgid "Get HT Mega Pro"
 msgstr ""
 
@@ -5914,7 +5916,7 @@ msgstr ""
 msgid "Get Now"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:31
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:43
 msgid "Get Pro Now"
 msgstr ""
 
@@ -6279,6 +6281,10 @@ msgstr ""
 msgid "Hide Close Icon"
 msgstr ""
 
+#: includes/widgets/htmega_post_grid_tab.php:1773
+msgid "Hide Current Post"
+msgstr ""
+
 #: includes/widgets/htmega_weather.php:121
 msgid "Hide Current Status"
 msgstr ""
@@ -6288,7 +6294,7 @@ msgstr ""
 msgid "Hide Empty"
 msgstr ""
 
-#: includes/widgets/htmega_post_grid_tab.php:1760
+#: includes/widgets/htmega_post_grid_tab.php:1763
 msgid "Hide Empty Thumbnail"
 msgstr ""
 
@@ -6551,7 +6557,7 @@ msgstr ""
 
 #: includes/widgets/htmega_call_to_action.php:115
 #: admin/include/settings-panel/includes/templates/sidebar-banner.php:15
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:38
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:25
 msgid "HT Mega Addons"
 msgstr ""
 
@@ -6924,7 +6930,7 @@ msgstr ""
 
 #: includes/widgets/htmega_bbpress.php:73
 #: includes/widgets/htmega_newsticker.php:1192
-#: includes/widgets/htmega_post_grid_tab.php:1701
+#: includes/widgets/htmega_post_grid_tab.php:1704
 #: extensions/ht-builder/widgets/bl_post_archive.php:205
 msgid "ID"
 msgstr ""
@@ -6934,7 +6940,7 @@ msgstr ""
 msgid "If need to different from prev button"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:49
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:53
 msgid ""
 "If you’re loving how our product has helped your business, please let the "
 "WordPress community know by"
@@ -7158,7 +7164,7 @@ msgid "in this package"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1089
-#: includes/widgets/htmega_post_grid_tab.php:1598
+#: includes/widgets/htmega_post_grid_tab.php:1601
 msgid "Include By"
 msgstr ""
 
@@ -7824,7 +7830,7 @@ msgstr ""
 msgid "Leave a Reply"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:49
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:53
 msgid "leaving us a review on our WP repository"
 msgstr ""
 
@@ -8025,7 +8031,7 @@ msgid "Lightbox Type"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1178
-#: includes/widgets/htmega_post_grid_tab.php:1687
+#: includes/widgets/htmega_post_grid_tab.php:1690
 #: includes/widgets/htmega_twitter_feed.php:128
 #: extensions/wc-sales-notification/admin/setting.php:101
 msgid "Limit"
@@ -8771,8 +8777,8 @@ msgstr ""
 msgid "Mega Menu Background Color"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:29
-msgid "Mega Menu Builder, Theme Builder, Advanced Slider and much More.."
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:37
+msgid "Mega Menu Builder"
 msgstr ""
 
 #: extensions/ht-menu/classes/class.mega-menu.php:89
@@ -9020,6 +9026,10 @@ msgstr ""
 msgid "Mouse Wheel"
 msgstr ""
 
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:41
+msgid "Much More.."
+msgstr ""
+
 #: includes/widgets/htmega_accordion.php:374
 msgid "Multiple Item Open"
 msgstr ""
@@ -9039,7 +9049,7 @@ msgstr ""
 #: includes/widgets/htmega_data_table.php:168
 #: includes/widgets/htmega_easy_digital_download.php:201
 #: includes/widgets/htmega_newsticker.php:1194
-#: includes/widgets/htmega_post_grid_tab.php:1703
+#: includes/widgets/htmega_post_grid_tab.php:1706
 #: includes/widgets/htmega_pricing_list_view.php:80
 #: includes/widgets/htmega_pricing_list_view.php:451
 #: includes/widgets/htmega_teammember.php:159
@@ -9987,7 +9997,7 @@ msgstr ""
 #: includes/widgets/htmega_easy_digital_download.php:212
 #: includes/widgets/htmega_job_manager.php:79
 #: includes/widgets/htmega_newsticker.php:1238
-#: includes/widgets/htmega_post_grid_tab.php:1747
+#: includes/widgets/htmega_post_grid_tab.php:1750
 #: includes/widgets/htmega_wc_categories.php:146
 msgid "Order"
 msgstr ""
@@ -9998,7 +10008,7 @@ msgstr ""
 
 #: includes/widgets/htmega_job_manager.php:95
 #: includes/widgets/htmega_newsticker.php:1188
-#: includes/widgets/htmega_post_grid_tab.php:1697
+#: includes/widgets/htmega_post_grid_tab.php:1700
 msgid "Order By"
 msgstr ""
 
@@ -10856,7 +10866,7 @@ msgid "Post Title"
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1077
-#: includes/widgets/htmega_post_grid_tab.php:1586
+#: includes/widgets/htmega_post_grid_tab.php:1589
 msgid "Post Type"
 msgstr ""
 
@@ -11111,7 +11121,7 @@ msgstr ""
 
 #: includes/widgets/htmega_job_manager.php:102
 #: includes/widgets/htmega_newsticker.php:1197
-#: includes/widgets/htmega_post_grid_tab.php:1706
+#: includes/widgets/htmega_post_grid_tab.php:1709
 #: extensions/ht-builder/widgets/bl_post_archive.php:210
 msgid "Random"
 msgstr ""
@@ -11124,7 +11134,7 @@ msgstr ""
 msgid "Rating"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:46
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:50
 msgid "Rating icon"
 msgstr ""
 
@@ -11747,7 +11757,7 @@ msgid "Select 404 Page."
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1151
-#: includes/widgets/htmega_post_grid_tab.php:1660
+#: includes/widgets/htmega_post_grid_tab.php:1663
 msgid "Select Categories"
 msgstr ""
 
@@ -13550,6 +13560,7 @@ msgid "Theme Activated"
 msgstr ""
 
 #: extensions/ht-builder/admin/setting.php:32
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:38
 #: admin/include/settings-panel/includes/classes/Admin/Options_field.php:1145
 msgid "Theme Builder"
 msgstr ""
@@ -13564,7 +13575,7 @@ msgid ""
 "have ama suffered altratio. the lorem."
 msgstr ""
 
-#: includes/widgets/htmega_post_grid_tab.php:1482
+#: includes/widgets/htmega_post_grid_tab.php:1485
 msgid "There are no posts in this query"
 msgstr ""
 
@@ -13802,7 +13813,7 @@ msgstr ""
 #: includes/widgets/htmega_panel_slider.php:668
 #: includes/widgets/htmega_post_grid_tab.php:83
 #: includes/widgets/htmega_post_grid_tab.php:338
-#: includes/widgets/htmega_post_grid_tab.php:1704
+#: includes/widgets/htmega_post_grid_tab.php:1707
 #: includes/widgets/htmega_pricing_list_view.php:1508
 #: includes/widgets/htmega_progress_bar.php:104
 #: includes/widgets/htmega_progress_bar.php:236
@@ -13946,7 +13957,7 @@ msgid ""
 msgstr ""
 
 #: includes/widgets/htmega_newsticker.php:1172
-#: includes/widgets/htmega_post_grid_tab.php:1681
+#: includes/widgets/htmega_post_grid_tab.php:1684
 msgid "To Exclude Post, Enter  the post id separated by ','"
 msgstr ""
 
@@ -14694,7 +14705,7 @@ msgstr ""
 msgid "WhatsApp Chat"
 msgstr ""
 
-#: admin/include/settings-panel/includes/templates/sidebar-banner.php:49
+#: admin/include/settings-panel/includes/templates/sidebar-banner.php:53
 msgid "Which will motivate us a lot."
 msgstr ""
 

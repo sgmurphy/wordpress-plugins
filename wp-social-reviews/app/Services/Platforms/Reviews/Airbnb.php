@@ -122,15 +122,7 @@ class Airbnb extends BaseReview
     public function handleCredentialSave($credentials = [])
     {
         $downloadUrl = Arr::get($credentials, 'url_value');
-
         $downloadUrl = strtok($downloadUrl, '?');
-        if (empty($downloadUrl)) {
-            throw new \Exception(__('This field should not be empty!!', 'wp-social-reviews'));
-        }
-
-        if (!filter_var($downloadUrl, FILTER_VALIDATE_URL)) {
-            throw new \Exception(__('Please enter a valid ur!', 'wp-social-reviews'));
-        }
 
         try {
             $businessInfo = $this->verifyCredential($downloadUrl);
@@ -170,6 +162,17 @@ class Airbnb extends BaseReview
      */
     public function verifyCredential($downloadUrl)
     {
+        if (empty($downloadUrl)) {
+            throw new \Exception(
+		        __('URL field should not be empty!', 'wp-social-ninja-pro')
+	        );
+        }
+
+        if (!filter_var($downloadUrl, FILTER_VALIDATE_URL)) {
+            throw new \Exception(
+                __('Please enter a valid url!', 'wp-social-reviews')
+            );
+        }
         $this->curUrl = strtok($downloadUrl, '?');
         //start: find api key and place id
         $businessUrl = $this->curUrl;
@@ -237,7 +240,6 @@ class Airbnb extends BaseReview
         if ($experiences) {
             $fetchUrl = add_query_arg([
                 'key'             => $key,
-                '_order'          => 'language_country',
                 'reviewable_id'   => $this->placeId,
                 'reviewable_type' => 'MtTemplate',
                 'role'            => 'guest',
@@ -247,7 +249,6 @@ class Airbnb extends BaseReview
         } else {
             $fetchUrl = add_query_arg([
                 'key'        => $key,
-                '_order'     => 'language_country',
                 'listing_id' => $this->placeId,
                 'role'       => 'guest',
                 '_limit'     => $limit,
@@ -303,6 +304,7 @@ class Airbnb extends BaseReview
         return [
             'platform_name' => $this->platform,
             'source_id'     => $this->placeId,
+            'review_id'     => Arr::get($review, 'id', null),
             'reviewer_name' => $review['reviewer']['first_name'],
             'review_title'  => '',
             'reviewer_url'  => 'https://www.airbnb.com' . $review['reviewer']['profile_path'],
@@ -353,7 +355,7 @@ class Airbnb extends BaseReview
         foreach ($scripts as $s) {
             if (str_contains($s->innertext, 'niobeMinimalClientData') && str_contains($s->innertext, 'starRating')) {
                 $script = $s->innertext;
-                $pattern = '/"starRating":(?!null)(.*?)}/';
+                $pattern = '/"overallRating":(?!null)(.*?)}/';
                 preg_match($pattern, $script, $matches);
 
                 if(!empty($matches) && empty($starRating)) {
@@ -362,7 +364,7 @@ class Airbnb extends BaseReview
                 }
 
                 $matches = [];
-                $pattern = '/"reviewCount":(.*?),/';
+                $pattern = '/"reviewCount":(?!null)(.*?)}/';
                 preg_match($pattern, $script, $matches);
                 if(!empty($matches) && empty($reviewsCount)) {
                     $reviewsCount = Arr::get($matches, 1);
@@ -370,15 +372,22 @@ class Airbnb extends BaseReview
                 }
 
                 $matches = [];
-                $pattern = '/"name":(.*?),/';
+                $pattern = '/"pageTitle":(.*?),/';
                 preg_match($pattern, $script, $matches);
                 if(!empty($matches) && empty($name)) {
                     $name = Arr::get($matches, 1);
                     if(!empty($name)) {
                         $name = trim($name, '"');
                         $name = str_replace('"}]', '', $name);
+                        $name = str_replace(['"', '\\'], '', $name);
                     }
                 }
+
+                if($name == 'null'){
+                    preg_match('/"sectionData":{"__typename":"PdpOverviewV2Section","title":"(.*?)"/', $script, $matches);
+                    $name = Arr::get($matches, 1);
+                }
+
                 break;
             }
         }
@@ -399,9 +408,12 @@ class Airbnb extends BaseReview
             $char = $str[$i];
             if(empty($char)) return null;
 
-            $str = str_replace(['.', ','], '', $char);
-            if(preg_match('/\d/', $str)) {
-                return $str;
+            if(strpos($str, '.') !== false && strlen($str) <= 4){
+                return (float) $str;
+            } elseif (preg_match('/([\d.]+),/', $str, $matches)) {
+                return (float) Arr::get($matches, 1, null);
+            } elseif(preg_match('/(\d+),/', $str, $matches)) {
+                return (int) Arr::get($matches, 1, null);
             } else {
                 return null;
             }

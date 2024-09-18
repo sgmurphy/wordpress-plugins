@@ -261,7 +261,6 @@ function swpm_handle_refund_using_parent_txn_id( $ipn_data ){
 function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 
 	swpm_debug_log_subsc( "Refund/Cancellation Check - Let's see if a member's profile needs to be updated or deactivated.", true );
-
 	global $wpdb;
 
 	$swpm_id = '';
@@ -270,13 +269,14 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 		$swpm_id = $customvariables['swpm_id'];
 	}
 
+    $subscr_id = isset( $ipn_data['subscr_id'] ) && ! empty( $ipn_data['subscr_id'] ) ? $ipn_data['subscr_id'] : '';
+
 	if ( ! empty( $swpm_id ) ) {
 		// This IPN has the SWPM ID. Retrieve the member record using member ID.
 		swpm_debug_log_subsc( 'Member ID is present. Retrieving member account from the database. Member ID: ' . $swpm_id, true );
 		$resultset = SwpmMemberUtils::get_user_by_id( $swpm_id );
-	} elseif ( isset( $ipn_data['subscr_id'] ) && ! empty( $ipn_data['subscr_id'] ) ) {
+	} else if ( ! empty( $subscr_id ) ) {
 		// This IPN has the subscriber ID. Retrieve the member record using subscr_id.
-		$subscr_id = $ipn_data['subscr_id'];
 		swpm_debug_log_subsc( 'Subscriber ID is present. Retrieving member account from the database. Subscr_id: ' . $subscr_id, true );
 		$resultset = $wpdb->get_row(
 			$wpdb->prepare(
@@ -348,6 +348,11 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 			// Make sure the cronjob to do expiry check and deactivate the member accounts treat this status as if it is "active".
 		}
 
+		//Check if subscription_id is still empty (due to it not being present in the $ipn_data array), then try to get it from the member record.
+		if( empty( $subscr_id ) ){
+			$subscr_id = isset($resultset->subscr_id) ? $resultset->subscr_id : '';
+		}
+
 		//Update the swpm_transactions CPT record to mark the subscription as "Cancelled".
 		$swpm_txn_cpt_id = SwpmTransactions::get_original_swpm_txn_cpt_id_by_subscr_id( $subscr_id );
 		if ( ! empty( $swpm_txn_cpt_id ) ) {
@@ -358,12 +363,82 @@ function swpm_handle_subsc_cancel_stand_alone( $ipn_data, $refund = false ) {
 		// Update attached subcription status.
 		SwpmMemberUtils::set_subscription_data_extra_info( $member_id, 'subscription_status', 'inactive');
 
+        // Update subscription status of the subscription agreement record in transactions cpt table.
+        SWPM_Utils_Subscriptions::update_subscription_agreement_record_status_to_cancelled($subscr_id);
+
+		// Send subscription cancel notification emails
+		swpm_send_subscription_cancel_notification_email($member_id, $subscr_id);
+
 		// Trigger hook for subscription payment cancelled.
 		$ipn_data['member_id'] = $member_id;
-		do_action( 'swpm_subscription_payment_cancelled', $ipn_data ); 
+		do_action( 'swpm_subscription_payment_cancelled', $ipn_data );
+
 	} else {
-		swpm_debug_log_subsc( 'No associated active member record found for this notification. The profile may have been updated/attached to another subscription or transaction.', true );
+		swpm_debug_log_subsc( 'No associated active member record found for this notification. The profile may have been updated, deleted or attached to another subscription or transaction. Nothing to do.', true );
 		return;
+	}
+}
+
+/**
+ * Sends notification email to member and admin.
+ */
+function swpm_send_subscription_cancel_notification_email($member_id, $subscription_id){
+	$settings = SwpmSettings::get_instance();
+
+	$member = SwpmMemberUtils::get_user_by_id( $member_id );
+	if ( empty( $member ) ) {
+		//can't find recipient member
+		wp_die(__( "Can't find member account to send notification email." , 'simple-membership'));
+	}
+
+	//Additional arguments for dynamic tag replacement
+	$additional_args = array('subscription_id' => $subscription_id);
+
+	// Set Email details for the notification.
+	$from_address = $settings->get_value( 'email-from' );
+	$headers = array();
+	$headers[] = 'From: ' . $from_address . "\r\n";
+
+	$is_html_email_enabled = $settings->get_value('email-enable-html', false);
+
+	// Send email to Member
+	$member_email_notification_enable = $settings->get_value('subscription-cancel-member-mail-enable', false);
+	if(!empty($member_email_notification_enable)){
+		$member_email_address = $member->email;
+		$member_email_subject = $settings->get_value( 'subscription-cancel-member-mail-subject' );
+		$member_email_body = $settings->get_value( 'subscription-cancel-member-mail-body' );
+
+		$member_email_body = SwpmMiscUtils::replace_dynamic_tags($member_email_body, $member->member_id, $additional_args);
+		if (!empty($is_html_email_enabled)){
+			$headers[] = "Content-Type: text/html; charset=UTF-8\r\n";
+			$member_email_body = nl2br($member_email_body);
+		}
+
+		wp_mail($member_email_address, $member_email_subject , $member_email_body, $headers);
+		SwpmLog::log_simple_debug( 'Sending subscription payment canceled or expired notification email to: '.$member_email_address, true );
+	}
+
+	// Send email to Admin
+	$admin_email_notification_enable = $settings->get_value('subscription-cancel-admin-mail-enable', false);
+	if(!empty($admin_email_notification_enable)){
+		$admin_email_address = $settings->get_value( 'subscription-cancel-admin-mail-address' );
+
+		// The default email subject and body for admin
+		$admin_email_subject = "A subscription payment agreement has been canceled or expired";
+		$admin_email_body = "Dear Admin" .
+                "\n\nA subscription payment agreement has been canceled or has expired." .
+				"\n\nSubscription ID: {subscription_id}" .
+                "\n\nMember ID: {member_id}" .
+                "\n\nYou can view more details in the Payments menu of the plugin.";
+
+		$admin_email_body = SwpmMiscUtils::replace_dynamic_tags($admin_email_body, $member->member_id, $additional_args);
+		if (!empty($is_html_email_enabled)){
+			$headers[] = "Content-Type: text/html; charset=UTF-8\r\n";
+			$admin_email_body = nl2br($admin_email_body);
+		}
+
+		wp_mail($admin_email_address, $admin_email_subject , $admin_email_body, $headers);
+		SwpmLog::log_simple_debug( 'Sending subscription payment canceled or expired notification email to: '.$admin_email_address, true );
 	}
 }
 
@@ -424,8 +499,8 @@ function swpm_is_paypal_recurring_payment($payment_data){
         $subscr_id = $payment_data['subscr_id'];
         swpm_debug_log_subsc('Is recurring payment check debug data: ' . $item_number . "|" . $subscr_id, true);
 
-        $result = SwpmTransactions::get_transaction_row_by_subscr_id($subscr_id);
-        if (isset($result)) {
+        $result = SwpmTransactions::get_transaction_row_by_subscr_id($subscr_id, true);
+        if (isset($result) && strtolower($result->status) != 'subscription created') {
             swpm_debug_log_subsc('This subscr_id exists in the transactions db. Recurring payment check flag value is true.', true);
             $recurring_payment = true;
             return $recurring_payment;

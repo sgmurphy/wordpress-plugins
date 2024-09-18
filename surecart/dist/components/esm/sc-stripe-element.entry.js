@@ -2,7 +2,7 @@ import { r as registerInstance, c as createEvent, h, F as Fragment, a as getElem
 import { p as pure } from './pure-4f52cebf.js';
 import { o as openWormhole } from './consumer-32cc6385.js';
 import { s as state } from './watchers-7ddfd1b5.js';
-import { a as availableProcessors } from './getters-03bf9a6d.js';
+import { a as availableProcessors } from './getters-a6a88dc4.js';
 import { c as createErrorNotice } from './mutations-0a628afa.js';
 import { u as updateFormState } from './mutations-8871d02a.js';
 import './_commonjsHelpers-9943807e.js';

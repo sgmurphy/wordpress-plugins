@@ -167,11 +167,13 @@ class ReviewsTemplateHandler
         if ($display_reviewer_rating === 'false') {
             return;
         }
+        $rating_class = $rating_style !== 'default' ? 'wpsr-rating-'.$rating_style : 'wpsr-rating';
 
         $app = App::getInstance();
         $app->view->render('public.reviews-templates.elements.reviewer-rating', array(
             'rating_style'        => $rating_style,
             'rating'              => $rating,
+            'rating_class'        => $rating_class,
             'platform_name'       => $platform_name,
             'recommendation_type' => $recommendation_type
         ));

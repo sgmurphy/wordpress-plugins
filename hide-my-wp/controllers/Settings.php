@@ -774,6 +774,26 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             //Echo the new paths in a txt file
             echo $message;
             exit();
+
+        case 'hmwp_pause_enable':
+
+            if ( ! HMWP_Classes_Tools::userCan( 'hmwp_manage_settings' ) ) {
+                return;
+            }
+
+            set_transient('hmwp_disable', 1, 300);
+
+            break;
+
+        case 'hmwp_pause_disable':
+
+                if ( ! HMWP_Classes_Tools::userCan( 'hmwp_manage_settings' ) ) {
+                    return;
+                }
+
+                delete_transient('hmwp_disable');
+
+                break;
         }
 
     }

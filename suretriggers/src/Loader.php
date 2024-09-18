@@ -180,8 +180,8 @@ class Loader {
 		define( 'SURE_TRIGGERS_BASE', plugin_basename( SURE_TRIGGERS_FILE ) );
 		define( 'SURE_TRIGGERS_DIR', plugin_dir_path( SURE_TRIGGERS_FILE ) );
 		define( 'SURE_TRIGGERS_URL', plugins_url( '/', SURE_TRIGGERS_FILE ) );
-		define( 'SURE_TRIGGERS_VER', '1.0.59' );
-		define( 'SURE_TRIGGERS_DB_VER', '1.0.59' );
+		define( 'SURE_TRIGGERS_VER', '1.0.60' );
+		define( 'SURE_TRIGGERS_DB_VER', '1.0.60' );
 		define( 'SURE_TRIGGERS_REST_NAMESPACE', 'sure-triggers/v1' );
 		define( 'SURE_TRIGGERS_SASS_URL', $sass_url . '/wp-json/wp-plugs/v1/' );
 		define( 'SURE_TRIGGERS_SITE_URL', $sass_url );
@@ -279,6 +279,8 @@ class Loader {
 	private function get_localized_array() {
 		$current_user = wp_get_current_user();
 
+		$source_type = get_option( 'suretriggers_source' );
+
 		$data = [
 			'siteContent'         => [
 				'siteUrl'      => str_replace( '/wp-json/', '', get_rest_url() ),
@@ -287,6 +289,7 @@ class Loader {
 				'connectUrl'   => SURE_TRIGGERS_SITE_URL . '/connect-st/connect',
 				'siteTitle'    => get_bloginfo( 'name' ),
 				'resetUrl'     => base64_encode( wp_nonce_url( admin_url( 'admin.php?st-reset=true' ), 'st-reset-action' ) ),
+				'sourceType'   => $source_type,
 			],
 			'user'                => [
 				'name'  => $current_user->display_name,

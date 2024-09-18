@@ -3,7 +3,7 @@ Contributors: Flector
 Donate link: https://money.yandex.ru/to/41001443750704/200
 Tags: yandex, turbo, yandex turbo, rss, feed, турбо, яндекс турбо, яндекс
 Requires at least: 4.4
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 5.3
 Stable tag: trunk
 

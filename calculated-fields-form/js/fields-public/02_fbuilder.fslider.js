@@ -114,7 +114,10 @@
 						}
 						if(!nochange) $('#'+me.name).trigger('change');
 					},
-				_toNumber:function(n){return (new String(n)).replace(/[^\-\d\.]/g,'')*1;},
+				_toNumber:function(n){
+					n = $.fbuilder.parseVal(n, this.thousandSeparator, this.centSeparator);
+					return (new String(n)).replace(/[^\-\d\.]/g,'')*1;
+				},
 				init:function()
 					{
 						this.min  = (/^\s*$/.test(this.min)) ? 0   : String(this.min).trim();
@@ -229,6 +232,7 @@
 						try{
 							var e = $('[id="'+this.name+'_slider"]'), c = this.val(), r = false;
 							if(ignore) v = 0;
+							v = this._toNumber(v);
 							e.slider('option', 'min', v);
 							if(Array.isArray(c)){if(c[0] < v){c[0] = v; r = true;}}
 							else if(c < v){c = v; r = true;}
@@ -242,6 +246,7 @@
 						try{
 							var e = $('[id="'+this.name+'_slider"]'), c = this.val(), r = false;
 							if(ignore) v = 100;
+							v = this._toNumber(v);
 							e.slider('option', 'max', v);
 							if(Array.isArray(c)){if(v < c[1]){c[1] = v; r = true;}}
 							else if(v < c){c = v; r = true;}
@@ -365,6 +370,16 @@
 					{
 						try{ v = JSON.parse(v); }catch(err){}
 						try{
+
+							// Fix values format.
+							if ( Array.isArray(v) ) {
+								for ( let i in v ) {
+									v[i] = this._toNumber(v[i]);
+								}
+							} else {
+								v = this._toNumber(v);
+							}
+
 							$('[name="'+this.name+'"]').val(v);
 							$('#'+this.name+'_slider').slider(((Array.isArray(v)) ? 'values' : 'value'), (this.logarithmic ? this._inverse(v) : v) );
 							this._setFieldValue(v, nochange);

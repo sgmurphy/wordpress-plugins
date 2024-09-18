@@ -75,6 +75,7 @@ class ConfigsController extends Controller
         if((is_array($settings) && count($settings) === 0) || (is_array($businessInfo) && count($businessInfo) === 0) || $sourceId === 'clear-locations') {
             delete_option($settings_option_name);
             delete_option($business_info_option_name);
+            delete_option('last_fetched_tripadvisor_review_id');
             if ($platform === 'google') {
                 delete_option('wpsr_reviews_google_connected_accounts');
                 // delete locations list of google business

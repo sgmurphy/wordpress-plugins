@@ -75,6 +75,7 @@ class YoutubeTemplateHandler
         $feed_info = []
     )
     {
+        $layout_type = Arr::get($template_meta, 'layout_type', '');
         $videoId = YoutubeHelper::getVideoId($feed);
         $app = App::getInstance();
         $app->view->render('public.feeds-templates.youtube.elements.preview_image', array(
@@ -83,7 +84,9 @@ class YoutubeTemplateHandler
             'index'         => $index,
             'templateId'    => $templateId,
             'feed_info'     => $feed_info,
-            'videoId'       => $videoId
+            'videoId'       => $videoId,
+            'animation_img_class' => $layout_type === 'carousel' ? 'wpsr-animated-background' : '',
+            'layout_type' => $layout_type,
         ));
     }
 

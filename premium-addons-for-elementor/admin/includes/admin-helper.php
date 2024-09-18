@@ -119,7 +119,8 @@ class Admin_Helper {
 					Admin_Notices::get_instance();
 
 					// Beta tester.
-					Beta_Testers::get_instance();
+                    // Not currently needed.
+					// Beta_Testers::get_instance();
 
 					// PA Duplicator.
 					if ( self::check_duplicator() ) {
@@ -1032,6 +1033,30 @@ class Admin_Helper {
 		}
 
 		return $defaults;
+
+	}
+
+    /**
+	 * Check Elementor By Key
+	 *
+	 * @since 4.10.52
+	 * @access public
+	 *
+	 * @return string $key element key.
+	 */
+	public static function check_element_by_key( $key ) {
+
+        if( ! $key ) {
+            return;
+        }
+
+        $settings = self::get_enabled_elements();
+
+        if( ! isset( $settings[ $key ] ) ) {
+            return false;
+        }
+
+		return $settings[ $key ];
 
 	}
 

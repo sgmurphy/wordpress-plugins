@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Package Name\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-06 12:14+0530\n"
+"POT-Creation-Date: 2024-09-17 22:12+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,57 +37,57 @@ msgstr ""
 msgid "Install Elementor Now"
 msgstr ""
 
-#: widgets_loader.php:347 widgets_loader.php:419 widgets_loader.php:469
+#: widgets_loader.php:351 widgets_loader.php:423 widgets_loader.php:473
 #: includes/theplus_options.php:140 includes/theplus_options.php:158
 msgid "Invalid security"
 msgstr ""
 
-#: widgets_loader.php:351 widgets_loader.php:423 widgets_loader.php:473
+#: widgets_loader.php:355 widgets_loader.php:427 widgets_loader.php:477
 #: includes/theplus_options.php:144 includes/theplus_options.php:162
 msgid "Invalid User"
 msgstr ""
 
-#: widgets_loader.php:370
+#: widgets_loader.php:374
 msgid "Empty post list."
 msgstr ""
 
-#: widgets_loader.php:540
+#: widgets_loader.php:544
 msgid "PlusEssential"
 msgstr ""
 
-#: widgets_loader.php:548
+#: widgets_loader.php:552
 msgid "PlusListing"
 msgstr ""
 
-#: widgets_loader.php:556
+#: widgets_loader.php:560
 msgid "PlusCreatives"
 msgstr ""
 
-#: widgets_loader.php:564
+#: widgets_loader.php:568
 msgid "PlusTabbed"
 msgstr ""
 
-#: widgets_loader.php:572
+#: widgets_loader.php:576
 msgid "PlusAdapted"
 msgstr ""
 
-#: widgets_loader.php:580
+#: widgets_loader.php:584
 msgid "PlusHeader"
 msgstr ""
 
-#: widgets_loader.php:588
+#: widgets_loader.php:592
 msgid "PlusBuilder"
 msgstr ""
 
-#: widgets_loader.php:596
+#: widgets_loader.php:600
 msgid "PlusWooBuilder"
 msgstr ""
 
-#: widgets_loader.php:604
+#: widgets_loader.php:608
 msgid "PlusSearchFilters"
 msgstr ""
 
-#: widgets_loader.php:612
+#: widgets_loader.php:616
 msgid "PlusDepreciated"
 msgstr ""
 
@@ -97,25 +97,6 @@ msgstr ""
 
 #: includes/plus_addon.php:72
 msgid "White Lable"
-msgstr ""
-
-#: includes/plus_addon.php:81
-msgid "Phone Number"
-msgstr ""
-
-#: includes/plus_addon.php:82
-#: includes/plus-options/custom-metabox/teammember_options.php:59
-msgid "Facebook Link"
-msgstr ""
-
-#: includes/plus_addon.php:83
-#: includes/plus-options/custom-metabox/teammember_options.php:81
-msgid "Twitter Link"
-msgstr ""
-
-#: includes/plus_addon.php:84 modules/widgets/tp_social_embed.php:102
-#: modules/widgets/tp_social_embed.php:1767
-msgid "Instagram"
 msgstr ""
 
 #: includes/theplus_options.php:63
@@ -1037,7 +1018,7 @@ msgid ""
 "taxonomy."
 msgstr ""
 
-#: includes/theplus_options.php:2231 modules/helper-function.php:463
+#: includes/theplus_options.php:2231 modules/helper-function.php:427
 msgid "Lazy Load"
 msgstr ""
 
@@ -1690,7 +1671,7 @@ msgid "Dismiss this notice"
 msgstr ""
 
 #: includes/notices/class-tp-tpag-install-notice.php:174
-#: includes/user-experience/class-tp-onbording.php:695
+#: includes/user-experience/class-tp-onbording.php:700
 msgid "You are not allowed to do this action"
 msgstr ""
 
@@ -1988,6 +1969,10 @@ msgstr ""
 msgid "Website Url"
 msgstr ""
 
+#: includes/plus-options/custom-metabox/teammember_options.php:59
+msgid "Facebook Link"
+msgstr ""
+
 #: includes/plus-options/custom-metabox/teammember_options.php:66
 msgid "Google plus Link"
 msgstr ""
@@ -1996,13 +1981,17 @@ msgstr ""
 msgid "Instagram Link"
 msgstr ""
 
+#: includes/plus-options/custom-metabox/teammember_options.php:81
+msgid "Twitter Link"
+msgstr ""
+
 #: includes/plus-options/custom-metabox/teammember_options.php:88
 msgid "Linkedin Link"
 msgstr ""
 
 #: includes/plus-options/custom-metabox/teammember_options.php:95
-#: includes/user-experience/class-tp-onbording.php:477
-#: includes/user-experience/class-tp-onbording.php:538
+#: includes/user-experience/class-tp-onbording.php:482
+#: includes/user-experience/class-tp-onbording.php:543
 #: modules/widgets/tp_post_comment.php:931
 msgid "Email"
 msgstr ""
@@ -2020,7 +2009,7 @@ msgid "Author Text"
 msgstr ""
 
 #: includes/plus-options/custom-metabox/testimonial_option.php:35
-#: modules/helper-function.php:439 modules/widgets/tp_accordion.php:493
+#: modules/helper-function.php:403 modules/widgets/tp_accordion.php:493
 #: modules/widgets/tp_age_gate.php:176 modules/widgets/tp_age_gate.php:187
 #: modules/widgets/tp_age_gate.php:724
 #: modules/widgets/tp_blog_listout.php:1082
@@ -2144,7 +2133,7 @@ msgstr ""
 
 #: includes/plus-options/metabox/includes/CMB2_Field.php:1451
 #: includes/plus-options/metabox/includes/CMB2_Field.php:1455
-#: modules/helper-function.php:436 modules/widgets/tp_blockquote.php:371
+#: modules/helper-function.php:400 modules/widgets/tp_blockquote.php:371
 #: modules/widgets/tp_button.php:554 modules/widgets/tp_button.php:760
 #: modules/widgets/tp_clients_listout.php:653
 #: modules/widgets/tp_countdown.php:390 modules/widgets/tp_countdown.php:714
@@ -2220,8 +2209,8 @@ msgid "Clear"
 msgstr ""
 
 #: includes/plus-options/metabox/includes/CMB2_JS.php:166
-#: modules/helper-function.php:638 modules/helper-function.php:653
-#: modules/helper-function.php:661 modules/helper-function.php:671
+#: modules/helper-function.php:602 modules/helper-function.php:617
+#: modules/helper-function.php:625 modules/helper-function.php:635
 #: modules/widgets/tp_carousel_anything.php:315
 #: modules/widgets/tp_header_extras.php:1086
 #: modules/widgets/tp_heading_title.php:121
@@ -2794,142 +2783,125 @@ msgstr ""
 msgid "Why use Nexter Theme?"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:454
-msgid "Agree to install & activate"
-msgstr ""
-
-#: includes/user-experience/class-tp-onbording.php:454
-msgid "Nexter"
-msgstr ""
-
-#: includes/user-experience/class-tp-onbording.php:454
-msgid "Theme "
-msgstr ""
-
-#: includes/user-experience/class-tp-onbording.php:454
-#: modules/widgets/tp_pricing_table.php:829
-msgid "Recommended"
-msgstr ""
-
-#: includes/user-experience/class-tp-onbording.php:460
+#: includes/user-experience/class-tp-onbording.php:465
 msgid "Check All Features"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:474
+#: includes/user-experience/class-tp-onbording.php:479
 msgid "Stay Updated!"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:475
+#: includes/user-experience/class-tp-onbording.php:480
 msgid ""
 "Never miss whats happening in the World of WordPress, we send monthly emails "
 "with WordPress News, Product Updates, Speed & Security Tips, Special Offers "
 "and more"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:476
+#: includes/user-experience/class-tp-onbording.php:481
 msgid "Name"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:478
+#: includes/user-experience/class-tp-onbording.php:483
 msgid "Please enter your email correctly"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:480
+#: includes/user-experience/class-tp-onbording.php:485
 msgid "NO SPAM GUARANTEE"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:482
+#: includes/user-experience/class-tp-onbording.php:487
 msgid "Submit"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:497
+#: includes/user-experience/class-tp-onbording.php:502
 msgid "Limited Time FLASH DEAL!"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:498
+#: includes/user-experience/class-tp-onbording.php:503
 msgid "USE CODE "
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:499
+#: includes/user-experience/class-tp-onbording.php:504
 msgid "FIRSTTIME20"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:500
+#: includes/user-experience/class-tp-onbording.php:505
 msgid " to get FLAT 20% OFF"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:502
+#: includes/user-experience/class-tp-onbording.php:507
 msgid "UPGRADE NOW "
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:503
+#: includes/user-experience/class-tp-onbording.php:508
 msgid "Compare FREE vs PRO"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:506
+#: includes/user-experience/class-tp-onbording.php:511
 msgid "60 DAYS MONEY-BACK GUARANTEE"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:523
+#: includes/user-experience/class-tp-onbording.php:528
 msgid "Congratulations All set!"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:524
+#: includes/user-experience/class-tp-onbording.php:529
 msgid ""
 "We have configured The Plus Addons for Elementor based on your site "
 "requirements, where only necessary widgets are activated & rest are disabled."
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:526
+#: includes/user-experience/class-tp-onbording.php:531
 msgid ""
 "Agree to contribute to make The Plus Addons for Elementor better by sharing "
 "non-sensitive details. "
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:526
+#: includes/user-experience/class-tp-onbording.php:531
 msgid " See what details are shared "
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:529
+#: includes/user-experience/class-tp-onbording.php:534
 msgid "We collect :"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:532
+#: includes/user-experience/class-tp-onbording.php:537
 msgid "PHP Version"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:533
+#: includes/user-experience/class-tp-onbording.php:538
 msgid "Server Details"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:534
+#: includes/user-experience/class-tp-onbording.php:539
 msgid "WordPress Version"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:535
+#: includes/user-experience/class-tp-onbording.php:540
 msgid "Plugins & Theme Used"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:536
+#: includes/user-experience/class-tp-onbording.php:541
 msgid "No. of Plus Widgets Used"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:537
+#: includes/user-experience/class-tp-onbording.php:542
 msgid "Site Language"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:541
+#: includes/user-experience/class-tp-onbording.php:546
 msgid ""
 "The following details will help us serve you better, and will not be shared "
 "with any third-party or used to spam you in anyway."
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:552
+#: includes/user-experience/class-tp-onbording.php:557
 #: modules/widgets/tp_flip_box.php:1824 modules/widgets/tp_flip_box.php:1884
 msgid "Back"
 msgstr ""
 
-#: includes/user-experience/class-tp-onbording.php:553
+#: includes/user-experience/class-tp-onbording.php:558
 msgid "Proceed"
 msgstr ""
 
@@ -3113,92 +3085,92 @@ msgstr ""
 msgid "Column 1"
 msgstr ""
 
-#: modules/helper-function.php:437 modules/widgets/tp_table.php:458
+#: modules/helper-function.php:401 modules/widgets/tp_table.php:458
 msgid "ID"
 msgstr ""
 
-#: modules/helper-function.php:438 modules/widgets/tp_blockquote.php:123
+#: modules/helper-function.php:402 modules/widgets/tp_blockquote.php:123
 #: modules/widgets/tp_blockquote.php:614
 #: modules/widgets/tp_post_comment.php:911
 #: modules/widgets/tp_post_meta.php:136
 msgid "Author"
 msgstr ""
 
-#: modules/helper-function.php:440
+#: modules/helper-function.php:404
 msgid "Name (slug)"
 msgstr ""
 
-#: modules/helper-function.php:441 modules/widgets/tp_post_meta.php:134
+#: modules/helper-function.php:405 modules/widgets/tp_post_meta.php:134
 msgid "Date"
 msgstr ""
 
-#: modules/helper-function.php:442
+#: modules/helper-function.php:406
 msgid "Modified"
 msgstr ""
 
-#: modules/helper-function.php:443
+#: modules/helper-function.php:407
 msgid "Random"
 msgstr ""
 
-#: modules/helper-function.php:444 modules/widgets/tp_social_embed.php:514
+#: modules/helper-function.php:408 modules/widgets/tp_social_embed.php:514
 msgid "Comment Count"
 msgstr ""
 
-#: modules/helper-function.php:445
+#: modules/helper-function.php:409
 msgid "Default Menu Order"
 msgstr ""
 
-#: modules/helper-function.php:451
+#: modules/helper-function.php:415
 msgid "Descending"
 msgstr ""
 
-#: modules/helper-function.php:452
+#: modules/helper-function.php:416
 msgid "Ascending"
 msgstr ""
 
-#: modules/helper-function.php:460 modules/widgets/tp_blog_listout.php:573
+#: modules/helper-function.php:424 modules/widgets/tp_blog_listout.php:573
 #: modules/widgets/tp_header_extras.php:107
 msgid "Select Options"
 msgstr ""
 
-#: modules/helper-function.php:461
+#: modules/helper-function.php:425
 msgid "Pagination"
 msgstr ""
 
-#: modules/helper-function.php:462 modules/widgets/tp_blog_listout.php:575
+#: modules/helper-function.php:426 modules/widgets/tp_blog_listout.php:575
 #: modules/widgets/tp_blog_listout.php:611
 msgid "Load More"
 msgstr ""
 
-#: modules/helper-function.php:507 modules/helper-function.php:643
+#: modules/helper-function.php:471 modules/helper-function.php:607
 #: modules/widgets/tp_button.php:1115 modules/widgets/tp_hovercard.php:1359
 #: modules/widgets/tp_social_icon.php:436
 #: modules/widgets/tp_video_player.php:830
 msgid "Center Center"
 msgstr ""
 
-#: modules/helper-function.php:508 modules/helper-function.php:642
+#: modules/helper-function.php:472 modules/helper-function.php:606
 #: modules/widgets/tp_button.php:1114 modules/widgets/tp_hovercard.php:1358
 #: modules/widgets/tp_social_icon.php:435
 #: modules/widgets/tp_video_player.php:829
 msgid "Center Left"
 msgstr ""
 
-#: modules/helper-function.php:509 modules/helper-function.php:644
+#: modules/helper-function.php:473 modules/helper-function.php:608
 #: modules/widgets/tp_button.php:1116 modules/widgets/tp_hovercard.php:1360
 #: modules/widgets/tp_social_icon.php:437
 #: modules/widgets/tp_video_player.php:831
 msgid "Center Right"
 msgstr ""
 
-#: modules/helper-function.php:510 modules/helper-function.php:640
+#: modules/helper-function.php:474 modules/helper-function.php:604
 #: modules/widgets/tp_button.php:1112 modules/widgets/tp_hovercard.php:1356
 #: modules/widgets/tp_social_icon.php:433
 #: modules/widgets/tp_video_player.php:827
 msgid "Top Center"
 msgstr ""
 
-#: modules/helper-function.php:511 modules/helper-function.php:639
+#: modules/helper-function.php:475 modules/helper-function.php:603
 #: modules/widgets/tp_button.php:1111 modules/widgets/tp_hovercard.php:1355
 #: modules/widgets/tp_scroll_navigation.php:119
 #: modules/widgets/tp_social_icon.php:432
@@ -3206,7 +3178,7 @@ msgstr ""
 msgid "Top Left"
 msgstr ""
 
-#: modules/helper-function.php:512 modules/helper-function.php:641
+#: modules/helper-function.php:476 modules/helper-function.php:605
 #: modules/widgets/tp_button.php:1113 modules/widgets/tp_hovercard.php:1357
 #: modules/widgets/tp_scroll_navigation.php:120
 #: modules/widgets/tp_social_icon.php:434
@@ -3214,14 +3186,14 @@ msgstr ""
 msgid "Top Right"
 msgstr ""
 
-#: modules/helper-function.php:513 modules/helper-function.php:646
+#: modules/helper-function.php:477 modules/helper-function.php:610
 #: modules/widgets/tp_button.php:1118 modules/widgets/tp_hovercard.php:1362
 #: modules/widgets/tp_social_icon.php:439
 #: modules/widgets/tp_video_player.php:833
 msgid "Bottom Center"
 msgstr ""
 
-#: modules/helper-function.php:514 modules/helper-function.php:645
+#: modules/helper-function.php:478 modules/helper-function.php:609
 #: modules/widgets/tp_button.php:1117 modules/widgets/tp_hovercard.php:1361
 #: modules/widgets/tp_scroll_navigation.php:122
 #: modules/widgets/tp_social_icon.php:438
@@ -3229,7 +3201,7 @@ msgstr ""
 msgid "Bottom Left"
 msgstr ""
 
-#: modules/helper-function.php:515 modules/helper-function.php:647
+#: modules/helper-function.php:479 modules/helper-function.php:611
 #: modules/widgets/tp_button.php:1119 modules/widgets/tp_hovercard.php:1363
 #: modules/widgets/tp_scroll_navigation.php:123
 #: modules/widgets/tp_social_icon.php:440
@@ -3237,379 +3209,379 @@ msgstr ""
 msgid "Bottom Right"
 msgstr ""
 
-#: modules/helper-function.php:522 modules/helper-function.php:537
+#: modules/helper-function.php:486 modules/helper-function.php:501
 msgid "Select Hover Effect"
 msgstr ""
 
-#: modules/helper-function.php:523
+#: modules/helper-function.php:487
 msgid "Grow (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:524 modules/helper-function.php:539
+#: modules/helper-function.php:488 modules/helper-function.php:503
 msgid "Push"
 msgstr ""
 
-#: modules/helper-function.php:525
+#: modules/helper-function.php:489
 msgid "Bounce In (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:526
+#: modules/helper-function.php:490
 msgid "Float (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:527
+#: modules/helper-function.php:491
 msgid "Wobble Horizontal (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:528
+#: modules/helper-function.php:492
 msgid "Wobble Vertical (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:529
+#: modules/helper-function.php:493
 msgid "Float Shadow (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:530
+#: modules/helper-function.php:494
 msgid "Grow Shadow (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:531
+#: modules/helper-function.php:495
 msgid "Shadow Radial (PRO)"
 msgstr ""
 
-#: modules/helper-function.php:538
+#: modules/helper-function.php:502
 msgid "Grow"
 msgstr ""
 
-#: modules/helper-function.php:540
+#: modules/helper-function.php:504
 msgid "Bounce In"
 msgstr ""
 
-#: modules/helper-function.php:541
+#: modules/helper-function.php:505
 msgid "Float"
 msgstr ""
 
-#: modules/helper-function.php:542
+#: modules/helper-function.php:506
 msgid "Wobble Horizontal"
 msgstr ""
 
-#: modules/helper-function.php:543
+#: modules/helper-function.php:507
 msgid "Wobble Vertical"
 msgstr ""
 
-#: modules/helper-function.php:544
+#: modules/helper-function.php:508
 msgid "Float Shadow"
 msgstr ""
 
-#: modules/helper-function.php:545
+#: modules/helper-function.php:509
 msgid "Grow Shadow"
 msgstr ""
 
-#: modules/helper-function.php:546
+#: modules/helper-function.php:510
 msgid "Shadow Radial"
 msgstr ""
 
-#: modules/helper-function.php:552 modules/helper-function.php:585
+#: modules/helper-function.php:516 modules/helper-function.php:549
 msgid "No-animation"
 msgstr ""
 
-#: modules/helper-function.php:553
+#: modules/helper-function.php:517
 msgid "FadeIn"
 msgstr ""
 
-#: modules/helper-function.php:554
+#: modules/helper-function.php:518
 msgid "FlipXIn"
 msgstr ""
 
-#: modules/helper-function.php:555
+#: modules/helper-function.php:519
 msgid "FlipYIn"
 msgstr ""
 
-#: modules/helper-function.php:556
+#: modules/helper-function.php:520
 msgid "FlipBounceXIn"
 msgstr ""
 
-#: modules/helper-function.php:557
+#: modules/helper-function.php:521
 msgid "FlipBounceYIn"
 msgstr ""
 
-#: modules/helper-function.php:558
+#: modules/helper-function.php:522
 msgid "SwoopIn"
 msgstr ""
 
-#: modules/helper-function.php:559
+#: modules/helper-function.php:523
 msgid "WhirlIn"
 msgstr ""
 
-#: modules/helper-function.php:560
+#: modules/helper-function.php:524
 msgid "ShrinkIn"
 msgstr ""
 
-#: modules/helper-function.php:561
+#: modules/helper-function.php:525
 msgid "ExpandIn"
 msgstr ""
 
-#: modules/helper-function.php:562
+#: modules/helper-function.php:526
 msgid "BounceIn"
 msgstr ""
 
-#: modules/helper-function.php:563
+#: modules/helper-function.php:527
 msgid "BounceUpIn"
 msgstr ""
 
-#: modules/helper-function.php:564
+#: modules/helper-function.php:528
 msgid "BounceDownIn"
 msgstr ""
 
-#: modules/helper-function.php:565
+#: modules/helper-function.php:529
 msgid "BounceLeftIn"
 msgstr ""
 
-#: modules/helper-function.php:566
+#: modules/helper-function.php:530
 msgid "BounceRightIn"
 msgstr ""
 
-#: modules/helper-function.php:567
+#: modules/helper-function.php:531
 msgid "SlideUpIn"
 msgstr ""
 
-#: modules/helper-function.php:568
+#: modules/helper-function.php:532
 msgid "SlideDownIn"
 msgstr ""
 
-#: modules/helper-function.php:569
+#: modules/helper-function.php:533
 msgid "SlideLeftIn"
 msgstr ""
 
-#: modules/helper-function.php:570
+#: modules/helper-function.php:534
 msgid "SlideRightIn"
 msgstr ""
 
-#: modules/helper-function.php:571
+#: modules/helper-function.php:535
 msgid "SlideUpBigIn"
 msgstr ""
 
-#: modules/helper-function.php:572
+#: modules/helper-function.php:536
 msgid "SlideDownBigIn"
 msgstr ""
 
-#: modules/helper-function.php:573
+#: modules/helper-function.php:537
 msgid "SlideLeftBigIn"
 msgstr ""
 
-#: modules/helper-function.php:574
+#: modules/helper-function.php:538
 msgid "SlideRightBigIn"
 msgstr ""
 
-#: modules/helper-function.php:575
+#: modules/helper-function.php:539
 msgid "PerspectiveUpIn"
 msgstr ""
 
-#: modules/helper-function.php:576
+#: modules/helper-function.php:540
 msgid "PerspectiveDownIn"
 msgstr ""
 
-#: modules/helper-function.php:577
+#: modules/helper-function.php:541
 msgid "PerspectiveLeftIn"
 msgstr ""
 
-#: modules/helper-function.php:578
+#: modules/helper-function.php:542
 msgid "PerspectiveRightIn"
 msgstr ""
 
-#: modules/helper-function.php:586
+#: modules/helper-function.php:550
 msgid "FadeOut"
 msgstr ""
 
-#: modules/helper-function.php:587
+#: modules/helper-function.php:551
 msgid "FlipXOut"
 msgstr ""
 
-#: modules/helper-function.php:588
+#: modules/helper-function.php:552
 msgid "FlipYOut"
 msgstr ""
 
-#: modules/helper-function.php:589
+#: modules/helper-function.php:553
 msgid "FlipBounceXOut"
 msgstr ""
 
-#: modules/helper-function.php:590
+#: modules/helper-function.php:554
 msgid "FlipBounceYOut"
 msgstr ""
 
-#: modules/helper-function.php:591
+#: modules/helper-function.php:555
 msgid "SwoopOut"
 msgstr ""
 
-#: modules/helper-function.php:592
+#: modules/helper-function.php:556
 msgid "WhirlOut"
 msgstr ""
 
-#: modules/helper-function.php:593
+#: modules/helper-function.php:557
 msgid "ShrinkOut"
 msgstr ""
 
-#: modules/helper-function.php:594
+#: modules/helper-function.php:558
 msgid "ExpandOut"
 msgstr ""
 
-#: modules/helper-function.php:595
+#: modules/helper-function.php:559
 msgid "BounceOut"
 msgstr ""
 
-#: modules/helper-function.php:596
+#: modules/helper-function.php:560
 msgid "BounceUpOut"
 msgstr ""
 
-#: modules/helper-function.php:597
+#: modules/helper-function.php:561
 msgid "BounceDownOut"
 msgstr ""
 
-#: modules/helper-function.php:598
+#: modules/helper-function.php:562
 msgid "BounceLeftOut"
 msgstr ""
 
-#: modules/helper-function.php:599
+#: modules/helper-function.php:563
 msgid "BounceRightOut"
 msgstr ""
 
-#: modules/helper-function.php:600
+#: modules/helper-function.php:564
 msgid "SlideUpOut"
 msgstr ""
 
-#: modules/helper-function.php:601
+#: modules/helper-function.php:565
 msgid "SlideDownOut"
 msgstr ""
 
-#: modules/helper-function.php:602
+#: modules/helper-function.php:566
 msgid "SlideLeftOut"
 msgstr ""
 
-#: modules/helper-function.php:603
+#: modules/helper-function.php:567
 msgid "SlideRightOut"
 msgstr ""
 
-#: modules/helper-function.php:604
+#: modules/helper-function.php:568
 msgid "SlideUpBigOut"
 msgstr ""
 
-#: modules/helper-function.php:605
+#: modules/helper-function.php:569
 msgid "SlideDownBigOut"
 msgstr ""
 
-#: modules/helper-function.php:606
+#: modules/helper-function.php:570
 msgid "SlideLeftBigOut"
 msgstr ""
 
-#: modules/helper-function.php:607
+#: modules/helper-function.php:571
 msgid "SlideRightBigOut"
 msgstr ""
 
-#: modules/helper-function.php:608
+#: modules/helper-function.php:572
 msgid "PerspectiveUpOut"
 msgstr ""
 
-#: modules/helper-function.php:609
+#: modules/helper-function.php:573
 msgid "PerspectiveDownOut"
 msgstr ""
 
-#: modules/helper-function.php:610
+#: modules/helper-function.php:574
 msgid "PerspectiveLeftOut"
 msgstr ""
 
-#: modules/helper-function.php:611
+#: modules/helper-function.php:575
 msgid "PerspectiveRightOut"
 msgstr ""
 
-#: modules/helper-function.php:619 modules/widgets/tp_hovercard.php:138
+#: modules/helper-function.php:583 modules/widgets/tp_hovercard.php:138
 #: modules/widgets/tp_hovercard.php:194 modules/widgets/tp_post_title.php:157
 #: modules/widgets/tp_process_steps.php:579
 msgid "H1"
 msgstr ""
 
-#: modules/helper-function.php:620 modules/widgets/tp_hovercard.php:139
+#: modules/helper-function.php:584 modules/widgets/tp_hovercard.php:139
 #: modules/widgets/tp_hovercard.php:195 modules/widgets/tp_post_title.php:158
 #: modules/widgets/tp_process_steps.php:580
 msgid "H2"
 msgstr ""
 
-#: modules/helper-function.php:621 modules/widgets/tp_hovercard.php:140
+#: modules/helper-function.php:585 modules/widgets/tp_hovercard.php:140
 #: modules/widgets/tp_hovercard.php:196 modules/widgets/tp_post_title.php:159
 #: modules/widgets/tp_process_steps.php:581
 msgid "H3"
 msgstr ""
 
-#: modules/helper-function.php:622 modules/widgets/tp_hovercard.php:141
+#: modules/helper-function.php:586 modules/widgets/tp_hovercard.php:141
 #: modules/widgets/tp_hovercard.php:197 modules/widgets/tp_post_title.php:160
 #: modules/widgets/tp_process_steps.php:582
 msgid "H4"
 msgstr ""
 
-#: modules/helper-function.php:623 modules/widgets/tp_hovercard.php:142
+#: modules/helper-function.php:587 modules/widgets/tp_hovercard.php:142
 #: modules/widgets/tp_hovercard.php:198 modules/widgets/tp_post_title.php:161
 #: modules/widgets/tp_process_steps.php:583
 msgid "H5"
 msgstr ""
 
-#: modules/helper-function.php:624 modules/helper-function.php:625
+#: modules/helper-function.php:588 modules/helper-function.php:589
 #: modules/widgets/tp_hovercard.php:143 modules/widgets/tp_hovercard.php:199
 #: modules/widgets/tp_post_title.php:162
 #: modules/widgets/tp_process_steps.php:584
 msgid "H6"
 msgstr ""
 
-#: modules/helper-function.php:626
+#: modules/helper-function.php:590
 msgid "div"
 msgstr ""
 
-#: modules/helper-function.php:627 modules/widgets/tp_hovercard.php:144
+#: modules/helper-function.php:591 modules/widgets/tp_hovercard.php:144
 #: modules/widgets/tp_hovercard.php:200
 msgid "p"
 msgstr ""
 
-#: modules/helper-function.php:630 modules/widgets/tp_hovercard.php:145
+#: modules/helper-function.php:594 modules/widgets/tp_hovercard.php:145
 #: modules/widgets/tp_hovercard.php:201
 msgid "a"
 msgstr ""
 
-#: modules/helper-function.php:654 modules/widgets/tp_hovercard.php:1382
+#: modules/helper-function.php:618 modules/widgets/tp_hovercard.php:1382
 msgid "Scroll"
 msgstr ""
 
-#: modules/helper-function.php:655 modules/widgets/tp_hovercard.php:1383
+#: modules/helper-function.php:619 modules/widgets/tp_hovercard.php:1383
 msgid "Fixed"
 msgstr ""
 
-#: modules/helper-function.php:662 modules/widgets/tp_hovercard.php:1402
+#: modules/helper-function.php:626 modules/widgets/tp_hovercard.php:1402
 msgid "No-repeat"
 msgstr ""
 
-#: modules/helper-function.php:663 modules/widgets/tp_hovercard.php:1398
+#: modules/helper-function.php:627 modules/widgets/tp_hovercard.php:1398
 #: modules/widgets/tp_hovercard.php:1403
 #: modules/widgets/tp_post_featured_image.php:283
 #: modules/widgets/tp_post_navigation.php:1011
 msgid "Repeat"
 msgstr ""
 
-#: modules/helper-function.php:664 modules/widgets/tp_hovercard.php:1404
+#: modules/helper-function.php:628 modules/widgets/tp_hovercard.php:1404
 msgid "Repeat-x"
 msgstr ""
 
-#: modules/helper-function.php:665 modules/widgets/tp_hovercard.php:1405
+#: modules/helper-function.php:629 modules/widgets/tp_hovercard.php:1405
 msgid "Repeat-y"
 msgstr ""
 
-#: modules/helper-function.php:672 modules/widgets/tp_hovercard.php:518
+#: modules/helper-function.php:636 modules/widgets/tp_hovercard.php:518
 #: modules/widgets/tp_hovercard.php:553 modules/widgets/tp_hovercard.php:588
 #: modules/widgets/tp_hovercard.php:623 modules/widgets/tp_hovercard.php:1424
 msgid "Auto"
 msgstr ""
 
-#: modules/helper-function.php:673 modules/widgets/tp_hovercard.php:1425
+#: modules/helper-function.php:637 modules/widgets/tp_hovercard.php:1425
 msgid "Cover"
 msgstr ""
 
-#: modules/helper-function.php:674 modules/widgets/tp_hovercard.php:1426
+#: modules/helper-function.php:638 modules/widgets/tp_hovercard.php:1426
 msgid "Contain"
 msgstr ""
 
@@ -13552,6 +13524,10 @@ msgstr ""
 msgid "Ribbon/Pin Text"
 msgstr ""
 
+#: modules/widgets/tp_pricing_table.php:829
+msgid "Recommended"
+msgstr ""
+
 #: modules/widgets/tp_pricing_table.php:897
 msgid "Hexagon (PRO)"
 msgstr ""
@@ -14292,6 +14268,11 @@ msgstr ""
 #: modules/widgets/tp_social_embed.php:1666
 #: modules/widgets/tp_video_player.php:109
 msgid "Vimeo"
+msgstr ""
+
+#: modules/widgets/tp_social_embed.php:102
+#: modules/widgets/tp_social_embed.php:1767
+msgid "Instagram"
 msgstr ""
 
 #: modules/widgets/tp_social_embed.php:103

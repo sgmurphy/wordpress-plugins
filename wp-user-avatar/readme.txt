@@ -5,7 +5,7 @@ Tags: membership, ecommerce, user registration, user profile, stripe
 Requires at least: 5.3
 Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 4.15.13
+Stable tag: 4.15.14
 License: GPLv2 or later
 
 Setup paid membership, accept payment, sell subscription & digital product, paywall, create login & registration form, user profile & member directory
@@ -181,27 +181,16 @@ Any file type can be sold using ProfilePress ecommerce and membership plugin, in
 
 == Changelog ==
 
+= Paid Membership, Ecommerce & User Registration 4.15.14 =
+* Added WooCommerce compatibility to content protection where add-to-cart button is hidden for restricted product.
+* Added ppress_is_checkout_autoscroll_enabled filter to disable checkout autoscroll feature.
+* Updated Twitter social login to X.
+* Remove deprecated jQuery codes.
+
 = Paid Membership, Ecommerce & User Registration 4.15.13 =
 * Pro: [WooCommerce Memberships feature](https://profilepress.com/article/create-woocommerce-membership-website/?ref=changelog)
 * Added setting for disabling My Account tabs.
 * Fixed date_created time bug with manual order.
 * Fixed bug where expired coupons could be used via URL.
-
-= Paid Membership, Ecommerce & User Registration 4.15.12 =
-* Added uncode theme compatibility to content protection feature.
-* Fixed bugs with Stripe tax update after order.
-* Fixed bug where manual order didn’t include subtotal.
-
-= Paid Membership, Ecommerce & User Registration 4.15.11 =
-* Enhancement: Update order tax amount in if Stripe charges tax.
-* Added filter to remove cover photo uploader field from default profile page.
-* Fixed: Undefined array key 'exempt' warning.
-
-= Paid Membership, Ecommerce & User Registration 4.15.10 =
-* Added exemption to content protection.
-* Fixed bug where Tutor course in multiple plans didn't exactly work correctly
-* Fixed bug where subscription was not revoked when unpaid in Stripe.
-* Enhancement: Stopped ucwords-ing displayname profile information.
-* Improved checkout compatibility with Pantheon hosting.
 
 See the [changelog file](https://plugins.svn.wordpress.org/wp-user-avatar/trunk/changelog.txt) for full change log information.

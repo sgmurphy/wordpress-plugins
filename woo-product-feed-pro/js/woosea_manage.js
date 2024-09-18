@@ -734,9 +734,44 @@ jQuery(function ($) {
           $button.prop('disabled', false);
 
           if (response.success) {
-            alert('Migration completed successfully');
+            alert(response.data.message);
           } else {
             alert('Migration failed');
+          }
+        })
+        .fail(function (data) {
+          // Enable the button
+          $button.prop('disabled', false);
+        });
+    }
+  });
+
+  $('#adt_clear_custom_attributes_product_meta_keys').on('click', function () {
+    var nonce = $('#_wpnonce').val();
+    var popup_dialog = confirm('Are you sure you want to delete the custom attributes product meta keys cache?');
+    var $button = $(this);
+
+    if (popup_dialog == true) {
+      // Disable the button
+      $button.prop('disabled', true);
+
+      jQuery
+        .ajax({
+          method: 'POST',
+          url: ajaxurl,
+          data: {
+            action: 'adt_clear_custom_attributes_product_meta_keys',
+            security: nonce,
+          },
+        })
+        .done(function (response) {
+          // Enable the button
+          $button.prop('disabled', false);
+
+          if (response.success) {
+            alert(response.data.message);
+          } else {
+            alert(response.data.message);
           }
         })
         .fail(function (data) {

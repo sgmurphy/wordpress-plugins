@@ -36,6 +36,9 @@ class FacebookFeedTemplateHandler
     public function renderFeedAuthor($feed = [], $template_meta = [])
     {
         $app = App::getInstance();
+        $local_user_avatar = Arr::get($feed, 'user_avatar');
+        $cdn_user_avatar = Arr::get($feed, 'from.picture.data.url');
+        $feed['user_avatar'] = !empty($local_user_avatar) ? $local_user_avatar : $cdn_user_avatar;
         $app->view->render('public.feeds-templates.facebook.elements.author', array(
             'feed'          => $feed,
             'account'       => Arr::get($feed, 'from'),
@@ -54,7 +57,7 @@ class FacebookFeedTemplateHandler
         $app->view->render('public.feeds-templates.facebook.elements.description', array(
             'feed'          => $feed,
             'allowed_tags'  => $allowed_tags,
-            'message'       => Arr::get($feed, 'message'),
+            'message'       => Arr::get($feed, 'message', ''),
 	        'content_length'    => Arr::get($template_meta, 'post_settings.content_length' , 15),
         ));
     }
@@ -66,9 +69,18 @@ class FacebookFeedTemplateHandler
         }
         $app = App::getInstance();
 
+        $photo = Arr::get($feed, 'media_url', '') ?? '';
+        $default_media = Arr::get($feed, 'default_media', "");
+        $imgClass = ((str_contains($photo, 'placeholder') && empty($default_media)) ||
+                    (!str_contains($photo, 'placeholder') && !empty($default_media)) ||
+                    (!str_contains($photo, 'placeholder') && empty($default_media))  ? 'wpsr-fb-feed-image' : 'wpsr-fb-feed-image wpsr-animated-background');
+        $gdpr_settings = (new FacebookFeed())->getGdprSettings('facebook_feed');
+
         $app->view->render('public.feeds-templates.facebook.elements.media', array(
             'feed'          => $feed,
             'template_meta' => $template_meta,
+            'image_settings' => $this->getAdvanceSettings(),
+            'img_class' => $imgClass,
         ));
     }
 
@@ -103,14 +115,16 @@ class FacebookFeedTemplateHandler
             return apply_filters('wpsocialreviews/facebook_feed_album_paginated_feed_html', $templateId, $page, $feed_id, $feed_type);
         } else {
             $app = App::getInstance();
+            $facebook_feed = new FacebookFeed();
             $shortcodeHandler = new ShortcodeHandler();
             $template_meta = $shortcodeHandler->templateMeta($templateId, 'facebook_feed');
             $templateNumber = Arr::get($template_meta, 'feed_settings.template');
-            $feed = (new FacebookFeed())->getTemplateMeta($template_meta, $templateId);
+            $feed = $facebook_feed->getTemplateMeta($template_meta, $templateId);
             $settings = $shortcodeHandler->formatFeedSettings($feed);
             $pagination_settings = $shortcodeHandler->formatPaginationSettings($feed);
             $sinceId = (($page - 1) * $pagination_settings['paginate']);
             $maxId = ($sinceId + $pagination_settings['paginate']) - 1;
+            $gdpr_settings = $facebook_feed->getGdprSettings('facebook_feed');
 
             $template_body_data = array(
                 'templateId' => $templateId,
@@ -119,14 +133,15 @@ class FacebookFeedTemplateHandler
                 'paginate' => $pagination_settings['paginate'],
                 'sinceId' => $sinceId,
                 'maxId' => $maxId,
-                'translations' => GlobalSettings::getTranslations()
+                'translations' => GlobalSettings::getTranslations(),
+                'image_settings' => $gdpr_settings
             );
 
-            if ($templateNumber === 'template2') {
-                return apply_filters('wpsocialreviews/add_facebook_feed_template', $template_body_data);
-            } else {
-                return (string)$app->view->make('public.feeds-templates.facebook.template1', $template_body_data);
-            }
+             if ($templateNumber === 'template2') {
+                 return apply_filters('wpsocialreviews/add_facebook_feed_template', $template_body_data);
+             } else {
+                 return (string)$app->view->make('public.feeds-templates.facebook.template1', $template_body_data);
+             }
         }
     }
 
@@ -148,5 +163,15 @@ class FacebookFeedTemplateHandler
     {
         do_action('wpsocialreviews/facebook_feed_handle_album_photo');
         die();
+    }
+
+    public function getAdvanceSettings()
+    {
+        $global_settings = get_option('wpsr_facebook_feed_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+        return $image_settings = [
+            'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
+            'has_gdpr' => Arr::get($advanceSettings, 'has_gdpr', "false")
+        ];
     }
 }

@@ -314,7 +314,7 @@ class Module {
 	}
 
 	/**
-	 * Add Helpful Information
+	 * Add Help & Docs
 	 *
 	 * @since 4.9.39
 	 * @access private
@@ -325,7 +325,7 @@ class Module {
 		$element->add_control(
 			'pa_condition_info',
 			array(
-				'label'     => __( 'Helpful Information', 'premium-addons-for-elementor' ),
+				'label'     => __( 'Help & Docs', 'premium-addons-for-elementor' ),
 				'separator' => 'before',
 				'type'      => Controls_Manager::HEADING,
 				'condition' => array(

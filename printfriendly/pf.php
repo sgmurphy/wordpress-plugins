@@ -5,7 +5,7 @@
     Plugin URI: https://www.printfriendly.com
     Description: PrintFriendly & PDF button for your website. Optimizes your pages and brand for print, pdf, and email.
     Name and URL are included to ensure repeat visitors and new visitors when printed versions are shared.
-    Version: 5.5.5
+    Version: 5.5.6
     Author: Print, PDF, & Email by PrintFriendly
     Author URI: https://www.printfriendly.com
     Domain Path: /languages
@@ -40,7 +40,7 @@ if (! class_exists('PrintFriendly_WordPress')) {
          *
          * @var string
          */
-        var $plugin_version = '5.5.5';
+        var $plugin_version = '5.5.6';
         /**
          * The hook, used for text domain as well as hooks on pages and in get requests for admin.
          *
@@ -577,22 +577,27 @@ if (! class_exists('PrintFriendly_WordPress')) {
                 $onclick[] = "pfTrackEvent('" . esc_attr(get_the_title()) . "')";
             }
 
-            if (! empty($onclick)) {
-                $onclick = 'onClick="' . implode('; ', $onclick) . '; return false;"';
-            } else {
-                $onclick = '';
-            }
-
-            $align = '';
+            $align_class = '';
             $position = $this->getVal('content_position');
 
             // none option has been removed and translates to left
             if ('none' === $position) {
                 $position = 'left';
             }
-            $align = ' pf-align' . $position;
-            $href = str_replace('&', '&amp;', $href);
-            $button = apply_filters('printfriendly_button', '<div class="printfriendly pf-button ' . $add_class . $align . '"><a href="' . $href . '" rel="nofollow" ' . $onclick . ' title="Printer Friendly, PDF & Email">' . $this->button() . '</a></div>');
+            $align_class = 'pf-align' . $position;
+            $button = sprintf(
+                '<div class="printfriendly pf-button %s %s">
+                    <a href="%s" rel="nofollow" onclick="%s" title="Printer Friendly, PDF & Email">
+                    %s
+                    </a>
+                </div>',
+                sanitize_html_class($add_class),
+                sanitize_html_class($align_class),
+                esc_attr(esc_url($href)),
+                ! empty($onclick) ? esc_attr(implode('; ', $onclick)) . '; return false;' : '',
+                $this->button()
+            );
+            $button = apply_filters('printfriendly_button', $button);
             return $button;
         }
 

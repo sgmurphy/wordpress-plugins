@@ -68,7 +68,7 @@
                     ],
                     autoplay: settings.carousel_play,
                     autoplaySpeed: settings.speed || 5000,
-                    rtl: rtl ? true : false,
+                    rtl: ('skin4' !== settings.skin && rtl) ? true : false,
                     speed: 500,
                     arrows: 'skin4' !== settings.skin ? true : false,
                     fade: 'skin4' === settings.skin ? true : false
@@ -146,6 +146,7 @@
                             speed: 500,
                             autoplay: settings.carousel_play,
                             autoplaySpeed: settings.speed || 5000,
+                            rtl: false
                         });
 
                         $multipleTestimonials.slick('slickGoTo', 1);

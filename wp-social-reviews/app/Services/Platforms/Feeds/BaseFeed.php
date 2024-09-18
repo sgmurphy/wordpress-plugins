@@ -5,6 +5,7 @@ namespace WPSocialReviews\App\Services\Platforms\Feeds;
 use WPSocialReviews\App\Models\Cache;
 use WPSocialReviews\Framework\Support\Arr;
 use WPSocialReviews\App\Services\DataProtector;
+use WPSocialReviews\App\Services\GlobalSettings;
 use WPSocialReviews\App\Services\Platforms\PlatformManager;
 
 abstract class BaseFeed
@@ -67,7 +68,7 @@ abstract class BaseFeed
         $settings = $this->formatPlatformGlobalSettings($settings);
         update_option('wpsr_' . $this->platform . '_global_settings', $settings, 'no');
 
-        if($this->platform === 'instagram'){
+        if($this->platform === 'instagram' || $this->platform === 'facebook_feed' || $this->platform === 'tiktok') {
             $has_wpsr_optimize_images_table = get_option( 'wpsr_optimize_images_table_status', false);
             $optimized_images = Arr::get($settings, 'global_settings.optimized_images');
             $older_version = get_option('_wp_social_ninja_version', '3.9.4');
@@ -143,4 +144,14 @@ abstract class BaseFeed
 			$this->updateCachedFeeds($caches);
 		}
 	}
+
+    public function getGdprSettings($platform)
+    {
+        $global_settings = get_option('wpsr_'.$platform.'_global_settings');
+        $gdpr_settings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+        return [
+            'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
+            'has_gdpr' => Arr::get($gdpr_settings, 'has_gdpr', "false")
+        ];
+    }
 }

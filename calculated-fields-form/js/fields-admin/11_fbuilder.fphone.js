@@ -43,7 +43,7 @@
 					for (var i=0;i<tmp.length;i++)
 					{
 						if (String(tmp[i]).trim()!="")
-							str += '<div class="uh_phone" style="min-width:'+(100/nc*tmp[i].length)+'%"><input type="text" class="field disabled" value="'+cff_esc_attr((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" /><div class="l">'+String(tmp[i]).trim()+'</div></div>';
+							str += '<div class="uh_phone" cff_style="min-width:'+(100/nc*tmp[i].length)+'%"><input type="text" class="field disabled" value="'+cff_esc_attr((tmpv[i])?tmpv[i]:"")+'" maxlength="'+String(tmp[i]).trim().length+'" /><div class="l">'+String(tmp[i]).trim()+'</div></div>';
 					}
 					str += '</div>';
 					return '<div class="fields '+this.name+' '+this.ftype+' '+css_class+'" id="field'+this.form_identifier+'-'+this.index+'" title="'+this.controlLabel('Phone Field')+'"><div class="arrow ui-icon ui-icon-grip-dotted-vertical "></div><div title="Delete" class="remove ui-icon ui-icon-trash "></div><div title="Duplicate" class="copy ui-icon ui-icon-copy "></div><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+this.showColumnIcon()+str+'<span class="uh">'+this.userhelp+'</span></div><div class="clearer"></div></div>';

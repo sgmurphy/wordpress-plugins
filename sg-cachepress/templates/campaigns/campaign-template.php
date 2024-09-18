@@ -76,10 +76,10 @@
                             <tr>
                                 <td height="30"
                                     style="padding: 20px 0 30px 0;">
-                                    <a style="border: none" href="<?php echo $args['logo_link'] ?>" target="_blank" rel="noreferrer">
-                                        <img class="light-img" style="border: none; outline: none;" src="<?php echo $args['logo_image_light'] ?>" width="170" alt="SiteGround"/>
+                                    <a style="border: none" href="<?php echo esc_url( $args['logo_link'] ); ?>" target="_blank" rel="noreferrer">
+                                        <img class="light-img" style="border: none; outline: none;" src="<?php echo esc_url( $args['logo_image_light'] ); ?>" width="170" alt="SiteGround"/>
                                         <!--[if !mso]><! -->
-                                        <div class="dark-img" style="display:none; overflow:hidden; float:left; width:0px; max-height:0px; max-width:0px; line-height:0px; visibility:hidden;"><img style="border: none; outline: none;" src="<?php echo $args['logo_image_dark'] ?>" width="170" alt="<?php echo $args['logo_image_alt'] ?>"/></div>
+                                        <div class="dark-img" style="display:none; overflow:hidden; float:left; width:0px; max-height:0px; max-width:0px; line-height:0px; visibility:hidden;"><img style="border: none; outline: none;" src="<?php echo esc_url( $args['logo_image_dark'] ); ?>" width="170" alt="<?php echo esc_url( $args['logo_image_alt'] ); ?>"/></div>
                                         <!--<![endif]-->
                                     </a>
                                 </td>
@@ -90,18 +90,18 @@
                 </tr>
                 <tr>
                     <td style="padding: 0 0 40px 0">
-                        <a href="<?php echo $args['header_link'] ?>" target="_blank" rel="noreferrer" style="border: none;"><img src="<?php echo $args['header_image'] ?>" width="600" alt="<?php echo $args['header_alt'] ?>" style="max-height: 300px;"></a>
+                        <a href="<?php echo esc_url( $args['header_link'] ); ?>" target="_blank" rel="noreferrer" style="border: none;"><img src="<?php echo esc_url( $args['header_image'] ); ?>" width="600" alt="<?php echo esc_url( $args['header_alt'] ); ?>" style="max-height: 300px;"></a>
                     </td>
                 </tr>
                 <tr>
                     <td class="body-text"
-                        style="color: #363636; font-weight: 600; font-family: 'Poppins', Arial, Helvetica, sans-serif; font-size: 30px; line-height: 40px; padding: 0 0 30px 0"><?php echo $args['title']; ?>
+                        style="color: #363636; font-weight: 600; font-family: 'Poppins', Arial, Helvetica, sans-serif; font-size: 30px; line-height: 40px; padding: 0 0 30px 0"><?php echo esc_html( $args['title'] ); ?>
                     </td>
                 </tr>
                 <?php foreach( $args['text'] as $paragraph ) : ?>
                 <tr>
                     <td class="body-text"
-                        style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0px 0 30px 0"><?php echo $paragraph; ?>
+                        style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0px 0 30px 0"><?php echo esc_html( $paragraph ); ?>
                     </td>
                 </tr>
                 <?php endforeach ;?>
@@ -114,7 +114,7 @@
                             <tr>
                                 <td class="body-text"
                                     style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px;">
-                                    <span style="color: #363636; display: inline-block; padding: 0 5px 0 0;">&#8226;</span><?php echo $row; ?>
+                                    <span style="color: #363636; display: inline-block; padding: 0 5px 0 0;">&#8226;</span><?php echo esc_html( $row ); ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -125,15 +125,15 @@
                 <?php if( array_key_exists( 'after_text', $args ) ) : ?>
                 <tr>
                     <td class="body-text"
-                        style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0 0 30px 0"><?php echo $args['after_text']; ?>
+                        style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0 0 30px 0"><?php echo esc_html( $args['after_text'] ); ?>
                     </td>
                 </tr>
                 <?php endif;?>
                 <tr>
                     <td class="body-text"
                         style="padding: 0px 0 60px 0">
-                        <a href="<?php echo $args['button_link'] ?>" class="body-text"
-                           target="_blank" rel="noreferrer" style="font-family: 'Poppins', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 600; line-height: 20px; text-transform: uppercase; text-decoration: none; display: inline-block; border-top: 15px solid #4343f0; border-bottom: 15px solid #4343f0; border-left: 30px solid #4343f0; border-right: 30px solid #4343f0;  color: #ffffff; background: #4343f0; border-radius: 25px;"><?php echo $args['button']; ?></a>
+                        <a href="<?php echo esc_url( $args['button_link'] ); ?>" class="body-text"
+                           target="_blank" rel="noreferrer" style="font-family: 'Poppins', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 600; line-height: 20px; text-transform: uppercase; text-decoration: none; display: inline-block; border-top: 15px solid #4343f0; border-bottom: 15px solid #4343f0; border-left: 30px solid #4343f0; border-right: 30px solid #4343f0;  color: #ffffff; background: #4343f0; border-radius: 25px;"><?php echo esc_html( $args['button'] ); ?></a>
                     </td>
                 </tr>
                 <tr>

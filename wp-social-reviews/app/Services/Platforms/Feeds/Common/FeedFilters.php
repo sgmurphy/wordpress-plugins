@@ -4,7 +4,7 @@ namespace WPSocialReviews\App\Services\Platforms\Feeds\Common;
 
 use WPSocialReviews\App\Services\GlobalSettings;
 use WPSocialReviews\App\Services\Helper as GlobalHelper;
-use WPSocialReviews\App\Services\Platforms\Feeds\Instagram\MediaManager;
+use WPSocialReviews\App\Services\Platforms\MediaManager;
 use WPSocialReviews\Framework\Support\Arr;
 use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
@@ -68,14 +68,15 @@ class FeedFilters
             $feeds  = Arr::get($response, 'items', []);
 
             $resizedImages = [];
-            if($this->platform === 'instagram') {
-                $imageHandlerObj = new ImageOptimizationHandler();
+            if($this->platform === 'instagram' || $this->platform === 'facebook_feed' || $this->platform === 'tiktok') {
+                $imageHandlerObj = new ImageOptimizationHandler($this->platform);
                 $globalSettings = $imageHandlerObj->getGlobalSettings();
                 if(Arr::get($globalSettings, 'optimized_images') === 'true') {
-                    $resizedImages = $imageHandlerObj->getResizeNeededImageLists($feeds);
+                    $resizedImages = $imageHandlerObj->getResizeNeededImageLists($feeds,  $feed_settings);
                     $account_to_show = Arr::get($feed_settings, 'header_settings.account_to_show');
                     $header['account_id'] = $account_to_show;
-                    $header = $imageHandlerObj->formattedData($header);
+                    $header['avatar'] = $imageHandlerObj->formattedData($header,'avatars');
+                    $header['covers']  = $imageHandlerObj->formattedData($header,'covers');
                 }
             }
 
@@ -152,6 +153,12 @@ class FeedFilters
                 if (($filterSettings['post_order'] === 'most_popular' || $filterSettings['post_order'] === 'least_popular')) {
                     $feeds = apply_filters('wpsocialreviews/facebook_feeds_by_popularity', $feeds,
                         $filterSettings['post_order']);
+
+                    $feeds = array_map(function ($value) {
+                        if(isset($value['media_url']) || isset($value['children'])) {
+                            return $value;
+                        }
+                    }, $feeds);
                 }
                 // hide shared posts
                 if(Arr::get($filterSettings, 'hide_shared_posts') === true){
@@ -192,9 +199,7 @@ class FeedFilters
             }
 
             $totalPosts = Arr::get($filterSettings, 'total_posts_number');
-            $hasMobileTotalPosts = Arr::get($totalPosts, 'mobile');
-            $hasDesktopTotalPosts = Arr::get($totalPosts, 'desktop');
-            $numOfPosts = wp_is_mobile() && $hasMobileTotalPosts ? $hasMobileTotalPosts : $hasDesktopTotalPosts;
+            $numOfPosts = wp_is_mobile() ? Arr::get($totalPosts, 'mobile') : Arr::get($totalPosts, 'desktop');
 
             //we have to get include or exclude feeds from here
             $includesWords = [];
@@ -213,19 +218,19 @@ class FeedFilters
             }
 
             $totalPostsIterator = 0;
-            $global_settings = get_option('wpsr_instagram_global_settings');
+            $global_settings = get_option('wpsr_'.$this->platform.'_global_settings');
             $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
 
             $mediaManager = null;
             $imageSettings = [];
-            if($this->platform === 'instagram') {
+            if($this->platform === 'instagram' || $this->platform === 'facebook_feed' || $this->platform === 'tiktok') {
                 $imageSettings = [
                     'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
                     'has_gdpr' => Arr::get($advanceSettings, 'has_gdpr', "false")
                 ];
 
                 $imageSize = Arr::get($feed_settings, 'post_settings.resolution', 'full');
-                $mediaManager = new MediaManager($resizedImages, $imageSettings, $imageSize);
+                $mediaManager = new MediaManager($resizedImages, $imageSettings, $imageSize, $this->platform);
             }
 
             $hasLatestPost = false;
@@ -259,28 +264,6 @@ class FeedFilters
                     $text_description = Arr::get($feed, 'caption', '');
                     $feed_id          = Arr::get($feed, 'permalink', '');
 
-                    if(!in_array($id, $resizedImages)) {
-                        $hasLatestPost = true;
-                    }
-
-                    if(gettype($mediaManager) !== "NULL") {
-                        $media_type = $mediaManager->getMediaType($feed);
-                        $media_url = $mediaManager->getMediaUri($feed);
-                        $default_media = $mediaManager->getInstagramRemoteUri($feed);
-                        $thumbnail_url = $mediaManager->getThumbnailUrl($feed);
-
-                        if(empty($thumbnail_url) && Arr::get($imageSettings, 'optimized_images') === 'true' && (Arr::get($feed, 'media_type') === 'VIDEO' || Arr::get($feed, 'children.data.0.media_type') === 'VIDEO')) {
-                            continue;
-                        }
-
-                        $feed['has_carousel']  = (Arr::get($imageSettings, 'optimized_images') === 'false' && Arr::get($feed, 'media_type') === 'CAROUSEL_ALBUM');
-                        $feed['media_name'] = Arr::get($feed, 'media_type');
-                        $feed['media_type'] = $media_type;
-                        $feed['media_url']  = $media_url;
-                        $feed['thumbnail_url'] = $thumbnail_url;
-                        $feed['default_media'] = $default_media;
-
-                    }
                 }
 
                 if ($this->platform === 'youtube') {
@@ -306,6 +289,51 @@ class FeedFilters
                     $text_description = Arr::get($feed, 'description', '');
                     $feed_id          = Arr::get($feed, 'id', '');
                     $text_title       = Arr::get($feed, 'title', '');
+                }
+
+                if(!in_array($id, $resizedImages)) {
+                    $hasLatestPost = true;
+                }
+
+                if(gettype($mediaManager) !== "NULL") {
+                    $feed_type = Arr::get($feed_settings, 'source_settings.feed_type');
+                    $media_type = $mediaManager->getMediaType($feed);
+                    if($feed_type == 'album_feed') {
+                        $child_feeds = Arr::get($feed, 'photos.data');
+                        $child_feeds[0]['page_id'] = Arr::get($feed, 'page_id', '');
+                        $media_url = $mediaManager->getMediaUri($child_feeds[0]);
+                        foreach($child_feeds as $index=> $item)
+                        {
+                            $item['default_media'] = $item['source'];
+                            $item['page_id'] = Arr::get($feed, 'page_id', '');
+                            $item['media_url']  = $mediaManager->getMediaUri($item);
+                            $feed['photos']['data'][$index] = $item;
+                        }
+                        
+                    } else {
+                        $media_url = $mediaManager->getMediaUri($feed);
+                    }
+                    
+                    $default_media = $mediaManager->getPlatformRemoteUri($feed);
+                    $thumbnail_url = $mediaManager->getThumbnailUrl($feed);
+
+                    if(empty($thumbnail_url) && Arr::get($imageSettings, 'optimized_images') === 'true' && (Arr::get($feed, 'media_type') === 'VIDEO' || Arr::get($feed, 'children.data.0.media_type') === 'VIDEO')) {
+                        continue;
+                    }
+
+                    $optimized_image = Arr::get($imageSettings, 'optimized_images');
+                    $has_gdpr = Arr::get($imageSettings, 'has_gdpr');
+                    $feed['has_carousel']  = (Arr::get($imageSettings, 'optimized_images') === 'false' && Arr::get($feed, 'media_type') === 'CAROUSEL_ALBUM');
+                    $feed['media_name'] = Arr::get($feed, 'media_type');
+                    $feed['media_type'] = $media_type;
+                    $feed['media_url']  = $media_url;
+                    $feed['thumbnail_url'] = $thumbnail_url;
+                    $feed['default_media'] = $default_media;
+                    if($optimized_image == "true"){
+                        $imageOptimizationObj =  new ImageOptimizationHandler($this->platform);
+                        $account_id = $this->platform == 'instagram' ?  Arr::get($feed, 'accountId', '') : Arr::get($feed, 'page_id', '');
+                        $feed['user_avatar'] = $imageOptimizationObj->getLocalHeaderUrl($account_id,'avatars');
+                    }
                 }
 
                 $post_caption = ' ' . str_replace(array('+', '%0A'), ' ',
@@ -354,13 +382,14 @@ class FeedFilters
                 }
 
                 if ($isOk) {
-                    if ($this->platform === 'instagram' && !$hasHidePost) {
+                    if (!$hasHidePost) {
+                        $post_type = Arr::get($filterSettings, 'post_type');
                         // 3rd filter: start of filters for Types Of Posts
-                        if ($filterSettings['post_type'] === 'all') {
+                        if ($post_type === 'all') {
                             $filterResponse[] = $feed;
-                        } elseif (isset($feed['media_type']) && ($feed['media_type'] === "IMAGE" || $feed['media_type'] === 'CAROUSEL_ALBUM') && $filterSettings['post_type'] === 'images') {
+                        } elseif (isset($feed['media_type']) && ($feed['media_type'] === "IMAGE" || $feed['media_type'] === 'CAROUSEL_ALBUM') && $post_type === 'images') {
                             $filterResponse[] = $feed;
-                        } elseif (isset($feed['media_type']) && $feed['media_type'] === "VIDEO" && $filterSettings['post_type'] === 'videos') {
+                        } elseif (isset($feed['media_type']) && $feed['media_type'] === "VIDEO" && $post_type === 'videos') {
                             $filterResponse[] = $feed;
                         }
                         //3rd filter: end of filters for Types Of Posts
@@ -373,19 +402,19 @@ class FeedFilters
                     }
                 }
             }
-
-            if($this->platform === 'instagram' && Arr::get($imageSettings, 'optimized_images') === 'true') {
-                (new ImageOptimizationHandler())->updateLastRequestedTime($postIds);
+             
+            if(Arr::get($imageSettings, 'optimized_images') === 'true') {
+                (new ImageOptimizationHandler($this->platform))->updateLastRequestedTime($postIds);
             }
 
             return [
                 'header'        => $header,
                 'items'         => $filterResponse,
                 'resize_data'   => $resizedImages,
-                'has_latest_post'  => $hasLatestPost
+                'has_latest_post'  => $hasLatestPost,
             ];
         }
-
+         
         return $response;
     }
 }

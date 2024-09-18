@@ -1,7 +1,7 @@
 <?php 
-	if ( ! defined( 'ABSPATH' ) ) { exit; }
-		
-	global $theplus_options,$post_type_options;
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+	
+global $theplus_options,$post_type_options;
 		
 add_image_size( 'tp-image-grid', 700, 700, true);
 
@@ -76,17 +76,6 @@ function theplus_free_white_label_content(){
 add_action('theplus_free_pro_white_label', 'theplus_free_white_label_content');
 /*panel start*/
 
-//user profile social
-function L_theplus_user_social_links( $user_contact ) {   
-   $user_contact['tp_phone_number'] = __('Phone Number', 'tpebl');
-   $user_contact['tp_profile_facebook'] = __('Facebook Link', 'tpebl');
-   $user_contact['tp_profile_twitter'] = __('Twitter Link', 'tpebl');
-   $user_contact['tp_profile_instagram'] = __('Instagram', 'tpebl');
-
-   return $user_contact;
-}
-add_filter('user_contactmethods', 'L_theplus_user_social_links',10);
-
 /* WOOCOMMERCE Mini Cart */
 function l_theplus_woocomerce_ajax_cart_update($fragments) {
 	if(class_exists('woocommerce')) {		
@@ -154,26 +143,6 @@ function l_theplus_testimonial_post_name(){
 	}
 	return $post_name;
 }
-function l_theplus_testimonial_post_category(){
-	$post_type_options=get_option( 'post_type_options' );	
-	$testi_post_type=!empty($post_type_options['testimonial_post_type']) ? $post_type_options['testimonial_post_type'] : '';
-	$taxonomy_name='theplus_testimonial_cat';
-	if(isset($testi_post_type) && !empty($testi_post_type)){
-		if($testi_post_type=='themes'){
-			$taxonomy_name=l_theplus_get_option('post_type','testimonial_category_name');
-		}else if($testi_post_type=='plugin'){
-			$get_name=l_theplus_get_option('post_type','testimonial_category_plugin_name');
-			if(isset($get_name) && !empty($get_name)){
-				$taxonomy_name=l_theplus_get_option('post_type','testimonial_category_plugin_name');
-			}
-		}elseif($testi_post_type=='themes_pro'){
-			$taxonomy_name='testimonial_category';
-		}
-	}else{
-		$taxonomy_name='theplus_testimonial_cat';
-	}
-	return $taxonomy_name;
-}
 function l_theplus_client_post_name(){
 	$post_type_options=get_option( 'post_type_options' );
 	$client_post_type=!empty($post_type_options['client_post_type']) ? $post_type_options['client_post_type'] : '';
@@ -191,26 +160,6 @@ function l_theplus_client_post_name(){
 		}
 	}else{
 		$post_name='theplus_clients';
-	}
-	return $post_name;
-}
-function l_theplus_client_post_category(){
-	$post_type_options=get_option( 'post_type_options' );
-	$client_post_type=!empty($post_type_options['client_post_type']) ? $post_type_options['client_post_type'] : '';
-	$post_name='theplus_clients_cat';
-	if(isset($client_post_type) && !empty($client_post_type)){
-		if($client_post_type=='themes'){
-			$post_name=l_theplus_get_option('post_type','client_category_name');
-		}else if($client_post_type=='plugin'){
-			$get_name=l_theplus_get_option('post_type','client_category_plugin_name');
-			if(isset($get_name) && !empty($get_name)){
-				$post_name=l_theplus_get_option('post_type','client_category_plugin_name');
-			}
-		}elseif($client_post_type=='themes_pro'){
-			$post_name='clients_category';
-		}
-	}else{
-		$post_name='theplus_clients_cat';
 	}
 	return $post_name;
 }
@@ -234,27 +183,7 @@ function l_theplus_team_member_post_name(){
 	}
 	return $post_name;
 }
-function l_theplus_team_member_post_category(){
-	$post_type_options=get_option( 'post_type_options' );
-	$team_post_type=!empty($post_type_options['team_member_post_type']) ? $post_type_options['team_member_post_type'] : '';
-	$taxonomy_name='theplus_team_member_cat';
-	if(isset($team_post_type) && !empty($team_post_type)){
-		if($team_post_type=='themes'){
-			$taxonomy_name=l_theplus_get_option('post_type','team_member_category_name');
-		}else if($team_post_type=='plugin'){
-			$get_name=l_theplus_get_option('post_type','team_member_category_plugin_name');
-			if(isset($get_name) && !empty($get_name)){
-				$taxonomy_name=l_theplus_get_option('post_type','team_member_category_plugin_name');
-			}
-		}elseif($team_post_type=='themes_pro'){
-			$taxonomy_name='team_member_category';
-		}
-	}else{
-		$taxonomy_name='theplus_team_member_cat';
-	}
-	return $taxonomy_name;
-}
-function l_theplus_styling_option(){	
+function l_theplus_styling_option(){ 
 	$theplus_styling_data=get_option( 'theplus_styling_data' );
 	
 	$css_rules=$js_rules='';
@@ -275,12 +204,6 @@ function l_theplus_styling_option(){
 }
 add_action('wp_head', 'l_theplus_styling_option');
 
-function l_theplus_scroll_animation(){	
-	
-	$value= '85%';
-	
-	return $value;
-}
 function l_theplus_excerpt($limit) {
 	$limit = !empty($limit) ? (int) $limit : 0;
 
@@ -299,10 +222,6 @@ function l_theplus_excerpt($limit) {
 	
 	return $excerpt;
 }
-function l_limit_words($string, $word_limit){
-	$words = explode(" ",$string);
-	return implode(" ",array_splice($words,0,$word_limit));
-}	
 function l_theplus_get_title($limit) {
 	if(method_exists('WPBMap', 'addAllMappedShortcodes')) {
 		WPBMap::addAllMappedShortcodes();
@@ -350,27 +269,6 @@ function l_theplus_loading_bg_image($postid=''){
 	}else{
 	return $content_image;
 	}
-}
-function l_theplus_array_flatten($array) {
-	  if (!is_array($array)) { 
-		return FALSE; 
-	  } 
-	  $result = array(); 
-	  foreach ($array as $key => $value) { 
-		if (is_array($value)) { 
-		  $result = array_merge($result, l_theplus_array_flatten($value)); 
-		} 
-		else { 
-		  $result[$key] = $value; 
-		} 
-	  } 
-	  return $result; 
-}
-function l_theplus_createSlug($str, $delimiter = '-'){
-	
-	$slug=preg_replace('/[^A-Za-z0-9-]+/', $delimiter, $str);
-	return $slug;
-	
 } 
 
 /**
@@ -477,24 +375,20 @@ if(!function_exists('plus_simple_crypt')){
 	}
 }
 
-
 add_action('elementor/widgets/register', function($widgets_manager){
-  $elementor_widget_blacklist = [
-  'plus-elementor-widget',
-];
+  $elementor_widget_blacklist = [ 'plus-elementor-widget', ];
 
   foreach($elementor_widget_blacklist as $widget_name){
     $widgets_manager->unregister($widget_name);
   }
 }, 15);
 
-    /**
-	 * Registered widgets.
-	 *
-	 * @since 5.4.1
-	 *
-	 */
-
+/**
+ * Registered widgets.
+ *
+ * @since 5.4.1
+ *
+ */
 function l_registered_widgets(){
 	// widgets class map
 	return apply_filters('theplus/l_registered_widgets', [

@@ -152,9 +152,9 @@ if ( ! class_exists( 'PA_Core' ) ) {
 
 			\PremiumAddons\Admin\Includes\Admin_Helper::get_instance();
 
-			$enabled_elements = \PremiumAddons\Admin\Includes\Admin_Helper::get_enabled_elements();
+			$check_dynamic_assets = \PremiumAddons\Admin\Includes\Admin_Helper::check_element_by_key( 'premium-assets-generator' );
 
-			if ( $enabled_elements['premium-assets-generator'] ) {
+			if ( $check_dynamic_assets ) {
 				\PremiumAddons\Includes\Assets_Manager::get_instance();
 			}
 		}

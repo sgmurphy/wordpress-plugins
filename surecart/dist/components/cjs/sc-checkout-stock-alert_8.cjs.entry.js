@@ -15,8 +15,8 @@ const mutations$2 = require('./mutations-8d7c4499.js');
 const mutations$3 = require('./mutations-8260a74b.js');
 const addQueryArgs = require('./add-query-args-17c551b6.js');
 const watchers = require('./watchers-fecceee2.js');
-require('./watchers-ce17ff92.js');
-const getters$2 = require('./getters-ea9c2b72.js');
+require('./watchers-7fad5b15.js');
+const getters$2 = require('./getters-f0495158.js');
 const formData = require('./form-data-69000afe.js');
 const getQueryArg = require('./get-query-arg-53bf21e2.js');
 require('./index-00f0fc21.js');
@@ -745,7 +745,6 @@ const ScSessionProvider = class {
     // success, refetch the checkout
     try {
       mutations$1.updateFormState('FINALIZE');
-      mutations$1.updateFormState('PAID');
       mutations.state.checkout = (await index$1.fetchCheckout({
         id,
         query: {
@@ -755,6 +754,7 @@ const ScSessionProvider = class {
       // TODO: should we even check this?
       if (((_a = mutations.state.checkout) === null || _a === void 0 ? void 0 : _a.status) && ['paid', 'processing'].includes((_b = mutations.state.checkout) === null || _b === void 0 ? void 0 : _b.status)) {
         setTimeout(() => {
+          mutations$1.updateFormState('PAID');
           this.scPaid.emit();
         }, 100);
       }

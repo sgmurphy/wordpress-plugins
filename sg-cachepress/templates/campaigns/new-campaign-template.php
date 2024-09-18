@@ -10,8 +10,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta name="color-scheme" content="light dark"/>
 	<meta name="supported-color-schemes" content="light dark"/>
-	<meta name="description" content="<?php echo $args['meta_title']; ?>"/>
-	<title><?php echo $args['meta_title']; ?></title>
+	<meta name="description" content="<?php echo esc_html( $args['meta_title'] ); ?>"/>
+	<title><?php echo esc_html( $args['meta_title'] ); ?></title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;700&display=swap"
@@ -66,7 +66,7 @@
 <body style="margin: 0; padding: 0;">
 <!-- Preheader -->
 <div class="preheader" style="display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
-	<?php echo $args['preheader']; ?>
+	<?php echo esc_html( $args['preheader'] ); ?>
 </div>
 <!-- End Preheader -->
 <!-- Main Wrapper Table-->
@@ -86,17 +86,17 @@
 									style="padding: 40px 0 40px 0;">
 									<!-- Logo Link -->
 									<a style="border: none"
-									   href="<?php echo $args['logo_link']; ?>"
+									   href="<?php echo esc_url( $args['logo_link'] ); ?>"
 									   target="_blank" rel="noreferrer">
 										<img class="light-img" style="border: none; outline: none;"
-											 src="<?php echo $args['logo_image_light']; ?>"
-											 width="170" alt="<?php echo $args['logo_image_alt']; ?>"/>
+											 src="<?php echo esc_url( $args['logo_image_light'] ); ?>"
+											 width="170" alt="<?php echo esc_url( $args['logo_image_alt'] ); ?>"/>
 										<!--[if !mso]><! -->
 										<div class="dark-img"
 											 style="display:none; overflow:hidden; float:left; width:0px; max-height:0px; max-width:0px; line-height:0px; visibility:hidden;">
 											<img style="border: none; outline: none;"
-												 src="<?php echo $args['logo_image_dark']; ?>"
-												 width="170" alt="<?php echo $args['logo_image_alt']; ?>"/></div>
+												 src="<?php echo esc_url( $args['logo_image_dark'] ); ?>"
+												 width="170" alt="<?php echo esc_url( $args['logo_image_alt'] ); ?>"/></div>
 										<!--<![endif]-->
 									</a>
 								</td>
@@ -113,8 +113,8 @@
 				<tr>
 					<td class="body-text"
 						style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0 0 60px 0">
-						<?php echo $args['signature_1']; ?><br/>
-						<?php echo $args['signature_2']; ?>
+						<?php echo esc_html( $args['signature_1'] ); ?><br/>
+						<?php echo esc_html( $args['signature_2'] ); ?>
 					</td>
 				</tr>
 				<!-- End Signature -->
@@ -127,40 +127,40 @@
 								<!-- Facebook EN-->
 								<td width="32" style="padding: 0 0 20px 20px;" align="center" valign="middle">
 									<a style="text-decoration: none;" target="_blank"
-									   href="<?php echo $args['facebook_link']; ?>"><img
-											src="<?php echo $args['facebook_img']; ?>"
+									   href="<?php echo esc_url( $args['facebook_link'] ); ?>"><img
+											src="<?php echo esc_url( $args['facebook_img'] ); ?>"
 											width="32" alt="Facebook"/></a>
 								</td>
 								<!-- End Facebook EN-->
 								<!-- Instagram EN -->
 								<td width="32" style="padding: 0 0 20px 20px;" align="center" valign="middle">
 									<a style="text-decoration: none;" target="_blank"
-									   href="<?php echo $args['instagram_link']; ?>"><img
-											src="<?php echo $args['instagram_img']; ?>"
+									   href="<?php echo esc_url( $args['instagram_link'] ); ?>"><img
+											src="<?php echo esc_url( $args['instagram_img'] ); ?>"
 											width="32" alt="Instagram"/></a>
 								</td>
 								<!-- End Instagram EN -->
 								<!-- Twitter EN -->
 								<td width="32" style="padding: 0 0 20px 20px;" align="center" valign="middle">
 									<a style="text-decoration: none;" target="_blank"
-									   href="<?php echo $args['twitter_link']; ?>"><img
-											src="<?php echo $args['twitter_img']; ?>"
+									   href="<?php echo esc_url( $args['twitter_link'] ); ?>"><img
+											src="<?php echo esc_url( $args['twitter_img'] ); ?>"
 											width="32" alt="Twitter"/></a>
 								</td>
 								<!-- End Twitter EN -->
 								<!-- YouTube EN -->
 								<td width="32" style="padding: 0 0 20px 20px;" align="center" valign="middle">
 									<a style="text-decoration: none;" target="_blank"
-									   href="<?php echo $args['youtube_link']; ?>"><img
-											src="<?php echo $args['youtube_img']; ?>"
+									   href="<?php echo esc_url( $args['youtube_link'] ); ?>"><img
+											src="<?php echo esc_url( $args['youtube_img'] ); ?>"
 											width="32" alt="YouTube"/></a>
 								</td>
 								<!-- End YouTube EN -->
 								<!-- LinkedIn EN-->
 								<td width="32" style="padding: 0 20px 20px 20px;" align="center" valign="middle">
 									<a style="text-decoration: none;" target="_blank"
-									   href="<?php echo $args['linkedin_link']; ?>"><img
-											src="<?php echo $args['linkedin_img']; ?>"
+									   href="<?php echo esc_url( $args['linkedin_link'] ); ?>"><img
+											src="<?php echo esc_url( $args['linkedin_img'] ); ?>"
 											width="32" alt="LinkedIn"/></a>
 								</td>
 								<!-- End LinkedIn EN -->
@@ -174,7 +174,7 @@
 				<tr>
 					<td class="body-text"
 						style="color: #a4a4a4; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; padding: 0 0 30px 0">
-						<p><?php echo $args['unsubscribe_text']; ?><a href="<?php echo $args['unsubscribe_link']; ?>" target="_blank" rel="noreferrer" style="color: #4343f0; text-decoration: none;"><?php echo $args['unsubscribe_text_end']; ?></a>.</p>
+						<p><?php echo esc_html( $args['unsubscribe_text'] ); ?><a href="<?php echo esc_url( $args['unsubscribe_link'] ); ?>" target="_blank" rel="noreferrer" style="color: #4343f0; text-decoration: none;"><?php echo esc_html( $args['unsubscribe_text_end'] ); ?></a>.</p>
 					</td>
 				</tr>
 			  <!--End Footer Non Clients-->

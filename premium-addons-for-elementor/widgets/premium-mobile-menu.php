@@ -1145,6 +1145,38 @@ class Premium_Mobile_Menu extends Widget_Base {
 
 		$this->end_controls_section();
 
+        $this->start_controls_section(
+			'section_pa_docs',
+			array(
+				'label' => __( 'Help & Docs', 'premium-addons-for-elementor' ),
+			)
+		);
+
+		$docs = array(
+			'https://premiumaddons.com/docs/elementor-mobile-menu-widget-tutorial/' => __( 'Getting started »', 'premium-addons-for-elementor' ),
+			'https://www.youtube.com/watch?v=OPSlk9YoIGI' => __( 'Check the video tutorial »', 'premium-addons-for-elementor' ),
+		);
+
+		$doc_index = 1;
+		foreach ( $docs as $url => $title ) {
+
+			$doc_url = Helper_Functions::get_campaign_link( $url, 'editor-page', 'wp-editor', 'get-support' );
+
+			$this->add_control(
+				'doc_' . $doc_index,
+				array(
+					'type'            => Controls_Manager::RAW_HTML,
+					'raw'             => sprintf( '<a href="%s" target="_blank">%s</a>', $doc_url, $title ),
+					'content_classes' => 'editor-pa-doc',
+				)
+			);
+
+			++$doc_index;
+
+		}
+
+		$this->end_controls_section();
+
 		$this->start_controls_section(
 			'item_style',
 			array(

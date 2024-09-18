@@ -31,7 +31,6 @@ if (!empty($reviews)) {
                 do_action('wpsocialreviews/reviewer_image', $template_meta['reviewer_image'],
                     $reviewer_url, $review->reviewer_img, $review->reviewer_name, $template_meta['enableExternalLink']);
                 ?>
-                <div class="wpsr-review-header">
                     <?php
                     /**
                      * review_platform hook.
@@ -69,7 +68,6 @@ if (!empty($reviews)) {
                             $review->review_time);
                         ?>
                     </div>
-                </div>
                 <?php
 
                 /**

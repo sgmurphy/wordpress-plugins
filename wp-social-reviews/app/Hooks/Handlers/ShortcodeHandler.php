@@ -64,7 +64,7 @@ class ShortcodeHandler
         $platformName = $args['platform'] === 'facebook_feed' ? 'Facebook' : $args['platform'];
         $methodName = str_replace('_', ucfirst($platformName), 'render_Template');
 
-        $global_settings = get_option('wpsr_instagram_global_settings');
+        $global_settings = get_option('wpsr_'.$this->platform.'_global_settings');
         $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
 
         $image_settings = [
@@ -152,9 +152,6 @@ class ShortcodeHandler
     {
         $app = App::getInstance();
         $template_meta = $this->templateMeta($templateId, $platform);
-        if (!empty($template_meta['error_message'])) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $template_meta['error_message']);
-        }
 
         $html = '';
 
@@ -195,15 +192,15 @@ class ShortcodeHandler
             $totalReviews = $data['total_reviews'];
         }
 
-//        $errors = Arr::get($data, 'errors');
-//        if ($errors) {
-//            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', 'facebook', $errors, $connected_account_ids);
-//        }
+        $errors = Arr::get($data, 'errors');
+        if ($errors) {
+            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', 'facebook', $errors, $connected_account_ids);
+        }
 
         $template = Arr::get($template_meta, 'template', '');
         if (empty($template) || empty($reviews)) {
             $error_message = __('Sorry! We could not get any reviews', 'wp-social-reviews');
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message);
         }
 
 
@@ -289,7 +286,7 @@ class ShortcodeHandler
         $template_meta = $this->templateMeta($templateId, $platform);
 
         if (!empty($template_meta['error_message'])) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $template_meta['error_message']);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $template_meta['error_message']);
         }
 
         $feed = (new TwitterFeed())->getTemplateMeta($template_meta, $templateId);
@@ -297,7 +294,7 @@ class ShortcodeHandler
 
         $error_message = Arr::get($feed, 'error_message');
         if ($error_message) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message);
         }
 
         //pagination settings
@@ -372,7 +369,7 @@ class ShortcodeHandler
         $template_meta = $this->templateMeta($templateId, $platform);
 
         if (!empty($template_meta['error_message'])) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $template_meta['error_message']);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $template_meta['error_message']);
         }
 
         $feed = (new YoutubeFeed())->getTemplateMeta($template_meta, $templateId);
@@ -382,9 +379,9 @@ class ShortcodeHandler
 
         $error_message = Arr::get($settings['dynamic'], 'error_message');
         if (Arr::get($error_message, 'error_message')) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message['error_message']);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message['error_message']);
         } elseif ($error_message) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message);
         }
 
         //pagination settings
@@ -455,31 +452,20 @@ class ShortcodeHandler
         $template_meta = $this->templateMeta($templateId, $platform);
 
         $account_ids = Arr::get($template_meta, 'feed_settings.source_settings.selected_accounts');
-
         do_action('wpsocialreviews/before_display_facebook_feed', $account_ids);
 
         if (!empty($template_meta['error_message'])) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $template_meta['error_message']);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $template_meta['error_message']);
         }
 
         $feed = (new FacebookFeed())->getTemplateMeta($template_meta, $templateId);
+
         $settings = $this->formatFeedSettings($feed);
+        $feeds = Arr::get($settings, 'feeds', []);
 
 	    if (Arr::get($feed , 'feed_settings.source_settings.feed_type') === 'album_feed') {
 		    $this->enqueueAlbumScripts();
 	    }
-
-        $error_message = Arr::get($settings['dynamic'], 'error_message');
-        if (Arr::get($error_message, 'error_message')) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message['error_message']);
-        } elseif ($error_message) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message);
-        }
-
-        if (sizeof(Arr::get($settings, 'feeds')) === 0) {
-            $posts_not_found = __('Posts are not available!', 'wp-social-reviews');
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $posts_not_found);
-        }
 
         $template = Arr::get($settings, 'feed_settings.template', '');
         $layout = Arr::get($settings, 'feed_settings.layout_type');
@@ -489,8 +475,29 @@ class ShortcodeHandler
         $pagination_settings = $this->formatPaginationSettings($feed);
         $translations = GlobalSettings::getTranslations();
 
+        $hasLatestPost = Arr::get($settings, 'dynamic.has_latest_post', false);
+
+        //header logo and cover update
+        $global_settings = get_option('wpsr_facebook_feed_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $image_settings = [
+            'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
+            'has_gdpr' => Arr::get($advanceSettings, 'has_gdpr', "false")
+        ];
+
+        if($image_settings['optimized_images'] == 'true'){
+            $cover = Arr::get($settings, 'header.covers.local_cover');
+            $logo = Arr::get($settings, 'header.avatar.local_avatar');
+        }else{
+            $cover =  Arr::get($settings, 'header.cover.source');
+            $logo = Arr::get($settings, 'header.picture.data.url');
+        }
+
+        $settings['header']['logo'] = $logo;
+        $settings['header']['cover'] = $cover;
+
         if (Arr::get($settings['feed_settings'], 'post_settings.display_mode') === 'popup') {
-            $feeds = $settings['feeds'];
             $hasMulti = false;
             $display_wp_date_format = Arr::get($settings, 'feed_settings.post_settings.display_wp_date_format', 'false');
 
@@ -521,18 +528,37 @@ class ShortcodeHandler
         // if(Arr::get($settings['feed_settings'], 'pagination_settings.pagination_type') != 'none') {
         $this->enqueueScripts();
         //}
+
+        //enable when gdpr is on
+        $resizedImages = Arr::get($settings, 'dynamic.resize_data', []);
+        if(Arr::get($this->imageSettings, 'optimized_images', 'false') === 'true' && (count($resizedImages) < count($feeds) || $hasLatestPost)) {
+            wp_enqueue_script('wpsr-image-resizer');
+        }
+
+        if (Arr::get($this->imageSettings, 'optimized_images', 'false') === 'true' || Arr::get($settings['feed_settings'], 'pagination_settings.pagination_type') != 'none' || Arr::get($settings['feed_settings'], 'post_settings.display_mode') === 'popup') {
+            $this->enqueueScripts();
+        }
         do_action('wpsocialreviews/load_template_assets', $templateId);
 
         $html = '';
+        $error_message = Arr::get($settings, 'dynamic.error_message');
+
+        if (Arr::get($error_message, 'error_message')) {
+            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message['error_message'], $account_ids);
+        } elseif ($error_message) {
+            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message, $account_ids);
+        }
+
         $template_body_data = [
             'templateId'    => $templateId,
-            'feeds'         => $settings['feeds'],
+            'feeds'         => $feeds,
             'template_meta' => $settings['feed_settings'],
             'paginate'      => $pagination_settings['paginate'],
             'sinceId'       => $pagination_settings['sinceId'],
             'maxId'         => $pagination_settings['maxId'],
             'pagination_settings' => $pagination_settings,
-            'translations'  => $translations
+            'translations'  => $translations,
+            'image_settings' => $image_settings
         ];
 
         $html .= $app->view->make('public.feeds-templates.facebook.header', array(
@@ -546,6 +572,7 @@ class ShortcodeHandler
         ));
 
         if (defined('WPSOCIALREVIEWS_PRO') && $template !== 'template1') {
+
             $html .= apply_filters('wpsocialreviews/add_facebook_feed_template', $template_body_data);
         } else {
             $html .= $app->view->make('public.feeds-templates.facebook.template1', $template_body_data);
@@ -553,7 +580,7 @@ class ShortcodeHandler
 
         $html .= $app->view->make('public.feeds-templates.facebook.footer', array(
             'templateId'      => $templateId,
-            'feeds'           => $settings['feeds'],
+            'feeds'           => $feeds,
             'feed_settings'   => $settings['feed_settings'],
             'layout_type'     => $settings['layout_type'],
             'column_gaps'     => $settings['column_gaps'],
@@ -581,7 +608,7 @@ class ShortcodeHandler
         do_action('wpsocialreviews/before_display_instagram_feed', $account_ids);
 
         if (!empty($template_meta['error_message'])) {
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $template_meta['error_message']);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $template_meta['error_message']);
         }
 
         $feed = (new InstagramFeed())->getTemplateMeta($template_meta, $templateId);
@@ -595,7 +622,7 @@ class ShortcodeHandler
         $template = Arr::get($settings['feed_settings'], 'template', '');
         if (!isset($templateMapping[$template])) {
             $error_message = __('No templates found!! Please save and try again', 'wp-social-reviews');
-            return apply_filters('wpsocialreviews/display_frontend_error_message', $error_message);
+            return apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message);
         }
         $file = $templateMapping[$template];
 
@@ -648,13 +675,13 @@ class ShortcodeHandler
             $settings = (new \WPSocialReviewsPro\App\Services\Platforms\Feeds\Shoppable())->makeShoppableFeeds($settings, 'instagram');
         }
 
-        $error_message = Arr::get($settings['dynamic'], 'error_message');
+        $error_message = Arr::get($settings, 'dynamic.error_message');
         $hashtags = Arr::get($settings, 'feed_settings.source_settings.hash_tags');
 
         if (Arr::get($error_message, 'error_message')) {
-            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', $error_message['error_message'], $account_ids, $hashtags);
+            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message['error_message'], $account_ids, $hashtags);
         } else {
-            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', $error_message, $account_ids, $hashtags);
+            $html .= apply_filters('wpsocialreviews/display_frontend_error_message', $platform, $error_message, $account_ids, $hashtags);
         }
 
         $html .= $app->view->make('public.feeds-templates.instagram.header', array(
@@ -789,6 +816,7 @@ class ShortcodeHandler
         if ($platform === 'instagram') {
             $additionalSettings['assets_url'] = WPSOCIALREVIEWS_URL . 'assets';
             $additionalSettings['user_avatar'] = Arr::get($header, 'user_avatar');
+            $additionalSettings['avatar'] = Arr::get($header, 'avatar');
             $additionalSettings['feed_type'] = Arr::get($feed_settings, 'source_settings.feed_type');
             $additionalSettings['hash_tags'] = Arr::get($feed_settings, 'source_settings.hash_tags');
         }

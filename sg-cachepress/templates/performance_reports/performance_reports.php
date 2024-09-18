@@ -90,8 +90,8 @@
 					<td style="padding: 0 0 30px 0;">
 						<a href="#" class="body-text"
 						   target="_blank" rel="noreferrer"><img
-								src="<?php echo $args['image']; ?>"
-								width="600" alt="Optimization Status for '<?php echo $args['domain']; ?>'"
+								src="<?php echo esc_url( $args['image'] ); ?>"
+								width="600" alt="Optimization Status for '<?php echo esc_url( $args['domain'] ); ?>'"
 								style="max-height: 300px;"/></a>
 					</td>
 				</tr>
@@ -104,7 +104,7 @@
 				<tr>
 					<td class="body-text"
 						style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0px 0 60px 0">
-						<?php echo $args['summary_1']; ?> <a href="<?php echo $args['domain']; ?>" target="_blank" rel="noreferrer" style="color: #4343f0; outline: none; text-decoration: none;"><?php echo $args['domain']; ?></a> <?php echo $args['summary_2']; ?>
+						<?php echo esc_html( $args['summary_1'] ); ?> <a href="<?php echo esc_url( $args['domain'] ); ?>" target="_blank" rel="noreferrer" style="color: #4343f0; outline: none; text-decoration: none;"><?php echo esc_html( $args['domain'] ); ?></a> <?php echo esc_html( $args['summary_2'] ); ?>
 					</td>
 				</tr>
 				<tr>
@@ -118,16 +118,16 @@
 												<table border="0" cellpadding="0" cellspacing="0" width="100%">
 													<tr >
 														<td class="body-text"
-															style="color: #363636; font-weight: 600; font-family: 'Poppins', Arial, Helvetica, sans-serif; font-size: 30px; line-height: 40px; padding: 0 0 10px 0" align="center"><?php echo $args['percentage']; ?>% <?php esc_html_e( 'Optimized', 'sg-cachepress' ); ?></td>
+															style="color: #363636; font-weight: 600; font-family: 'Poppins', Arial, Helvetica, sans-serif; font-size: 30px; line-height: 40px; padding: 0 0 10px 0" align="center"><?php echo esc_html( $args['percentage'] ); ?>% <?php esc_html_e( 'Optimized', 'sg-cachepress' ); ?></td>
 													</tr>
 													<tr>
 														<td class="body-text"
 															style="color: #363636; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 30px; padding: 0 0 45px 0" align="center">
 															<?php
 															esc_html_e( 'You are using ', 'sg-cachepress' );
-															echo $args['score'];
+															echo esc_html( $args['score'] );
 															esc_html_e( ' out of ', 'sg-cachepress' );
-															echo $args['total_score'];
+															echo esc_html( $args['total_score'] );
 															esc_html_e( ' recommended speed optimization features', 'sg-cachepress' );
 															?>
 															</td>
@@ -145,9 +145,9 @@
 				<!-- Footer Clients -->
 				<tr>
 					<td class="body-text"
-						style="color: #a4a4a4; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; padding: 0 0 30px 0"><?php echo $args['unsubscribe_text']; ?><a
-							href="<?php echo $args['unsubscribe_link']; ?>" target="_blank" rel="noreferrer"
-							style="color: #4343f0; text-decoration: none;"><?php echo $args['unsubscribe_button']; ?></a><br/>
+						style="color: #a4a4a4; font-weight: 400; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; padding: 0 0 30px 0"><?php echo esc_html( $args['unsubscribe_text'] ); ?><a
+							href="<?php echo esc_url( $args['unsubscribe_link'] ); ?>" target="_blank" rel="noreferrer"
+							style="color: #4343f0; text-decoration: none;"><?php echo esc_html( $args['unsubscribe_button'] ); ?></a><br/>
 				  </td>
 				</tr>
 			</table>

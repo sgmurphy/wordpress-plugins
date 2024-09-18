@@ -142,6 +142,7 @@ $elements = array(
 				'title' => __( 'Animated Text', 'premium-addons-for-elementor' ),
 				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-animated-text-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+                'tutorial'   => 'https://www.youtube.com/watch?v=Q5aRlJdXFw0',
 			),
 			array(
 				'key'      => 'premium-title',
@@ -808,6 +809,7 @@ $elements = array(
 				'title' => __( 'Animated Text', 'premium-addons-for-elementor' ),
 				'demo'  => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/elementor-animated-text-widget/', 'settings-page', 'wp-dash', 'dashboard' ),
 				'doc'   => Helper_Functions::get_campaign_link( 'https://premiumaddons.com/docs/elementor-animated-text-widget-tutorial/', 'settings-page', 'wp-dash', 'dashboard' ),
+                'tutorial'   => 'https://www.youtube.com/watch?v=Q5aRlJdXFw0',
 			),
 			array(
 				'key'      => 'premium-title',

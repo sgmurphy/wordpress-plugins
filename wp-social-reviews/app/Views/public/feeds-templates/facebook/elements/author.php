@@ -6,11 +6,10 @@ $feed_url = $feed_type === 'video_feed' ? 'https://www.facebook.com'.$feed['perm
 ?>
 <div class="wpsr-fb-feed-author">
     <?php if( is_array($account)){ ?>
-
         <?php if( Arr::get($account, 'picture') && Arr::get($template_meta, 'post_settings.display_author_photo') === 'true'){ ?>
         <div class="wpsr-fb-feed-author-avatar">
             <a class="wpsr-fb-feed-author-avatar-url" target="_blank" href="<?php echo esc_url($account['link']); ?>" rel="nofollow noopener">
-                <img class="wpsr-fb-feed-author-img" src="<?php echo esc_url($account['picture']['data']['url']); ?>" alt="<?php echo esc_url($account['name']); ?>" width="40" height="40">
+                <img class="wpsr-fb-feed-author-img" src="<?php echo esc_url($feed['user_avatar']); ?>" alt="<?php echo esc_html($account['name']); ?>" width="40" height="40">
             </a>
         </div>
         <?php } ?>

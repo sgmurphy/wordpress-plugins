@@ -3,7 +3,7 @@
 Plugin Name:  WP Social Ninja
 Plugin URI:   https://wpsocialninja.com/
 Description:  Display your social feeds, reviews and chat widgets automatically and easily on your website with the all-in-one social media plugin.
-Version:      3.13.1
+Version:      3.14.0
 Author:       WP Social Ninja Team - WPManageNinja LLC
 Author URI:   https://wpsocialninja.com/
 License:      GPLv2 or later
@@ -13,7 +13,7 @@ Domain Path:  /language
 
 defined('ABSPATH') or die;
 
-define('WPSOCIALREVIEWS_VERSION', '3.13.1');
+define('WPSOCIALREVIEWS_VERSION', '3.14.0');
 define('WPSOCIALREVIEWS_DB_VERSION', 120);
 define('WPSOCIALREVIEWS_MAIN_FILE', __FILE__);
 define('WPSOCIALREVIEWS_BASENAME', plugin_basename(__FILE__));
@@ -22,7 +22,13 @@ define('WPSOCIALREVIEWS_DIR', plugin_dir_path(__FILE__));
 define('WPSOCIALREVIEWS_UPLOAD_DIR_NAME', 'wp-social-ninja');
 
 if (!defined( 'WPSOCIALREVIEWS_INSTAGRAM_MAX_RECORDS')) {
-    define('WPSOCIALREVIEWS_INSTAGRAM_MAX_RECORDS', 600);
+    define('WPSOCIALREVIEWS_INSTAGRAM_MAX_RECORDS', 300);
+}
+if (!defined( 'WPSOCIALREVIEWS_FACEBOOK_FEED_MAX_RECORDS')) {
+    define('WPSOCIALREVIEWS_FACEBOOK_FEED_MAX_RECORDS', 300);
+}
+if (!defined( 'WPSOCIALREVIEWS_TIKTOK_MAX_RECORDS')) {
+    define('WPSOCIALREVIEWS_TIKTOK_MAX_RECORDS', 300);
 }
 
 require __DIR__.'/vendor/autoload.php';

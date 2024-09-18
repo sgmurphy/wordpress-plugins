@@ -269,10 +269,14 @@ final class L_Theplus_Element_Load {
 	 * This method is responsible for including the required files related to widgets.
 	 * It ensures that the necessary files for widgets are loaded.
 	 *
-	 * @since 1.0.0
+	 * @since 5.6.9
 	 */
 	public function include_widgets() {
 		require_once L_THEPLUS_PATH . 'modules/theplus-include-widgets.php';
+
+		if ( defined('THEPLUS_VERSION') ) {
+			require L_THEPLUS_PATH . 'includes/admin/white_label/class-tpae-white-label.php';
+		}
 	}
 
 	/**

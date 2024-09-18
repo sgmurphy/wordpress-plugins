@@ -20,13 +20,12 @@ class Common
      * @since 1.3.0
      */
     public function makeRequest($url)
-    {
+    {   
         $args     = array(
             'timeout'   => 60,
             'sslverify' => false
         );
         $response = wp_remote_get($url, $args);
-
         do_action( 'wpsocialreviews/instagram_feed_api_connect_response', $response );
 
         if (!is_wp_error($response)) {
@@ -34,10 +33,8 @@ class Common
         }
 
         if(Arr::get($response, 'error.code') && (new PlatformData('instagram'))->isAppPermissionError($response)){
-//            error_log('jelel');
             do_action( 'wpsocialreviews/instagram_feed_app_permission_revoked' );
         }
-
         return $response;
     }
 

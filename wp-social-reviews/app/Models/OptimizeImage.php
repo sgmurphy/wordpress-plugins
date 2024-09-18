@@ -16,15 +16,15 @@ class OptimizeImage extends Model
     {
         return static::whereIn('user_name', $userNames)->whereIn('media_id', $ids)->where('images_resized', 1)->pluck('media_id')->toArray();
     }
-
+    
     public function deleteMediaByUserName($userName)
     {
         static::where('user_name', $userName)->delete();
     }
 
-    public function getOldPosts($limit)
+    public function getOldPosts($limit, $platform)
     {
-        return static::orderBy('last_requested')->limit($limit)->get();
+        return static::orderBy('last_requested')->where('platform', $platform)->limit($limit)->get();
     }
 
     public function updateLastRequestedTime($ids)

@@ -6,7 +6,7 @@ if (!empty($feeds) && is_array($feeds)) {
     $column      = isset($template_meta['column_number']) ? $template_meta['column_number'] : 4;
     $columnClass = 'wpsr-col-' . $column;
     $layout_type = isset($template_meta['layout_type']) && defined('WPSOCIALREVIEWS_PRO') ? $template_meta['layout_type'] : 'timeline';
-
+    
     if ($feed_type !== 'timeline_feed' && !defined('WPSOCIALREVIEWS_PRO')) {
         echo '<p>' . __('You need to upgrade to pro to use this feature.', 'wp-social-reviews') . '</p>';
         return;
@@ -31,10 +31,17 @@ if (!empty($feeds) && is_array($feeds)) {
                  * @hooked FacebookFeedTemplateHandler::renderTemplateItemWrapper 10 - (outputs opening divs for the template item)
                  **/
                 do_action('wpsocialreviews/facebook_feed_template_item_wrapper_before', $template_meta);
-
            }
         ?>
-            <div role="group" class="wpsr-fb-feed-item <?php echo ($layout_type === 'carousel' && defined('WPSOCIALREVIEWS_PRO')) ? 'swiper-slide' : ''; echo ($feed_type === 'album_feed') ? ' wpsr-album-cover-photo-wrapper' : ''; ?>">
+
+        <?php 
+            $post_id = ($feed_type == 'album_feed') ? Arr::get($feed, 'photos.data.0.id', '') : Arr::get($feed, 'id', '');
+        ?>
+            <div role="group" class="wpsr-fb-feed-item wpsr-fb-post <?php echo ($layout_type === 'carousel' && defined('WPSOCIALREVIEWS_PRO')) ? 'swiper-slide' : ''; echo ($feed_type === 'album_feed') ? ' wpsr-album-cover-photo-wrapper' : ''; ?>" 
+            data-post_id="<?php echo esc_attr($post_id); ?>" 
+            data-user_name="<?php echo esc_attr($feed['page_id']); ?>" 
+            data-image_size="<?php echo esc_attr($template_meta['post_settings']['resolution']); ?>">
+
                 <?php if($feed_type === 'timeline_feed'){ ?>
                 <div class="wpsr-fb-feed-inner">
                     <?php
@@ -53,7 +60,7 @@ if (!empty($feeds) && is_array($feeds)) {
                     do_action('wpsocialreviews/facebook_feed_description', $feed, $template_meta);
                     ?>
 
-                    <div class="wpsr-fb-feed-content-wrapper wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>">
+                    <div class="wpsr-fb-feed-content-wrapper wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($image_settings['optimized_images']); ?>" data-has_gdpr="<?php echo esc_attr($image_settings['has_gdpr']); ?>">
                         <?php
                         /**
                          * facebook_feed_media hook.
@@ -96,7 +103,7 @@ if (!empty($feeds) && is_array($feeds)) {
                 <?php }
 
                 if($feed_type === 'video_feed') { ?>
-                    <div class="wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>">
+                    <div class="wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($image_settings['optimized_images']); ?>" data-has_gdpr="<?php echo esc_attr($image_settings['has_gdpr']); ?>">
                         <?php
                         /**
                          * facebook_feed_videos hook.

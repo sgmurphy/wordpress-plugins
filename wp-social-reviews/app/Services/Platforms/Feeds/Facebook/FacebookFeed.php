@@ -6,10 +6,13 @@ use WPSocialReviews\App\Services\Platforms\Feeds\BaseFeed;
 use WPSocialReviews\App\Services\Platforms\Feeds\CacheHandler;
 use WPSocialReviews\App\Services\Platforms\Feeds\Config;
 use WPSocialReviews\App\Services\Platforms\Feeds\Facebook\Config as FacebookConfig;
+use WPSocialReviews\App\Services\Platforms\PlatformErrorManager;
 use WPSocialReviews\Framework\Support\Arr;
 use WPSocialReviews\App\Services\Platforms\Feeds\Common\FeedFilters;
 use WPSocialReviews\App\Services\Platforms\PlatformData;
 use WPSocialReviews\App\Services\DataProtector;
+use WPSocialReviews\App\Services\GlobalSettings;
+use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -27,12 +30,18 @@ class FacebookFeed extends BaseFeed
 
     protected $platfromData;
 
+    protected $errorManager;
+
     public function __construct()
     {
         parent::__construct($this->platform);
         $this->cacheHandler = new CacheHandler($this->platform);
         $this->protector = new DataProtector();
         $this->platfromData = new PlatformData($this->platform);
+        $this->errorManager = new PlatformErrorManager($this->platform);
+
+        (new ImageOptimizationHandler($this->platform))->registerHooks();
+        add_action('wpsr_'.$this->platform.'_send_email_report', array($this, 'maybeSendFeedIssueEmail'));
     }
 
     public function pushValidPlatform($platforms)
@@ -51,9 +60,9 @@ class FacebookFeed extends BaseFeed
 
             if(sizeof($selectedAccounts) === 0 && !empty($args['access_token'])){
                 $this->saveVerificationConfigs($args['access_token'] , $args['connectionType']);
-				if(!($args['connectionType'] === 'manual' || $args['connectionType'] === 'event_feed')) {
-					$this->saveAuthorizedSourceList( $args['access_token'] );
-				}
+                if(!($args['connectionType'] === 'manual' || $args['connectionType'] === 'event_feed')) {
+                    $this->saveAuthorizedSourceList( $args['access_token'] );
+                }
             }
 
             if ($selectedAccounts && sizeof($selectedAccounts) > 0) {
@@ -74,12 +83,12 @@ class FacebookFeed extends BaseFeed
 
     public function saveVerificationConfigs($accessToken = '' , $connectionType = '')
     {
-		if ($connectionType === 'event_feed'){
-			$fetchUrl = $this->remoteFetchUrl.'/'.$accessToken['page_id'].'?fields=id,name,link,picture&access_token=' . $accessToken['access_token'];
-			$accessToken = $accessToken['access_token'];
-		} else{
-			$fetchUrl = $this->remoteFetchUrl.'me?fields=id,name,link,picture&access_token=' . $accessToken;
-		}
+        if ($connectionType === 'event_feed'){
+            $fetchUrl = $this->remoteFetchUrl.'/'.$accessToken['page_id'].'?fields=id,name,link,picture&access_token=' . $accessToken['access_token'];
+            $accessToken = $accessToken['access_token'];
+        } else{
+            $fetchUrl = $this->remoteFetchUrl.'me?fields=id,name,link,picture&access_token=' . $accessToken;
+        }
         $response = wp_remote_get($fetchUrl);
         do_action( 'wpsocialreviews/facebook_feed_api_connect_response', $response );
 
@@ -106,15 +115,15 @@ class FacebookFeed extends BaseFeed
                     'access_token'  => $this->protector->encrypt($accessToken)
                 ];
                 update_option('wpsr_' . $this->platform . '_verification_configs', $data);
-				if($connectionType === 'manual' || $connectionType === 'event_feed') {
-					$connected_accounts = $this->getConncetedSourceList();
-					$responseArr['access_token'] = $accessToken;
-					if (Arr::get($responseArr, 'id') && Arr::get($responseArr, 'name')) {
-						$pageId                      = (string)$responseArr['id'];
-						$connected_accounts[$pageId] = $this->formatPageData($responseArr, $pageId, $connectionType);
-					}
-					update_option('wpsr_facebook_feed_connected_sources_config', array('sources' => $connected_accounts));
-				}
+                if($connectionType === 'manual' || $connectionType === 'event_feed') {
+                    $connected_accounts = $this->getConncetedSourceList();
+                    $responseArr['access_token'] = $accessToken;
+                    if (Arr::get($responseArr, 'id') && Arr::get($responseArr, 'name')) {
+                        $pageId                      = (string)$responseArr['id'];
+                        $connected_accounts[$pageId] = $this->formatPageData($responseArr, $pageId, $connectionType);
+                    }
+                    update_option('wpsr_facebook_feed_connected_sources_config', array('sources' => $connected_accounts));
+                }
                 $this->setGlobalSettings();
             }
         }
@@ -137,6 +146,14 @@ class FacebookFeed extends BaseFeed
     public function clearVerificationConfigs($userId)
     {
         $sources = $this->getConncetedSourceList();
+
+        $sources[$userId]['user_id'] = $userId;
+        $sources[$userId]['username'] = $userId;
+        $this->errorManager->removeErrors('connection', $sources[$userId]);
+
+        $connectedAccount = Arr::get($sources, $userId);
+        $this->platfromData->deleteDataByUser($connectedAccount);
+
         unset($sources[$userId]);
         update_option('wpsr_facebook_feed_connected_sources_config', array('sources' => $sources));
 
@@ -223,6 +240,10 @@ class FacebookFeed extends BaseFeed
                     $pageId                      = (string)$page['id'];
                     $page['account_id']          = Arr::get($verificationConfigs, 'account_id', null);
                     $connected_accounts[$pageId] = $this->formatPageData($page, $pageId);
+
+                    $args['user_id'] = $pageId;
+                    $args['username'] = $pageId;
+                    $this->errorManager->removeErrors('connection', $args);
                 }
             }
 
@@ -247,7 +268,7 @@ class FacebookFeed extends BaseFeed
             'name'         => Arr::get($page, 'name', ''),
             'type'         => 'page',
             'is_private'   => Arr::get($page, 'is_private', false),
-	        'is_event_enabled' => ($connectionType === 'event_feed'),
+            'is_event_enabled' => ($connectionType === 'event_feed'),
             'error_message'  => '',
             'error_code'     => '',
             'has_app_permission_error'     => false,
@@ -264,7 +285,7 @@ class FacebookFeed extends BaseFeed
         return $sourceList;
     }
 
-    public function getTemplateMeta($settings = array(), $postId = null)
+    public function getTemplateMeta($settings = [], $postId = null, $feed_type = null)
     {
         $feed_settings = Arr::get($settings, 'feed_settings', array());
         $apiSettings   = Arr::get($feed_settings, 'source_settings', array());
@@ -285,13 +306,12 @@ class FacebookFeed extends BaseFeed
         }
 
 
-        $data = [];
         if(!empty(Arr::get($apiSettings, 'selected_accounts'))) {
-            $response = $this->apiConnection($apiSettings);
+            $response = $this->apiConnection($apiSettings, $feed_type);
             if(isset($response['error_message'])) {
-                $settings['dynamic'] = $response;
+                $settings['dynamic']['error_message'] = $response['error_message'];
             } else {
-                $data['items'] = $response;
+                $settings['dynamic']['items'] = $response['items'];
             }
         } else {
             $settings['dynamic']['error_message'] = __('Please select a page to get feeds', 'wp-social-reviews');
@@ -300,19 +320,49 @@ class FacebookFeed extends BaseFeed
         $account = Arr::get($feed_settings, 'header_settings.account_to_show');
         if(!empty($account)) {
             $accountDetails = $this->getAccountDetails($account);
+            $connectedSources = $this->getConncetedSourceList();
+            $connectedPageInfo = Arr::get($connectedSources, $account);
+            $has_account_error_code = Arr::get($connectedPageInfo, 'error_code');
+            if($has_account_error_code){
+                $settings['dynamic']['error_message'] = Arr::get($connectedPageInfo, 'error_message');
+                $errorMessageFromDB = Arr::get($connectedPageInfo, 'error_message');
+            }
+
             if(isset($accountDetails['error_message'])) {
                 $settings['dynamic'] = $accountDetails;
             } else {
-                $data['header'] = $accountDetails;
+                $settings['dynamic']['header'] = $accountDetails;
             }
         }
 
-        if (Arr::get($settings, 'dynamic.error_message')) {
+        if (Arr::get($settings, 'dynamic.error_message') || empty(Arr::get($settings, 'dynamic.items'))) {
             $filterResponse = $settings['dynamic'];
         } else {
-            $filterResponse = (new FeedFilters())->filterFeedResponse($this->platform, $feed_settings, $data);
+            $filterResponse = (new FeedFilters())->filterFeedResponse($this->platform, $feed_settings, $settings['dynamic']);
         }
         $settings['dynamic'] = $filterResponse;
+
+        $global_settings = get_option('wpsr_facebook_feed_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $optimized_images = Arr::get($global_settings, 'global_settings.optimized_images', 'false');
+        $has_gdpr = Arr::get($advanceSettings, 'has_gdpr', "false");
+        $items = $settings['dynamic']['items'] ?? [];
+
+        foreach ($items as $index => $item) {
+            $userAvatar = Arr::get($item, 'from.picture.data.url', null);
+            $accountId = Arr::get($item, 'from.id', null);
+            $headerMeta = 'avatars';
+            $local_avatar = (new ImageOptimizationHandler($this->platform))->maybeLocalHeader($accountId, $userAvatar, $global_settings,$headerMeta);
+            $settings['dynamic']['items'][$index]['user_avatar'] = $local_avatar ?? $userAvatar;
+        }
+
+        if($has_gdpr === "true" && $optimized_images == "false") {
+            $settings['dynamic']['items'] = [];
+            $settings['dynamic']['header'] = [];
+            $settings['dynamic']['error_message'] = __('Facebook feeds are not being displayed due to the "optimize images" option being disabled. If the GDPR settings are set to "Yes," it is necessary to enable the optimize images option.', 'wp-social-reviews');
+        }
+
         return $settings;
     }
 
@@ -347,16 +397,25 @@ class FacebookFeed extends BaseFeed
         $settings['feed_type'] = Arr::get($settings, 'feed_settings.source_settings.feed_type');
         $settings['styles_config'] = $facebookConfig->formatStylesConfig(json_decode($feed_template_style_meta, true), $postId);
 
+        $global_settings = get_option('wpsr_'.$this->platform.'_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $image_settings = [
+            'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
+            'has_gdpr' => Arr::get($advanceSettings, 'has_gdpr', "false")
+        ];
+
         wp_send_json_success([
             'message'          => __('Success', 'wp-social-reviews'),
             'settings'         => $settings,
+            'image_settings'   => $image_settings,
             'sources'          => $this->getConncetedSourceList(),
             'template_details' => $templateDetails,
             'elements'         => $facebookConfig->getStyleElement(),
         ], 200);
     }
 
-    public function updateEditorSettings($settings = array(), $postId = null)
+    public function updateEditorSettings($settings = [], $postId = null)
     {
         if(defined('WPSOCIALREVIEWS_PRO') && class_exists('\WPSocialReviewsPro\App\Services\TemplateCssHandler')){
             (new \WPSocialReviewsPro\App\Services\TemplateCssHandler())->saveCss($settings, $postId);
@@ -379,45 +438,62 @@ class FacebookFeed extends BaseFeed
         ], 200);
     }
 
-    public function editEditorSettings($settings = array(), $postId = null)
+    public function editEditorSettings($settings = [], $postId = null)
     {
         $styles_config = Arr::get($settings, 'styles_config');
 
         $format_feed_settings = Config::formatFacebookConfig($settings['feed_settings'], array());
         $settings             = $this->getTemplateMeta($format_feed_settings);
         $settings['feed_type'] = Arr::get($settings, 'feed_settings.source_settings.feed_type');
-
         $settings['styles_config'] = $styles_config;
+
+        $global_settings = get_option('wpsr_'.$this->platform.'_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $image_settings = [
+            'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
+            'has_gdpr' => Arr::get($advanceSettings, 'has_gdpr', "false")
+        ];
+        $settings['image_settings'] = $image_settings;
         wp_send_json_success([
             'settings' => $settings,
         ]);
     }
 
-    public function apiConnection($apiSettings)
+    public function apiConnection($apiSettings, $feed_type = null)
     {
-        return $this->getMultipleFeeds($apiSettings);
+        return $this->getMultipleFeeds($apiSettings, $feed_type);
     }
 
-    public function getMultipleFeeds($apiSettings)
+    public function getMultipleFeeds($apiSettings, $feed_type = null)
     {
         $ids = Arr::get($apiSettings, 'selected_accounts');
         $connectedAccounts = $this->getConncetedSourceList();
         $multiple_feeds = [];
+        $errorMessage = '';
+        $multipleAccountsConnected = count($ids) > 1;
         foreach ($ids as $id) {
             if (isset($connectedAccounts[$id])) {
                 $pageInfo = $connectedAccounts[$id];
 
-	            $feedType = Arr::get($apiSettings, 'feed_type');
-				if($feedType == 'event_feed' && !Arr::get($pageInfo, 'is_event_enabled', false)) {
-					return ['error_message' => __('You have no access to this page events.', 'wp-social-reviews' )];
-				}
+                $feedType = Arr::get($apiSettings, 'feed_type');
+                if($feedType == 'event_feed' && !Arr::get($pageInfo, 'is_event_enabled', false)) {
+                    return ['error_message' => __('You have no access to this page events.', 'wp-social-reviews' )];
+                }
 
                 if ($pageInfo['type'] === 'page') {
-                    $feed = $this->getPageFeed($pageInfo, $apiSettings);
+                    $feed = $this->getPageFeed($pageInfo, $apiSettings, null, $feed_type);
                     if(isset($feed['error_message'])) {
                         return $feed;
                     }
                     $multiple_feeds[] = $feed;
+                }
+            } else {
+                $base_error_message = __('The account ID(%s) associated with your configuration settings has been deleted. To view your feed from this account, please reauthorize and reconnect it.', 'wp-social-reviews');
+                if ($multipleAccountsConnected) {
+                    $errorMessage = __('There are multiple accounts being used on this template. ', 'wp-social-reviews') . sprintf($base_error_message, $id);
+                } else {
+                    $errorMessage = sprintf($base_error_message, $id);
                 }
             }
         }
@@ -430,7 +506,13 @@ class FacebookFeed extends BaseFeed
                 }
             }
         }
-        return $fb_feeds;
+
+        return array_filter([
+            'items' => $fb_feeds,
+            'error_message' => $errorMessage
+        ], function($value) {
+            return $value !== '' && $value !== null;
+        });
     }
 
     public function getAccountId($connectedSources, $pageId)
@@ -444,11 +526,15 @@ class FacebookFeed extends BaseFeed
         }
     }
 
-    public function getPageFeed($page, $apiSettings, $cache = false)
+    public function getPageFeed($page, $apiSettings, $cache = false, $desireFeedType = null)
     {
         $accessToken    = $this->protector->decrypt($page['access_token']) ? $this->protector->decrypt($page['access_token']) : $page['access_token'];
         $pageId         = $page['page_id'];
-        $feedType       = Arr::get($apiSettings, 'feed_type');
+        if($desireFeedType){
+            $feedType       = $desireFeedType;
+        }else{
+            $feedType       = Arr::get($apiSettings, 'feed_type');
+        }
 
         $totalFeed      = Arr::get($apiSettings, 'feed_count');
         $totalFeed      = !defined('WPSOCIALREVIEWS_PRO') && $totalFeed > 50 ? 50 : $totalFeed;
@@ -506,8 +592,8 @@ class FacebookFeed extends BaseFeed
         if(!$cache) {
             $feeds = $this->cacheHandler->getFeedCache($pageCacheName);
         }
-        $fetchUrl = '';
 
+        $fetchUrl = '';
         $has_has_critical_error = Arr::get($page, 'has_critical_error');
 
         if(!$feeds && !$has_has_critical_error) {
@@ -557,7 +643,7 @@ class FacebookFeed extends BaseFeed
                 }
 
                 if(Arr::get($pages_response_data, 'error.code') && (new PlatformData($this->platform))->isAppPermissionError($pages_response_data)){
-                   do_action( 'wpsocialreviews/facebook_feed_app_permission_revoked' );
+                    do_action( 'wpsocialreviews/facebook_feed_app_permission_revoked' );
                 }
 
                 $errorMessage = $this->getErrorMessage($pages_data);
@@ -565,6 +651,7 @@ class FacebookFeed extends BaseFeed
             }
 
             if(Arr::get($pages_data, 'response.code') === 200) {
+
                 $page_feeds = json_decode(wp_remote_retrieve_body($pages_data), true);
 
                 if(isset($page_feeds['paging']) && $pages > 1) {
@@ -580,6 +667,13 @@ class FacebookFeed extends BaseFeed
                     $this->cacheHandler->createCache($pageCacheName, $feeds);
                 }
             }
+        }
+
+        if(!empty($feeds) && is_array($feeds)){
+            foreach ($feeds as &$feed) {
+                $feed['page_id'] = $pageId;
+            }
+            unset($feed);
         }
 
         if(!$feeds || empty($feeds)) {
@@ -623,7 +717,7 @@ class FacebookFeed extends BaseFeed
         if (isset($connectedAccounts[$account])) {
             $pageInfo = $connectedAccounts[$account];
             if ($pageInfo['type'] === 'page') {
-               $pageDetails  = $this->getPageDetails($pageInfo, false);
+                $pageDetails  = $this->getPageDetails($pageInfo, false);
             }
         }
         return $pageDetails;
@@ -643,16 +737,17 @@ class FacebookFeed extends BaseFeed
         }
 
         if(empty($accountData) || $cacheFetch) {
-            $fetchUrl = $this->remoteFetchUrl . $pageId . '?fields=id,name,picture.height(150).width(150),fan_count,description,about,link,cover&access_token=' . $accessToken;
+            $fetchUrl = $this->remoteFetchUrl . $pageId . '?fields=id,name,picture.height(150).width(150),fan_count,followers_count,description,about,link,cover&access_token=' . $accessToken;
             $accountData = wp_remote_get($fetchUrl);
 
-            if(is_wp_error($accountData)) {
-                return ['error_message' => $accountData->get_error_message()];
-            }
+//            if(is_wp_error($accountData)) {
+//                return ['error_message' => $accountData->get_error_message()];
+//            }
 
             if(Arr::get($accountData, 'response.code') !== 200) {
-                $errorMessage = $this->getErrorMessage($accountData);
-                return ['error_message' => $errorMessage];
+                $accountData = json_decode(wp_remote_retrieve_body($accountData), true);
+//                $errorMessage = $this->getErrorMessage($accountData);
+//                return ['error_message' => $errorMessage];
             }
 
             if(Arr::get($accountData, 'response.code') === 200) {
@@ -661,7 +756,6 @@ class FacebookFeed extends BaseFeed
                 $this->cacheHandler->createCache($accountCacheName, $accountData);
             }
         }
-
         return $accountData;
     }
 
@@ -671,11 +765,11 @@ class FacebookFeed extends BaseFeed
 
         $message = Arr::get($response, 'response.message');
         if (Arr::get($userProfileErrors, 'error')) {
-			if(Arr::get($userProfileErrors, 'error.message')) {
-				$error = Arr::get($userProfileErrors, 'error.message');
-			}else {
-				$error = Arr::get( $userProfileErrors, 'error.error_user_msg', '' );
-			}
+            if(Arr::get($userProfileErrors, 'error.message')) {
+                $error = Arr::get($userProfileErrors, 'error.message');
+            }else {
+                $error = Arr::get( $userProfileErrors, 'error.error_user_msg', '' );
+            }
         } else if (Arr::get($response, 'response.error')) {
             $error = Arr::get($response, 'response.error.message');
         } else if ($message) {
@@ -740,21 +834,23 @@ class FacebookFeed extends BaseFeed
             $feedTypes = ['timeline_feed', 'video_feed', 'photo_feed', 'event_feed', 'album_feed'];
             $connectedSources = $this->getConncetedSourceList();
             if(in_array($feed_type, $feedTypes)) {
-                  if(isset($connectedSources[$sourceId])) {
-                      $page = $connectedSources[$sourceId];
-                      $apiSettings['feed_type'] = $feed_type;
-                      $apiSettings['feed_count'] = $total;
-                      $this->getPageFeed($page, $apiSettings, true);
-                  }
+                if(isset($connectedSources[$sourceId])) {
+                    $page = $connectedSources[$sourceId];
+                    $apiSettings['feed_type'] = $feed_type;
+                    $apiSettings['feed_count'] = $total;
+                    $this->getPageFeed($page, $apiSettings, true);
+                }
             }
 
             $accountIdPosition = strpos($optionName, '_account_header_');
             $accountId = substr($optionName, $accountIdPosition + strlen('_account_header_'), strlen($optionName));
             if(!empty($accountId)) {
-              if(isset($connectedSources[$accountId])) {
-                  $page = $connectedSources[$accountId];
-                  $this->getPageDetails($page, true);
-              }
+                if(isset($connectedSources[$accountId])) {
+                    $page = $connectedSources[$accountId];
+                    $page_header_response = $this->getPageDetails($page, true);
+                    $connectedSources = $this->addPlatformApiErrors($page_header_response, $connectedSources, $page);
+                    update_option('wpsr_facebook_feed_connected_sources_config', array('sources' => $connectedSources));
+                }
             }
         }
     }
@@ -788,10 +884,23 @@ class FacebookFeed extends BaseFeed
         }
         $connectedAccounts[$pageId]['status'] = 'error';
 
+        $accountDetails['user_id'] = $pageId;
+        $accountDetails['username'] = $pageId;
+        $this->errorManager->addError('api', $response, $accountDetails);
+
         if(in_array( $responseErrorCode, $critical_codes, true )){
             delete_option('wpsr_facebook_feed_authorized_sources');
         }
 
         return $connectedAccounts;
+    }
+
+    public function maybeSendFeedIssueEmail()
+    {
+        if( !$this->errorManager->hasCriticalError($this->platform) ){
+            return;
+        }
+
+        $this->platfromData->sendScheduleEmailReport();
     }
 }

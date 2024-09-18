@@ -98,7 +98,7 @@
 					if( d.sHideDownload ) a.push( 'controlsList="nodownload"' );
                     a.push( 'preload="'+esc( d.sPreload )+'"' );
 
-                    return '<'+t+' '+a.join(' ')+' style="'+s.join(' ')+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
+                    return '<'+t+' '+a.join(' ')+' cff_style="'+s.join(' ')+'">'+((String(d.sSrcAlt).trim()) ? '<source src="'+esc(d.sSrcAlt)+'" />' : '')+'<p>'+d.sFallback+'</p></'+t+'>';
                 },
             _display_audio: function()
                 {

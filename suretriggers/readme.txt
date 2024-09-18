@@ -3,7 +3,7 @@ Contributors: sujaypawar, wpcrafter
 Tags: automation, google sheets, webhooks, schedule, SureCart
 Requires at least: 5.4
 Tested up to: 6.6
-Stable tag: 1.0.59
+Stable tag: 1.0.60
 Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -326,6 +326,11 @@ Yes, if you have apps that are not yet integrated with SureTriggers, please subm
 4. Dashboard of your task consumption.
 
 == Changelog ==
+
+= Version 1.0.60 - Wednesday, 18th September 2024 =
+* Improvement: "WordPress" - Added support for taxonomy and featured images in "Create/Update Post" Action
+* Improvement: "WooCommerce Subscriptions" - Added new Actions
+* Improvement: "Voxel" - Added status field support for "Update Post" Action
 
 = Version 1.0.59 - Thursday, 5th September 2024 =
 * Improvement: "BuddyBoss" - Added new Triggers

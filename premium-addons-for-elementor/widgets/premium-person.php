@@ -74,6 +74,7 @@ class Premium_Person extends Widget_Base {
 	 */
 	public function get_style_depends() {
 		return array(
+            'font-awesome-5-all',
 			'pa-slick',
 			'premium-addons',
 		);
@@ -1077,7 +1078,7 @@ class Premium_Person extends Widget_Base {
 		$this->start_controls_section(
 			'section_pa_docs',
 			array(
-				'label' => __( 'Helpful Documentations', 'premium-addons-for-elementor' ),
+				'label' => __( 'Help & Docs', 'premium-addons-for-elementor' ),
 			)
 		);
 
@@ -1853,18 +1854,18 @@ class Premium_Person extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		$social_sites = array(
-			'facebook'  => 'fa fa-facebook-f',
-			'twitter'   => 'fa fa-twitter',
-			'linkedin'  => 'fa fa-linkedin',
-			'google'    => 'fa fa-google-plus',
-			'youtube'   => 'fa fa-youtube',
-			'instagram' => 'fa fa-instagram',
-			'skype'     => 'fa fa-skype',
-			'pinterest' => 'fa fa-pinterest',
-			'dribbble'  => 'fa fa-dribbble',
-			'behance'   => 'fa fa-behance',
-			'whatsapp'  => 'fa fa-whatsapp',
-			'telegram'  => 'fa fa-telegram',
+			'facebook'  => 'fab fa-facebook-f',
+			'twitter'   => 'fab fa-twitter',
+			'linkedin'  => 'fab fa-linkedin',
+			'google'    => 'fab fa-google-plus',
+			'youtube'   => 'fab fa-youtube',
+			'instagram' => 'fab fa-instagram',
+			'skype'     => 'fab fa-skype',
+			'pinterest' => 'fab fa-pinterest',
+			'dribbble'  => 'fab fa-dribbble',
+			'behance'   => 'fab fa-behance',
+			'whatsapp'  => 'fab fa-whatsapp',
+			'telegram'  => 'fab fa-telegram',
 			'mail'      => 'fa fa-envelope',
 			'site'      => 'fa fa-link',
 			'number'    => 'fa fa-phone',
@@ -2177,51 +2178,51 @@ class Premium_Person extends Widget_Base {
 			#>
 			<ul class="premium-person-social-list">
 				<# if( '' != socialIcons.facebook ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-facebook"><a href="{{ socialIcons.facebook }}" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-facebook"><a href="{{ socialIcons.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.twitter ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-twitter"><a href="{{ socialIcons.twitter }}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-twitter"><a href="{{ socialIcons.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.linkedin ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-linkedin"><a href="{{ socialIcons.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-linkedin"><a href="{{ socialIcons.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.google ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-google"><a href="{{ socialIcons.google }}" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-google"><a href="{{ socialIcons.google }}" target="_blank"><i class="fab fa-google-plus"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.youtube ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-youtube"><a href="{{ socialIcons.youtube }}" target="_blank"><i class="fa fa-youtube"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-youtube"><a href="{{ socialIcons.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.instagram ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-instagram"><a href="{{ socialIcons.instagram }}" target="_blank"><i class="fa fa-instagram"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-instagram"><a href="{{ socialIcons.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.skype ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-skype"><a href="{{ socialIcons.skype }}" target="_blank"><i class="fa fa-skype"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-skype"><a href="{{ socialIcons.skype }}" target="_blank"><i class="fab fa-skype"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.pinterest ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-pinterest"><a href="{{ socialIcons.pinterest }}" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-pinterest"><a href="{{ socialIcons.pinterest }}" target="_blank"><i class="fab fa-pinterest"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.dribbble ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-dribbble"><a href="{{ socialIcons.dribbble }}" target="_blank"><i class="fa fa-dribbble"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-dribbble"><a href="{{ socialIcons.dribbble }}" target="_blank"><i class="fab fa-dribbble"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.behance ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-behance"><a href="{{ socialIcons.behance }}" target="_blank"><i class="fa fa-behance"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-behance"><a href="{{ socialIcons.behance }}" target="_blank"><i class="fab fa-behance"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.whatsapp ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-whatsapp"><a href="{{ socialIcons.whatsapp }}" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-whatsapp"><a href="{{ socialIcons.whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.telegram ) { #>
-					<li class="elementor-icon premium-person-list-item premium-person-telegram"><a href="{{ socialIcons.mail }}" target="_blank"><i class="fa fa-telegram"></i></a></li>
+					<li class="elementor-icon premium-person-list-item premium-person-telegram"><a href="{{ socialIcons.mail }}" target="_blank"><i class="fab fa-telegram"></i></a></li>
 				<# } #>
 
 				<# if( '' != socialIcons.mail ) { #>

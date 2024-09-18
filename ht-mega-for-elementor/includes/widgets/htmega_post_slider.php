@@ -202,9 +202,20 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
                     'type'          => Controls_Manager::SWITCHER,
                     'return_value'  => 'yes',
                     'default'       => 'no',
+
+                ]
+            );
+            $this->add_control(
+                'hide_current_post',
+                [
+                    'label'         => esc_html__( 'Hide Current Post', 'htmega-addons' ),
+                    'type'          => Controls_Manager::SWITCHER,
+                    'return_value'  => 'yes',
+                    'default'       => 'no',
                     'separator'     =>'after',
                 ]
             );
+
             $this->add_control(
                 'slider_on',
                 [
@@ -2138,7 +2149,10 @@ class HTMega_Elementor_Widget_Post_Slider extends Widget_Base {
                 ],
             ];
         }
-
+        // hide current post
+        if ( 'yes' === $settings['hide_current_post'] && is_singular() ) {
+            $args['post__not_in'] = [get_the_ID()];
+        }
 
         $slider_post = new \WP_Query( $args );
 

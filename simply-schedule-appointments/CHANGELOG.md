@@ -1,5 +1,12 @@
 # Changelog
 
+## SSA-VERSION-PREFIX.6.7.50 - 2024-09-10
+
+### Fixes
+
+- Fixes around cancellation and rescheduling notes
+- Prevent assigning Team Member outside of availability
+
 ## SSA-VERSION-PREFIX.6.7.45 - 2024-08-27
 
 ### Fixes

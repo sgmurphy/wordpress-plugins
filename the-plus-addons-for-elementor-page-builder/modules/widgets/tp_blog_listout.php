@@ -1807,7 +1807,7 @@ class L_ThePlus_Blog_ListOut extends Widget_Base {
 			$animated_class = '';
 			$animation_attr = '';
 		} else {
-			$animate_offset  = l_theplus_scroll_animation();
+			$animate_offset  = '85%';
 			$animated_class  = 'animate-general';
 			$animation_attr  = ' data-animate-type="' . esc_attr( $ani_effect ) . '" data-animate-delay="' . esc_attr( $ani_delay ) . '"';
 			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';

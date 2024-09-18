@@ -45,43 +45,47 @@
                         function()
                             {
                                 var e = $(this), f = e.closest('form'), fid = me.form_identifier;
-                                if(e.hasClass('calculate-button'))
+                                if( me.sType == 'calculate' )
                                 {
-                                    var items = $.fbuilder['forms'][fid].getItems();
+									let aux = function(){
+										var items = $.fbuilder['forms'][fid].getItems();
+										$(document).on('equationsQueueEmpty', function(evt, id){
+											if(id == fid)
+											{
+												if(me.sLoading) f.find('.cff-processing-form').remove();
+												$(document).off('equationsQueueEmpty');
+												for(var i = 0, h = items.length; i < h; i++)
+												{
+													if(items[i].ftype == 'fsummary')
+													{
+														items[i].update();
+													}
+												}
+											}
+										});
+
+										$.fbuilder['calculator'].defaultCalc('#'+e.closest('form').attr('id'), false, true);
+									};
 									if(me.sLoading)
 									{
 										f.find('.cff-processing-form').remove();
-										$('<div class="cff-processing-form"></div>').appendTo(e.closest('#fbuilder'));
+										$('<div class="cff-processing-form"></div>').prependTo(e.closest('#fbuilder'));
+										setTimeout( aux, 50 );
+									} else {
+										aux();
 									}
-									$(document).on('equationsQueueEmpty', function(evt, id){
-										if(id == fid)
-										{
-											if(me.sLoading) f.find('.cff-processing-form').remove();
-											$(document).off('equationsQueueEmpty');
-											for(var i = 0, h = items.length; i < h; i++)
-											{
-												if(items[i].ftype == 'fsummary')
-												{
-													items[i].update();
-												}
-											}
-										}
-									});
-
-                                    $.fbuilder['calculator'].defaultCalc('#'+e.closest('form').attr('id'), false, true);
                                 }
-								if(e.hasClass('reset-button')) {
+								else if( me.sType == 'reset' ) {
 									RESETFORM(e[0].form);
-									setTimeout(function(){ eval(me.sOnclick); }, 55)
+									setTimeout(function(){ eval(me.sOnclick); }, 55);
 								} else {
 									eval(me.sOnclick);
+									if(me.sType == 'print')
+									{
+										fbuilderjQuery.fbuilder.currentFormId = f.attr('id');
+										PRINTFORM(me.sMultipage);
+									}
 								}
-
-                                if(me.sType == 'print')
-                                {
-                                    fbuilderjQuery.fbuilder.currentFormId = f.attr('id');
-                                    PRINTFORM(me.sMultipage);
-                                }
                             }
                   );
                 }

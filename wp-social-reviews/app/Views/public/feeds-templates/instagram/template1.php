@@ -4,7 +4,7 @@ use WPSocialReviews\Framework\Support\Arr;
 if (!empty($feeds) && is_array($feeds)) {
     $layout_type = isset($template_meta['layout_type']) && defined('WPSOCIALREVIEWS_PRO') ? $template_meta['layout_type'] : 'grid';
     foreach ($feeds as $index => $feed) {
-        if ($index >= $sinceId && $index <= $maxId && (isset($feed['media_url']) || isset($feed['children']))) {
+        if ($index >= $sinceId && $index <= $maxId && (isset($feed['media_url']) || isset($feed['default_media']) || isset($feed['children']))) {
                 $feedLink = Arr::get($feed, 'shoppable_options.show_shoppable') ? Arr::get($feed, 'shoppable_options.url_settings.url', '') : Arr::get($feed,'permalink', '');
                 $target = (Arr::get($template_meta, 'post_settings.display_mode', '') === 'instagram') ? '_blank' : '';
                 if(Arr::get($feed, 'shoppable_options')) {

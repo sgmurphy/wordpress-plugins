@@ -805,7 +805,7 @@ class Config
                     ),
                 ),
                 'platform' => array(
-                    'selector' => $prefix.' .wpsr-review-platform span',
+                    'selector' => $prefix.' .wpsr-all-reviews .wpsr-review-template .wpsr-review-platform span',
                     'color'  => array(
                         'text_color' => Arr::get($settings,'styles.platform.color.text_color', ''),
                         'background_color' => Arr::get($settings,'styles.platform.color.background_color', ''),

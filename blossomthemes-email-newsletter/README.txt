@@ -3,9 +3,9 @@ Contributors: BlossomThemes
 Donate link: https://blossomthemes.com
 Tags: subscribe, newsletter, email
 Requires at least: 4.3
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.2.7
+Stable tag: 2.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,8 +47,14 @@ Once installed, the plugin page will appear on the Admin dashboard.
 
 == Changelog ==
 
-= 2.2.7 =
+= 2.2.8 =
+Released on: 18th September, 2024
 
+Fixes:
+* Fixed mailerlite submission not working.
+* Fixed other minor issues.
+
+= 2.2.7 =
 Released on: 7th June, 2024
 
 Fixes:

@@ -1305,7 +1305,10 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                 ],
             ];
         }
-
+        // hide current post
+        if ( 'yes' === $settings['hide_current_post'] && is_singular() ) {
+            $args['post__not_in'] = [get_the_ID()];
+        }
         $grid_post = new \WP_Query( $args );
 
         $tabs_options = [];
@@ -1397,7 +1400,7 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
 
                         <div class="post-gridthumb-<?php echo esc_attr( $id ); ?> post-grid htb-order-<?php echo esc_attr( $countrow ); echo ' '.esc_attr( $item_class ); ?>">
                             <div class="thumb">
-                                <a href="<?php the_permalink();?>">
+                                <a href="<?php the_permalink(); ?>">
                                     <?php 
                                         if ( has_post_thumbnail() ){
                                             the_post_thumbnail(); 
@@ -1761,9 +1764,19 @@ class HTMega_Elementor_Widget_Post_Grid_Tab extends Widget_Base {
                 'type'          => Controls_Manager::SWITCHER,
                 'return_value'  => 'yes',
                 'default'       => 'no',
+            ]
+        );
+        $this->add_control(
+            'hide_current_post',
+            [
+                'label'         => esc_html__( 'Hide Current Post', 'htmega-addons' ),
+                'type'          => Controls_Manager::SWITCHER,
+                'return_value'  => 'yes',
+                'default'       => 'no',
                 'separator'     =>'after',
             ]
         );
+
     }
 }
 

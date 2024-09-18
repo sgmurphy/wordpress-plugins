@@ -43,10 +43,8 @@ class Module {
 	 */
 	public function __construct() {
 
-		$modules = Admin_Helper::get_enabled_elements();
-
 		// Checks if Floating Effects is enabled.
-		$floating_effect = $modules['premium-floating-effects'];
+		$floating_effect = Admin_Helper::check_element_by_key( 'premium-floating-effects' );
 
 		if ( ! $floating_effect ) {
 			return;

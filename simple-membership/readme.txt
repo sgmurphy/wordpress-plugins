@@ -5,7 +5,7 @@ Tags: member, members, members only, membership, memberships, register, WordPres
 Requires at least: 5.0
 Requires PHP: 7.4
 Tested up to: 6.6
-Stable tag: 4.5.3
+Stable tag: 4.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -173,6 +173,19 @@ Please visit the membership plugin page to view screenshots:
 https://simple-membership-plugin.com/
 
 == Changelog ==
+
+= 4.5.4 =
+- Subscriptions can be canceled from the transaction details page of a 'subscription created' transaction (supported for the New PayPal PPCP API and Stripe subscriptions).
+- New settings to send notification email on subscription payment canceled or expired event.
+- The subscription agreement tranaction record's status will get updated when the subscriptions is canceled.
+- Added Typecasting to the transaction ID variable for the PayPal IPN handling process.
+- The PayPal standard subscriptions will also save a 'subscription created' entry in the payments menu for new subscriptions.
+- The transaction type will also be stored in the transactions table, allowing for future filtering of transactions based on type.
+- Canceled subscription status will now be shown in the 'subscription created' transaction details page.
+- The 'redirect_to' parameter on the login page is now processed through the 'wp_validate_redirect' function.
+- The 'get_user_ip_address' function has been updated to make it more robust.
+- Query updated of the 'get_incomplete_paid_member_info_by_ip' function.
+- Added a new utility function 'get_user_by_ip_address'.
 
 = 4.5.3 =
 - The 'Reset Debug Log Files' option now utilizes AJAX for improved user experience and smoother functionality.

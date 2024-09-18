@@ -352,7 +352,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'description' => theplus_pro_ver_notice(),
 				'classes'     => 'plus-pro-version',
 				'condition'   => array(
-					'style!' => array( 'style-1','style-3' ),
+					'style!' => array( 'style-1', 'style-3' ),
 				),
 			)
 		);
@@ -471,7 +471,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'default'     => '',
 				'multiple'    => true,
 				'label_block' => true,
-				'options'     => l_theplus_get_team_member_categories(),
+				'options'     => $this->tpae_get_categories(),
 				'separator'   => 'before',
 			)
 		);
@@ -813,7 +813,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 				'label'     => esc_html__( 'Social Icon', 'tpebl' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
-					'style'               => array( 'style-1','style-3' ),
+					'style'               => array( 'style-1', 'style-3' ),
 					'display_social_icon' => 'yes',
 				),
 			)
@@ -1611,7 +1611,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$layout     = ! empty( $settings['layout'] ) ? $settings['layout'] : '';
 
 		$team_name     = l_theplus_team_member_post_name();
-		$team_taxonomy = l_theplus_team_member_post_category();
+		$team_taxonomy = $this->tpae_get_post_cat();
 
 		$display_thumbnail = ! empty( $settings['display_thumbnail'] ) ? $settings['display_thumbnail'] : '';
 
@@ -1645,7 +1645,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 			$animated_class = '';
 			$animation_attr = '';
 		} else {
-			$animate_offset  = l_theplus_scroll_animation();
+			$animate_offset  = '85%';
 			$animated_class  = 'animate-general';
 			$animation_attr  = ' data-animate-type="' . esc_attr( $animation_effects ) . '" data-animate-delay="' . esc_attr( $animation_delay ) . '"';
 			$animation_attr .= ' data-animate-offset="' . esc_attr( $animate_offset ) . '"';
@@ -1745,7 +1745,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		} elseif ( ! $query->have_posts() ) {
 			$output .= '<h3 class="theplus-posts-not-found">' . esc_html__( 'Posts not found', 'tpebl' ) . '</h3>';
 		} elseif ( 'style-1' === $style || 'style-3' === $style && 'carousel' !== $layout ) {
-			
+
 			$output .= '<div id="theplus-team-member-list" class="team-member-list ' . esc_attr( $uid ) . ' ' . esc_attr( $data_class ) . ' ' . $animated_class . '" ' . $layout_attr . ' ' . $data_attr . ' ' . $animation_attr . ' data-enable-isotope="1">';
 
 			$member_urlblank    = '';
@@ -1801,7 +1801,7 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		$settings  = $this->get_settings_for_display();
 		$team_name = l_theplus_team_member_post_name();
 
-		$team_taxonomy = l_theplus_team_member_post_category();
+		$team_taxonomy = $this->tpae_get_post_cat();
 
 		$terms = get_terms(
 			array(
@@ -1984,5 +1984,76 @@ class L_ThePlus_Team_Member_ListOut extends Widget_Base {
 		}
 
 		return $team_social_contnet;
+	}
+
+	/**
+	 * Get Team-Member-categories
+	 *
+	 * @since 5.6.9
+	 */
+	public function tpae_get_categories() {
+
+		$teams = $this->tpae_get_post_cat();
+
+		if ( ! empty( $teams ) ) {
+			$categories = get_categories(
+				array(
+					'taxonomy'   => $teams,
+					'hide_empty' => 0,
+				)
+			);
+
+			if ( empty( $categories ) || ! is_array( $categories ) ) {
+				return array();
+			}
+		}
+
+		return wp_list_pluck( $categories, 'name', 'term_id' );
+	}
+
+	/**
+	 * Get Team-Member-post
+	 *
+	 * @since 5.6.9
+	 */
+	public function tpae_get_post_cat() {
+		$post_type_options = get_option( 'post_type_options' );
+		$team_post_type    = ! empty( $post_type_options['team_member_post_type'] ) ? $post_type_options['team_member_post_type'] : '';
+
+		$taxonomy_name = 'theplus_team_member_cat';
+		if ( isset( $team_post_type ) && ! empty( $team_post_type ) ) {
+			if ( 'themes' === $team_post_type ) {
+				$taxonomy_name = $this->tpae_get_options( 'team_member_category_name' );
+			} elseif ( 'plugin' === $team_post_type ) {
+				$get_name = $this->tpae_get_options( 'team_member_category_plugin_name' );
+				if ( isset( $get_name ) && ! empty( $get_name ) ) {
+					$taxonomy_name = $this->tpae_get_options( 'team_member_category_plugin_name' );
+				}
+			} elseif ( 'themes_pro' === $team_post_type ) {
+				$taxonomy_name = 'team_member_category';
+			}
+		} else {
+			$taxonomy_name = 'theplus_team_member_cat';
+		}
+
+		return $taxonomy_name;
+	}
+
+	/**
+	 * Get tp options
+	 *
+	 * @since 5.6.9
+	 *
+	 * @param string $field use for get type.
+	 */
+	public function tpae_get_options( $field ) {
+
+		$post_type_options = get_option( 'post_type_options' );
+
+		if ( isset( $post_type_options[ $field ] ) && ! empty( $post_type_options[ $field ] ) ) {
+			return $post_type_options[ $field ];
+		}
+
+		return '';
 	}
 }

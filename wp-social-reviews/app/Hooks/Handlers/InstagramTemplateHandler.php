@@ -4,8 +4,8 @@ namespace WPSocialReviews\App\Hooks\Handlers;
 
 use WPSocialReviews\Framework\Foundation\App;
 use WPSocialReviews\Framework\Support\Arr;
-use WPSocialReviews\app\Services\Platforms\ImageOptimizationHandler;
-
+use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
+use WPSocialReviews\App\Services\Helper as GlobalHelper;
 class InstagramTemplateHandler
 {
     /**
@@ -17,6 +17,7 @@ class InstagramTemplateHandler
      * @since 3.7.0
      *
      **/
+
     public function renderTemplateItemWrapper($template_meta = []){
         $app = App::getInstance();
 
@@ -45,6 +46,8 @@ class InstagramTemplateHandler
         $media_type = Arr::get($feed, 'media_type', '');
         $thumbnail_url = ($media_type === 'VIDEO') ? Arr::get($feed, 'thumbnail_url', '') : '';
         $media_url = Arr::get($feed, 'media_url', '');
+        $layout_type = Arr::get($template_meta, 'layout_type', '');
+        $default_media = Arr::get($feed, 'default_media', '');
 
         $app = App::getInstance();
         $app->view->render('public.feeds-templates.instagram.elements.media', [
@@ -53,8 +56,10 @@ class InstagramTemplateHandler
             'media_type'    => $media_type,
             'media_url'     => $media_url,
             'thumbnail_url' => $thumbnail_url,
+            'default_media' => $default_media,
             'media_name'    => Arr::get($feed, 'media_name', ''),
             'placeholder_img_class' => (!str_contains($media_url, 'placeholder') ? 'wpsr-show' : 'wpsr-hide'),
+            'animation_img_class' => ((str_contains($media_url, 'placeholder') && $media_url) || $layout_type === 'carousel') ? 'wpsr-animated-background' : '',
             'index'         => $index
         ]);
     }
@@ -128,7 +133,7 @@ class InstagramTemplateHandler
             return $userAvatar;
         }
 
-        $localAvatar = Arr::get($header, 'local_avatar');
+        $localAvatar = Arr::get($header, 'user_avatar');
         if(!empty($localAvatar) && Arr::get($globalSettings, 'global_settings.optimized_images') === 'true') {
             return $localAvatar;
         }
@@ -137,14 +142,15 @@ class InstagramTemplateHandler
             //download file
             $avatar = Arr::get($header, 'user_avatar');
             $accountId = Arr::get($header, 'account_id');
+            $isLocalUrl = GlobalHelper::isLocalUrl($avatar);
 
-            if(!empty($avatar)) {
-                $imageOptimizationObj =  new ImageOptimizationHandler();
-                $created = $imageOptimizationObj->createLocalAvatar($accountId, $avatar);
-                $imageOptimizationObj->updateLocalAvatarStatus($accountId, $created);
+            if(!empty($avatar) && !$isLocalUrl) {
+                $imageOptimizationObj =  new ImageOptimizationHandler('instagram');
+                $created = $imageOptimizationObj->createLocalHeader($accountId, $avatar, '');
+                $imageOptimizationObj->updateLocalHeaderStatus($accountId, $created);
 
                 if ($created) {
-                    return $imageOptimizationObj->getLocalAvatarUrl($accountId);
+                    return $imageOptimizationObj->getLocalHeaderUrl($accountId);
                 }
             }
         }

@@ -265,7 +265,7 @@ class Config
         $accounts    = InstagramHelper::getUserAccounts($settings);
         $displayMode = Arr::get($settings, 'post_settings.display_mode', 'instagram');
         if (!defined('WPSOCIALREVIEWS_PRO')) {
-            $displayMode = (Arr::get($settings,'post_settings.display_mode') && $settings['post_settings']['display_mode'] === 'none') ? 'none' : 'instagram';
+            $displayMode = ($displayMode === 'popup') ? 'instagram' : $displayMode;
         }
 
         return array(
@@ -293,6 +293,7 @@ class Config
                     'autoplay'         => Arr::get($settings,'carousel_settings.autoplay', 'true'),
                     'autoplay_speed'   => (int) Arr::get($settings,'carousel_settings.autoplay_speed', 3000),
                     'slides_to_show'   => (int) Arr::get($settings,'carousel_settings.slides_to_show', 3),
+                    'spaceBetween'     => (int) Arr::get($settings,'carousel_settings.spaceBetween', 20),
                     'responsive_slides_to_show'  => array(
 	                    'desktop'  => (int)Arr::get($settings, 'carousel_settings.responsive_slides_to_show.desktop', Arr::get($settings, 'carousel_settings.slides_to_show', 3)),
 	                    'tablet'   => (int)Arr::get($settings, 'carousel_settings.responsive_slides_to_show.tablet',2),
@@ -426,6 +427,7 @@ class Config
                     'date_range_end_relative'   => Arr::get($settings,'filters.date_range_end_relative', ''),
                 ),
                 'post_settings' => array(
+                    'resolution'              => Arr::get($settings,'post_settings.resolution', 'full'),
                     'display_mode'            => Arr::get($settings,'post_settings.display_mode', 'facebook'),
                     'display_author_photo'    => Arr::get($settings,'post_settings.display_author_photo', 'true'),
 					'display_event_photo'     => Arr::get($settings,'post_settings.display_event_photo', 'true'),
@@ -453,6 +455,7 @@ class Config
                     'display_page_name'          => Arr::get($settings,'header_settings.display_page_name', 'true'),
                     'display_description'        => Arr::get($settings,'header_settings.display_description', 'true'),
                     'display_likes_counter'      => Arr::get($settings,'header_settings.display_likes_counter', 'true'),
+                    'display_followers_count'    => Arr::get($settings,'header_settings.display_followers_count', 'true'),
                 ),
                 'carousel_settings' => array(
                     'autoplay'         => Arr::get($settings,'carousel_settings.autoplay', 'true'),

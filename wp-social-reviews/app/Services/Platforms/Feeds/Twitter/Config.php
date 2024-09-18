@@ -915,10 +915,6 @@ class Config
     {
         $allMedia = Arr::get($feed, 'extended_entities.media', []);
 
-//        if(!empty($allMedia)) {
-//            error_log(print_r($allMedia, true));
-//        }
-
         $medias = [];
         foreach($allMedia as $media) {
             $medias[] = [

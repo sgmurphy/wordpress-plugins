@@ -42,7 +42,7 @@ class Ssl {
 	}
 
 	/**
-	 * Enable the ssl when the siteurl is changed.
+	 * Enable the SSL when the siteurl is changed.
 	 *
 	 * @since  5.3.1
 	 *
@@ -60,7 +60,7 @@ class Ssl {
 	}
 
 	/**
-	 * Check if the current domain has valid ssl certificate.
+	 * Check if the current domain has valid SSL certificate.
 	 *
 	 * @since  5.0.0
 	 *
@@ -91,8 +91,8 @@ class Ssl {
 			)
 		);
 
-		// Parse the url.
-		$parse_url = parse_url( $site_url, PHP_URL_HOST );
+		// Parse the URL.
+		$parse_url = wp_parse_url( $site_url, PHP_URL_HOST );
 
 		// Create the stream socket client.
 		$read = @stream_socket_client(
@@ -116,7 +116,7 @@ class Ssl {
 	}
 
 	/**
-	 * Disable the ssl.
+	 * Disable the SSL.
 	 *
 	 * @since  5.0.0
 	 *
@@ -152,7 +152,7 @@ class Ssl {
 	}
 
 	/**
-	 * Enable the ssl.
+	 * Enable the SSL.
 	 *
 	 * @since  5.0.0
 	 *
@@ -175,7 +175,7 @@ class Ssl {
 
 		// Add rule to htaccess for single sites.
 		if ( ! is_multisite() ) {
-			$parsed = parse_url( get_option( 'siteurl' ) );
+			$parsed = wp_parse_url( get_option( 'siteurl' ) );
 
 			if ( @strpos( $parsed['host'], 'www.' ) === 0 ) {
 				$replacements['replace'] = "RewriteCond %{HTTP_HOST} !^www\. [NC]\n    RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]";
@@ -203,11 +203,11 @@ class Ssl {
 	}
 
 	/**
-	 * Chnage the url protocol.
+	 * Change the URL protocol.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param bool $ssl Whether to switch to https or not.
+	 * @param bool $ssl Whether to switch to HTTPS or not.
 	 *
 	 * @return bool     The result.
 	 */
@@ -241,7 +241,7 @@ class Ssl {
 	}
 
 	/**
-	 * Creates an array of insecure links that should be https and an array of secure links to replace with
+	 * Creates an array of insecure links that should be HTTPS and an array of secure links to replace with
 	 *
 	 * @since  3.0.0
 	 * @access public
@@ -274,13 +274,13 @@ class Ssl {
 	 * @return string          Modified content.
 	 */
 	public function replace_insecure_links( $content ) {
-		// Get the url list.
+		// Get the URL list.
 		$urls = $this->get_url_list();
 
 		// now replace these links.
 		$content = str_replace( $urls['search'], $urls['replace'], $content );
 
-		// Replace all http links except hyperlinks
+		// Replace all HTTP links except hyperlinks
 		// All tags with src attr are already fixed by str_replace.
 		$pattern = array(
 			'/url\([\'"]?\K(http:\/\/)(?=[^)]+)/i',

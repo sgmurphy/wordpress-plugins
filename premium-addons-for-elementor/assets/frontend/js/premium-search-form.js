@@ -32,6 +32,7 @@
         }
 
         if ('onpage' === buttonAction) {
+
             $container.on('click', '.premium-search__btn', handleSearch);
 
             $search.on('keyup', function () {
@@ -50,6 +51,7 @@
                 }
 
             });
+
         } else {
             $container.on('click', '.premium-search__btn', function () {
 
@@ -204,15 +206,31 @@
 
                             searchQuery = searchQuery.trim().toLowerCase();
 
-                            // Filter elements that contain the specified text (case-sensitive)
+                            // Filter elements that don't contain the specified text (case-sensitive)
                             var $queriedElems = $textElems.filter(function () {
                                 return $(this).text().toLowerCase().indexOf(searchQuery) == -1;
                             });
 
                             $queriedElems.css('filter', 'blur(3px)');
                             $fadeElems.css('opacity', '0.4');
+
+                            var $matchedElems = $textElems.filter(function () {
+                                return $(this).text().toLowerCase().indexOf(searchQuery) !== -1;
+                            });
+
+                            $matchedElems.map(function (index, textElem) {
+
+                                textElem = $(this).text().toLowerCase();
+
+                                textElem = textElem.replace(new RegExp(searchQuery, 'g'), '<span class="pa-highlighted-text-' + widgetID + '">' + searchQuery + '</span>');
+
+                                $(this).html(textElem);
+                            });
+
                         } else {
                             $textElems.css('filter', 'blur(0px)');
+
+                            $textElems.find('.pa-highlighted-text-' + widgetID).removeClass('pa-highlighted-text-' + widgetID);
                             $fadeElems.css('opacity', '1');
                         }
 

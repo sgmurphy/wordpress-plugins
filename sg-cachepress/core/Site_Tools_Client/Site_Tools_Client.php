@@ -54,7 +54,7 @@ class Site_Tools_Client {
         $flags = ( false === $json_object ) ? 0 : JSON_FORCE_OBJECT;
 
         // Sent the params to the Unix socket.
-        fwrite( $fp, json_encode( $request, $flags ) . "\n" );
+        fwrite( $fp, wp_json_encode( $request, $flags ) . "\n" );
 
         // Fetch the response.
         $response = fgets( $fp, 32 * 1024 );

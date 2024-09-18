@@ -3,8 +3,8 @@ import { p as pure } from './pure-4f52cebf.js';
 import { s as state$2 } from './watchers-7ddfd1b5.js';
 import { o as onChange, s as state$1 } from './mutations-b8f9af9f.js';
 import { o as onChange$1 } from './store-dde63d4d.js';
-import './watchers-6aa4e294.js';
-import { g as getProcessorByType, s as state } from './getters-03bf9a6d.js';
+import './watchers-ecff8a65.js';
+import { g as getProcessorByType, s as state } from './getters-a6a88dc4.js';
 import { c as currentFormState } from './getters-2c9ecd8c.js';
 import { c as createErrorNotice } from './mutations-0a628afa.js';
 import { u as updateFormState } from './mutations-8871d02a.js';
@@ -122,11 +122,13 @@ const ScStripePaymentElement = class {
   }
   /** Update the payment element mode, amount and currency when it changes. */
   createOrUpdateElements() {
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
     // need an order amount, etc.
     if (!((_a = state$1 === null || state$1 === void 0 ? void 0 : state$1.checkout) === null || _a === void 0 ? void 0 : _a.payment_method_required))
       return;
     if (!state.instances.stripe)
+      return;
+    if (((_b = state$1.checkout) === null || _b === void 0 ? void 0 : _b.status) && ['paid', 'processing'].includes((_c = state$1.checkout) === null || _c === void 0 ? void 0 : _c.status))
       return;
     // create the elements if they have not yet been created.
     if (!state.instances.stripeElements) {
@@ -138,8 +140,8 @@ const ScStripePaymentElement = class {
         .create('payment', {
         defaultValues: {
           billingDetails: {
-            name: (_b = state$1.checkout) === null || _b === void 0 ? void 0 : _b.name,
-            email: (_c = state$1.checkout) === null || _c === void 0 ? void 0 : _c.email,
+            name: (_d = state$1.checkout) === null || _d === void 0 ? void 0 : _d.name,
+            email: (_e = state$1.checkout) === null || _e === void 0 ? void 0 : _e.email,
             ...(!!address ? { address } : {}),
           },
         },

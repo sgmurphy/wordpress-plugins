@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-3.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Square 4.7.3\n"
+"Project-Id-Version: WooCommerce Square 4.8.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-square\n"
-"POT-Creation-Date: 2024-08-15 18:35:10+00:00\n"
+"POT-Creation-Date: 2024-09-16 17:12:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -99,6 +99,30 @@ msgstr ""
 
 #: includes/Admin/Privacy.php:91
 msgid "Square User Data Erased."
+msgstr ""
+
+#: includes/Admin/Product_Editor_Compatibility.php:143
+#: includes/Framework/PaymentGateway/Payment_Gateway.php:2558
+#: includes/Handlers/Products.php:918
+msgid "Square Gift Card"
+msgstr ""
+
+#: includes/Admin/Product_Editor_Compatibility.php:144
+msgid "Enable to create this product as a gift card"
+msgstr ""
+
+#: includes/Admin/Product_Editor_Compatibility.php:163
+#: includes/Handlers/Products.php:322 includes/Handlers/Products.php:806
+#: includes/Handlers/Products.php:840 includes/Handlers/Products.php:851
+msgid "Sync with Square"
+msgstr ""
+
+#: includes/Admin/Product_Editor_Compatibility.php:201
+#. translators: %1$s: Learn more link opening tag. %2$s: Learn more link
+#. closing tag.
+msgid ""
+"Per your %1$sstore settings%2$s, inventory management is "
+"<strong>disabled</strong>."
 msgstr ""
 
 #: includes/Admin/Rest/WC_REST_Square_Cash_App_Settings_Controller.php:82
@@ -391,8 +415,8 @@ msgid "Status"
 msgstr ""
 
 #: includes/Admin/Sync_Page.php:288 includes/Admin/Sync_Page.php:329
-#: includes/Handlers/Order.php:553 includes/Handlers/Products.php:1013
-#: includes/Handlers/Products.php:1211
+#: includes/Handlers/Order.php:600 includes/Handlers/Products.php:1017
+#: includes/Handlers/Products.php:1215
 msgid "Message"
 msgstr ""
 
@@ -447,7 +471,7 @@ msgstr ""
 msgid "Inventory tracking is disabled for this product"
 msgstr ""
 
-#: includes/Admin.php:148 includes/Handlers/Products.php:236
+#: includes/Admin.php:148 includes/Handlers/Products.php:237
 msgid "Synced with Square"
 msgstr ""
 
@@ -746,7 +770,7 @@ msgid "%s Payment Tokens"
 msgstr ""
 
 #: includes/Framework/PaymentGateway/Admin/Payment_Gateway_Admin_User_Handler.php:298
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:686
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:685
 msgid "Customer ID"
 msgstr ""
 
@@ -1305,13 +1329,13 @@ msgstr ""
 msgid "%1$s - Subscription Renewal Order %2$s"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:386
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:385
 #. translators: Placeholders: %1$s - payment gateway title, %2$s - error
 #. message; e.g. Order Note: [Payment method] Payment Change failed [error]
 msgid "%1$s Payment Change Failed (%2$s)"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:391
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:390
 #: includes/Framework/PaymentGateway/Payment_Gateway.php:3229
 #: includes/Gateway/API/Response_Message_Helper.php:92
 #: includes/Gateway/API/Response_Message_Helper.php:94
@@ -1328,41 +1352,41 @@ msgstr ""
 msgid "An error occurred, please try again or try an alternate form of payment."
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:529
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:528
 #. translators: %1$s card type, %2$s is last 4 digits.
 msgid "Via %1$s ending in %2$s"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:556
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:555
 msgid "Subscriptions"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:626
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:625
 msgid ""
 "This payment method is tied to a subscription and cannot be deleted. Please "
 "switch the subscription to another method first."
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:682
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:681
 msgid "Payment Token"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:712
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:718
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:711
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:717
 #. translators: %1$s payment token label.
 #. translators: %1$s customer label.
 msgid "%s is required."
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:727
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:726
 msgid "Invalid permissions"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:733
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:732
 msgid "Invalid user ID provided"
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:740
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:739
 msgid "No card added through Square"
 msgstr ""
 
@@ -1518,7 +1542,7 @@ msgid "Thank you for your order."
 msgstr ""
 
 #: includes/Framework/PaymentGateway/Payment_Gateway.php:1140
-#: includes/Gateway/Blocks_Handler.php:148 includes/Handlers/Order.php:864
+#: includes/Gateway/Blocks_Handler.php:148 includes/Handlers/Order.php:911
 msgid "Credit Card"
 msgstr ""
 
@@ -1654,11 +1678,6 @@ msgstr ""
 #. translators: Placeholders: %1$s - payment gateway title (such as
 #. Authorize.net, Braintree, etc), %2$s - a monetary amount
 msgid "%1$s Refund in the amount of %2$s approved."
-msgstr ""
-
-#: includes/Framework/PaymentGateway/Payment_Gateway.php:2558
-#: includes/Handlers/Products.php:914
-msgid "Square Gift Card"
 msgstr ""
 
 #: includes/Framework/PaymentGateway/Payment_Gateway.php:2560
@@ -2223,7 +2242,7 @@ msgid ""
 msgstr ""
 
 #: includes/Gateway/Cash_App_Pay_Gateway.php:246
-#: includes/Handlers/Order.php:866
+#: includes/Handlers/Order.php:913
 msgid "Cash App Pay"
 msgstr ""
 
@@ -2394,7 +2413,7 @@ msgstr ""
 msgid "credit card or cash app pay"
 msgstr ""
 
-#: includes/Gateway/Gift_Card.php:508 includes/Handlers/Order.php:952
+#: includes/Gateway/Gift_Card.php:508 includes/Handlers/Order.php:999
 msgid "credit card"
 msgstr ""
 
@@ -2552,74 +2571,74 @@ msgstr ""
 msgid "Disconnect from Square"
 msgstr ""
 
-#: includes/Handlers/Order.php:541 includes/Handlers/Products.php:998
-#: includes/Handlers/Products.php:1183
+#: includes/Handlers/Order.php:588 includes/Handlers/Products.php:1002
+#: includes/Handlers/Products.php:1187
 msgid "Sender's name"
 msgstr ""
 
-#: includes/Handlers/Order.php:545 includes/Handlers/Products.php:1003
-#: includes/Handlers/Products.php:1190
+#: includes/Handlers/Order.php:592 includes/Handlers/Products.php:1007
+#: includes/Handlers/Products.php:1194
 msgid "Recipient's email"
 msgstr ""
 
-#: includes/Handlers/Order.php:549 includes/Handlers/Products.php:1008
-#: includes/Handlers/Products.php:1204
+#: includes/Handlers/Order.php:596 includes/Handlers/Products.php:1012
+#: includes/Handlers/Products.php:1208
 msgid "Recipient's name"
 msgstr ""
 
-#: includes/Handlers/Order.php:557 includes/Handlers/Products.php:1197
+#: includes/Handlers/Order.php:604 includes/Handlers/Products.php:1201
 msgid "Gift card number"
 msgstr ""
 
-#: includes/Handlers/Order.php:806
+#: includes/Handlers/Order.php:853
 msgid "Square Gift Card:"
 msgstr ""
 
-#: includes/Handlers/Order.php:812
+#: includes/Handlers/Order.php:859
 #. Translators: %s - last 4 digits of the gift card.
 msgid "ending in %s"
 msgstr ""
 
-#: includes/Handlers/Order.php:871
+#: includes/Handlers/Order.php:918
 #. translators: %1$s - Amount charged on gift card, %2$s -  Amount charged on
 #. credit card.
 msgid "Square Gift Card (%1$s) and %2$s (%3$s)"
 msgstr ""
 
-#: includes/Handlers/Order.php:881
+#: includes/Handlers/Order.php:928
 #. translators: %1$s - Amount charged on gift card.
 msgid "Square Gift Card (%1$s)"
 msgstr ""
 
-#: includes/Handlers/Order.php:949
+#: includes/Handlers/Order.php:996
 #. translators: %1$s - Order total, %2$s - Amount charged on gift card, %3$s -
 #. Other payment method %4$s -  Amount charged on credit card/cash app pay.
 msgid "%1$s — Total split between gift card (%2$s) and %3$s (%4$s)"
 msgstr ""
 
-#: includes/Handlers/Order.php:952
+#: includes/Handlers/Order.php:999
 msgid "cash app pay"
 msgstr ""
 
-#: includes/Handlers/Order.php:983
+#: includes/Handlers/Order.php:1030
 msgid "Billing country is a mandatory field for Square payment gateway."
 msgstr ""
 
-#: includes/Handlers/Order.php:1008
+#: includes/Handlers/Order.php:1055
 msgid ""
 "Billing country is not set which is required for payment using Square. "
 "Please update the billing country before continuing."
 msgstr ""
 
-#: includes/Handlers/Order.php:1012
+#: includes/Handlers/Order.php:1059
 msgid "Update billing details:"
 msgstr ""
 
-#: includes/Handlers/Order.php:1032
+#: includes/Handlers/Order.php:1079
 msgid "Save details"
 msgstr ""
 
-#: includes/Handlers/Order.php:1073
+#: includes/Handlers/Order.php:1120
 msgid "Customer has updated their billing details from the Pay for order page."
 msgstr ""
 
@@ -2639,14 +2658,14 @@ msgstr ""
 msgid "Product not synced with Square"
 msgstr ""
 
-#: includes/Handlers/Products.php:76
+#: includes/Handlers/Products.php:77
 #. translators: Placeholder: %s - product name
 msgid ""
 "Please add an SKU to sync %s with Square. The SKU must match the item's SKU "
 "in your Square account."
 msgstr ""
 
-#: includes/Handlers/Products.php:78
+#: includes/Handlers/Products.php:79
 #. translators: Placeholder: %s - product name
 msgid ""
 "Please add an SKU to every variation of %s for syncing with Square. Each "
@@ -2654,54 +2673,49 @@ msgid ""
 "account."
 msgstr ""
 
-#: includes/Handlers/Products.php:210
+#: includes/Handlers/Products.php:211
 msgid "Square Onboarding Setup Wizard"
 msgstr ""
 
-#: includes/Handlers/Products.php:211
+#: includes/Handlers/Products.php:212
 msgid ""
 "If you need to access the Square onboarding setup wizard again, please "
 "click on the button below."
 msgstr ""
 
-#: includes/Handlers/Products.php:212
+#: includes/Handlers/Products.php:213
 msgid "Setup wizard"
 msgstr ""
 
-#: includes/Handlers/Products.php:316
+#: includes/Handlers/Products.php:317
 msgid "Update product data with Square data"
 msgstr ""
 
-#: includes/Handlers/Products.php:316
+#: includes/Handlers/Products.php:317
 msgid "Send product data to Square"
 msgstr ""
 
-#: includes/Handlers/Products.php:321 includes/Handlers/Products.php:802
-#: includes/Handlers/Products.php:836 includes/Handlers/Products.php:847
-msgid "Sync with Square"
-msgstr ""
-
-#: includes/Handlers/Products.php:357
+#: includes/Handlers/Products.php:358
 msgid "Sync with Square?"
 msgstr ""
 
-#: includes/Handlers/Products.php:361
+#: includes/Handlers/Products.php:362
 msgid "No change"
 msgstr ""
 
-#: includes/Handlers/Products.php:363
+#: includes/Handlers/Products.php:364
 msgid "No"
 msgstr ""
 
-#: includes/Handlers/Products.php:364
+#: includes/Handlers/Products.php:365
 msgid "Yes"
 msgstr ""
 
-#: includes/Handlers/Products.php:370
+#: includes/Handlers/Products.php:371
 msgid "This product"
 msgstr ""
 
-#: includes/Handlers/Products.php:732
+#: includes/Handlers/Products.php:736
 #. translators: Placeholder: %1$s - date (localized), %2$s - time (localized),
 #. %3$s - opening <a> HTML link tag, %4$s closing </a> HTML link tag
 msgid ""
@@ -2710,54 +2724,54 @@ msgid ""
 "records%4$s."
 msgstr ""
 
-#: includes/Handlers/Products.php:915
+#: includes/Handlers/Products.php:919
 msgid ""
 "Square Gift cards are virtual products that can be purchased by customers "
 "and gifted to one or more recipients. Gift card code holders can redeem and "
 "use them as store credit."
 msgstr ""
 
-#: includes/Handlers/Products.php:988
+#: includes/Handlers/Products.php:992
 msgid "Buy a new gift card"
 msgstr ""
 
-#: includes/Handlers/Products.php:993
+#: includes/Handlers/Products.php:997
 msgid "Add value to an existing gift card"
 msgstr ""
 
-#: includes/Handlers/Products.php:1019
+#: includes/Handlers/Products.php:1023
 msgid "Enter the Gift Card number"
 msgstr ""
 
-#: includes/Handlers/Products.php:1020
+#: includes/Handlers/Products.php:1024
 msgid "Gift Card number"
 msgstr ""
 
-#: includes/Handlers/Products.php:1101
+#: includes/Handlers/Products.php:1105
 msgid "Sorry, this coupon is not applicable to gift card products."
 msgstr ""
 
-#: includes/Handlers/Products.php:1156
+#: includes/Handlers/Products.php:1160
 msgid "The gift card number field is empty."
 msgstr ""
 
-#: includes/Handlers/Products.php:1164
+#: includes/Handlers/Products.php:1168
 msgid "The gift card number is either invalid or does not exist."
 msgstr ""
 
-#: includes/Handlers/Products.php:1242 includes/Handlers/Products.php:1431
+#: includes/Handlers/Products.php:1246 includes/Handlers/Products.php:1435
 msgid "Buy Gift Card"
 msgstr ""
 
-#: includes/Handlers/Products.php:1271
+#: includes/Handlers/Products.php:1275
 msgid "Placeholder"
 msgstr ""
 
-#: includes/Handlers/Products.php:1340
+#: includes/Handlers/Products.php:1344
 msgid "You can only add 1 gift card product to your cart per order."
 msgstr ""
 
-#: includes/Handlers/Products.php:1342
+#: includes/Handlers/Products.php:1346
 msgid "View cart"
 msgstr ""
 
@@ -2957,7 +2971,7 @@ msgid ""
 msgstr ""
 
 #: includes/Sync/Interval_Polling.php:200
-#: includes/Sync/Manual_Synchronization.php:1574
+#: includes/Sync/Manual_Synchronization.php:1588
 #. translators: Placeholder %1$s Product Name, %2$s Exception message
 msgid "%1$s was deleted in Square but could not be hidden in WooCommerce. %2$s."
 msgstr ""
@@ -2985,6 +2999,13 @@ msgstr ""
 
 #: includes/Sync/Manual_Synchronization.php:1347
 msgid "This product failed to be hidden."
+msgstr ""
+
+#: includes/Sync/Manual_Synchronization.php:1535
+#. translators: %1$s - Item Variation ID
+msgid ""
+"[Pull Inventory] The product does not exist in the WooCommerce store for "
+"the item variation: %1$s."
 msgstr ""
 
 #: includes/Sync/Product_Import.php:583
@@ -3224,7 +3245,7 @@ msgid ""
 "{sync_completed_time}."
 msgstr ""
 
-#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:587
+#: includes/Framework/PaymentGateway/Integrations/Payment_Gateway_Integration_Subscriptions.php:586
 #. translators: %1$s subscription order URL, %2$s is order ID.
 msgctxt "hash before order number"
 msgid "#%s"

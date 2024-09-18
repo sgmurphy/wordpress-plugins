@@ -113,20 +113,23 @@
                     $items = this.elements.$items;
 
                 var currentPageURL = window.location.href;
+
                 // //Loop through each menu item
                 $items.each(function () {
-                    var $item = $(this);
-                    var menuItemHref = $item.find('a').attr('href');
-                    console.log(menuItemHref, currentPageURL);
+
+                    var $item = $(this),
+                        menuItemHref = $item.find('a').attr('href');
+
                     // Check if the menu item's link matches the current page URL
                     if (menuItemHref === currentPageURL) {
                         // Add the active class if it matches
                         $item.addClass('active-menu-item');
                     }
+
                 });
 
                 $items.on('click', function (e) {
-                    e.preventDefault();
+
                     var $this = $(this);
 
                     if (!$this.hasClass('active-menu-item')) {
@@ -139,14 +142,25 @@
 
                     // Scroll to the corresponding section
                     var targetId = $this.data('target');
+
                     if (targetId) {
+
                         var targetElement = $(targetId);
-                        $(window).animate({
-                            scrollTop: targetElement.offset().top
-                        }, 500, function () {
-                            // enable the IntersectionObserver after scroll completes
-                            self.isNotScrolling = false;
-                        });
+
+                        if (targetElement.length > 0) {
+
+                            e.preventDefault();
+
+                            $(window).animate({
+                                scrollTop: targetElement.offset().top
+                            }, 500, function () {
+
+                                // enable the IntersectionObserver after scroll completes.
+                                self.isNotScrolling = false;
+                            });
+
+                        }
+
                     }
                 });
             },

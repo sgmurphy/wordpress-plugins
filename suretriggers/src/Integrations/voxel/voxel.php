@@ -68,6 +68,9 @@ class Voxel extends Integrations {
 				'ID'         => $post_id,
 				'post_title' => $post_title,
 			];
+			if ( isset( $fields['post_status'] ) && '' !== $fields['post_status'] ) {
+				$args['post_status'] = $fields['post_status'];
+			}
 			wp_update_post( $args );
 		}
 		$post_type   = \Voxel\Post_Type::get( $post_type );

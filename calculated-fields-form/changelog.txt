@@ -1,5 +1,14 @@
 == Changelog ==
 
+= 5.2.37 =
+
+* Enhanced field appearance in the form builder
+* Improved predefined design template 02
+* Corrected slider control to prevent improper value assignments from affecting the field
+* Resolved minor issue with the calculate button's animation in certain scenarios
+* Modified date/time operations module to avoid empty date fields impacting operation results
+* Adjusted Stripe and Stripe Checkout add-ons to enable the use of transaction_id tags with them, not just PayPal (Platinum plugin version)
+
 = 5.2.36 =
 
 * Modernizes the predefined designs starting by the template 01.

@@ -975,16 +975,16 @@ class YourClient extends \Guzzle\Service\Client
             <param name="data" type="array" location="body" filters="json_encode" doc="Group JSON"/>
             <param name="Content-Type" location="header" static="application/json"/>
         </command>
-        <command name="delete_group" method="DELETE" uri="groups/{{id}}.json">
+        <command name="delete_group" method="DELETE" uri="groups/{{ID}}.json">
             <doc>Delete a group by ID</doc>
-            <param name="id" type="integer" required="true"/>
+            <param name="ID" type="integer" required="true"/>
         </command>
-        <command name="get_group" method="GET" uri="groups/{{id}}.json">
-            <param name="id" type="integer" required="true"/>
+        <command name="get_group" method="GET" uri="groups/{{ID}}.json">
+            <param name="ID" type="integer" required="true"/>
         </command>
-        <command name="update_group" method="PUT" uri="groups/{{id}}.json">
+        <command name="update_group" method="PUT" uri="groups/{{ID}}.json">
             <doc>Update a group</doc>
-            <param name="id" type="integer" required="true"/>
+            <param name="ID" type="integer" required="true"/>
             <param name="data" type="array" location="body" filters="json_encode" doc="Group JSON"/>
             <param name="Content-Type" location="header" static="application/json"/>
         </command>
@@ -1039,10 +1039,10 @@ class YourClient extends \Guzzle\Service\Client
         },
         "delete_group": {
             "httpMethod":"DELETE",
-            "uri":       "groups/{id}.json",
+            "uri":       "groups/{ID}.json",
             "summary":   "Delete a group",
             "parameters":{
-                "id":{
+                "ID":{
                     "location":   "uri",
                     "description":"Group to delete by ID",
                     "type":       "integer",
@@ -1052,10 +1052,10 @@ class YourClient extends \Guzzle\Service\Client
         },
         "get_group":    {
             "httpMethod":"GET",
-            "uri":       "groups/{id}.json",
+            "uri":       "groups/{ID}.json",
             "summary":   "Get a ticket",
             "parameters":{
-                "id":{
+                "ID":{
                     "location":   "uri",
                     "description":"Group to get by ID",
                     "type":       "integer",
@@ -1065,10 +1065,10 @@ class YourClient extends \Guzzle\Service\Client
         },
         "update_group": {
             "httpMethod":"PUT",
-            "uri":       "groups/{id}.json",
+            "uri":       "groups/{ID}.json",
             "summary":   "Update a group",
             "parameters":{
-                "id":          {
+                "ID":          {
                     "location":   "uri",
                     "description":"Group to update by ID",
                     "type":       "integer",

@@ -11,8 +11,10 @@ background: -ms-linear-gradient(top,  #5e513e 0%,#423524 100%);
 background: linear-gradient(to bottom,  #5e513e 0%,#423524 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e513e', endColorstr='#423524',GradientType=0 );
 }
-
+.cp_cff_professional *{font-family:system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";}
+.cp_cff_professional #fbuilder .fform .cff-form-title{font-size:2em;font-weight:700;}
 .cp_cff_professional #fbuilder{color:#FFF;text-shadow:0px 1px 0px #000000;font-weight:normal;}
+.cp_cff_professional .fform *{text-align:center;}
 .cp_cff_professional .fform h1,
 .cp_cff_professional .fform h2,
 .cp_cff_professional .fform h3,
@@ -106,7 +108,7 @@ min-height:34px;
 .cp_cff_professional .cff-spinner .cff-spinner-up,
 .cp_cff_professional #fbuilder .pbSubmit,
 .cp_cff_professional #fbuilder .pbPrevious,
-.cp_cff_professional #fbuilder .pbNext{color:#fff;font-size:13px;font-weight:bold;text-shadow:0px 1px 0px #000;background: #bfd255;
+.cp_cff_professional #fbuilder .pbNext{color:#455c14;font-size:16px;font-weight:bold;text-shadow:0px 1px 0px #ffffff66;background: #bfd255;
 background: -moz-linear-gradient(top,  #bfd255 0%, #8eb92a 50%, #72aa00 51%, #9ecb2d 100%);
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bfd255), color-stop(50%,#8eb92a), color-stop(51%,#72aa00), color-stop(100%,#9ecb2d));
 background: -webkit-linear-gradient(top,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%);
@@ -118,6 +120,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', end
 min-height:32px;}
 .cp_cff_professional #fbuilder .cff-spinner .cff-spinner-down,
 .cp_cff_professional #fbuilder .cff-spinner .cff-spinner-up{padding:0;}
+
+.cp_cff_professional #fbuilder button:not([class*="trumbowyg"]):hover,
+.cp_cff_professional #fbuilder input[type="button"]:hover,
+.cp_cff_professional #fbuilder input[type="reset"]:hover,
+.cp_cff_professional .cff-spinner .cff-spinner-down:hover,
+.cp_cff_professional .cff-spinner .cff-spinner-up:hover,
+.cp_cff_professional #fbuilder .pbSubmit:hover,
+.cp_cff_professional #fbuilder .pbPrevious:hover,
+.cp_cff_professional #fbuilder .pbNext:hover{
+transform:scale(1.1);
+}
+
+.cp_cff_professional #fbuilder button:not([class*="trumbowyg"]):active,
+.cp_cff_professional #fbuilder input[type="button"]:active,
+.cp_cff_professional #fbuilder input[type="reset"]:active,
+.cp_cff_professional .cff-spinner .cff-spinner-down:active,
+.cp_cff_professional .cff-spinner .cff-spinner-up:active,
+.cp_cff_professional #fbuilder .pbSubmit:active,
+.cp_cff_professional #fbuilder .pbPrevious:active,
+.cp_cff_professional #fbuilder .pbNext:active{
+background:#8eb92a;
+}
+
 .cp_cff_professional #fbuilder  .slider{ padding:0;min-height:auto;}
 
 .cp_cff_professional #fbuilder .ui-slider-range{background:rgba(173, 201, 69, .7);}

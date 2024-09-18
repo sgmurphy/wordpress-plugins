@@ -242,7 +242,7 @@ class Premium_Media_Wheel extends Widget_Base {
 				),
 				'default'   => 'cover',
 				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-fit: {{VALUE}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}} img.premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-fit: {{VALUE}}',
 				),
 				'condition' => array(
 					'pa_media_type!' => 'template',
@@ -270,7 +270,7 @@ class Premium_Media_Wheel extends Widget_Base {
 				),
 				'default'   => '',
 				'selectors' => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-position: {{VALUE}}',
+					'{{WRAPPER}} {{CURRENT_ITEM}} img.premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-position: {{VALUE}}',
 				),
 				'condition' => array(
 					'pa_media_type!' => 'template',
@@ -304,7 +304,7 @@ class Premium_Media_Wheel extends Widget_Base {
 					'size' => 0,
 				),
 				'selectors'      => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-position: {{SIZE}}{{UNIT}} {{mw_image_obj_pos_y.SIZE}}{{mw_image_obj_pos_y.UNIT}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}} img.premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-position: {{SIZE}}{{UNIT}} {{mw_image_obj_pos_y.SIZE}}{{mw_image_obj_pos_y.UNIT}};',
 				),
 				'condition'      => array(
 					'pa_media_type!'   => 'template',
@@ -339,7 +339,7 @@ class Premium_Media_Wheel extends Widget_Base {
 					'size' => 0,
 				),
 				'selectors'      => array(
-					'{{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-position: {{mw_image_obj_pos_x.SIZE}}{{mw_image_obj_pos_x.UNIT}} {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} {{CURRENT_ITEM}} img.premium-adv-carousel__item-img, {{WRAPPER}} {{CURRENT_ITEM}} .premium-adv-carousel__item-img img, {{WRAPPER}} {{CURRENT_ITEM}} .vid-overlay' => 'object-position: {{mw_image_obj_pos_x.SIZE}}{{mw_image_obj_pos_x.UNIT}} {{SIZE}}{{UNIT}};',
 				),
 				'condition'      => array(
 					'pa_media_type!'   => 'template',

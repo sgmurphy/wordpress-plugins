@@ -3,7 +3,7 @@
 Plugin Name: Media File Renamer: Rename for better SEO (AI-Powered)
 Plugin URI: https://meowapps.com
 Description: Rename filenames and media metadata for SEO and tidyness. Using AI, manually, in bulk, or in so many other ways!
-Version: 5.9.7
+Version: 5.9.8
 Author: Jordy Meow
 Author URI: https://meowapps.com
 Text Domain: media-file-renamer
@@ -13,7 +13,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if ( !defined( 'MFRH_VERSION' ) ) {
-  define( 'MFRH_VERSION', '5.9.7' );
+  define( 'MFRH_VERSION', '5.9.8' );
   define( 'MFRH_PREFIX', 'mfrh' );
   define( 'MFRH_DOMAIN', 'media-file-renamer' );
   define( 'MFRH_ENTRY', __FILE__ );

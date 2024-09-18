@@ -214,8 +214,8 @@ class Helper
                 'business_name'              => sanitize_text_field(Arr::get($settings,'schema_settings.business_name', '')),
                 'business_type'              => sanitize_text_field(Arr::get($settings,'schema_settings.business_type', '')),
                 'business_telephone'         => sanitize_text_field(Arr::get($settings,'schema_settings.business_telephone', '')),
-                'business_average_rating'    => (int) Arr::get($settings,'schema_settings.business_average_rating', ''),
-                'business_total_rating'      => (int) Arr::get($settings,'schema_settings.business_total_rating', ''),
+                'business_average_rating'    => Arr::get($settings,'schema_settings.business_average_rating', null),
+                'business_total_rating'      => Arr::get($settings,'schema_settings.business_total_rating', null),
             ),
 
 	        //styles
@@ -420,6 +420,16 @@ class Helper
         return $class;
     }
 
+    public static function convertToPercentage($value) {
+        // Extract the decimal part of the value
+        $decimalPart = $value - floor($value);
+
+        // Convert the decimal part to a percentage
+        $percentage = round($decimalPart * 100);
+
+        return $percentage . '%';
+    }
+
     /**
      * Generate rating SVG icon based on rating value
      *
@@ -434,14 +444,14 @@ class Helper
         foreach (array(1, 2, 3, 4, 5) as $val) {
             $score = $rating - $val;
             if ($score >= 0) {
-                $icons .= '<span class="wpsr-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1792 1792"><path
-                                d="M1728 647q0 22-26 48l-363 354 86 500q1 7 1 20 0 21-10.5 35.5t-30.5 14.5q-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg></span>';
+                $icons .= '<svg class="wpsr-star" width="20" height="20" viewBox="0 0 24 24" fill="#ffb542" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.7926 19.0032C11.9201 18.9258 12.0799 18.9259 12.2074 19.0032L17.9862 22.5077C18.289 22.6913 18.6634 22.4201 18.5833 22.0752L17.0484 15.4643C17.0149 15.3201 17.0638 15.1693 17.1754 15.0721L22.2877 10.6222C22.5542 10.3902 22.411 9.9519 22.059 9.92189L15.3317 9.34841C15.1837 9.3358 15.0548 9.24219 14.9971 9.10532L12.3686 2.87374C12.231 2.54768 11.769 2.54769 11.6314 2.87374L9.00288 9.10532C8.94515 9.24219 8.81632 9.3358 8.66831 9.34841L1.94098 9.92189C1.58896 9.9519 1.44585 10.3902 1.71234 10.6222L6.82459 15.0721C6.93622 15.1693 6.98508 15.3201 6.95161 15.4643L5.41671 22.0752C5.33664 22.4201 5.71105 22.6913 6.01376 22.5077L11.7926 19.0032Z"></path></svg>';
             } elseif ($score > -1 && $score < 0) {
-                $icons .= '<span class="wpsr-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1792 1792"><path
-                                d="M1250 957l257-250-356-52-66-10-30-60-159-322v963l59 31 318 168-60-355-12-66zm452-262l-363 354 86 500q5 33-6 51.5t-34 18.5q-17 0-40-12l-449-236-449 236q-23 12-40 12-23 0-34-18.5t-6-51.5l86-500-364-354q-32-32-23-59.5t54-34.5l502-73 225-455q20-41 49-41 28 0 49 41l225 455 502 73q45 7 54 34.5t-24 59.5z"></path></svg></span>';
+                $icons .= '<svg class="wpsr-star wpsr-star-rand" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M11.7926 19.0032C11.9201 18.9258 12.0799 18.9259 12.2074 19.0032L17.9862 22.5077C18.289 22.6913 18.6634 22.4201 18.5833 22.0752L17.0484 15.4643C17.0149 15.3201 17.0638 15.1693 17.1754 15.0721L22.2877 10.6222C22.5542 10.3902 22.411 9.9519 22.059 9.92189L15.3317 9.34841C15.1837 9.3358 15.0548 9.24219 14.9971 9.10532L12.3686 2.87374C12.231 2.54768 11.769 2.54769 11.6314 2.87374L9.00288 9.10532C8.94515 9.24219 8.81632 9.3358 8.66831 9.34841L1.94098 9.92189C1.58896 9.9519 1.44585 10.3902 1.71234 10.6222L6.82459 15.0721C6.93622 15.1693 6.98508 15.3201 6.95161 15.4643L5.41671 22.0752C5.33664 22.4201 5.71105 22.6913 6.01376 22.5077L11.7926 19.0032Z" fill="url(#shared-gradient)"></path>
+  <defs><linearGradient id="shared-gradient"><stop offset="'.esc_attr(static::convertToPercentage($rating)).'" stop-opacity="1"></stop><stop offset="'.esc_attr(static::convertToPercentage($rating)).'" stop-opacity="1"></stop></linearGradient></defs></svg>';
             } else {
-                $icons .= '<span class="wpsr-star"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1792 1792"><path
-                                d="M1201 1004l306-297-422-62-189-382-189 382-422 62 306 297-73 421 378-199 377 199zm527-357q0 22-26 48l-363 354 86 500q1 7 1 20 0 50-41 50-19 0-40-12l-449-236-449 236q-22 12-40 12-21 0-31.5-14.5t-10.5-35.5q0-6 2-20l86-500-364-354q-25-27-25-48 0-37 56-46l502-73 225-455q19-41 49-41t49 41l225 455 502 73q56 9 56 46z"></path></svg></span>';
+                $icons .= '<svg width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="wpsr-star-filled"><defs><linearGradient id="shared-gradient"><stop offset="0%" style="stop-color: rgb(255, 181, 66); stop-opacity: 1;"></stop><stop offset="0%" style="stop-color: rgb(214, 218, 228); stop-opacity: 1;"></stop></linearGradient></defs><path d="M11.7926 19.0032C11.9201 18.9258 12.0799 18.9259 12.2074 19.0032L17.9862 22.5077C18.289 22.6913 18.6634 22.4201 18.5833 22.0752L17.0484 15.4643C17.0149 15.3201 17.0638 15.1693 17.1754 15.0721L22.2877 10.6222C22.5542 10.3902 22.411 9.9519 22.059 9.92189L15.3317 9.34841C15.1837 9.3358 15.0548 9.24219 14.9971 9.10532L12.3686 2.87374C12.231 2.54768 11.769 2.54769 11.6314 2.87374L9.00288 9.10532C8.94515 9.24219 8.81632 9.3358 8.66831 9.34841L1.94098 9.92189C1.58896 9.9519 1.44585 10.3902 1.71234 10.6222L6.82459 15.0721C6.93622 15.1693 6.98508 15.3201 6.95161 15.4643L5.41671 22.0752C5.33664 22.4201 5.71105 22.6913 6.01376 22.5077L11.7926 19.0032Z" fill="url(#shared-gradient)"></path></svg>';
             }
         }
 

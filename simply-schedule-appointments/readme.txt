@@ -4,7 +4,7 @@ Donate link:       https://simplyscheduleappointments.com
 Tags:              booking system, appointments, booking, scheduling, appointment booking
 Requires at least: 5.1
 Tested up to:      6.7
-Stable tag:        1.6.7.48
+Stable tag:        1.6.7.51
 Requires PHP:      7.4
 License:           GPLv2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -237,6 +237,13 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 
 === Changelog ===
 
+== 1.6.7.50 - 2024-09-10 ==
+
+= Fixes =
+
+- Fixes around cancellation and rescheduling notes
+- Prevent assigning Team Member outside of availability
+
 == 1.6.7.45 - 2024-08-27 ==
 
 = Fixes =
@@ -298,13 +305,6 @@ See our guide on [how to get started](https://simplyscheduleappointments.com/gui
 == 1.6.7.30 - 2024-06-25 ==
 
 = Fixes =
-
-- Fix Booking Flow ShortCode
-- Fix revisions to be consistent with notifications
-- Fix staff meeting url not passed to appointment when user preference
-- Display all team members assigned to appointment
-- Fix twig template customer information summary
-- Hide appointment actions until appointment information is ready
 
 
 For older changelog entries, please see the [additional CHANGELOG.md file](https://plugins.svn.wordpress.org/simply-schedule-appointments/trunk/CHANGELOG.md) delivered with the plugin.

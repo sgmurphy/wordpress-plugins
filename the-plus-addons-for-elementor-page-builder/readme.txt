@@ -4,7 +4,7 @@ Tags: elementor, elementor widgets, elementor addons, elementor templates, widge
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 5.6.8
+Stable tag: 5.6.9
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
@@ -382,6 +382,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 12. Unique 22+ Elementor Extensions
 
 == Changelog ==
+
+= 5.6.9 =
+Update : Code Improved For Better Performance and Security
+Fix : Minor Bug Fixes & performance Improvements
 
 = 5.6.8 =
 Update : Remove Onbording Nexter Theme Option 
