@@ -78,11 +78,20 @@ function exactmetrics_admin_menu()
     //  Site Notes
 	add_submenu_page( $hook, __( 'Site Notes:', 'google-analytics-dashboard-for-wp' ), __( 'Site Notes', 'google-analytics-dashboard-for-wp' ), 'exactmetrics_save_settings', $submenu_base . '#/site-notes' );
 
-    //  AI Insights
-    add_submenu_page( $hook, __( 'AI Insights:', 'google-analytics-dashboard-for-wp' ), sprintf(__( '%s AI Insights', 'google-analytics-dashboard-for-wp' ), exactmetrics_get_ai_menu_icon()), 'exactmetrics_save_settings', 'admin.php?page=exactmetrics_reports#/ai-insights' );
+	//  AI Insights
+	// translators: Icon
+	add_submenu_page( $hook, __( 'AI Insights:', 'google-analytics-dashboard-for-wp' ), sprintf( __( '%s AI Insights', 'google-analytics-dashboard-for-wp' ), exactmetrics_get_ai_menu_icon() ), 'exactmetrics_save_settings', 'admin.php?page=exactmetrics_reports#/ai-insights' );
+
+	$license_type = ExactMetrics()->license->get_license_type();
+
+	//  AI Chat
+	if ( ! exactmetrics_is_pro_version() || 'plus' === $license_type ) {
+		// translators: Placeholder adds an svg icon
+		add_submenu_page( $hook, __( 'Conversations AI:', 'google-analytics-dashboard-for-wp' ), sprintf( __( '%s Conversations AI', 'google-analytics-dashboard-for-wp' ), exactmetrics_get_ai_menu_icon() ), 'exactmetrics_save_settings', 'admin.php?page=exactmetrics_reports#/ai-insights/chat' );
+	}
 
 	// Add Popular Posts menu item.
-	add_submenu_page($hook, __('Popular Posts:', 'google-analytics-dashboard-for-wp'), __('Popular Posts', 'google-analytics-dashboard-for-wp'), 'exactmetrics_save_settings', $submenu_base . '#/popular-posts');
+	add_submenu_page( $hook, __( 'Popular Posts:', 'google-analytics-dashboard-for-wp' ), __( 'Popular Posts', 'google-analytics-dashboard-for-wp' ), 'exactmetrics_save_settings', $submenu_base . '#/popular-posts' );
 
 	// Add submenu under `Insights` main menu for user journey report.
 	add_submenu_page( $hook, __( 'User Journey:', 'google-analytics-dashboard-for-wp' ), __( 'User Journey', 'google-analytics-dashboard-for-wp' ), 'exactmetrics_view_dashboard', 'admin.php?page=exactmetrics_reports#/user-journey-report' );
@@ -437,7 +446,11 @@ function exactmetrics_load_admin_partial($template, $data = array())
 function exactmetrics_admin_footer($text)
 {
 	global $current_screen;
-	if (!empty($current_screen->id) && strpos($current_screen->id, 'exactmetrics') !== false) {
+	if (
+		! empty( $current_screen->id )
+		&& strpos( $current_screen->id, 'exactmetrics' ) !== false
+		&& ! exactmetrics_is_pro_version()
+	) {
 		$url = 'https://wordpress.org/support/view/plugin-reviews/google-analytics-dashboard-for-wp?filter=5';
 		// Translators: Placeholders add a link to the wordpress.org repository.
 		$text = sprintf(esc_html__('Please rate %1$sExactMetrics%2$s on %3$s %4$sWordPress.org%5$s to help us spread the word. Thank you from the ExactMetrics team!', 'google-analytics-dashboard-for-wp'), '<strong>', '</strong>', '<a class="exactmetrics-no-text-decoration" href="' . $url . '" target="_blank" rel="noopener noreferrer"><i class="monstericon-star"></i><i class="monstericon-star"></i><i class="monstericon-star"></i><i class="monstericon-star"></i><i class="monstericon-star"></i></a>', '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">', '</a>');

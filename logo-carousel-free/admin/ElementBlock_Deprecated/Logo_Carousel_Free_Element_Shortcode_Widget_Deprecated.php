@@ -146,15 +146,16 @@ class Logo_Carousel_Free_Element_Shortcode_Widget_Deprecated extends \Elementor\
 		$post_id = $splcf_shortcode;
 
 		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+			$layout_data        = get_post_meta( $post_id, 'sp_lcp_layout_options', true );
 			$logo_data          = get_post_meta( $post_id, 'sp_lcp_shortcode_options', true );
 			$main_section_title = get_the_title( $post_id );
 
 			// Stylesheet loading problem solving here. Shortcode id to push page id option for getting how many shortcode in the page.
 			require_once SP_LC_PATH . 'public/views/shortcoderender.php';
-			$dynamic_style = SPLC_Shortcode_Render::load_dynamic_style( $post_id, $logo_data );
+			$dynamic_style = SPLC_Shortcode_Render::load_dynamic_style( $post_id, $logo_data, $layout_data );
 			echo '<style id="sp_lcp_dynamic_css' . esc_attr( $post_id ) . '">' . $dynamic_style['dynamic_css'] . '</style>';
 
-			SPLC_Shortcode_Render::splcp_html_show( $post_id, $logo_data, $main_section_title );
+			SPLC_Shortcode_Render::splcp_html_show( $post_id, $logo_data, $layout_data, $main_section_title );
 			?>
 			<script src="<?php echo esc_url( SP_LC_URL . 'public/assets/js/splc-script.min.js' ); ?>" ></script>
 			<?php

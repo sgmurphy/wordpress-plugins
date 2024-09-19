@@ -77,7 +77,6 @@ if ( ! class_exists( 'SPLC_FREE_Field_slider' ) ) {
 			if ( ! wp_script_is( 'jquery-ui-slider' ) ) {
 				wp_enqueue_script( 'jquery-ui-slider' );
 			}
-
 		}
 	}
 }

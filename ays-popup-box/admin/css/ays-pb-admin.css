@@ -2265,7 +2265,7 @@ label.ays_switch_toggle:hover:after {
 }
 /* Popups page | Limitation users styles end */
 
-/* Popups page | Options for PC and mobile styles start */
+/* Popups page | Options for desktop and mobile styles start */
 .ays_pb_pc_and_mobile_container,
 .ays_pb_pc_and_mobile_box {
     display: flex;
@@ -2362,7 +2362,7 @@ label.ays_switch_toggle:hover:after {
     }
 
 }
-/* Popups page | Options for PC and mobile styles end */
+/* Popups page | Options for desktop and mobile styles end */
 
 /* Popups, Categories Pages | Bottom buttons styles start */
 .ays-pb-bottom-buttons-content {

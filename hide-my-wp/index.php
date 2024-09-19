@@ -91,29 +91,31 @@ if ( defined( 'ABSPATH' ) && !defined( 'HMW_VERSION' ) ) {
             //Check if the cron is loaded in advanced settings
             if ((HMWP_Classes_Tools::getOption('hmwp_mode') <> 'default')) {
 
-                //on core or plugins update
-	            add_action('automatic_updates_complete', function($options)
-	            {
-		            if(isset($options['action']) && $options['action'] == 'update') {
-			            set_transient( 'hmwp_update', 1 );
-		            }
-	            }, 10, 1);
+                //Update rules in .htaccess on other plugins update to avoid rule deletion
+                if(!HMWP_Classes_Tools::isApache() || HMWP_Classes_Tools::isLitespeed()){
 
-	            //on plugins are update
-	            add_action('upgrader_process_complete', function($upgrader_object, $options)
-	            {
-		            $our_plugin = plugin_basename( __FILE__ );
+                    add_action( 'automatic_updates_complete', function( $options ) {
+                        if ( isset( $options['action'] ) && $options['action'] == 'update' ) {
+                            set_transient( 'hmwp_update', 1 );
+                        }
+                    }, 10, 1 );
 
-		            if(isset($options['action']) && $options['action'] == 'update') {
-			            if( $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
-				            foreach( $options['plugins'] as $plugin ) {
-					            if( $plugin <> $our_plugin ) {
-						            set_transient( 'hmwp_update', 1 );
-					            }
-				            }
-			            }
-		            }
-	            }, 10, 2);
+                    //on plugins are update
+                    add_action( 'upgrader_process_complete', function( $upgrader_object, $options ) {
+                        $our_plugin = plugin_basename( __FILE__ );
+
+                        if ( isset( $options['action'] ) && $options['action'] == 'update' ) {
+                            if ( $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
+                                foreach ( $options['plugins'] as $plugin ) {
+                                    if ( $plugin <> $our_plugin ) {
+                                        set_transient( 'hmwp_update', 1 );
+                                    }
+                                }
+                            }
+                        }
+                    }, 10, 2 );
+
+                }
 
                 if (HMWP_Classes_Tools::getOption('hmwp_change_in_cache') || HMWP_Classes_Tools::getOption('hmwp_mapping_file')) {
                     //Run the HMWP crons

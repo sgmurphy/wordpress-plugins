@@ -227,7 +227,7 @@ class Logo_Slider_WP_Admin {
 
             if ( $this->user_can_save_for_logo_slider_meta( $post_id, 'metaboxlogosliderwp', $postData['nonce'] ) ) {
 
-                $savable_Data['company_url']   = esc_url( $postData['company_url'] );
+                $savable_Data['company_url']   = sanitize_url( $postData['company_url'] );
                 $savable_Data['company_name']  = sanitize_text_field( $postData['company_name'] );
                 $savable_Data['tooltip_text']  = sanitize_text_field( $postData['tooltip_text'] );
                 $savable_Data['company_desc']  = sanitize_textarea_field( $postData['company_desc'] );

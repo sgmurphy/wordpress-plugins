@@ -5,8 +5,8 @@
  * @link https://shapedplugin.com
  * @since 2.0.0
  *
- * @package Logo_Carousel_Pro
- * @subpackage Logo_Carousel_Pro/sp-framework
+ * @package Logo_Carousel_Free
+ * @subpackage Logo_Carousel_Free/sp-framework
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -861,19 +861,6 @@ Visit [HasThemes](https://hasthemes.com/) for more details about HTML, Shopify a
 * Added: Default tab active option and compatible to add nested tab content in tabs Widget
 * Fixed: A few minor issues.
 
-= Version: 2.0.5 - Date: 2023-01-23 =
-* Fixed: Template import issue.
-* Fixed: A few minor issues.
-
-= Version: 2.0.4 - Date: 2023-01-11 =
-* Added: 3D View Content option in Flip Box Widget
-* Added: Pulse Shadow option in Image Marker Widget
-* Fixed: A few minor issues.
-
-= Version: 2.0.3 - Date: 2023-01-02 =
-* Updated: Flip animated styles in Flip Box Widget
-* Fixed: A few minor issues.
-
 
 
 == Installation ==
@@ -959,6 +946,10 @@ The pro version of HT Mega gives you access to numerous incredible features that
 = Why is the Post Duplicator widget used? =
  
  The post duplicator widget provides you with the simplest method for creating a clone of your website’s contents. With the help of Post Duplicator addon, you can replicate your website’s pages, posts, templates, and items.
+
+= How to Report Security Issues? =
+ 
+ You can report security vulnerabilities via the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Submit a report here](https://patchstack.com/database/vdp/ht-mega-for-elementor).
 
 
 == Screenshots ==

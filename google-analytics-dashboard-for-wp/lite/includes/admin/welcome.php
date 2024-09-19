@@ -121,7 +121,7 @@ class ExactMetrics_Welcome {
 		}
 
 		$app_js_url = ExactMetrics_Admin_Assets::get_js_url( 'src/modules/wizard-onboarding/wizard.js' );
-		wp_register_script( 'exactmetrics-vue-script', $app_js_url, array(), exactmetrics_get_asset_version(), true );
+		wp_register_script( 'exactmetrics-vue-script', $app_js_url, array( 'wp-i18n' ), exactmetrics_get_asset_version(), true );
 		wp_enqueue_script( 'exactmetrics-vue-script' );
 
 		$user_data = wp_get_current_user();

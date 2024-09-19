@@ -62,6 +62,7 @@ exit;
 if (isset($_POST['download_data'])) {
 check_admin_referer('ti-download-reviews');
 $data = json_decode(stripcslashes($_POST['download_data']), true);
+if (isset($data['is_new_reviews']) && $data['is_new_reviews']) {
 if (isset($data['reviews']) && is_array($data['reviews']) && $data['reviews']) {
 $pluginManagerInstance->save_reviews($data['reviews']);
 if (!$pluginManagerInstance->getNotificationParam('review-download-finished', 'hidden')) {
@@ -83,11 +84,14 @@ $pageDetails['rating_score'] = $data['rating_score'];
 update_option($pluginManagerInstance->get_option_name('page-details'), $pageDetails, false);
 $GLOBALS['wp_object_cache']->delete($pluginManagerInstance->get_option_name('page-details'), 'options');
 }
-update_option($pluginManagerInstance->get_option_name('download-timestamp'), time() + (int)$data['next_update_available'], false);
 if (!$pluginManagerInstance->getNotificationParam('review-download-available', 'hidden')) {
 $pluginManagerInstance->setNotificationParam('review-download-available', 'do-check', true);
 $pluginManagerInstance->setNotificationParam('review-download-available', 'active', false);
 }
+} else {
+update_option($pluginManagerInstance->get_option_name('review-download-is-failed'), 1, false);
+}
+update_option($pluginManagerInstance->get_option_name('download-timestamp'), time() + (int)$data['next_update_available'], false);
 exit;
 }
 $reviews = [];
@@ -136,10 +140,18 @@ jQuery(".ti-review-content").TI_format();
 ');
 $downloadTimestamp = get_option($pluginManagerInstance->get_option_name('download-timestamp'), time());
 $pageDetails = $pluginManagerInstance->getPageDetails();
+if ($reviewDownloadFailed = get_option($pluginManagerInstance->get_option_name('review-download-is-failed'))) {
+delete_option($pluginManagerInstance->get_option_name('review-download-is-failed'));
+}
 ?>
 <div class="ti-header-title"><?php echo __('My Reviews', 'trustindex-plugin'); ?></div>
 <div class="ti-box">
 <?php if (!$isReviewDownloadInProgress): ?>
+<?php if ($reviewDownloadFailed): ?>
+<div class="ti-notice ti-notice-error">
+<p><?php echo __('The manual review download not available yet.', 'trustindex-plugin'); ?></p>
+</div>
+<?php endif; ?>
 <?php if ($downloadTimestamp <= time()): ?>
 <div class="ti-notice ti-d-none ti-notice-info" id="ti-connect-info">
 <p><?php echo __("A popup window should be appear! Please, go to there and continue the steps! (If there is no popup window, you can check the the browser's popup blocker)", 'trustindex-plugin'); ?></p>

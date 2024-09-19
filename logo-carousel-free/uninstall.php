@@ -36,6 +36,7 @@ function sp_lcp_delete_plugin_data() {
 	}
 
 	// Delete Carousel post meta.
+	delete_post_meta_by_key( 'sp_lcp_layout_options' );
 	delete_post_meta_by_key( 'sp_lcp_shortcode_options' );
 	delete_post_meta_by_key( 'sp_logo_carousel_link_option' );
 }

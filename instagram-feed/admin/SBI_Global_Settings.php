@@ -122,8 +122,10 @@ class SBI_Global_Settings {
 		/**
 		 * Feeds Tab
 		 */
-		$sbi_settings['sb_instagram_custom_css']    = $feeds['customCSS'];
-		$sbi_settings['sb_instagram_custom_js'] 	= $feeds['customJS'];
+		if ( current_user_can( 'unfiltered_html' ) ) {
+			$sbi_settings['sb_instagram_custom_css']    = $feeds['customCSS'];
+			$sbi_settings['sb_instagram_custom_js'] 	= $feeds['customJS'];
+		}
 		$sbi_settings['gdpr'] 			            = sanitize_text_field( $feeds['gdpr'] );
 		$sbi_settings['sbi_cache_cron_interval']    = sanitize_text_field( $feeds['cronInterval'] );
 		$sbi_settings['sbi_cache_cron_time']        = sanitize_text_field( $feeds['cronTime'] );
@@ -1215,7 +1217,13 @@ class SBI_Global_Settings {
 		$sbi_ajax = $sbi_settings['sb_instagram_ajax_theme'];
 		$active_gdpr_plugin = \SB_Instagram_GDPR_Integrations::gdpr_plugins_active();
 		$sbi_preserve_setitngs = $sbi_settings['sb_instagram_preserve_settings'];
+		$custom_css = '';
+		$custom_js = '';
 
+		if ( current_user_can( 'unfiltered_html' ) ) {
+			$custom_css = isset( $sbi_settings['sb_instagram_custom_css'] ) ? wp_strip_all_tags( stripslashes( $sbi_settings['sb_instagram_custom_css'] ) ) : '';
+			$custom_js = isset( $sbi_settings['sb_instagram_custom_js'] ) ? stripslashes( $sbi_settings['sb_instagram_custom_js'] ) : '';
+		}
 		return array(
 			'general' => array(
 				'preserveSettings' => $sbi_preserve_setitngs
@@ -1227,8 +1235,8 @@ class SBI_Global_Settings {
 				'cronAmPm'			=> $sbi_cache_cron_am_pm,
 				'gdpr'				=> $sbi_settings['gdpr'],
 				'gdprPlugin'		=> $active_gdpr_plugin,
-				'customCSS'			=> isset( $sbi_settings['sb_instagram_custom_css'] ) ? wp_strip_all_tags( stripslashes( $sbi_settings['sb_instagram_custom_css'] ) ) : '',
-				'customJS'			=> isset( $sbi_settings['sb_instagram_custom_js'] ) ? stripslashes( $sbi_settings['sb_instagram_custom_js'] ) : '',
+				'customCSS'			=> $custom_css,
+				'customJS'			=> $custom_js,
 			),
 			'advanced' => array(
 				'sbi_enable_resize' => !$sbi_settings['sb_instagram_disable_resize'],

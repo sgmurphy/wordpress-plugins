@@ -14,9 +14,12 @@ class HMWP_Models_Compatibility_WpRocket extends HMWP_Models_Compatibility_Abstr
 	public function hookAdmin()
 	{
 		add_filter('rocket_cache_reject_uri', array($this, 'rocket_reject_url'), PHP_INT_MAX);
-		add_action('hmwp_mappsettings_saved', array($this, 'burstMapping'));
-		add_action('hmwp_settings_saved', array($this, 'burstMapping'));
-	}
+
+        if(!HMWP_Classes_Tools::isWpengine()) {
+            add_action('hmwp_mappsettings_saved', array($this, 'burstMapping'));
+            add_action('hmwp_settings_saved', array($this, 'burstMapping'));
+        }
+    }
 
 	public function hookFrontend() {
 

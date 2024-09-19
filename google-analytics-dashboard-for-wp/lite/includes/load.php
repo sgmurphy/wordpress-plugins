@@ -17,6 +17,9 @@ if ( is_admin() || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
 	$overview_report = new ExactMetrics_Report_Overview();
 	ExactMetrics()->reporting->add_report( $overview_report );
 
+	$site_summary = new ExactMetrics_Report_Site_Summary();
+	ExactMetrics()->reporting->add_report( $site_summary );
+
 	require_once EXACTMETRICS_PLUGIN_DIR . 'lite/includes/admin/reports/report-publisher.php';
 	$publisher_report = new ExactMetrics_Lite_Report_Publisher();
 	ExactMetrics()->reporting->add_report( $publisher_report );

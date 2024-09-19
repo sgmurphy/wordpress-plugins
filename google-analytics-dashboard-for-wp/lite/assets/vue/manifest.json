@@ -7,66 +7,72 @@
     "file": "css/ContentIconList.css",
     "src": "ContentIconList.css"
   },
-  "_AboutTestimonialsSlider-b8133d98.min.js": {
+  "_AboutTestimonialsSlider-8cc96fcd.min.js": {
     "css": [
       "css/AboutTestimonialsSlider.css"
     ],
-    "file": "js/chunks/AboutTestimonialsSlider-b8133d98.min.js",
+    "file": "js/chunks/AboutTestimonialsSlider-8cc96fcd.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js",
-      "_ContentIconList-47765506.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_SettingsInfoTooltip-0a2d367f.min.js",
+      "_ContentIconList-f046d6e1.min.js"
     ]
   },
-  "_ContentIconList-47765506.min.js": {
+  "_ContentIconList-f046d6e1.min.js": {
     "css": [
       "css/ContentIconList.css"
     ],
-    "file": "js/chunks/ContentIconList-47765506.min.js",
+    "file": "js/chunks/ContentIconList-f046d6e1.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js"
+      "_vendor-8e7ad089.min.js"
     ]
   },
-  "_SettingsInfoTooltip-aec0fac1.min.js": {
-    "file": "js/chunks/SettingsInfoTooltip-aec0fac1.min.js",
+  "_SettingsInfoTooltip-0a2d367f.min.js": {
+    "file": "js/chunks/SettingsInfoTooltip-0a2d367f.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js"
+      "_vendor-8e7ad089.min.js"
     ]
   },
-  "_WidgetReportError-f0c116b2.min.js": {
-    "file": "js/chunks/WidgetReportError-f0c116b2.min.js",
+  "_WidgetReportError-fa0f4ae5.min.js": {
+    "file": "js/chunks/WidgetReportError-fa0f4ae5.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js"
+      "_vendor-8e7ad089.min.js"
     ]
   },
-  "_date-intervals-153fd6db.min.js": {
-    "file": "js/chunks/date-intervals-153fd6db.min.js",
+  "_date-intervals-8cfba159.min.js": {
+    "file": "js/chunks/date-intervals-8cfba159.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_index-f4fe00a5.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_index-1c341df3.min.js"
     ]
   },
-  "_exactmetrics-reports-helper-plugin-f99e77aa.min.js": {
-    "file": "js/chunks/exactmetrics-reports-helper-plugin-f99e77aa.min.js",
+  "_exactmetrics-reports-helper-plugin-f25dd3e7.min.js": {
+    "file": "js/chunks/exactmetrics-reports-helper-plugin-f25dd3e7.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js",
-      "_date-intervals-153fd6db.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_SettingsInfoTooltip-0a2d367f.min.js",
+      "_date-intervals-8cfba159.min.js"
     ]
   },
-  "_html2canvas-a566020c.min.js": {
-    "file": "js/chunks/html2canvas-a566020c.min.js",
+  "_html2canvas-670f1cb0.min.js": {
+    "file": "js/chunks/html2canvas-670f1cb0.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js"
+      "_vendor-8e7ad089.min.js"
     ],
     "isDynamicEntry": true
   },
-  "_index-b90f4c1f.min.js": {
+  "_index-1c341df3.min.js": {
+    "file": "js/chunks/index-1c341df3.min.js",
+    "imports": [
+      "_vendor-8e7ad089.min.js"
+    ]
+  },
+  "_index-373b0ca8.min.js": {
     "assets": [
       "img/logo-ExactMetrics.png",
-      "img/logo-ExactMetrics@2x2.png",
-      "img/icon-info.svg",
       "img/logo-ExactMetrics@2x.png",
+      "img/icon-info.svg",
+      "img/logo-ExactMetrics@2x2.png",
       "fonts/Roboto-Regular.woff2",
       "fonts/Roboto-Bold.woff2",
       "fonts/lato-regular-webfont.woff",
@@ -86,19 +92,13 @@
     "css": [
       "css/index.css"
     ],
-    "file": "js/chunks/index-b90f4c1f.min.js",
+    "file": "js/chunks/index-373b0ca8.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_ContentIconList-47765506.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_ContentIconList-f046d6e1.min.js"
     ]
   },
-  "_index-f4fe00a5.min.js": {
-    "file": "js/chunks/index-f4fe00a5.min.js",
-    "imports": [
-      "_vendor-e2c2538e.min.js"
-    ]
-  },
-  "_vendor-e2c2538e.min.js": {
+  "_vendor-8e7ad089.min.js": {
     "assets": [
       "img/sucker.png"
     ],
@@ -106,11 +106,11 @@
       "css/vendor.css"
     ],
     "dynamicImports": [
-      "_html2canvas-a566020c.min.js",
+      "_html2canvas-670f1cb0.min.js",
       "node_modules/dompurify/dist/purify.es.js",
       "node_modules/canvg/lib/index.es.js"
     ],
-    "file": "js/chunks/vendor-e2c2538e.min.js"
+    "file": "js/chunks/vendor-8e7ad089.min.js"
   },
   "index.css": {
     "file": "css/index.css",
@@ -121,15 +121,15 @@
     "src": "node_modules/@caohenghu/vue-colorpicker/src/img/sucker.png"
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "js/chunks/index.es-c75c3a00.min.js",
+    "file": "js/chunks/index.es-2a0ad80c.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js"
+      "_vendor-8e7ad089.min.js"
     ],
     "isDynamicEntry": true,
     "src": "node_modules/canvg/lib/index.es.js"
   },
   "node_modules/dompurify/dist/purify.es.js": {
-    "file": "js/chunks/purify.es-bcf8a077.min.js",
+    "file": "js/chunks/purify.es-f1fd0f50.min.js",
     "isDynamicEntry": true,
     "src": "node_modules/dompurify/dist/purify.es.js"
   },
@@ -410,7 +410,7 @@
     "src": "src/assets/img/exactmetrics/loading-background.jpg"
   },
   "src/assets/img/exactmetrics/logo-ExactMetrics@2x.png": {
-    "file": "img/logo-ExactMetrics@2x.png",
+    "file": "img/logo-ExactMetrics@2x2.png",
     "src": "src/assets/img/exactmetrics/logo-ExactMetrics@2x.png"
   },
   "src/assets/img/exactmetrics/media-report-upsell.png": {
@@ -666,7 +666,7 @@
     "src": "src/assets/img/logo-ExactMetrics.png"
   },
   "src/assets/img/logo-ExactMetrics@2x.png": {
-    "file": "img/logo-ExactMetrics@2x2.png",
+    "file": "img/logo-ExactMetrics@2x.png",
     "src": "src/assets/img/logo-ExactMetrics@2x.png"
   },
   "src/assets/img/logo-ExactMetrics.png": {
@@ -796,6 +796,10 @@
   "src/assets/img/reports/lite-modals/bg-ai-insights-em.png": {
     "file": "img/bg-ai-insights-em.png",
     "src": "src/assets/img/reports/lite-modals/bg-ai-insights-em.png"
+  },
+  "src/assets/img/reports/lite-modals/bg-conversations-ai-em.png": {
+    "file": "img/bg-conversations-ai-em.png",
+    "src": "src/assets/img/reports/lite-modals/bg-conversations-ai-em.png"
   },
   "src/assets/img/reports/lite-modals/bullet-em.svg": {
     "file": "img/bullet-em.svg",
@@ -1037,10 +1041,10 @@
     ],
     "file": "js/frontend.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_date-intervals-153fd6db.min.js",
-      "_WidgetReportError-f0c116b2.min.js",
-      "_index-f4fe00a5.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_date-intervals-8cfba159.min.js",
+      "_WidgetReportError-fa0f4ae5.min.js",
+      "_index-1c341df3.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/frontend/frontend.js"
@@ -1133,20 +1137,21 @@
       "img/em-pro.png",
       "img/loading-background.jpg",
       "img/bullet-em.svg",
-      "img/bg-ai-insights-em.png"
+      "img/bg-ai-insights-em.png",
+      "img/bg-conversations-ai-em.png"
     ],
     "css": [
       "css/reports.css"
     ],
     "file": "js/reports.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_date-intervals-153fd6db.min.js",
-      "_exactmetrics-reports-helper-plugin-f99e77aa.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js",
-      "_index-b90f4c1f.min.js",
-      "_index-f4fe00a5.min.js",
-      "_ContentIconList-47765506.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_date-intervals-8cfba159.min.js",
+      "_exactmetrics-reports-helper-plugin-f25dd3e7.min.js",
+      "_SettingsInfoTooltip-0a2d367f.min.js",
+      "_index-373b0ca8.min.js",
+      "_index-1c341df3.min.js",
+      "_ContentIconList-f046d6e1.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/reports/reports.js"
@@ -1322,12 +1327,12 @@
     ],
     "file": "js/settings.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_index-f4fe00a5.min.js",
-      "_ContentIconList-47765506.min.js",
-      "_AboutTestimonialsSlider-b8133d98.min.js",
-      "_index-b90f4c1f.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_index-1c341df3.min.js",
+      "_ContentIconList-f046d6e1.min.js",
+      "_AboutTestimonialsSlider-8cc96fcd.min.js",
+      "_index-373b0ca8.min.js",
+      "_SettingsInfoTooltip-0a2d367f.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/settings/settings.js"
@@ -1419,6 +1424,7 @@
       "img/loading-background.jpg",
       "img/bullet-em.svg",
       "img/bg-ai-insights-em.png",
+      "img/bg-conversations-ai-em.png",
       "img/em-logo.png"
     ],
     "css": [
@@ -1426,12 +1432,12 @@
     ],
     "file": "js/widget.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_date-intervals-153fd6db.min.js",
-      "_exactmetrics-reports-helper-plugin-f99e77aa.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js",
-      "_WidgetReportError-f0c116b2.min.js",
-      "_index-f4fe00a5.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_date-intervals-8cfba159.min.js",
+      "_exactmetrics-reports-helper-plugin-f25dd3e7.min.js",
+      "_SettingsInfoTooltip-0a2d367f.min.js",
+      "_WidgetReportError-fa0f4ae5.min.js",
+      "_index-1c341df3.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/widget/widget.js"
@@ -1455,7 +1461,7 @@
       "fonts/icons.woff",
       "fonts/icons.ttf",
       "fonts/icons.otf",
-      "img/logo-ExactMetrics@2x.png",
+      "img/logo-ExactMetrics@2x2.png",
       "img/icon-smile.png",
       "img/wpforms.png",
       "img/forms-screen.png",
@@ -1505,11 +1511,11 @@
     ],
     "file": "js/wizard.min.js",
     "imports": [
-      "_vendor-e2c2538e.min.js",
-      "_AboutTestimonialsSlider-b8133d98.min.js",
-      "_SettingsInfoTooltip-aec0fac1.min.js",
-      "_index-f4fe00a5.min.js",
-      "_ContentIconList-47765506.min.js"
+      "_vendor-8e7ad089.min.js",
+      "_AboutTestimonialsSlider-8cc96fcd.min.js",
+      "_SettingsInfoTooltip-0a2d367f.min.js",
+      "_index-1c341df3.min.js",
+      "_ContentIconList-f046d6e1.min.js"
     ],
     "isEntry": true,
     "src": "src/modules/wizard-onboarding/wizard.js"

@@ -229,7 +229,7 @@ class Ays_Pb_Public {
             }
         }
 
-        //Hide on PC
+        //Hide on desktop
         $options['hide_on_pc'] = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? "on" : "off";
         $ays_pb_hide_on_pc = ( isset( $options['hide_on_pc'] ) && $options['hide_on_pc'] == "on" ) ? true : false;
 

@@ -11,11 +11,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'admin_enqueue_scripts', 'bafg_admin_enqueue_scripts' );
 
 //Enqueue script in admin area
-function bafg_admin_enqueue_scripts() {
+function bafg_admin_enqueue_scripts( $screen ) {
+	global $post_type;
+	$tf_options_screens = array(
+		'bafg_page_beaf_settings',
+	);
+	$tf_options_post_type = array( 'bafg' );
+
+	if ( in_array( $screen, $tf_options_screens ) || in_array( $post_type, $tf_options_post_type ) ) {
+		wp_enqueue_style( 'beaf-admin-options', BEAF_ASSETS_URL . 'css/beaf-admin-options.css', array() );
+	}
+
 	// Enqueue styles
 	wp_enqueue_style( 'notyf', BEAF_ASSETS_URL . 'libs/notyf/notyf.min.css', array() );
 	wp_enqueue_style( 'bafg_admin_style', plugins_url( '../assets/css/bafg-admin-style.css', __FILE__ ), array() );
-	wp_enqueue_style( 'beaf-admin-options', BEAF_ASSETS_URL . 'css/beaf-admin-options.css', array() );
+
 
 	// Enqueue scripts
 	wp_enqueue_script( 'wp-color-picker-alpha', plugins_url( '../assets/js/wp-color-picker-alpha.min.js', __FILE__ ), array( 'wp-color-picker' ), true );

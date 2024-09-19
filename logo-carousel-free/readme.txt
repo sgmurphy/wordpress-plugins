@@ -2,8 +2,8 @@
 Contributors: shapedplugin, shamimmiashuhagh, rubel_miah, khalilu
 Tags: logo carousel, logo slider, logo gallery, logo showcase, display logo
 Requires at least: 4.7
-Tested up to: 6.6
-Stable tag: 3.5.2
+Tested up to: 6.6.2
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -213,6 +213,15 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 3.6.0 - Sep 19, 2024 =
+* New: The Grid Layout feature
+* New: The Responsive Columns, Spacing, Border, Limits, and more options for grid layout.
+* New: The Vertical Alignment option for grid and carousel layouts.
+* New: The Justify Logo option for grid layout.
+* Improved: The Layout Preset option was moved to the top section of the Manage Views single page.
+* Improved: The Carousel Style option was placed after the Layout Preset option.
+* Tested: WordPress 6.6.2 compatibility.
 
 = 3.5.2 Jul 06, 2024 =
 * Fix: Some strings translation issue.

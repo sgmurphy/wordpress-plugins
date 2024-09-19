@@ -108,7 +108,7 @@ class ExactMetrics_Onboarding_Wizard {
 		}
 
 		$app_js_url = ExactMetrics_Admin_Assets::get_js_url( 'src/modules/wizard-onboarding/wizard.js' );
-		wp_register_script( 'exactmetrics-vue-script', $app_js_url, array(), exactmetrics_get_asset_version(), true );
+		wp_register_script( 'exactmetrics-vue-script', $app_js_url, array( 'wp-i18n' ), exactmetrics_get_asset_version(), true );
 		wp_enqueue_script( 'exactmetrics-vue-script' );
 
 		$settings_page = is_network_admin() ? add_query_arg( 'page', 'exactmetrics_network', network_admin_url( 'admin.php' ) ) : add_query_arg( 'page', 'exactmetrics_settings', admin_url( 'admin.php' ) );

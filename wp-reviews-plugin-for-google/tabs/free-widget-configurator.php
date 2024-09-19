@@ -130,6 +130,8 @@ delete_option($pluginManagerInstance->get_option_name('show-arrows'));
 delete_option($pluginManagerInstance->get_option_name('show-header-button'));
 delete_option($pluginManagerInstance->get_option_name('reviews-load-more'));
 delete_option($pluginManagerInstance->get_option_name('show-reviewers-photo'));
+delete_option($pluginManagerInstance->get_option_name('floating-desktop-open'));
+delete_option($pluginManagerInstance->get_option_name('floating-mobile-open'));
 delete_option($pluginManagerInstance->get_option_name('widget-setted-up'));
 }
 $wpdb->query('TRUNCATE `'. $pluginManagerInstance->get_tablename('reviews') .'`');
@@ -159,6 +161,8 @@ $optionsToDelete = [
 'show-header-button',
 'reviews-load-more',
 'dateformat',
+'floating-desktop-open',
+'floating-mobile-open',
 ];
 foreach ($optionsToDelete as $name) {
 delete_option($pluginManagerInstance->get_option_name($name));
@@ -298,6 +302,16 @@ if (isset($_POST['footer-filter-text'])) {
 $r = sanitize_text_field($_POST['footer-filter-text']);
 }
 update_option($pluginManagerInstance->get_option_name('footer-filter-text'), $r, false);
+$r = 1;
+if (isset($_POST['floating-desktop-open'])) {
+$r = sanitize_text_field($_POST['floating-desktop-open']);
+}
+update_option($pluginManagerInstance->get_option_name('floating-desktop-open'), $r, false);
+$r = 0;
+if (isset($_POST['floating-mobile-open'])) {
+$r = sanitize_text_field($_POST['floating-mobile-open']);
+}
+update_option($pluginManagerInstance->get_option_name('floating-mobile-open'), $r, false);
 $filter = $pluginManagerInstance->getWidgetOption('filter');
 $filter['only-ratings'] = isset($_POST['only-ratings']) ? (bool)$_POST['only-ratings'] : $pluginManagerInstance->getWidgetOption('filter', false, true)['only-ratings'];
 update_option($pluginManagerInstance->get_option_name('filter'), $filter, false);
@@ -821,12 +835,22 @@ break;
 <input type="checkbox" name="show-logos" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-logos')): ?> checked<?php endif;?> />
 <label><?php echo __('Show platform logos', 'trustindex-plugin'); ?></label>
 </span>
-<?php if (!$pluginManagerInstance->is_ten_scale_rating_platform()): ?>
+<?php if (!$pluginManagerInstance->is_ten_scale_rating_platform() && $pluginManagerInstance->getShortName() !== 'google'): ?>
 <span class="ti-checkbox ti-checkbox-row">
 <input type="checkbox" name="show-stars" value="1"<?php if ($pluginManagerInstance->getWidgetOption('show-stars')): ?> checked<?php endif;?> />
 <label><?php echo __('Show platform stars', 'trustindex-plugin'); ?></label>
 </span>
 <?php endif; ?>
+<?php endif; ?>
+<?php if ($widgetType === 'floating'): ?>
+<span class="ti-checkbox ti-checkbox-row">
+<input type="checkbox" name="floating-desktop-open" value="1"<?php if ($pluginManagerInstance->getWidgetOption('floating-desktop-open')): ?> checked<?php endif; ?> />
+<label><?php echo __('Opened on desktop', 'trustindex-plugin'); ?></label>
+</span>
+<span class="ti-checkbox ti-checkbox-row">
+<input type="checkbox" name="floating-mobile-open" value="1"<?php if ($pluginManagerInstance->getWidgetOption('floating-mobile-open')): ?> checked<?php endif; ?> />
+<label><?php echo __('Opened on mobile', 'trustindex-plugin'); ?></label>
+</span>
 <?php endif; ?>
 </form>
 </div>

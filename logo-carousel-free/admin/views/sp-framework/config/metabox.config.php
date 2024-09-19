@@ -12,6 +12,252 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $prefix = 'sp_lcp_shortcode_options';
 
+/**
+ * Preview metabox.
+ *
+ * @param string $prefix The metabox main Key.
+ * @return void
+ */
+SPLC::createMetabox(
+	'splcp_live_preview',
+	array(
+		'title'           => __( 'Live Preview', 'logo-carousel-free' ),
+		'post_type'       => 'sp_lc_shortcodes',
+		'show_restore'    => false,
+		'splcp_shortcode' => false,
+		'context'         => 'normal',
+	)
+);
+
+SPLC::createSection(
+	'splcp_live_preview',
+	array(
+		'fields' => array(
+			array(
+				'type' => 'preview',
+			),
+		),
+	)
+);
+
+/**
+ * View shortcode show metabox.
+ *
+ * @param string 'sp_lcp_shortcode_show' The metabox main Key.
+ * @return void
+ */
+SPLC::createMetabox(
+	'sp_lcp_shortcode_show',
+	array(
+		'title'            => __( 'How To Use', 'logo-carousel-free' ),
+		'post_type'        => 'sp_lc_shortcodes',
+		'context'          => 'side',
+		'show_restore'     => false,
+		'sp_lcp_shortcode' => false,
+	)
+);
+
+SPLC::createSection(
+	'sp_lcp_shortcode_show',
+	array(
+		'fields' => array(
+			array(
+				'type'      => 'shortcode',
+				'shortcode' => 'manage_view',
+				'class'     => 'sp_tpro-admin-sidebar',
+			),
+		),
+	)
+);
+
+/**
+ * Page builder supported metabox.
+ *
+ * @param string 'sp_lcp_builder_option' The metabox main Key.
+ * @return void
+ */
+SPLC::createMetabox(
+	'sp_lcp_builder_option',
+	array(
+		'title'            => __( 'Page Builders', 'logo-carousel-free' ),
+		'post_type'        => 'sp_lc_shortcodes',
+		'context'          => 'side',
+		'show_restore'     => false,
+		'sp_lcp_shortcode' => false,
+	)
+);
+
+SPLC::createSection(
+	'sp_lcp_builder_option',
+	array(
+		'fields' => array(
+			array(
+				'type'      => 'shortcode',
+				'shortcode' => false,
+				'class'     => 'sp_tpro-admin-sidebar',
+			),
+		),
+	)
+);
+
+/**
+ * Layout metabox.
+ *
+ * @param string 'sp_lcp_layout_options' The metabox main Key.
+ * @return void
+ */
+SPLC::createMetabox(
+	'sp_lcp_layout_options',
+	array(
+		'title'            => __( 'Layout', 'logo-carousel-free' ),
+		'post_type'        => 'sp_lc_shortcodes',
+		'show_restore'     => false,
+		'sp_lcp_shortcode' => false,
+		'context'          => 'normal',
+	)
+);
+
+SPLC::createSection(
+	'sp_lcp_layout_options',
+	array(
+		'fields' => array(
+			array(
+				'type'    => 'heading',
+				'image'   => SP_LC_URL . 'admin/assets/images/lc-logo.svg',
+				'after'   => '<i class="fa fa-life-ring"></i> Support',
+				'link'    => 'https://shapedplugin.com/support/?user=lite',
+				'class'   => 'splogocarousel-admin-header',
+				'version' => SP_LC_VERSION,
+			),
+			array(
+				'id'      => 'lcp_layout',
+				'class'   => 'lcp_layout active-sign',
+				'type'    => 'layout_preset',
+				'title'   => __( 'Layout Preset', 'logo-carousel-free' ),
+				'options' => array(
+					'carousel'   => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/carousel.svg',
+						'text'            => __( 'Carousel', 'logo-carousel-free' ),
+						'option_demo_url' => 'https://logocarousel.com/carousel/',
+					),
+					'grid'       => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/grid.svg',
+						'text'            => __( 'Grid', 'logo-carousel-free' ),
+						'option_demo_url' => 'https://logocarousel.com/grid/',
+					),
+					'multi_rows' => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/multi_rows.svg',
+						'text'            => __( 'Multi Rows', 'logo-carousel-free' ),
+						'pro_only'        => true,
+						'option_demo_url' => 'https://logocarousel.com/multi-row-carousel/',
+					),
+					'masonry'    => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/masonry.svg',
+						'text'            => __( 'Masonry', 'logo-carousel-free' ),
+						'pro_only'        => true,
+						'option_demo_url' => 'https://logocarousel.com/masonry/',
+					),
+					'filter'     => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/isotope.svg',
+						'text'            => __( 'Isotope', 'logo-carousel-free' ),
+						'pro_only'        => true,
+						'option_demo_url' => 'https://logocarousel.com/isotope/',
+					),
+					'list'       => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/list.svg',
+						'text'            => __( 'List', 'logo-carousel-free' ),
+						'pro_only'        => true,
+						'option_demo_url' => 'https://logocarousel.com/list/',
+					),
+					'inline'     => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/inline.svg',
+						'text'            => __( 'Inline', 'logo-carousel-free' ),
+						'pro_only'        => true,
+						'option_demo_url' => 'https://logocarousel.com/inline/',
+					),
+					'table'      => array(
+						'image'           => SP_LC_URL . 'admin/assets/images/table.svg',
+						'text'            => __( 'Table', 'logo-carousel-free' ),
+						'pro_only'        => true,
+						'option_demo_url' => 'https://logocarousel.com/table/',
+					),
+				),
+				'default' => 'carousel',
+			),
+			array(
+				'id'         => 'lcp_logo_carousel_mode',
+				'type'       => 'layout_preset',
+				'title'      => __( 'Carousel Style', 'logo-carousel-free' ),
+				'options'    => array(
+					'standard' => array(
+						'image' => SP_LC_URL . 'admin/assets/images/carousel-mode/standard.svg',
+						'text'  => __( 'Standard', 'logo-carousel-free' ),
+					),
+					'center'   => array(
+						'image'    => SP_LC_URL . 'admin/assets/images/carousel-mode/center.svg',
+						'text'     => __( 'Center', 'logo-carousel-free' ),
+						'pro_only' => true,
+					),
+					'ticker'   => array(
+						'image'    => SP_LC_URL . 'admin/assets/images/carousel-mode/ticker.svg',
+						'text'     => __( 'Ticker', 'logo-carousel-free' ),
+						'pro_only' => true,
+					),
+				),
+				'only_pro'   => true,
+				'default'    => 'standard',
+				'dependency' => array( 'lcp_layout', '==', 'carousel', true ),
+				'title_info' => sprintf(
+					'<div class="splogocarousel-info-label">%s</div> <div class="splogocarousel-short-content">%s</div><div class="info-button"><a class="splogocarousel-open-live-demo" href="https://logocarousel.com/carousel-modes/" target="_blank">%s</a></div>',
+					__( 'Carousel Style', 'logo-carousel-free' ),
+					__( 'This feature allows you to select the most suitable carousel style between Standard, Ticker (continuous scrolling), or Center.', 'logo-carousel-free' ),
+					__( 'Live Demo', 'logo-carousel-free' ),
+				),
+			),
+			array(
+				'id'         => 'lcp_layout_justified_mode',
+				'type'       => 'layout_preset',
+				'class'      => 'lcp_layout_justified_mode',
+				'title'      => __( 'Justify Logo', 'logo-carousel-free' ),
+				'options'    => array(
+					'left'   => array(
+						'image' => SP_LC_URL . 'admin/assets/images/justify_content_left.svg',
+						'text'  => __( 'Left', 'logo-carousel-free' ),
+					),
+					'right'  => array(
+						'image' => SP_LC_URL . 'admin/assets/images/Justify_content_right.svg',
+						'text'  => __( 'Right', 'logo-carousel-free' ),
+					),
+					'center' => array(
+						'image'    => SP_LC_URL . 'admin/assets/images/justify_content_center.svg',
+						'text'     => __( 'Center', 'logo-carousel-free' ),
+						'pro_only' => true,
+					),
+				),
+				'default'    => 'left',
+				'dependency' => array( 'lcp_layout', 'any', 'grid,inline', true ),
+			),
+			array(
+				'type'    => 'notice',
+				'style'   => 'normal',
+				'class'   => 'lcp-live-filter-notice',
+				'content' => sprintf(
+					/* translators: %1$s: strong tag starts , %2$s: link tag starts %3$s: link tag and strong tag end . %4$s: another link tag starts %5$s: link tag ends. */
+					__(
+						'Want to unleash your creativity with %1$s10+ exclusive %2$slayouts%3$s and design freedom? %4$sGet Pro Now!%5$s',
+						'logo-carousel-free'
+					),
+					'<strong class="lcp-pro-text">',
+					'<a href="https://logocarousel.com/carousel/" target="_blank">',
+					'</a></strong>',
+					'<b><a href="https://logocarousel.com/pricing/?ref=1" target="_blank">',
+					'</a></b>',
+				),
+			),
+		),
+	)
+);
+
 // -----------------------------------------
 // Shortcode Generator Options.
 // -----------------------------------------
@@ -35,117 +281,18 @@ SPLC::createSection(
 		'icon'   => '<i class="splogocarousel-tab-icon fa fa-cog"></i>',
 		'fields' => array(
 			array(
-				'id'       => 'lcp_layout',
-				'class'    => 'lcp_layout active-sign',
-				'type'     => 'layout_preset',
-				'title'    => __( 'Layout Preset', 'logo-carousel-free' ),
-				'subtitle' => __( 'Select your layout to display the logos.', 'logo-carousel-free' ),
-				'desc'     => sprintf(
-					/* translators: %1$s: strong tag starts , %2$s: link tag starts %3$s: link tag and strong tag end . %4$s: another link tag starts %5$s: link tag ends. */
-					__(
-						'Want to unleash your creativity with %1$s10+ exclusive %2$slayouts%3$s and design freedom? %4$sGet Pro Now!%5$s',
-						'logo-carousel-free'
-					),
-					'<strong class="lcp-pro-text">',
-					'<a href="https://logocarousel.com/carousel/" target="_blank">',
-					'</a></strong>',
-					'<b><a href="https://logocarousel.com/pricing/?ref=1" target="_blank">',
-					'</a></b>',
-				),
-				'options'  => array(
-					'carousel' => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/carousel.svg',
-						'text'            => __( 'Carousel', 'logo-carousel-free' ),
-						'option_demo_url' => 'https://logocarousel.com/carousel/',
-					),
-					'grid'     => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/grid.svg',
-						'text'            => __( 'Grid', 'logo-carousel-free' ),
-						'pro_only'        => true,
-						'option_demo_url' => 'https://logocarousel.com/grid/',
-					),
-					'masonry'  => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/masonry.svg',
-						'text'            => __( 'Masonry', 'logo-carousel-free' ),
-						'pro_only'        => true,
-						'option_demo_url' => 'https://logocarousel.com/masonry/',
-					),
-					'filter'   => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/isotope.svg',
-						'text'            => __( 'Isotope', 'logo-carousel-free' ),
-						'pro_only'        => true,
-						'option_demo_url' => 'https://logocarousel.com/isotope/',
-					),
-					'list'     => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/list.svg',
-						'text'            => __( 'List', 'logo-carousel-free' ),
-						'pro_only'        => true,
-						'option_demo_url' => 'https://logocarousel.com/list/',
-					),
-					'inline'   => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/inline.svg',
-						'text'            => __( 'Inline', 'logo-carousel-free' ),
-						'pro_only'        => true,
-						'option_demo_url' => 'https://logocarousel.com/inline/',
-					),
-					'table'    => array(
-						'image'           => SP_LC_URL . 'admin/assets/images/table.svg',
-						'text'            => __( 'Table', 'logo-carousel-free' ),
-						'pro_only'        => true,
-						'option_demo_url' => 'https://logocarousel.com/table/',
-					),
-				),
-				'default'  => 'carousel',
-			),
-			array(
-				'id'         => 'lcp_logo_carousel_mode',
-				'type'       => 'layout_preset',
-				'title'      => __( 'Carousel Style', 'logo-carousel-free' ),
-				'subtitle'   => __( 'Select a carousel style.', 'logo-carousel-free' ),
-				'options'    => array(
-					'standard'   => array(
-						'image' => SP_LC_URL . 'admin/assets/images/carousel-mode/standard.svg',
-						'text'  => __( 'Standard', 'logo-carousel-free' ),
-					),
-					'center'     => array(
-						'image'    => SP_LC_URL . 'admin/assets/images/carousel-mode/center.svg',
-						'text'     => __( 'Center', 'logo-carousel-free' ),
-						'pro_only' => true,
-					),
-					'ticker'     => array(
-						'image'    => SP_LC_URL . 'admin/assets/images/carousel-mode/ticker.svg',
-						'text'     => __( 'Ticker', 'logo-carousel-free' ),
-						'pro_only' => true,
-					),
-					'multi_rows' => array(
-						'image'    => SP_LC_URL . 'admin/assets/images/carousel-mode/multi_rows.svg',
-						'text'     => __( 'Multi Rows', 'logo-carousel-free' ),
-						'pro_only' => true,
-					),
-				),
-				'only_pro'   => true,
-				'default'    => 'standard',
-				'dependency' => array( 'lcp_layout', '==', 'carousel' ),
-				'title_info' => sprintf(
-					'<div class="splogocarousel-info-label">%s</div> <div class="splogocarousel-short-content">%s</div><div class="info-button"><a class="splogocarousel-open-live-demo" href="https://logocarousel.com/carousel-modes/" target="_blank">%s</a></div>',
-					__( 'Carousel Style', 'logo-carousel-free' ),
-					__( 'This feature allows you to select the most suitable carousel style between Standard, Ticker (continuous scrolling), or Center.', 'logo-carousel-free' ),
-					__( 'Live Demo', 'logo-carousel-free' ),
-				),
-			),
-			array(
 				'id'         => 'lcp_number_of_columns',
 				'type'       => 'column',
-				'title'      => __( 'Logo Column(s)', 'logo-carousel-free' ),
-				'subtitle'   => __( 'Set number of column(s) in different devices for responsive view.', 'logo-carousel-free' ),
+				'title'      => __( 'Logo Columns', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Set number of columns in different devices.', 'logo-carousel-free' ),
 				'title_info' => sprintf(
 					/* translators: %1$s: icon and strong tag start, %2$s: strong tag ends, %3$s: icon and strong tag start %4$s: icon and strong tag start %5$s: icon and strong tag start %6$s: icon and strong tag start */
-					__( '%1$sLarge Desktop%2$s - is larger than 1200px,%3$sDesktop%2$s - size is smaller than 1024px,%4$sTablet%2$s - size is smaller than 768,%5$sMobile Landscape%2$s- size is smaller than 576px,%6$sMobile%2$s - size is smaller than 480px.' ),
+					__( '%1$sLarge Desktop%2$s - is larger than 1200px,%3$sDesktop%2$s - size is larger than 1024px,%4$sTablet%2$s - size is larger than 768,%5$sMobile Landscape%2$s- size is larger than 575px,%6$sMobile%2$s - size is smaller than 576px.', 'logo-carousel-free' ),
 					'<i class="fa fa-television"></i> <strong>',
 					'</strong>',
 					'<br><i class="fa fa-desktop"></i> <strong>',
+					'<br> <i class="fa fa-laptop"></i> <strong>',
 					'<br> <i class="fa fa-tablet"></i> <strong>',
-					'<br> <i class="fa fa-mobile"></i> <strong>',
 					'<br> <i class="fa fa-mobile"></i> <strong>',
 				),
 				'sanitize'   => 'splogocarousel_sanitize_number_array_field',
@@ -156,6 +303,8 @@ SPLC::createSection(
 					'mobile_landscape' => '2',
 					'mobile'           => '1',
 				),
+				'min'        => '1',
+				'dependency' => array( 'lcp_layout', 'any', 'carousel,grid', true ),
 			),
 			array(
 				'id'            => 'lcp_logo_margin',
@@ -171,8 +320,8 @@ SPLC::createSection(
 				'all_icon'      => '<i class="fa fa-arrows-h" aria-hidden="true"></i>',
 				'vertical_icon' => '<i class="fa fa-arrows-v" aria-hidden="true"></i>',
 				'default'       => array(
-					'all'      => '12',
-					'vertical' => '12',
+					'all'      => '8',
+					'vertical' => '8',
 				),
 				'title_info'    => '<div class="splogocarousel-img-tag"><img src="' . SPLC::include_plugin_url( 'assets/images/gap.svg' ) . '" alt="' . __( 'Space Between Logos', 'logo-carousel-free' ) . '"></div><div class="splogocarousel-info-label img">' . __( 'Space Between Logos', 'logo-carousel-free' ) . '</div>',
 			),
@@ -248,7 +397,7 @@ SPLC::createSection(
 						'type'       => 'checkbox',
 						'title'      => __( 'Open a New Tab', 'logo-carousel-free' ),
 						'default'    => true,
-						'dependency' => array( 'lcp_link_type', '==', 'external_link' ),
+						'dependency' => array( 'lcp_link_type', '==', 'external_link', true ),
 					),
 					array(
 						'id'         => 'modal_type',
@@ -256,7 +405,7 @@ SPLC::createSection(
 						'title'      => __( 'Multiple Popup with Nav', 'logo-carousel-free' ),
 						'class'      => 'page_link_type_option',
 						'default'    => false,
-						'dependency' => array( 'lcp_link_type', '==', 'popup' ),
+						'dependency' => array( 'lcp_link_type', '==', 'popup', true ),
 					),
 				),
 			),
@@ -330,8 +479,9 @@ SPLC::createSection(
 			),
 			array(
 				'id'         => 'logo_live_filter',
-				'class'      => 'logo_live_filter lcp_only_pro',
+				'class'      => 'logo_live_filter',
 				'type'       => 'switcher',
+				'only_pro'   => true,
 				'title'      => __( 'Ajax Logo Live Filters', 'logo-carousel-free' ),
 				'subtitle'   => __( 'Enable Ajax live filter to navigate through the logo categories and A-Z alphabetical filters.', 'logo-carousel-free' ),
 				'text_on'    => __( 'Enabled', 'logo-carousel-free' ),
@@ -340,12 +490,146 @@ SPLC::createSection(
 				'text_width' => 100,
 				'title_info' => sprintf(
 					'<div class="splogocarousel-info-label">%s</div> <div class="splogocarousel-short-content">%s</div><div class="info-button"><a class="splogocarousel-open-docs" href="https://docs.shapedplugin.com/docs/logo-carousel-free/configurations/how-to-enable-ajax-logo-live-filters/" target="_blank">%s</a><a class="splogocarousel-open-live-demo" href="https://logocarousel.com/ajax-logo-live-filters/" target="_blank">%s</a></div>',
-					__( 'Ajax Logo Live Filters', 'logo-carousel-free' ),
+					__( 'Ajax Logo Live Filters (Pro)', 'logo-carousel-free' ),
 					__( 'Make your visitor\'s logo search easier by enabling the Ajax live filter. This powerful feature allows effortless navigation through logo categories, while the A-Z alphabetical filters ensure that they can easily find exactly what they\'re looking for.', 'logo-carousel-free' ),
 					__( 'Open Docs', 'logo-carousel-free' ),
 					__( 'Live Demo', 'logo-carousel-free' ),
 				),
 				'dependency' => array( 'lcp_layout', '!=', 'filter', true ),
+			),
+			array(
+				'id'         => 'lcp_section_ajax_live_filter',
+				'class'      => 'lcp_only_pro',
+				'type'       => 'subheading',
+				'content'    => __( 'Ajax Logo Live Filters', 'logo-carousel-free' ),
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'type'       => 'notice',
+				'style'      => 'normal',
+				'class'      => 'lcp-live-filter-notice',
+				'content'    => sprintf(
+					/* translators: %1$s: bold tag starts, %2$s: bold tag ends, %3$s: link tag starts %4$s: link tag ends %5$s: another link tag start %6$s: link tag ends */
+					__( 'To allow your visitors to filter logos by %1$sCategories%2$s, %3$sA-Z filter%2$s, and Ajax Search on the frontend, %4$sUpgrade To Pro!%2$s', 'logo-carousel-free' ),
+					'<a href="https://logocarousel.com/ajax-logo-live-filters/" target="_blank"><strong>',
+					'</strong></a>',
+					'<a href="https://logocarousel.com/ajax-logo-live-filters/#sp-lcpro-id-1645" target="_blank"><strong>',
+					'<a href="https://logocarousel.com/pricing/?ref=1" target="_blank"><strong>',
+				),
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'         => 'live_filter_type',
+				'class'      => 'lcp_pro_option',
+				'type'       => 'button_set',
+				'only_pro'   => true,
+				'title'      => __( 'Live Filter Type', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Select a ajax live filter type.', 'logo-carousel-free' ),
+				'options'    => array(
+					'category_filter'        => __( 'Category', 'logo-carousel-free' ),
+					'az_filter'              => __( 'A-Z Filter', 'logo-carousel-free' ),
+					'category_and_az_filter' => __( 'Category & A-Z', 'logo-carousel-free' ),
+				),
+				'default'    => 'category_filter',
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'         => 'lcp_filter_button_type',
+				'class'      => 'lcp_pro_option',
+				'type'       => 'layout_preset',
+				'only_pro'   => true,
+				'title'      => __( 'Filter Type', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Choose a filter button type.', 'logo-carousel-free' ),
+				'options'    => array(
+					'button'   => array(
+						'image' => SP_LC_URL . 'admin/assets/images/filter-type/button.svg',
+						'text'  => __( 'Button', 'logo-carousel-free' ),
+					),
+					'dropdown' => array(
+						'image' => SP_LC_URL . 'admin/assets/images/filter-type/dropdown.svg',
+						'text'  => __( 'Dropdown', 'logo-carousel-free' ),
+					),
+				),
+				'default'    => 'button',
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'         => 'lcp_all_tab',
+				'type'       => 'switcher',
+				'only_pro'   => true,
+				'class'      => 'ajax-filter-options lcp_only_pro',
+				'title'      => __( '"All" Tab', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Show/Hide "All" tab.', 'logo-carousel-free' ),
+				'default'    => true,
+				'text_on'    => __( 'Show', 'logo-carousel-free' ),
+				'text_off'   => __( 'Hide', 'logo-carousel-free' ),
+				'text_width' => 80,
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'         => 'lcp_all_tab_text',
+				'type'       => 'text',
+				'only_pro'   => true,
+				'class'      => 'lcp_all_tab_text ajax-filter-options lcp_pro_option',
+				'title'      => __( '"All" Tab Label', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Set "All" tab label text.', 'logo-carousel-free' ),
+				'default'    => 'All',
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'         => 'filter_btn_align',
+				'class'      => 'filter_align ajax-filter-options lcp_pro_option',
+				'type'       => 'button_set',
+				'only_pro'   => true,
+				'title'      => __( 'Alignment', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Choose filter button alignment.', 'logo-carousel-free' ),
+				'options'    => array(
+					'left'   => '<i class="fa fa-align-left" title="Left"></i>',
+					'center' => '<i class="fa fa-align-center" title="Center"></i>',
+					'right'  => '<i class="fa fa-align-right" title="Right"></i>',
+				),
+				'default'    => 'center',
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'         => 'lcp_filter_cat_color',
+				'type'       => 'color_group',
+				'only_pro'   => true,
+				'title'      => __( 'Color', 'logo-carousel-free' ),
+				'subtitle'   => __( 'Set isotope filter category color.', 'logo-carousel-free' ),
+				'class'      => 'ajax-filter-options lcp_pro_option',
+				'options'    => array(
+					'color1' => __( 'Color', 'logo-carousel-free' ),
+					'color2' => __( 'Hover Color', 'logo-carousel-free' ),
+					'color3' => __( 'Background', 'logo-carousel-free' ),
+					'color4' => __( 'Hover Background', 'logo-carousel-free' ),
+				),
+				'default'    => array(
+					'color1' => '#444444',
+					'color2' => '#ffffff',
+					'color3' => '#e2e2e2',
+					'color4' => '#16a08b',
+				),
+				'dependency' => array( 'logo_live_filter', '==', 'true', true ),
+			),
+			array(
+				'id'          => 'lcp_filter_cat_border',
+				'type'        => 'border',
+				'only_pro'    => true,
+				'class'       => 'ajax-filter-options lcp_pro_option',
+				'title'       => __( 'Border', 'logo-carousel-free' ),
+				'subtitle'    => __( 'Set isotope filter category border.', 'logo-carousel-free' ),
+				'default'     => array(
+					'all'         => '0',
+					'style'       => 'solid',
+					'color'       => '#444444',
+					'hover_color' => '#16a08b',
+					'radius'      => '2',
+				),
+				'all'         => true,
+				'hover_color' => true,
+				'radius'      => true,
+				'dependency'  => array( 'logo_live_filter', '==', 'true', true ),
 			),
 		),
 	)
@@ -451,7 +735,7 @@ SPLC::createSection(
 							array(
 								'id'         => 'lcp_grid_inline_vertical_alignment',
 								'type'       => 'layout_preset',
-								'class'      => 'order_by_pro',
+								'class'      => 'order_by_pro lcp-grid-inline-vertical-alignment',
 								'title'      => __( 'Vertical Alignment', 'logo-carousel-free' ),
 								'subtitle'   => __( 'Select vertical alignment type.', 'logo-carousel-free' ),
 								'options'    => array(
@@ -460,14 +744,12 @@ SPLC::createSection(
 										'text'  => __( 'Middle', 'logo-carousel-free' ),
 									),
 									'bottom' => array(
-										'image'    => SP_LC_URL . 'admin/assets/images/vertical-alignments/bottom.svg',
-										'text'     => __( 'Bottom', 'logo-carousel-free' ),
-										'pro_only' => true,
+										'image' => SP_LC_URL . 'admin/assets/images/vertical-alignments/bottom.svg',
+										'text'  => __( 'Bottom', 'logo-carousel-free' ),
 									),
 									'top'    => array(
-										'image'    => SP_LC_URL . 'admin/assets/images/vertical-alignments/top.svg',
-										'text'     => __( 'Top', 'logo-carousel-free' ),
-										'pro_only' => true,
+										'image' => SP_LC_URL . 'admin/assets/images/vertical-alignments/top.svg',
+										'text'  => __( 'Top', 'logo-carousel-free' ),
 									),
 								),
 								'default'    => 'middle',
@@ -532,37 +814,6 @@ SPLC::createSection(
 								'text_width' => 80,
 								'class'      => 'lcp_only_pro',
 							),
-							// array(
-							// 	'id'       => 'lcp_description_read_more_text',
-							// 	'type'     => 'text',
-							// 	'class'    => 'lcp-read-more-text lcp_pro_option',
-							// 	'title'    => __( 'Read More Button Label', 'logo-carousel-free' ),
-							// 	'subtitle' => __( 'Set description read more button text.', 'logo-carousel-free' ),
-							// 	'default'  => 'Learn More',
-							// ),
-							// array(
-							// 	'id'       => 'lcp_read_more_color',
-							// 	'type'     => 'color_group',
-							// 	'class'    => 'lcp_pro_option',
-							// 	'title'    => __( 'Read More Button Color', 'logo-carousel-free' ),
-							// 	'subtitle' => __( 'Description read more button color.', 'logo-carousel-free' ),
-							// 	'options'  => array(
-							// 		'color1' => __( 'Color', 'logo-carousel-free' ),
-							// 		'color2' => __( 'Hover', 'logo-carousel-free' ),
-							// 		'color3' => __( 'Background', 'logo-carousel-free' ),
-							// 		'color4' => __( 'Hover BG', 'logo-carousel-free' ),
-							// 		'color5' => __( 'Border', 'logo-carousel-free' ),
-							// 		'color6' => __( 'Border Hover', 'logo-carousel-free' ),
-							// 	),
-							// 	'default'  => array(
-							// 		'color1' => '#05b3c6',
-							// 		'color2' => '#ffffff',
-							// 		'color3' => 'transparent',
-							// 		'color4' => '#05b3c6',
-							// 		'color5' => '#05b3c6',
-							// 		'color6' => '#05b3c6',
-							// 	),
-							// ),
 						),
 					),
 					array(
@@ -624,7 +875,7 @@ SPLC::createSection(
 									),
 								),
 								'default'    => 'top',
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'         => 'lcp_logo_tooltip_width',
@@ -634,7 +885,7 @@ SPLC::createSection(
 								'subtitle'   => __( 'Maximum width of the tooltip.', 'logo-carousel-free' ),
 								'default'    => '220',
 								'unit'       => __( 'px', 'logo-carousel-free' ),
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 								'min'        => 0,
 								'title_info' => '<div class="splogocarousel-img-tag"><img src="' . SPLC::include_plugin_url( 'assets/images/tooltip_max_width.svg' ) . '" alt="' . __( 'Tooltip Max Width', 'logo-carousel-free' ) . '"></div><div class="splogocarousel-info-label img">' . __( 'Tooltip Max Width', 'logo-carousel-free' ) . '</div>',
 							),
@@ -647,13 +898,12 @@ SPLC::createSection(
 								'text_on'    => __( 'Show', 'logo-carousel-free' ),
 								'text_off'   => __( 'Hide', 'logo-carousel-free' ),
 								'text_width' => 80,
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'         => 'lcp_logo_tooltip_distance',
 								'type'       => 'slider',
-								'class'      => 'lcp_pro_option',
-								'class'      => 'sp-lc-opacity lcp_logo_ranger',
+								'class'      => 'sp-lc-opacity lcp_logo_ranger lcp_pro_option',
 								'title'      => __( 'Distance', 'logo-carousel-free' ),
 								'subtitle'   => __( 'The distance between the origin and tooltip.', 'logo-carousel-free' ),
 								'step'       => 1,
@@ -661,12 +911,11 @@ SPLC::createSection(
 								'max'        => 500,
 								'default'    => 400,
 								'only_pro'   => true,
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'         => 'lcp_tooltip_content_source',
 								'type'       => 'select',
-								// 'class'      => 'lcp_pro_option',
 								'title'      => __( 'Tooltip Content Source', 'logo-carousel-free' ),
 								'subtitle'   => __( 'Choose an content source for the tooltip.', 'logo-carousel-free' ),
 								'options'    => array(
@@ -675,12 +924,11 @@ SPLC::createSection(
 									'desc'        => __( 'Description', 'logo-carousel-free' ),
 								),
 								'default'    => 'title',
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'         => 'lcp_logo_tooltip_effect',
 								'type'       => 'select',
-								// 'class'      => 'lcp_pro_option',
 								'title'      => __( 'Tooltip Effect', 'logo-carousel-free' ),
 								'subtitle'   => __( 'Choose an effect for the tooltip.', 'logo-carousel-free' ),
 								'options'    => array(
@@ -692,7 +940,7 @@ SPLC::createSection(
 									'none'  => __( 'None', 'logo-carousel-free' ),
 								),
 								'default'    => 'grow',
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'       => 'lcp_logo_tooltip_visibility',
@@ -720,7 +968,7 @@ SPLC::createSection(
 									'color1' => '#ffffff',
 									'color2' => '#000000',
 								),
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'          => 'lcp_logo_tooltip_border',
@@ -736,7 +984,7 @@ SPLC::createSection(
 									'hover_color' => '#16a08b',
 								),
 								'hover_color' => false,
-								'dependency'  => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency'  => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'         => 'lcp_logo_tooltip_border_radius',
@@ -752,7 +1000,7 @@ SPLC::createSection(
 									'all' => '2',
 								),
 								'min'        => 0,
-								'dependency' => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency' => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 							array(
 								'id'          => 'lcp_logo_tooltip_padding',
@@ -768,7 +1016,7 @@ SPLC::createSection(
 									'left'   => '14',
 									'unit'   => 'px',
 								),
-								'dependency'  => array( 'lcp_logo_tooltip', '==', 'true' ),
+								'dependency'  => array( 'lcp_logo_tooltip', '==', 'true', true ),
 							),
 						),
 					),
@@ -1029,11 +1277,11 @@ SPLC::createSection(
 								'subtitle' => __( 'Choose a call to action button style.', 'logo-carousel-free' ),
 								'options'  => array(
 									'filled'  => array(
-										'image' => SP_LC_URL . 'admin/assets/images/button-type/fill.svg',
+										'image' => SP_LC_URL . 'admin/assets/images/button-type/filled.svg',
 										'text'  => __( 'Filled', 'logo-carousel-free' ),
 									),
 									'outline' => array(
-										'image' => SP_LC_URL . 'admin/assets/images/button-type/border.svg',
+										'image' => SP_LC_URL . 'admin/assets/images/button-type/outline.svg',
 										'text'  => __( 'Outline', 'logo-carousel-free' ),
 									),
 								),
@@ -1074,7 +1322,7 @@ SPLC::createSection(
 								),
 							),
 							array(
-								'id'       => 'lcp_contact_button_shape',
+								'id'       => 'lcp_contact_button_shape free', // Add "free" id to avoid pro key conflict.
 								'type'     => 'slider',
 								'class'    => 'lcp_pro_option',
 								'title'    => __( 'Border Radius', 'logo-carousel-free' ),
@@ -1109,17 +1357,18 @@ SPLC::createSection(
 								'default'  => 'link',
 							),
 							array(
-								'id'         => 'lcp_contact_button_link',
+								'id'         => 'lcp_contact_button_link free', // Add "free" id to avoid pro key conflict.
 								'type'       => 'text',
 								'title'      => __( 'Link URL', 'logo-carousel-free' ),
 								'class'      => 'lcp_pro_option',
 								'subtitle'   => __( 'Type custom URL for the call to action button.', 'logo-carousel-free' ),
-								'tab_blank'  => true,
+								'tab_blank'  => false,
 								'link_title' => __( 'Open a New Tab ', 'logo-carousel-free' ),
 								'default'    => '#',
+								'dependency' => array( 'lcp_contact_link_type', '==', 'link', true ),
 							),
 							array(
-								'id'         => 'lcp_contact_with_email',
+								'id'         => 'lcp_contact_with_email free', // Add "free" id to avoid pro key conflict.
 								'type'       => 'text',
 								'title'      => __( 'Email', 'logo-carousel-free' ),
 								'class'      => 'lcp_pro_option',
@@ -1130,7 +1379,7 @@ SPLC::createSection(
 								'dependency' => array( 'lcp_contact_button|lcp_contact_link_type', '==|==', 'true|email', true ),
 							),
 							array(
-								'id'         => 'lcp_contact_with_phone',
+								'id'         => 'lcp_contact_with_phone free', // Add "free" id to avoid pro key conflict.
 								'type'       => 'text',
 								'title'      => __( 'Phone Number', 'logo-carousel-free' ),
 								'class'      => 'lcp_pro_option',
@@ -1517,7 +1766,7 @@ SPLC::createSection(
 							array(
 								'id'       => 'lcp_slides_to_scroll',
 								'type'     => 'column',
-								'class'    => 'pro_only_field',
+								'class'    => 'pro_only_field lcp-slide-to-scroll',
 								'title'    => __( 'Slide To Scroll', 'logo-carousel-free' ),
 								'subtitle' => __( 'Set number of slide to scroll on devices.', 'logo-carousel-free' ),
 								'sanitize' => 'splogocarousel_sanitize_number_array_field',
@@ -1554,6 +1803,7 @@ SPLC::createSection(
 							array(
 								'id'         => 'lcp_rows',
 								'type'       => 'column',
+								'class'      => 'pro_only_field lcp-row-number',
 								'title'      => __( 'Row', 'logo-carousel-free' ),
 								'subtitle'   => __( 'Set number of row on devices.', 'logo-carousel-free' ),
 								'default'    => array(
@@ -1564,7 +1814,6 @@ SPLC::createSection(
 									'mobile'           => '1',
 								),
 								'min'        => '1',
-								'class'      => 'pro_only_field',
 								'title_info' => '<div class="splogocarousel-img-tag"><img src="' . SPLC::include_plugin_url( 'assets/images/row.svg' ) . '" alt="' . __( 'Multi Row', 'logo-carousel-free' ) . '"></div><div class="splogocarousel-info-label img">' . __( 'Multi Row', 'logo-carousel-free' ) . '</div><div class="info-button img"><a class="splogocarousel-open-live-demo" href="https://logocarousel.com/multi-row-carousel/" target="_blank">' . __( 'Live Demo', 'logo-carousel-free' ) . '</a></div>',
 							),
 							array(
@@ -1639,6 +1888,7 @@ SPLC::createSection(
 									'lcp_nav_show',
 									'!=',
 									'hide',
+									true,
 								),
 							),
 							array(
@@ -1720,6 +1970,7 @@ SPLC::createSection(
 									'lcp_nav_show',
 									'!=',
 									'hide',
+									true,
 								),
 							),
 							array(
@@ -1738,6 +1989,7 @@ SPLC::createSection(
 									'lcp_nav_show',
 									'!=',
 									'hide',
+									true,
 								),
 								'hover_color' => true,
 							),

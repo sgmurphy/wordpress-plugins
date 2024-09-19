@@ -5,7 +5,7 @@
  * Plugin URI: https://exactmetrics.com
  * Description: Displays Google Analytics Reports and Real-Time Statistics in your Dashboard. Automatically inserts the tracking code in every page of your website.
  * Author: ExactMetrics
- * Version: 8.0.1
+ * Version: 8.1.0
  * Requires at least: 5.6.0
  * Requires PHP: 7.2
  * Author URI: https://exactmetrics.com/lite/?utm_source=liteplugin&utm_medium=pluginheader&utm_campaign=authoruri&utm_content=7%2E0%2E0
@@ -46,7 +46,7 @@ final class ExactMetrics_Lite {
 	 * @access public
 	 * @var string $version Plugin version.
 	 */
-	public $version = '8.0.1';
+	public $version = '8.1.0';
 
 	/**
 	 * Plugin file.
@@ -226,7 +226,7 @@ final class ExactMetrics_Lite {
 			}
 
 			// Load the plugin textdomain.
-			add_action( 'plugins_loaded', array( self::$instance, 'load_plugin_textdomain' ), 15 );
+			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ), 15 );
 
 			// Load admin only components.
 			if ( is_admin() || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
@@ -371,46 +371,23 @@ final class ExactMetrics_Lite {
 	}
 
 	/**
-	 * Loads the plugin textdomain for translation.
+	 * Loads the plugin textdomain for translations.
 	 *
 	 * @access public
 	 * @return void
 	 * @since 6.0.0
 	 *
 	 */
-	public function load_plugin_textdomain() {
+	public function load_textdomain() {
+		$plugin_text_domain = 'google-analytics-dashboard-for-wp';
 
-		$mi_locale = get_locale();
-		if ( function_exists( 'get_user_locale' ) ) {
-			$mi_locale = get_user_locale();
-		}
+		$plugin_dir = basename( __DIR__ );
 
-		// Traditional WordPress plugin locale filter.
-		$mi_locale = apply_filters( 'plugin_locale', $mi_locale, 'google-analytics-dashboard-for-wp' );
-		$mi_mofile = sprintf( '%1$s-%2$s.mo', 'google-analytics-dashboard-for-wp', $mi_locale );
-
-		// Look for wp-content/languages/google-analytics-dashboard-for-wp/google-analytics-dashboard-for-wp-{lang}_{country}.mo
-		$mi_mofile1 = WP_LANG_DIR . '/google-analytics-dashboard-for-wp/' . $mi_mofile;
-
-		// Look in wp-content/languages/plugins/google-analytics-dashboard-for-wp/google-analytics-dashboard-for-wp-{lang}_{country}.mo
-		$mi_mofile2 = WP_LANG_DIR . '/plugins/google-analytics-dashboard-for-wp/' . $mi_mofile;
-
-		// Look in wp-content/languages/plugins/google-analytics-dashboard-for-wp-{lang}_{country}.mo
-		$mi_mofile3 = WP_LANG_DIR . '/plugins/' . $mi_mofile;
-
-		// Look in wp-content/plugins/google-analytics-dashboard-for-wp/languages/google-analytics-dashboard-for-wp-{lang}_{country}.mo
-		$mi_mofile4 = dirname( plugin_basename( EXACTMETRICS_PLUGIN_FILE ) ) . '/languages/';
-		$mi_mofile4 = apply_filters( 'exactmetrics_lite_languages_directory', $mi_mofile4 );
-
-		if ( file_exists( $mi_mofile1 ) ) {
-			load_textdomain( 'google-analytics-dashboard-for-wp', $mi_mofile1 );
-		} elseif ( file_exists( $mi_mofile2 ) ) {
-			load_textdomain( 'google-analytics-dashboard-for-wp', $mi_mofile2 );
-		} elseif ( file_exists( $mi_mofile3 ) ) {
-			load_textdomain( 'google-analytics-dashboard-for-wp', $mi_mofile3 );
-		} else {
-			load_plugin_textdomain( 'google-analytics-dashboard-for-wp', false, $mi_mofile4 );
-		}
+		load_plugin_textdomain(
+			$plugin_text_domain,
+			false,
+			$plugin_dir . '/languages'
+		);
 	}
 
 	/**
@@ -528,6 +505,7 @@ final class ExactMetrics_Lite {
 			// Reports
 			require_once EXACTMETRICS_PLUGIN_DIR . 'includes/admin/reports/abstract-report.php';
 			require_once EXACTMETRICS_PLUGIN_DIR . 'includes/admin/reports/overview.php';
+			require_once EXACTMETRICS_PLUGIN_DIR . 'includes/admin/reports/site-summary.php';
 
 			// Reporting Functionality
 			require_once EXACTMETRICS_PLUGIN_DIR . 'includes/admin/reporting.php';

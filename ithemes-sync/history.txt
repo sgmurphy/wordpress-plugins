@@ -267,3 +267,5 @@
 	Security: Harden SolidWP Updater against XSS attacks. Thanks to Robin Wood (digi.ninja) for disclosing this issue.
 3.1.0 - 2024-08-28 - Timothy Jacobs, Jared Hill, John Hooks, John Regan
 	New: Add support for tracking vulnerabilities reported by Solid Security in Solid Central.
+3.2.0 - 2024-09-18 - Timothy Jacobs, John Hooks, John Regan
+	New: Connecting to your WordPress site from Solid Central has gotten simpler thanks to the new Application Password based authorization flow.

@@ -49,7 +49,7 @@ $tabs[] = [
 $tabs[] = [
 'place' => 'right',
 'slug' => 'instagram-feed-widget',
-'name' => 'Instagram Feed Widget'
+'name' => 'Instagram Feed Widget',
 ];
 $tabs[] = [
 'place' => 'right',
@@ -70,51 +70,11 @@ public function getWebhookUrl()
 {
 return admin_url('admin-ajax.php') . '?action='. $this->getWebhookAction();
 }
-public function getAbRand()
-{
-$rand = get_option($this->get_option_name('ab-rand'));
-if (!$rand || $rand > 12) {
-$rand = rand(1, 12);
-update_option($this->get_option_name('ab-rand'), $rand, false);
-}
-return (int)$rand;
-}
+
 public function getProFeatureButton($campaignId)
 {
-$abRand = $this->getAbRand();
-$buttons = [
-[
-'campaign-suffix' => 'A',
-'text' => __('Create a Free Account for More Features', 'trustindex-plugin'),
-'range' => '1-3',
-],
-[
-'campaign-suffix' => 'C',
-'text' => __('Sign Up Free', 'trustindex-plugin'),
-'range' => '4-6',
-],
-[
-'campaign-suffix' => 'D',
-'text' => __('Create a Free Account', 'trustindex-plugin'),
-'range' => '7-9',
-],
-[
-'campaign-suffix' => 'E',
-'text' => __('Sign Up Free – Try PRO Features', 'trustindex-plugin'),
-'range' => '10-12',
-],
-];
-$currentButton = $buttons[0];
-foreach ($buttons as $button) {
-$tmp = explode('-', $button['range']);
-$rangeMin = (int)$tmp[0];
-$rangeMax = (int)$tmp[1];
-if ($abRand >= $rangeMin && $abRand <= $rangeMax) {
-$currentButton = $button;
-break;
-}
-}
-return '<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c='. $campaignId . $currentButton['campaign-suffix'] .'" target="_blank">'. $currentButton['text'] .'</a>';
+
+return '<a class="ti-btn" href="https://www.trustindex.io/ti-redirect.php?a=sys&c='. $campaignId .'" target="_blank">'. __('Create a Free Account for More Features', 'trustindex-plugin') .'</a>';
 }
 public function is_review_download_in_progress()
 {
@@ -437,24 +397,28 @@ return [
 'load-css-inline',
 'align',
 'review-text-mode',
+'floating-desktop-open',
+'floating-mobile-open',
 'amp-hidden-notification',
 'review-download-token',
 'review-download-inprogress',
 'review-download-request-id',
 'review-download-modal',
 'review-download-is-connecting',
+'review-download-is-failed',
 'review-manual-download',
 'reply-generated',
+'instagram-promo-opened',
 'footer-filter-text',
 'show-header-button',
 'reviews-load-more',
 'activation-redirect',
 'notifications',
-'ab-rand',
 'top-rated-type',
 'top-rated-date',
 'cdn-version-control',
 'version-control',
+'preview',
 ];
 }
 private $widgetOptions = [];
@@ -504,11 +468,13 @@ case 'enable-animation':
 case 'show-arrows':
 case 'show-header-button':
 case 'reviews-load-more':
+case 'floating-desktop-open':
 $default = 1;
 break;
 case 'widget-setted-up':
 case 'disable-font':
 case 'footer-filter-text':
+case 'floating-mobile-open':
 $default = 0;
 break;
 case 'align':
@@ -815,7 +781,7 @@ $className = 'TrustindexPlugin_' . $forcePlatform;
 if (!class_exists($className)) {
 return $this->error_box_for_admins(ucfirst($forcePlatform) . ' plugin is not active or not found!');
 }
-$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-12.1.2", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
+$chosedPlatform = new $className($forcePlatform, $filePath, "do-not-care-12.2", "do-not-care-Widgets for Google Reviews", "do-not-care-Google");
 $chosedPlatform->setNotificationParam('not-using-no-widget', 'active', false);
 if (!$chosedPlatform->is_noreg_linked()) {
 return $this->error_box_for_admins(sprintf(__('You have to connect your business (%s)!', 'trustindex-plugin'), $forcePlatform));
@@ -1572,7 +1538,7 @@ public static $widget_templates = array (
  array (
  'name' => 'Button VIII.',
  'type' => 'button',
- 'is-active' => false,
+ 'is-active' => true,
  'is-top-rated-badge' => false,
  'params' => 
  array (
@@ -6199,6 +6165,18 @@ $html = str_replace($matches[0], '<mark class="ti-highlight">' . $replaced_conte
 }
 return $html;
 }
+
+private function getProfileImageSize($layoutId)
+{
+if (in_array($layoutId, [36,37,38,39,44])) {
+return 64;
+}
+return 40;
+}
+private function getHeaderProfileImageSize($layoutId)
+{
+return 65;
+}
 private $previewContent = null;
 private $templateCache = null;
 public function get_noreg_list_reviews($forcePlatform = null, $listAll = false, $defaultStyleId = 4, $defaultSetId = 'light-background', $onlyPreview = false, $defaultReviews = false, $forceDefaultReviews = false)
@@ -6299,6 +6277,8 @@ $showArrows = $this->getWidgetOption('show-arrows', false, $onlyPreview);
 $enableAnimation = $this->getWidgetOption('enable-animation', false, $onlyPreview);
 $align = $this->getWidgetOption('align', false, $onlyPreview);
 $reviewTextMode = $this->getWidgetOption('review-text-mode', false, $onlyPreview);
+$floatingDesktopOpen = $this->getWidgetOption('floating-desktop-open', false, $onlyPreview);
+$floatingMobileOpen = $this->getWidgetOption('floating-mobile-open', false, $onlyPreview);
 $scriptName = 'trustindex-js';
 if (!wp_script_is($scriptName, 'enqueued')) {
 wp_enqueue_script($scriptName, 'https://cdn.trustindex.io/loader.js', [], false, true);
@@ -6389,6 +6369,10 @@ $content = str_replace('" data-layout-id=', ' '. implode(' ', $classAppends) .'"
 if ($dateformat === 'modern') {
 $content = str_replace('" data-layout-id=', '" data-time-locale="'. self::$widget_date_format_locales[ $lang ] .'" data-layout-id=', $content);
 }
+if ($widgetType === 'floating') {
+$content = str_replace('" data-layout-id=', '" data-widget-default-closed="'. ($floatingDesktopOpen ? 0 : 1) .'" data-layout-id=', $content);
+$content = str_replace('" data-layout-id=', '" data-widget-default-closed-mobile="'. ($floatingMobileOpen ? 0 : 1) .'" data-layout-id=', $content);
+}
 if ($onlyPreview) {
 wp_enqueue_style("trustindex-widget-css-". $this->getShortName() ."-". $styleId . "-". $setId, "https://cdn.trustindex.io/assets/widget-presetted-css/". $styleId ."-". $setId .".css");
 } else {
@@ -6448,9 +6432,17 @@ $ratingContent .= '<span class="'.$verifiedIconClass.'"><span class="ti-verified
 if (!$array['show-reviewers-photo']) {
 $matches[1] = str_replace('<div class="ti-profile-img"> <img src="%reviewer_photo%" loading="lazy" alt="%reviewer_name%" /> </div>', '', $matches[1]);
 }
+$imageUrl = $r->user_photo;
+$image2xUrl = $imageUrl;
+
+$size = $this->getProfileImageSize($array['style-id']);
+$imageUrl = preg_replace('/([=-])(s\d+|w\d+-h\d+)/', "$1w$size-h$size", $imageUrl);
+$size *= 2;
+$image2xUrl = preg_replace('/([=-])(s\d+|w\d+-h\d+)/', "$1w$size-h$size", $imageUrl);
 $reviewContent .= str_replace(
 [
 '%platform%',
+'%reviewer_photo% 2x',
 '%reviewer_photo%',
 '%reviewer_name%',
 '%created_at%',
@@ -6461,7 +6453,8 @@ $reviewContent .= str_replace(
 ],
 [
 $platformName,
-$r->user_photo,
+$image2xUrl.' 2x',
+$imageUrl,
 $r->user,
 $date,
 $this->getReviewHtml($r),
@@ -6494,6 +6487,13 @@ $ratingTextUcfirst = ucfirst(strtolower($ratingText));
 if (function_exists('mb_strtolower')) {
 $ratingTextUcfirst = mb_substr($ratingText, 0, 1, 'UTF-8') . mb_strtolower(mb_substr($ratingText, 1, null, 'UTF-8'));
 }
+$imageUrl = isset($array['page-details']['avatar_url']) ? $array['page-details']['avatar_url'] : null;
+$image2xUrl = $imageUrl;
+
+$size = $this->getHeaderProfileImageSize($array['style-id']);
+$imageUrl = preg_replace('/([=-])(s\d+|w\d+-h\d+)/', "$1w$size-h$size", $imageUrl);
+$size *= 2;
+$image2xUrl = preg_replace('/([=-])(s\d+|w\d+-h\d+)/', "$1w$size-h$size", $imageUrl);
 $array['content'] = str_replace(
 [
 '%platform%',
@@ -6503,6 +6503,7 @@ $array['content'] = str_replace(
 "RATING_SCALE",
 "RATING_TEXT",
 "Rating_Text",
+"PLATFORM_URL_LOGO 2x",
 "PLATFORM_URL_LOGO",
 "PLATFORM_NAME",
 '<span class="ti-star e"></span><span class="ti-star e"></span><span class="ti-star e"></span><span class="ti-star e"></span><span class="ti-star e"></span>',
@@ -6516,7 +6517,8 @@ number_format((float)$ratingScore, 1),
 $this->is_ten_scale_rating_platform() ? 10 : 5,
 $ratingText,
 $ratingTextUcfirst,
-isset($array['page-details']['avatar_url']) ? $array['page-details']['avatar_url'] : null,
+$image2xUrl.' 2x',
+$imageUrl,
 $this->get_platform_name($this->getShortName(), $array['page-details']['id']),
 $this->is_ten_scale_rating_platform() ? "<div class='ti-rating-box'>". $this->formatTenRating($ratingScore, $array['language']) ."</div>" : $this->get_rating_stars($ratingScore),
 '<div class="ti-small-logo"><img src="'. $this->get_plugin_file_url('static/img/platform/logo.svg') . '" alt="'. ucfirst($this->getShortName()) .'"></div>',
@@ -6530,7 +6532,7 @@ $array['content'] = str_replace('platform/'. ucfirst($this->getShortName()) .'/l
 if ($this->is_ten_scale_rating_platform() && $array['style-id'] == 11) {
 $array['content'] = str_replace('<span class="ti-rating">'. $ratingScore .'</span> ', '', $array['content']);
 }
-if (in_array($array['style-id'], [ 8, 10, 11, 12, 13, 20, 22, 24, 25, 26, 27, 28, 29, 35, 55, 56, 57, 58, 59, 60, 61, 62 ])) {
+if (in_array($array['style-id'], [ 8, 10, 11, 12, 13, 20, 22, 24, 25, 26, 27, 28, 29, 35, 55, 56, 57, 58, 59, 60, 61, 62, 106 ])) {
 if (!$array['show-header-button']) {
 $array['content'] = preg_replace('/<!-- HEADER-BUTTON-START.+HEADER-BUTTON-END -->/s', '', $array['content']);
 }

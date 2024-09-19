@@ -99,9 +99,16 @@ class ExactMetrics_Gtag_Events {
 		if ( ! file_exists( EXACTMETRICS_PLUGIN_DIR . 'assets/js/frontend-gtag.min.js' ) ) {
 			$suffix = '';
 		}
+
 		wp_enqueue_script( 'exactmetrics-frontend-script', plugins_url( 'assets/js/frontend-gtag' . $suffix . '.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), false );
 
-        exactmetrics_localize_script(
+		$use_async = apply_filters( 'exactmetrics_frontend_gtag_script_async', true );
+
+		if ( $use_async ) {
+			wp_script_add_data( 'exactmetrics-frontend-script', 'strategy', 'async' );
+		}
+
+		exactmetrics_localize_script(
 			'exactmetrics-frontend-script',
 			'exactmetrics_frontend',
 			array(

@@ -1,12 +1,12 @@
 === Burst Statistics - Privacy-Friendly Analytics for WordPress ===
 Contributors: hesseldejong, RogierLankhorst, aahulsebos, leonwimmenhoeve
 Donate link: paypal.me/Burststatistics
-Tags: statistics, analytics, privacy, analytics alternative
+Tags: statistics, analytics, stats, analytics alternative
 Requires at least: 5.8
 License: GPL2
 Requires PHP: 7.2
 Tested up to: 6.6
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 
 Self-hosted, privacy-friendly stats for WordPress. Simple interface, no setup. Get detailed analytics with Burst Statistics.
 
@@ -90,6 +90,18 @@ Performance is almost not affected. We have built Burst to be very performant fo
 We value your feedback. You can [submit a support request on the WordPress forums](https://wordpress.org/support/plugin/burst-statistics/), and we will respond promptly.
 
 == Change log ==
+= 1.7.2 =
+* Fix: Goal title would sometimes become empty and uneditable. This has been resolved.
+* Feature: Added support for the WP Consent API, which will allow you to track users based on their consent for multiple plugins.
+* Improvement: Added Complianz integration. This will allow you to track users based on their consent for Complianz.
+* Improvement: Added option to track changes in the URL when not reloading the page. This will allow you to track single page applications.
+* Fix: Email reporting did not work properly for some users. This has been resolved.
+
+= 1.7.1 =
+* Fix: Issue with upgrade staying stuck on 35% for some users. This has been resolved.
+* Fix: Issue where the tracking test would sometimes not restart. This has been resolved.
+* Fix: Dashboard widget would not be shown due to a change in the Dashboard page. This has been resolved.
+
 = 1.7.0 =
 * Fix: Not every cron job was cleared on deactivation, props @nerokin.
 * Fix: Fixed issue where the timezone would not be set correctly in the insights chart.

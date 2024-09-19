@@ -186,11 +186,15 @@ ASE does not officially support multisite. Please use at your own risk. That sai
 
 ## Changelog
 
-**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **113 _patch_ releases** (e.g. 4.9.1). 
+**Admin and Site Enhancements (ASE) v1.0.0** was released on October 17, 2022. Since then, there have been **74 _point_ releases** (e.g. 1.1.0 ) and **114 _patch_ releases** (e.g. 4.9.1). 
 
 Each **_point release_** usually corresponds with the addition of one new module/feature. Each module/feature usually is the equivalent of one (or more) single-purpose plugin. Each **_patch release_** usually contain one or more bugfix or improvements to existing modules/features.
 
 [**Upgrade to ASE Pro**](https://www.wpase.com/chnlg-to-web) now. Lifetime Deal (LTD) available.
+
+### 7.4.3 (2024.09.23) - ASE Pro
+
+* **[FIXED in Pro] Disable Components >> Disable REST API**: fix an issue, where in some scenarios, wp-admin and/or the ASE settings page was not accessible when this module was turned on. Props to Stijn V. and Matt B. for quickly reporting the issue and facilitating the troubleshooting process.
 
 ### 7.4.2 (2024.09.16) - ASE Free and Pro
 

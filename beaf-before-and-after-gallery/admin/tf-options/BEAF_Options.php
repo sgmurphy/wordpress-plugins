@@ -38,7 +38,7 @@ if ( ! class_exists( 'BEAF_Options' ) ) {
 		}
 
 		public function beaf_options_version() {
-			return '1.1.0';
+			return '1.1.1';
 		}
 
 		public function tf_options_file_path( $file_path = '' ) {

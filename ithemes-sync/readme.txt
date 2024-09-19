@@ -1,10 +1,10 @@
 === Solid Central – Site Management, Backups, Security, and Reporting ===
 Contributors: ithemes, layotte, oakesjosh, solidwp
 Tags: manage multiple websites, backup, security, manage updates, report dashboard
-Requires at least: 4.5
-Requires PHP: 5.6
-Tested up to: 6.6
-Stable tag: 3.1.0
+Requires at least: 6.4
+Requires PHP: 7.0
+Tested up to: 6.7
+Stable tag: 3.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/quick-guide-gplv3.html
 
@@ -129,6 +129,9 @@ Solid Central includes an automatic “Add Site” prompt when you first login t
 Got more questions? [Contact us!](https://solidwp.com/contact.)
 
 == Changelog ==
+
+= 3.2.0 =
+* New: Connecting to your WordPress site from Solid Central has gotten simpler thanks to the new Application Password based authorization flow.
 
 = 3.1.0 =
 * New: Add support for tracking vulnerabilities reported by Solid Security in Solid Central.

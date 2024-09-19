@@ -2312,7 +2312,68 @@
 
 	});
 
+	/**
+	 * Get the selected layout value.
+	 */
+	var selectedLcpLayout = $('.lcp_layout').find('.splogocarousel--image.splogocarousel--active input').val();
+	var $shortcodeOptions = $('#sp_lcp_shortcode_options');
+	var $navItem = $shortcodeOptions.find('.splogocarousel-nav ul li:nth-child(4)');
+	var $logoMarginSpace = $shortcodeOptions.find('.lcp_logo_margin_between .splogocarousel--space:nth-child(2)');
 
+	// Function to toggle visibility of elements based on layout value
+	function toggleLayoutVisibility(layoutValue) {
+		if (layoutValue !== 'carousel') {
+			$navItem.hide();
+			$logoMarginSpace.show();
+		} else {
+			$navItem.show();
+			$logoMarginSpace.hide();
+		}
+	}
+
+	// Toggle layout visibility based on selected layout
+	toggleLayoutVisibility(selectedLcpLayout);
+
+	/**
+	 * Show/Hide tabs on changing of layout.
+	 */
+	var $lcpLayout = $('.splogocarousel-field-layout_preset.lcp_layout .splogocarousel--sibling.splogocarousel--image');
+	var $gridInlineVaSelector = $('.lcp-grid-inline-vertical-alignment');
+
+	// Function to toggle visibility of elements based on layout value
+	function layoutToggleElements(layoutValue) {
+		if (layoutValue !== 'carousel') {
+			$navItem.hide();
+			$logoMarginSpace.show();
+		} else {
+			$navItem.show();
+			$logoMarginSpace.hide();
+		}
+	}
+
+	// Function to trigger grid inline vertical alignment based on layout
+	function setGridAlignment(layoutValue) {
+		if (layoutValue === 'grid') {
+			$gridInlineVaSelector.find('.splogocarousel--image:last-child').trigger('click');
+		} else if (layoutValue === 'carousel') {
+			$gridInlineVaSelector.find('.splogocarousel--image:first-child').trigger('click');
+		}
+	}
+
+	// Event listener for layout change or click
+	$lcpLayout.on('change click', 'input', function() {
+		let layoutValue = $(this).val();
+		
+		// Toggle elements visibility
+		layoutToggleElements(layoutValue);
+		
+		// Set grid vertical alignment
+		setGridAlignment(layoutValue);
+	});
+
+	/**
+	 * Copy selected text to clipboard.
+	 */
 	$('.lc-sc-code.selectable').on('click', function (e) {
 		e.preventDefault();
 		lc_copyToClipboard($(this));

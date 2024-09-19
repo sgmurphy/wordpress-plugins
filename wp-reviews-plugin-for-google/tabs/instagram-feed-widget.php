@@ -1,5 +1,6 @@
 <?php
 defined('ABSPATH') or die('No script kiddies please!');
+update_option($pluginManagerInstance->get_option_name('instagram-promo-opened'), 1, false);
 ?>
 <div class="ti-container ti-narrow-page">
 <h1 class="ti-header-title">Instagram Feed Widget</h1>

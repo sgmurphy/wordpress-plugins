@@ -124,6 +124,11 @@ if ( ! class_exists( 'burst_admin' ) ) {
 			}
 		}
 
+		/**
+         * Compile js file from settings and javascript so we can prevent inline variables
+         *
+		 * @return void
+		 */
 		public function create_js_file() {
 			if ( ! burst_user_can_manage() ) {
 				return;
@@ -131,22 +136,9 @@ if ( ! class_exists( 'burst_admin' ) ) {
 
 			$cookieless      = burst_get_option( 'enable_cookieless_tracking' );
 			$cookieless_text = $cookieless == '1' ? '-cookieless' : '';
-			$beacon_enabled  = (int) burst_tracking_status_beacon();
-
 			$localize_args = apply_filters(
 				'burst_tracking_options',
-				[
-					'cookie_retention_days' => 30,
-					'beacon_url'            => burst_get_beacon_url(),
-					'options'               => [
-						'beacon_enabled'             => $beacon_enabled,
-						'enable_cookieless_tracking' => (int) $cookieless,
-						'enable_turbo_mode'          => (int) burst_get_option( 'enable_turbo_mode' ),
-						'do_not_track'               => (int) burst_get_option( 'enable_do_not_track' ),
-					],
-					'goals'                 => burst_get_active_goals(),
-					'goals_script_url'      => burst_get_goals_script_url(),
-				]
+				burst_get_tracking_options()
 			);
 
 			$js = '';
@@ -391,30 +383,43 @@ if ( ! class_exists( 'burst_admin' ) ) {
 		}
 
 		/**
-		 * Check if current day falls within required date range.
+		 * Check if the current day falls within the required date range (November 25, 00:00 to December 2, 23:59) based on GMT.
 		 *
 		 * @return bool
 		 */
 		public function is_bf() {
-			if ( defined( 'burst_pro_version' ) ) {
-				return false;
-			}
-			$start_day     = 20;
-			$end_day       = 27;
-			$current_year  = date( 'Y' );// e.g. 2021
-			$current_month = date( 'n' );// e.g. 3
-			$current_day   = date( 'j' );// e.g. 4
+            // Get current date and time in GMT as timestamp
+			$current_date = strtotime(gmdate('Y-m-d H:i:s'));
 
-			if ( $current_year == 2023 &&
-			     $current_month == 11 &&
-			     $current_day >= $start_day &&
-			     $current_day <= $end_day
-			) {
+			// Define the start and end dates for the range in GMT (including specific times)
+			$start_date = strtotime('November 25 00:00:00 GMT');
+			$end_date   = strtotime('November 29 23:59:59 GMT');
+
+			// Check if the current date and time falls within the date range
+			if ( $current_date >= $start_date && $current_date <= $end_date ) {
 				return true;
 			}
 
 			return false;
 		}
+
+
+        public function is_cm() {
+	        // Get current date and time in GMT as timestamp
+	        $current_date = strtotime(gmdate('Y-m-d H:i:s'));
+
+	        // Define the start and end dates for the range in GMT (including specific times)
+	        $start_date = strtotime('November 30 00:00:00 GMT');
+	        $end_date   = strtotime('December 2 23:59:59 GMT');
+
+	        // Check if the current date and time falls within the date range
+	        if ( $current_date >= $start_date && $current_date <= $end_date ) {
+		        return true;
+	        }
+
+	        return false;
+        }
+
 
 		/**
 		 *

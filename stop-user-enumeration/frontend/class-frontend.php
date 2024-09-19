@@ -45,7 +45,9 @@ class FrontEnd {
 	 *
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/frontend.js', array(), $this->version, false );
+		if ( ! is_admin() ) {
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/frontend.js', array(), $this->version, array( 'strategy' => 'defer' ) );
+		}
 	}
 
 
@@ -62,7 +64,7 @@ class FrontEnd {
 			if ( $this->ContainsNumbers( $author ) ) {
 				$this->sue_log();
 				/* phpcs:ignore WordPress.Security.NonceVerification  -- not saved just logging the request, not form input so no unslash*/
-				wp_die( esc_html__( 'forbidden - number in author name not allowed = ', 'stop-user-enumeration' ) . esc_html( $author ) );
+				wp_die( esc_html__( 'forbidden - number in author name not allowed = ', 'stop-user-enumeration' ) . esc_html( $author ), array( 'response' => 403 ) );
 			}
 		}
 	}
@@ -110,10 +112,11 @@ class FrontEnd {
 
 	public function only_allow_logged_in_rest_access_to_users( $access ) {
 		if ( 'on' === Core::sue_get_option( 'stop_rest_user', 'off' ) ) {
-			/* phpcs:ignore WordPress.Security.NonceVerification  -- not saved just checking the request */
+			// phpcs:ignore WordPress.Security.NonceVerification  -- not saved just checking the request
 			$request_uri = ( isset( $_SERVER['REQUEST_URI'] ) ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-			$rest_route  = ( isset( $_REQUEST['rest_route'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['rest_route'] ) ) : '';
-			$pattern     = apply_filters( 'stop_user_enumeration_rest_stop_match', '/users/i' );
+			// phpcs:ignore WordPress.Security.NonceVerification  -- not saved just checking the request
+			$rest_route = ( isset( $_REQUEST['rest_route'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['rest_route'] ) ) : '';
+			$pattern    = apply_filters( 'stop_user_enumeration_rest_stop_match', '/users/i' );
 			if ( ( preg_match( $pattern, $request_uri ) !== 0 ) || ( preg_match( $pattern, $rest_route ) !== 0 ) ) {
 				if ( ! is_user_logged_in() ) {
 					$exception = apply_filters( 'stop_user_enumeration_rest_allowed_match', '/simple-jwt-login/i' ); //default exception rule simple-jwt-login

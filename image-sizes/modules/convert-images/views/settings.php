@@ -46,13 +46,13 @@ if ( $status == 'failed' ) {
 			<div id="info-icon" class="info-icon">
 				<img class="info-img" src="<?php echo esc_url( plugins_url( 'assets/img/info.png', THUMBPRESS ) ); ?>">
 				<p>
-					<?php _e( "Convert to WebP is a highly server-dependent feature and the converting process may timeout if you process a large number of images. You may need to work on your server side to solve the issues if you face any when using this feature. Also keep in mind that once you convert your images to WebP, you can never undo it.", 'image-sizes' ); ?>
+					<?php esc_html_e( "Convert to WebP is a highly server-dependent feature and the converting process may timeout if you process a large number of images. You may need to work on your server side to solve the issues if you face any when using this feature. Also keep in mind that once you convert your images to WebP, you can never undo it.", 'image-sizes' ); ?>
 				</p>
 			</div>
 			<label for="thumbpress-convert-limit">
-				<?php _e( 'Number of images to process per request:', 'image-sizes' ) ?>
+				<?php esc_html_e( 'Number of images to process per request:', 'image-sizes' ); ?>
 			</label>
-			<input type="number" class="cx-field cx-field-number thumbpress-action-input" id="thumbpress-convert-limit" name="regen-thumbs-limit" value="10" placeholder="<?php _e( 'Images/request. Default is 50', 'image-sizes' ) ?>" required="">
+			<input type="number" class="cx-field cx-field-number thumbpress-action-input" id="thumbpress-convert-limit" name="regen-thumbs-limit" value="10" placeholder="<?php esc_attr_e( 'Images/request. Default is 50', 'image-sizes' ); ?>" required="">
 			<div class="thumbpress-buttons-wrapper">
 				<button id="thumbpress-convert-now" class="thumbpress-action-now" type="button">
 					<?php echo esc_html__( 'Convert Now', 'image-sizes' ); ?>

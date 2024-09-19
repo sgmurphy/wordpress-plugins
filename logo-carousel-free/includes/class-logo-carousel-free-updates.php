@@ -37,6 +37,7 @@ class Logo_Carousel_Free_Updates {
 		'3.4.9'  => 'updates/update-3.4.9.php',
 		'3.4.18' => 'updates/update-3.4.18.php',
 		'3.5.0'  => 'updates/update-3.5.0.php',
+		'3.6.0'  => 'updates/update-3.6.0.php',
 	);
 
 	/**

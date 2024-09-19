@@ -89,14 +89,15 @@ if ( ! class_exists( 'SPLC_Shortcode_Render' ) ) {
 		 * @param  mixed $logo_data to push all options.
 		 * @return array dynamic style use in the existing shortcodes in the current page.
 		 */
-		public static function load_dynamic_style( $found_generator_id, $logo_data = '' ) {
+		public static function load_dynamic_style( $found_generator_id, $logo_data = '', $layout_data = '' ) {
 			$setting_data = get_option( '_sp_lcpro_options' );
 			$dynamic_css  = '';
 			// If multiple shortcode found in the current page.
 			if ( is_array( $found_generator_id ) ) {
 				foreach ( $found_generator_id as $post_id ) {
 					if ( $post_id && is_numeric( $post_id ) && get_post_status( $post_id ) !== 'trash' ) {
-						$logo_data = get_post_meta( $post_id, 'sp_lcp_shortcode_options', true );
+						$logo_data   = get_post_meta( $post_id, 'sp_lcp_shortcode_options', true );
+						$layout_data = get_post_meta( $post_id, 'sp_lcp_layout_options', true );
 						require SP_LC_PATH . 'public/views/dynamic-style.php';
 					}
 				}
@@ -159,14 +160,48 @@ if ( ! class_exists( 'SPLC_Shortcode_Render' ) ) {
 		 * @param array $logo_data get all meta options.
 		 * @param array $main_section_title shows section title.
 		 */
-		public static function splcp_html_show( $post_id, $logo_data, $main_section_title ) {
+		public static function splcp_html_show( $post_id, $logo_data, $layout_data, $main_section_title ) {
+
+			/**
+			 * Common controls.
+			 */
+			$layout                = isset( $layout_data['lcp_layout'] ) ? $layout_data['lcp_layout'] : 'carousel';
+			$layout_justified_mode = isset( $layout_data['lcp_layout_justified_mode'] ) ? $layout_data['lcp_layout_justified_mode'] : 'left';
+			$total_items           = isset( $logo_data['lcp_number_of_total_items'] ) && $logo_data['lcp_number_of_total_items'] ? $logo_data['lcp_number_of_total_items'] : 10000;
+			$lcp_pagination        = ! empty( $logo_data['lcp_pagination'] ) ? 'true' : 'false';
+
+			/**
+			 * Section title and query parameters.
+			 */
+			$section_title         = isset( $logo_data['lcp_section_title'] ) ? $logo_data['lcp_section_title'] : 'false';
+			$order_by              = isset( $logo_data['lcp_item_order_by'] ) ? $logo_data['lcp_item_order_by'] : 'date';
+			$order                 = isset( $logo_data['lcp_item_order'] ) ? $logo_data['lcp_item_order'] : 'ASC';
+			$preloader             = isset( $logo_data['lcp_preloader'] ) ? $logo_data['lcp_preloader'] : false;
+			$show_image            = isset( $logo_data['lcp_logo_image'] ) ? $logo_data['lcp_logo_image'] : true;
+			$image_sizes           = isset( $logo_data['lcp_image_sizes'] ) ? $logo_data['lcp_image_sizes'] : '';
+			$show_image_title_attr = isset( $logo_data['lcp_image_title_attr'] ) ? $logo_data['lcp_image_title_attr'] : false;
+			$logo_margin           = isset( $logo_data['lcp_logo_margin']['all'] ) && $logo_data['lcp_logo_margin']['all'] >= -50 ? (int) $logo_data['lcp_logo_margin']['all'] : '8';
+			$logo_margin_vertical  = isset( $logo_data['lcp_logo_margin']['vertical'] ) && $logo_data['lcp_logo_margin']['vertical'] >= -50 ? (int) $logo_data['lcp_logo_margin']['vertical'] : '8';
+
+			$args = new WP_Query(
+				array(
+					'post_type'      => 'sp_logo_carousel',
+					'orderby'        => $order_by,
+					'order'          => $order,
+					'posts_per_page' => $total_items,
+				)
+			);
+
+			/**
+			 * Carousel controls.
+			 */
 			$columns             = isset( $logo_data['lcp_number_of_columns'] ) ? $logo_data['lcp_number_of_columns'] : '';
 			$items               = isset( $columns['lg_desktop'] ) ? $columns['lg_desktop'] : 5;
 			$items_desktop       = isset( $columns['desktop'] ) ? $columns['desktop'] : 4;
 			$items_desktop_small = isset( $columns['tablet'] ) ? $columns['tablet'] : 3;
 			$items_tablet        = isset( $columns['mobile_landscape'] ) ? $columns['mobile_landscape'] : 2;
 			$items_mobile        = isset( $columns['mobile'] ) ? $columns['mobile'] : 1;
-			$total_items         = isset( $logo_data['lcp_number_of_total_items'] ) && $logo_data['lcp_number_of_total_items'] ? $logo_data['lcp_number_of_total_items'] : 10000;
+
 			// Navigation data.
 			$carousel_navigation_group = isset( $logo_data['lcp_carousel_navigation'] ) ? $logo_data['lcp_carousel_navigation'] : array();
 			$hide_on_mobile            = isset( $carousel_navigation_group['lcp_hide_on_mobile'] ) ? $carousel_navigation_group['lcp_hide_on_mobile'] : '';
@@ -211,31 +246,31 @@ if ( ! class_exists( 'SPLC_Shortcode_Render' ) ) {
 			$autoplay_speed   = isset( $logo_data['lcp_carousel_auto_play_speed'] ) ? $logo_data['lcp_carousel_auto_play_speed'] : '3000';
 			$pagination_speed = isset( $logo_data['lcp_carousel_scroll_speed'] ) ? $logo_data['lcp_carousel_scroll_speed'] : '600';
 
-			$section_title         = isset( $logo_data['lcp_section_title'] ) ? $logo_data['lcp_section_title'] : 'false';
-			$order_by              = isset( $logo_data['lcp_item_order_by'] ) ? $logo_data['lcp_item_order_by'] : 'date';
-			$order                 = isset( $logo_data['lcp_item_order'] ) ? $logo_data['lcp_item_order'] : 'ASC';
-			$preloader             = isset( $logo_data['lcp_preloader'] ) ? $logo_data['lcp_preloader'] : false;
-			$show_image            = isset( $logo_data['lcp_logo_image'] ) ? $logo_data['lcp_logo_image'] : true;
-			$image_sizes           = isset( $logo_data['lcp_image_sizes'] ) ? $logo_data['lcp_image_sizes'] : '';
-			$show_image_title_attr = isset( $logo_data['lcp_image_title_attr'] ) ? $logo_data['lcp_image_title_attr'] : false;
-			$logo_margin           = isset( $logo_data['lcp_logo_margin']['all'] ) && $logo_data['lcp_logo_margin']['all'] >= -50 ? (int) $logo_data['lcp_logo_margin']['all'] : '12';
-			$logo_margin_vertical  = isset( $logo_data['lcp_logo_margin']['vertical'] ) && $logo_data['lcp_logo_margin']['vertical'] >= -50 ? (int) $logo_data['lcp_logo_margin']['vertical'] : '12';
-			$args                  = new WP_Query(
-				array(
-					'post_type'      => 'sp_logo_carousel',
-					'orderby'        => $order_by,
-					'order'          => $order,
-					'posts_per_page' => intval( $total_items ),
-				)
-			);
+			/**
+			 * Grid controls.
+			 */
 
-			// swiper data attributes.
-			$swiper_data_attr = 'data-carousel=\'{ "speed":' . esc_attr( $pagination_speed ) . ',"spaceBetween": ' . esc_attr( $logo_margin ) . ', "autoplay": ' . esc_attr( $auto_play ) . ', "infinite":' . esc_attr( $infinite ) . ', "autoplay_speed": ' . esc_attr( $autoplay_speed ) . ', "stop_onHover": ' . esc_attr( $pause_on_hover ) . ', "pagination": ' . esc_attr( $dots ) . ', "navigation": ' . esc_attr( $nav ) . ', "MobileNav": ' . esc_attr( $nav_mobile ) . ', "MobilePagi": ' . esc_attr( $dots_mobile ) . ', "simulateTouch": ' . esc_attr( $draggable ) . ',"freeMode": ' . esc_attr( $free_mode ) . ',"swipeToSlide": ' . esc_attr( $slide_to_swipe ) . ', "carousel_accessibility": ' . esc_attr( $tab_key_nav ) . ',"adaptiveHeight": ' . esc_attr( $adaptive_height ) . ',"allowTouchMove": ' . esc_attr( $swipe ) . ', "slidesPerView": { "lg_desktop": ' . esc_attr( $items ) . ', "desktop": ' . esc_attr( $items_desktop ) . ', "tablet": ' . esc_attr( $items_desktop_small ) . ', "mobile": ' . esc_attr( $items_mobile ) . ', "mobile_landscape": ' . esc_attr( $items_tablet ) . ' } }\' data-carousel-starts-onscreen="' . esc_attr( $starts_on_screen ) . '"';
-
+			/**
+			 * Template for output.
+			 */
 			$output          = '';
 			$preloader_class = '';
-			require SP_LC_PATH . 'public/views/templates/carousel.php';
-			echo $output;
+
+			ob_start();
+
+			if ( 'carousel' === $layout ) {
+				// swiper data attributes.
+				$swiper_data_attr = 'data-carousel=\'{ "speed":' . esc_attr( $pagination_speed ) . ',"spaceBetween": ' . esc_attr( $logo_margin ) . ', "autoplay": ' . esc_attr( $auto_play ) . ', "infinite":' . esc_attr( $infinite ) . ', "autoplay_speed": ' . esc_attr( $autoplay_speed ) . ', "stop_onHover": ' . esc_attr( $pause_on_hover ) . ', "pagination": ' . esc_attr( $dots ) . ', "navigation": ' . esc_attr( $nav ) . ', "MobileNav": ' . esc_attr( $nav_mobile ) . ', "MobilePagi": ' . esc_attr( $dots_mobile ) . ', "simulateTouch": ' . esc_attr( $draggable ) . ',"freeMode": ' . esc_attr( $free_mode ) . ',"swipeToSlide": ' . esc_attr( $slide_to_swipe ) . ', "carousel_accessibility": ' . esc_attr( $tab_key_nav ) . ',"adaptiveHeight": ' . esc_attr( $adaptive_height ) . ',"allowTouchMove": ' . esc_attr( $swipe ) . ', "slidesPerView": { "lg_desktop": ' . esc_attr( $items ) . ', "desktop": ' . esc_attr( $items_desktop ) . ', "tablet": ' . esc_attr( $items_desktop_small ) . ', "mobile": ' . esc_attr( $items_mobile ) . ', "mobile_landscape": ' . esc_attr( $items_tablet ) . ' } }\' data-carousel-starts-onscreen="' . esc_attr( $starts_on_screen ) . '"';
+
+				// Carousel items.
+				require SP_LC_PATH . 'public/views/templates/carousel.php';
+
+			} elseif ( 'grid' === $layout ) {
+				require SP_LC_PATH . 'public/views/templates/grid.php';
+			}
+
+			$output .= ob_get_clean();
+			echo $output; //phpcs:ignore
 		}
 
 		/**
@@ -250,7 +285,8 @@ if ( ! class_exists( 'SPLC_Shortcode_Render' ) ) {
 			}
 			$post_id = esc_attr( intval( $attribute['id'] ) );
 			// All Options of Shortcode.
-			$logo_data = get_post_meta( $post_id, 'sp_lcp_shortcode_options', true );
+			$layout_data = get_post_meta( $post_id, 'sp_lcp_layout_options', true );
+			$logo_data   = get_post_meta( $post_id, 'sp_lcp_shortcode_options', true );
 			ob_start();
 			// Stylesheet loading problem solving here. Shortcode id to push page id option for getting how many shortcode in the page.
 			// Get the existing shortcode ids from the current page.
@@ -260,7 +296,7 @@ if ( ! class_exists( 'SPLC_Shortcode_Render' ) ) {
 				wp_enqueue_style( 'sp-lc-swiper' );
 				wp_enqueue_style( 'sp-lc-font-awesome' );
 				wp_enqueue_style( 'sp-lc-style' );
-				$dynamic_style = self::load_dynamic_style( $post_id, $logo_data );
+				$dynamic_style = self::load_dynamic_style( $post_id, $logo_data, $layout_data );
 				// Load dynamic style.
 				echo '<style id="sp_lcp_dynamic_css' . esc_attr( $post_id ) . '">' . $dynamic_style['dynamic_css'] . '</style>';
 			}
@@ -268,13 +304,12 @@ if ( ! class_exists( 'SPLC_Shortcode_Render' ) ) {
 			self::lcp_db_options_update( $post_id, $get_page_data );
 
 			$main_section_title = get_the_title( $post_id );
-			self::splcp_html_show( $post_id, $logo_data, $main_section_title );
+			self::splcp_html_show( $post_id, $logo_data, $layout_data, $main_section_title );
 
 			wp_enqueue_script( 'sp-lc-swiper-js' );
 			wp_enqueue_script( 'sp-lc-script' );
 			return ob_get_clean();
 		}
-
 	}
 
 	new SPLC_Shortcode_Render();

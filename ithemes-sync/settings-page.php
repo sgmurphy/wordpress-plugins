@@ -23,39 +23,39 @@ Version History
 class Ithemes_Sync_Settings_Page {
 	private $page_name = 'solid-central';
 
-	private $path_url = '';
-	private $self_url = '';
-	private $had_error = false;
-	private $messages = array();
+	private $path_url           = '';
+	private $self_url           = '';
+	private $had_error          = false;
+	private $messages           = [];
 	private $sync_dashboard_url = 'https://central.solidwp.com/';
 	private $options;
 
 
 	public function __construct() {
-		require_once( $GLOBALS['ithemes_sync_path'] . '/functions.php' );
+		require_once $GLOBALS['ithemes_sync_path'] . '/functions.php';
 
 		$this->path_url = Ithemes_Sync_Functions::get_url( $GLOBALS['ithemes_sync_path'] );
 
 		list( $this->self_url ) = explode( '?', $_SERVER['REQUEST_URI'] );
-		$this->self_url .= '?page=' . $this->page_name;
+		$this->self_url        .= '?page=' . $this->page_name;
 
-		add_action( 'ithemes_sync_settings_page_index', array( $this, 'index' ) );
-		add_action( 'admin_print_styles', array( $this, 'add_styles' ) );
-		add_action( 'admin_print_scripts', array( $this, 'add_scripts' ) );
+		add_action( 'ithemes_sync_settings_page_index', [ $this, 'index' ] );
+		add_action( 'admin_print_styles', [ $this, 'add_styles' ] );
+		add_action( 'admin_print_scripts', [ $this, 'add_scripts' ] );
 	}
 
 	public function add_styles() {
-		wp_enqueue_style( 'ithemes-updater-settings-page-style', "{$this->path_url}/css/settings-page.css", array(), '3.0.0' );
+		wp_enqueue_style( 'ithemes-updater-settings-page-style', "{$this->path_url}/css/settings-page.css", [], '3.0.0' );
 	}
 
 	public function add_scripts() {
 		$var = 'ithemes-updater-settings-page-script';
 
-		$translations = array(
+		$translations = [
 			'confirm_dialog_text' => __( 'Are you sure that you wish to disconnect this user?', 'it-l10n-ithemes-sync' ),
-		);
+		];
 
-		wp_enqueue_script( $var, "{$this->path_url}/js/settings-page.js", array( 'jquery' ), '3.0.0' );
+		wp_enqueue_script( $var, "{$this->path_url}/js/settings-page.js", [ 'jquery' ], '3.0.0' );
 		wp_localize_script( $var, 'ithemes_sync_settings', $translations );
 	}
 
@@ -68,7 +68,7 @@ class Ithemes_Sync_Settings_Page {
 	}
 
 	private function handle_post_action() {
-		$post_data = Ithemes_Sync_Functions::get_post_data( array( 'username', 'password', 'action', 'user' ), true, true );
+		$post_data = Ithemes_Sync_Functions::get_post_data( [ 'username', 'password', 'action', 'user' ], true, true );
 		$action    = $post_data['action'];
 
 		if ( 'authenticate' == $action ) {
@@ -84,7 +84,7 @@ class Ithemes_Sync_Settings_Page {
 		check_admin_referer( 'authenticate-user' );
 
 
-		require_once( $GLOBALS['ithemes_sync_path'] . '/server.php' );
+		require_once $GLOBALS['ithemes_sync_path'] . '/server.php';
 
 
 		$result = Ithemes_Sync_Server::authenticate( $data['username'], $data['password'] );
@@ -139,7 +139,7 @@ class Ithemes_Sync_Settings_Page {
 
 
 		$heading  = __( 'Woohoo! Your site has been connected.', 'it-l10n-ithemes-sync' );
-		$messages = array();
+		$messages = [];
 
 		if ( 0 == $result['quota']['available'] ) {
 			$messages[] = sprintf( __( 'Your user has now used all of the sites available to be added to Solid Central. More information can be found on the <a href="%s" target="_blank">SolidWP membership panel</a>.', 'it-l10n-ithemes-sync' ), $this->sync_dashboard_url );
@@ -151,7 +151,7 @@ class Ithemes_Sync_Settings_Page {
 	}
 
 	private function deauthenticate( $data ) {
-		require_once( $GLOBALS['ithemes_sync_path'] . '/server.php' );
+		require_once $GLOBALS['ithemes_sync_path'] . '/server.php';
 
 
 		$options      = $GLOBALS['ithemes-sync-settings']->get_options();
@@ -209,18 +209,17 @@ class Ithemes_Sync_Settings_Page {
 			<?php endforeach; ?>
 		</div>
 		<?php
-
 	}
 
 	private function add_message( $heading, $messages, $class ) {
 		$this->messages[ $class ][] = compact( 'heading', 'messages' );
 	}
 
-	private function add_success_message( $heading, $messages = array() ) {
+	private function add_success_message( $heading, $messages = [] ) {
 		$this->add_message( $heading, $messages, 'success' );
 	}
 
-	private function add_error_message( $heading, $messages = array() ) {
+	private function add_error_message( $heading, $messages = [] ) {
 		$this->add_message( $heading, $messages, 'error' );
 		$this->had_error = true;
 	}
@@ -229,10 +228,10 @@ class Ithemes_Sync_Settings_Page {
 		check_admin_referer( 'save_settings', 'ithemes_sync_nonce' );
 
 
-		$settings_defaults = array();
+		$settings_defaults = [];
 
 
-		$settings = array();
+		$settings = [];
 
 		foreach ( $settings_defaults as $var => $val ) {
 			if ( isset( $_POST[ $var ] ) ) {
@@ -249,16 +248,16 @@ class Ithemes_Sync_Settings_Page {
 	}
 
 	public function show_settings() {
-		$post_data = Ithemes_Sync_Functions::get_post_data( array( 'username', 'password' ), true );
+		$post_data = Ithemes_Sync_Functions::get_post_data( [ 'username', 'password' ], true );
 
 		if ( ! is_multisite() ) {
 			$validations = $GLOBALS['ithemes-sync-settings']->validate_authentications();
 		}
 
-		$valid_users   = array();
-		$invalid_users = array();
+		$valid_users   = [];
+		$invalid_users = [];
 
-		uksort( $this->options['authentications'], array( $this, 'sort_usernames' ) );
+		uksort( $this->options['authentications'], [ $this, 'sort_usernames' ] );
 
 		foreach ( array_keys( $this->options['authentications'] ) as $user_id ) {
 			if ( ! isset( $validations ) || $validations[ $user_id ] ) {
@@ -296,10 +295,12 @@ class Ithemes_Sync_Settings_Page {
 									<?php foreach ( $valid_users as $user_id ) : ?>
 										<li>
 											<div class="user"><?php echo esc_attr( $this->options['authentications'][ $user_id ]['username'] ); ?></div>
-											<?php $query_args = [
+											<?php
+											$query_args = [
 												'action' => 'deauthenticate',
-												'user'  => $user_id,
-											]; ?>
+												'user'   => $user_id,
+											];
+											?>
 											<div class="deauthenticate"><a href="<?php echo add_query_arg( $query_args, $this->self_url ); ?>">Disconnect</a>
 										</li>
 									<?php endforeach; ?>
@@ -314,15 +315,19 @@ class Ithemes_Sync_Settings_Page {
 								<p><?php _e( 'The following users were not recognized by the server. Disconnect them and reconnect them again to fix this error.', 'it-l10n-ithemes-sync' ); ?></p>
 
 								<ul>
-									<?php foreach ( $invalid_users
+									<?php
+									foreach ( $invalid_users
 
-									as $user_id ) : ?>
+									as $user_id ) :
+										?>
 									<li>
-										<div class="user"><?php echo esc_attr($this->options['authentications'][ $user_id ]['username'] ); ?></div>
-										<?php $query_args = [
+										<div class="user"><?php echo esc_attr( $this->options['authentications'][ $user_id ]['username'] ); ?></div>
+										<?php
+										$query_args = [
 											'action' => 'deauthenticate',
-											'user' => $user_id
-										]; ?>
+											'user'   => $user_id,
+										];
+										?>
 										<div class="deauthenticate"><a href="<?php echo add_query_arg( $query_args, $this->self_url ); ?>">Disconnect</a>
 									</li>
 								<?php endforeach; ?>
@@ -346,14 +351,12 @@ class Ithemes_Sync_Settings_Page {
 
 					<form id="ithemes-sync-authenticate" enctype="multipart/form-data" method="post" action="<?php echo $this->self_url; ?>">
 						<label for="username"><?php _e( 'Username', 'it-l10n-ithemes-sync' ); ?></label><br>
-						<input type="text" id="username" name="username" value="<?php if ( $this->had_error ) {
-							echo esc_attr( $post_data['username'] );
-						} ?>">
+						<input type="text" id="username" name="username"
+							   value="<?php echo $this->had_error ? esc_attr( $post_data['username'] ) : '' ?>">
 
 						<label for="password"><?php _e( 'Password', 'it-l10n-ithemes-sync' ); ?></label><br>
-						<input type="password" id="password" name="password" value="<?php if ( $this->had_error ) {
-							echo esc_attr( $post_data['password'] );
-						} ?>">
+						<input type="password" id="password" name="password"
+							   value="<?php echo $this->had_error ? esc_attr( $post_data['password'] ) : '' ?>">
 
 						<input type="submit" id="submit" value="<?php _e( 'Connect', 'it-l10n-ithemes-sync' ); ?>">
 						<input type="hidden" name="action" value="authenticate">
@@ -365,7 +368,6 @@ class Ithemes_Sync_Settings_Page {
 			<?php do_action( 'sync_dev_render' ); ?>
 		</div>
 		<?php
-
 	}
 
 	private function sort_usernames( $a, $b ) {

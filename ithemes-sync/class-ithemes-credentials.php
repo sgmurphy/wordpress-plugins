@@ -1,10 +1,10 @@
 <?php
 
-//-----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 class iThemes_Credentials {
 
-	//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
 	protected $hash = 'sha256';
 
@@ -18,9 +18,9 @@ class iThemes_Credentials {
 
 	protected $password;
 
-	//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
-	public function __construct( $username, $password, $options = array() ) {
+	public function __construct( $username, $password, $options = [] ) {
 
 		$this->username = $username;
 
@@ -42,41 +42,39 @@ class iThemes_Credentials {
 		if ( ! empty( $options['key_length'] ) ) {
 			$this->key_length = intval( $options['key_length'] );
 		}
-
 	}
 
-	//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
-	public static function get_password_hash( $username, $password, $options = array() ) {
+	public static function get_password_hash( $username, $password, $options = [] ) {
 
 		$hasher = new iThemes_Credentials( $username, $password, $options );
 
 		return $hasher->get_pbkdf2();
-
 	}
 
-	//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
 	public function get_salt() {
 
 		return strtolower( trim( $this->username ) ) . $this->salt_padding;
-
 	}
 
-	//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
 	public function get_pbkdf2() {
 
-		return $this->pbkdf2( $this->hash,
+		return $this->pbkdf2(
+			$this->hash,
 			$this->password,
 			$this->get_salt(),
 			$this->iteration_count,
 			$this->key_length / 2,
-			false );
-
+			false 
+		);
 	}
 
-	//-----------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------
 
 	/*
 	 * PBKDF2 key derivation function as defined by RSA's PKCS #5: https://www.ietf.org/rfc/rfc2898.txt
@@ -111,16 +109,16 @@ class iThemes_Credentials {
 
 		$output = '';
 
-		for ( $i = 1; $i <= $block_count; $i ++ ) {
+		for ( $i = 1; $i <= $block_count; $i++ ) {
 
 			// $i encoded as 4 bytes, big endian.
-			$last = $salt . pack( "N", $i );
+			$last = $salt . pack( 'N', $i );
 
 			// first iteration
 			$last = $xorsum = hash_hmac( $algorithm, $last, $password, true );
 
 			// perform the other $count - 1 iterations
-			for ( $j = 1; $j < $count; $j ++ ) {
+			for ( $j = 1; $j < $count; $j++ ) {
 				$xorsum ^= ( $last = hash_hmac( $algorithm, $last, $password, true ) );
 			}
 
@@ -133,12 +131,9 @@ class iThemes_Credentials {
 		} else {
 			return bin2hex( substr( $output, 0, $key_length ) );
 		}
-
 	}
 
-	//-----------------------------------------------------------------------------
-
+	// -----------------------------------------------------------------------------
 }
 
-//-----------------------------------------------------------------------------
-    
+// -----------------------------------------------------------------------------

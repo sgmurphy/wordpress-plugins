@@ -299,76 +299,9 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			}
 
 			wp_nonce_field( 'splogocarousel_metabox_nonce', 'splogocarousel_metabox_nonce' . $this->unique );
-			if ( $is_preview ) {
-				?>
-			<div id="splcp_live_preview">
-				<div class="postbox-header ">
-					<h2>Live Preview</h2>
-				</div>
-				<div class="inside">
-					<div class="splogocarousel splogocarousel-metabox splogocarousel-theme-dark">
-						<div class="splogocarousel-wrapper splogocarousel-show-all">
-							<div class="splogocarousel-content">
-								<div class="splogocarousel-sections">
-									<div class="splogocarousel-field splogocarousel-field-preview">
-										<div class="splcp-preview-box">
-											<div id="splcp-preview-box">
-											</div>
-										</div>
-										<div class="clear"></div>
-									</div>
-								</div>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-				<?php
-			}
+
 			echo '<div class="splogocarousel splogocarousel-metabox' . esc_attr( $theme ) . '">';
-			$current_screen        = get_current_screen();
-			$the_current_post_type = $current_screen->post_type;
-			if ( 'sp_lc_shortcodes' === $the_current_post_type && $shortcode_show ) {
-				?>
-			<div class="sp_lc_shortcode_header">
-			<div class="sp_lc_shortcode_header_logo">
-				<img src="<?php echo esc_url( SP_LC_URL ) . 'admin/assets/images/lc-logo.svg'; ?>" alt="Logo Carousel">
-			</div>
-			<div class="sp_lc_shortcode_header_support">
-				<a href="https://shapedplugin.com/support/?user=lite" target="_blank"><i
-						class="fa fa-support"></i><span>Support</span></a>
-			</div>
-		</div>
-		<div class="lc_shortcode text-center">
-			<div class="lc-col-lg-3">
-				<div class="lc_shortcode_content">
-					<h2 class="lc-shortcode-title"><?php esc_html_e( 'Shortcode', 'logo-carousel-free' ); ?> </h2>
-					<p><?php esc_html_e( 'Copy and paste this shortcode into your posts or pages:', 'logo-carousel-free' ); ?></p>
-					<div class="shortcode-wrap">
-					<div class="lc-after-copy-text"><i class="fa fa-check-circle"></i> <?php esc_html_e( 'Shortcode  Copied to Clipboard! ', 'logo-carousel-free' ); ?>  </div><div class="lc-sc-code selectable" >[logocarousel <?php echo 'id="' . esc_attr( $post->ID ) . '"'; ?>]</div>
-				</div>
-				</div>
-			</div>
-			<div class="lc-col-lg-3">
-					<div class="lc_shortcode_content">
-						<h2 class="lc-shortcode-title"><?php echo esc_html__( 'Page Builders', 'logo-carousel-free' ); ?> </h2>
-						<p class="lc-page-builder-note"><?php echo esc_html__( 'Logo Carousel has seamless integration with Gutenberg, Classic Editor, Elementor, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc.', 'logo-carousel-free' ); ?></p>
-					</div>
-				</div>
-			<div class="lc-col-lg-3">
-				<div class="lc_shortcode_content">
-					<h2 class="lc-shortcode-title"><?php esc_html_e( 'Template Include', 'logo-carousel-free' ); ?> </h2>
-					<p><?php esc_html_e( 'Paste the PHP code into your template file:', 'logo-carousel-free' ); ?></p>
-					<div class="shortcode-wrap">
-					<div class="lc-after-copy-text"><i class="fa fa-check-circle"></i> <?php esc_html_e( 'Shortcode  Copied to Clipboard! ', 'logo-carousel-free' ); ?>  </div>
-						<div class="lc-sc-code selectable">&lt;?php logocarousel( <?php echo esc_attr( $post->ID ); ?> ); ?&gt;</div>
-						</div>
-				</div>
-			</div>
-		</div>
-				<?php
-			}
+
 			echo '<div class="splogocarousel-wrapper' . esc_attr( $show_all ) . '">';
 
 			if ( $has_nav ) {
@@ -545,33 +478,21 @@ if ( ! class_exists( 'SPLC_FREE_Metabox' ) ) {
 			if ( ! wp_verify_nonce( $nonce, 'splogocarousel_metabox_nonce' ) ) {
 				return;
 			}
-			$count  = 1;
-			$data   = array();
-			$errors = array();
-			// XSS ok.
-			// No worries, This "Preview" requests is sanitizing in the below foreach line 595.
-			$request = ( ! empty( $_POST[ 'data'] ) ) ? $_POST['data' ] : array(); // @codingStandardsIgnoreLine
-			parse_str( $request, $request );
-			$title   = esc_html( $request['post_title'] );
-			$post_id = absint( $request['post_ID'] );
-			$request = $request['sp_lcp_shortcode_options'];
-			if ( ! empty( $request ) ) {
-				foreach ( $this->sections as $section ) {
-					if ( ! empty( $section['fields'] ) ) {
-						foreach ( $section['fields'] as $field ) {
-							$this->process_field( $field, $request, $count, $data, $errors );
-						}
-					}
-					++$count;
-				}
-			}
+
+			$data = ( ! empty( $_POST[ 'data'] ) ) ? wp_unslash( $_POST['data' ] ) : array(); // @codingStandardsIgnoreLine
+			parse_str( $data, $setting_data );
+
+			$title       = esc_html( $setting_data['post_title'] );
+			$post_id     = absint( $setting_data['post_ID'] );
+			$logo_data   = $setting_data['sp_lcp_shortcode_options'];
+			$layout_data = $setting_data['sp_lcp_layout_options'];
+
 			echo '<style>';
-			$logo_data   = $data;
 			$dynamic_css = '';
 			require SP_LC_PATH . 'public/views/dynamic-style.php';
-			echo $dynamic_css;
+			echo wp_kses_post( $dynamic_css );
 			echo '</style>';
-			SPLC_Shortcode_Render::splcp_html_show( $post_id, $data, $title );
+			SPLC_Shortcode_Render::splcp_html_show( $post_id, $logo_data, $layout_data, $title );
 			die();
 		}
 

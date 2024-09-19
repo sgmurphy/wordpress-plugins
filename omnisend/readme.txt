@@ -5,7 +5,7 @@ Tags: email marketing, marketing, newsletter, sms, form
 Requires at least: 4.7.0
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv3 or later
 URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -77,7 +77,7 @@ Easily add Omnisend’s signup forms to your WordPress website and automatically
 
 Omnisend’s plugin is easy to use, with a user-friendly interface that allows you to create and manage email campaigns in minutes. With Omnisend’s plugin, you can take your email marketing to the next level.
 
-* Discover apps that’ll help you turn more visitors into loyal subscribers.
+Discover apps that’ll help you turn more visitors into loyal subscribers.
 * Ninja forms
 * Gravity forms
 * Formidable forms
@@ -120,6 +120,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Convert more visitors with highly-targeted landing pages
 
 == Changelog ==
+
+= 1.5.3 =
+
+* Add new plugins
 
 = 1.5.2 =
 

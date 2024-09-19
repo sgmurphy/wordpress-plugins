@@ -5,13 +5,13 @@ $ays_pb_tab = isset($_GET['ays_pb_tab']) ? sanitize_text_field($_GET['ays_pb_tab
 
 if (isset($_POST['ays_submit']) || isset($_POST['ays_submit_top'])) {
     $_POST['id'] = $id;
-    $this->popupbox_obj->add_or_edit_popupbox($_POST);
+    $this->popupbox_obj->add_or_edit_popupbox();
 }
 
 if (isset($_POST['ays_apply']) || isset($_POST['ays_apply_top'])) {
     $_POST['id'] = $id;
     $_POST['submit_type'] = 'apply';
-    $this->popupbox_obj->add_or_edit_popupbox($_POST);
+    $this->popupbox_obj->add_or_edit_popupbox();
 }
 
 $show_warning_note = !isset($_COOKIE['ays_pb_show_warning_note']);
@@ -862,10 +862,10 @@ if (isset($options['show_popup_desc_mobile'])) {
     $show_popup_desc_mobile = $show_popup_desc;
 }
 
-// Width | On PC
+// Width | On desktop
 $width = (isset($popupbox['width']) && $popupbox['width'] != 0) ? abs( intval($popupbox['width']) ) : '';
 
-// Width | On PC | Measurement unit
+// Width | On desktop | Measurement unit
 $popup_width_by_percentage_px = (isset($options['popup_width_by_percentage_px']) && $options['popup_width_by_percentage_px'] != '') ? esc_attr( stripslashes($options['popup_width_by_percentage_px']) ) : 'pixels';
 
 // Width | On mobile
@@ -877,16 +877,16 @@ $popup_width_by_percentage_px_mobile = (isset($options['popup_width_by_percentag
 // Max-width for mobile
 $mobile_max_width = (isset($options['mobile_max_width']) && $options['mobile_max_width'] != '') ? abs( intval($options['mobile_max_width']) ) : '';
 
-// Height | On PC
+// Height | On desktop
 $height = (isset($popupbox['height']) && $popupbox['height'] != '') ? abs( intval($popupbox['height']) ) : '';
 
 // Height | On mobile
 $mobile_height = (isset($options['mobile_height']) && $options['mobile_height'] != '') ? abs( intval($options['mobile_height']) ) : '';
 
-// Popup max-height | On PC |
+// Popup max-height | On desktop |
 $popup_max_height = (isset($options['pb_max_height']) && $options['pb_max_height'] != '' && $options['pb_max_height'] != 0) ? absint( intval($options['pb_max_height']) ) : '';
 
-// Popup max-height | On PC | Measurement unit
+// Popup max-height | On desktop | Measurement unit
 $popup_max_height_by_percentage_px = ( isset($options['popup_max_height_by_percentage_px']) && $options['popup_max_height_by_percentage_px'] != '' ) ? esc_attr( stripslashes($options['popup_max_height_by_percentage_px']) ) : 'pixels';
 
 // Popup max-height | On mobile
@@ -922,26 +922,26 @@ $textcolor = (isset($popupbox['textcolor']) && $popupbox['textcolor'] != '') ? e
 // Font family
 $font_family_option = (isset($options['pb_font_family']) && $options['pb_font_family'] != '') ? esc_attr( stripslashes($options['pb_font_family']) ) : 'inherit';
 
-// Description font size | On PC
+// Description font size | On desktop
 $pb_font_size = (isset($options['pb_font_size']) && $options['pb_font_size'] != '') ? absint( intval($options['pb_font_size']) ) : 13;
 
 // Description font size | On mobile
 $pb_font_size_for_mobile = (isset($options['pb_font_size_for_mobile']) && $options['pb_font_size_for_mobile'] != '') ? absint( intval($options['pb_font_size_for_mobile']) ) : 13;
 
-// Title text shadow | On PC
+// Title text shadow | On desktop
 $options['enable_pb_title_text_shadow'] = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? 'on' : 'off';
 $enable_pb_title_text_shadow = (isset($options['enable_pb_title_text_shadow']) && $options['enable_pb_title_text_shadow'] == 'on') ? true : false;
 
-// Title text shadow | On PC | Color
+// Title text shadow | On desktop | Color
 $pb_title_text_shadow = (isset($options['pb_title_text_shadow']) && $options['pb_title_text_shadow'] != '') ? stripslashes( esc_attr($options['pb_title_text_shadow']) ) : 'rgba(255,255,255,0)';
 
-// Title text shadow | On PC | X
+// Title text shadow | On desktop | X
 $pb_title_text_shadow_x_offset = (isset($options['pb_title_text_shadow_x_offset']) && $options['pb_title_text_shadow_x_offset'] != '') ? absint( intval($options['pb_title_text_shadow_x_offset']) ) : 2;
 
-// Title text shadow | On PC | Y
+// Title text shadow | On desktop | Y
 $pb_title_text_shadow_y_offset = (isset($options['pb_title_text_shadow_y_offset']) && $options['pb_title_text_shadow_y_offset'] != '') ? absint( intval($options['pb_title_text_shadow_y_offset']) ) : 2;
 
-// Title text shadow | On PC | Z
+// Title text shadow | On desktop | Z
 $pb_title_text_shadow_z_offset = (isset($options['pb_title_text_shadow_z_offset']) && $options['pb_title_text_shadow_z_offset'] != '') ? absint( intval($options['pb_title_text_shadow_z_offset']) ) : 0;
 
 // Title text shadow | On mobile
@@ -1096,17 +1096,17 @@ $enable_pb_bg_image_sizing_mobile = (isset($options['enable_pb_bg_image_sizing_m
 // Background image sizing mobile
 $pb_bg_image_sizing_mobile = (isset($options['pb_bg_image_sizing_mobile']) && $options['pb_bg_image_sizing_mobile'] !== '') ? stripslashes( esc_attr($options['pb_bg_image_sizing_mobile']) ) : 'cover';
 
-// Background gradient | On PC
+// Background gradient | On desktop
 $options['enable_background_gradient'] = (isset($options['enable_background_gradient']) && $options['enable_background_gradient'] != '') ? stripslashes( esc_attr($options['enable_background_gradient']) ) : 'off';
 $enable_background_gradient = (isset($options['enable_background_gradient']) && $options['enable_background_gradient'] == 'on') ? true : false;
 
-// Background gradient | On PC | Color 1
+// Background gradient | On desktop | Color 1
 $background_gradient_color_1 = (isset($options['background_gradient_color_1']) && $options['background_gradient_color_1'] != '') ? esc_attr( stripslashes($options['background_gradient_color_1']) ) : '#000';
 
-// Background gradient | On PC | Color 2
+// Background gradient | On desktop | Color 2
 $background_gradient_color_2 = (isset($options['background_gradient_color_2']) && $options['background_gradient_color_2'] != '') ? esc_attr( stripslashes($options['background_gradient_color_2']) ) : '#fff';
 
-// Background gradient | On PC | Gradient direction
+// Background gradient | On desktop | Gradient direction
 $pb_gradient_direction = (isset($options['pb_gradient_direction']) && $options['pb_gradient_direction'] != '') ? esc_attr( stripslashes($options['pb_gradient_direction']) ) : 'vertical';
 
 // Background gradient | On mobile
@@ -1219,20 +1219,20 @@ $close_button_hover_color = (isset($options['close_button_hover_color']) && $opt
 // Close button size
 $ays_close_button_size = (isset($options['close_button_size']) && $options['close_button_size'] != '') ? abs( intval($options['close_button_size']) ) : 1;
 
-// Box shadow | On PC
+// Box shadow | On desktop
 $options['enable_box_shadow'] = (isset($options['enable_box_shadow']) && $options['enable_box_shadow'] != '') ? esc_attr( stripslashes($options['enable_box_shadow']) ) : 'off';
 $enable_box_shadow = (isset($options['enable_box_shadow']) && $options['enable_box_shadow'] == 'on') ? true : false;
 
-// Box shadow | On PC | Color
+// Box shadow | On desktop | Color
 $box_shadow_color = (isset($options['box_shadow_color']) && $options['box_shadow_color'] != '') ? esc_attr( stripslashes($options['box_shadow_color']) ) : '#000';
 
-// Box shadow | On PC | X
+// Box shadow | On desktop | X
 $pb_box_shadow_x_offset = (isset($options['pb_box_shadow_x_offset']) && $options['pb_box_shadow_x_offset'] != '') ? abs( intval($options['pb_box_shadow_x_offset']) ) : 0;
 
-// Box shadow | On PC | Y
+// Box shadow | On desktop | Y
 $pb_box_shadow_y_offset = (isset($options['pb_box_shadow_y_offset']) && $options['pb_box_shadow_y_offset'] != '') ? abs( intval($options['pb_box_shadow_y_offset']) ) : 0;
 
-// Box shadow | On PC | Z
+// Box shadow | On desktop | Z
 $pb_box_shadow_z_offset = (isset($options['pb_box_shadow_z_offset']) && $options['pb_box_shadow_z_offset'] != '') ? abs( intval($options['pb_box_shadow_z_offset']) ) : 15;
 
 // Box shadow | On mobile
@@ -1299,7 +1299,7 @@ $guest = (isset($popupbox['guest']) && $popupbox['guest'] != '') ? stripslashes(
 // Hide popup on mobile
 $ays_pb_mobile = (isset($options['pb_mobile']) && $options['pb_mobile'] == 'on') ? stripslashes( esc_attr($options['pb_mobile']) ) : 'off';
 
-// Hide popup on PC
+// Hide popup on desktop
 $options['hide_on_pc'] = (isset($options['hide_on_pc']) && $options['hide_on_pc'] != '') ? stripslashes( esc_attr($options['hide_on_pc']) ) : 'off';
 $ays_pb_hide_on_pc = (isset($options['hide_on_pc']) && $options['hide_on_pc'] == 'on') ? true : false;
 
@@ -2540,7 +2540,7 @@ $ays_users_roles = $wp_roles->roles;
                         <div class="col-sm-9 ays_pb_pc_and_mobile_container">
                             <div>
                                 <div class="ays_pb_position_table_container">
-                                    <span class="ays_pb_current_device_name <?php echo $enable_pb_position_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                    <span class="ays_pb_current_device_name <?php echo $enable_pb_position_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                     <table id="ays-pb-position-table" data-flag="popup_position">
                                         <tr>
                                             <td data-value="left-top" data-id='1'></td>
@@ -2627,13 +2627,13 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9 ays_divider_left ays_pb_pc_and_mobile_container">
                                 <div>
                                     <div class="ays_pb_pc_and_mobile_box">
-                                        <!-- opening delay PC -->
+                                        <!-- opening delay Desktop -->
                                         <div class="ays_popup_display_flex_width">
                                             <div>
                                                 <input type="number" id="<?php echo $this->plugin_name; ?>-delay" name="<?php echo $this->plugin_name; ?>[delay]"  class="ays-pb-text-input ays-pb-text-input-short"  value="<?php echo $open_delay; ?>">
                                                 <span style="display:block;" class="ays-pb-small-hint-text"><?php echo __( '1 sec = 1000 ms', "ays-popup-box" ); ?></span>
                                                 <div style="text-align: center;">
-                                                    <span class="ays_pb_current_device_name <?php echo $enable_open_delay_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                    <span class="ays_pb_current_device_name <?php echo $enable_open_delay_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                                 </div>
                                             </div>
                                             <div class="ays_dropdown_max_width">
@@ -2683,12 +2683,12 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9 ays_divider_left ays_pb_pc_and_mobile_container">
                                 <div>
                                     <div class="ays_pb_pc_and_mobile_box">
-                                        <!-- Scroll from top PC -->
+                                        <!-- Scroll from top desktop -->
                                         <div class="ays_popup_display_flex_width">
                                             <div>
                                                 <input type="number" id="<?php echo $this->plugin_name; ?>-scroll_top" name="<?php echo $this->plugin_name; ?>[scroll_top]"  class="ays-pb-text-input ays-pb-text-input-short"  value="<?php echo $scroll_top; ?>">
                                                 <div style="text-align: center;">
-                                                    <span class="ays_pb_current_device_name <?php echo $enable_scroll_top_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                    <span class="ays_pb_current_device_name <?php echo $enable_scroll_top_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                                 </div>
                                             </div>
                                             <div class="ays_dropdown_max_width">
@@ -2764,7 +2764,7 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9">
                                 <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
                                     <div class="ays_pb_option_for_desktop">
-                                        <span class="ays_pb_current_device_name" style="<?php echo ($close_popup_overlay_mobile || $close_popup_overlay != 'off') ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                        <span class="ays_pb_current_device_name" style="<?php echo ($close_popup_overlay_mobile || $close_popup_overlay != 'off') ? 'display: block' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                         <p class="onoffswitch" style="margin:0;">
                                             <input type="checkbox" name="close_popup_overlay" class="ays-pb-onoffswitch-checkbox" id="ays_close_popup_overlay" <?php echo $close_popup_overlay == 'off' ? '' : 'checked'; ?>/>
                                         </p>
@@ -2913,10 +2913,10 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9 ays_pb_pc_and_mobile_container">
                                 <div>
                                     <div class="ays_pb_pc_and_mobile_box ays_pb_pc_and_mobile_box_input">
-                                        <!-- Close button position PC Start-->
+                                        <!-- Close button position desktop Start -->
                                         <div>
                                             <div style="text-align: center;">
-                                                <span class="ays_pb_current_device_name <?php echo $enable_close_button_position_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                <span class="ays_pb_current_device_name <?php echo $enable_close_button_position_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                             </div>
                                             <select id="ays-pb-close-button-position" name="ays_pb_close_button_position" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown">
                                                 <option <?php echo ($close_button_position == 'right-top') ? 'selected' : ''; ?> value="right-top"><?php echo __('Right Top', "ays-popup-box"); ?></option>
@@ -2925,8 +2925,8 @@ $ays_users_roles = $wp_roles->roles;
                                                 <option <?php echo $close_button_position == 'right-bottom' ? 'selected' : ''; ?> value="right-bottom"><?php echo __('Right Bottom', "ays-popup-box"); ?></option>
                                             </select>
                                         </div>
-                                        <!-- Close button position PC Start-->
-                                        <!-- Close button position Mobile Start-->
+                                        <!-- Close button position desktop End -->
+                                        <!-- Close button position Mobile Start -->
                                         <div class="ays_pb_option_for_mobile_device ays_divider_left <?php echo $enable_close_button_position_mobile ? 'show' : '' ?>">
                                             <div style="text-align: center;">
                                                 <span class="ays_pb_current_device_name <?php echo $enable_close_button_position_mobile ? 'show' : '' ?>"><?php echo __('Mobile', "ays-popup-box") ?></span>
@@ -2938,7 +2938,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 <option <?php echo ($close_button_position_mobile == 'right-bottom') ? 'selected' : ''; ?> value="right-bottom"><?php echo __('Right Bottom', "ays-popup-box"); ?></option>
                                             </select>
                                         </div>
-                                        <!-- Close button position Mobile Start-->
+                                        <!-- Close button position Mobile Start -->
                                     </div>
                                     <div class="ays_pb_mobile_settings_container">
                                         <input type="checkbox" class="ays_pb_different_settings_for_mobile" id="ays_pb_enable_close_button_position_mobile" name="ays_pb_enable_close_button_position_mobile" <?php echo $enable_close_button_position_mobile ? 'checked' : '' ?>>
@@ -2962,10 +2962,10 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9 ays_pb_pc_and_mobile_container">
                                 <div>
                                     <div class="ays_pb_pc_and_mobile_box ays_pb_pc_and_mobile_box_input">
-                                        <!-- Close button text PC Start-->
+                                        <!-- Close button text desktop Start-->
                                         <div>
                                             <div style="text-align: center;">
-                                                <span class="ays_pb_current_device_name <?php echo $enable_close_button_text_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                <span class="ays_pb_current_device_name <?php echo $enable_close_button_text_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-3">
@@ -2973,7 +2973,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Close button text PC End-->
+                                        <!-- Close button text desktop End-->
                                         <!-- Close button text Mobile Start-->
                                         <div class="ays_pb_option_for_mobile_device ays_divider_left <?php echo $enable_close_button_text_mobile ? 'show' : '' ?>">
                                             <div style="text-align: center;">
@@ -3029,10 +3029,10 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9 ays_pb_pc_and_mobile_container">
                                 <div>
                                     <div class="ays_pb_pc_and_mobile_box ays_pb_pc_and_mobile_box_input">
-                                        <!-- Autoclose Delay PC Start-->
+                                        <!-- Autoclose Delay desktop Start-->
                                         <div>
                                             <div style="text-align: center;">
-                                                <span class="ays_pb_current_device_name <?php echo $enable_autoclose_delay_text_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                <span class="ays_pb_current_device_name <?php echo $enable_autoclose_delay_text_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
@@ -3041,7 +3041,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Autoclose Delay PC End-->
+                                        <!-- Autoclose Delay desktop End-->
                                         <!-- Autoclose Delay Start-->
                                         <div class="ays_pb_option_for_mobile_device ays_divider_left <?php echo $enable_autoclose_delay_text_mobile ? 'show' : '' ?>">
                                             <div style="text-align: center;">
@@ -3079,7 +3079,7 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9 ays_pb_pc_and_mobile_container">
                                 <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
                                     <div class="ays_pb_option_for_desktop">
-                                        <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_hide_timer == 'on' || $ays_pb_hide_timer_mobile == 'on') ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                        <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_hide_timer == 'on' || $ays_pb_hide_timer_mobile == 'on') ? 'display: block' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                         <p class="onoffswitch">
                                             <input id="ays_pb_hide_timer" type="checkbox" class="ays_pb_hide_timer ays-pb-onoffswitch-checkbox" name="ays_pb_hide_timer" <?php echo ($ays_pb_hide_timer == 'on' )? 'checked' : '' ?> value="on"/>
                                         </p>
@@ -3125,10 +3125,10 @@ $ays_users_roles = $wp_roles->roles;
                                 
                                 <div>
                                     <div class="ays_pb_pc_and_mobile_box ays_pb_pc_and_mobile_box_input">
-                                        <!-- Close button delay PC Start-->
+                                        <!-- Close button delay desktop Start-->
                                         <div>
                                             <div style="text-align: center;">
-                                                <span class="ays_pb_current_device_name <?php echo $enable_close_button_delay_for_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                <span class="ays_pb_current_device_name <?php echo $enable_close_button_delay_for_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12 ays_popup_display_flex_width">
@@ -3142,7 +3142,7 @@ $ays_users_roles = $wp_roles->roles;
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Close button delay PC End-->
+                                        <!-- Close button delay desktop End-->
                                         <!-- Close button delay Mobile Start-->
                                         <div class="ays_pb_option_for_mobile_device ays_divider_left <?php echo $enable_close_button_delay_for_mobile ? 'show' : '' ?>">
                                             <div style="text-align: center;">
@@ -3239,10 +3239,10 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_toggle_target ays_divider_left opacity_box ays_pb_pc_and_mobile_container" style=" <?php echo ( $onoffoverlay == 'On' ) ? '' : 'display:none'; ?>">
                                         <div style="width: 100%;">
                                             <div class="ays_pb_pc_and_mobile_box ays_pb_pc_and_mobile_box_input">
-                                                <!-- Overlay Mobile PC Start-->
+                                                <!-- Overlay Mobile desktop Start-->
                                                 <div class="col-sm-8 col-md-6 p-0">
                                                     <div style="text-align: center;">
-                                                        <span class="ays_pb_current_device_name <?php echo $enable_autoclose_delay_text_mobile ? 'show' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                                        <span class="ays_pb_current_device_name <?php echo $enable_autoclose_delay_text_mobile ? 'show' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-5 col-md-4">
@@ -3255,7 +3255,7 @@ $ays_users_roles = $wp_roles->roles;
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- Overlay Mobile PC End-->
+                                                <!-- Overlay Mobile desktop End-->
                                                 <!-- Overlay Mobile Start-->
                                                 <div class="col-sm-8 col-md-6 ays_pb_option_for_mobile_device ays_divider_left <?php echo $enable_overlay_text_mobile ? 'show' : '' ?>">
                                                     <div style="text-align: center;">
@@ -3297,7 +3297,7 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9">
                                 <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
                                     <div class="ays_pb_option_for_desktop">
-                                        <span class="ays_pb_current_device_name" style="<?php echo ($blured_overlay_mobile || $blured_overlay) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                        <span class="ays_pb_current_device_name" style="<?php echo ($blured_overlay_mobile || $blured_overlay) ? 'display: block' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                         <p class="onoffswitch">
                                             <input type="checkbox" name="ays_pb_blured_overlay" class="ays-pb-onoffswitch-checkbox" id="ays_pb_blured_overlay" <?php echo $blured_overlay ? 'checked' : '' ?> >
                                         </p>
@@ -3803,7 +3803,7 @@ $ays_users_roles = $wp_roles->roles;
                                 </div>
                                 <div class="col-sm-9 ays_toggle_target ays_divider_left" style=" <?php echo ( $enable_dismiss ) ? '' : 'display:none'; ?>" >
                                     <div class="ays_toggle_parent_dismiss_option">
-                                        <div class="ays_pb_current_device_name show ays_toggle_target_dismiss_option" style="<?php echo ($enable_dismiss_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px"><?php echo __('PC', "ays-popup-box") ?></div>
+                                        <div class="ays_pb_current_device_name show ays_toggle_target_dismiss_option" style="<?php echo ($enable_dismiss_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                         <div class="form-group row">
                                             <div class="col-sm-3">
                                                 <label for="ays_pb_enable_dismiss_text">
@@ -3856,7 +3856,7 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9">
                                 <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
                                     <div class="ays_pb_option_for_desktop">
-                                        <span class="ays_pb_current_device_name" style="<?php echo ($disable_scroll_mobile || $disable_scroll) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                        <span class="ays_pb_current_device_name" style="<?php echo ($disable_scroll_mobile || $disable_scroll) ? 'display: block' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                         <p class="onoffswitch">
                                             <input type="checkbox" name="disable_scroll" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll" <?php echo ($disable_scroll) ? 'checked' : ''; ?> />
                                         </p>
@@ -3884,7 +3884,7 @@ $ays_users_roles = $wp_roles->roles;
                             <div class="col-sm-9">
                                 <div class="ays_pb_pc_and_mobile_container ays_pb_pc_and_mobile_container_cb">
                                     <div class="ays_pb_option_for_desktop">
-                                        <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'display: block' : '' ?>"><?php echo __('PC', "ays-popup-box") ?></span>
+                                        <span class="ays_pb_current_device_name" style="<?php echo ($ays_pb_disable_scroll_on_popup_mobile || $ays_pb_disable_scroll_on_popup) ? 'display: block' : '' ?>"><?php echo __('Desktop', "ays-popup-box") ?></span>
                                         <p class="onoffswitch">
                                             <input type="checkbox" name="ays_pb_disable_scroll_on_popup" class="ays-pb-onoffswitch-checkbox" id="ays_pb_disable_scroll_on_popup" <?php echo ($ays_pb_disable_scroll_on_popup) ? 'checked' : ''; ?> />
                                         </p>
@@ -4366,7 +4366,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_display_content_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 285px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_display_content_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 285px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <label class="ays-pb-label-style"><?php echo __("Show title", "ays-popup-box");?>
                                                     <input type="checkbox" class="ays_pb_title" name="show_popup_title" <?php if($show_popup_title == 'On'){ echo 'checked';} else { echo '';} ?>/>
                                                 </label>
@@ -4407,8 +4407,8 @@ $ays_users_roles = $wp_roles->roles;
                                         <div class="form-group row">
                                             <div class="col-sm-3">
                                                 <label for="<?php echo $this->plugin_name; ?>-width">
-                                                    <?php echo  __('On PC',"ays-popup-box") ?>
-                                                    <a class="ays_help" data-toggle="tooltip" title="" data-original-title="Define the width for PC devices. If you put 0 or leave it blank, the width will be 100%. It accepts only numerical values and you can choose whether to define the value by percentage or in pixels.">
+                                                    <?php echo  __('On desktop',"ays-popup-box") ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="" data-original-title="Define the width for desktop devices. If you put 0 or leave it blank, the width will be 100%. It accepts only numerical values and you can choose whether to define the value by percentage or in pixels.">
                                                         <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                     </a>
                                                 </label>
@@ -4499,8 +4499,8 @@ $ays_users_roles = $wp_roles->roles;
                                         <div class="form-group row">
                                             <div class="col-sm-3">
                                                 <label for="<?php echo $this->plugin_name; ?>-height">
-                                                    <?php echo  __('On PC',"ays-popup-box") ?>
-                                                    <a class="ays_help" data-toggle="tooltip" title="" data-original-title="Define the height for PC devices. Leave it blank or put 0 to select the default theme value.">
+                                                    <?php echo  __('On desktop',"ays-popup-box") ?>
+                                                    <a class="ays_help" data-toggle="tooltip" title="" data-original-title="Define the height for desktop devices. Leave it blank or put 0 to select the default theme value.">
                                                         <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                     </a>
                                                 </label>
@@ -4555,8 +4555,8 @@ $ays_users_roles = $wp_roles->roles;
                                         <div class="form-group row">
                                             <div class="col-sm-3">
                                                 <label for="ays-pb-max-height">
-                                                    <?php echo  __('On PC',"ays-popup-box") ?>
-                                                    <a class="ays_help" data-toggle="tooltip" data-original-title="Define the max height for PC devices.">
+                                                    <?php echo  __('On desktop',"ays-popup-box") ?>
+                                                    <a class="ays_help" data-toggle="tooltip" data-original-title="Define the max height for desktop devices.">
                                                         <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                     </a>
                                                 </label>
@@ -4768,8 +4768,8 @@ $ays_users_roles = $wp_roles->roles;
                                         <div class="form-group row">
                                             <div class="col-sm-3">
                                                 <label for="ays_pb_font_size_for_pc">
-                                                    <?php echo  __('On PC',"ays-popup-box") ?>  
-                                                        <a class="ays_help" data-toggle="tooltip" title="" data-original-title="Define the font size for PC devices.">
+                                                    <?php echo  __('On desktop',"ays-popup-box") ?>  
+                                                        <a class="ays_help" data-toggle="tooltip" title="" data-original-title="Define the font size for desktop devices.">
                                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                         </a>
                                                     </label>
@@ -4815,8 +4815,8 @@ $ays_users_roles = $wp_roles->roles;
                                             <div class="form-group row" style="align-items: center;">
                                                 <div class="col-sm-3">
                                                     <label for="ays_enable_title_text_shadow">
-                                                        <?php echo  __('On PC',"ays-popup-box") ?>
-                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the title text shadow for PC devices.',"ays-popup-box")?>">
+                                                        <?php echo  __('On desktop',"ays-popup-box") ?>
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the title text shadow for desktop devices.',"ays-popup-box")?>">
                                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                         </a>
                                                     </label>
@@ -5101,7 +5101,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animate_in_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animate_in_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <select id="<?php echo $this->plugin_name; ?>-animate_in" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" name="<?php echo $this->plugin_name; ?>[animate_in]">
                                                     <optgroup label="Fading Entrances">
                                                         <option <?php echo 'fadeIn' == $animate_in ? 'selected' : ''; ?> value="fadeIn">Fade In</option>
@@ -5219,7 +5219,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animate_out_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animate_out_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <select id="<?php echo $this->plugin_name; ?>-animate_out" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" name="<?php echo $this->plugin_name; ?>[animate_out]">
                                                     <optgroup label="Fading Exits">
                                                         <option <?php echo  $animate_out == 'fadeOut' ? 'selected' : ''; ?> value="fadeOut">Fade Out</option>
@@ -5337,7 +5337,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input id="ays_pb_animation_speed" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_animation_speed" value="<?php echo $animation_speed; ?>" step="0.1" <?php echo $animate_in == 'none' ? 'disabled' : ''; ?>>
                                             </div>
                                             <div class="ays_toggle_target ays_pb_animation_speed_mobile_container" style=" <?php echo ( $enable_animation_speed_mobile ) ? '' : 'display:none'; ?>">
@@ -5367,7 +5367,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_close_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_close_animation_speed_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input id="ays_pb_close_animation_speed" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="ays_pb_close_animation_speed" value="<?php echo $close_animation_speed; ?>" step="0.1" <?php echo $animate_out == 'none' ? 'disabled' : ''; ?>>
                                             </div>
                                             <div class="ays_toggle_target ays_pb_close_animation_speed_mobile_container" style=" <?php echo ( $enable_close_animation_speed_mobile ) ? '' : 'display:none'; ?>">
@@ -5406,7 +5406,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bgcolor_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 110px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bgcolor_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 110px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input type="text" id="<?php echo $this->plugin_name; ?>-bgcolor"  data-alpha="true" class="ays_pb_color_input ays_pb_bgcolor_change ays_pb_background_color" name="<?php echo $this->plugin_name; ?>[bgcolor]" value="<?php echo $bgcolor; ?>"  data-default-color="#FFFFFF"/>
                                             </div>
                                             <div class="ays_toggle_target ays_pb_bgcolor_mobile_container" style=" <?php echo ( $enable_bgcolor_mobile ) ? '' : 'display:none'; ?>">
@@ -5436,7 +5436,7 @@ $ays_users_roles = $wp_roles->roles;
                                         <div class="ays_toggle_parent">
                                             <div>
                                                 <div>
-                                                    <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bg_image_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 85px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                    <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bg_image_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 85px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                     <a href="javascript:void(0)" class="button ays-pb-add-bg-image" data-add='<?php echo $bg_image != '' ? 'true' : 'false'; ?>'>
                                                         <?php echo $bg_image != '' ? __('Edit Image', "ays-popup-box") : __('Add Image', "ays-popup-box"); ?>
                                                     </a>
@@ -5485,7 +5485,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="pb_position_block col-sm-8 ays_divider_left ays_toggle_parent">
                                         <div class="ays_pb_bg_image_position_tables_container" style="display: flex;">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_pb_bg_image_position_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 120px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_pb_bg_image_position_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 120px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <table id="ays_pb_bg_image_position_table" data-flag="bg_image_position">
                                                     <tr>
                                                         <td data-value="left-top" data-id='1'></td>
@@ -5545,7 +5545,7 @@ $ays_users_roles = $wp_roles->roles;
                                     </div>
                                     <div class="col-sm-8 ays_divider_left ays_toggle_parent">
                                         <div>
-                                            <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_pb_bg_image_sizing_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                            <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_pb_bg_image_sizing_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                             <select name="ays_pb_bg_image_sizing" id="ays_pb_bg_image_sizing" class="ays-pb-text-input ays-pb-text-input-short ays_pb_aysDropdown" style="display:block;">
                                                 <option value="cover" <?php echo $pb_bg_image_sizing == 'cover' ? 'selected' : ''; ?>><?php echo __( "Cover", "ays-popup-box" ); ?></option>
                                                 <option value="contain" <?php echo $pb_bg_image_sizing == 'contain' ? 'selected' : ''; ?>><?php echo __( "Contain", "ays-popup-box" ); ?></option>
@@ -5584,8 +5584,8 @@ $ays_users_roles = $wp_roles->roles;
                                             <div class="form-group row" style="align-items: center;">
                                                 <div class="col-sm-3">
                                                     <label for="ays-enable-background-gradient">
-                                                        <?php echo  __('On PC',"ays-popup-box") ?>
-                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the background gradient for PC devices.',"ays-popup-box")?>">
+                                                        <?php echo  __('On desktop',"ays-popup-box") ?>
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the background gradient for desktop devices.',"ays-popup-box")?>">
                                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                         </a>
                                                     </label>
@@ -5714,7 +5714,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_overlay_color_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 110px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_overlay_color_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 110px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input id="<?php echo $this->plugin_name; ?>-overlay_color" type="text" data-alpha="true" class="color-picker ays_pb_color_input ays_pb_overlay_color_change" name="ays_pb_overlay_color" value="<?php echo $overlay_color; ?>" data-default-color="#000">
                                             </div>
                                             <div class="ays_toggle_target ays_pb_overlay_color_mobile_container" style=" <?php echo ( $enable_overlay_color_mobile ) ? '' : 'display:none'; ?>">
@@ -5753,7 +5753,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_border_size_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_border_size_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input id="<?php echo $this->plugin_name; ?>-ays_pb_bordersize" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="<?php echo $this->plugin_name; ?>[ays_pb_bordersize]" value="<?php echo wp_unslash($border_size); ?>">
                                             </div>
                                             <div class="ays_toggle_target ays_pb_bordersize_mobile_container" style=" <?php echo ( $enable_border_size_mobile ) ? '' : 'display:none'; ?>">
@@ -5783,7 +5783,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_border_style_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_border_style_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <select name="ays_pb_border_style" id="ays_pb_border_style" class="ays_pb_aysDropdown">
                                                     <?php
                                                         $selected  = "";
@@ -5860,7 +5860,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bordercolor_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 110px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_bordercolor_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 110px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input id="<?php echo $this->plugin_name; ?>-bordercolor" class="ays_pb_color_input ays_pb_bordercolor_change" type="text" name="<?php echo $this->plugin_name; ?>[ays_pb_bordercolor]" value="<?php echo wp_unslash($bordercolor); ?>" data-default-color="#FFFFFF" data-alpha="true">
                                             </div>
                                             <div class="ays_toggle_target ays_pb_bordercolor_mobile_container" style=" <?php echo ( $enable_bordercolor_mobile ) ? '' : 'display:none'; ?>">
@@ -5892,7 +5892,7 @@ $ays_users_roles = $wp_roles->roles;
                                     <div class="col-sm-8 ays_divider_left">
                                         <div class="ays_toggle_parent">
                                             <div>
-                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_border_radius_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('PC', "ays-popup-box") ?></div>
+                                                <div class="ays_pb_current_device_name ays_pb_current_device_name_pc show ays_toggle_target" style="<?php echo ($enable_border_radius_mobile) ? '' : 'display: none;' ?> text-align: center; margin-bottom: 10px; max-width: 225px;"><?php echo __('Desktop', "ays-popup-box") ?></div>
                                                 <input id="<?php echo $this->plugin_name; ?>-ays_pb_border_radius" type="number" class="ays-pb-text-input ays-pb-text-input-short" name="<?php echo $this->plugin_name; ?>[ays_pb_border_radius]" value="<?php echo wp_unslash($border_radius); ?>">
                                             </div>
                                             <div class="ays_toggle_target ays_pb_border_radius_mobile_container" style=" <?php echo ( $enable_border_radius_mobile ) ? '' : 'display:none'; ?>">
@@ -6184,8 +6184,8 @@ $ays_users_roles = $wp_roles->roles;
                                             <div class="form-group row" style="align-items: center;">
                                                 <div class="col-sm-3">
                                                     <label for="ays_pb_enable_box_shadow">
-                                                        <?php echo  __('On PC',"ays-popup-box") ?>
-                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the box shadow for PC devices.',"ays-popup-box")?>">
+                                                        <?php echo  __('On desktop',"ays-popup-box") ?>
+                                                        <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Define the box shadow for desktop devices.',"ays-popup-box")?>">
                                                             <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                                         </a>
                                                     </label>
@@ -6749,9 +6749,9 @@ $ays_users_roles = $wp_roles->roles;
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label for="ays_pb_hide_on_pc">
-                                    <span><?php echo __('Hide popup on PC', "ays-popup-box"); ?></span>
+                                    <span><?php echo __('Hide popup on desktop', "ays-popup-box"); ?></span>
                                     <a class="ays_help" data-toggle="tooltip"
-                                       title="<?php echo __('Disable the popup on pc.', "ays-popup-box") ?>">
+                                       title="<?php echo __('Disable the popup on desktop.', "ays-popup-box") ?>">
                                         <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
                                     </a>
                                 </label>

@@ -128,6 +128,48 @@ $dynamic_css .= ' .logo-carousel-free-area#logo-carousel-free-' . esc_attr( $pos
 	margin-bottom: ' . esc_attr( $section_title_margin_bottom ) . 'px;
 }';
 
+// Justify logo.
+$justify_logo   = isset( $layout_data['lcp_layout_justified_mode'] ) ? $layout_data['lcp_layout_justified_mode'] : 'left';
+$inline_grid_va = isset( $logo_data['lcp_grid_inline_vertical_alignment'] ) ? $logo_data['lcp_grid_inline_vertical_alignment'] : 'middle';
+switch ( $inline_grid_va ) {
+	case 'middle':
+		$inline_grid_va = 'center';
+		break;
+	case 'top':
+		$inline_grid_va = 'start';
+		break;
+	case 'bottom':
+		$inline_grid_va = 'end';
+		break;
+}
+$dynamic_css .= '
+	#logo-carousel-free-' . esc_attr( $post_id ) . ' .sp-lc-grid-container {
+        justify-content: ' . $justify_logo . ';
+        align-items: ' . $inline_grid_va . ';
+    }
+    #logo-carousel-free-' . esc_attr( $post_id ) . ' .swiper-wrapper .swiper-slide {
+        align-self: ' . $inline_grid_va . ';
+    }
+';
+
+// Grid layout.
+$logo_margin          = isset( $logo_data['lcp_logo_margin']['all'] ) ? (int) $logo_data['lcp_logo_margin']['all'] : '8';
+$logo_margin_vertical = isset( $logo_data['lcp_logo_margin']['vertical'] ) ? (int) $logo_data['lcp_logo_margin']['vertical'] : '8';
+
+$dynamic_css .= '
+	#logo-carousel-free-' . esc_attr( $post_id ) . ' .sp-lc-grid-container {
+		margin-left: -' . ( $logo_margin / 2 ) . 'px;
+		margin-right: -' . ( $logo_margin / 2 ) . 'px;
+		width: calc( 100% + ' . ( $logo_margin ) . 'px);
+	}
+
+	#logo-carousel-free-' . esc_attr( $post_id ) . ' .sp-lc-grid-container [class*="lc-col"] {
+		padding-left: ' . ( $logo_margin / 2 ) . 'px;
+		padding-right: ' . ( $logo_margin / 2 ) . 'px;
+		padding-bottom: ' . $logo_margin_vertical . 'px;
+	}
+';
+
 // Carousel CSS before swiper init to fix layout shift issue.
 $columns                = isset( $logo_data['lcp_number_of_columns'] ) ? $logo_data['lcp_number_of_columns'] : '';
 $items                  = isset( $columns['lg_desktop'] ) && $columns['lg_desktop'] > 0 ? $columns['lg_desktop'] : 5;

@@ -3,15 +3,15 @@ Contributors: chriscct7, smub
 Donate link: http://www.wpbeginner.com/wpbeginner-needs-your-help/
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,website stats
 Requires at least: 5.6.0
-Tested up to: 6.6.1
-Stable tag: 8.0.1
+Tested up to: 6.6.2
+Stable tag: 8.1.0
 Requires PHP: 7.2
 License: GPL v3
 
 Connects Google Analytics with your WordPress site. Displays stats to help you understand your users and site content on a whole new level!
 
 == Description ==
-The [ExactMetrics](https://exactmetrics.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)ExactMetrics Google Analytics for WordPress plugin helps you properly setup all the powerful Google Analytics tracking features without writing any code or hiring a developer.
+The [ExactMetrics](https://exactmetrics.com?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion)ExactMetrics Google Analytics for WordPress plugin helps you properly setup all the powerful Google Analytics tracking features without writing any code or hiring a developer.
 
 More importantly, over 1 million users love ExactMetrics because of our signature Google Analytics Dashboard that helps you view key Google Analytics stats right inside your WordPress dashboard.
 
@@ -63,7 +63,7 @@ See what one business owner is saying about ExactMetrics:
 
 = Integrations =
 
-* WooCommerce Google Analytics - Automatically setup Google analytics enhanced eCommerce tracking for WooCommerce.
+* WooCommerce Google Analytics - Automatically setup Google analytics enhanced eCommerce tracking for WooCommerce and WooCommerce analytics.
 * Easy Digital Downloads Google Analytics - Automatically setup Google analytics enhanced eCommerce tracking for EDD.
 * MemberPress Google Analytics - Automatically setup Google analytics enhanced eCommerce tracking for MemberPress.
 * WPForms Google Analytics - Automatically setup form conversion tracking for WPForms.
@@ -131,6 +131,12 @@ You can translate Google Analytics Dashboard for WP by ExactMetrics on [translat
 4. Want more features? <a href="https://www.exactmetrics.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">Purchase ExactMetrics Pro</a>!
 
 == Changelog ==
+= 8.1.0: September 19, 2024 =
+- New: Stats at a Glance report shows you information about your website in a whole new way.
+- New: Google Ads Enhanced Conversion Support & Meta Conversion API Support (CAPI) for PPC Campaigns
+- Enhanced: Updated Google Analytics tag loading order to help increase Core Web Vital scores. 
+- Fixed: Lots of minor updates and bug fixes.
+
 = 8.0.1: August 21, 2024 =
 - Fix: We resolved an issue in the Onboarding Recommended Addons page.
 

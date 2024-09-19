@@ -12,17 +12,21 @@ class ExactMetrics_Site_Insights_Block {
 	 * @return void
 	 */
 	public function register_frontend_scripts() {
-		$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_register_script('apexcharts', plugins_url('assets/js/frontend/apexcharts.min.js', EXACTMETRICS_PLUGIN_FILE), array(), exactmetrics_get_asset_version(), true);
-		wp_register_style('apexcharts', plugins_url('assets/js/frontend/apexcharts.css', EXACTMETRICS_PLUGIN_FILE), array(), exactmetrics_get_asset_version(), true);
+		wp_register_script( 'apexcharts', plugins_url( 'assets/js/frontend/apexcharts.min.js', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
+
+		wp_register_style( 'apexcharts', plugins_url( 'assets/js/frontend/apexcharts.css', EXACTMETRICS_PLUGIN_FILE ), array(), exactmetrics_get_asset_version(), true );
 
 		$scripts_url = apply_filters(
 			'exactmetrics_frontend_scripts_url',
-			plugins_url('assets/js/frontend/block-scripts' . $suffix . '.js', EXACTMETRICS_PLUGIN_FILE)
+			plugins_url( 'assets/js/frontend/block-scripts' . $suffix . '.js', EXACTMETRICS_PLUGIN_FILE )
 		);
 
-		wp_register_script('exactmetrics-block-scripts', $scripts_url, array( 'apexcharts', 'jquery' ), exactmetrics_get_asset_version(), true);
+		wp_register_script( 'exactmetrics-block-scripts', $scripts_url, array( 'apexcharts', 'jquery' ), exactmetrics_get_asset_version(), true );
+
+		// Load the script with specific translations.
+		wp_set_script_translations( 'exactmetrics-block-scripts', exactmetrics_is_pro_version() ? 'exactmetrics-premium' : 'google-analytics-dashboard-for-wp', plugin_dir_path( __FILE__ ) . 'languages' );
 
 		$style_url = apply_filters(
 			'exactmetrics_frontend_style_url',
@@ -31,6 +35,13 @@ class ExactMetrics_Site_Insights_Block {
 
 		// Load Popular Posts styles.
 		wp_register_style( 'exactmetrics-editor-frontend-style', $style_url, array(), exactmetrics_get_asset_version() );
+
+		$use_async = apply_filters( 'exactmetrics_frontend_gtag_script_async', true );
+
+		if ( $use_async ) {
+			wp_script_add_data( 'apexcharts', 'strategy', 'async' );
+			wp_script_add_data( 'exactmetrics-block-scripts', 'strategy', 'defer' );
+		}
 	}
 
 	/**
@@ -39,7 +50,7 @@ class ExactMetrics_Site_Insights_Block {
 	 * @return void
 	 */
 	private function load_assets() {
-		wp_enqueue_script('exactmetrics-block-scripts');
+		wp_enqueue_script( 'exactmetrics-block-scripts' );
 		wp_enqueue_style( 'exactmetrics-editor-frontend-style' );
 	}
 
@@ -50,7 +61,7 @@ class ExactMetrics_Site_Insights_Block {
 	 * @param $block
 	 * @return false|string
 	 */
-	public function block_output($attributes, $block) {
+	public function block_output( $attributes, $block ) {
 		$type = $attributes['type'];
 		$metric = $attributes['metric'];
 
@@ -63,9 +74,9 @@ class ExactMetrics_Site_Insights_Block {
 		}
 
 		// Based on the $type and $metric we'll compose the template path and class name for the block output.
-		$template_file =  EXACTMETRICS_PLUGIN_DIR . 'includes/gutenberg/site-insights/templates/' . $type . '/class-' . $type . '-' . $metric . '.php';
+		$template_file = EXACTMETRICS_PLUGIN_DIR . 'includes/gutenberg/site-insights/templates/' . $type . '/class-' . $type . '-' . $metric . '.php';
 
-		if (!file_exists($template_file)) {
+		if ( ! file_exists( $template_file ) ) {
 			return false;
 		}
 
@@ -73,18 +84,20 @@ class ExactMetrics_Site_Insights_Block {
 		require_once EXACTMETRICS_PLUGIN_DIR . '/includes/gutenberg/site-insights/templates/class-site-insights-duoscorecard-template.php';
 		require_once $template_file;
 
-		$class_name = 'ExactMetrics_SiteInsights_Template_' . ucfirst($type) . '_' . ucfirst($metric);
+		$class_name = 'ExactMetrics_SiteInsights_Template_' . ucfirst( $type ) . '_' . ucfirst( $metric );
 
-		if ( !class_exists($class_name) ) {
+		if ( ! class_exists( $class_name ) ) {
 			return false;
 		}
 
-		$template = new $class_name($attributes, $data);
+		$template = new $class_name( $attributes, $data );
 		$output = $template->output();
 
-		$block_attributes = get_block_wrapper_attributes(array(
-			'class' => "exactmetrics-{$type}-block",
-		));
+		$block_attributes = get_block_wrapper_attributes(
+			array(
+				'class' => "exactmetrics-{$type}-block",
+			)
+		);
 
 		return sprintf( '<div %1$s>%2$s</div>', $block_attributes, $output );
 	}
@@ -107,12 +120,14 @@ class ExactMetrics_Site_Insights_Block {
 
 		$report = new ExactMetrics_Report_Site_Insights();
 
-		$data = $report->get_data(array(
-			'start' => date( 'Y-m-d', strtotime( '-31 days' ) ),
-			'end' => date( 'Y-m-d', strtotime( '-1 days' ) )
-		));
+		$data = $report->get_data(
+			array(
+				'start' => date( 'Y-m-d', strtotime( '-31 days' ) ),
+				'end' => date( 'Y-m-d', strtotime( '-1 days' ) ),
+			)
+		);
 
-		if ( !isset( $data['success'] ) || !$data['success'] || empty($data['data'])) {
+		if ( ! isset( $data['success'] ) || ! $data['success'] || empty( $data['data'] ) ) {
 			return false;
 		}
 
