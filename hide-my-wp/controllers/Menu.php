@@ -137,18 +137,20 @@ class HMWP_Controllers_Menu extends HMWP_Classes_FrontController
                 /* add the admin menu */
                 $tabs = $this->model->getMenu();
                 foreach ($tabs as $slug => $tab) {
-					if(isset($tab['parent']) && isset($tab['name']) && isset($tab['title']) && isset($tab['capability'])) {
-						$this->model->addSubmenu(
-							array(
-								$tab['parent'],
-								$tab['title'],
-								$tab['name'],
-								$tab['capability'],
-								$slug,
-								$tab['function'],
-							)
-						);
-					}
+                    if ( isset( $tab['parent'] ) && isset( $tab['name'] ) && isset( $tab['title'] ) && isset( $tab['capability'] ) ) {
+                        if ( ! isset( $tab['show'] ) || $tab['show'] ) {
+                            $this->model->addSubmenu(
+                                array(
+                                    $tab['parent'],
+                                    $tab['title'],
+                                    $tab['name'],
+                                    $tab['capability'],
+                                    $slug,
+                                    $tab['function'],
+                                )
+                            );
+					    }
+                    }
                 }
 
 	            //Avoid blank page after upgrade
@@ -213,7 +215,7 @@ class HMWP_Controllers_Menu extends HMWP_Classes_FrontController
                 foreach ($submenu['hmwp_settings'] as &$item) {
 
                     if (isset($tabs[$item[2]]['href']) && $tabs[$item[2]]['href'] !== false) {
-                        if (parse_url($tabs[$item[2]]['href'], PHP_URL_HOST) !== parse_url(home_url(), PHP_URL_HOST)) {
+                        if (wp_parse_url($tabs[$item[2]]['href'], PHP_URL_HOST) !== wp_parse_url(home_url(), PHP_URL_HOST)) {
                             $item[0] .= '<i class="dashicons dashicons-external" style="font-size:12px;vertical-align:-2px;height:10px;"></i>';
                         }
                         $item[2] = $tabs[$item[2]]['href'];
@@ -342,7 +344,7 @@ class HMWP_Controllers_Menu extends HMWP_Classes_FrontController
 		    foreach ($submenu['hmwp_settings'] as &$item) {
 
 			    if (isset($tabs[$item[2]]['href']) && $tabs[$item[2]]['href'] !== false) {
-				    if (parse_url($tabs[$item[2]]['href'], PHP_URL_HOST) !== parse_url(home_url(), PHP_URL_HOST)) {
+				    if (wp_parse_url($tabs[$item[2]]['href'], PHP_URL_HOST) !== wp_parse_url(home_url(), PHP_URL_HOST)) {
 					    $item[0] .= '<i class="dashicons dashicons-external" style="font-size:12px;vertical-align:-2px;height:10px;"></i>';
 				    }
 				    $item[2] = $tabs[$item[2]]['href'];

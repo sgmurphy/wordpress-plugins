@@ -87,7 +87,7 @@ require_once IUBENDA_PLUGIN_PATH . 'views/partials/header.php';
 					)
 				);
 				?>
-				" class="btn btn-xs btn-gray-outline mt-2 auto-detect-forms"><?php esc_html_e( 'Auto-detect forms', 'iubenda' ); ?></a>
+				" id="auto-detect-forms-btn" class="btn btn-xs btn-gray-outline mt-2 auto-detect-forms"><?php esc_html_e( 'Auto-detect forms', 'iubenda' ); ?></a>
 			</div>
 		</div>
 
@@ -95,7 +95,7 @@ require_once IUBENDA_PLUGIN_PATH . 'views/partials/header.php';
 		<hr>
 		<div class="p-4 d-flex justify-content-end">
 			<input class="btn btn-gray-lighter btn-sm mr-2" type="button" value="<?php esc_html_e( 'Cancel', 'iubenda' ); ?>" onclick="window.location.href = '<?php echo esc_url( add_query_arg( array( 'view' => 'products-page' ), iubenda()->base_url ) ); ?>'"/>
-			<button type="submit" class="btn btn-green-primary btn-sm" value="Save" name="save">
+			<button id="save-settings-btn" type="submit" class="btn btn-green-primary btn-sm" value="Save" name="save">
 				<span class="button__text"><?php esc_html_e( 'Save settings', 'iubenda' ); ?></span>
 			</button>
 		</div>

@@ -86,7 +86,9 @@ class WoofiltersWpf extends ModuleWpf {
 			), 999 );
 		}
 		if ( !is_admin() ) {
-			add_filter( 'loop_shop_per_page', array( $this, 'newLoopShopPerPage' ), 99999 );
+			if (ReqWpf::getVar('customize_theme', 'get') != 'sydney' || ReqWpf::getVar('customize_messenger_channel', 'get') != 'preview-0') {
+				add_filter( 'loop_shop_per_page', array( $this, 'newLoopShopPerPage' ), 99999 );
+			}
 		}
 
 		class_exists( 'WC_pif' ) && add_filter( 'post_class', array( $this, 'WC_pif_product_has_gallery' ) );
@@ -231,7 +233,7 @@ class WoofiltersWpf extends ModuleWpf {
 						$this,
 						'loadProductsFilterForProductGrid'
 					), 999 );
-				} else if ( in_array($widgetName, array('aux_advance_recent_product', 'premium-woo-products', 'shop-standard', 'pp-woo-products')) ) {
+				} else if ( in_array($widgetName, array('aux_advance_recent_product', 'premium-woo-products', 'shop-standard', 'pp-woo-products', 'ucaddon_woocommerce_product_grid')) ) {
 					$this->mainWCQueryFiltered = '';
 					add_action( 'pre_get_posts', array($this,'loadProductsFilterForProductGrid'), 999 );
 				}
@@ -2658,7 +2660,14 @@ class WoofiltersWpf extends ModuleWpf {
 				case 'wpfRating':
 					$other[] = $filter['id'];
 					break;
-
+				case 'wpfSearchNumber':
+					if ( !empty( $filter['settings']['f_conrol_products'] ) && !empty( $filter['settings']['f_list'] ) ) {
+						$slug     = $filter['settings']['f_list'];
+						$taxonomy = ( is_numeric( $slug ) )
+							? wc_attribute_taxonomy_name_by_id( (int) $slug )
+							: DispatcherWpf::applyFilters( 'getCustomAttributeName', $slug, $filter );
+					}
+					break;
 				default:
 					break;
 

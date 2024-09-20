@@ -20,6 +20,13 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
      */
     public $listTable;
 
+    /**
+     * Class constructor
+     * Initiates the class by calling the parent constructor, adding necessary filters and actions, checking options, and performing various setup tasks.
+     *
+     * @return void
+     * @throws Exception
+     */
     public function __construct()
     {
         parent::__construct();
@@ -64,8 +71,20 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
     }
 
     /**
-     * Called on Menu hook
-     * Init the Settings page
+     * Initialize the plugin and perform various setup tasks.
+     *
+     * This method:
+     * - Retrieves the current page and handles its corresponding tab function if available.
+     * - Ensures the 'is_plugin_active_for_network' function is available.
+     * - Configures NGINX specific settings and alerts based on the environment.
+     * - Sets alerts based on transient values for restore settings.
+     * - Displays config rules for validation.
+     * - Loads necessary media files for settings pages.
+     * - Checks for plugin activation and displays a connect prompt if necessary.
+     * - Displays error notifications if any configuration issues are detected.
+     * - Disables certain options for specific environments such as WPEngine.
+     * - Checks compatibility with other plugins and displays alerts.
+     * - Ensures necessary JavaScript is enabled in the browser.
      *
      * @return void
      * @throws Exception
@@ -73,7 +92,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
     public function init()
     {
         /////////////////////////////////////////////////
-        //Get the current Page
+        // Get the current Page
         $page = HMWP_Classes_Tools::getValue('page');
 
         if (strpos($page, '_') !== false ) {
@@ -85,7 +104,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
         }
         /////////////////////////////////////////////////
 
-        //We need that function so make sure is loaded
+        // We need that function so make sure is loaded
         if (!function_exists('is_plugin_active_for_network') ) {
             include_once ABSPATH . '/wp-admin/includes/plugin.php';
         }
@@ -102,15 +121,15 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             }
         }
 
-        //Setting Alerts based on Logout and Error statements
+        // Setting Alerts based on Logout and Error statements
         if (get_transient('hmwp_restore') == 1 ) {
             $restoreLink = '<a href="'.add_query_arg(array('hmwp_nonce' => wp_create_nonce('hmwp_restore_settings'), 'action' => 'hmwp_restore_settings')) .'" class="btn btn-default btn-sm ml-3" />' . esc_html__("Restore Settings", 'hide-my-wp'). '</a>';
             HMWP_Classes_Error::setNotification(esc_html__('Do you want to restore the last saved settings?', 'hide-my-wp') . $restoreLink);
         }
 
-        //Show the config rules to make sure they are okay
+        // Show the config rules to make sure they are okay
         if (HMWP_Classes_Tools::getValue('hmwp_config') ) {
-            //Initialize WordPress Filesystem
+            // Initialize WordPress Filesystem
             $wp_filesystem = HMWP_Classes_ObjController::initFilesystem();
 
             $config_file = HMWP_Classes_ObjController::getClass('HMWP_Models_Rules')->getConfFile();
@@ -122,7 +141,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 	        HMWP_Classes_Error::setNotification('<pre>' . print_r($_SERVER,true) . '</pre>');
         }
 
-        //Load the css for Settings
+        // Load the css for Settings
         HMWP_Classes_ObjController::getClass('HMWP_Classes_DisplayController')->loadMedia('popper');
 
         if (is_rtl() ) {
@@ -138,7 +157,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
         HMWP_Classes_ObjController::getClass('HMWP_Classes_DisplayController')->loadMedia('alert');
         HMWP_Classes_ObjController::getClass('HMWP_Classes_DisplayController')->loadMedia('settings');
 
-        //Show connect for activation
+        // Show connect for activation
         if (!HMWP_Classes_Tools::getOption('hmwp_token')) {
             $this->show('Connect');
             return;
@@ -152,10 +171,10 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             add_filter('hmwp_option_hmwp_mapping_url_show', "__return_false");
         }
 
-        //Check compatibilities with other plugins
+        // Check compatibilities with other plugins
         HMWP_Classes_ObjController::getClass('HMWP_Models_Compatibility')->getAlerts();
 
-        //Show errors on top
+        // Show errors on top
         HMWP_Classes_ObjController::getClass('HMWP_Classes_Error')->hookNotices();
 
         echo '<meta name="viewport" content="width=640">';
@@ -166,8 +185,10 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
     }
 
     /**
-     * Log the user event
+     * Logs relevant data for the application, including URLs of sites if multisite is enabled,
+     * and sets the log table data by fetching information from a remote API.
      *
+     * @return void
      * @throws Exception
      */
     public function log()
@@ -214,6 +235,62 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 
     }
 
+    /**
+     * Handle temporary login when the advanced pack is not installed.
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function templogin() {
+
+        if ( ! HMWP_Classes_Tools::isAdvancedpackInstalled() ) {
+
+            add_filter( 'hmwp_getview', function( $output, $block ) {
+                if ( $block == 'Templogin' ) {
+                    return '<div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
+                        <div class="hmwp_row d-flex flex-row p-0 m-0">
+                            <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+                                ' . $this->getView( 'blocks/Install' ) . '
+                            </div>
+                        </div>
+                    </div>';
+                }
+
+                return $output;
+
+            }, PHP_INT_MAX, 2 );
+        }
+
+    }
+
+    /**
+     * Handles two-factor authentication feature if the advanced pack is installed.
+     * Modifies the view output to prompt installation if advanced pack is not present.
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function twofactor() {
+
+        if ( ! HMWP_Classes_Tools::isAdvancedpackInstalled() ) {
+
+            add_filter( 'hmwp_getview', function( $output, $block ) {
+                if ( $block == 'Twofactor' ) {
+                    return '<div id="hmwp_wrap" class="d-flex flex-row p-0 my-3">
+                        <div class="hmwp_row d-flex flex-row p-0 m-0">
+                            <div class="hmwp_col flex-grow-1 px-3 py-3 mr-2 mb-3 bg-white">
+                                ' . $this->getView( 'blocks/Install' ) . '
+                            </div>
+                        </div>
+                    </div>';
+                }
+
+                return $output;
+
+            }, PHP_INT_MAX, 2 );
+        }
+
+    }
     /**
      * Load media header
      */
@@ -527,7 +604,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 
             //Set header as text
             HMWP_Classes_Tools::setHeader('text');
-            $filename = preg_replace('/[-.]/', '_', parse_url(home_url(), PHP_URL_HOST));
+            $filename = preg_replace('/[-.]/', '_', wp_parse_url(home_url(), PHP_URL_HOST));
             header("Content-Disposition: attachment; filename=" . $filename . "_hidemywp_debug.txt");
 
             if (function_exists('glob') ) {
@@ -654,7 +731,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             }
             HMWP_Classes_Tools::getOptions();
             HMWP_Classes_Tools::setHeader('text');
-            $filename = preg_replace('/[-.]/', '_', parse_url(home_url(), PHP_URL_HOST));
+            $filename = preg_replace('/[-.]/', '_', wp_parse_url(home_url(), PHP_URL_HOST));
             header("Content-Disposition: attachment; filename=" . $filename . "_hidemywp_backup.txt");
 
             if (function_exists('base64_encode') ) {
@@ -744,7 +821,6 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
                 HMWP_Classes_Error::setNotification(esc_html__('Error! No backup to restore.', 'hide-my-wp'));
             }
             break;
-
         case 'hmwp_download_settings':
             //Save the Settings into backup
             if (!HMWP_Classes_Tools::userCan('hmwp_manage_settings') ) {
@@ -755,7 +831,7 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
 
             HMWP_Classes_Tools::getOptions();
             HMWP_Classes_Tools::setHeader('text');
-            $filename = preg_replace('/[-.]/', '_', parse_url(home_url(), PHP_URL_HOST));
+            $filename = preg_replace('/[-.]/', '_', wp_parse_url(home_url(), PHP_URL_HOST));
             header("Content-Disposition: attachment; filename=" . $filename . "_hidemywp_login.txt");
 
             $line = "\n" . "________________________________________" . PHP_EOL;
@@ -774,7 +850,44 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             //Echo the new paths in a txt file
             echo $message;
             exit();
+        case 'hmwp_advanced_install':
 
+                if ( ! HMWP_Classes_Tools::userCan( 'hmwp_manage_settings' ) ) {
+                    return;
+                }
+
+                //check the version
+                $response = wp_remote_get( 'https://account.hidemywpghost.com/updates-hide-my-wp-pack.json?rnd=' . wp_rand( 1111, 9999 ) );
+
+                if ( is_wp_error( $response ) ) {
+                    HMWP_Classes_Error::setNotification( $response->get_error_message() );
+                } elseif ( wp_remote_retrieve_response_code( $response ) !== 200 ) {
+                    HMWP_Classes_Error::setNotification( esc_html__( "Can't download the plugin.", 'hide-my-wp' ) );
+                } else {
+                    if ( $data = json_decode( wp_remote_retrieve_body( $response ) ) ) {
+
+                        $rollback = HMWP_Classes_ObjController::getClass( 'HMWP_Models_Rollback' );
+
+                        $output = $rollback->install( array(
+                            'version'     => $data->version,
+                            'plugin_name' => $data->name,
+                            'plugin_slug' => $data->slug,
+                            'package_url' => $data->download_url,
+                        ) );
+
+                        if ( ! is_wp_error( $output ) ) {
+                            $rollback->activate( $data->slug . '/index.php' );
+
+                            wp_redirect( HMWP_Classes_Tools::getSettingsUrl( HMWP_Classes_Tools::getValue( 'page' ) . '#tab=' . HMWP_Classes_Tools::getValue( 'tab' ), true ) );
+                            exit();
+                        } else {
+                            HMWP_Classes_Error::setNotification( $output->get_error_message() );
+                        }
+
+                    }
+
+                }
+                break;
         case 'hmwp_pause_enable':
 
             if ( ! HMWP_Classes_Tools::userCan( 'hmwp_manage_settings' ) ) {
@@ -784,7 +897,6 @@ class HMWP_Controllers_Settings extends HMWP_Classes_FrontController
             set_transient('hmwp_disable', 1, 300);
 
             break;
-
         case 'hmwp_pause_disable':
 
                 if ( ! HMWP_Classes_Tools::userCan( 'hmwp_manage_settings' ) ) {

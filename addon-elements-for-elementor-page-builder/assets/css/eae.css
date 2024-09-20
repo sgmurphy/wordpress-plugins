@@ -2144,6 +2144,7 @@ new comment
   bottom: 50px;
   position: absolute;
   transform: translateX(-50%);
+  overflow: hidden;
 }
 
 .eae-timeline-item {

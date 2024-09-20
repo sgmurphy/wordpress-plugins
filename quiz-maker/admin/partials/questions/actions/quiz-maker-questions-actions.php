@@ -175,7 +175,7 @@ $question_types = array(
     "number"            => __("Number", $this->plugin_name),
     "date"              => __("Date", $this->plugin_name),
     "true_or_false"     => __("True/False", $this->plugin_name),
-    "custom"            => __("Custom Banner (PRO)", $this->plugin_name),
+    "custom"            => __("Info Banner (PRO)", $this->plugin_name),
     "fill_in_blank"     => __("Fill in the blanks (PRO)", $this->plugin_name),
     "matching"          => __("Matching (PRO)", $this->plugin_name),
 );
@@ -422,6 +422,13 @@ $quiz_enable_question_stripslashes = (isset($options['quiz_enable_question_strip
                                 <i class="ays_fa ays_fa_info_circle"></i>
                             </a>
                         </label>
+                        <div class="ays-quiz-heading-box ays-quiz-unset-float">
+                            <div class="ays-quiz-wordpress-user-manual-box">
+                                <a href="https://www.youtube.com/watch?v=ok6f59iV_R0" target="_blank">
+                                    <?php echo __("View All Question Types - video", $this->plugin_name); ?>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-8">
                         <select id="ays-type" name="ays_question_type">

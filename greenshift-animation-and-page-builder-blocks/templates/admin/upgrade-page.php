@@ -112,7 +112,7 @@ if (!defined('ABSPATH')) {
         }
     </style>
 
-    <style scoped="">
+    <style>
 
 .gspb-badge {
     position: absolute;
@@ -319,7 +319,7 @@ if (!defined('ABSPATH')) {
                         </defs>
                     </svg></div>
                 <div class="gspb_row__content">
-                    <style scoped="">
+                    <style>
                         #gspb_col-id-gsbp-dad1d489-ef98.gspb_row__col--12 {
                             width: 100%;
                         }
@@ -340,7 +340,7 @@ if (!defined('ABSPATH')) {
                         }
                     </style>
                     <div id="gspb_col-id-gsbp-dad1d489-ef98" class="gspb_row__col--12 wp-block-greenshift-blocks-row-column  gspb_col-id-gsbp-dad1d489-ef98">
-                        <style scoped="">
+                        <style>
                             #gspb_heading-id-gsbp-e95a13f1-4654,
                             #gspb_heading-id-gsbp-e95a13f1-4654 .wp-block,
                             #gspb_heading-id-gsbp-e95a13f1-4654 .gsap-g-line {
@@ -359,7 +359,7 @@ if (!defined('ABSPATH')) {
                         <div id="gspb_heading-id-gsbp-e95a13f1-4654" class="gspb_heading gspb_heading-id-gsbp-e95a13f1-4654 ">SAVE MONEY WITH BUNDLES</div>
 
 
-                        <style scoped="">
+                        <style>
                             #gspb_heading-id-gsbp-f8cb7ee3-6475,
                             #gspb_heading-id-gsbp-f8cb7ee3-6475 .wp-block {
                                 font-size: 44px;
@@ -379,7 +379,7 @@ if (!defined('ABSPATH')) {
                         <div id="gspb_heading-id-gsbp-f8cb7ee3-6475" class="gspb_heading gspb_heading-id-gsbp-f8cb7ee3-6475 "><strong>Get everything together</strong></div>
 
 
-                        <style scoped="">
+                        <style>
                             #gspb_container-id-gsbp-99f4fb65-0d34.gspb_container {
                                 position: relative;
                                 flex-direction: column;
@@ -428,7 +428,7 @@ if (!defined('ABSPATH')) {
                             }
                         </style>
                         <div id="gspb_container-id-gsbp-99f4fb65-0d34" class="gspb_container gspb_container-gsbp-99f4fb65-0d34 wp-block-greenshift-blocks-container">
-                            <style scoped="">
+                            <style>
                                 #gspb_container-id-gsbp-d6862809-361c.gspb_container {
                                     position: relative;
                                     flex-direction: column;
@@ -455,7 +455,7 @@ if (!defined('ABSPATH')) {
                                 }
                             </style>
                             <div id="gspb_container-id-gsbp-d6862809-361c" class="gspb_container gspb_container-gsbp-d6862809-361c wp-block-greenshift-blocks-container">
-                                <style scoped="">
+                                <style>
                                     #gspb_heading-id-gsbp-239514b7-dfb6,
                                     #gspb_heading-id-gsbp-239514b7-dfb6 .wp-block {
                                         font-size: 32px;
@@ -493,7 +493,7 @@ if (!defined('ABSPATH')) {
                                 <h2 id="gspb_heading-id-gsbp-239514b7-dfb6" class="gspb_heading gspb_heading-id-gsbp-239514b7-dfb6 "><strong>Design Pack</strong><span class="gspb_heading_subtitle">Build complex layouts easily</span></h2>
 
 
-                                <style scoped="">
+                                <style>
                                     #gspb_iconsList-id-gsbp-6b7c292f-cbad.gspb_iconsList .gspb_iconsList__item__text {
                                         margin-left: 15px;
                                     }
@@ -549,7 +549,7 @@ if (!defined('ABSPATH')) {
                                 </div>
 
 
-                                <style scoped="">
+                                <style>
                                     .gspb_button-id-gsbp-db16fef3-8cee {
                                         display: flex;
                                         justify-content: flex-start;
@@ -612,7 +612,7 @@ if (!defined('ABSPATH')) {
                                 <div id="gspb_button-id-gsbp-db16fef3-8cee" class="gspb_button_wrapper gspb_button-id-gsbp-db16fef3-8cee wp-block-greenshift-blocks-button"><a class="gspb-buttonbox" href="https://shop.greenshiftwp.com/downloads/design-pack/" target="_blank" rel="noopener"><span class="gspb-buttonbox-textwrap"><span class="gspb-buttonbox-text"><span class="gspb-buttonbox-title">from $39.99</span></span></span></a></div>
 
 
-                                <style scoped="">
+                                <style>
                                     #gspb_iconsList-id-gsbp-ccada676-253a.gspb_iconsList .gspb_iconsList__item__text {
                                         margin-left: 15px;
                                     }
@@ -653,7 +653,7 @@ if (!defined('ABSPATH')) {
                             </div>
 
 
-                            <style scoped="">
+                            <style>
                                 #gspb_container-id-gsbp-f8f4bccd-4800.gspb_container {
                                     position: relative;
                                     flex-direction: column;
@@ -702,7 +702,7 @@ if (!defined('ABSPATH')) {
                                 }
                             </style>
                             <div id="gspb_container-id-gsbp-f8f4bccd-4800" class="gspb_container gspb_container-gsbp-f8f4bccd-4800 wp-block-greenshift-blocks-container">
-                                <style scoped="">
+                                <style>
                                     #gspb_heading-id-gsbp-09309dbe-68e6,
                                     #gspb_heading-id-gsbp-09309dbe-68e6 .wp-block {
                                         font-size: 32px;
@@ -740,7 +740,7 @@ if (!defined('ABSPATH')) {
                                 <h2 id="gspb_heading-id-gsbp-09309dbe-68e6" class="gspb_heading gspb_heading-id-gsbp-09309dbe-68e6 "><strong><strong>All in One</strong></strong><span class="gspb_heading_subtitle"><strong>Get everything + future addons</strong></span></h2>
 
 
-                                <style scoped="">
+                                <style>
                                     #gspb_iconsList-id-gsbp-cbc009aa-6bed.gspb_iconsList .gspb_iconsList__item__text {
                                         margin-left: 15px;
                                     }
@@ -804,7 +804,7 @@ if (!defined('ABSPATH')) {
                                 </div>
 
 
-                                <style scoped="">
+                                <style>
                                     .gspb_button-id-gsbp-86ef8289-fb15 {
                                         display: flex;
                                         justify-content: flex-start;
@@ -901,7 +901,7 @@ if (!defined('ABSPATH')) {
                                 <div id="gspb_button-id-gsbp-86ef8289-fb15" class="gspb_button_wrapper gspb_button-id-gsbp-86ef8289-fb15 wp-block-greenshift-blocks-button"><a class="gspb-buttonbox" href="https://shop.greenshiftwp.com/downloads/all-in-one/" target="_blank" rel="noopener"><span class="gspb-buttonbox-textwrap"><span class="gspb-buttonbox-text"><span class="gspb-buttonbox-title">from $59.99</span></span></span></a></div>
 
 
-                                <style scoped="">
+                                <style>
                                     #gspb_iconsList-id-gsbp-06b6c366-8a26.gspb_iconsList .gspb_iconsList__item__text {
                                         margin-left: 15px;
                                     }
@@ -942,7 +942,7 @@ if (!defined('ABSPATH')) {
                             </div>
 
 
-                            <style scoped="">
+                            <style>
                                 #gspb_container-id-gsbp-40a198c1-0196.gspb_container {
                                     position: relative;
                                     flex-direction: column;
@@ -969,7 +969,7 @@ if (!defined('ABSPATH')) {
                                 }
                             </style>
                             <div id="gspb_container-id-gsbp-40a198c1-0196" class="gspb_container gspb_container-gsbp-40a198c1-0196 wp-block-greenshift-blocks-container">
-                                <style scoped="">
+                                <style>
                                     #gspb_heading-id-gsbp-1b36757e-6fa4,
                                     #gspb_heading-id-gsbp-1b36757e-6fa4 .wp-block {
                                         font-size: 32px;
@@ -1007,7 +1007,7 @@ if (!defined('ABSPATH')) {
                                 <h2 id="gspb_heading-id-gsbp-1b36757e-6fa4" class="gspb_heading gspb_heading-id-gsbp-1b36757e-6fa4 "><strong>SEO Pack</strong><span class="gspb_heading_subtitle"><strong>Profitable blocks with high conversion</strong></span></h2>
 
 
-                                <style scoped="">
+                                <style>
                                     #gspb_iconsList-id-gsbp-6085b501-cfe3.gspb_iconsList .gspb_iconsList__item__text {
                                         margin-left: 15px;
                                     }
@@ -1063,7 +1063,7 @@ if (!defined('ABSPATH')) {
                                 </div>
 
 
-                                <style scoped="">
+                                <style>
                                     .gspb_button-id-gsbp-db2576fe-9a15 {
                                         display: flex;
                                         justify-content: flex-start;
@@ -1126,7 +1126,7 @@ if (!defined('ABSPATH')) {
                                 <div id="gspb_button-id-gsbp-db2576fe-9a15" class="gspb_button_wrapper gspb_button-id-gsbp-db2576fe-9a15 wp-block-greenshift-blocks-button"><a class="gspb-buttonbox" href="https://shop.greenshiftwp.com/downloads/seo-pack/" target="_blank" rel="noopener"><span class="gspb-buttonbox-textwrap"><span class="gspb-buttonbox-text"><span class="gspb-buttonbox-title">from $49.99</span></span></span></a></div>
 
 
-                                <style scoped="">
+                                <style>
                                     #gspb_iconsList-id-gsbp-285a4c84-b9f4.gspb_iconsList .gspb_iconsList__item__text {
                                         margin-left: 15px;
                                     }

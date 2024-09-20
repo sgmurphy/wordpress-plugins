@@ -205,12 +205,6 @@ abstract class Post_Abstract extends Block_Abstract {
 			$this->manager->add_unique_article( $attr['uniqueContent'], $this->collect_post_id( $result ) );
 		}
 
-		if ( isset( $result['result'] ) ) {
-			foreach ( $result['result'] as $post ) {
-				do_action( 'guten_json_archive_push', $post->ID );
-			}
-		}
-
 		return $result;
 	}
 

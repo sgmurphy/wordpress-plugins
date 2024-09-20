@@ -78,14 +78,14 @@ class HMWP_Classes_DisplayController
     }
 
     /**
-     * return the block content from theme directory
+     * Fetches and renders the view file associated with the given block.
      *
-     * @param  string $block
-     * @param  HMWP_Classes_FrontController $view Used in the included file
-     * @return null|string
+     * @param  string  $block  The name of the block whose view file is to be rendered.
+     * @param  mixed  $view  Additional data or context to be used within the view.
+     *
+     * @return string|null The rendered output of the view file, or null if the file does not exist.
      */
-    public function getView($block, $view)
-    {
+    public function getView( $block, $view ) {
         $output = null;
 
         //Initialize WordPress Filesystem
@@ -94,13 +94,13 @@ class HMWP_Classes_DisplayController
         //Set the current view file from /view
         $file = _HMWP_THEME_DIR_ . $block . '.php';
 
-        if ($wp_filesystem->exists($file)) {
+        if ( $wp_filesystem->exists( $file ) ) {
             ob_start();
             include $file;
             $output .= ob_get_clean();
         }
 
-        return $output;
+        return apply_filters( 'hmwp_getview', $output, $block );
     }
 
 }

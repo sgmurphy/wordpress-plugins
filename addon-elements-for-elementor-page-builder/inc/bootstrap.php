@@ -418,7 +418,6 @@ class Plugin {
 		wp_register_script( 'eae-particles', EAE_URL . 'assets/js/particles' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '2.0.0', true );
 		wp_register_style( 'vegas-css', EAE_URL . 'assets/lib/vegas/vegas' . EAE_SCRIPT_SUFFIX . '.css', [], '2.4.0' );
 		wp_register_script( 'vegas', EAE_URL . 'assets/lib/vegas/vegas' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '2.4.0', true );
-
 		wp_register_script( 'wts-magnific', EAE_URL . 'assets/lib/magnific' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.1.0', true );
 		wp_register_script( 'wts-isotope', EAE_URL . 'assets/lib/isotope/isotope.pkgd' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '3.0.6', true );
 		wp_register_script( 'wts-tilt', EAE_URL . 'assets/lib/tilt/tilt.jquery' . EAE_SCRIPT_SUFFIX . '.js', [ 'jquery' ], '1.0', true );

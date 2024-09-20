@@ -817,3 +817,81 @@ function greenshift_split_dynamic_text($content, $type = 'word') {
         return $output;
     }, $content);
 }
+
+
+//////////////////////////////////////////////////////////////////
+// Generate Repeater
+//////////////////////////////////////////////////////////////////
+
+function GSPB_generate_dynamic_repeater($html, $block){
+	if(class_exists('greenshiftquery\Blocks\RepeaterQuery')){
+		$settings = $block['attrs'];
+
+		//Default attributes
+		if(!isset($settings['animation'])) $settings['animation'] = [];
+		if(!isset($settings['limit'])) $settings['limit'] = null;
+		if(!isset($settings['sourceType'])) $settings['sourceType'] = 'latest_item';
+		if(!isset($settings['repeaterType'])) $settings['repeaterType'] = 'acf';
+		if(!isset($settings['postId'])) $settings['postId'] = 0;
+		if(!isset($settings['post_type'])) $settings['post_type'] = 'post';
+		if(!isset($settings['dynamicField'])) $settings['dynamicField'] = '';
+		if(!isset($settings['repeaterField'])) $settings['repeaterField'] = '';
+		if(!isset($settings['taxonomy'])) $settings['taxonomy'] = 'category';
+		if(!isset($settings['align'])) $settings['align'] = '';
+		if(!isset($settings['tag'])) $settings['tag'] = 'div';
+		if(!isset($settings['anchor'])) $settings['anchor'] = null;
+		if(!isset($settings['localId'])) $settings['localId'] = null;
+		if(!isset($settings['extra_filters'])) $settings['extra_filters'] = [];
+		if(!isset($settings['container_link'])) $settings['container_link'] = false;
+		if(!isset($settings['linkNewWindow'])) $settings['linkNewWindow'] = false;
+		if(!isset($settings['linkNoFollow'])) $settings['linkNoFollow'] = false;
+		if(!isset($settings['linkSponsored'])) $settings['linkSponsored'] = false;
+		if(!isset($settings['linkTitleField'])) $settings['linkTitleField'] = '';
+		if(!isset($settings['linkTypeField'])) $settings['linkTypeField'] = '';
+
+
+		$output = '';
+		if (isset($settings['align'])) {
+			if ($settings['align'] == 'full') {
+				$alignClass = 'alignfull';
+			} elseif ($settings['align'] == 'wide') {
+				$alignClass = 'alignwide';
+			} elseif ($settings['align'] == '') {
+				$alignClass = '';
+			}
+		} else {
+			$alignClass = '';
+		}
+		$extraClass = '';
+		if(!empty($settings['tableAttributes']['table']['sortable']) || !empty($settings['tableStyles']['table']['style'])){
+			$extraClass .= ' table-sort table-arrows';
+		}
+
+		$data_attributes = gspb_getDataAttributesfromDynamic($settings);
+		$wrapper_attributes = 
+			array(
+				...$data_attributes
+			);
+		if(!empty($settings['anchor'])){
+			$wrapper_attributes['id'] = $settings['anchor'];
+		}
+		if($extraClass || $alignClass){
+			$wrapper_attributes['class'] = $alignClass.$extraClass;
+		}
+		$normalized_attributes = array();
+		foreach ( $wrapper_attributes as $key => $value ) {
+			$normalized_attributes[] = $key . '="' . esc_attr( $value ) . '"';
+		}
+
+		$tagName = !empty($settings['tag']) ? $settings['tag'] : 'div';
+		
+		$output = '<' . $tagName . ' ' . implode(' ', $normalized_attributes) . gspb_AnimationRenderProps($settings['animation']) . '>';
+			$repeater = new \greenshiftquery\Blocks\RepeaterQuery;
+			$output .= $repeater->gspb_grid_constructor($settings, $html, $block, false);
+		$output .= '</' . $tagName . '>';
+		return $output;
+	}
+	return $html;
+}
+
+//////////////////////////////////////////////////////////////////

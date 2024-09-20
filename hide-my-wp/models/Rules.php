@@ -428,7 +428,7 @@ class HMWP_Models_Rules
         if(HMWP_Classes_Tools::isMultisites() && defined('PATH_CURRENT_SITE')){
             $path = PATH_CURRENT_SITE;
         }else {
-            $path = parse_url(site_url(), PHP_URL_PATH);
+            $path = wp_parse_url(site_url(), PHP_URL_PATH);
         }
 
         if ($path) {

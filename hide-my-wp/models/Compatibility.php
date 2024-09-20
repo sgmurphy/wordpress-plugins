@@ -755,8 +755,8 @@ class HMWP_Models_Compatibility
 
 		//If WP_CONTENT_URL is set as a different domain
 	    if(defined('WP_CONTENT_URL') && WP_CONTENT_URL <> ''){
-		    $cdn = parse_url(WP_CONTENT_URL, PHP_URL_HOST);
-		    $domain = parse_url(home_url(), PHP_URL_HOST);
+		    $cdn = wp_parse_url(WP_CONTENT_URL, PHP_URL_HOST);
+		    $domain = wp_parse_url(home_url(), PHP_URL_HOST);
 
 		    if($cdn <> '' && $domain <> '' && $cdn <> $domain){
 			    $domains[] = $cdn;

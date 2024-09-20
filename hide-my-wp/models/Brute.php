@@ -195,14 +195,14 @@ class HMWP_Models_Brute
             $uri = network_home_url();
         }
 
-        $uridata = parse_url($uri);
+        $uridata = wp_parse_url($uri);
 
         $domain = $uridata['host'];
 
         //if we still don't have it, get the site_url
         if (!$domain) {
             $uri = get_site_url(1);
-            $uridata = parse_url($uri);
+            $uridata = wp_parse_url($uri);
             if (isset($uridata['host'])) {
                 $domain = $uridata['host'];
             }

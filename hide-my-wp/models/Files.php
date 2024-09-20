@@ -203,9 +203,10 @@ class HMWP_Models_Files
     }
 
     /**
-     * Build the redirects array
+     * Builds the rewrite rules to map URLs back to their original paths based on stored mappings and replacements.
      *
-     * @throws Exception
+     * @return void
+     * @throws Exception If there is an error in building the redirects.
      */
     public function buildRedirect()
     {
@@ -239,51 +240,58 @@ class HMWP_Models_Files
     }
 
     /**
-     * Get the original paths of a URL
+     * Retrieves the original URL by applying rewrite rules and constructing the URL from parsed components.
      *
-     * @param string $url URL
+     * @param  string  $url  The redirected URL which needs to be converted back to the original URL.
      *
+     * @return string The original URL reconstructed from the given URL based on rewrite rules.
      * @throws Exception
-     * @return string
      */
     public function getOriginalUrl( $url )
     {
 
-        //Buid the rewrite rules
+        // Build the rewrite rules if they are not already built
         if(empty($this->_rewrites)) {
             $this->buildRedirect();
         }
 
-        //Get the original URL based on rewrite rules
-        $parse_url = parse_url($url);
+        // Parse the URL components
+        $parse_url = wp_parse_url($url);
 
-	    //Get the home root path
-	    $path = parse_url(home_url(), PHP_URL_PATH);
+        // Get the home root path
+	    $path = wp_parse_url(home_url(), PHP_URL_PATH);
 
-	    //Backslash the paths
+	    // Backslash the paths
 	    if($path <> '') {
 		    $parse_url['path'] = preg_replace('/^' . preg_quote($path, '/') . '/', '', $parse_url['path']);
 	    }
 
-	    //Replace paths back to original
+        // Replace paths to original based on rewrite rules
 	    if (isset($this->_rewrites['from']) && isset($this->_rewrites['to']) && !empty($this->_rewrites['from']) && !empty($this->_rewrites['to'])) {
 		    $parse_url['path'] = preg_replace($this->_rewrites['from'], $this->_rewrites['to'], $parse_url['path'], 1);
 	    }
 
-	    //get the original URL
+        // Default to https if the scheme is not set
+        if(!isset($parse_url['scheme'])){
+            $parse_url['scheme'] = 'https';
+        }
+
+        // Reconstruct the URL
 	    if(isset($parse_url['port']) && $parse_url['port'] <> 80) {
 		    $new_url = $parse_url['scheme'] . '://' . $parse_url['host'] . ':' . $parse_url['port'] . $path . $parse_url['path'];
 	    }else{
 		    $new_url = $parse_url['scheme'] . '://' . $parse_url['host'] . $path . $parse_url['path'];
 	    }
 
+        // Append query string if present
         if( isset($parse_url['query']) && !empty( $parse_url['query'] ) ){
             $query = $parse_url['query'];
             $query = str_replace(array('?', '%3F'),'&', $query);
             $new_url .= (!strpos($new_url, '?') ? '?' : '&') . $query ;
         }
 
-	    return $new_url; //remove duplicates
+        // Return the constructed URL
+        return $new_url;
 
     }
 
@@ -348,7 +356,7 @@ class HMWP_Models_Files
                 //If the plugin is not set to mapp all the files dynamically
                 if (!HMW_DYNAMIC_FILES && !HMWP_Classes_Tools::getOption('hmwp_mapping_file') ) {
                     //if file is loaded through WordPress rewrites and not through config file
-                    if ( parse_url($url) && $url <> $new_url && in_array($ext, array('png', 'jpg', 'jpeg', 'webp', 'gif'))) {
+                    if ( wp_parse_url($url) && $url <> $new_url && in_array($ext, array('png', 'jpg', 'jpeg', 'webp', 'gif'))) {
 	                    if(stripos($new_url,'wp-admin') === false) {
 							//if it's a valid URL
 		                    //add the url in the WP rewrite list
@@ -531,7 +539,7 @@ class HMWP_Models_Files
 
 	        }elseif (!HMWP_Classes_Tools::getValue('nordt') ) {
 
-		        $uri = parse_url($url, PHP_URL_QUERY);
+		        $uri = wp_parse_url($url, PHP_URL_QUERY);
 
 		        if($uri && strpos($new_url,'?') === false){
 			        $new_url .= '?' . $uri;
@@ -663,7 +671,7 @@ class HMWP_Models_Files
 
                 //Get the action if exists in params
                 $params = array();
-                $query = parse_url( $url, PHP_URL_QUERY );
+                $query = wp_parse_url( $url, PHP_URL_QUERY );
                 if($query <> ''){
                     parse_str($query, $params);
                 }

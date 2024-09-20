@@ -38,7 +38,7 @@ class HMWP_Models_Cookies
             ms_cookie_constants();
 
             //Set current site path
-            $site_path = parse_url(get_site_url($blog_id), PHP_URL_PATH);
+            $site_path = wp_parse_url(get_site_url($blog_id), PHP_URL_PATH);
 
             //is path based and path exists
             if (! is_subdomain_install() || is_string( $site_path ) && trim( $site_path, '/' ) ) {
@@ -133,7 +133,7 @@ class HMWP_Models_Cookies
             define('TEST_COOKIE', 'test_cookie');
         }
 
-        $secure = is_ssl() && 'https' === parse_url(get_option('home'), PHP_URL_SCHEME);
+        $secure = is_ssl() && 'https' === wp_parse_url(get_option('home'), PHP_URL_SCHEME);
         setcookie(TEST_COOKIE, 'WP Cookie check', 0, COOKIEPATH, $this->getCookieDomain(), $secure);
         if (SITECOOKIEPATH != COOKIEPATH ) {
             setcookie(TEST_COOKIE, 'WP Cookie check', 0, SITECOOKIEPATH, $this->getWpCookieDomain(), $secure);
@@ -190,7 +190,7 @@ class HMWP_Models_Cookies
         }
 
         // Front-end cookie is secure when the auth cookie is secure and the site's home URL is forced HTTPS.
-        $secure_logged_in_cookie = is_ssl() && 'https' === parse_url(get_option('home'), PHP_URL_SCHEME);
+        $secure_logged_in_cookie = is_ssl() && 'https' === wp_parse_url(get_option('home'), PHP_URL_SCHEME);
 
         setcookie(LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, $this->getCookieDomain(), $secure_logged_in_cookie, true);
         if (COOKIEPATH != SITECOOKIEPATH ) {
@@ -271,7 +271,7 @@ class HMWP_Models_Cookies
             //get current domain
             global $blog_id;
 
-            if($host = preg_replace('|^www\.|', '', parse_url(get_site_url($blog_id), PHP_URL_HOST))){
+            if($host = preg_replace('|^www\.|', '', wp_parse_url(get_site_url($blog_id), PHP_URL_HOST))){
                 //change the cookie for the current domain
                 if( !$domain || strpos($domain, $host) === false ){
                     $domain = $host;

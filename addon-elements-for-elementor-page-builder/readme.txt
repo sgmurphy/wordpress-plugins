@@ -4,7 +4,7 @@ Tags: elementor, addons, elements, elementor addon, elementor widget, page-build
 Requires at least: 5.0
 Requires PHP: 7.0
 Tested up to: 6.5
-Stable tag: 1.13.7
+Stable tag: 1.13.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 8. Elementor addon widgets section
 
 == Changelog ==
+= 1.13.8 =
+* Fixed : Elemnentor 3.24 compatibility added
+
 = 1.13.7 = 
 * Fixed : Modal Popup CF7 compatibility issue fixed
 * Fixed : Modal Popup Loop Carousel duplicate slide content isssue fixed

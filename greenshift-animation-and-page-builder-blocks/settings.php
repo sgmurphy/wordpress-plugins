@@ -1214,7 +1214,7 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 				$style = '';
 				if (has_blocks($contentpost)) {
 					$blocks = parse_blocks($contentpost);
-					$style .= '<style scoped>';
+					$style .= '<style>';
 					$style .= gspb_get_inline_styles_blocks($blocks);
 					$style .= '</style>';
 				}
@@ -1231,7 +1231,7 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 				if ($inlinestyle) {
 					if (has_blocks($content)) {
 						$blocks = parse_blocks($content);
-						$style .= '<style scoped>';
+						$style .= '<style>';
 						$style .= gspb_get_inline_styles_blocks($blocks);
 						$style .= '</style>';
 					}
@@ -1353,7 +1353,7 @@ if (!class_exists('GSPB_GreenShift_Settings')) {
 				$sitesettings = $this->global_settings;
 				if (!empty($sitesettings['sitesettings']['mousefollow'])) {
 					$color = !empty($sitesettings['sitesettings']['mousecolor']) ? $sitesettings['sitesettings']['mousecolor'] : '#2184f9';
-					echo '<div class="gsmouseball"></div><div class="gsmouseballsmall"></div><style scoped>.gsmouseball{width:33px;height:33px;position:fixed;top:0;left:0;z-index:99999;border:1px solid ' . esc_attr($color) . ';border-radius:50%;pointer-events:none;opacity:0}.gsmouseballsmall{width:4px;height:4px;position:fixed;top:0;left:0;background:' . esc_attr($color) . ';border-radius:50%;pointer-events:none;opacity:0; z-index:99999}</style>';
+					echo '<div class="gsmouseball"></div><div class="gsmouseballsmall"></div><style>.gsmouseball{width:33px;height:33px;position:fixed;top:0;left:0;z-index:99999;border:1px solid ' . esc_attr($color) . ';border-radius:50%;pointer-events:none;opacity:0}.gsmouseballsmall{width:4px;height:4px;position:fixed;top:0;left:0;background:' . esc_attr($color) . ';border-radius:50%;pointer-events:none;opacity:0; z-index:99999}</style>';
 					wp_enqueue_script('gsap-mousefollow-init');
 				}
 				if (!empty($sitesettings['sitesettings']['smoothscroll'])) {

@@ -221,6 +221,16 @@ if ( ! class_exists( 'WPCleverWoosb_Helper' ) ) {
 
 			return apply_filters( 'woosb_generate_key', $key );
 		}
+
+		public static function data_attributes( $attrs ) {
+			$attrs_arr = [];
+
+			foreach ( $attrs as $key => $attr ) {
+				$attrs_arr[] = 'data-' . sanitize_title( str_replace( 'data-', '', $key ) ) . '="' . esc_attr( $attr ) . '"';
+			}
+
+			return implode( ' ', $attrs_arr );
+		}
 	}
 
 	function WPCleverWoosb_Helper() {

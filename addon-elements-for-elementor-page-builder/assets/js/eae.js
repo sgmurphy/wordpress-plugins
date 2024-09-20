@@ -928,72 +928,73 @@ var popupInstance = [];
       );
     };
 
-    var TimelineHandler = function ($scope, $) {
-      set_progress_bar();
-      function set_progress_bar() {
-        var pb = $scope.find(".eae-timline-progress-bar");
-        var items = $scope.find(".eae-timeline-item");
-        var tl = $scope.find(".eae-timeline");
-        const offset = tl.data("top-offset");
-        var h = $(tl).height();
-        var last_offset =
-          $(items).last().find(".eae-tl-icon-wrapper").offset().top -
-          $(items[0]).parent().offset().top;
-        var icon_width = $scope.find(".eae-tl-icon-wrapper");
-
-        $(pb).css(
-          "top",
-          $(items[0]).find(".eae-tl-icon-wrapper").offset().top -
-            $(items[0]).parent().offset().top
-        );
-        $(pb).css("bottom", h - last_offset);
-        $(pb).css(
-          "left",
-          icon_width.eq(0)[0].offsetLeft + icon_width.eq(0).width() / 2
-        );
-        $(pb).css("display", "block");
-        
-        items.each(function (index, value) {
-          var waypoint = new Waypoint({
-            element: $(value),
-            handler: function (direction) {
-              if (direction == "down") {
-                $(value).addClass("eae-tl-item-focused");
-              } else {
-                $(value).removeClass("eae-tl-item-focused");
-              }
-            },
-            offset: offset,
+    var TimelineHandler = function ($scope, $){
+      const wid = $scope.data("id");
+      const wid_class = ".elementor-element-" + wid;
+      const timeline = document.querySelector(wid_class);
+      const timelineWrapper = timeline.querySelector('.eae-timeline');
+      const offsetTop  = timelineWrapper.dataset.topOffset;
+      const items = timeline.querySelectorAll(".eae-timeline-item");
+      const items_icon = timeline.querySelectorAll(".eae-tl-icon-wrapper");
+      const progress_bar = timeline.querySelector(".eae-timline-progress-bar");
+      const progressInner = timeline.querySelector('.eae-pb-inner-line');
+      const progressBarStop = items_icon[items_icon.length - 1].getBoundingClientRect().bottom;
+      //console.log('timeline', timeline);
+      setProgressBar();
+      onScroll();
+      window.addEventListener('resize', () => {
+        setProgressBar();
+      });
+      document.addEventListener('scroll', () => {
+        if (window.requestAnimationFrame) {
+          window.requestAnimationFrame(() => {
+            onScroll();
           });
-        });
+        } else {
+          onScroll();
+        }
+      });
+
+      function setProgressBar() {
+        const first_card = items[0].getBoundingClientRect();
+        const last_card = items[items.length - 1].getBoundingClientRect();
+        const first_icon_space =  items_icon[0].getBoundingClientRect().bottom - first_card.top;
+        const first_item_icon = items_icon[0].getBoundingClientRect();
+        const progress_bar_left = items_icon[0].offsetLeft + items_icon[0].offsetWidth / 2;
+        const last_item_icon = items_icon[items_icon.length - 1].getBoundingClientRect();
+        progress_bar.style.height = last_item_icon.top - first_item_icon.bottom + "px";
+        progress_bar.style.top = first_icon_space + "px";
+        progress_bar.style.left = progress_bar_left + "px";
+        progress_bar.style.display = 'block';
+        //progressInner.style.maxHeight = last_item_icon.bottom - first_item_icon.top + "px";
+        // progress_bar.style.top = first_item_icon.top + "px";
+        // progress_bar.style.bottom = first_item_icon.top + "px";
+        // console.log('first Icon', first_item_icon);
       }
 
-      function progress_bar_increment() {
-        var pb = $scope.find(".eae-timline-progress-bar");
-        var tm = $scope.find(".eae-timeline");
-        const offset = tm.data("top-offset");
-        //jQuery(".eae-timline-progress-bar").css('top', $scope.find(".eae-timeline").offset().top + 50);
-        $scope
-          .find(".eae-pb-inner-line")
-          .css(
-            "height",
-            $(window).scrollTop() -
-              $scope.find(".eae-timeline").offset().top +
-              offset
-          );
-        $scope
-          .find(".eae-pb-inner-line")
-          .css(
-            "max-height",
-            $scope.find(".eae-pb-inner-line").parent().height()
-          );
+      function onScroll(){
+        const progressInner = timeline.querySelector('.eae-pb-inner-line');
+        const scrollTop = Math.abs(window.scrollY + parseFloat(offsetTop));
+        const wrapperOffsetTop = timelineWrapper.getBoundingClientRect().top + window.scrollY;
+        const lastIconBottom = items_icon[items_icon.length - 1].getBoundingClientRect().bottom + window.scrollY;
+        // && window.scrollY < timelineWrapper.getBoundingClientRect().bottom + window.scrollY
+        if (scrollTop > wrapperOffsetTop ) {
+          progressInner.style.height = scrollTop - wrapperOffsetTop + 'px';
+          //console.log('scrollTop', scrollTop);
+          items.forEach((item, index) => {
+            let itemOffsetTop = item.getBoundingClientRect().top + window.scrollY;
+            if(scrollTop > itemOffsetTop){
+              item.classList.add('eae-tl-item-focused');
+            }else{
+              item.classList.remove('eae-tl-item-focused');
+            }
+          });
+        } else{
+          items[0].classList.remove('eae-tl-item-focused');
+        }
       }
+    }
 
-      // listen for events
-      //window.addEventListener("load", set_progress_bar);
-      window.addEventListener("resize", set_progress_bar);
-      window.addEventListener("scroll", progress_bar_increment);
-    };
 
     function eaeSetCookie(cname, cvalue, exdays) {
       var d = new Date();
@@ -2766,29 +2767,42 @@ var popupInstance = [];
         }
         $(prgInner).attr("style", "width :" + skill_value + "%");
       }
-
       $wrapper.each(function (index, value) {
-        var waypoint = new Waypoint({
-          element: value,
-          skill_value: $(value).find(".eae-pb-bar-skill"),
-          valueElem: $(value).find(".eae-pb-bar-value"),
-          prgBar: $(value).find(".eae-pb-bar-bar"),
-          prgInner: $(value).find(".eae-pb-bar-inner"),
-          handler: function (direction) {
-            if (direction == "down") {
-              if (!$(valueELem).hasClass("js-animated")) {
-                $(valueELem).addClass("js-animated");
+          const observerOptions = {
+            root: null, // This is the viewport
+            rootMargin: "0px 0px -100px 0px", // Trigger when 200px above the bottom
+            threshold: 0, // Trigger as soon as even one pixel is visible
+          };
+          let lastScrollY = window.scrollY;
+          const observerCallback = (entries) => {
+            entries.forEach((entry) => {
+            //console.log('entries', entry);
+              const currentScrollY = window.scrollY;
+              if (entry.isIntersecting) {
+                let valueElem = entry.target.querySelector(".eae-pb-bar-value");
+                let skillBar =  entry.target.querySelector(".eae-pb-bar-skill");
+                let prgInner = entry.target.querySelector(".eae-pb-bar-inner");
+                if(valueElem != null && !valueElem.classList.contains("js-animated")){
+                  valueElem.classList.add("js-animated");
+                }
+                if(skillBar != null && !skillBar.classList.contains("js-animated")){
+                  skillBar.classList.add("js-animated");
+                }
+                if(prgInner != null && !prgInner.classList.contains("js-animated")){
+                  prgInner.classList.add("js-animated");
+                }
+              // Only add the animation class when scrolling down
+              } else if (!entry.isIntersecting) {
+              // Optionally, remove the class when scrolling up or out of view
+                  entry.target.classList.remove("animate");
               }
-              if (!$(prgInner).hasClass("js-animated")) {
-                $(prgInner).addClass("js-animated");
-              }
-              if (!$(skillELem).hasClass("js-animated")) {
-                $(skillELem).addClass("js-animated");
-              }
-            }
-          },
-          offset: "bottom-in-view",
-        });
+      
+              lastScrollY = currentScrollY;
+            });
+          };
+
+          const observer = new IntersectionObserver(observerCallback, observerOptions);
+          observer.observe(value);
       });
     };
 
@@ -3359,26 +3373,37 @@ var popupInstance = [];
     };
 
     let EAEChart = function ($scope, $) {
+
       const Chart_Outer_Wrapper = $scope.find(".eae-chart-outer-container");
       const cid = $scope.data("id");
-      const chartclass = ".elementor-element-" + cid;
+      const chartClass = ".elementor-element-" + cid;
+      const chart = document.querySelector(chartClass + " .eae-chart-outer-container");
       const chart_canvas = $scope.find("#eae-chart-canvas");
       let settings = Chart_Outer_Wrapper.data("settings");
       const pie_chart = $scope.find(".eae-chart-outer-container");  
-      pie_chart.each(function (index,value){
-        var waypoint =new Waypoint({
-          element:value,
-          handler: function (direction) {
-                  if (direction == "down") {
-                    if(!value.classList.contains("trigger")){
-                      value.classList.add("trigger");
-                      new Chart(chart_canvas, settings);
-                    }                
-                  } 
-                },
-                offset:'70%'
-          });
-      });
+      // Use Observer Instersection
+
+      const observerOptions = {
+        root: null, // Observe relative to the viewport
+        threshold: 0.3 // 70% visibility corresponds to 0.3 as it means 30% is outside
+      };
+
+      const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+          const chartElement = entry.target;
+          if (entry.isIntersecting) {
+            // When the chart comes into view
+            if (!chartElement.classList.contains('trigger')) {
+              chartElement.classList.add('trigger');
+              new Chart(chart_canvas, settings); // Initialize chart
+            }
+            // Optionally, unobserve the element if you only want it to trigger once
+            observer.unobserve(chartElement);
+          }
+        });
+      };
+      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      observer.observe(chart);
     };
 
     let EAETable = function ($scope, $) {
@@ -3807,7 +3832,6 @@ var popupInstance = [];
    
 const EAERadialChart = function($scope){
   const Chart_Wrapper = $scope.find(".eae-radial-chart-container");
-   
   const pie_chart = $scope.find(".eae-radial-chart");    
   let settings = Chart_Wrapper.data("chart");
   if(settings.type=='polarArea' && settings.enablePercentage=='true'){

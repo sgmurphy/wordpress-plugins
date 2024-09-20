@@ -343,7 +343,7 @@ function generate_select_options( $form_fields, $selected ) {
 		<hr>
 		<div class="p-4 d-flex justify-content-end">
 			<input class="btn btn-gray-lighter btn-sm mr-2" type="button" value="<?php esc_html_e( 'Cancel', 'iubenda' ); ?>" onclick="window.location.href = '<?php echo esc_url( add_query_arg( array( 'view' => 'cons-configuration' ), iubenda()->base_url ) ); ?>'"/>
-			<button type="submit" class="btn btn-green-primary btn-sm"
+			<button id="save-settings-btn" type="submit" class="btn btn-green-primary btn-sm"
 					value="Save" name="save">
 				<span class="button__text"><?php esc_html_e( 'Save settings', 'iubenda' ); ?></span>
 			</button>

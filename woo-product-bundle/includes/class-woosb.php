@@ -1472,7 +1472,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 		}
 
 		function add_cart_item_data( $cart_item_data, $product_id ) {
-			if ( ( $_product = wc_get_product( $product_id ) ) && $_product->is_type( 'woosb' ) && ( $ids = $_product->get_ids_str() ) ) {
+			if ( empty( $cart_item_data['woosb_ids'] ) && ( $_product = wc_get_product( $product_id ) ) && $_product->is_type( 'woosb' ) && ( $ids = $_product->get_ids_str() ) ) {
 				// make sure that is bundle
 				if ( isset( $_REQUEST['woosb_ids'] ) ) {
 					$ids = WPCleverWoosb_Helper()->clean_ids( $_REQUEST['woosb_ids'] );
@@ -1489,20 +1489,21 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 
 		function add_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
 			if ( ! empty( $cart_item_data['woosb_ids'] ) && isset( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
+				unset( WC()->cart->cart_contents[ $cart_item_key ]['woosb_keys'] );
 				WC()->cart->cart_contents[ $cart_item_key ]['data']->build_items( $cart_item_data['woosb_ids'] );
 				$items = WC()->cart->cart_contents[ $cart_item_key ]['data']->get_items();
+
 				self::add_to_cart_items( $items, $cart_item_key, $product_id, $quantity );
 			}
 		}
 
 		function restore_cart_item( $cart_item_key ) {
 			if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['woosb_ids'] ) ) {
-				WC()->cart->cart_contents[ $cart_item_key ]['data']->build_items( WC()->cart->cart_contents[ $cart_item_key ]['woosb_ids'] );
 				unset( WC()->cart->cart_contents[ $cart_item_key ]['woosb_keys'] );
-
+				WC()->cart->cart_contents[ $cart_item_key ]['data']->build_items( WC()->cart->cart_contents[ $cart_item_key ]['woosb_ids'] );
+				$items      = WC()->cart->cart_contents[ $cart_item_key ]['data']->get_items();
 				$product_id = WC()->cart->cart_contents[ $cart_item_key ]['product_id'];
 				$quantity   = WC()->cart->cart_contents[ $cart_item_key ]['quantity'];
-				$items      = WC()->cart->cart_contents[ $cart_item_key ]['data']->get_items();
 
 				self::add_to_cart_items( $items, $cart_item_key, $product_id, $quantity );
 			}
@@ -1634,9 +1635,11 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 					$parent_new_key = array_search( $cart_item['woosb_parent_key'], $new_keys );
 
 					// remove orphaned bundled products
-					if ( ! $parent_new_key || ! isset( $cart_contents[ $parent_new_key ] ) || ( isset( $cart_contents[ $parent_new_key ]['woosb_keys'] ) && ! in_array( $cart_item_key, $cart_contents[ $parent_new_key ]['woosb_keys'] ) ) ) {
-						unset( $cart_contents[ $cart_item_key ] );
-						continue;
+					if ( apply_filters( 'woosb_remove_orphaned_bundled_products', true ) ) {
+						if ( ! $parent_new_key || ! isset( $cart_contents[ $parent_new_key ] ) || ( isset( $cart_contents[ $parent_new_key ]['woosb_keys'] ) && ! in_array( $cart_item_key, $cart_contents[ $parent_new_key ]['woosb_keys'] ) ) ) {
+							unset( $cart_contents[ $cart_item_key ] );
+							continue;
+						}
 					}
 
 					// sync quantity
@@ -2581,7 +2584,16 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 				$product_image = '';
 			}
 
-			echo '<div class="' . esc_attr( $product_class ) . '" data-key="' . esc_attr( $key ) . '" data-name="' . esc_attr( $product_name ) . '" data-sku="' . esc_attr( $product_sku ) . '" data-id="' . esc_attr( $product_id ) . '" data-price="' . esc_attr( $price ) . '" data-price-max="' . esc_attr( $price_max ) . '">';
+			$product_attrs = apply_filters( 'woosb_item_product_attrs', [
+				'key'       => $key,
+				'name'      => $product_name,
+				'sku'       => $product_sku,
+				'id'        => $product_id,
+				'price'     => $price,
+				'price-max' => $price_max,
+			] );
+
+			echo '<div class="' . esc_attr( $product_class ) . '" ' . WPCleverWoosb_Helper()->data_attributes( $product_attrs ) . '>';
 			echo '<div class="woosb-li-head">';
 			echo '<input type="hidden" name="' . esc_attr( 'woosb_ids[' . $key . '][id]' ) . '" value="' . esc_attr( $product_id ) . '"/><input type="hidden" name="' . esc_attr( 'woosb_ids[' . $key . '][sku]' ) . '" value="' . esc_attr( $product_sku ) . '"/>';
 			echo '<span class="move"></span><span class="qty hint--right" aria-label="' . esc_html__( 'Default quantity', 'woo-product-bundle' ) . '">' . $qty_input . '</span>' . $product_image . '<span class="data">' . ( $product->get_status() === 'private' ? '<span class="info">private</span> ' : '' ) . '<span class="name">' . esc_html( $item_name ) . '</span><span class="info">' . $product->get_price_html() . '</span> ' . ( $product->is_sold_individually() ? '<span class="info">' . esc_html__( 'sold individually', 'woo-product-bundle' ) . '</span> ' : '' ) . '</span><span class="type"><a href="' . esc_url( $edit_link ) . '" target="_blank">' . $product_info . '</a></span> ';
@@ -3017,8 +3029,10 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 				// if order again, add bundled products again
 				if ( isset( $cart_item['woosb_order_again'], $cart_item['woosb_ids'] ) ) {
 					unset( $cart->cart_contents[ $cart_item_key ]['woosb_order_again'] );
+					unset( $cart->cart_contents[ $cart_item_key ]['woosb_keys'] );
 					$cart_item['data']->build_items( $cart_item['woosb_ids'] );
 					$items = $cart_item['data']->get_items();
+
 					self::add_to_cart_items( $items, $cart_item_key, $cart_item['product_id'], $cart_item['quantity'] );
 				}
 			}
@@ -3074,6 +3088,20 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 				$layout                = $layout !== 'unset' ? $layout : WPCleverWoosb_Helper()->get_setting( 'layout', 'list' );
 				$bundled_price         = WPCleverWoosb_Helper()->get_setting( 'bundled_price', 'price' );
 				$products_class        = apply_filters( 'woosb_products_class', 'woosb-products woosb-products-layout-' . $layout, $product );
+				$products_attrs        = apply_filters( 'woosb_products_attrs', [
+					'discount-amount'       => $discount_amount,
+					'discount'              => $discount_percentage,
+					'fixed-price'           => $fixed_price ? 'yes' : 'no',
+					'price'                 => wc_get_price_to_display( $product ),
+					'price-suffix'          => htmlentities( $product->get_price_suffix() ),
+					'variables'             => $has_variables ? 'yes' : 'no',
+					'optional'              => $has_optional ? 'yes' : 'no',
+					'min'                   => $whole_min,
+					'max'                   => $whole_max,
+					'total-min'             => $total_limit && $total_min ? $total_min : 0,
+					'total-max'             => $total_limit && $total_max ? $total_max : '-1',
+					'exclude-unpurchasable' => $exclude_unpurchasable ? 'yes' : 'no',
+				], $product );
 
 				do_action( 'woosb_before_wrap', $product );
 
@@ -3084,208 +3112,213 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 				}
 
 				do_action( 'woosb_before_table', $product );
-				?>
-                <div class="<?php echo esc_attr( $products_class ); ?>" data-discount-amount="<?php echo esc_attr( $discount_amount ); ?>" data-discount="<?php echo esc_attr( $discount_percentage ); ?>" data-fixed-price="<?php echo esc_attr( $fixed_price ? 'yes' : 'no' ); ?>" data-price="<?php echo esc_attr( wc_get_price_to_display( $product ) ); ?>" data-price-suffix="<?php echo esc_attr( htmlentities( $product->get_price_suffix() ) ); ?>" data-variables="<?php echo esc_attr( $has_variables ? 'yes' : 'no' ); ?>" data-optional="<?php echo esc_attr( $has_optional ? 'yes' : 'no' ); ?>" data-min="<?php echo esc_attr( $whole_min ); ?>" data-max="<?php echo esc_attr( $whole_max ); ?>" data-total-min="<?php echo esc_attr( $total_limit && $total_min ? $total_min : 0 ); ?>" data-total-max="<?php echo esc_attr( $total_limit && $total_max ? $total_max : '-1' ); ?>" data-exclude-unpurchasable="<?php echo esc_attr( $exclude_unpurchasable ? 'yes' : 'no' ); ?>">
-					<?php
-					// store global $product
-					$global_product    = $product;
-					$global_product_id = $product_id;
 
-					foreach ( $items as $key => $item ) {
-						if ( ! empty( $item['id'] ) ) {
-							// exclude heading/paragraph
-							$product  = wc_get_product( $item['id'] );
-							$item_qty = (float) ( $item['qty'] ?? 1 );
-							$item_min = ! empty( $item['min'] ) ? (float) $item['min'] : 0;
-							$item_max = ! empty( $item['max'] ) ? (float) $item['max'] : 10000;
-							$optional = ! empty( $item['optional'] );
+				echo '<div class="' . esc_attr( $products_class ) . '" ' . WPCleverWoosb_Helper()->data_attributes( $products_attrs ) . '>';
+				// store global $product
+				$global_product    = $product;
+				$global_product_id = $product_id;
 
-							if ( ! $product || in_array( $product->get_type(), self::$types, true ) ) {
-								continue;
-							}
+				foreach ( $items as $key => $item ) {
+					if ( ! empty( $item['id'] ) ) {
+						// exclude heading/paragraph
+						$product  = wc_get_product( $item['id'] );
+						$item_qty = (float) ( $item['qty'] ?? 1 );
+						$item_min = ! empty( $item['min'] ) ? (float) $item['min'] : 0;
+						$item_max = ! empty( $item['max'] ) ? (float) $item['max'] : 10000;
+						$optional = ! empty( $item['optional'] );
 
-							if ( ! apply_filters( 'woosb_item_exclude', true, $product, $global_product ) ) {
-								continue;
-							}
-
-							if ( $optional ) {
-								if ( ( $max_purchase = $product->get_max_purchase_quantity() ) && ( $max_purchase > 0 ) && ( $max_purchase < $item_max ) ) {
-									// get_max_purchase_quantity can return -1
-									$item_max = $max_purchase;
-								}
-
-								if ( $item_qty < $item_min ) {
-									$item_qty = $item_min;
-								}
-
-								if ( ( $item_max > $item_min ) && ( $item_qty > $item_max ) ) {
-									$item_qty = $item_max;
-								}
-							}
-
-							$item_class = 'woosb-item-product woosb-product woosb-product-type-' . $product->get_type();
-
-							if ( $optional ) {
-								$item_class .= ' woosb-product-optional';
-							}
-
-							if ( ! apply_filters( 'woosb_item_visible', true, $product, $global_product_id ) ) {
-								$item_class .= ' woosb-product-hidden';
-							}
-
-							if ( ! $product->is_type( 'variable' ) && ( ! $product->is_in_stock() || ! $product->has_enough_stock( $item_qty ) || ! $product->is_purchasable() ) ) {
-								if ( ! apply_filters( 'woosb_allow_unpurchasable_qty', false ) ) {
-									$item_qty = 0;
-								}
-
-								$item_class .= ' woosb-product-unpurchasable';
-							}
-
-							do_action( 'woosb_above_item', $product, $global_product, $order );
-							?>
-                            <div class="<?php echo esc_attr( apply_filters( 'woosb_item_class', $item_class, $product, $global_product, $order ) ); ?>" data-key="<?php echo esc_attr( $key ); ?>" data-name="<?php echo esc_attr( $product->get_name() ); ?>" data-id="<?php echo esc_attr( $product->is_type( 'variable' ) ? 0 : $item['id'] ); ?>" data-price="<?php echo esc_attr( WPCleverWoosb_Helper()->get_price_to_display( $product ) ); ?>" data-o_price="<?php echo esc_attr( WPCleverWoosb_Helper()->get_price_to_display( $product ) ); ?>" data-price-suffix="<?php echo esc_attr( htmlentities( $product->get_price_suffix() ) ); ?>" data-qty="<?php echo esc_attr( $item_qty ); ?>" data-order="<?php echo esc_attr( $order ); ?>">
-								<?php
-								do_action( 'woosb_before_item', $product, $global_product, $order );
-
-								if ( WPCleverWoosb_Helper()->get_setting( 'bundled_thumb', 'yes' ) !== 'no' ) { ?>
-                                    <div class="woosb-thumb">
-										<?php if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
-											echo '<a ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_popup' ? 'class="woosq-link no-ajaxy" data-id="' . esc_attr( $item['id'] ) . '" data-context="woosb"' : '' ) . ' href="' . esc_url( $product->get_permalink() ) . '" ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>';
-										} ?>
-                                        <div class="woosb-thumb-ori">
-											<?php echo apply_filters( 'woosb_item_thumbnail', $product->get_image( self::$image_size ), $product ); ?>
-                                        </div>
-                                        <div class="woosb-thumb-new"></div>
-										<?php if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
-											echo '</a>';
-										} ?>
-                                    </div>
-								<?php } ?>
-
-                                <div class="woosb-title">
-									<?php
-									do_action( 'woosb_before_item_name', $product );
-
-									echo '<div class="woosb-name">';
-
-									if ( ( WPCleverWoosb_Helper()->get_setting( 'bundled_qty', 'yes' ) === 'yes' ) && ! $optional ) {
-										echo apply_filters( 'woosb_item_qty', $item['qty'] . ' × ', $item['qty'], $product );
-									}
-
-									$item_name    = '';
-									$product_name = apply_filters( 'woosb_item_product_name', $product->get_name(), $product );
-
-									if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
-										$item_name .= '<a ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_popup' ? 'class="woosq-link no-ajaxy" data-id="' . $item['id'] . '" data-context="woosb"' : '' ) . ' href="' . esc_url( $product->get_permalink() ) . '" ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>';
-									}
-
-									if ( $product->is_type( 'variable' ) || ( $product->is_in_stock() && $product->has_enough_stock( $item_qty ) ) ) {
-										$item_name .= $product_name;
-									} else {
-										$item_name .= '<s>' . $product_name . '</s>';
-									}
-
-									if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
-										$item_name .= '</a>';
-									}
-
-									echo apply_filters( 'woosb_item_name', $item_name, $product, $global_product, $order );
-									echo '</div>';
-
-									do_action( 'woosb_after_item_name', $product );
-
-									if ( $bundled_price === 'price_under_name' || $bundled_price === 'subtotal_under_name' ) {
-										self::show_bundled_price( $bundled_price, $fixed_price, $discount_percentage, $product, $item );
-									}
-
-									if ( WPCleverWoosb_Helper()->get_setting( 'bundled_description', 'no' ) === 'yes' ) {
-										echo '<div class="woosb-description">' . apply_filters( 'woosb_item_description', $product->is_type( 'variation' ) ? $product->get_description() : $product->get_short_description(), $product ) . '</div>';
-									}
-
-									echo '<div class="woosb-availability">' . wp_kses_post( wc_get_stock_html( $product ) ) . '</div>';
-									?>
-                                </div>
-
-								<?php if ( $optional ) {
-									if ( ( $product->is_in_stock() && ( $product->is_type( 'variable' ) || $product->is_purchasable() ) ) || apply_filters( 'woosb_allow_unpurchasable_qty', false ) ) {
-										echo '<div class="' . esc_attr( WPCleverWoosb_Helper()->get_setting( 'plus_minus', 'no' ) === 'yes' ? 'woosb-quantity woosb-quantity-plus-minus' : 'woosb-quantity' ) . '">';
-
-										if ( WPCleverWoosb_Helper()->get_setting( 'plus_minus', 'no' ) === 'yes' ) {
-											echo '<div class="woosb-quantity-input">';
-											echo '<div class="woosb-quantity-input-minus">-</div>';
-										}
-
-										woocommerce_quantity_input( [
-											'input_value' => $item_qty,
-											'min_value'   => $item_min,
-											'max_value'   => $item_max,
-											'woosb_qty'   => [
-												'input_value' => $item_qty,
-												'min_value'   => $item_min,
-												'max_value'   => $item_max
-											],
-											'classes'     => apply_filters( 'woosb_qty_classes', [
-												'input-text',
-												'woosb-qty',
-												'qty',
-												'text'
-											] ),
-											'input_name'  => 'woosb_qty_' . $order
-											// compatible with WPC Product Quantity
-										], $product );
-
-										if ( WPCleverWoosb_Helper()->get_setting( 'plus_minus', 'no' ) === 'yes' ) {
-											echo '<div class="woosb-quantity-input-plus">+</div>';
-											echo '</div>';
-										}
-
-										echo '</div>';
-									} else { ?>
-                                        <div class="woosb-quantity woosb-quantity-disabled">
-                                            <div class="quantity">
-                                                <label>
-                                                    <input type="number" class="input-text woosb-qty qty text" value="0" disabled/>
-                                                </label>
-                                            </div>
-                                        </div>
-									<?php }
-								}
-
-								if ( $bundled_price === 'price' || $bundled_price === 'subtotal' ) {
-									self::show_bundled_price( $bundled_price, $fixed_price, $discount_percentage, $product, $item );
-								}
-
-								do_action( 'woosb_after_item', $product, $global_product, $order );
-								?>
-                            </div>
-							<?php
-							do_action( 'woosb_under_item', $product, $global_product, $order );
-						} elseif ( ! empty( $item['text'] ) ) {
-							$item_class = 'woosb-item-text';
-
-							if ( ! empty( $item['type'] ) ) {
-								$item_class .= ' woosb-item-text-type-' . $item['type'];
-							}
-
-							echo '<div class="' . esc_attr( apply_filters( 'woosb_item_text_class', $item_class, $item, $global_product, $order ) ) . '">';
-
-							if ( empty( $item['type'] ) || ( $item['type'] === 'none' ) ) {
-								echo wp_kses_post( $item['text'] );
-							} else {
-								echo '<' . esc_attr( $item['type'] ) . '>' . wp_kses_post( $item['text'] ) . '</' . esc_attr( $item['type'] ) . '>';
-							}
-
-							echo '</div>';
+						if ( ! $product || in_array( $product->get_type(), self::$types, true ) ) {
+							continue;
 						}
 
-						$order ++;
+						if ( ! apply_filters( 'woosb_item_exclude', true, $product, $global_product ) ) {
+							continue;
+						}
+
+						if ( $optional ) {
+							if ( ( $max_purchase = $product->get_max_purchase_quantity() ) && ( $max_purchase > 0 ) && ( $max_purchase < $item_max ) ) {
+								// get_max_purchase_quantity can return -1
+								$item_max = $max_purchase;
+							}
+
+							if ( $item_qty < $item_min ) {
+								$item_qty = $item_min;
+							}
+
+							if ( ( $item_max > $item_min ) && ( $item_qty > $item_max ) ) {
+								$item_qty = $item_max;
+							}
+						}
+
+						$item_class = 'woosb-item-product woosb-product woosb-product-type-' . $product->get_type();
+
+						if ( $optional ) {
+							$item_class .= ' woosb-product-optional';
+						}
+
+						if ( ! apply_filters( 'woosb_item_visible', true, $product, $global_product_id ) ) {
+							$item_class .= ' woosb-product-hidden';
+						}
+
+						if ( ! $product->is_type( 'variable' ) && ( ! $product->is_in_stock() || ! $product->has_enough_stock( $item_qty ) || ! $product->is_purchasable() ) ) {
+							if ( ! apply_filters( 'woosb_allow_unpurchasable_qty', false ) ) {
+								$item_qty = 0;
+							}
+
+							$item_class .= ' woosb-product-unpurchasable';
+						}
+
+						$item_attrs = apply_filters( 'woosb_item_attrs', [
+							'key'          => $key,
+							'name'         => $product->get_name(),
+							'id'           => $product->is_type( 'variable' ) ? 0 : $item['id'],
+							'price'        => WPCleverWoosb_Helper()->get_price_to_display( $product ),
+							'o_price'      => WPCleverWoosb_Helper()->get_price_to_display( $product ),
+							'price-suffix' => htmlentities( $product->get_price_suffix() ),
+							'qty'          => $item_qty,
+							'order'        => $order,
+						], $product, $global_product, $order );
+
+						do_action( 'woosb_above_item', $product, $global_product, $order );
+						echo '<div class="' . esc_attr( apply_filters( 'woosb_item_class', $item_class, $product, $global_product, $order ) ) . '" ' . WPCleverWoosb_Helper()->data_attributes( $item_attrs ) . '>';
+						do_action( 'woosb_before_item', $product, $global_product, $order );
+
+						if ( WPCleverWoosb_Helper()->get_setting( 'bundled_thumb', 'yes' ) !== 'no' ) { ?>
+                            <div class="woosb-thumb">
+								<?php if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
+									echo '<a ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_popup' ? 'class="woosq-link no-ajaxy" data-id="' . esc_attr( $item['id'] ) . '" data-context="woosb"' : '' ) . ' href="' . esc_url( $product->get_permalink() ) . '" ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>';
+								} ?>
+                                <div class="woosb-thumb-ori">
+									<?php echo apply_filters( 'woosb_item_thumbnail', $product->get_image( self::$image_size ), $product ); ?>
+                                </div>
+                                <div class="woosb-thumb-new"></div>
+								<?php if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
+									echo '</a>';
+								} ?>
+                            </div>
+						<?php } ?>
+
+                        <div class="woosb-title">
+							<?php
+							do_action( 'woosb_before_item_name', $product );
+
+							echo '<div class="woosb-name">';
+
+							if ( ( WPCleverWoosb_Helper()->get_setting( 'bundled_qty', 'yes' ) === 'yes' ) && ! $optional ) {
+								echo apply_filters( 'woosb_item_qty', $item['qty'] . ' × ', $item['qty'], $product );
+							}
+
+							$item_name    = '';
+							$product_name = apply_filters( 'woosb_item_product_name', $product->get_name(), $product );
+
+							if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
+								$item_name .= '<a ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_popup' ? 'class="woosq-link no-ajaxy" data-id="' . $item['id'] . '" data-context="woosb"' : '' ) . ' href="' . esc_url( $product->get_permalink() ) . '" ' . ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) === 'yes_blank' ? 'target="_blank"' : '' ) . '>';
+							}
+
+							if ( $product->is_type( 'variable' ) || ( $product->is_in_stock() && $product->has_enough_stock( $item_qty ) ) ) {
+								$item_name .= $product_name;
+							} else {
+								$item_name .= '<s>' . $product_name . '</s>';
+							}
+
+							if ( $product->is_visible() && ( WPCleverWoosb_Helper()->get_setting( 'bundled_link', 'yes' ) !== 'no' ) ) {
+								$item_name .= '</a>';
+							}
+
+							echo apply_filters( 'woosb_item_name', $item_name, $product, $global_product, $order );
+							echo '</div>';
+
+							do_action( 'woosb_after_item_name', $product );
+
+							if ( $bundled_price === 'price_under_name' || $bundled_price === 'subtotal_under_name' ) {
+								self::show_bundled_price( $bundled_price, $fixed_price, $discount_percentage, $product, $item );
+							}
+
+							if ( WPCleverWoosb_Helper()->get_setting( 'bundled_description', 'no' ) === 'yes' ) {
+								echo '<div class="woosb-description">' . apply_filters( 'woosb_item_description', $product->is_type( 'variation' ) ? $product->get_description() : $product->get_short_description(), $product ) . '</div>';
+							}
+
+							echo '<div class="woosb-availability">' . wp_kses_post( wc_get_stock_html( $product ) ) . '</div>';
+							?>
+                        </div>
+
+						<?php if ( $optional ) {
+							if ( ( $product->is_in_stock() && ( $product->is_type( 'variable' ) || $product->is_purchasable() ) ) || apply_filters( 'woosb_allow_unpurchasable_qty', false ) ) {
+								echo '<div class="' . esc_attr( WPCleverWoosb_Helper()->get_setting( 'plus_minus', 'no' ) === 'yes' ? 'woosb-quantity woosb-quantity-plus-minus' : 'woosb-quantity' ) . '">';
+
+								if ( WPCleverWoosb_Helper()->get_setting( 'plus_minus', 'no' ) === 'yes' ) {
+									echo '<div class="woosb-quantity-input">';
+									echo '<div class="woosb-quantity-input-minus">-</div>';
+								}
+
+								woocommerce_quantity_input( [
+									'input_value' => $item_qty,
+									'min_value'   => $item_min,
+									'max_value'   => $item_max,
+									'woosb_qty'   => [
+										'input_value' => $item_qty,
+										'min_value'   => $item_min,
+										'max_value'   => $item_max
+									],
+									'classes'     => apply_filters( 'woosb_qty_classes', [
+										'input-text',
+										'woosb-qty',
+										'qty',
+										'text'
+									] ),
+									'input_name'  => 'woosb_qty_' . $order
+									// compatible with WPC Product Quantity
+								], $product );
+
+								if ( WPCleverWoosb_Helper()->get_setting( 'plus_minus', 'no' ) === 'yes' ) {
+									echo '<div class="woosb-quantity-input-plus">+</div>';
+									echo '</div>';
+								}
+
+								echo '</div>';
+							} else { ?>
+                                <div class="woosb-quantity woosb-quantity-disabled">
+                                    <div class="quantity">
+                                        <label>
+                                            <input type="number" class="input-text woosb-qty qty text" value="0" disabled/>
+                                        </label>
+                                    </div>
+                                </div>
+							<?php }
+						}
+
+						if ( $bundled_price === 'price' || $bundled_price === 'subtotal' ) {
+							self::show_bundled_price( $bundled_price, $fixed_price, $discount_percentage, $product, $item );
+						}
+
+						do_action( 'woosb_after_item', $product, $global_product, $order );
+						echo '</div><!-- /woosb-product -->';
+						do_action( 'woosb_under_item', $product, $global_product, $order );
+					} elseif ( ! empty( $item['text'] ) ) {
+						$item_class = 'woosb-item-text';
+
+						if ( ! empty( $item['type'] ) ) {
+							$item_class .= ' woosb-item-text-type-' . $item['type'];
+						}
+
+						echo '<div class="' . esc_attr( apply_filters( 'woosb_item_text_class', $item_class, $item, $global_product, $order ) ) . '">';
+
+						if ( empty( $item['type'] ) || ( $item['type'] === 'none' ) ) {
+							echo wp_kses_post( $item['text'] );
+						} else {
+							echo '<' . esc_attr( $item['type'] ) . '>' . wp_kses_post( $item['text'] ) . '</' . esc_attr( $item['type'] ) . '>';
+						}
+
+						echo '</div>';
 					}
 
-					// restore global $product
-					$product = $global_product;
-					?>
-                </div>
-				<?php
+					$order ++;
+				}
+
+				// restore global $product
+				$product = $global_product;
+				echo '</div><!-- /woosb-products -->';
+
 				if ( ! $fixed_price && ( $has_variables || $has_optional ) ) {
 					echo '<div class="woosb-summary woosb-text"><span class="woosb-total"></span>';
 
@@ -3304,7 +3337,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 					echo '<div class="woosb-after-text woosb-text">' . wp_kses_post( do_shortcode( $after_text ) ) . '</div>';
 				}
 
-				echo '</div>';
+				echo '</div><!-- /woosb-wrap -->';
 
 				do_action( 'woosb_after_wrap', $product );
 			}
@@ -3582,7 +3615,7 @@ if ( ! class_exists( 'WPCleverWoosb' ) && class_exists( 'WC_Product' ) ) {
 					$query->the_post();
 					$_product = wc_get_product( get_the_ID() );
 
-					if ( ! $_product ) {
+					if ( ! $_product || ! $_product->is_visible() ) {
 						continue;
 					}
 

@@ -576,7 +576,7 @@
 
         <div class="template-buy-banner">
           <span>Get All Our Premium Themes In Our WP Theme Bundle</span>
-          <a href="`+ibtana_visual_editor_modal_js.IBTANA_THEME_URL+`products/theme-bundle/" target="_blank">BUY NOW</a>
+          <a href="`+ibtana_visual_editor_modal_js.IBTANA_THEME_URL+`products/wp-theme-bundle" target="_blank">BUY NOW</a>
         </div>
 
 

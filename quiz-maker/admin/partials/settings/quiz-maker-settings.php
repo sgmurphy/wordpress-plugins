@@ -24,7 +24,7 @@
         "number"            => __("Number", $this->plugin_name),
         "date"              => __("Date", $this->plugin_name),
         "true_or_false"     => __("True/False", $this->plugin_name),
-        "custom"            => __("Custom Banner (PRO)", $this->plugin_name),
+        "custom"            => __("Info Banner (PRO)", $this->plugin_name),
         "fill_in_blank"     => __("Fill in the blanks (PRO)", $this->plugin_name),
         "matching"          => __("Matching (PRO)", $this->plugin_name),
     );

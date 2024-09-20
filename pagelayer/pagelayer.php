@@ -3,7 +3,7 @@
 Plugin Name: PageLayer
 Plugin URI: http://wordpress.org/plugins/pagelayer/
 Description: PageLayer is a WordPress page builder plugin. Its very easy to use and very light on the browser.
-Version: 1.8.9
+Version: 1.9.1
 Author: Pagelayer Team
 Author URI: https://pagelayer.com/
 License: LGPL v2.1
@@ -18,10 +18,10 @@ if(!function_exists('add_action')){
 	exit;
 }
 
-$_tmp_plugins = get_option('active_plugins');
+$softac_tmp_plugins = get_option('active_plugins');
 
 // Is the premium plugin loaded ?
-if(!defined('SITEPAD') && in_array('pagelayer-pro/pagelayer-pro.php', $_tmp_plugins) ){
+if(!defined('SITEPAD') && in_array('pagelayer-pro/pagelayer-pro.php', $softac_tmp_plugins) ){
 	
 	// Was introduced in 1.8.8
 	$pagelayer_pro_info = get_option('pagelayer_pro_version');

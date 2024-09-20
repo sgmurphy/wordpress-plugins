@@ -3686,7 +3686,8 @@ function wpfShowHideFiltersAtts(wpfExistTerms, wpfExistUsers, synchroFilterId) {
 	jQuery((curFilter ? '#' + curFilter + ' ' : '') + '.wpfFilterWrapper').each(function(){
 		var filter = jQuery(this),
 			filterType = filter.data('filter-type'),
-			filterContentType = filter.data('content-type'),
+			isTextFilter = filter.attr('data-display-type') == 'text',
+			filterContentType = isTextFilter && filter.attr('data-control-products') == '1' ? 'taxonomy' : filter.data('content-type'),
 			taxonomy = filter.data('taxonomy'),
 			getAttr = filter.data('get-attribute'),
 			isFilterCurentlyActivated = getParameterByName(getAttr, location.search),
@@ -3754,7 +3755,7 @@ function wpfShowHideFiltersAtts(wpfExistTerms, wpfExistUsers, synchroFilterId) {
 							var hideSingle = filter.attr('data-hide-single') == '1',
 								preSelector = hideSingle && filter.find('select[multiple]').length ? 'option' : '',
 								selector = hideSingle && filter.find('.wpfColorsFilter').length ? 'li[data-term-slug]' : '[data-term-id]',
-								cntAll = filter.find(preSelector+selector).length,
+								cntAll = isTextFilter ? 1 : filter.find(preSelector+selector).length,
 								cntHidden = filter.find(preSelector+selector+'[style*="none"]').length,
 								limit = hideSingle ? 1 : 0;
 							if (cntAll-cntHidden <= limit) {

@@ -171,6 +171,19 @@ class GSToc{
                         $headings[] = $headarray;
                     }
                 }                              
+            }else if ($block['blockName'] == 'greenshift-blocks/element') {  
+                if(!empty($block['attrs']['tag']) && ($block['attrs']['tag'] == $headingTag || $block['attrs']['tag'] == $headingSecTag)){
+                    if(!empty($block['attrs']['anchor']) || !empty($block['attrs']['customAnchor'])){
+                        $headarray = [];
+                        $headarray['title'] = wp_strip_all_tags($block['attrs']['textContent']);
+                        $anchor = !empty($block['attrs']['anchor']) ? $block['attrs']['anchor'] : $block['attrs']['customAnchor'];
+                        $headarray['anchor'] =  wp_strip_all_tags($anchor);
+                        if($block['attrs']['tag'] == $headingSecTag){
+                            $headarray['subheading'] = true;
+                        }
+                        $headings[] = $headarray;
+                    }
+                }                              
             }else if(!empty($block['innerBlocks'])){
                 $headings = array_merge($headings, self::get_toc_blocks($block['innerBlocks'], $settings));
             }

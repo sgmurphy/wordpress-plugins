@@ -83,7 +83,10 @@ if ( ! function_exists( 'gutenverse_is_block_editor' ) ) {
 	 * @return boolean
 	 */
 	function gutenverse_is_block_editor() {
-		return function_exists( 'get_current_screen' ) && get_current_screen()->is_block_editor;
+		if ( function_exists( 'get_current_screen' ) && get_current_screen() ) {
+			return get_current_screen()->is_block_editor;
+		}
+		return false;
 	}
 }
 if ( ! function_exists( 'gutenverse_secure_permalink' ) ) {
@@ -542,9 +545,11 @@ if ( ! function_exists( 'gutenverse_css_url' ) ) {
 if ( ! function_exists( 'gutenverse_compatible_check' ) ) {
 	/**
 	 * Check if gutenverse is compatible.
+	 *
+	 * @param string $before_ver WordPress Version.
 	 */
-	function gutenverse_compatible_check() {
-		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], '5.9', '>=' );
+	function gutenverse_compatible_check( $before_ver = '5.9' ) {
+		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], $before_ver, '>=' );
 	}
 }
 

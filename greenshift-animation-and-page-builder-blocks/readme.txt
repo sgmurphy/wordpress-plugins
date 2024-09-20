@@ -8,7 +8,7 @@ Requires at least: 6.3
 Tested up to: 6.6
 Requires PHP: 7.0
 License: GPLv2 or later
-Stable tag: 9.4
+Stable tag: 9.5
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 More than 20 special blocks for Gutenberg to build complex pages and animations with highest possible web vitals score.
@@ -111,6 +111,18 @@ Yes, we guarantee that Greenshift is built on top of google recommendations and 
 7. **Sliding panels, popups.** Build custom sliding panels, add any block, use for mega menus
 
 == Changelog ==
+
+= 9.5 =
+
+* Added: Updated panels for class system and for Element block
+* Added: Infinite loop option for simple custom animation (enable Custom preset for animation for this and find Loop option)
+* Added: Element block has new attribute system 
+* Added: Draggable scroll Container variation for Element block
+* Added: Marquee container variation for Element block
+* Added: Content area variation for Element block
+* Added: Element block has now dynamic Repeater option
+* Added: New Effects panel for Element block
+* Added: Root class option for Element block. Now you can change root class where local attributes are applied
 
 = 9.4 =
 

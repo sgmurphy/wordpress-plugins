@@ -22,7 +22,7 @@ require_once IUBENDA_PLUGIN_PATH . 'views/partials/header.php';
 	<hr>
 	<div class="welcome-screen-footer p-5">
 		<h3 class="text-md text-normal m-0 mb-3"><?php esc_html_e( "Let's configure your website for compliance.", 'iubenda' ); ?></h3>
-		<a class="btn btn-green-primary btn-lg show-modal"  data-modal-name="#modal-setup-screen" href="javascript:void(0)"><?php esc_html_e( 'Help me get compliant!', 'iubenda' ); ?></a>
+		<a id="help-me-get-compliant-btn" class="btn btn-green-primary btn-lg show-modal"  data-modal-name="#modal-setup-screen" href="javascript:void(0)"><?php esc_html_e( 'Help me get compliant!', 'iubenda' ); ?></a>
 	</div>
 </div>
 

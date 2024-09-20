@@ -2738,7 +2738,7 @@ class WoofiltersViewWpf extends ViewWpf {
 
 			$titleTag = $this->getFilterSetting($filter['settings'], 'f_custom_tags_settings[title_' . $preCount . ']', 0);
 		}
-		$titleTag = $titleTag && $showCustomTags ? FrameWpf::_()->getModule('woofilters')->getFilterTagsList()[$titleTag] : 'div';
+		$titleTag = $titleTag && $showCustomTags ? FrameWpf::_()->getModule('woofilters')->getFilterTagsList()[$titleTag] : 'span';
 
 		if ( is_array($layout) && 'dropdown' != $type && 'mul_dropdown' != $type ) {
 			if ($layout['is_ver']) {
@@ -2767,7 +2767,7 @@ class WoofiltersViewWpf extends ViewWpf {
 			}
 			$termId      = isset($filterItem->term_id) ? $filterItem->term_id : '';
 			$style       = '';
-			$displayName = empty($filterItem->name_label) ? $filterItem->name : $filterItem->name_label;
+			$displayName = DispatcherWpf::applyFilters('getItemDisplayName', empty($filterItem->name_label) ? $filterItem->name : $filterItem->name_label, $filterItem);
 
 			$addAttrs = $menuMode ? ' data-link="' . get_term_link($termId, 'product_cat') . '"' : '';
 

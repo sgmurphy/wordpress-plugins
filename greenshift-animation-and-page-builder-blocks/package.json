@@ -26,9 +26,8 @@
     "swiper": "^8.4.7"
   },
   "dependencies": {
-    "@dnd-kit/sortable": "^7.0.2",
     "@wordpress/icons": "^6.1.1",
-    "antd": "^5.8.5",
+    "antd": "^5.20.6",
     "bezier-editor": "^1.0.1",
     "colord": "^2.9.3",
     "convert-svg-react": "^1.0.0",

@@ -47,3 +47,24 @@
     background-color: #0071a1;
     border-color: #0071a1;
 }
+
+#accordion-section-theme_upsell {
+    display: block !important;
+    min-height: auto;
+}
+
+#accordion-section-theme_upsell h3 {
+    line-height: 2;
+}
+
+#accordion-section-theme_upsell h3 a.button {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+#accordion-section-theme_upsell h3 a.button:hover,
+#accordion-section-theme_upsell h3 a.button:focus,
+#accordion-section-theme_upsell h3 a.button:active {
+    background-color: #0071a1;
+    border-color: #0071a1;
+}

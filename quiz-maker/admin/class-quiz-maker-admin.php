@@ -1127,6 +1127,7 @@ class Quiz_Maker_Admin
         $quick_quiz_image_height                            = "";
         $quick_quiz_image_sizing                            = "cover";
         $quick_quiz_answers_font_size                       = 15;
+        $quick_quiz_answers_mobile_font_size                = 15;
 
         if($quiz_enable_options == 'on'){
             $quick_quiz_enable_randomize_questions = (isset( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) && $_REQUEST['ays_quick_quiz_enable_randomize_questions'] == "on") ? stripslashes( sanitize_text_field( $_REQUEST['ays_quick_quiz_enable_randomize_questions'] ) ) : "off";
@@ -1263,6 +1264,11 @@ class Quiz_Maker_Admin
 
             // Answer Font Size | On desktop
             $quick_quiz_answers_font_size = (isset($_REQUEST['ays_quick_quiz_answers_font_size']) && $_REQUEST['ays_quick_quiz_answers_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_answers_font_size'] ) ) : 15;
+
+            // Answer Font Size | On mobile
+            $quick_quiz_answers_mobile_font_size = (isset($_REQUEST['ays_quick_quiz_answers_mobile_font_size']) && $_REQUEST['ays_quick_quiz_answers_mobile_font_size'] != '') ? stripslashes( absint( $_REQUEST['ays_quick_quiz_answers_mobile_font_size'] ) ) : 15;
+
+            
         }
         
         foreach ($questions as $question_key => $question) {
@@ -1473,7 +1479,7 @@ class Quiz_Maker_Admin
             'enable_full_screen_mode'                       => 'off',
             'quiz_enable_password_visibility'               => 'off',
             'question_mobile_font_size'                     => $quick_quiz_question_mobile_font_size,
-            'answers_mobile_font_size'                      => 15,
+            'answers_mobile_font_size'                      => $quick_quiz_answers_mobile_font_size,
             'social_buttons_heading'                        => '',
             'quiz_enable_vkontakte_share_button'            => 'on',
             'answers_border'                                => 'on',

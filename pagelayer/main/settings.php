@@ -306,7 +306,7 @@ function pagelayer_settings_page(){
 		
 		if(isset($_POST['pagelayer_google_captcha'])){
 
-			$captcha = $_REQUEST['pagelayer_google_captcha'];
+			$captcha = sanitize_text_field($_REQUEST['pagelayer_google_captcha']);
 			
 			update_option( 'pagelayer_google_captcha', $captcha );
 		
@@ -316,7 +316,7 @@ function pagelayer_settings_page(){
 		
 		if(isset($_POST['pagelayer_google_captcha_secret'])){
 
-			$captcha_secret = $_REQUEST['pagelayer_google_captcha_secret'];
+			$captcha_secret = sanitize_text_field($_REQUEST['pagelayer_google_captcha_secret']);
 			
 			update_option( 'pagelayer_google_captcha_secret', $captcha_secret );
 		
@@ -336,7 +336,8 @@ function pagelayer_settings_page(){
 		
 		// Facebook APP ID
 		if(isset($_POST['pagelayer-fbapp-id'])){
-			$fb_app_id = $_REQUEST['pagelayer-fbapp-id'];
+			$fb_app_id = sanitize_text_field($_REQUEST['pagelayer-fbapp-id']);
+
 			
 			if(preg_match('/\W/is', $fb_app_id)){
 				$pl_error[] = 'The Facebook App ID is not correct';
@@ -651,7 +652,7 @@ function pagelayer_settings_page(){
 						<table>
 							<tr>
 								<th><?php _e('Address');?></th>
-								<td><textarea name="pagelayer-address"><?php echo pagelayer_get_option('pagelayer-address');?></textarea></td>
+								<td><textarea name="pagelayer-address"><?php echo esc_html(pagelayer_get_option('pagelayer-address'));?></textarea></td>
 							</tr>
 							<tr>
 								<th><?php _e('Phone Number');?></th>
@@ -732,7 +733,7 @@ function pagelayer_settings_page(){
 						<tr>
 							<th><?php _e('App ID');?></th>
 							<td><input type="text" name="pagelayer-fbapp-id" class="pagelayer-app-id" <?php if(get_option('pagelayer-fbapp-id')){
-									echo 'value="'.get_option('pagelayer-fbapp-id').'"';
+									echo 'value="'.esc_html(get_option('pagelayer-fbapp-id')).'"';
 								}?>/></td>
 						</tr>
 					</table>

@@ -1,10 +1,10 @@
 === Product Filter by WBW ===
-Contributors: WBW
+Contributors: woobewoo
 Donate link: https://woobewoo.com/product/woocommerce-filter/
 Tags: product filter, WooCommerce product filter, shop filter, e-commerce filter, WooCommerce filter
 Requires at least: 3.4.0
 Tested up to: 6.6
-Stable tag: 2.6.9
+Stable tag: 2.7.0
  
 Filter products by categories, attributes, prices, and more. Elementor Compatibility. Shoppers easily find products with WooCommerce Product Filter
 
@@ -147,6 +147,13 @@ You may help us translate the plugin into your language and get the PRO version 
 
 == Changelog ==
 
+= 2.7.0 =
+ * Added compatibility for Woo Product Grid by Essential Addons
+ * Added limit for buttons filter
+ * Fixed compatibility with theme Sydney
+ * Added hook for item display name
+ * Added option in Search Number filter
+ 
 = 2.6.9 =
  * Added compatibility with Beaver Builder block Posts
  * Added compatibility for ACF-attributes type Number

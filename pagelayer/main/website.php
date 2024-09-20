@@ -110,22 +110,22 @@ function pagelayer_website_settings(){
 	
 		// Content Width
 		if(isset($_REQUEST['pagelayer_content_width'])){
-			update_option( 'pagelayer_content_width', $_REQUEST['pagelayer_content_width'] );
+			update_option( 'pagelayer_content_width', absint($_REQUEST['pagelayer_content_width']));
 		}
 
 		// Tablet breakpoint 
-		if(isset($_REQUEST['pagelayer_tablet_breakpoint'])){			
-			update_option( 'pagelayer_tablet_breakpoint', $_REQUEST['pagelayer_tablet_breakpoint'] );			
+		if(isset($_REQUEST['pagelayer_tablet_breakpoint'])){	
+			update_option( 'pagelayer_tablet_breakpoint', absint($_REQUEST['pagelayer_tablet_breakpoint']));			
 		}
 
 		// Mobile breakpoint 
 		if(isset($_REQUEST['pagelayer_mobile_breakpoint'])){
-			update_option( 'pagelayer_mobile_breakpoint', $_REQUEST['pagelayer_mobile_breakpoint'] );
+			update_option( 'pagelayer_mobile_breakpoint', absint($_REQUEST['pagelayer_mobile_breakpoint']));
 		}
 		
 		// Widget Space
 		if(isset($_REQUEST['pagelayer_between_widgets'])){
-			update_option( 'pagelayer_between_widgets', $_REQUEST['pagelayer_between_widgets'] );
+			update_option( 'pagelayer_between_widgets', absint($_REQUEST['pagelayer_between_widgets']));
 		}
 		
 		if(defined('PAGELAYER_PREMIUM')){
@@ -272,7 +272,7 @@ function pagelayer_website_settings_T(){
 					<th><?php echo __('Content Width') ?></th>
 					<td>
 						<input name="pagelayer_content_width" type="number" step="1" min="320" max="5000" placeholder="1170" <?php if(get_option('pagelayer_content_width')){
-							echo 'value="'.get_option('pagelayer_content_width').'"';
+							echo 'value="'.absint(get_option('pagelayer_content_width')).'"';
 						}?>>
 						<p><?php echo __('Set the custom width of the content area. The default width set is 1170px.') ?></p>
 					</td>
@@ -281,7 +281,7 @@ function pagelayer_website_settings_T(){
 					<th><?php echo __('Tablet Breakpoint') ?></th>
 					<td>
 						<input name="pagelayer_tablet_breakpoint" type="number" step="1" min="320" max="5000" placeholder="780" <?php if(get_option('pagelayer_tablet_breakpoint')){
-							echo 'value="'.get_option('pagelayer_tablet_breakpoint').'"';
+							echo 'value="'.absint(get_option('pagelayer_tablet_breakpoint')).'"';
 						}?>>
 						<p><?php echo __('Set the breakpoint for tablet devices. The default breakpoint for tablet layout is 768px.') ?></p>
 					</td>
@@ -290,7 +290,7 @@ function pagelayer_website_settings_T(){
 					<th><?php echo __('Mobile Breakpoint') ?></th>
 					<td>
 						<input name="pagelayer_mobile_breakpoint" type="number" step="1" min="320" max="5000" placeholder="360" <?php if(get_option('pagelayer_mobile_breakpoint')){
-							echo 'value="'.get_option('pagelayer_mobile_breakpoint').'"';
+							echo 'value="'.absint(get_option('pagelayer_mobile_breakpoint')).'"';
 						}?>>
 						<p><?php echo __('Set the breakpoint for mobile devices. The default breakpoint for mobile layout is 360px.') ?></p>
 					</td>
@@ -299,7 +299,7 @@ function pagelayer_website_settings_T(){
 					<th><?php echo __('Space Between Widgets') ?></th>
 					<td>
 						<input name="pagelayer_between_widgets" type="number" step="1" min="0" max="500" placeholder="15" <?php if(get_option('pagelayer_between_widgets')){
-							echo 'value="'.get_option('pagelayer_between_widgets').'"';
+							echo 'value="'.absint(get_option('pagelayer_between_widgets')).'"';
 						}?>>
 						<p><?php echo __('Set the Space Between Widgets. The default Space set is 15px.') ?></p>
 					</td>

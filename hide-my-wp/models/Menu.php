@@ -65,6 +65,22 @@ class HMWP_Models_Menu
                 'parent' => 'hmwp_settings',
                 'function' => array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Settings'), 'init'),
             ),
+            'hmwp_templogin' => array(
+                'name' => esc_html__("Temporary Login", 'hide-my-wp'),
+                'title' => esc_html__("Temporary Login", 'hide-my-wp'),
+                'capability' => 'hmwp_manage_settings',
+                'parent' => 'hmwp_settings',
+                'show' => HMWP_Classes_Tools::getOption('hmwp_templogin'),
+                'function' => array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Settings'), 'init'),
+            ),
+            'hmwp_twofactor' => array(
+                'name' => esc_html__("2FA Login", 'hide-my-wp'),
+                'title' => esc_html__("Two-factor authentication", 'hide-my-wp'),
+                'capability' => 'hmwp_manage_settings',
+                'parent' => 'hmwp_settings',
+                'show' => HMWP_Classes_Tools::getOption('hmwp_2falogin'),
+                'function' => array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Settings'), 'init'),
+            ),
             'hmwp_log' => array(
                 'name' => esc_html__("Events Log", 'hide-my-wp'),
                 'title' => esc_html__("Events Log", 'hide-my-wp'),
@@ -101,6 +117,12 @@ class HMWP_Models_Menu
                 'function' => array(HMWP_Classes_ObjController::getClass('HMWP_Controllers_Plugins'), 'init'),
             ),
         );
+
+        // If advanced pack is installed
+        if ( HMWP_Classes_Tools::isAdvancedpackInstalled() && class_exists('HMWPP_Classes_ObjController')) {
+            $menu['hmwp_templogin']['function'] = array( HMWPP_Classes_ObjController::getClass( 'HMWPP_Controllers_Settings' ), 'init' );
+            $menu['hmwp_twofactor']['function'] = array( HMWPP_Classes_ObjController::getClass( 'HMWPP_Controllers_Settings' ), 'init' );
+        }
 
         //Remove the menu when the feature in hidden by the user
         foreach ($menu as $key => $value){

@@ -598,17 +598,17 @@ class Iubenda_Settings {
 			'iub_dashboard_compliance_nonce'      => wp_create_nonce( 'iub_dashboard_compliance_nonce' ),
 		);
 
-		wp_enqueue_script( 'iubenda-radar', IUBENDA_PLUGIN_URL . '/assets/js/radar.js', array( 'jquery' ), iubenda()->version, true );
-		wp_localize_script( 'iubenda-radar', 'iubMainVars', $iub_main_js_params );
-
 		if ( ! in_array( (string) $page, array( 'toplevel_page_iubenda', 'settings_page_iubenda' ), true ) ) {
 			wp_enqueue_style( 'iubenda-admin', IUBENDA_PLUGIN_URL . '/assets/css/admin.css', array(), iubenda()->version );
 			return;
 		}
 		wp_enqueue_style( 'iubenda-admin', IUBENDA_PLUGIN_URL . '/assets/css/style.css', array(), iubenda()->version );
 		wp_enqueue_script( 'iubenda-admin', IUBENDA_PLUGIN_URL . '/assets/js/admin.js', array( 'jquery' ), iubenda()->version, true );
-
 		wp_localize_script( 'iubenda-admin', 'iubMainVars', $iub_main_js_params );
+
+		wp_enqueue_script( 'iubenda-radar', IUBENDA_PLUGIN_URL . '/assets/js/radar.js', array( 'jquery' ), iubenda()->version, true );
+		wp_localize_script( 'iubenda-radar', 'iubMainVars', $iub_main_js_params );
+
 		wp_enqueue_script( 'iubenda-admin-tabs', IUBENDA_PLUGIN_URL . '/assets/js/tabs.js', array( 'jquery' ), iubenda()->version, true );
 	}
 
