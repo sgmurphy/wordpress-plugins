@@ -106,6 +106,8 @@ class Easy_Accordion_Free_Shortcode {
 		$eap_accordion_mode        = isset( $shortcode_data['eap_accordion_mode'] ) ? $shortcode_data['eap_accordion_mode'] : '';
 		$eap_mutliple_collapse     = isset( $shortcode_data['eap_mutliple_collapse'] ) ? $shortcode_data['eap_mutliple_collapse'] : '';
 		$eap_accordion_fillspace   = isset( $shortcode_data['eap_accordion_fillspace'] ) ? $shortcode_data['eap_accordion_fillspace'] : '';
+		$eap_nofollow_link         = isset( $shortcode_data['eap_nofollow_link'] ) ? $shortcode_data['eap_nofollow_link'] : false;
+		$nofollow_link_text        = $eap_nofollow_link ? 'rel=nofollow' : '';
 		$eap_scroll_to_active_item = isset( $shortcode_data['eap_scroll_to_active_item'] ) ? $shortcode_data['eap_scroll_to_active_item'] : false;
 		$eap_offset_to_scroll      = apply_filters( 'eap_offset_to_scroll', 0 );
 

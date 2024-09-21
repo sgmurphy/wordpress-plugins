@@ -2,8 +2,8 @@
 Contributors: CopyDeletePosts, copydelete
 Tags: Duplicate post, Copy posts, Copy pages, Duplicate posts, Duplicate pages
 Requires at least: 4.6
-Tested up to: 6.6.1
-Stable tag: 1.4.8
+Tested up to: 6.6.2
+Stable tag: 1.4.9
 License: GPLv3
 Requires PHP: 5.6
 
@@ -177,7 +177,9 @@ Vietnamese: [Sao chép bài đăng, sao chép trang, sao chép bài đăng tùy 
 
 == Changelog ==
 
-== Changelog ==
+= 1.4.9 =
+* Removed optimization logs for users to prevent performance optimizations of the plugin in future
+* [PRO] Improved cross-site duplication of posts
 
 = 1.4.8 =
 * Replace the super admin check with a verification of CDP permission for the current user.
@@ -299,7 +301,7 @@ Vietnamese: [Sao chép bài đăng, sao chép trang, sao chép bài đăng tùy 
 [AND MORE]
 
 == Upgrade Notice ==
-= 1.4.8 =
-What's new in 1.4.8?
-* Replace the super admin check with a verification of CDP permission for the current user.
-* Implement a check to ensure the current user has appropriate access rights to the target site before allowing cross-site post copying. This prevents unauthorized users from copying posts to sites they don't have access to.
+= 1.4.9 =
+What's new in 1.4.9?
+* Removed optimization logs for users to prevent performance optimizations of the plugin in future
+* [PRO] Improved cross-site duplication of posts

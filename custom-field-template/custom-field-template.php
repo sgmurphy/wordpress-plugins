@@ -5,7 +5,7 @@ Plugin URI: https://wpgogo.com/development/custom-field-template.html
 Description: This plugin adds the default custom fields on the Write Post/Page.
 Author: Hiroaki Miyashita
 Author URI: https://wpgogo.com/
-Version: 2.6.6
+Version: 2.6.7
 Text Domain: custom-field-template
 Domain Path: /
 */
@@ -1460,7 +1460,7 @@ margin-bottom:0pt;
 </td>
 </tr>
 <tr><td>
-<p><label for="custom_field_template_output_protected_meta"><?php _e('In case that you would like to output the protected meta in the cft shortcode.', 'custom-field-template'); ?>:<br />
+<p><label for="custom_field_template_output_protected_meta"><?php _e('In case that you would like to output the protected meta in the cft shortcode', 'custom-field-template'); ?>:<br />
 <input type="checkbox" name="custom_field_template_output_protected_meta" id="custom_field_template_output_protected_meta" value="1" <?php if ( !empty($options['custom_field_template_output_protected_meta']) ) { echo 'checked="checked"'; } ?> /> <?php _e('Output the protected meta', 'custom-field-template'); ?></label></p>
 </td>
 </tr>
@@ -3738,7 +3738,7 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 						$val = wp_get_attachment_image($val, $image_size);
 					endif;
 				endif;
-				if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'administrator' ) ) $val = wp_kses_post( $val );
+				if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'unfiltered_html' ) ) $val = wp_kses_post( $val );
 				$output .= (isset($before_value) ? wp_kses_post( $before_value ) : '') . $val . (isset($after_value) ? wp_kses_post( $after_value ) : '') . "\n";
 			endforeach;
 			if ( $after_list ) : $output .= wp_kses_post( $after_list ) . "\n"; endif;
@@ -3772,7 +3772,7 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 										eval(stripcslashes($options['php'][$val['outputCode']]));
 									endif;
 									if ( isset($val['shortCode']) && $val['shortCode'] == true ) $value = do_shortcode($value);
-									if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'administrator' ) ) $value = wp_kses_post( $value );
+									if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'unfiltered_html' ) ) $value = wp_kses_post( $value );
 									$replace_val .= wp_kses_post( $before_value ) . $value . wp_kses_post( $after_value ) . "\n";
 								endforeach;
 								if ( $after_list ) : $replace_val .= wp_kses_post( $after_list ) . "\n"; endif;
@@ -3785,7 +3785,7 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 								$replace_val = $value;
 								if ( isset($val['singleList']) && $val['singleList'] == true ) :
 									if ( $before_list ) : $replace_val = wp_kses_post( $before_list ) . "\n"; endif;
-									if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'administrator' ) ) $value = wp_kses_post( $value );
+									if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'unfiltered_html' ) ) $value = wp_kses_post( $value );
 									$replace_val .= wp_kses_post( $before_value ) . $value . wp_kses_post( $after_value ) . "\n";
 									if ( $after_list ) : $replace_val .= wp_kses_post( $after_list ) . "\n"; endif;
 								endif;
@@ -3834,7 +3834,7 @@ jQuery("#edButtonPreview").trigger("click"); }' . "\n";*/
 								else $key_val = $key;
 								if ( isset($val['hideKey']) && $val['hideKey'] != true && $num == 0 )
 									$output .= '<dt>' . $key_val . '</dt>' . "\n";
-								if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'administrator' ) ) $value = wp_kses_post( $value );
+								if ( empty( $options['custom_field_template_output_direct_meta'] ) || ! user_can( $post->post_author, 'unfiltered_html' ) ) $value = wp_kses_post( $value );
 								$output .= '<dd>' . $value . '</dd>' . "\n";
 							endforeach;
 						endif;

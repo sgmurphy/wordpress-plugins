@@ -51,14 +51,14 @@ if ( $acc_section_title ) {
 	$ea_dynamic_css .= '.sp-easy-accordion-enabled .eap_section_title_' . $accordion_id . ', body .eap_section_title_' . $accordion_id . ' { color: ' . $section_title_typho_color . '; margin-bottom:  ' . $acc_section_title_margin_bottom . 'px; }';
 }
 if ( 'vertical' === $accordion_layout ) {
-	$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single {margin-bottom: ' . $acc_bottom_margin . 'px; border: ' . $eap_border_width . 'px ' . $eap_border_style . ' ' . $eap_border_color . '; }#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header button {color: ' . $eap_title_typho_color . ';}#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.sp-collapse>.ea-body {background: ' . $eap_description_bg . '; color: ' . $eap_content_typo_color . ';}';
+	$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single {margin-bottom: ' . $acc_bottom_margin . 'px; border: ' . $eap_border_width . 'px ' . $eap_border_style . ' ' . $eap_border_color . '; }#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header a {color: ' . $eap_title_typho_color . ';}#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.sp-collapse>.ea-body {background: ' . $eap_description_bg . '; color: ' . $eap_content_typo_color . ';}';
 	if ( $eap_accordion_fillspace ) {
 		$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.sp-collapse>.ea-body {display: block;height: ' . $eap_accordion_fillspace_height . 'px; overflow: auto;}';
 	}
 	if ( 'sp-ea-one' === $accordion_theme_class ) {
-		$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header button {background: ' . $eap_header_bg . ';}#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header button .ea-expand-icon { float: ' . $eap_ex_icon_position . '; color: ' . $eap_icon_color . ';font-size: ' . $eap_icon_size . 'px;}';
+		$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single {background: ' . $eap_header_bg . ';}#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header a .ea-expand-icon { float: ' . $eap_ex_icon_position . '; color: ' . $eap_icon_color . ';font-size: ' . $eap_icon_size . 'px;}';
 		if ( 'right' === $eap_ex_icon_position ) {
-			$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header button .ea-expand-icon {margin-right: 0;}';
+			$ea_dynamic_css .= '#sp-ea-' . $accordion_id . '.sp-easy-accordion>.sp-ea-single>.ea-header a .ea-expand-icon {margin-right: 0;}';
 		}
 	}
 }

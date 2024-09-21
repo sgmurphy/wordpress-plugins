@@ -51,8 +51,8 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
         }
 
         // Adding actions for handling Wordfence scan
-        add_action( 'wf_scan_monitor', array( $this, 'witelistWordfence' ) );
-        add_action( 'wordfence_start_scheduled_scan', array( $this, 'witelistWordfence' ) );
+        add_action( 'wf_scan_monitor', array( $this, 'whitelistWordfence' ) );
+        add_action( 'wordfence_start_scheduled_scan', array( $this, 'whitelistWordfence' ) );
 
     }
 
@@ -137,7 +137,7 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
             if('wordfence_scan' == HMWP_Classes_Tools::getValue( 'action' )){
 
                 // Whitelist Wordfence and disable hiding URLs
-                $this->witelistWordfence();
+                $this->whitelistWordfence();
                 $status = false;
             }
 
@@ -159,7 +159,7 @@ class HMWP_Models_Compatibility_Wordfence extends HMWP_Models_Compatibility_Abst
      *
      * @return void
      */
-    public function witelistWordfence() {
+    public function whitelistWordfence() {
         set_transient( 'hmwp_disable_hide_urls', 1, 3600 );
     }
 

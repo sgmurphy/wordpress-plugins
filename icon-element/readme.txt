@@ -2,7 +2,7 @@
 Tags: icon,elementor,icon-font,iconfont,elementor icon 
 Requires at least: 4.0
 Contributors: Webangon
-Tested up to: 6.4
+Tested up to: 6.6
 Requires PHP: 5.4
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0

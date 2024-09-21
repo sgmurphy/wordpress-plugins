@@ -26,6 +26,12 @@ $userSavedRoles = get_option('sgpb-user-roles');
 if( isset( $_GET['hide_warning'] ) && $_GET['hide_warning'] == true )
 {
 	update_option('sgpb-hide_disable-custom-js-warning', 1);
+	echo '<style>.notice_sgpb.sgpb_dsiable_notice{ display: none !important;}</style>';
+}
+if( isset( $_GET['hide_injection'] ) && $_GET['hide_injection'] == true )
+{
+	update_option('sgpb-hide_disable-injection-warning', 1);
+	echo '<style>.notice_sgpb.sgpb_injecttion_notice{ display: none !important;}</style>';
 }
 ?>
 

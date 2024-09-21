@@ -190,7 +190,8 @@ class ScriptsLoader
 							</div>
 						  </div>';
 					$footerPopupContent .= $extraContent;
-					echo wp_kses($footerPopupContent, AdminHelper::allowed_html_tags()); 					
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+					echo $footerPopupContent;				
 				});
 			}
 		}
@@ -224,7 +225,8 @@ class ScriptsLoader
 							</div>
 						  </div>';
 
-				echo wp_kses($footerPopupContent, AdminHelper::allowed_html_tags());
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+				echo $footerPopupContent;	
 			});
 		}
 		$this->includeScripts();

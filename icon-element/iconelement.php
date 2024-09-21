@@ -3,7 +3,7 @@
  * Plugin Name: Icon Element
  * Plugin URI:  https://webangon.com/icon-element/
  * Description: Various icon font for Elementor page builder
- * Version:     2.0.5
+ * Version:     2.0.6
  * Author:      Webangon
  * Author URI:  http://webangon.com/
  * Text Domain: iconelement

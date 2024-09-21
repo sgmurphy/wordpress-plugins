@@ -2506,23 +2506,28 @@ class AdminHelper
 	}
 	public static function renderAlertCustomJsProblem( $scan_spam_code )
 	{		
-		if( self::getOption('sgpb-disable-custom-js') )
+		if( !self::getOption( 'sgpb-hide_disable-injection-warning') )
 		{
-			$sgpb_message = '<div class="notice_sgpb notice notice-warning is-dismissible">
-				<h4>From Popup Builder Team </h4>
-				<p>Important! We`ve scanned your CUSTOM JS code on your Popup setting and found some snippets that are insecure and may compromise the security of your site.</p>
-				<p>Please check <a href="'. esc_url( $scan_spam_code ).'">HERE</a> for the code you added in the CUSTOM JS section on each popup again and remove those snippets.</p>
-				</div>';			
+			if( self::getOption('sgpb-disable-custom-js') )
+			{
+				$sgpb_message = '<div class="notice_sgpb notice notice-warning is-dismissible sgpb_injecttion_notice">
+					<h4>From Popup Builder Team </h4>
+					<p>Important! We`ve scanned your CUSTOM JS code on your Popup setting and found some snippets that are insecure and may compromise the security of your site.</p>
+					<p class="sgpb">Please check <a class="sgpb-btn sgpb-btn-blue" style="padding: 4px 10px;" href="'. esc_url( $scan_spam_code ).'">HERE</a> for the code you added in the CUSTOM JS section on each popup again and remove those snippets.</p>
+					<p class="sgpb">Or you can <a class="sgpb-btn sgpb-btn-gray-light" style="padding: 4px 10px;" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings&hide_injection=true' ) ).'">HIDE</a> this warning if you believe your CUSTOM JS code is secure.</p>
+					<p></p></div>';			
+			}
+			else
+			{
+				$sgpb_message = '<div class="notice_sgpb notice notice-error is-dismissible sgpb_injecttion_notice">
+					<h4>From Popup Builder Team </h4>
+					<p>Important! We`ve scanned your CUSTOM JS code on your Popup setting and found some snippets that are insecure and may compromise the security of your site.</p>
+					<p class="sgpb">Please click <a class="sgpb-btn sgpb-btn-blue" style="padding: 4px 10px;" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings' ) ).'">HERE</a> to disable this function and check the code you added in the CUSTOM JS section on each popup.</p>
+					<p class="sgpb">Or you can <a class="sgpb-btn sgpb-btn-danger" style="padding: 4px 10px;" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings&hide_injection=true' ) ).'">HIDE</a> this ERROR notice if you believe your CUSTOM JS code is secure.</p>
+					<p></p></div>';
+			}		
+			return $sgpb_message;
 		}
-		else
-		{
-			$sgpb_message = '<div class="notice_sgpb notice notice-error is-dismissible">
-				<h4>From Popup Builder Team </h4>
-				<p>Important! We`ve scanned your CUSTOM JS code on your Popup setting and found some snippets that are insecure and may compromise the security of your site.</p>
-				<p>Please click <a href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings' ) ).'">HERE</a> to disable this function and check the code you added in the CUSTOM JS section on each popup.</p>
-				</div>';
-		}		
-		return $sgpb_message;
 	}
 	public static function renderAlertEnableCustomJS( )
 	{
@@ -2531,11 +2536,12 @@ class AdminHelper
 		{
 			if( !self::getOption( 'sgpb-hide_disable-custom-js-warning') )
 			{
-				$sgpb_message = '<div class="notice_sgpb notice notice-info is-dismissible">
+				$sgpb_message = '<div class="notice_sgpb notice notice-info is-dismissible sgpb_dsiable_notice">
 				<h4>From Popup Builder Team </h4>
 				<p>You are disabling the CUSTOM JS feature for all your Popups. </p>
 				<p></p>
-				<p class="sgpb ">Please go <a class="" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings' ) ).'">HERE</a> to enable it again. Or you can <a class="sgpb-btn sgpb-btn-blue" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings&hide_warning=true' ) ).'">HIDE</a> this warning.</p>
+				<p class="sgpb">Please go <a class="sgpb-btn sgpb-btn-blue" style="padding: 4px 10px;" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings' ) ).'">HERE</a> to enable it again. 
+				Or you can <a class="sgpb-btn sgpb-btn-blue" style="padding: 4px 10px;" href="'. esc_url( admin_url( 'edit.php?post_type=popupbuilder&page=sgpbSettings&hide_warning=true' ) ).'">HIDE</a> this warning.</p>
 				<p></p>
 				</div>';
 			}		

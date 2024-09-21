@@ -1627,7 +1627,7 @@ class Ibtana_Visual_Editor_Menu_Class
 		wp_enqueue_style('ive-admin-menu');
 
 
-		if ('ibtana-settings_page_ibtana-visual-editor-addons' == $hook || $hook == 'toplevel_page_ibtana-visual-editor-dashboard' ) {
+		if ('ibtana-settings_page_ibtana-visual-editor-addons' == $hook || $hook == 'toplevel_page_ibtana-visual-editor-templates' || $hook == 'toplevel_page_ibtana-visual-editor-woocommerce-templates' ) {
 			wp_register_script(
 				'ive-ibtana-addons-script',
 				IBTANA_PLUGIN_URI . 'dist/js/addons.js',
@@ -1647,7 +1647,7 @@ class Ibtana_Visual_Editor_Menu_Class
 		}
 
 
-		if ( $hook == 'toplevel_page_ibtana-visual-editor-dashboard' ) {
+		if ( $hook == 'toplevel_page_ibtana-visual-editor-templates' || $hook == 'toplevel_page_ibtana-visual-editor-woocommerce-templates' ) {
 			wp_register_style(
 				'ive-admin-bootstrap-css',
 				plugin_dir_url(__FILE__) . 'dist/css/bootstrap/css/bootstrap.min.css',
@@ -1833,7 +1833,7 @@ class Ibtana_Visual_Editor_Menu_Creator extends Ibtana_Visual_Editor_Menu_Class
 	{
 		$screen = get_current_screen();
 
-		if ( $screen->id === 'toplevel_page_ibtana-visual-editor-dashboard' ) {
+		if ( $screen->id === 'toplevel_page_ibtana-visual-editor-templates' || $screen->id == 'toplevel_page_ibtana-visual-editor-woocommerce-templates' ) {
 			echo '<style>.notice { display: none !important; }</style>';
 		}
 	?>
@@ -2473,7 +2473,7 @@ $ibtana_visual_editor_settings = array(
 	'page_title'			=>	'Ibtana',
 	'menu_title'			=>	'Ibtana',
 	'capability'			=>	'edit_theme_options',
-	'menu_slug'				=>	'ibtana-visual-editor-dashboard',
+	'menu_slug'				=>	'ibtana-visual-editor-templates',
 	'icon_url'				=>	apply_filters(
 		'ive:dashboard:icon-url',
 		IBTANA_PLUGIN_URI . 'dist/images/ibtana-setting-icon.svg'
@@ -2483,3 +2483,18 @@ $ibtana_visual_editor_settings = array(
 	'priority' 				=>	7,
 );
 new Ibtana_Visual_Editor_Menu_Creator($ibtana_visual_editor_settings);
+
+$ibtana_hidden_menu_settings = array(
+    'page_type'      => 'menu_page',
+    'page_title'     => 'Hidden Ibtana',
+    'menu_title'     => '',
+    'capability'     => 'edit_theme_options',
+    'menu_slug'      => 'ibtana-visual-editor-woocommerce-templates',
+    'page_functions' => 'ibtana_visual_editor_dashboard_page',
+    'position'       => 31
+);
+new Ibtana_Visual_Editor_Menu_Creator($ibtana_hidden_menu_settings);
+
+add_action('admin_menu', function() {
+    remove_menu_page('ibtana-visual-editor-woocommerce-templates');
+}, 999);

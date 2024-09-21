@@ -8,17 +8,26 @@ Stable tag: 5.3.00
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Hide WP paths, wp-login, wp-admin and more. Security against Brute Force attacks, SQL/Script Injections. 7G & 8G firewalls against most bot attacks.
+Hide WP paths, wp-login, wp-admin and more. Hack Prevention, Brute Force protection, 8G firewall, 2FA Login, and more.
 
 == Description ==
 
 Level up your WordPress security with Hide My WP Ghost plugin!
 
-**Hide My WP Ghost** is a **Hack Prevention** WordPress Security Plugin. With powerful, easy-to-use features, it boosts your site's security without altering any directories or files.
+**Hide My WP Ghost** is a **Hack Prevention WordPress Security Plugin**. With powerful, easy-to-use features, it boosts your site's security without altering any directories or files.
 
-Join #1over 100,000 secured websites#1 with Hide My WP Ghost. The plugin has #1blocked over 9 million brute force attempts#1 and #1stopped over 140,000 monthly hacks#1.
+Join **over 100,000 secured websites** with Hide My WP Ghost. The plugin has **blocked over 9 million brute force attempts** and **stopped over 140,000 monthly hacks**.
 
-Key features include powerful protection against Scripts and SQL Injections, Brute Force attacks, XML-RPC attacks, Cross Site Scripting (XSS), File Inclusion, Malware injection,  and more.
+Key features include powerful protection against:
+>  - Brute Force Attacks
+>  - SQL Injection Attacks
+>  - Script Injection Attacks
+>  - XML-RPC attacks
+>  - File Inclusion
+>  - Malware injection
+>  - Cross-Site Scripting (XSS)
+>  - Throttling of Access Attempts to Entry Points
+>  - and more
 
 Hide My WP Ghost changes and hides WP common paths, admin & login paths, plugin paths, and theme paths, protecting your site from hacker bots.
 
@@ -214,20 +223,22 @@ Hide My WP Ghost is packed with over 45 security features:
 > *   Recommended by Wp Rocket
 > *   Recommended by WPML
 >
-> <strong>See All FREE Security Features (over 40):</strong>
+> <strong>See All FREE Security Features:</strong>
 > <a href="https://hidemywp.co/security-features/">Hide My WP Free Features</a>
 
 
-> <strong>See All Premium Security Features (over 70):</strong>
-> * All the Hide My WP Ghost Free Features
-> * Hide WordPress Common Paths by Extension
-> * Hide WordPress Files like wp-config.php, wp-config-sample.php, wp-load.php, wp-settings.php, wp-blog-header.php, readme.html, readme.txt, install.php, license.txt, php.ini, hidemywp.conf, bb-config.php, error_log, debug.log
-> * Cloud Events Monitoring
-> * Cloud Brute Force Monitoring
-> * Geo Security
-> * Country Blocking
-> * Security Fix
-> * and more
+> <strong>Premium Security Features (over 70):</strong>
+>
+> *   Hide WordPress Common Paths by Extension
+> *   Hide WordPress Files like wp-config.php, wp-config-sample.php, wp-load.php, wp-settings.php, wp-blog-header.php, readme.html, readme.txt, install.php, license.txt, php.ini, hidemywp.conf, bb-config.php, error_log, debug.log
+> *   Events/Actions Monitoring (Cloud Backup)
+> *   Brute Force Monitoring (Cloud Backup)
+> *   Geo Security
+> *   Country Blocking
+> *   Files Permission Fix
+> *   Database Prefix Fix
+> *   SALT keys Fix
+> *   and more
 > <a href="https://hidemywpghost.com/hide-my-wp-ghost-security-features/">Hide My WP Premium Feature</a>
 
 Compatible with: <strong>WP Multisite, Apache, Litespeed, Nginx and IIS</strong>.

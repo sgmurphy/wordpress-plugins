@@ -14,8 +14,8 @@
     padding: 0;
 }
 
-.sp-easy-accordion .ea-header button:focus,
-.sp-easy-accordion .ea-header button {
+.sp-easy-accordion a:focus,
+.sp-easy-accordion a {
     box-shadow: none;
     outline: none;
 }
@@ -32,7 +32,7 @@
     margin-bottom: 0
 }
 
-.sp-easy-accordion .sp-ea-single .ea-header button {
+.sp-easy-accordion .sp-ea-single .ea-header a {
     display: block;
     text-decoration: none;
     cursor: pointer;
@@ -41,9 +41,6 @@
     font-size: 20px;
     line-height: 28px;
     box-shadow: none;
-    width: 100%;
-    text-align: initial;
-    border: none;
 }
 
 .sp-easy-accordion .ea-card {
@@ -51,7 +48,7 @@
     border-radius: 0;
 }
 
-.sp-easy-accordion .sp-ea-single .ea-header button .ea-expand-icon {
+.sp-easy-accordion .sp-ea-single .ea-header a .ea-expand-icon {
     color: #444;
     margin-right: 10px;
     text-align: center;
@@ -86,12 +83,12 @@
     overflow: hidden;
 }
 
-.sp-ea-one.sp-easy-accordion .sp-ea-single .ea-header button {
+.sp-ea-one.sp-easy-accordion .sp-ea-single .ea-header a {
     padding: 15px;
     color: #444;
 }
 
-.sp-ea-one.sp-easy-accordion .sp-ea-single .ea-header button .ea-expand-icon {
+.sp-ea-one.sp-easy-accordion .sp-ea-single .ea-header a .ea-expand-icon {
     color: #444;
     font-size: 20px;
 }

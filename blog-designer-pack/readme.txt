@@ -1,14 +1,14 @@
-﻿=== News & Blog Designer Pack – WordPress Blog Plugin -- (Blog Post Grid, Blog Post Slider, Blog Post Carousel, Blog Post Ticker, Blog Post Masonry) ===
+﻿=== Blog Post Grid, Blog Post Slider, Blog Post Carousel, Blog Post Ticker, Blog Post Masonry, Category Post Grid By News & Blog Designer Pack ===
 Contributors: infornweb, pluginandplay
 Tags: blog, news, post grid, post slider, post carousel
 Requires at least: 4.7
 Requires PHP: 5.4
-Tested up to: 6.6.1
+Tested up to: 6.6.2
 Stable tag: 3.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Create News, Magazine or Blog with post grid, slider, carousel, list, masonry, ticker, grid box, timeline, recent posts, popular or featured post etc.
+Create News, Magazine or Blog with post grid, slider, carousel, list, masonry, ticker, grid box, timeline, recent posts, category post, featured post.
 
 == Description ==
 
@@ -298,21 +298,26 @@ If you find News & Blog Designer Pack – WordPress Blog Plugin plugin useful, p
 
 == Frequently Asked Questions ==
 
-= Why My Blog Page is not changed OR Blog Page Design is same like Theme Design? =
+= How to Use Post Grid, Post Slider, Post Carousel, Partial Slide, Post Timeline, Post Grid box and Post Grid box Slider etc. =
+
+Go to Blog Designer Pack > Shortcode Generator and select the layout from right side and parameter from left side.
+Note -  Some layouts and parameters are available in the pro version only.
+
+= Why My Post Page, Blog Page is not changed OR Blog Page, Post Page design is same like theme design? =
 
 Blog page content is handled by WordPress it self.
 
-To enable Blog Designer Pack plugin design on Blog page, you need to make sure that Blog page should not be selected on posts page of Reading settings. ( Settings > Reading)
+To enable Blog Designer Pack plugin design on post page or blog page, you need to make sure that blog page or post page should not be selected on posts page of reading settings. ( Settings > Reading)
 
 We recommend that please read the below sections for more details.
 
 **Blog page is already created**
 
-If "Blog" page is already created and assigned that page as a Posts page under WordPress Settings > Reading then please change that selection to default one ( " — Select — " ) from the drop down. Once you de-select this setting, open your "Blog" page in edit mode and add the plugin shortcode (Shortcodes are shown under Getting Started section of plugin menu)
+If "Blog" page is already created and assigned that page as a posts page under WordPress Settings > Reading then please change that selection to default one ( " — Select — " ) from the drop down. Once you de-select this setting, open your "Blog" page in edit mode and add the plugin shortcode (Shortcodes are shown under Getting Started section of plugin menu)
 
 **Blog page is not created**
 
-If Blog page is not created then go to Pages > Add New and create a blog page OR some other name as per your need and add the shortcode.
+If blog page is not created then go to Pages > Add New and create a blog page OR some other name as per your need and add the shortcode.
 
 = Where can I find complete shortcode parameters? =
 
@@ -322,9 +327,13 @@ Each shortcode parameters can be found on this page at plugin "Details" tab.
 
 If you need any help, you can ask it at Blog Designer Pack plugin [Support Forum](https://wordpress.org/support/plugin/blog-designer-pack/) page.
 
-= Can I create post sliders or post carousel with the help of Blog Designer Pack plugin? =
+= Can I create post slider or post carousel with the help of Blog Designer Pack plugin? =
 
 Yes, plugin have Slider and Carousel layout shortcode available with two built-in designs.
+
+= Can I create post ticker or blog ticker with the help of Blog Designer Pack plugin? =
+
+Yes, plugin option where you can create post ticker or blog ticker.
 
 = Does Blog Designer Pack plugin have pagination? =
 
@@ -334,9 +343,17 @@ Yes, Blog Designer Pack plugin have pagination feature. There are still four typ
 
 Custom Post type support only available with Blog Designer Pack PRO version.
 
-= Can I create category grid or slider with the help of Blog Designer Pack plugin? =
+= Can I create post grid, post slider or post list? =
+
+Yes, Blog Designer Pack plugin can help you to create following layouts - post filter by Categories, post grid, post slider and post slider with thumbnails, post carousel layout & partial slide, post list, post simple list and archive list, post timeline, post grid box and grid box slider, post and categories ticker, post masonry, featured and trending Post etc.
+
+= Can I create category grid or category slider with the help of Blog Designer Pack plugin? =
 
 Category grid or slider only available with Blog Designer Pack PRO version.
+
+= Is it working with older version of WordPress? = 
+
+Yes, It is a post grid and blog grid plugin it works great with WordPress version 5.x.x or more and WordPress latest version.
 
 = Will Blog Designer Pack plugin work with my theme? =
 

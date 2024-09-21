@@ -59,12 +59,12 @@ foreach ( $content_sources as $key => $content_source ) {
 		<!-- Start accordion header. -->
 		<h3 class="ea-header">
 			<!-- Add anchor tag for header. -->
-			<button type="button" class="collapsed" id="ea-header-<?php echo esc_attr( $post_id . $key ); ?>" data-sptoggle="spcollapse" data-sptarget="<?php echo esc_attr( $data_sptarget ); ?>" aria-controls="collapse<?php echo esc_attr( $post_id . $key ); ?>" aria-expanded="<?php echo esc_attr( $aria_expanded ); ?>" tabindex="0">
+			<a class="collapsed" id="ea-header-<?php echo esc_attr( $post_id . $key ); ?>" data-sptoggle="spcollapse" data-sptarget="<?php echo esc_attr( $data_sptarget ); ?>" aria-controls="collapse<?php echo esc_attr( $post_id . $key ); ?>" href="#" <?php echo esc_attr( $nofollow_link_text ); ?> aria-expanded="<?php echo esc_attr( $aria_expanded ); ?>" tabindex="0">
 			<?php
 			// Add icon and title.
 			echo wp_kses_post( $eap_icon_markup . $content_title );
 			?>
-			</button> <!-- Close anchor tag for header. -->
+			</a> <!-- Close anchor tag for header. -->
 		</h3>	<!-- Close header tag. -->
 		<!-- Start collapsible content div. -->
 		<div class="sp-collapse spcollapse <?php echo esc_attr( $a_open_first ); ?>" id="collapse<?php echo esc_attr( $post_id . $key ); ?>" <?php echo wp_kses_post( $eap_single_collapse ); ?> role="region" aria-labelledby="ea-header-<?php echo esc_attr( $post_id . $key ); ?>">  <!-- Content div. -->

@@ -2,9 +2,9 @@
 Contributors: VowelWeb
 Tags: website builder, gutenberg, One click demo Import, templates, page builder
 Requires at least: 5.2
-Tested up to: 6.6.1
+Tested up to: 6.6.2
 Requires PHP: 7.2
-Stable tag: 1.2.4.2
+Stable tag: 1.2.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -143,6 +143,9 @@ Add contact form to your page with reCaptcha.
 17. Carousel Block.
 
 == Changelog ==
+
+= 1.2.4.3 - 2024-21-09 =
+* **Fixes** - Minor Bug Fixes.
 
 = 1.2.4.2 - 2024-20-09 =
 * **Fixes** - Minor Bug Fixes.

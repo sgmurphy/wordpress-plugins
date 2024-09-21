@@ -472,7 +472,17 @@ class Ajax
 				}				
 			}
 		}
-
+		//Fix the vulnerable to Sensitive Information Exposure
+		// Get the attachment ID from the URL.
+		$csv_attachment_id = attachment_url_to_postid( $fileURL );
+		// Check if an attachment ID was found.
+		if ($csv_attachment_id) {
+			// Check if the attachment exists.
+			if (get_post_type($csv_attachment_id) === 'attachment') {
+				// Delete the attachment and the file.
+				wp_delete_attachment($csv_attachment_id, true);	
+			}
+		}
 		echo esc_html(SGPB_AJAX_STATUS_TRUE);
 		wp_die();
 	}

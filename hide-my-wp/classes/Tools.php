@@ -176,25 +176,9 @@ class HMWP_Classes_Tools
             'hmwp_hide_classes' => json_encode(array()),
             'trusted_ip_header' => '',
 
-            //Temporary Login
-            'hmwp_templogin' => 0,
-            'hmwp_templogin_role' => 'administrator',
-            'hmwp_templogin_redirect' => false,
-            'hmwp_templogin_delete_uninstal' => false,
-
             //Unique Login
             'hmwp_uniquelogin' => 0,
             'hmwp_uniquelogin_woocommerce' => 0,
-
-            //2FA Login
-            'hmwp_2falogin' => 0,
-            'hmwp_2falogin_status' => 1,
-            'hmwp_2fa_totp' => 1,
-            'hmwp_2fa_email' => 0,
-            'hmwp_2falogin_max_attempts' => 5,
-            'hmwp_2falogin_max_timeout' => 900,
-            'hmwp_2falogin_message' => '',
-            'hmwp_2falogin_fail_message' => '',
 
             //Math reCaptcha
             'brute_use_math' => 1,
@@ -685,6 +669,20 @@ class HMWP_Classes_Tools
     public static function isAjax()
     {
         if (defined('DOING_AJAX') && DOING_AJAX ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if it's Cron call
+     *
+     * @return bool
+     */
+    public static function isCron()
+    {
+        if (defined('DOING_CRON') && DOING_CRON ) {
             return true;
         }
 

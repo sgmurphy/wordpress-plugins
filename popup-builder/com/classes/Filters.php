@@ -335,7 +335,7 @@ class Filters
 		if ($hasInactiveExtensions && $inactive == 'inactive') {
 			$licenseSectionUrl = menu_page_url(SGPB_POPUP_LICENSE, false);
 			/* translators: license Section Url. */
-			$partOfContent = '<br><br>'.printf( wp_kses_post(__('<a href="%s">Follow the link</a> to finalize the activation.', 'popup-builder')) ,esc_url( $licenseSectionUrl ) );
+			$partOfContent = '<br><br><a href="'.esc_url($licenseSectionUrl).'">'.__('Follow the link', 'popup-builder').'</a> '.__('to finalize the activation.', 'popup-builder');
 			$message = '<b>'.__('Thank you for choosing our plugin!', 'popup-builder').'</b>';
 			$message .= '<br>';
 			$message .= '<br>';

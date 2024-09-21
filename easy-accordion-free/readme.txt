@@ -3,7 +3,7 @@ Contributors: shapedplugin, khalilu, rubel_miah, shamimmiashuhagh
 Tags: nested accordion, faq, expand collapse, horizontal accordion, product faq
 Requires at least: 4.7
 Tested up to: 6.6.2
-Stable tag: 2.3.8
+Stable tag: 2.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -262,6 +262,11 @@ Thank you!
 
 
 == Changelog ==
+
+= Version 2.3.9 - Sep 21, 2024 =
+* New: The Add rel="nofollow" to the Link option.
+* Improved: The accordion item header button tag was replaced by the anchor tag as it was before. 
+* Fix: The style issue found in the version 2.3.8
 
 = Version 2.3.8 - Sep 19, 2024 =
 * New: WooCommerce Product FAQ tab feature.

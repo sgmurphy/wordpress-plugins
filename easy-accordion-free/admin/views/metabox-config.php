@@ -347,6 +347,13 @@ SP_EAP::createSection(
 				'dependency'      => array( 'eap_accordion_fillspace', '==', 'true' ),
 			),
 			array(
+				'id'       => 'eap_nofollow_link',
+				'type'     => 'checkbox',
+				'title'    => __( 'Add rel="nofollow" to Link', 'easy-accordion-free' ),
+				'default'  => false,
+				'sanitize' => 'rest_sanitize_boolean',
+			),
+			array(
 				'id'         => 'eap_scroll_to_active_item',
 				'type'       => 'switcher',
 				'title'      => __( 'Scroll to Active Item', 'easy-accordion-free' ),
