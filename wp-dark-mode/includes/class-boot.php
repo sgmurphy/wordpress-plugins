@@ -118,6 +118,10 @@ if ( ! class_exists( __NAMESPACE__ . '\Boot' ) ) {
 			require_once WP_DARK_MODE_INCLUDES . '/classes/class-triggers.php';
 			require_once WP_DARK_MODE_INCLUDES . '/classes/class-extended.php';
 			require_once WP_DARK_MODE_INCLUDES . '/compatibility/class-compatibility.php';
+
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				require_once WP_DARK_MODE_INCLUDES . '/classes/class-ajax.php';
+			}
 		}
 
 		/**

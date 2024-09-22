@@ -118,7 +118,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 		public function get_admin_json( $hook = '' ) {
 
 			$scripts = array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'wp_dark_mode_admin_nonce' ),
 
 				'default' => $this->get_default_options(),
@@ -132,17 +131,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 				 */
 				'rest_url' => rest_url( 'wp-dark-mode' ),
 				'rest_nonce' => wp_create_nonce( 'wp_rest' ),
-
-				// Paths.
-				'paths' => array(
-					'ajax' => admin_url( 'admin-ajax.php' ),
-					'images' => WP_DARK_MODE_ASSETS . 'images/',
-					'plugin' => WP_DARK_MODE_URL,
-					'home' => home_url(),
-					'admin' => admin_url(),
-					'rest' => rest_url( 'wp-dark-mode' ),
-					'token' => wp_create_nonce('wp_rest'),
-				),
 
 				// urls.
 				'url' => array(

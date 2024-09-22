@@ -30,6 +30,12 @@ if ( ! class_exists( __NAMESPACE__ . 'Visitor' ) ) {
 		 */
 		public $table_name = 'wpdm_visitors';
 
+		// Actions.
+		public function actions() {
+			// Init database table.
+			add_action( 'init', array( $this, 'init_db_table' ) );
+		}
+
 		/**
 		 * Init database table
 		 *

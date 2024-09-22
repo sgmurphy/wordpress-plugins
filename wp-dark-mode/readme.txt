@@ -4,7 +4,7 @@ Tags: dark, dark mode, night mode, dark theme, accessibility
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 5.6
-Stable tag: 5.1.0
+Stable tag: 5.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -157,8 +157,11 @@ Yes, You can toggle the dark mode/ light mode by keyboard shortcut `(Ctrl + Alt 
 
 == Changelog == 
 
-= 5.1.0 – 05 SEP 2024 =
+= 5.1.1 – 22 SEP 2024 =
+* **Fix:** Visitors are not logged.
+* **Improvement:** Tweaked performance of WP Dark Mode enhancement.
 
+= 5.1.0 – 05 SEP 2024 =
 * **New:** Introduced 2 brand new switches
 * **New:** Added Tab-key accessibility for Dark Mode switches
 * **Improvement:** Improved Elementor Switch selection mode: removed dropdown and added Switch Preview

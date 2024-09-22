@@ -40,10 +40,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 
 			// Stylesheet tag.
 			add_filter( 'style_loader_tag', array( $this, 'style_loader_tag' ), 10, 2 );
-
-			// Options on Ajax for Cache-free integration.
-			add_action( 'wp_ajax_wp_dark_mode_options', array( $this, 'ajax_options' ) );
-			add_action( 'wp_ajax_nopriv_wp_dark_mode_options', array( $this, 'ajax_options' ) );
 		}
 
 		/**
@@ -88,7 +84,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 
 			// Localize scripts.
 			$localize_scripts = array(
-				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'wp_dark_mode_nonce' ),
 				'is_pro' => $this->is_ultimate(),
 				'version' => WP_DARK_MODE_VERSION,
@@ -455,22 +450,6 @@ if ( ! class_exists( __NAMESPACE__ . 'Assets' ) ) {
 			}
 
 			return $html;
-		}
-
-		/**
-		 * Get options via AJAX
-		 *
-		 * @since 5.0.0
-		 */
-		public function ajax_options() {
-			// Check nonce.
-			check_ajax_referer( 'wp_dark_mode_nonce', 'nonce' );
-
-			$options = [
-				'performance_exclude_cache' => $this->get_option( 'performance_exclude_cache' ),
-			];
-
-			wp_send_json_success( $options );
 		}
 	}
 
