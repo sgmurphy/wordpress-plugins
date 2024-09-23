@@ -129,6 +129,7 @@ class BackendStrings
             'payment_amount'            => __('Payment Amount', 'wpamelia'),
             'payment_method'            => __('Payment Method', 'wpamelia'),
             'payment_status'            => __('Payment Status', 'wpamelia'),
+            'payment_tooltip'           => __('If all payment methods are disabled on the service/event,<br/>the default payment method will be used.', 'wpamelia'),
             'pending'                   => __('Pending', 'wpamelia'),
             'phone'                     => __('Phone', 'wpamelia'),
             'rejected'                  => __('Rejected', 'wpamelia'),

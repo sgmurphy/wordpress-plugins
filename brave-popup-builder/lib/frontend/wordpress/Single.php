@@ -81,7 +81,7 @@ if ( ! class_exists( 'BravePop_Element_Single' ) ) {
                               $postHTML .=  $displayDate ? '<div class="brave_post__content__date">'.get_the_time( get_option('date_format') ).'</div>' : '';
                               
                               if($displayCat){
-                                 //error_log(json_encode(get_the_category()));
+                                 //error_log(wp_json_encode(get_the_category()));
                                  $postHTML .=  '<div class="brave_post__content__category">';
                                     $cats = get_the_category();
                                     foreach ( $cats as $key=>$category ) {

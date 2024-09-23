@@ -22,8 +22,8 @@ if ( ! class_exists( 'BravePop_MailPoet' ) ) {
                   $finalLists[] = $listItem;
                }
             }
-            // error_log(json_encode($finalLists));
-            return json_encode($finalLists);
+            // error_log(wp_json_encode($finalLists));
+            return wp_json_encode($finalLists);
          }
          
       }

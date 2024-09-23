@@ -25,7 +25,7 @@ class MediaManager {
             if(in_array($media_id, $this->resized_image_ids)) {
                 return $this->getLocaImageUri($post);
             }
-            return ($this->platform == 'instagram' || $this->platform == 'facebook_feed') ? $this->getPlaceholderUri() : null;
+            return ($this->platform == 'instagram' || $this->platform == 'facebook_feed' || $this->platform == 'tiktok') ? $this->getPlaceholderUri() : null;
         }
         return $this->getPlatformRemoteUri($post);
     }
@@ -127,7 +127,7 @@ class MediaManager {
 
     public function getPlaceholderUri()
     {
-        if($this->platform == 'facebook_feed'){
+        if($this->platform == 'facebook_feed' || $this->platform == 'tiktok'){
             return WPSOCIALREVIEWS_URL.'assets/images/fb-placeholder.png';
         }else{
             return WPSOCIALREVIEWS_URL.'assets/images/ig-placeholder.png';

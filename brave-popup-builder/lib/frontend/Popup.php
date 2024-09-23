@@ -167,7 +167,7 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
          //Referer match
          if(isset($this->popupData->settings->audience->referrals) && count($this->popupData->settings->audience->referrals) > 0){
             foreach ($this->popupData->settings->audience->referrals as $key => $referal) {
-               //error_log('$refererMatch: '.wp_get_referer().'----'.$referal->link.'----'.json_encode(strpos(wp_get_referer(), $referal->link)));
+               //error_log('$refererMatch: '.wp_get_referer().'----'.$referal->link.'----'.wp_json_encode(strpos(wp_get_referer(), $referal->link)));
                $refered_site = wp_get_referer(); 
                $defined_site = !empty($referal->link) ? $referal->link : '';
                $conditionMatch = !empty($referal->disabled) ? true : false;
@@ -414,28 +414,28 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
                   brave_popup_data[<?php print_r(absint($this->popupID));?>] = {
                   title: '<?php print_r(esc_attr(get_the_title(absint($this->popupID)))); ?>',
                   type: '<?php print_r(esc_attr($this->popupType));?>',
-                  fonts: <?php print_r(apply_filters( 'bravepop_google_fonts', json_encode($this->popupfonts) )); ?>,
-                  advancedAnimation:<?php print_r(json_encode($this->advancedAnimation));?>,
-                  hasAnimation: <?php print_r(json_encode($this->hasAnimation)); ?>,
-                  hasContAnim:  <?php print_r(json_encode($this->hasContAnim)); ?>,
-                  animationData: <?php print_r(json_encode($this->animationData)); ?>,
-                  videoData: <?php print_r(json_encode($this->videoData)); ?>,
-                  hasYoutube: <?php print_r(json_encode($this->hasYoutube)); ?>,
-                  hasVimeo: <?php print_r(json_encode($this->hasVimeo)); ?>,
-                  settings: <?php print_r(json_encode($settingsData)); ?>,
-                  close: <?php print_r(json_encode($this->closeData)); ?>,
-                  forceLoad: <?php print_r(json_encode($this->forceLoad)); ?>,
-                  forceStep: <?php print_r(json_encode($this->forceStep)); ?>,
-                  hasDesktopEmbed: <?php print_r(json_encode($this->hasDesktopEmbed)); ?>,
-                  hasMobileEmbed: <?php print_r(json_encode($this->hasMobileEmbed)); ?>,
-                  hasLoginElement: <?php print_r(json_encode($this->hasLoginElement)); ?>,
+                  fonts: <?php print_r(apply_filters( 'bravepop_google_fonts', wp_json_encode($this->popupfonts) )); ?>,
+                  advancedAnimation:<?php print_r(wp_json_encode($this->advancedAnimation));?>,
+                  hasAnimation: <?php print_r(wp_json_encode($this->hasAnimation)); ?>,
+                  hasContAnim:  <?php print_r(wp_json_encode($this->hasContAnim)); ?>,
+                  animationData: <?php print_r(wp_json_encode($this->animationData)); ?>,
+                  videoData: <?php print_r(wp_json_encode($this->videoData)); ?>,
+                  hasYoutube: <?php print_r(wp_json_encode($this->hasYoutube)); ?>,
+                  hasVimeo: <?php print_r(wp_json_encode($this->hasVimeo)); ?>,
+                  settings: <?php print_r(wp_json_encode($settingsData)); ?>,
+                  close: <?php print_r(wp_json_encode($this->closeData)); ?>,
+                  forceLoad: <?php print_r(wp_json_encode($this->forceLoad)); ?>,
+                  forceStep: <?php print_r(wp_json_encode($this->forceStep)); ?>,
+                  hasDesktopEmbed: <?php print_r(wp_json_encode($this->hasDesktopEmbed)); ?>,
+                  hasMobileEmbed: <?php print_r(wp_json_encode($this->hasMobileEmbed)); ?>,
+                  hasLoginElement: <?php print_r(wp_json_encode($this->hasLoginElement)); ?>,
                   schedule:<?php $popup_schedule = get_post_meta( $this->popupID, 'popup_schedule', true ); print_r($popup_schedule ? $popup_schedule : '{}');?>,
                   parentID:<?php print_r($popup_parentID ? $popup_parentID : 'false');?>,
-                  variants: <?php print_r(json_encode($allVariants)); ?>,
+                  variants: <?php print_r(wp_json_encode($allVariants)); ?>,
                   embedLock: false,
-                  ajaxLoad: <?php print_r(json_encode($this->ajaxLoad)); ?>,
+                  ajaxLoad: <?php print_r(wp_json_encode($this->ajaxLoad)); ?>,
                   ajaxLoaded: false,
-                  timers: <?php print_r(json_encode($this->timers)); ?>,
+                  timers: <?php print_r(wp_json_encode($this->timers)); ?>,
                }
                   brave_init_popup(<?php print_r(absint($this->popupID));?>, brave_popup_data[<?php print_r(absint($this->popupID));?>]);
                });
@@ -555,13 +555,13 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
          if(isset($stepSettings->autoClose) && $stepSettings->autoClose === true){ $classes[] = 'has_autoClose'; }
          if((isset($stepSettings->scrollbar) && $stepSettings->scrollbar === true) && $layout !== 'float') {  $classes[] = 'brave_popup_show_scrollbar';  }
          
-         //return json_encode($stepSettings);
+         //return wp_json_encode($stepSettings);
          return implode(" ",$classes);
       } 
 
       public function popup_renderCloseButton($stepSettings, $stepIndex, $position='above') { 
          if(!$stepSettings || (isset($stepSettings->closeButton) && ($stepSettings->closeButton === 'none'))){ return ''; }
-         $closeStep = isset($stepSettings->closeStep) && $stepSettings->closeStep !== 'none' ? $stepSettings->closeStep : json_encode(false);
+         $closeStep = isset($stepSettings->closeStep) && $stepSettings->closeStep !== 'none' ? $stepSettings->closeStep : wp_json_encode(false);
          $closeButtonPosition = isset($stepSettings->closeButtonPosition) ? $stepSettings->closeButtonPosition : 'inside_right';
          $closeButtonType = isset($stepSettings->closeButton) && $stepSettings->closeButton === 'text' ? 'brave_popup__close--text' :'brave_popup__close--icon';
          $closeposition = 'brave_popup__close--'.$closeButtonPosition.'';
@@ -1128,7 +1128,7 @@ if ( ! class_exists( 'BravePop_Popup' ) ) {
          $calculatedInerStyles = count($calculatedInerSize) > 0 ? implode(' ', $calculatedInerSize) : '';
          // error_log($calculatedInerStyles);
          //error_log($this->popupID.'__step__'.$index.$popupPosition.$popupLayout.$popupHeight);
-         //error_log(json_encode($stepSettings));
+         //error_log(wp_json_encode($stepSettings));
          return $bodyStyle . $popupStyle .$popupMarginStyle . $popupInnerStyle . $popupBackground . $popupBackgroundOverlay . $overlayStyle . $overlayImageStyle . $closeStyle. $popupAnimation. $popupAnimationHover. $popupExitAnimation. $popupOpenAnimation. $elementStyles. $calculatedInerStyles.$noStickyPopupStyle;
 
       }

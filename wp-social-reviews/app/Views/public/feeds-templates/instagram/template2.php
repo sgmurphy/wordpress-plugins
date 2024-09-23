@@ -10,7 +10,13 @@ if (!empty($feeds) && is_array($feeds)) {
         if ($index >= $sinceId && $index <= $maxId && isset($feed['media_url'])) {
             $feedLink = Arr::get($feed, 'shoppable_options.show_shoppable') ? Arr::get($feed, 'shoppable_options.url_settings.url', '') : Arr::get($feed,'permalink', '');
             $target = (Arr::get($template_meta, 'post_settings.display_mode', '') === 'instagram') ? '_blank' : '';
-            if(Arr::get($feed, 'shoppable_options')) {
+            $display_optimize_image = Arr::get($image_settings, 'optimized_images', '');
+            $imageSize = Arr::get($template_meta, 'post_settings.resolution', 'full');
+            $displayMode = $template_meta['post_settings']['display_mode'];
+            $userName = Arr::get($feed, 'username', '');
+            $feedId = Arr::get($feed, 'id', '');
+
+            if (Arr::get($feed, 'shoppable_options')) {
                 $target = Arr::get($feed, 'shoppable_options.url_settings.open_in_new_tab') ? '_blank' : '';
             }
             if ($layout_type !== 'carousel') {
@@ -23,11 +29,14 @@ if (!empty($feeds) && is_array($feeds)) {
             }
             ?>
             <div role="group" class="wpsr-ig-post <?php echo ($layout_type === 'carousel' && defined('WPSOCIALREVIEWS_PRO')) ? 'swiper-slide' : ''; ?>" data-post_id="<?php echo esc_attr(Arr::get($feed, 'id', ''));?>" data-user_name="<?php echo esc_attr(Arr::get($feed, 'username', ''));?>" data-image_size="<?php echo esc_attr(Arr::get($template_meta, 'post_settings.resolution', 'full'));?>">
-                <a class="wpsr-ig-playmode" <?php echo ($template_meta['post_settings']['display_mode'] === 'instagram' && $feedLink) ? 'href=' . esc_url($feedLink) . '' : ''; ?>
+                <a class="wpsr-ig-playmode" <?php echo ($displayMode === 'instagram' && $feedLink) ? 'href=' . esc_url($feedLink) . '' : ''; ?>
                    target="<?php echo esc_attr($target); ?>"
                    data-index="<?php echo esc_attr($index); ?>"
-                   data-playmode="<?php echo isset($template_meta['post_settings']['display_mode']) ? esc_attr($template_meta['post_settings']['display_mode']) : 'instagram'; ?>"
+                   data-playmode="<?php echo isset($displayMode) ? esc_attr($displayMode) : 'instagram'; ?>"
                    data-template-id="<?php echo esc_attr($templateId); ?>"
+                   data-user_name="<?php echo esc_attr($userName);?>" data-post_id="<?php echo esc_attr($feedId);?>" 
+                   data-image_size="<?php echo esc_attr($imageSize);?>"
+                   data-optimized_images="<?php echo esc_attr($display_optimize_image);?>"
                    rel="noopener noreferrer"
                 >
                     <?php

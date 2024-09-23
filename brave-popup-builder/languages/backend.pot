@@ -3,206 +3,206 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/admin/popups/AllPopups.js:15
+#: src/admin/popups/AllPopups.js:16
 #: src/admin/popups/editor/PopupEditor.js:295
 msgid "Popup"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:15
+#: src/admin/popups/AllPopups.js:16
 msgid "No Popup Found. "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:16
+#: src/admin/popups/AllPopups.js:17
 #: src/admin/popups/editor/PopupEditor.js:295
 msgid "Landing Page"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:16
+#: src/admin/popups/AllPopups.js:17
 msgid "Landing Pages"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:16
+#: src/admin/popups/AllPopups.js:17
 msgid "No Landing Pages Found. "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:17
+#: src/admin/popups/AllPopups.js:18
 msgid "Content"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:17
+#: src/admin/popups/AllPopups.js:18
 msgid "No Interactive Content Found. "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:17
+#: src/admin/popups/AllPopups.js:18
 msgid ""
 "Upgrade to Create Interactive Content like Product Catalog, Magazine, "
 "Video/Photo Gallery & more."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:256
+#: src/admin/popups/AllPopups.js:262
 msgid "Error Picking the Winner. Please reload the page and Try again."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:276
+#: src/admin/popups/AllPopups.js:282
 msgid "Could not Duplicate. Please reload the page and try again."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:366
+#: src/admin/popups/AllPopups.js:372
 msgid "Variations"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:367
+#: src/admin/popups/AllPopups.js:373
 msgid "Create Variation"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:368
+#: src/admin/popups/AllPopups.js:374
 msgid "Random"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:369
+#: src/admin/popups/AllPopups.js:375
 msgid "Start Test"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:370
+#: src/admin/popups/AllPopups.js:376
 msgid "Pause Test"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:398
+#: src/admin/popups/AllPopups.js:404
 msgid "No variations found! Create a"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:398
+#: src/admin/popups/AllPopups.js:404
 msgid "+ New Variation"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:398
+#: src/admin/popups/AllPopups.js:404
 msgid ""
 "of this Item and change the design/text and find out if it performs better "
 "than the Original Popup."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:407
+#: src/admin/popups/AllPopups.js:413
 #: src/admin/popups/Analytics.js:457
 msgid "All Campaigns"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:408
+#: src/admin/popups/AllPopups.js:414
 msgid "New Campaign"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:412
+#: src/admin/popups/AllPopups.js:418
 msgid "New Popup / Widget"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:413
+#: src/admin/popups/AllPopups.js:419
 msgid "New Embedded Content "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:423
+#: src/admin/popups/AllPopups.js:429
 msgid "Popups "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:424
+#: src/admin/popups/AllPopups.js:430
 msgid "Content "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:434
+#: src/admin/popups/AllPopups.js:440
 #: src/admin/popups/utils/elementlist.js:16
 msgid "Search"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:439
+#: src/admin/popups/AllPopups.js:445
 msgid "Sort By: "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:443
+#: src/admin/popups/AllPopups.js:449
 msgid "Date Created"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:444
+#: src/admin/popups/AllPopups.js:450
 msgid "Last Updated"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:445
+#: src/admin/popups/AllPopups.js:451
 msgid "Status"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:446
+#: src/admin/popups/AllPopups.js:452
 msgid "Most Viewed"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:447
+#: src/admin/popups/AllPopups.js:453
 #: src/admin/popups/Analytics.js:404
 msgid "Conversions"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:448
+#: src/admin/popups/AllPopups.js:454
 #: src/admin/popups/Analytics.js:372
 msgid "Conversion Rate"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:463
+#: src/admin/popups/AllPopups.js:469
 msgid ""
 "License not Active! Please Activate your license from Brave > License, to "
 "Unlock all Features."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:471
+#: src/admin/popups/AllPopups.js:477
 msgid "Shortcode"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:471
+#: src/admin/popups/AllPopups.js:477
 #: src/admin/popups/editor/visibility/PlacementSettings.js:58
 msgid "Placement"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:472
+#: src/admin/popups/AllPopups.js:478
 msgid "Devices"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:474
+#: src/admin/popups/AllPopups.js:480
 #: src/admin/popups/Analytics.js:403
 msgid "Views"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:475
+#: src/admin/popups/AllPopups.js:481
 msgid "Conversion"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:476
+#: src/admin/popups/AllPopups.js:482
 msgid "Updated"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:504
+#: src/admin/popups/AllPopups.js:510
 msgid " Please create One by clicking the + icon."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:512
+#: src/admin/popups/AllPopups.js:518
 #: src/admin/popups/PopupItem.js:49
 msgid "Edit Title"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:513
+#: src/admin/popups/AllPopups.js:519
 #: src/admin/popups/editor/PopupEditor.js:310
 msgid "Goal"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:514
+#: src/admin/popups/AllPopups.js:520
 msgid "Updating Title"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:522
+#: src/admin/popups/AllPopups.js:528
 msgid "Remove Selected "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:523
+#: src/admin/popups/AllPopups.js:529
 #: src/admin/popups/Submissions/Submissions.js:443
 msgid ""
 "Are you sure you want to remove these Items? Once Removed, they cannot be "
 "recovered."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:526
+#: src/admin/popups/AllPopups.js:532
 #: src/admin/popups/FormBuilder/FormFieldsEditor.js:971
 #: src/admin/popups/PopupItem.js:51
 #: src/admin/popups/Presets/UserPresets.js:65
@@ -213,7 +213,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:527
+#: src/admin/popups/AllPopups.js:533
 #: src/admin/popups/Analytics.js:493
 #: src/admin/popups/FormBuilder/FormFieldsEditor.js:972
 #: src/admin/popups/Presets/OverWritePreset.js:61
@@ -224,60 +224,60 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:539
+#: src/admin/popups/AllPopups.js:545
 #: src/admin/popups/PopupItem.js:52
 msgid "Split Test"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:540
+#: src/admin/popups/AllPopups.js:546
 msgid ""
 "Create a new Variation of this Item and serve them to some of the visitors. "
 "This will create an exact copy of this Item."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:542
+#: src/admin/popups/AllPopups.js:548
 msgid "New  Variation Title"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:552
+#: src/admin/popups/AllPopups.js:558
 #: src/admin/popups/editor/builder/elements/ContextMenu.js:169
 msgid "Duplicate "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:553
+#: src/admin/popups/AllPopups.js:559
 msgid "New  Title"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:554
+#: src/admin/popups/AllPopups.js:560
 #: src/admin/popups/Submissions/Submissions.js:365
 msgid "Title"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:555
+#: src/admin/popups/AllPopups.js:561
 msgid "Duplicating "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:563
+#: src/admin/popups/AllPopups.js:569
 msgid "Select Split Test Winner"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:564
+#: src/admin/popups/AllPopups.js:570
 msgid ""
 "If you select this  variation as winner, the Parent  will be replaced with "
 "the selected variation and all other variations will be removed."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:565
+#: src/admin/popups/AllPopups.js:571
 msgid "Picking Winner.."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:573
+#: src/admin/popups/AllPopups.js:579
 msgid "Schedule Campaign: "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:582
+#: src/admin/popups/AllPopups.js:588
 #: src/admin/popups/Analytics.js:382
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:322
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:323
 #: src/admin/popups/Integrations/CaptchaIntegration.js:91
 #: src/admin/popups/Integrations/SocialIntegrations.js:119
 #: src/admin/popups/Integrations/ValidationIntegrations.js:165
@@ -287,16 +287,16 @@ msgstr ""
 msgid "Upgrade"
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:582
+#: src/admin/popups/AllPopups.js:588
 msgid "to Schedule Campaigns to run on selected dates or certain days of the week."
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:593
+#: src/admin/popups/AllPopups.js:599
 #: src/admin/popups/Submissions/Submissions.js:469
 msgid "Selected "
 msgstr ""
 
-#: src/admin/popups/AllPopups.js:597
+#: src/admin/popups/AllPopups.js:603
 #: src/admin/popups/Submissions/Submissions.js:473
 msgid "Remove Item(s)"
 msgstr ""
@@ -1026,7 +1026,7 @@ msgid "This Field is shown based on conditions"
 msgstr ""
 
 #: src/admin/popups/FormBuilder/FormFieldsEditor.js:953
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:209
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:210
 #: src/admin/popups/FormBuilder/settings/FormActionRecievemail.js:103
 #: src/admin/popups/FormBuilder/settings/FormActionSendmail.js:206
 #: src/admin/popups/FormBuilder/settings/FormActionSettings.js:347
@@ -1339,112 +1339,112 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:150
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:151
 msgid "Add User to Newsletter"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:160
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:161
 msgid ""
 "You have not Integrated a Newsletter Service Yet. Please do so, from Brave "
 "> Integrations and then refresh this page."
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:165
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:166
 #: src/admin/popups/FormBuilder/settings/FormActionSendmail.js:198
 msgid ""
 "Your Form Does not have an Email Input Field. To activate this Option, "
 "Please add an Input Field and then set the Field type Option to \"Email\"."
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:173
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:174
 msgid "Newsletter Service"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:182
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:183
 msgid "Loading Lists.. "
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:185
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:186
 msgid "Error Loading Lists!"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:192
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:193
 msgid "Convertkit Form"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:192
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:193
 msgid "Newsletter List"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:194
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:195
 msgid "Newsletter Lists"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:203
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:204
 msgid "Sendy List ID"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:209
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:210
 msgid "Get Email From"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:211
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:212
 msgid "Email Fields"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:221
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:222
 msgid "Get Name From"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:233
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:234
 msgid "Get Phone Number From"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:235
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:236
 msgid "All Input Fields"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:247
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:248
 msgid "Only Add if a Checkbox is Checked"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:256
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:257
 msgid "Select Checkbox"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:258
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:259
 msgid "All Checkbox Fields"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:266
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:267
 msgid "No Checkbox Fields Found in your Form!"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:281
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:282
 msgid "Email Template ID*"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:285
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:286
 msgid "Redirect URL After Optin*"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:292
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:293
 msgid "Autoresponder Day"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:307
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:308
 msgid "Advanced Mode"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:316
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:317
 msgid "Newsletter Signup Settings"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:316
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:317
 msgid "(Locked! Activate License)"
 msgstr ""
 
-#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:322
+#: src/admin/popups/FormBuilder/settings/FormActionNewsletter.js:323
 msgid ""
 "to Save Subscribers in Database, Sync More Fields, Tag Subscriber, "
 "Subscribe visitors to different lists based on conditions & Prevent "
@@ -1865,32 +1865,32 @@ msgstr ""
 msgid "Send Sample Data"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:222
+#: src/admin/popups/Integrations.js:224
 msgid "Integrations"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:226
+#: src/admin/popups/Integrations.js:228
 msgid "EMS"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:227
+#: src/admin/popups/Integrations.js:229
 #: src/admin/popups/utils/elementlist.js:22
 msgid "Social"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:228
+#: src/admin/popups/Integrations.js:230
 msgid "reCAPTCHA"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:229
+#: src/admin/popups/Integrations.js:231
 msgid "Email Validation"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:282
+#: src/admin/popups/Integrations.js:284
 msgid "Remove This Integraion"
 msgstr ""
 
-#: src/admin/popups/Integrations.js:283
+#: src/admin/popups/Integrations.js:285
 msgid "Are you sure you want to remove this Integraion?"
 msgstr ""
 
@@ -2679,6 +2679,14 @@ msgstr ""
 
 #: src/admin/popups/Presets/presetData.js:9
 msgid "Show Announcements, Notifications & Custom Messages"
+msgstr ""
+
+#: src/admin/popups/RateBrave.js:24
+msgid "Enjoying Brave? Help Us Grow"
+msgstr ""
+
+#: src/admin/popups/RateBrave.js:25
+msgid "Help Us Grow by rating Brave on WordPress Plugin Repository"
 msgstr ""
 
 #: src/admin/popups/Submissions/SubmissionSingle.js:108

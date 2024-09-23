@@ -392,7 +392,7 @@ class Helper
         $multi_business_info['total_business'] = $cnt;
         $multi_business_info['total_platforms'] = $total_platforms;
 
-        return $multi_business_info;
+        return !empty($multi_business_info) ? $multi_business_info : [];
     }
 
     public static function platformDynamicClassName($business_info)

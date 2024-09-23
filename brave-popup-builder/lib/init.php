@@ -46,7 +46,7 @@ if ( ! class_exists( 'BravePopup_Initialize' ) ) {
         public function enqueue_dashboard_script( $hook ) {
 
             if ( is_admin() ) {
-                //error_log(json_encode($hook));
+                //error_log(wp_json_encode($hook));
                 $current_url =  "//" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
                if ( 'toplevel_page_bravepop' === $hook || 'brave_page_bravepop-integrations' === $hook || 'brave_page_bravepop-analytics' === $hook || 'brave_page_bravepop-submissions' === $hook || 'brave_page_bravepop-settings' === $hook) {
@@ -191,7 +191,7 @@ if ( ! class_exists( 'BravePopup_Initialize' ) ) {
                 ?>
                 var bravepopup_settings_vars__ = {
                     'isPro': false,
-                    'active': <?php print_r(json_encode(($active ? $active : false)));?>,
+                    'active': <?php print_r(wp_json_encode(($active ? $active : false)));?>,
                     'lcnse': "<?php print_r($lcnse);?>",
                     'root': "<?php print_r(esc_url_raw( rest_url() ));?>",
                     'ajax_url': "<?php print_r(esc_url(admin_url( 'admin-ajax.php' )));?>",
@@ -205,22 +205,23 @@ if ( ! class_exists( 'BravePopup_Initialize' ) ) {
                     'home_url': "<?php print_r(esc_url(get_home_url()));?>",
                     'popup_id' : <?php print_r(absint($popup_id)); ?>,
                     'popup_title' : "<?php print_r($popup_title);?>",
-                    'integrations': <?php print_r(json_encode($enabledServices));?>,
-                    'email_validation': <?php print_r(json_encode($emailvalidator));?>,
-                    'app_settings': <?php print_r(json_encode($appSettings));?>,
+                    'integrations': <?php print_r(wp_json_encode($enabledServices));?>,
+                    'email_validation': <?php print_r(wp_json_encode($emailvalidator));?>,
+                    'app_settings': <?php print_r(wp_json_encode($appSettings));?>,
                     'theme_screenshot': currentheme_screenshot,
                     'plugin_url': "<?php print_r(esc_url(BRAVEPOP_PLUGIN_PATH)); ?>",
-                    'woocommerce': <?php in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ? print_r(json_encode(true)) : print_r(json_encode(false)); ?>,
-                    'woocommerce_pages': <?php print_r(json_encode($woocommerce_pages));?>,
+                    'woocommerce': <?php in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ? print_r(wp_json_encode(true)) : print_r(wp_json_encode(false)); ?>,
+                    'woocommerce_pages': <?php print_r(wp_json_encode($woocommerce_pages));?>,
                     'welcome_tour': '<?php print_r($welcomeTour); ?>',
-                    'languages': <?php print_r(json_encode($languages));?>,
-                    'learnDash': <?php print_r(json_encode( function_exists('ld_course_list') ? true : false ));?> ,
-                    'edd': <?php print_r(json_encode( class_exists( 'Easy_Digital_Downloads' ) ? true : false ));?> ,
-                    'roles':<?php global $wp_roles; isset($wp_roles->role_names) ? print_r(json_encode($wp_roles->role_names)) : '{}' ;?>,
-                    'customFonts': <?php print_r(json_encode($customFonts)); ?>,
-                    'UAFonts': <?php print_r(json_encode($uaf_fonts)); ?>,
-                    'isCloudFlare': <?php print_r(json_encode( isset($_SERVER['HTTP_CF_VISITOR']) ? true : false ));?> ,
-                    'timezone': "<?php function_exists('date_default_timezone_get') ? print_r(date_default_timezone_get()) : '';?>"
+                    'languages': <?php print_r(wp_json_encode($languages));?>,
+                    'learnDash': <?php print_r(wp_json_encode( function_exists('ld_course_list') ? true : false ));?> ,
+                    'edd': <?php print_r(wp_json_encode( class_exists( 'Easy_Digital_Downloads' ) ? true : false ));?> ,
+                    'roles':<?php global $wp_roles; isset($wp_roles->role_names) ? print_r(wp_json_encode($wp_roles->role_names)) : '{}' ;?>,
+                    'customFonts': <?php print_r(wp_json_encode($customFonts)); ?>,
+                    'UAFonts': <?php print_r(wp_json_encode($uaf_fonts)); ?>,
+                    'isCloudFlare': <?php print_r(wp_json_encode( isset($_SERVER['HTTP_CF_VISITOR']) ? true : false ));?> ,
+                    'timezone': "<?php function_exists('date_default_timezone_get') ? print_r(date_default_timezone_get()) : '';?>",
+                    'showRatingBox' : <?php print_r(wp_json_encode(!get_option('brave_plugin_rated', false) && wp_count_posts('popup')->publish > 1 ? true : false)); ?>,
                 }
             </script>
             <?php

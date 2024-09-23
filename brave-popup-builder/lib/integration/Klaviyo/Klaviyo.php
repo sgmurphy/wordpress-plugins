@@ -55,7 +55,7 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
             }
          }
 
-         return $finalLists ? json_encode($finalLists) : false;
+         return $finalLists ? wp_json_encode($finalLists) : false;
       }
 
       private function add_to_list_old($contact, $list_id, $userData=array()){
@@ -65,7 +65,7 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
             'headers' => array(
                'content-type' => 'application/json',
             ),
-            'body' => json_encode(array(
+            'body' => wp_json_encode(array(
                'api_key' => $this->api_key,
                'profiles' => ($contact)
             ))
@@ -77,7 +77,7 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
 
-         //error_log(json_encode($response));
+         //error_log(wp_json_encode($response));
 
          if($data && is_array($data) ){ 
             $addedData = array(
@@ -101,7 +101,7 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
                'content-type' => 'application/json',
                'revision' => '2024-07-15',
             ),
-            'body' => json_encode(array(
+            'body' => wp_json_encode(array(
                'data'=> array(
                   "type"=> "subscription",
                   "attributes"=> array(
@@ -129,7 +129,7 @@ if ( ! class_exists( 'BravePop_Klaviyo' ) ) {
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
 
-         // error_log(json_encode($response));
+         // error_log(wp_json_encode($response));
       
          if(!empty($response['response']['code']) && $response['response']['code']=== 202 ){ 
             $addedData = array(

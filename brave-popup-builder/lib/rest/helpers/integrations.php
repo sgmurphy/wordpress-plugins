@@ -131,6 +131,11 @@ function bravepop_get_integration_lists($service='', $apiKey='', $secretKey='', 
       $lists = $omnisend->get_lists($apiKey);
       return $lists;
    }
+   if($service === 'sender')   { 
+      $sendgrid =   new BravePop_Sender();
+      $lists = $sendgrid->get_lists($apiKey);
+      return $lists;
+   }
    if(function_exists('bravepop_external_integration_get_list')){
       return bravepop_get_external_integration_list($service, $apiKey, $secretKey, $accessToken, $apiURL);
    }
@@ -275,7 +280,7 @@ function bravepop_remove_integration( $service ){
    if(isset($currentIntegrations[$service])){
       unset($currentIntegrations[$service]);
    }
-   //error_log(json_encode($currentIntegrations));
+   //error_log(wp_json_encode($currentIntegrations));
 
    $settings = array( 'integrations' => $currentIntegrations );
    BravePopup_Settings::save_settings( $settings );
@@ -312,7 +317,7 @@ function bravepop_ajax_zoho_init_token(){
    
    if(isset($data->refresh_token)){
       //error_log($data->refresh_token);
-      echo $data->refresh_token;
+      echo esc_html($data->refresh_token);
    }else{
       echo 'FALSE';
    }
@@ -346,11 +351,13 @@ function bravepop_add_to_newsletter($actionType='form', $type='', $emailValue=''
       if($type === 'fluentcrm'){      $service = new BravePop_FluentCRM();   }
       if($type === 'sendy'){      $service = new BravePop_Sendy();   }
       if($type === 'omnisend'){      $service = new BravePop_Omnisend();   }
+      if($type === 'sender'){      $service = new BravePop_Sender();   }
+
 
       if(function_exists('bravepop_external_integration_add_contact')){
          $service =  bravepop_external_integration_add_contact($type);
       }
-
+      error_log('bravepop_add_to_newsletter!!!');
       if(isset($service)){
          // error_log('bravepop_add_to_newsletter!!!');
          $userSync = array('enabled' => false);
@@ -384,7 +391,7 @@ function bravepop_newsletter_misc_settings($service, $newsletterSettings, $formF
    if($service==='getresponse' && isset($newsletterSettings->dayOfCycle)){
       $miscSettings['dayOfCycle'] = $newsletterSettings->dayOfCycle;
    }
-   //error_log('bravepop_newsletter_misc_settings: '.json_encode($miscSettings));
+   //error_log('bravepop_newsletter_misc_settings: '.wp_json_encode($miscSettings));
    return $miscSettings;
 
 }

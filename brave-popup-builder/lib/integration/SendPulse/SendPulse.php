@@ -14,7 +14,7 @@ if ( ! class_exists( 'BravePop_SendPulse' ) ) {
       public function get_access_token($api_key='', $api_secret=''){
          if(!$api_key && !$api_secret){  return error_log('Sendpulse Refresh Token Missing!'); }
          $access_args = array('grant_type'=>'client_credentials', 'client_id'=> $api_key, 'client_secret'=>$api_secret);
-         $args = array( 'method' => 'POST','headers' => array( 'Content-Type' => 'application/json' ), 'body' => json_encode($access_args)  );
+         $args = array( 'method' => 'POST','headers' => array( 'Content-Type' => 'application/json' ), 'body' => wp_json_encode($access_args)  );
          $response = wp_remote_post( 'https://api.sendpulse.com/oauth/access_token', $args );
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
@@ -51,7 +51,7 @@ if ( ! class_exists( 'BravePop_SendPulse' ) ) {
                $finalLists[] = $listItem;
             }
 
-            return json_encode($finalLists);
+            return wp_json_encode($finalLists);
          }else{
             return false;
          }
@@ -89,14 +89,14 @@ if ( ! class_exists( 'BravePop_SendPulse' ) ) {
          $args = array(
             'method' => 'POST',
             'headers' => array( 'Authorization' => 'Bearer ' . $access_token, 'Content-Type' => 'application/json'  ),
-            'body' => json_encode($contact)
+            'body' => wp_json_encode($contact)
          );
          //https://web.sendpulse.com/integrations/api/bulk-email#add-email
          $response = wp_remote_post( 'https://api.sendpulse.com/addressbooks/'.$list_id.'/emails', $args );
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
 
-         //error_log(json_encode($response));
+         //error_log(wp_json_encode($response));
 
          if(isset($data->result)){
             $addedData = array(

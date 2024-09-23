@@ -105,7 +105,7 @@ if ( ! class_exists( 'BravePop_Element_Button' ) ) {
          $dynamicAttrs = ''; $dynamicClasses = '';
          if(isset($this->data->action->actionData->dynamicURL)){
             $dynamicActionLink  = bravepopup_dynamicLink_data($this->data->action->actionData, $this->dynamicData, $this->data->id);
-            //error_log(json_encode($dynamicActionLink));
+            //error_log(wp_json_encode($dynamicActionLink));
             if(isset($dynamicActionLink->link)){   $actionURL  =  $dynamicActionLink->link;  }
             if(!empty($dynamicActionLink->attr)){   $dynamicAttrs = $dynamicActionLink->attr;    }
             if(!empty($dynamicActionLink->classes)){   $dynamicClasses = $dynamicActionLink->classes;    }

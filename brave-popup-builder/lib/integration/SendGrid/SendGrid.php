@@ -35,8 +35,8 @@ if ( ! class_exists( 'BravePop_SendGrid' ) ) {
                   $finalLists[] = $listItem;
                }
             }
-            //error_log(json_encode($finalLists));
-            return json_encode($finalLists);
+            //error_log(wp_json_encode($finalLists));
+            return wp_json_encode($finalLists);
 
          }else{
             return false;
@@ -95,7 +95,7 @@ if ( ! class_exists( 'BravePop_SendGrid' ) ) {
                'content-type' => 'application/json',
                'Authorization' => 'Bearer ' . $this->api_key,
             ),
-            'body' => json_encode(array(
+            'body' => wp_json_encode(array(
                'list_ids'        => array($list_id),
                'contacts'        => array($contact),
             ))
@@ -105,7 +105,7 @@ if ( ! class_exists( 'BravePop_SendGrid' ) ) {
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
 
-         //error_log(json_encode($response));
+         //error_log(wp_json_encode($response));
 
          if($data && isset($data->job_id)){
             $addedData = array(

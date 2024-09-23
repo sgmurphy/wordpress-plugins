@@ -42,8 +42,8 @@ if ( ! class_exists( 'BravePop_ConvertKit' ) ) {
                   $finalLists[] = $listItem;
                }
             }
-            //error_log(json_encode($finalLists));
-            return json_encode($finalLists);
+            //error_log(wp_json_encode($finalLists));
+            return wp_json_encode($finalLists);
          }else{
             return false;
          }
@@ -92,7 +92,7 @@ if ( ! class_exists( 'BravePop_ConvertKit' ) ) {
                'content-type' => 'application/json',
                'accept-encoding'=> '', //Without Specifying empty accept-encoding convertkit sends compressed data which breaks the response.
             ),
-            'body' => json_encode($contact)
+            'body' => wp_json_encode($contact)
          );
          //https://developers.convertkit.com/#add-subscriber-to-a-form
          $response = wp_remote_post( 'https://api.convertkit.com/v3/forms/' . $list_id . '/subscribe', $args );

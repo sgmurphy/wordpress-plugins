@@ -2,13 +2,13 @@
 Contributors: marketingfire
 Tags: schedule post, editorial calendar, quickedit post, manage post
 Requires at least: 4.0
-Tested up to: 6.5.5
-Requires PHP: 5.6
-Stable tag: 3.8.5
+Tested up to: 6.6
+Requires PHP: 7.4
+Stable tag: 3.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The Editorial Calendar allows you to view all your posts, schedule post, make quick edits, and manage your blog by dragging and dropping posts.
+Editorial Calendar allows you to view all your posts, schedule post, make quick edits, and manage your blog by dragging and dropping posts.
 
 == Description ==
 
@@ -188,15 +188,18 @@ The `edcal_default_status` property controls the default status for new posts in
 
 == Screenshots ==
 
-1. The calendar integrates seamlessly into the WordPress administration console
-2. See the big picture with a view of all your posts and when they'll be published.
-3. Drag and drop posts to easily change dates and take control of your blog.
-4. Create, edit, and schedule posts in one simple quickedit dialog.
-5. Show as much or as little of your blog as you like.
-6. Use a special calendar for each custom post type on your blog.
-7. Use the new unscheduled drafts section to manage drafts before you schedule them.
+1. See the big picture with a view of all your posts and when they'll be published.
+2. Create, edit, and schedule posts in one simple quickedit dialog.
+3. Show as much or as little of your blog as you like.
+4. Drag and drop posts to easily change dates and take control of your blog.
 
 == Changelog ==
+
+= 3.8.6 =
+* Fixed missed schedule.
+* Fixed Type issue.
+* Updated deprecated property.
+* Improved compatibility with PHP 8.2 and up.
 
 = 3.8.5 =
 * Updated the allowed tags to allow script tags.

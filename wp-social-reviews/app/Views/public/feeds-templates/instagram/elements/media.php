@@ -1,4 +1,5 @@
-<div class="wpsr-ig-post-media wpsr-animated-background <?php echo esc_attr($media_type); ?>" id="wpsr-video-play-<?php echo esc_attr($index); ?>" >
+<div class="wpsr-ig-post-media <?php echo esc_attr($animation_img_class . ' ' . $media_type); ?>"
+ id="wpsr-video-play-<?php echo esc_attr($index); ?>" >
     <?php if ($media_type === 'VIDEO') { ?>
         <video class="wpsr-ig-post-video" poster="<?php echo esc_url($thumbnail_url); ?>" <?php echo ($template_meta["post_settings"]["display_mode"] === 'inline') ? 'controls=controls preload="false" loop="" webkit-playsinline="" playsinline=""' : ''?>>
             <source src="<?php echo esc_url($media_url ? $media_url : $default_media); ?>" type="video/mp4">

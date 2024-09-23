@@ -208,6 +208,7 @@ final class Util {
 	public function get_active_plugins(): array {
 
 		if ( ! function_exists( 'get_plugins' ) ) {
+			// @phpstan-ignore-next-line
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
@@ -450,5 +451,32 @@ final class Util {
 			$normalized_email = sprintf( '%s@%s', $email_parts[0], $email_parts[1] );
 		}
 		return $this->normalize_and_hash( $hash_algorithm, $normalized_email, true );
+	}
+
+	/**
+	 * Get admin page base URL
+	 *
+	 * @return string
+	 */
+	public function get_admin_page_url(): string {
+		return $this->get_admin_url() . 'admin.php?page=gtmkit_';
+	}
+
+	/**
+	 * Get the plugin install URL
+	 *
+	 * @return string
+	 */
+	public function get_plugin_install_url(): string {
+		return $this->get_admin_url() . 'plugin-install.php?tab=search&type=term&s=';
+	}
+
+	/**
+	 * Get admin url
+	 *
+	 * @return string
+	 */
+	private function get_admin_url(): string {
+		return is_network_admin() ? network_admin_url() : admin_url();
 	}
 }

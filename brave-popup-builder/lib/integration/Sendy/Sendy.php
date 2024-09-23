@@ -57,8 +57,8 @@ if ( ! class_exists( 'BravePop_Sendy' ) ) {
                   
          $body = wp_remote_retrieve_body( $response );
          $success =   (strpos($body, "You're subscribed!") !== false) || (strpos($body, "You're already subscribed!" ) !== false)  ? true : false; 
-         // error_log('### Sendy ADD Response: '. json_encode($body));
-         // error_log('### Sendy ADD Success: '. json_encode($success));
+         // error_log('### Sendy ADD Response: '. wp_json_encode($body));
+         // error_log('### Sendy ADD Success: '. wp_json_encode($success));
 
          if($success){
             $addedData = array(

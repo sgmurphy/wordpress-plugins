@@ -47,7 +47,7 @@ class BravePopup_Settings {
 	 */
 	public static function save_settings( array  $settings ){
 		//remove any non-allowed indexes before save
-      //error_log(json_encode($settings));
+      //error_log(wp_json_encode($settings));
       $saved = get_option( self::$option_key, array() );
 
 		foreach ( $settings as $i => $setting ){

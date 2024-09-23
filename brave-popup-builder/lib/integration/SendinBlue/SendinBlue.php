@@ -37,8 +37,8 @@ if ( ! class_exists( 'BravePop_SendinBlue' ) ) {
                   $finalLists[] = $listItem;
                }
             }
-            //error_log(json_encode($finalLists));
-            return json_encode($finalLists);
+            //error_log(wp_json_encode($finalLists));
+            return wp_json_encode($finalLists);
          }else{
             return false;
          }
@@ -97,14 +97,14 @@ if ( ! class_exists( 'BravePop_SendinBlue' ) ) {
                'content-type' => 'application/json',
                'api-key' => $this->api_key,
             ),
-            'body' => json_encode($dataToSend)
+            'body' => wp_json_encode($dataToSend)
          );
 
 
          $response = wp_remote_post( $APIURL, $addUserargs );
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
-         // error_log('##### SNB Response: '.json_encode($response));
+         // error_log('##### SNB Response: '.wp_json_encode($response));
          if( !is_wp_error( $response ) && ( isset($response['response']['code']) && ($response['response']['code'] === 204 || $response['response']['code'] === 201)) ){
             $addedData = array(
                'action'=> isset($userData['action']) ? $userData['action'] : 'visitor_added',  

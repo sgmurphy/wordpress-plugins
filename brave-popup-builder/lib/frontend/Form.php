@@ -25,7 +25,7 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
          $this->currentUser = bravepop_getCurrentUser();
          $this->formDataIntercepted = do_action( 'bravepop_form_element_data', $this->data->formData, $popupID, $this->data->id );
          $this->formData = $this->formDataIntercepted ? $this->formDataIntercepted : $this->data->formData;
-         // error_log(json_encode($this->formData));
+         // error_log(wp_json_encode($this->formData));
          $this->conditionedFields = array();
          $this->formFields = $this->processFields($this->data->formData);
          $this->social_optin = !empty($this->formData->settings->action->newsletter->advancedSettings->social) ? true : false;
@@ -207,7 +207,7 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
 
                   }
                }
-               // error_log(json_encode($fieldSettings));
+               // error_log(wp_json_encode($fieldSettings));
                if($fieldJS){ echo $fieldJS; }
                ?>
                brave_popup_formData['<?php print_r(esc_attr($this->data->id)); ?>'] = {
@@ -215,23 +215,23 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
                   popupID: '<?php print_r(esc_attr($this->popupID)); ?>',
                   stepID: '<?php print_r(esc_attr($this->stepIndex)); ?>',
                   device: '<?php print_r(esc_attr($this->device)); ?>',
-                  fields: '<?php print_r(json_encode($fieldSettings)); ?>',
-                  track: '<?php print_r(json_encode(isset($this->formData->settings->action->track) ? $this->formData->settings->action->track : null)); ?>',
-                  changesFormHeight: <?php print_r(json_encode($this->changesFormHeight)); ?>,
-                  heightData: <?php print_r(json_encode($this->formHeightData)); ?>,
-                  goal: <?php print_r(json_encode($this->goalItem)); ?>,
-                  recaptcha: <?php print_r(json_encode(!empty($this->recaptcha) ? $this->recaptcha : false )); ?>,
-                  social_optin: <?php print_r(json_encode(!empty($this->social_optin) ? $this->social_optin : false )); ?>,
+                  fields: '<?php print_r(wp_json_encode($fieldSettings)); ?>',
+                  track: '<?php print_r(wp_json_encode(isset($this->formData->settings->action->track) ? $this->formData->settings->action->track : null)); ?>',
+                  changesFormHeight: <?php print_r(wp_json_encode($this->changesFormHeight)); ?>,
+                  heightData: <?php print_r(wp_json_encode($this->formHeightData)); ?>,
+                  goal: <?php print_r(wp_json_encode($this->goalItem)); ?>,
+                  recaptcha: <?php print_r(wp_json_encode(!empty($this->recaptcha) ? $this->recaptcha : false )); ?>,
+                  social_optin: <?php print_r(wp_json_encode(!empty($this->social_optin) ? $this->social_optin : false )); ?>,
                   totalSteps: <?php print_r($this->totalSteps) ?>,
-                  quiz: <?php print_r(json_encode(isset($this->formData->settings->options->type) && $this->formData->settings->options->type === 'quiz' ? true : false)); ?>,
-                  quizScoring: <?php print_r(json_encode(isset($this->formData->settings->options->scoring) ? $this->formData->settings->options->scoring : 'points')); ?>,
+                  quiz: <?php print_r(wp_json_encode(isset($this->formData->settings->options->type) && $this->formData->settings->options->type === 'quiz' ? true : false)); ?>,
+                  quizScoring: <?php print_r(wp_json_encode(isset($this->formData->settings->options->scoring) ? $this->formData->settings->options->scoring : 'points')); ?>,
                   totalQuestions: <?php print_r($totalQuizQuestions); ?>,
                   totalScore: <?php print_r(0); ?>,
                   totalCorrect: <?php print_r(0); ?>,
-                  freemailAllow: <?php print_r(json_encode(!empty($this->formData->settings->action->allowfreemail) ? true : false));?>,
-                  conditions: <?php print_r(json_encode($allConditions)); ?>,
-                  conditionsMatch: <?php print_r(json_encode($fieldConditionsMatch)); ?>,
-                  conditionsVals: <?php print_r(json_encode($fieldConditionVals)); ?>,
+                  freemailAllow: <?php print_r(wp_json_encode(!empty($this->formData->settings->action->allowfreemail) ? true : false));?>,
+                  conditions: <?php print_r(wp_json_encode($allConditions)); ?>,
+                  conditionsMatch: <?php print_r(wp_json_encode($fieldConditionsMatch)); ?>,
+                  conditionsVals: <?php print_r(wp_json_encode($fieldConditionVals)); ?>,
                   onSubmit: <?php print_r('function(formData, response){  '.((!empty($this->formData->settings->action->onSubmitJS) && !empty($this->formData->settings->action->onSubmitCode)) ? $this->formData->settings->action->onSubmitCode : '').'}'); ?>,
                }
                <?php if($this->hasDate){  
@@ -495,7 +495,7 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
          $fontSize = isset($field->fontSize) && $field->fontSize ? (Int)$field->fontSize: 14;
          $roundness = isset($field->roundness) && $field->roundness ? (Int)$field->roundness: 4;
          $height = isset($field->height) && $field->height ? (Int)$field->height: 12;
-         //$stepData = str_replace('"','\'',json_encode(array('formID'=> $this->data->id, 'totalSteps'=> $this->totalSteps, 'goto'=> $this->wrappedSteps )));
+         //$stepData = str_replace('"','\'',wp_json_encode(array('formID'=> $this->data->id, 'totalSteps'=> $this->totalSteps, 'goto'=> $this->wrappedSteps )));
          $stepData = !empty($field->step) && $this->totalSteps > 0 ? ', \''.$this->data->id.'\', '.$this->totalSteps.', '.$this->wrappedSteps.'' :'';
          $hasConditionClass = isset($field->has_condition) && !empty($field->has_condition) && isset($field->conditions) && is_array($field->conditions) && count($field->conditions) > 0 ? ' brave_form_field--hasCondition' : '';
          $condtionCheckAction = in_array($field->id, $this->conditionedFields) ? 'brave_check_field_condition(event, \''.$field->id.'\', \''.$this->data->id.'\', \'checkbox\');' : '';
@@ -648,7 +648,7 @@ if ( ! class_exists( 'BravePop_Element_Form' ) ) {
          foreach ($field->options as $index => $option) {
             $imgSrc = $lazyLoad ? 'src="'.bravepop_get_preloader().'" data-lazy="'.$option->image.'"' : 'src="'.$option->image.'"';
             $optionLabel = !empty($option->label) ? $option->label : ''; $optionValue = !empty($option->value) ? $option->value : '';   $optionValue = $optionValue ? $optionValue : esc_attr($option->label);
-            $fieldHTML .= '<div id="brave_form_field'.$field->id.'_opt-'.$index.'" class="formfield__inner__image" onclick="brave_select_imageField(\''.$field->id.'\', \''.$index.'\', '.json_encode($multi).');'.$condtionCheckAction.'" '.$imageWidthStyle.'>';
+            $fieldHTML .= '<div id="brave_form_field'.$field->id.'_opt-'.$index.'" class="formfield__inner__image" onclick="brave_select_imageField(\''.$field->id.'\', \''.$index.'\', '.wp_json_encode($multi).');'.$condtionCheckAction.'" '.$imageWidthStyle.'>';
             $fieldHTML .= '<div class="formfield__inner__image__selection">'.bravepop_renderIcon('check', '#fff').'</div>';
             $fieldHTML .= isset($option->image) && $option->image ? '<div class="formfield__inner__image_img"><img class="brave_element__form_imageselect brave_element_img_item skip-lazy no-lazyload" '.$imgSrc.' alt="'.$label.'" /></div>' : '<div class="formfield__inner__image_fake"></div>';
             $fieldHTML .= $multi ? '<input name="'.esc_attr($fieldName).'[]" type="checkbox" value="'.esc_attr($optionValue).'"   /><span>'.$optionLabel.'</span>' : '<input name="'.esc_attr($fieldName).'" type="radio" value="'.esc_attr($optionValue).'" '.($index === 0 ?'checked':'').'  /><span>'.$optionLabel.'</span>';

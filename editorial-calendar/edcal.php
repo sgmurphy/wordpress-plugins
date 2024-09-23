@@ -19,8 +19,8 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Plugin URI: https://editorialcalendarwp.com/
-Description: The Editorial Calendar allows you to view all your posts, schedule post, make quick edits, and manage your blog by dragging and dropping posts.
-Version: 3.8.5
+Description: Editorial Calendar allows you to view all your posts, schedule post, make quick edits, and manage your blog by dragging and dropping posts.
+Version: 3.8.6
 Author: Editorial Calendar Team
 Author URI: https://editorialcalendarwp.com/
 Text Domain: editorial-calendar
@@ -54,6 +54,7 @@ class EdCal
 
     protected $supports_custom_types;
     protected $default_time;
+    protected $default_status;
 
     function __construct()
     {
@@ -601,8 +602,8 @@ class EdCal
 
                 global $edcal_startDate, $edcal_endDate;
 
-                $edcal_startDate = isset($_GET['from']) ? $_GET['from'] : null;
-                $edcal_endDate = isset($_GET['to']) ? $_GET['to'] : null;
+                $edcal_startDate = isset($_GET['from']) ? sanitize_text_field($_GET['from']) : null;
+                $edcal_endDate = isset($_GET['to']) ? sanitize_text_field($_GET['to']) : null;
                 global $post;
                 $args = array(
                     'posts_per_page' => -1,
@@ -614,7 +615,7 @@ class EdCal
                 * If we're in the specific post type case we need to add
                 * the post type to our query.
                 */
-                $post_type = isset($_GET['post_type']) ? $_GET['post_type'] : null;
+                $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : null;
                 if ($post_type) {
                     $args['post_type'] = $post_type;
                 }
@@ -721,7 +722,7 @@ class EdCal
                 * If we're in the specific post type case we need to add
                 * the post type to our query.
                 */
-                $post_type = isset($_GET['post_type']) ? $_GET['post_type'] : null;
+                $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : null;
                 if ($post_type) {
                     $args['post_type'] = $post_type;
                 }
@@ -757,7 +758,12 @@ class EdCal
                 * and Firefox. It is also a little nicer typographically.  
                 *
                 */
-                return json_encode(str_replace("&#039;", "&#146;", $string));
+                if (null != $string) {
+                    $string = str_replace("'", "’", $string);
+                    return json_encode(str_replace("&#039;", "’", $string));
+                } else {
+                    return;
+                }
             }
 
             /* 
@@ -767,7 +773,7 @@ class EdCal
             function edcal_get_posttype_multiplename()
             {
 
-                $post_type = isset($_GET['post_type']) ? $_GET['post_type'] : null;
+                $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : null;
                 if (!$post_type) {
                     return __('Posts ', 'editorial-calendar');
                 }
@@ -784,7 +790,7 @@ class EdCal
             function edcal_get_posttype_singlename()
             {
 
-                $post_type = isset($_GET['post_type']) ? $_GET['post_type'] : null;
+                $post_type = isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : null;
                 if (!$post_type) {
                     return __('Post ', 'editorial-calendar');
                 }
@@ -908,7 +914,7 @@ class EdCal
                 header("Content-Type: application/json");
                 $this->edcal_addNoCacheHeaders();
 
-                $edcal_postid = isset($_GET['postid']) ? $_GET['postid'] : null;
+                $edcal_postid = isset($_GET['postid']) ? sanitize_text_field($_GET['postid']) : null;
 
                 if (!current_user_can('delete_post', $edcal_postid)) {
                     die("You don't have permission to delete this post");
@@ -962,7 +968,7 @@ class EdCal
                 header("Content-Type: application/json");
                 $this->edcal_addNoCacheHeaders();
 
-                $edcal_postid = isset($_GET['postid']) ? $_GET['postid'] : null;
+                $edcal_postid = isset($_GET['postid']) ? sanitize_text_field($_GET['postid']) : null;
                 $edcal_newTitle = isset($_GET['title']) ? sanitize_text_field($_GET['title']) : null;
 
                 $post = get_post($edcal_postid, ARRAY_A);
@@ -1012,7 +1018,7 @@ class EdCal
                 header("Content-Type: application/json");
                 $this->edcal_addNoCacheHeaders();
 
-                $edcal_date = isset($_POST["date"]) ? $_POST["date"] : null;
+                $edcal_date = isset($_POST["date"]) ? sanitize_text_field($_POST["date"]) : null;
 
                 $allowed_tags = wp_kses_allowed_html('post');
                 $allowed_tags['script'] = array('src' => true, 'async' => true, 'defer' => true);
@@ -1070,8 +1076,8 @@ class EdCal
                 header("Content-Type: application/json");
                 $this->edcal_addNoCacheHeaders();
 
-                $edcal_date = isset($_POST["date"]) ? $_POST["date"] : null;
-                $edcal_date_gmt = isset($_POST["date_gmt"]) ? $_POST["date_gmt"] : get_gmt_from_date($edcal_date);
+                $edcal_date = isset($_POST["date"]) ? sanitize_text_field($_POST["date"]) : null;
+                $edcal_date_gmt = isset($_POST["date_gmt"]) ? sanitize_text_field($_POST["date_gmt"]) : get_gmt_from_date($edcal_date);
 
                 $my_post = array();
 
@@ -1089,7 +1095,7 @@ class EdCal
 
                     // Set the status to draft unless the user otherwise specifies
                     if ($_POST['status']) {
-                        $my_post['post_status'] = $_POST['status'];
+                        $my_post['post_status'] = sanitize_text_field($_POST['status']);
                     } else {
                         $my_post['post_status'] = 'draft';
                     }
@@ -1113,23 +1119,23 @@ class EdCal
                     $my_post['post_modified_gmt'] = $edcal_date_gmt;
                 }
 
-                $my_post['post_status'] = $_POST['status'];
+                $my_post['post_status'] = sanitize_text_field($_POST['status']);
 
                 /* 
                 * When we create a new post we need to specify the post type
                 * passed in from the JavaScript.
                 */
-                $post_type = isset($_POST["post_type"]) ? $_POST["post_type"] : null;
+                $post_type = isset($_POST["post_type"]) ? sanitize_text_field($_POST["post_type"]) : null;
                 if ($post_type) {
                     $my_post['post_type'] = $post_type;
                 }
 
                 // If we are updating a post
                 if ($_POST['id']) {
-                    if ($_POST['status'] != $_POST['orig_status']) {
-                        wp_transition_post_status($_POST['status'], $_POST['orig_status'], $my_post);
-                        $my_post['post_status'] = $_POST['status'];
-                    }
+                    // if ($_POST['status'] != $_POST['orig_status']) {
+                    //     wp_transition_post_status(sanitize_text_field($_POST['status']), sanitize_text_field($_POST['orig_status']), $my_post);
+                    //     $my_post['post_status'] = sanitize_text_field($_POST['status']);
+                    // }
                     $my_post_id = wp_update_post($my_post);
                 } else {
                     // We have a new post, insert the post into the database
@@ -1211,10 +1217,10 @@ class EdCal
                 header("Content-Type: application/json");
                 $this->edcal_addNoCacheHeaders();
 
-                $edcal_postid = isset($_GET['postid']) ? $_GET['postid'] : null;
-                $edcal_newDate = isset($_GET['newdate']) ? $_GET['newdate'] : null;
-                $edcal_oldDate = isset($_GET['olddate']) ? $_GET['olddate'] : null;
-                $edcal_postStatus = isset($_GET['postStatus']) ? $_GET['postStatus'] : null;
+                $edcal_postid = isset($_GET['postid']) ? sanitize_text_field($_GET['postid']) : null;
+                $edcal_newDate = isset($_GET['newdate']) ? sanitize_text_field($_GET['newdate']) : null;
+                $edcal_oldDate = isset($_GET['olddate']) ? sanitize_text_field($_GET['olddate']) : null;
+                $edcal_postStatus = isset($_GET['postStatus']) ? sanitize_text_field($_GET['postStatus']) : null;
                 $move_to_drawer = $edcal_newDate == '0000-00-00';
                 $move_from_drawer = $edcal_oldDate == '00000000';
 

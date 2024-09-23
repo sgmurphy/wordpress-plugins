@@ -363,6 +363,13 @@ class BravePop_Rest_Server extends WP_REST_Controller {
          'permission_callback' => array( $this, 'check_user_permission' ),
        )
    ));
+   register_rest_route( $namespace, '/dismissrating', array(
+      array(
+         'methods'             => 'POST',
+         'callback'            => array( $this, 'dismiss_rating_box' ),
+         'permission_callback' => array( $this, 'check_user_permission' ),
+       )
+   ));
   }
 
 
@@ -388,7 +395,8 @@ class BravePop_Rest_Server extends WP_REST_Controller {
 
         // If the theme param is not a value in our enum then we should return an error as well.
         if ( ! in_array( $value, $args['enum'], true ) ) {
-            return new WP_Error( 'rest_invalid_param', sprintf( __( '%s is not one of %s' ), $param, implode( ', ', $args['enum'] ) ), array( 'status' => 400 ) );
+         /* translators: 1: Parameter name, 2: List of allowed values */
+         return new WP_Error( 'rest_invalid_param', sprintf( __( '%1$s is not one of %2$s', 'bravepop' ), $param, implode( ', ', $args['enum'] ) ), array( 'status' => 400 ) );
         }
     }
 
@@ -418,12 +426,12 @@ class BravePop_Rest_Server extends WP_REST_Controller {
       // error_log($contentType);
       // error_log($headers);
       if($contentType === 'html'){
-         $formattedMsg = json_encode($message);
+         $formattedMsg = wp_json_encode($message);
          $theMessage =  str_replace('\n', '&lt;br&gt;',  $formattedMsg);
          $theMessage = json_decode($theMessage);
          $theMessage = html_entity_decode($theMessage); 
       }else{
-         $formattedMsg = json_encode($message);
+         $formattedMsg = wp_json_encode($message);
          $theMessage =  str_replace('\n', '\r\n',  $formattedMsg);
          $theMessage = json_decode($theMessage);
       }
@@ -457,11 +465,11 @@ class BravePop_Rest_Server extends WP_REST_Controller {
                }
             }
             //then update the parent popup's popup_data & popup_abtest meta
-            update_post_meta($parentID, 'popup_data', wp_slash(json_encode($childPopupData)));
+            update_post_meta($parentID, 'popup_data', wp_slash(wp_json_encode($childPopupData)));
             update_post_meta($parentID, 'popup_abtest','');
             return new WP_REST_Response(array('success'=>true));
          }catch(Exception $e){
-            error_log(json_encode($e->getMessage()));
+            error_log(wp_json_encode($e->getMessage()));
             return new WP_REST_Response(array('error'=>'Unexpected Error Occured!'));
          }
 
@@ -505,7 +513,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
                BravePopup_Settings::save_settings( array('submission' => $updatedSubmission ) );  
             }
          }catch(Exception $e){
-            error_log(json_encode($e->getMessage()));
+            error_log(wp_json_encode($e->getMessage()));
          }
       }
 
@@ -600,15 +608,18 @@ class BravePop_Rest_Server extends WP_REST_Controller {
          $apiURL = $params && isset($params['url']) ? $params['url'] : '';
          $refresh = $params && isset($params['refresh']) ? $params['refresh'] : '';
          
-         //error_log('rest_get_integration_lists: '.$service . $apiKey . $secretKey . $accessToken. $apiURL, $refresh);
+         // error_log('rest_get_integration_lists: '.$service . $apiKey . $secretKey . $accessToken. $apiURL, $refresh);
          
          if(!$service){  
             return new WP_REST_Response(array('error'=>'Provide a service name.'));
          }
    
-         return bravepop_get_integration_lists($service, $apiKey, $secretKey, $accessToken, $apiURL, $refresh);
+         $lists = bravepop_get_integration_lists($service, $apiKey, $secretKey, $accessToken, $apiURL, $refresh);
+         return $lists;
+
       }catch(Exception $e){
-         error_log(json_encode($e->getMessage()));
+         error_log(wp_json_encode($e->getMessage()));
+         return new WP_REST_Response(array('error'=>'Error Getting Lists.'));
       }
 
    }
@@ -628,7 +639,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
          }
          return $integrationData;
       }catch(Exception $e){
-         error_log(json_encode($e->getMessage()));
+         error_log(wp_json_encode($e->getMessage()));
       }
 
    }
@@ -654,7 +665,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
 
     public function get_popup( WP_REST_Request $request ) {
       $params = $request->get_params();
-      //error_log(json_encode($params['id']) );
+      //error_log(wp_json_encode($params['id']) );
       $id = $params['id'];
       //return 'get_popup Called!!';
       $error = new WP_Error( 'rest_post_invalid_id', __( 'Invalid popup ID.' ), array( 'status' => 404 ) );
@@ -786,7 +797,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
             //$popup_data = get_post_meta($args['id'], 'popup_data', true);
             $dataBodyArray = $request->get_json_params();
             
-            //error_log(json_encode($dataBodyArray));
+            //error_log(wp_json_encode($dataBodyArray));
 
             if(isset($dataBodyArray['popup_data'])){
                $popupData =  wp_slash($dataBodyArray['popup_data']);
@@ -800,7 +811,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
             }
 
             if (isset($dataBodyArray['popup_title'])) {
-               //error_log(json_encode($dataBodyArray['popup_title']));
+               //error_log(wp_json_encode($dataBodyArray['popup_title']));
                wp_update_post(array('ID' => $args['id'], 'post_title' => $dataBodyArray['popup_title']));
             }
             if(isset($dataBodyArray['status'])){
@@ -861,7 +872,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
                   $newFields = json_decode($dataBodyArray['form_submission_fields']);
                   if(is_array($newFields)){
                      $updatedFields = array_unique(array_merge($allFields, $newFields));
-                     //error_log('updatedFields: '.json_encode($updatedFields));
+                     //error_log('updatedFields: '.wp_json_encode($updatedFields));
                      $submissionSettings->campaigns->$popupID->allFields = $updatedFields;
                   }
                }
@@ -872,7 +883,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
                   $submissionSettings->campaigns->$popupID->popup_title = $dataBodyArray['form_submission_title'];
                }
 
-               // error_log('$submissionSettings: '.json_encode($submissionSettings));
+               // error_log('$submissionSettings: '.wp_json_encode($submissionSettings));
                BravePopup_Settings::save_settings( array( 'submission' => $submissionSettings ) );
             }
             
@@ -927,7 +938,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
             }
 
          }catch(Exception $e){
-            error_log('Delete Error: '.json_encode($e->getMessage()));
+            error_log('Delete Error: '.wp_json_encode($e->getMessage()));
          }
       }
 
@@ -1068,7 +1079,7 @@ class BravePop_Rest_Server extends WP_REST_Controller {
       if($popupID){
          $submissionClass =  new BravePop_Submissions();
          $submClass = $submissionClass->fetchSubmissions( $popupID,  $count, $page );
-         //error_log('get_submission_entries: '.json_encode($submClass));
+         //error_log('get_submission_entries: '.wp_json_encode($submClass));
          $submission_entries = array();
 
          if(isset($submClass['submissions']) ){
@@ -1163,6 +1174,16 @@ class BravePop_Rest_Server extends WP_REST_Controller {
       }
 
       return new WP_REST_Response($entries);
+   }
+
+   public function dismiss_rating_box(WP_REST_Request $request){
+      try{
+         update_option('brave_plugin_rated', true);
+         return new WP_REST_Response(true);
+      }catch(Exception $e){
+         error_log(wp_json_encode($e->getMessage()));
+      }
+
    }
 }
 $brave_rest_server = new BravePop_Rest_Server();

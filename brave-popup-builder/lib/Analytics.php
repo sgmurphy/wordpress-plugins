@@ -73,7 +73,7 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
          $popupID = absint($popupID);
          $sql = $wpdb->prepare("SELECT * FROM $viewTable WHERE `popup` = %d", $popupID);
          $popupViewRow = $wpdb->get_results( $sql );
-         // error_log($type.' '.json_encode($popupViewRow));
+         // error_log($type.' '.wp_json_encode($popupViewRow));
          if(isset($popupViewRow[0])){
             $foundRow = $popupViewRow[0];
             $where = array('id'=> absint($foundRow->id));
@@ -90,15 +90,15 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
                   $popupViews->$date->$type = $currentCount + 1;
                }
    
-               $foundRow->stats = json_encode($popupViews);
+               $foundRow->stats = wp_json_encode($popupViews);
                $wpdb->update( $viewTable, array('stats'=> $foundRow->stats), $where );
             }
          }else{
             $newdata = array('stats'=>'', 'popup'=> $popupID);
             $viewData = array();
             $viewData[$date] = array('views'=> 1, 'goals'=> ($bothTypes ? 1 : 0) );
-            $newdata['stats'] = json_encode($viewData);
-            //error_log('ROW NOT FOUND. ADDING: '.json_encode($viewData). ' Type: '. $type);
+            $newdata['stats'] = wp_json_encode($viewData);
+            //error_log('ROW NOT FOUND. ADDING: '.wp_json_encode($viewData). ' Type: '. $type);
             $wpdb->insert( $viewTable, $newdata );
          }
          $endTime = microtime(true);
@@ -132,7 +132,7 @@ if ( ! class_exists( 'BravePop_Analytics' ) ) {
          $saveIp = isset($settings['analytics']->ipaddress) && $settings['analytics']->ipaddress === true ? true : false;
 
          foreach ($allEntries as $key => $entry) {
-            //error_log(json_encode($theEntry));
+            //error_log(wp_json_encode($theEntry));
             $stat = new stdClass(); 
             $stat->id = intval($entry->id);
             $stat->campaign_ID = intval($entry->popup);

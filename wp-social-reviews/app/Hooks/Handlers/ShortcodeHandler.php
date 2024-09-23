@@ -158,11 +158,12 @@ class ShortcodeHandler
         $platforms = Arr::get($template_meta, 'platform', []);
         $badge_settings = Arr::get($template_meta, 'badge_settings', []);
         $selectedBusinesses = Arr::get($template_meta, 'selectedBusinesses', []);
-        $business_info = Helper::getSelectedBusinessInfoByPlatforms($platforms, $selectedBusinesses);
+        $business_info = Helper::getSelectedBusinessInfoByPlatforms($platforms, $selectedBusinesses, []);
+
         $validTemplatePlatforms = Helper::validPlatforms($platforms);
         $templateType = Arr::get($template_meta, 'templateType');
 
-        $connected_account_ids = array_keys(Arr::get($business_info, 'platforms'));
+        $connected_account_ids = array_keys(Arr::get($business_info, 'platforms', []));
 
         if(in_array('facebook', $validTemplatePlatforms)) {
             $accountsLists = get_option('wpsr_reviews_facebook_settings', []);
@@ -691,7 +692,7 @@ class ShortcodeHandler
             'feed_settings' => $settings['feed_settings'],
             'layout_type' => $settings['layout_type'],
             'column_gaps' => $settings['column_gaps'],
-            'translations' => $translations
+            'translations' => $translations,
         ));
 
         if(!empty($feeds)) {
@@ -701,6 +702,7 @@ class ShortcodeHandler
                 'template_meta' => $settings['feed_settings'],
                 'sinceId'       => $pagination_settings['sinceId'],
                 'maxId'         => $pagination_settings['maxId'],
+                'image_settings' => $this->imageSettings
             ));
         }
 

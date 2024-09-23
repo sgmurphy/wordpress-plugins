@@ -4,7 +4,7 @@ Tags: Instagram feed, Google Reviews, Social feeds, Social reviews, Social chats
 Requires at least: 5.6
 Tested up to: 6.6
 Requires PHP: 7.1
-Stable tag: 3.14.0
+Stable tag: 3.14.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -309,6 +309,14 @@ Yes, you can. WP Social Ninja is a fully-featured review plugin with unique feat
 8. Make templates your own way, and all will look perfect on any screen.
 
 == Changelog ==
+3.14.1 ( Date: 23 September, 2024 )
+- Resolved an issue where database tables were not being created for subsites if the wp social ninja was installed after the subsites were created. Tables will now correctly generate for both the main site and all subsites, regardless of installation time.
+- Preloader in feed templates not disappearing after storing images locally has been resolved. Preloader now correctly disappears after images are successfully stored.
+- Fixed PHP 8.3 compatibility issue, which caused a fatal error due to a null argument being passed to array_keys() in the ShortcodeHandler.php file.
+- Corrected the issue with the "Filter Number of Feeds to Display" limit for feeds, ensuring that the specified limit now works as intended.
+- Addressed an issue with the feed display limit, ensuring it now functions correctly.
+- Fixed post URL popup and redirection issue in Facebook feed template.
+
 3.14.0 ( Date: 18 September, 2024 )
 - Added Optimize Images settings option in Settings -> Feed Platforms -> Facebook,TikTok Settings. This feature automatically stores local copies of Facebook,TikTok feed images on your server.
 – Added Facebook,TikTok Feed GDPR compliant settings option in Settings -> Advanced Settings.

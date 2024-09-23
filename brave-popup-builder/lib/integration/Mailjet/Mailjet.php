@@ -42,7 +42,7 @@ if ( ! class_exists( 'BravePop_Mailjet' ) ) {
                   $finalLists[] = $listItem;
                }
             }
-            return json_encode($finalLists);
+            return wp_json_encode($finalLists);
          }else{
             return false;
          }
@@ -73,7 +73,7 @@ if ( ! class_exists( 'BravePop_Mailjet' ) ) {
                'content-type' => 'application/json',
                'Authorization' => 'Basic ' . base64_encode( $this->api_key.':'.$this->secret )
             ),
-            'body' => json_encode(array(
+            'body' => wp_json_encode(array(
                'Email'     => $email,
                'Name'      => trim($fullname),
                'Action'    => 'addforce'
@@ -85,7 +85,7 @@ if ( ! class_exists( 'BravePop_Mailjet' ) ) {
 
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
-         //error_log(json_encode($data));
+         //error_log(wp_json_encode($data));
          if($data && isset($data->Data) && isset($data->Data[0]->ContactID)){
 
             if(class_exists('BravePop_Mailjet_Advanced') && count($customFields) > 0){

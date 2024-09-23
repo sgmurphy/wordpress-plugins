@@ -44,7 +44,7 @@ if ( ! class_exists( 'BravePop_Aweber' ) ) {
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
          if(isset($data->expires_in) && isset($data->access_token) ){
-            update_option('_bravepop_aweber_tkn', json_encode(array('token'=> $data->access_token, 'expires_in'=> (time() + ($data->expires_in - 200) ))));
+            update_option('_bravepop_aweber_tkn', wp_json_encode(array('token'=> $data->access_token, 'expires_in'=> (time() + ($data->expires_in - 200) ))));
          }
 
          return isset($data->access_token) ? $data->access_token : '';
@@ -76,9 +76,9 @@ if ( ! class_exists( 'BravePop_Aweber' ) ) {
                $finalLists[] = $listItem;
             }
 
-            //error_log(json_encode($finalLists));
+            //error_log(wp_json_encode($finalLists));
 
-            return json_encode($finalLists);
+            return wp_json_encode($finalLists);
          }else{
             return false;
          }
@@ -127,14 +127,14 @@ if ( ! class_exists( 'BravePop_Aweber' ) ) {
             $args = array(
                'method' => 'POST',
                'headers' => array( 'Authorization' => 'Bearer ' . $access_token, 'Content-Type' => 'application/json'  ),
-               'body' => json_encode($contact)
+               'body' => wp_json_encode($contact)
             );
             //https://api.aweber.com/#tag/Subscribers/paths/~1accounts~1{accountId}~1lists~1{listId}~1subscribers/post
             $response = wp_remote_post( 'https://api.aweber.com/1.0/accounts/'.$accountID.'/lists/'.$list_id.'/subscribers', $args );
             $body = wp_remote_retrieve_body( $response );
             $data = json_decode( $body );
 
-            //error_log(json_encode($response));
+            //error_log(wp_json_encode($response));
             if(isset($data->error->message)){ error_log($data->error->message); }
 
             if((isset($response['response']['code']) && $response['response']['code'] === 201)){

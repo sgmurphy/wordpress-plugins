@@ -9,8 +9,8 @@ return function ($file) {
 
     $app = new Application($file);
 
-    register_activation_hook($file, function () {
-        (new ActivationHandler)->handle();
+    register_activation_hook($file, function ($network_wide) use ($app) {
+        (new ActivationHandler)->handle($network_wide);
     });
 
     register_deactivation_hook($file, function () {

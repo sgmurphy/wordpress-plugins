@@ -56,7 +56,7 @@ if ( ! class_exists( 'BravePop_Webhook' ) ) {
             'method' => 'POST',
             'timeout' => 10,
             'headers' => ($hooktype === 'integromat' || $hooktype === 'integrately'  || ($hooktype === 'custom' && $contentType === 'application/json' )) ? array(  'content-type' => 'application/json') : array(),
-            'body' => json_encode($finalData),
+            'body' => wp_json_encode($finalData),
             'data_format' => 'body',
          );
 
@@ -67,7 +67,7 @@ if ( ! class_exists( 'BravePop_Webhook' ) ) {
          $body = wp_remote_retrieve_body( $response );
          $data = json_decode( $body );
 
-         // error_log(json_encode( $body ));
+         // error_log(wp_json_encode( $body ));
          
          if($data && isset($data->id)){
             return $data->id; 

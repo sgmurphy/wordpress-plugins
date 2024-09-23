@@ -804,7 +804,7 @@ msgstr ""
 msgid "Post Meta Color"
 msgstr ""
 
-#: widgets/blog/blog.php:552, widgets/blog/blog.php:1401
+#: widgets/blog/blog.php:552, widgets/blog/blog.php:1405
 msgid "Pagination"
 msgstr ""
 
@@ -873,11 +873,11 @@ msgstr ""
 msgid "Continue reading"
 msgstr ""
 
-#: widgets/blog/blog.php:1431
+#: widgets/blog/blog.php:1435
 msgid "Get more pagination themes and Ajax reloading with %sSiteOrigin Premium%s"
 msgstr ""
 
-#: widgets/blog/blog.php:1436
+#: widgets/blog/blog.php:1440
 msgid "Adjust the post Read More link text and choose a custom post date format with %sSiteOrigin Premium%s"
 msgstr ""
 
@@ -3961,19 +3961,19 @@ msgstr ""
 msgid "Item title"
 msgstr ""
 
-#: base/inc/widgets/base-carousel.class.php:496
+#: base/inc/widgets/base-carousel.class.php:508
 msgid "Next"
 msgstr ""
 
-#: base/inc/widgets/base-carousel.class.php:496
+#: base/inc/widgets/base-carousel.class.php:508
 msgid "Next Posts"
 msgstr ""
 
-#: base/inc/widgets/base-carousel.class.php:502
+#: base/inc/widgets/base-carousel.class.php:514
 msgid "Previous"
 msgstr ""
 
-#: base/inc/widgets/base-carousel.class.php:502
+#: base/inc/widgets/base-carousel.class.php:514
 msgid "Previous Posts"
 msgstr ""
 

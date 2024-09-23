@@ -6,6 +6,7 @@ if (!empty($feeds) && is_array($feeds)) {
     $column      = isset($template_meta['column_number']) ? $template_meta['column_number'] : 4;
     $columnClass = 'wpsr-col-' . $column;
     $layout_type = isset($template_meta['layout_type']) && defined('WPSOCIALREVIEWS_PRO') ? $template_meta['layout_type'] : 'timeline';
+
     
     if ($feed_type !== 'timeline_feed' && !defined('WPSOCIALREVIEWS_PRO')) {
         echo '<p>' . __('You need to upgrade to pro to use this feature.', 'wp-social-reviews') . '</p>';
@@ -22,7 +23,13 @@ if (!empty($feeds) && is_array($feeds)) {
         }));
     }
 
+    $imageResolution = Arr::get($template_meta, 'post_settings.resolution');
+    $display_mode = Arr::get($template_meta, 'post_settings.display_mode');
+    $display_optimized_image = Arr::get($image_settings, 'optimized_images', 'false');
+    $has_gdpr = Arr::get($image_settings, 'has_gdpr', 'false');
+
     foreach($feeds as $index => $feed) {
+        $page_id = Arr::get($feed, 'page_id', null);
         if ($index >= ($feed_type === 'album_feed' ? 0 : $sinceId) && $index <= ($feed_type === 'album_feed' ? count($feeds) : $maxId)) {
             if ($layout_type !== 'carousel') {
                 /**
@@ -39,8 +46,8 @@ if (!empty($feeds) && is_array($feeds)) {
         ?>
             <div role="group" class="wpsr-fb-feed-item wpsr-fb-post <?php echo ($layout_type === 'carousel' && defined('WPSOCIALREVIEWS_PRO')) ? 'swiper-slide' : ''; echo ($feed_type === 'album_feed') ? ' wpsr-album-cover-photo-wrapper' : ''; ?>" 
             data-post_id="<?php echo esc_attr($post_id); ?>" 
-            data-user_name="<?php echo esc_attr($feed['page_id']); ?>" 
-            data-image_size="<?php echo esc_attr($template_meta['post_settings']['resolution']); ?>">
+            data-user_name="<?php echo esc_attr($page_id); ?>"
+            data-image_size="<?php echo esc_attr($imageResolution); ?>">
 
                 <?php if($feed_type === 'timeline_feed'){ ?>
                 <div class="wpsr-fb-feed-inner">
@@ -60,7 +67,8 @@ if (!empty($feeds) && is_array($feeds)) {
                     do_action('wpsocialreviews/facebook_feed_description', $feed, $template_meta);
                     ?>
 
-                    <div class="wpsr-fb-feed-content-wrapper wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($image_settings['optimized_images']); ?>" data-has_gdpr="<?php echo esc_attr($image_settings['has_gdpr']); ?>">
+                    <div class="wpsr-fb-feed-content-wrapper wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($display_mode); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($display_optimized_image); ?>" data-has_gdpr="<?php echo esc_attr($has_gdpr); ?>" data-user_name="<?php echo esc_attr($page_id); ?>"
+                        data-image_size="<?php echo esc_attr($imageResolution); ?>">
                         <?php
                         /**
                          * facebook_feed_media hook.
@@ -90,7 +98,7 @@ if (!empty($feeds) && is_array($feeds)) {
                 <?php }
 
                 if($feed_type === 'photo_feed') { ?>
-                    <div class="wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>">
+                    <div class="wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($display_mode); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($display_optimized_image); ?>" data-has_gdpr="<?php echo esc_attr($has_gdpr); ?>" data-user_name="<?php echo esc_attr($page_id); ?>">
                         <?php
                         /**
                          * facebook_feed_media hook.
@@ -103,7 +111,7 @@ if (!empty($feeds) && is_array($feeds)) {
                 <?php }
 
                 if($feed_type === 'video_feed') { ?>
-                    <div class="wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($image_settings['optimized_images']); ?>" data-has_gdpr="<?php echo esc_attr($image_settings['has_gdpr']); ?>">
+                    <div class="wpsr-fb-feed-playmode" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($display_mode); ?>" data-template-id="<?php echo esc_attr($templateId); ?>" data-optimized_images="<?php echo esc_attr($display_optimized_image); ?>" data-has_gdpr="<?php echo esc_attr($has_gdpr); ?>" data-user_name="<?php echo esc_attr($page_id); ?>">
                         <?php
                         /**
                          * facebook_feed_videos hook.
@@ -117,7 +125,7 @@ if (!empty($feeds) && is_array($feeds)) {
                 }
 
                 if($feed_type === 'event_feed') { ?>
-                    <div class="wpsr-fb-feed-playmode wpsr-fb-feed-inner" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($template_meta['post_settings']['display_mode']); ?>" data-template-id="<?php echo esc_attr($templateId); ?>">
+                    <div class="wpsr-fb-feed-playmode wpsr-fb-feed-inner" data-feed_type="<?php echo esc_attr($feed_type); ?>" data-index="<?php echo esc_attr($index); ?>" data-playmode="<?php echo esc_attr($display_mode); ?>" data-template-id="<?php echo esc_attr($templateId); ?>">
                         <?php
                         /**
                          * facebook_feed_albums hook.

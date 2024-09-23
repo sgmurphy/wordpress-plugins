@@ -147,7 +147,7 @@ function bravepop_updated_menu_roles ($previousRoles=array(), $allowedRoles=arra
 function bravepop_should_lazyload(){
    global $bravepop_settings;
    $appSettings = isset($bravepop_settings['app_settings']) ? $bravepop_settings['app_settings'] : new stdClass();
-   $disableLazy = isset($appSettings->disableLazyLoading) ? json_encode($appSettings->disableLazyLoading) : 'false'; 
+   $disableLazy = isset($appSettings->disableLazyLoading) ? wp_json_encode($appSettings->disableLazyLoading) : 'false'; 
    return $disableLazy === 'true' ? false : true;
 }
 

@@ -227,7 +227,7 @@ function bravepop_get_wpdata( $type, $ids=array() ) {
 
        }
 
-       //error_log(json_encode($wpData));
+       //error_log(wp_json_encode($wpData));
        
    }
 
@@ -324,8 +324,8 @@ function bravepop_get_wpPosts( $type='', $postType='', $filterType='', $count=3,
    if($postType === 'page'){
        $args = array( 'post_type' => 'page', 'post__in' => $postID );
    }
-   //error_log(json_encode( $args ));
-   //error_log(json_encode(get_posts( $args )));
+   //error_log(wp_json_encode( $args ));
+   //error_log(wp_json_encode(get_posts( $args )));
 
    $posts = get_posts( $args );
    foreach ( $posts as $post ) {
@@ -335,12 +335,12 @@ function bravepop_get_wpPosts( $type='', $postType='', $filterType='', $count=3,
        if ($postType) {
            $blocks = parse_blocks( $post->post_content );
            foreach ($blocks as $block) {
-               //error_log(json_encode($block));
+               //error_log(wp_json_encode($block));
                if ($block['blockName']) {
                    $theContent .= $block['innerHTML'];
                }
            }
-           //error_log(json_encode($theContent));
+           //error_log(wp_json_encode($theContent));
        }
        
        $object->ID = $post->ID ;

@@ -6,6 +6,7 @@ use WPSocialReviews\App\Services\GlobalSettings;
 use WPSocialReviews\App\Services\Helper as GlobalHelper;
 use WPSocialReviews\App\Services\Platforms\MediaManager;
 use WPSocialReviews\Framework\Support\Arr;
+use WPSocialReviews\App\Services\Platforms\PlatformManager;
 use WPSocialReviews\App\Services\Platforms\ImageOptimizationHandler;
 
 if (!defined('ABSPATH')) {
@@ -153,12 +154,6 @@ class FeedFilters
                 if (($filterSettings['post_order'] === 'most_popular' || $filterSettings['post_order'] === 'least_popular')) {
                     $feeds = apply_filters('wpsocialreviews/facebook_feeds_by_popularity', $feeds,
                         $filterSettings['post_order']);
-
-                    $feeds = array_map(function ($value) {
-                        if(isset($value['media_url']) || isset($value['children'])) {
-                            return $value;
-                        }
-                    }, $feeds);
                 }
                 // hide shared posts
                 if(Arr::get($filterSettings, 'hide_shared_posts') === true){
@@ -176,6 +171,7 @@ class FeedFilters
                 if(!empty($display_posts) && is_array($display_posts) && !in_array('all', $display_posts)){
                     $feeds = array_map(function ($value) use ($display_posts) {
                         $type = Arr::get($value, 'attachments.data.0.type');
+                        $type = $type === 'animated_image_video' ? 'video_inline' : $type;
                         $has_attachments = Arr::get($value, 'attachments');
                         if(in_array($type, $display_posts) || (!$has_attachments && in_array('text', $display_posts))){
                             return $value;
@@ -382,21 +378,20 @@ class FeedFilters
                 }
 
                 if ($isOk) {
-                    if (!$hasHidePost) {
+                    if ($this->platform === 'instagram' && !$hasHidePost) {
                         $post_type = Arr::get($filterSettings, 'post_type');
                         // 3rd filter: start of filters for Types Of Posts
                         if ($post_type === 'all') {
                             $filterResponse[] = $feed;
-                        } elseif (isset($feed['media_type']) && ($feed['media_type'] === "IMAGE" || $feed['media_type'] === 'CAROUSEL_ALBUM') && $post_type === 'images') {
+                        } elseif (isset($feed['media_type']) && ($feed['media_type'] === "IMAGE" || $feed['media_type'] === 'CAROUSEL_ALBUM') && $feed['media_name'] !== "VIDEO" && $post_type === 'images') {
                             $filterResponse[] = $feed;
-                        } elseif (isset($feed['media_type']) && $feed['media_type'] === "VIDEO" && $post_type === 'videos') {
+                        } elseif (isset($feed['media_type']) && ($feed['media_type'] === "VIDEO" || $feed['media_name'] === "VIDEO") && $post_type === 'videos') {
                             $filterResponse[] = $feed;
                         }
-                        //3rd filter: end of filters for Types Of Posts
                         $totalPostsIterator++;
                     }
 
-                    if (($this->platform === 'youtube' || $this->platform === 'twitter' || $this->platform === 'facebook_feed' || $this->platform === 'tiktok') && !$hasHidePost) {
+                    if ($this->platform !== 'instagram' && !$hasHidePost) {
                         $filterResponse[] = $feed;
                         $totalPostsIterator++;
                     }

@@ -145,7 +145,7 @@ if ( ! class_exists( 'BravePop_Element_Posts' ) ) {
             }
          }
 
-         //error_log(json_encode($the_query));
+         //error_log(wp_json_encode($the_query));
 
          if(!$the_query){ return ''; }
 
