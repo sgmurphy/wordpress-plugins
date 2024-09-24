@@ -1,15 +1,15 @@
-# Copyright (C) 2024 WooCommerce
+# Copyright (C) 2024 Amazon Pay
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Amazon Pay 2.5.2\n"
+"Project-Id-Version: WooCommerce Amazon Pay 2.5.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-gateway-amazon-pay\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-07-25T20:16:18+00:00\n"
+"POT-Creation-Date: 2024-09-24T17:14:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: woocommerce-gateway-amazon-payments-advanced\n"
@@ -26,19 +26,28 @@ msgstr ""
 
 #. Description of the plugin
 #: woocommerce-gateway-amazon-payments-advanced.php
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:180
 #: includes/class-wc-gateway-amazon-payments-advanced-express.php:37
 msgid "Amazon Pay is embedded directly into your existing web site, and all the buyer interactions with Amazon Pay and Login with Amazon take place in embedded widgets so that the buyer never leaves your site. Buyers can log in using their Amazon account, select a shipping address and payment method, and then confirm their order. Requires an Amazon Pay seller account and supports USA, UK, Germany, France, Italy, Spain, Luxembourg, the Netherlands, Sweden, Portugal, Hungary, Denmark, and Japan."
 msgstr ""
 
+#: build/js/payments-methods/classic/index.min.js:1
+#: build/js/payments-methods/express/index.min.js:1
 #. Author of the plugin
 #: woocommerce-gateway-amazon-payments-advanced.php
-msgid "WooCommerce"
+#: includes/admin/class-wc-amazon-payments-advanced-order-admin.php:146
+#: includes/class-wc-amazon-payments-advanced-api-abstract.php:123
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:179
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:379
+#: build/js/payments-methods/classic/index.js:2004
+#: build/js/payments-methods/express/index.js:2742
+#: src/js/payments-methods/classic/index.js:17
+#: src/js/payments-methods/express/index.js:25
+msgid "Amazon Pay"
 msgstr ""
 
 #. Author URI of the plugin
 #: woocommerce-gateway-amazon-payments-advanced.php
-msgid "https://woocommerce.com"
+msgid "https://pay.amazon.com/"
 msgstr ""
 
 #: includes/admin/class-wc-amazon-payments-advanced-admin.php:93
@@ -74,7 +83,7 @@ msgstr ""
 
 #. translators: 1) The URL to the Amazon Pay settings screen.
 #: includes/admin/class-wc-amazon-payments-advanced-admin.php:189
-msgid "Amazon Pay is now enabled for WooCommerce and ready to accept live payments. Please check the <a href=\"%1$s\">configuration</a>. to make sure everything is set correctly."
+msgid "Amazon Pay is now enabled for WooCommerce. Please check the <a href=\"%1$s\">configuration</a>. to make sure everything is set correctly to accept live payments."
 msgstr ""
 
 #. translators: 1) The URL to the Amazon Pay settings screen. 2) The URL to the Login with Amazon App setup instructions.
@@ -107,33 +116,20 @@ msgid ""
 "\t\t\t\t\t\tThis message's purpose is to notify you. Amazon Pay Gateway will continue to be functional without requiring an action from you."
 msgstr ""
 
-#: includes/admin/class-wc-amazon-payments-advanced-admin.php:366
+#: includes/admin/class-wc-amazon-payments-advanced-admin.php:371
 msgid "We'd be grateful if you could give our plugin a 5-star rating. Your reviews help us continue to grow!"
 msgstr ""
 
-#: includes/admin/class-wc-amazon-payments-advanced-admin.php:371
+#: includes/admin/class-wc-amazon-payments-advanced-admin.php:376
 msgid "Yes you deserve it!"
 msgstr ""
 
-#: includes/admin/class-wc-amazon-payments-advanced-admin.php:376
+#: includes/admin/class-wc-amazon-payments-advanced-admin.php:381
 msgid "Hide this message / Already did!"
 msgstr ""
 
-#: includes/admin/class-wc-amazon-payments-advanced-admin.php:381
+#: includes/admin/class-wc-amazon-payments-advanced-admin.php:386
 msgid "Actually, I need help..."
-msgstr ""
-
-#: build/js/payments-methods/classic/index.min.js:1
-#: build/js/payments-methods/express/index.min.js:1
-#: includes/admin/class-wc-amazon-payments-advanced-order-admin.php:146
-#: includes/class-wc-amazon-payments-advanced-api-abstract.php:123
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:179
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:375
-#: build/js/payments-methods/classic/index.js:2004
-#: build/js/payments-methods/express/index.js:2742
-#: src/js/payments-methods/classic/index.js:17
-#: src/js/payments-methods/express/index.js:25
-msgid "Amazon Pay"
 msgstr ""
 
 #: includes/admin/class-wc-amazon-payments-advanced-order-admin.php:197
@@ -246,7 +242,7 @@ msgid "The reference has been cancelled/closed. No authorizations can be made."
 msgstr ""
 
 #: includes/class-wc-amazon-payments-advanced-api-abstract.php:124
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:382
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:386
 msgid "Complete your payment using Amazon Pay!"
 msgstr ""
 
@@ -357,6 +353,10 @@ msgstr ""
 msgid "Invalid order ID."
 msgstr ""
 
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:180
+msgid "Amazon Pay allows 300M+ active buyers to checkout using their Amazon account and is embedded directly into your existing website."
+msgstr ""
+
 #. translators: Login URL
 #: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:321
 msgid "This option makes the plugin to work with the latest API from Amazon, this will enable support for Subscriptions and make transactions more securely. <a href=\"%s\" target=\"_blank\">You must create a Login with Amazon App to be able to use this option.</a>"
@@ -386,374 +386,382 @@ msgstr ""
 msgid "Reconnect to Amazon Pay"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:348
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:349
+msgid "Need help? Check out our <a href=\"https://woocommerce.com/document/amazon-payments-advanced/\" target=\"_blank\">User Documentation</a> for detailed guidance."
+msgstr ""
+
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:352
 msgid "Important note, before you sign up:"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:350
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:354
 msgid "Before you start the registration, make sure you sign out of all Amazon accounts you might have. Use an email address that you have never used for any Amazon account.   If you have an Amazon Seller account (Selling on Amazon), sign out and use a different address to register your Amazon Payments account."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:353
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:357
 msgid "Payment Region"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:360
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:364
 msgid "Connect your Amazon Pay merchant account"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:365
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:369
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:366
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:370
 msgid "Enable Amazon Pay"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:372
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:376
 msgid "Title"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:374
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:378
 msgid "This controls the title which the user sees during checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:379
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:383
 msgid "Description"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:381
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:385
 msgid "Payment method description that the customer will see on your checkout."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:386
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:390
 msgid "Amazon Pay Merchant account details"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:399
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:396
+msgid "Manually enter your keys"
+msgstr ""
+
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:403
 msgid "Manual Keys JSON"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:401
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:405
 msgid "JSON format, retrieve the JSON clicking the \"Download JSON file\" button in Seller Central under \"INTEGRATION- Central - Existing API keys"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:406
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:410
 msgid "Private Key File"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:407
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:411
 msgid "Add .pem file with the private key generated in the Amazon seller Central"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:409
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:413
 msgid "This key is created automatically when you Connect your Amazon Pay merchant account form the Configure button, but can be created by logging into Seller Central and create keys in INTEGRATION - Central"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:421
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:425
 msgid "Merchant ID"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:423
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:430
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:427
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:434
 msgid "Obtained from your Amazon account. Usually found on Integration central after logging into your merchant account."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:428
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:432
 msgid "Store ID"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:435
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:439
 msgid "Public Key Id"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:437
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:441
 msgid "Obtained from your Amazon account. You can get these keys by logging into Seller Central and clicking the \"See Details\" button under INTEGRATION - Central - Existing API keys."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:446
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:450
 msgid "Use Sandbox"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:447
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:451
 msgid "Enable sandbox mode during testing and development - live payments will not be taken if enabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:452
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:456
 #: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:156
 msgid "Yes"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:453
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:457
 #: includes/class-wc-gateway-amazon-payments-advanced-subscriptions.php:157
 msgid "No"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:457
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:461
 msgid "Advanced configurations"
 msgstr ""
 
 #. translators: Merchant URL to copy and paste
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:461
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:465
 msgid "In order to get the quickest updates while working with Async mode, complete your Seller Central configuration on plugin setup. From your seller Central home page, go to “Settings – Integration Settings”. In this page, please paste the URL below to the “Merchant URL” input field. <br /><code>%1$s</code>"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:466
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:470
 msgid "Payment Capture"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:471
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:475
 msgid "Authorize and Capture the payment when the order is placed."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:472
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:476
 msgid "Authorize the payment when the order is placed."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:473
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:477
 msgid "Don’t Authorize the payment when the order is placed (i.e. for pre-orders)."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:477
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:481
 msgid "Authorization processing mode"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:482
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:486
 msgid "Synchronous"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:483
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:487
 msgid "Asynchronous"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:487
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:491
 msgid "Display options"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:488
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:492
 msgid "Customize the appearance of Amazon widgets."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:492
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:496
 msgid "Button language"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:493
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:497
 msgid "Language to use in Login with Amazon or a Amazon Pay button. Only used when Login with Amazon App is enabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:498
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:502
 msgid "Detect from buyer's browser"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:499
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:503
 msgid "US English"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:500
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:504
 msgid "UK English"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:501
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:505
 msgid "Germany's German"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:502
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:506
 msgid "France's French"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:503
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:507
 msgid "Italy's Italian"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:504
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:508
 msgid "Spain's Spanish"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:505
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:509
 msgid "Japan's Japanese"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:509
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:513
 msgid "Button color"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:510
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:514
 msgid "Button color to display on cart and checkout pages. Only used when Login with Amazon App is enabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:515
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:519
 msgid "Gold"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:516
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:520
 msgid "Light gray"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:517
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:521
 msgid "Dark gray"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:521
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:525
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:525
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:529
 msgid "Debug"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:526
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:530
 msgid "Enable debugging messages"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:528
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:532
 msgid "Sends debug messages to the WooCommerce System Status log."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:533
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:537
 msgid "Hide Button Mode"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:534
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:538
 msgid "Enable hide button mode"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:535
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:539
 msgid "This will hides Amazon buttons on the mini-cart and on cart, checkout and product pages so the gateway looks not available to the customers. It will not hide the classic integration, if it's enabled. The buttons are hidden via CSS. Only enable this when troubleshooting your integration."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:541
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:545
 msgid "Classic Gateway"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:542
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:546
 msgid "Enable Amazon Pay as a classic Gateway Option"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:543
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:547
 msgid "This will enable Amazon Pay to also appear along other Gateway Options. Compatible with the Checkout Block of WooCommerce Blocks."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:549
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:553
 msgid "WooCommerce Blocks"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:550
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:554
 msgid "Are you using WooCommerce Blocks for your checkout page?"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:551
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:555
 msgid "Compatibility with WooCommerce blocks should work fine out of the box. This option for the time being ensures compatibility only when using WooCommerce Blocks Checkout without the \"Classic\" Amazon Gateway enabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:557
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:561
 msgid "Amazon Pay on mini cart"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:558
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:562
 msgid "Enable Amazon Pay on mini cart"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:559
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:563
 msgid "This will only work if you are using WooCommerce's mini cart. If you enable it and the Amazon Pay does not show please disable since it also enables loading of required assets globally in your frontend. Compatible with WooCommerce Blocks."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:565
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:569
 msgid "Amazon Pay on product pages"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:566
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:570
 msgid "Enable Amazon Pay on product pages"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:567
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:571
 msgid "This will enable the Amazon Pay button on the product pages next to the Add to Cart button. Compatible with WooCommerce Blocks."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:573
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:577
 msgid "Support Alexa Delivery Notifications"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:574
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:578
 msgid "Enable support for Alexa Delivery Notifications"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:575
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:579
 msgid "This will enable support for Alexa Delivery notifications."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:599
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:603
 msgid "Previous Version Configuration Details"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:608
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:612
 msgid "Seller ID"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:614
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:618
 msgid "MWS Access Key"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:620
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:672
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:624
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:676
 msgid "MWS Secret Key"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:622
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:626
 msgid "Hidden secret key"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:626
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:630
 msgid "App Client ID"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:632
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:636
 msgid "Use Login with Amazon App"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:639
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:643
 msgid "Login Authorization Mode"
 msgstr ""
 
 #. translators: Redirect URL to copy and paste
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:643
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:647
 msgid "Optimal mode requires setting the Allowed Return URLs and Allowed Javascript Origins in Amazon Seller Central. Click the Configure/Register Now button and sign in with your existing account to update the configuration and automatically set these values. If the URL is not added automatically to the Allowed Return URLs field in Amazon Seller Central, please copy and paste the one below manually. <br> <code>%1$s</code>"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:648
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:652
 msgid "Cart login button display"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:649
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:653
 msgid "How the login with Amazon button gets displayed on the cart page. This requires cart page served via HTTPS. If HTTPS is not available in cart page, please select disabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:654
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:658
 msgid "Button type"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:655
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:659
 msgid "Type of button image to display on cart and checkout pages. Only used when Amazon Login App is enabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:659
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:663
 msgid "Button size"
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:660
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:664
 msgid "Button size to display on cart and checkout pages. Only used when Login with Amazon App is enabled."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:676
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:680
 msgid "Corrupted."
 msgstr ""
 
 #. translators: 1) Label from Seller Central 2) Seller Central URL 3) Seller Central Guide.
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:679
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:683
 msgid "Please log in to <a href=\"%2$s\" class=\"wcapa-seller-central-secret-key-url\" target=\"_blank\">Seller Central</a> and get your <strong>%1$s</strong> from there. More details about this <a href=\"%3$s\" target=\"_blank\">here</a>."
 msgstr ""
 
-#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:865
+#: includes/class-wc-gateway-amazon-payments-advanced-abstract.php:869
 msgid "Please upload a valid .json file"
 msgstr ""
 

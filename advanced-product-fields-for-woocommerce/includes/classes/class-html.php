@@ -183,7 +183,7 @@ namespace SW_WAPF\Includes\Classes
 
             $field_attributes = [
                 'name'              => 'wapf[field_'.$field->id.']',
-                'class'             => implode(' ',array_merge(array_map('sanitize_html_class',$extra_classes,$classes))),
+                'class'             => implode(' ',array_merge( array_map( 'sanitize_html_class', $extra_classes ), $classes ) ),
                 'data-is-required'  => $field->required,
                 'data-field-id'     => $field->id
             ];

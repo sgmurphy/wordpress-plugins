@@ -5,12 +5,24 @@ use Averta\WordPress\Database\Entity\Model;
 
 class Lead extends Model
 {
+
+	protected $idColumn = 'id';
+
+	protected $idForeign = 'lead_id';
+
 	/**
 	 * Resource name.
 	 *
 	 * @var string
 	 */
 	protected $resource = 'depicter_leads';
+
+	/**
+	 * Retrieved the joined table name
+	 *
+	 * @var string
+	 */
+	protected string $joined = '';
 
 	/**
 	 * Determines what fields can be saved without be explicitly.
@@ -33,4 +45,9 @@ class Lead extends Model
 	public function currentDateTime() {
         return gmdate('Y-m-d H:i:s', time());
     }
+
+	public function fields(){
+		return $this->hasMany(LeadField::class, $this->idForeign, $this->idColumn );
+	}
+
 }

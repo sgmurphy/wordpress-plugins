@@ -276,7 +276,7 @@ class THWEPOF_Admin_Settings_Advanced extends THWEPOF_Admin_Settings{
 			$settings_data_encoded = sanitize_textarea_field(wp_unslash($_POST['i_settings_data']));
 			$base64_decoded = base64_decode($settings_data_encoded);
 
-			if(!is_serialized($base64_decoded)){
+			if(!is_serialized($base64_decoded) || false == $base64_decoded ){
 			// if(!$this->is_json($base64_decoded,$return_data = false)){
 				$this->print_notices(__('The entered import settings data is invalid. Please try again with valid data.', 'woo-extra-product-options'), 'error', false);
 				return false;
@@ -310,12 +310,12 @@ class THWEPOF_Admin_Settings_Advanced extends THWEPOF_Admin_Settings{
 			    return false;
 			}
 			
-			if($settings){	
+			if($settings){
 				foreach($settings as $key => $value){	
 					if($key === 'OPTION_KEY_CUSTOM_SECTIONS'){
 						if ($value) {
 						    foreach ($value as $section_name => $section) {
-						        $section_class = reset($section);
+							$section_class = is_array($section) ? current($section) : (is_object($section) ? current(get_object_vars($section)) : null);
 
 						        if ($section_class !== 'THWEPOF_Section') {
 						            $this->print_notices(__('Invalid settings detected. Ensure the data is valid and not corrupted!', 'woo-extra-product-options'), 'error', false);

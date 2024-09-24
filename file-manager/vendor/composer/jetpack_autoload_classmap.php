@@ -7,191 +7,195 @@ $baseDir   = dirname($vendorDir);
 
 return array(
 	'Automattic\\Jetpack\\Autoloader\\AutoloadFileWriter' => array(
-		'version' => '3.0.9',
+		'version' => '3.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadFileWriter.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadGenerator' => array(
-		'version' => '3.0.9',
+		'version' => '3.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadGenerator.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\AutoloadProcessor' => array(
-		'version' => '3.0.9',
+		'version' => '3.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/AutoloadProcessor.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\CustomAutoloaderPlugin' => array(
-		'version' => '3.0.9',
+		'version' => '3.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/CustomAutoloaderPlugin.php'
 	),
 	'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => array(
-		'version' => '3.0.9',
+		'version' => '3.1.0',
 		'path'    => $vendorDir . '/automattic/jetpack-autoloader/src/ManifestGenerator.php'
 	),
 	'BitApps\\FM\\Config' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Config.php'
 	),
 	'BitApps\\FM\\Exception\\PreCommandException' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Exception/PreCommandException.php'
 	),
 	'BitApps\\FM\\Http\\Controllers\\FileManagerController' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Controllers/FileManagerController.php'
 	),
 	'BitApps\\FM\\Http\\Controllers\\LogController' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Controllers/LogController.php'
 	),
 	'BitApps\\FM\\Http\\Controllers\\PermissionsController' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Controllers/PermissionsController.php'
 	),
 	'BitApps\\FM\\Http\\Controllers\\SettingsController' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Controllers/SettingsController.php'
 	),
+	'BitApps\\FM\\Http\\Controllers\\TelemetryPopupController' => array(
+		'version' => '6.5.7.9999999-dev',
+		'path'    => $baseDir . '/backend/app/Http/Controllers/TelemetryPopupController.php'
+	),
 	'BitApps\\FM\\Http\\Middleware\\CapCheckerMiddleware' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Middleware/CapCheckerMiddleware.php'
 	),
 	'BitApps\\FM\\Http\\Middleware\\NonceCheckerMiddleware' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Middleware/NonceCheckerMiddleware.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Permissions\\PermissionsGetRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Permissions/PermissionsGetRequest.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Permissions\\PermissionsUpdateRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Permissions/PermissionsUpdateRequest.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Settings\\LangUpdateRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Settings/LangUpdateRequest.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Settings\\SettingsRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Settings/SettingsRequest.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Settings\\SettingsUpdateRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Settings/SettingsUpdateRequest.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Settings\\ThemeUpdateRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Settings/ThemeUpdateRequest.php'
 	),
 	'BitApps\\FM\\Http\\Requests\\Settings\\ToggleViewRequest' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Requests/Settings/ToggleViewRequest.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidPathRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidPathRule.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidUIOptionRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidUIOptionRule.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidateCommandsRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidateCommandsRule.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidateLangRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidateLangRule.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidateRolesRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidateRolesRule.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidateThemeRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidateThemeRule.php'
 	),
 	'BitApps\\FM\\Http\\Rules\\ValidateUsersRule' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Rules/ValidateUsersRule.php'
 	),
 	'BitApps\\FM\\Http\\Services\\LogService' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Http/Services/LogService.php'
 	),
 	'BitApps\\FM\\Model\\Log' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Model/Log.php'
 	),
 	'BitApps\\FM\\Plugin' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Plugin.php'
 	),
 	'BitApps\\FM\\Providers\\AccessControlProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/AccessControlProvider.php'
 	),
 	'BitApps\\FM\\Providers\\FileEditValidator' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/FileEditValidator.php'
 	),
 	'BitApps\\FM\\Providers\\FileManager\\ClientOptions' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/FileManager/ClientOptions.php'
 	),
 	'BitApps\\FM\\Providers\\FileManager\\FileManagerProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/FileManager/FileManagerProvider.php'
 	),
 	'BitApps\\FM\\Providers\\FileManager\\FileRoot' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/FileManager/FileRoot.php'
 	),
 	'BitApps\\FM\\Providers\\FileManager\\FinderConnector' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/FileManager/FinderConnector.php'
 	),
 	'BitApps\\FM\\Providers\\FileManager\\Options' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/FileManager/Options.php'
 	),
 	'BitApps\\FM\\Providers\\HookProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/HookProvider.php'
 	),
 	'BitApps\\FM\\Providers\\InstallerProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/InstallerProvider.php'
 	),
 	'BitApps\\FM\\Providers\\Logger' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/Logger.php'
 	),
 	'BitApps\\FM\\Providers\\MediaSynchronizer' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/MediaSynchronizer.php'
 	),
 	'BitApps\\FM\\Providers\\MimeProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/MimeProvider.php'
 	),
 	'BitApps\\FM\\Providers\\PermissionsProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/PermissionsProvider.php'
 	),
 	'BitApps\\FM\\Providers\\PreferenceProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/PreferenceProvider.php'
 	),
 	'BitApps\\FM\\Providers\\VersionMigrationProvider' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Providers/VersionMigrationProvider.php'
 	),
 	'BitApps\\FM\\Views\\Admin' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Views/Admin.php'
 	),
 	'BitApps\\FM\\Views\\Shortcode' => array(
-		'version' => '6.5.6.9999999-dev',
+		'version' => '6.5.7.9999999-dev',
 		'path'    => $baseDir . '/backend/app/Views/Shortcode.php'
 	),
 	'BitApps\\WPDatabase\\Blueprint' => array(

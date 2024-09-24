@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
-            "version": "v3.0.9",
-            "version_normalized": "3.0.9.0",
+            "version": "v3.1.0",
+            "version_normalized": "3.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-autoloader.git",
-                "reference": "a571038214fc3e142e10f38d1bb97e470fa7b0ec"
+                "reference": "0e36d60ad64e35b5dab7fa4757fadb2235d58f73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/a571038214fc3e142e10f38d1bb97e470fa7b0ec",
-                "reference": "a571038214fc3e142e10f38d1bb97e470fa7b0ec",
+                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/0e36d60ad64e35b5dab7fa4757fadb2235d58f73",
+                "reference": "0e36d60ad64e35b5dab7fa4757fadb2235d58f73",
                 "shasum": ""
             },
             "require": {
@@ -20,11 +20,11 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.5",
+                "automattic/jetpack-changelogger": "^4.2.6",
                 "composer/composer": "^1.1 || ^2.0",
-                "yoast/phpunit-polyfills": "1.1.0"
+                "yoast/phpunit-polyfills": "^1.1.1"
             },
-            "time": "2024-07-10T07:51:07+00:00",
+            "time": "2024-09-06T15:32:10+00:00",
             "type": "composer-plugin",
             "extra": {
                 "autotagger": true,
@@ -37,7 +37,7 @@
                     "::VERSION": "src/AutoloadGenerator.php"
                 },
                 "branch-alias": {
-                    "dev-trunk": "3.0.x-dev"
+                    "dev-trunk": "3.1.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -63,7 +63,7 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.9"
+                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.1.0"
             },
             "install-path": "../automattic/jetpack-autoloader"
         },

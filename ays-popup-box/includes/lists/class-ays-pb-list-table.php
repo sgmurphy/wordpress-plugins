@@ -842,35 +842,35 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $popup = $this->get_popupbox_by_id($id);
 
         // Popup Name
-        $popup_name = ( isset($popup['popup_name']) && $popup['popup_name'] != '' ) ? 'Copy - ' . sanitize_text_field($popup['popup_name']) : '';
+        $popup_name = (isset($popup['popup_name']) && $popup['popup_name'] != '') ? 'Copy - ' . sanitize_text_field($popup['popup_name']) : '';
 
-        // Description
+        // Popup description
         if (is_multisite()) {
             if (is_super_admin()) {
-                $description = ( isset($popup['description']) && $popup['description'] != '' ) ? stripslashes($popup['description'] ) : '';
+                $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes($popup['description'] ) : '';
             } else {
-                $description = ( isset($popup['description']) && $popup['description'] != '' ) ? stripslashes( wp_kses_post($popup['description']) ) : '';
-            }
-        } else {
-            if(current_user_can('unfiltered_html')) {
-                $description = ( isset($popup['description']) && $popup['description'] != '' ) ? stripslashes($popup['description']) : '';
-            } else {
-                $description = ( isset($popup['description']) && $popup['description'] != '' ) ? stripslashes( wp_kses_post($popup['description']) ) : '';
-            }
-        }
-
-        // Custom HTML
-        if (is_multisite()) {
-            if (is_super_admin()) {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes($popup['custom_html']) : '';
-            } else {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+                $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes(wp_kses_post($popup['description'])) : '';
             }
         } else {
             if (current_user_can('unfiltered_html')) {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes($popup['custom_html']) : '';
+                $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes($popup['description']) : '';
             } else {
-                $popup_custom_html = ( isset($popup['custom_html']) && $popup['custom_html'] != '' ) ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+                $description = (isset($popup['description']) && $popup['description'] != '') ? stripslashes( wp_kses_post($popup['description']) ) : '';
+            }
+        }
+
+        // Custom content
+        if (is_multisite()) {
+            if (is_super_admin()) {
+                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes($popup['custom_html']) : '';
+            } else {
+                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
+            }
+        } else {
+            if (current_user_can('unfiltered_html')) {
+                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes($popup['custom_html']) : '';
+            } else {
+                $popup_custom_html = (isset($popup['custom_html']) && $popup['custom_html'] != '') ? stripslashes( wp_kses_post($popup['custom_html']) ) : '';
             }
         }
 
@@ -1090,6 +1090,9 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Logo redirect to the new tab
         $notification_logo_redirect_to_new_tab = (isset($_POST['ays_pb_notification_logo_redirect_to_new_tab']) && $_POST['ays_pb_notification_logo_redirect_to_new_tab'] == 'on') ? 'on' : 'off';
 
+        // Notification type | Logo width
+        $notification_logo_width = (isset($_POST['ays_pb_notification_logo_width']) && $_POST['ays_pb_notification_logo_width'] != '') ? absint( intval($_POST['ays_pb_notification_logo_width']) ) : 100;
+
         // Notification type | Logo max-width
         $notification_logo_max_width = (isset($_POST['ays_pb_notification_logo_max_width']) && $_POST['ays_pb_notification_logo_max_width'] != '') ? absint( intval($_POST['ays_pb_notification_logo_max_width']) ) : 100;
 
@@ -1168,6 +1171,54 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Notification type | Button 1 box shadow Z offset
         $notification_button_1_box_shadow_z_offset = (isset($_POST['ays_pb_notification_button_1_box_shadow_z_offset']) && $_POST['ays_pb_notification_button_1_box_shadow_z_offset'] != '') ? intval($_POST['ays_pb_notification_button_1_box_shadow_z_offset']) : 10;
  
+        // Popup description
+        if (is_multisite()) {
+            if (is_super_admin()) {
+                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? stripslashes($_POST['ays-pb']['popup_description']) : '';
+            } else {
+                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? wp_kses_post($_POST['ays-pb']['popup_description']) : '';
+            }
+        } else {
+            if (current_user_can('unfiltered_html')) {
+                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? stripslashes($_POST['ays-pb']['popup_description']) : '';
+            } else {
+                $description = (isset($_POST['ays-pb']['popup_description']) && $_POST['ays-pb']['popup_description'] != '') ? wp_kses_post($_POST['ays-pb']['popup_description']) : '';
+            }
+        }
+
+        // Show popup only for author
+        $show_only_for_author = (isset($_POST['ays_pb_show_popup_only_for_author']) && $_POST['ays_pb_show_popup_only_for_author'] != '') ? 'on' : 'off';
+
+        // Display
+		$show_all = (isset($_POST['ays-pb']['show_all'] ) && $_POST['ays-pb']['show_all'] != '') ? wp_unslash( sanitize_text_field($_POST['ays-pb']['show_all']) ) : 'all';
+
+        // Post type
+        $except_types = isset($_POST['ays_pb_except_post_types']) ? $_POST['ays_pb_except_post_types'] : array();
+
+        // Posts
+        $except_posts = isset($_POST['ays_pb_except_posts']) ? $_POST['ays_pb_except_posts'] : array();
+
+        // Show on Home page
+        $show_on_home_page = (isset($_POST['ays_pb_show_on_home_page']) && $_POST['ays_pb_show_on_home_page'] == 'on') ? 'on' : 'off';
+
+        // Popup trigger
+		$action_button_type = (isset($_POST['ays-pb']['action_button_type']) && $_POST['ays-pb']['action_button_type'] != '') ? wp_unslash( sanitize_text_field($_POST['ays-pb']['action_button_type']) ) : 'both';
+
+        // CSS selector(s) for trigger click
+		$action_button = (isset($_POST['ays-pb']['action_button']) && $_POST['ays-pb']['action_button'] != '') ? wp_unslash( sanitize_text_field($_POST['ays-pb']['action_button']) ) : '';
+
+        // Popup position
+        $pb_position = (isset($_POST['ays-pb']['pb_position']) && $_POST['ays-pb']['pb_position'] != '') ? wp_unslash( sanitize_text_field($_POST['ays-pb']['pb_position']) ) : 'center-center';
+
+        // Enable different popup position for mobile
+        $enable_pb_position_mobile = (isset($_POST['ays_pb_enable_popup_position_mobile']) && $_POST['ays_pb_enable_popup_position_mobile'] == 'on') ? 'on' : 'off';
+
+        // Popup position mobile
+        $pb_position_mobile = (isset($_POST['ays_pb_position_mobile']) && $_POST['ays_pb_position_mobile'] != '') ? wp_unslash( sanitize_text_field($_POST['ays_pb_position_mobile']) ) : 'center-center';
+
+        // Popup margin (px)
+        $pb_margin = (isset($_POST['ays-pb']['pb_margin']) && $_POST['ays-pb']['pb_margin'] != '') ? wp_unslash( sanitize_text_field( intval($_POST['ays-pb']['pb_margin']) ) ) : 0;
+
         // Width
 		$width = ( isset( $_POST['ays-pb']["width"] ) && $_POST['ays-pb']["width"] != '' ) ? absint( intval( $_POST['ays-pb']["width"] ) ) : '';
 
@@ -1201,21 +1252,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Show once per session
 		$cookie = ( isset( $_POST['ays-pb']["cookie"] ) && $_POST['ays-pb']["cookie"] != '' ) ? absint( intval( $_POST['ays-pb']["cookie"] ) ) : 0;
-
-        //Description
-        if (is_multisite()) {
-            if (is_super_admin()) {
-                $description = ( isset( $_POST['ays-pb']["popup_description"] ) && $_POST['ays-pb']["popup_description"] != '' ) ? stripslashes( $_POST['ays-pb']["popup_description"] ) : '';
-            } else {
-                $description = ( isset( $_POST['ays-pb']["popup_description"] ) && $_POST['ays-pb']["popup_description"] != '' ) ? wp_kses_post( $_POST['ays-pb']["popup_description"] ) : '';
-            }
-        } else {
-            if(current_user_can('unfiltered_html')) {
-                $description = ( isset( $_POST['ays-pb']["popup_description"] ) && $_POST['ays-pb']["popup_description"] != '' ) ? stripslashes( $_POST['ays-pb']["popup_description"] ) : '';
-            } else {
-                $description = ( isset( $_POST['ays-pb']["popup_description"] ) && $_POST['ays-pb']["popup_description"] != '' ) ? wp_kses_post( $_POST['ays-pb']["popup_description"] ) : '';
-            }
-        }
 
         //Category Id 
         $popup_category_id = ( isset( $_POST['ays_popup_category'] ) && $_POST['ays_popup_category'] != '' ) ? absint( sanitize_text_field( $_POST['ays_popup_category'] ) ) : null;
@@ -1264,9 +1300,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         //Custom Class
 		$custom_css = ( isset( $_POST['ays-pb']["custom-css"] ) && $_POST['ays-pb']["custom-css"] != '' ) ? wp_unslash(stripslashes( esc_attr( $_POST['ays-pb']["custom-css"] ) ) ) : '';
 
-        //Show All
-		$show_all = ( isset( $_POST['ays-pb']["show_all"] ) && $_POST['ays-pb']["show_all"] != '' ) ? wp_unslash(sanitize_text_field( $_POST['ays-pb']["show_all"] )) : 'all';
-
         //Animation Delay
 		$delay = ( isset( $_POST['ays-pb']["delay"] ) && $_POST['ays-pb']["delay"] != '' ) ? wp_unslash(sanitize_text_field( $_POST['ays-pb']["delay"] )) : 0;
      
@@ -1303,12 +1336,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         //Animate Out Mobile
         $animate_out_mobile = ( isset($_POST['ays_pb_animate_out_mobile']) && $_POST['ays_pb_animate_out_mobile'] != '' ) ? wp_unslash( sanitize_text_field($_POST['ays_pb_animate_out_mobile']) ) : 0;
 
-        //Action Button
-		$action_button = wp_unslash(sanitize_text_field( $_POST['ays-pb']["action_button"] ));
-
-        //Action Button Type
-		$action_button_type  = ( isset( $_POST['ays-pb']["action_button_type"] ) && $_POST['ays-pb']["action_button_type"] != '' ) ? wp_unslash(sanitize_text_field( $_POST['ays-pb']["action_button_type"] )) : 'both';
-
         //Modal Content
 		$modal_content = ( isset( $_POST['ays-pb']["modal_content"] ) && $_POST['ays-pb']["modal_content"] != '' ) ? wp_unslash(sanitize_text_field( $_POST['ays-pb']["modal_content"] )) : '';
 
@@ -1342,18 +1369,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Background Image Sizing Mobile
         $pb_bg_image_sizing_mobile = (isset($_POST['ays_pb_bg_image_sizing_mobile']) && $_POST['ays_pb_bg_image_sizing_mobile'] != "") ? stripslashes( sanitize_text_field($_POST['ays_pb_bg_image_sizing_mobile']) ) : 'cover';
 
-        //Popup Position
-        $pb_position = ( isset( $_POST['ays-pb']["pb_position"] ) && $_POST['ays-pb']["pb_position"] != '' ) ? wp_unslash(sanitize_text_field( $_POST['ays-pb']["pb_position"] )) : 'center-center';
-
-        // Enable different popup position for mobile
-        $enable_pb_position_mobile = ( isset($_POST['ays_pb_enable_popup_position_mobile']) && $_POST['ays_pb_enable_popup_position_mobile'] == 'on' ) ? 'on' : 'off';
-
-        //Popup Position mobile
-        $pb_position_mobile = ( isset($_POST['ays_pb_position_mobile']) && $_POST['ays_pb_position_mobile'] != '' ) ? wp_unslash( sanitize_text_field($_POST['ays_pb_position_mobile']) ) : 'center-center';
-
-        //Popup Margin
-        $pb_margin = ( isset( $_POST['ays-pb']["pb_margin"] ) && $_POST['ays-pb']["pb_margin"] != '' ) ? wp_unslash(sanitize_text_field( intval( $_POST['ays-pb']["pb_margin"] ))) : '0';
-
         // Schedule Popup
         $active_date_check = (isset($_POST['active_date_check']) && $_POST['active_date_check'] == "on") ? 'on' : 'off';
         $activeInterval = isset($_POST['ays-active']) ? sanitize_text_field($_POST['ays-active']) : "";
@@ -1374,10 +1389,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         $pb_background_gradient_color_1_mobile = !isset($_POST['ays_background_gradient_color_1_mobile']) ? '' : stripslashes(sanitize_text_field($_POST['ays_background_gradient_color_1_mobile'] ));
         $pb_background_gradient_color_2_mobile = !isset($_POST['ays_background_gradient_color_2_mobile']) ? '' : stripslashes(sanitize_text_field( $_POST['ays_background_gradient_color_2_mobile'] ));
         $pb_gradient_direction_mobile = !isset($_POST['ays_pb_gradient_direction_mobile']) ? '' : stripslashes( sanitize_text_field($_POST['ays_pb_gradient_direction_mobile']) );
-
-        //Posts
-        $except_types = isset($_POST['ays_pb_except_post_types']) ? $_POST['ays_pb_except_post_types'] : array();
-        $except_posts = isset($_POST['ays_pb_except_posts']) ? $_POST['ays_pb_except_posts'] : array();
 
         //Close button delay
         $close_button_delay = (isset($_POST['ays_pb_close_button_delay']) && $_POST['ays_pb_close_button_delay'] != '') ? abs(intval($_POST['ays_pb_close_button_delay'])) : '';
@@ -1453,9 +1464,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
 
         //Show PopupBox only once
         $show_only_once = (isset($_POST['ays_pb_show_only_once']) && $_POST['ays_pb_show_only_once'] == 'on') ? 'on' : 'off';
-       
-        //Show only on home page
-        $show_on_home_page = (isset($_POST['ays_pb_show_on_home_page']) && $_POST['ays_pb_show_on_home_page'] == 'on') ? 'on' : 'off';
 
         //close popup by esc
         $close_popup_esc = (isset($_POST['close_popup_esc']) && $_POST['close_popup_esc'] == 'on') ? 'on' : 'off';
@@ -1750,9 +1758,6 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
         // Close button hover color
         $close_button_hover_color = ( isset($_POST['ays_pb_close_button_hover_color']) && $_POST['ays_pb_close_button_hover_color'] != "" ) ? sanitize_text_field( $_POST['ays_pb_close_button_hover_color'] ) : '#000000';
 
-        // Show only for author
-        $show_only_for_author = ( isset($_POST['ays_pb_show_popup_only_for_author']) && $_POST['ays_pb_show_popup_only_for_author'] != "" ) ? 'on' : 'off';
-
         // Blured Overlay
         $blured_overlay = ( isset($_POST['ays_pb_blured_overlay']) && $_POST['ays_pb_blured_overlay'] != "" ) ? 'on' : 'off';
 
@@ -1844,6 +1849,7 @@ class Ays_PopupBox_List_Table extends WP_List_Table {
             'notification_logo_image' => $notification_logo_image,
             'notification_logo_redirect_url' => $notification_logo_redirect_url,
             'notification_logo_redirect_to_new_tab' => $notification_logo_redirect_to_new_tab,
+            'notification_logo_width' => $notification_logo_width,
             'notification_logo_max_width' => $notification_logo_max_width,
             'notification_main_content' => $notification_main_content,
             'notification_button_1_text' => $notification_button_1_text,

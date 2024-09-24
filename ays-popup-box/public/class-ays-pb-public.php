@@ -1351,6 +1351,9 @@ class Ays_Pb_Public {
 
             $screen_shade = $ays_pb_template == 'notification' ? '' : "<div id='ays-pb-screen-shade_" . $id . "' overlay='overlay_" . $id . "' data-mobile-overlay='" . $enable_overlay_text_mobile . "'></div>";
 
+            // Notification type | Logo width
+            $notification_logo_width = (isset($options['notification_logo_width']) && $options['notification_logo_width'] != '') ? absint( esc_attr($options['notification_logo_width']) ) . '%' : '100%';
+
             // Notification type | Logo max-width
             $notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) . 'px' : '100px';
 
@@ -1448,6 +1451,7 @@ class Ays_Pb_Public {
                         }
 
                         .ays_notification_window.ays-pb-modal_".$id." .ays_pb_notification_logo img {
+                            width: " . $notification_logo_width . ";
                             max-width: " . $notification_logo_max_width . ";
                         }
 

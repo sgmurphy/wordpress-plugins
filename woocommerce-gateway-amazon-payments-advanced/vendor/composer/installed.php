@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-gateway-amazon-payments-advanced',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '3ec17a4cfb546ff534c271eeffadd0ce856f26e0',
+        'reference' => '054e5fa447cf757e06c3f0ac9b22a75f6e15ebd9',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'woocommerce/woocommerce-gateway-amazon-payments-advanced' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '3ec17a4cfb546ff534c271eeffadd0ce856f26e0',
+            'reference' => '054e5fa447cf757e06c3f0ac9b22a75f6e15ebd9',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

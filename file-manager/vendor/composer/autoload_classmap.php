@@ -17,6 +17,7 @@ return array(
     'BitApps\\FM\\Http\\Controllers\\LogController' => $baseDir . '/backend/app/Http/Controllers/LogController.php',
     'BitApps\\FM\\Http\\Controllers\\PermissionsController' => $baseDir . '/backend/app/Http/Controllers/PermissionsController.php',
     'BitApps\\FM\\Http\\Controllers\\SettingsController' => $baseDir . '/backend/app/Http/Controllers/SettingsController.php',
+    'BitApps\\FM\\Http\\Controllers\\TelemetryPopupController' => $baseDir . '/backend/app/Http/Controllers/TelemetryPopupController.php',
     'BitApps\\FM\\Http\\Middleware\\CapCheckerMiddleware' => $baseDir . '/backend/app/Http/Middleware/CapCheckerMiddleware.php',
     'BitApps\\FM\\Http\\Middleware\\NonceCheckerMiddleware' => $baseDir . '/backend/app/Http/Middleware/NonceCheckerMiddleware.php',
     'BitApps\\FM\\Http\\Requests\\Permissions\\PermissionsGetRequest' => $baseDir . '/backend/app/Http/Requests/Permissions/PermissionsGetRequest.php',

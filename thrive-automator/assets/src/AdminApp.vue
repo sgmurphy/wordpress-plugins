@@ -11,6 +11,15 @@
 			<div class="tap-app-loader"/>
 			<notice/>
 		</teleport>
+
+		<div class="td-app-notification-overlay overlay close"></div>
+		<div class="td-app-notification-drawer">
+			<div class="td-app-notification-holder">
+				<div class="td-app-notification-header notification-header-notify-t-automator"></div>
+				<div class="td-app-notification-wrapper notification-wrapper-notify-t-automator"></div>
+				<div class="notification-footer notification-footer-notify-t-automator"></div>
+			</div>
+		</div>
 	</div>
 </template>
 <script>

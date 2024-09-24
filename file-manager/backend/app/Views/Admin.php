@@ -21,7 +21,7 @@ class Admin
 
     public function __construct()
     {
-        // Hooks::addAction('in_admin_header', [$this, 'removeAdminNotices']);
+        Hooks::addAction('in_admin_header', [$this, 'removeAdminNotices']);
         Hooks::addAction('admin_menu', [$this, 'sideBarMenuItem']);
         Hooks::addAction('admin_notices', [$this, 'adminNotice']);
         Hooks::addFilter(Config::withPrefix('localized_script'), [$this, 'filterConfigVariable']);
@@ -143,7 +143,8 @@ class Admin
             wp_enqueue_script(
                 Config::SLUG . '-MODULE-main',
                 Config::get('ASSET_JS_URI') . '/main.' . Config::VERSION . '.js',
-                [Config::SLUG . 'elfinder-script']
+                [Config::SLUG . 'elfinder-script'],
+                Config::VERSION
             );
 
             wp_enqueue_style(

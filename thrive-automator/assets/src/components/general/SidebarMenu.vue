@@ -44,6 +44,11 @@
 				<icon icon-name="tap-cog"/>
 				<span class="tap-menu-text">Settings</span>
 			</div>
+			<div class="tap-menu-item" @click="openNoticeDrawer">
+				<icon :icon-name="'tap-icon-notice-active'" class="active-icon"/>
+				<icon :icon-name="'tap-icon-notice'" class="default-icon"/>
+				<span class="tap-menu-text">Notice</span>
+			</div>
 		</div>
 	</div>
 </template>
@@ -111,6 +116,13 @@ export default {
 					tooltip: 'apps_tooltip'
 				},
 			} )
+		},
+		openNoticeDrawer() {
+			let overlay_element = document.querySelector( '.td-app-notification-overlay' )
+			let drawer_element = document.querySelector( '.td-app-notification-drawer' )
+
+			overlay_element.classList.remove("close");
+			drawer_element.classList.add("open");
 		}
 	}
 }

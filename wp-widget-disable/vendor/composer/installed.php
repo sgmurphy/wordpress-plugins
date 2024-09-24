@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wearerequired/wp-widget-disable',
-        'pretty_version' => '3.0.0',
-        'version' => '3.0.0.0',
-        'reference' => '7b52c2f91b9b31427dbc784cba00965c6e62c7e8',
+        'pretty_version' => '3.0.1',
+        'version' => '3.0.1.0',
+        'reference' => 'c32dc018f5c85882198aa9351d8798fe01f8a41a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'wearerequired/wp-widget-disable' => array(
-            'pretty_version' => '3.0.0',
-            'version' => '3.0.0.0',
-            'reference' => '7b52c2f91b9b31427dbc784cba00965c6e62c7e8',
+            'pretty_version' => '3.0.1',
+            'version' => '3.0.1.0',
+            'reference' => 'c32dc018f5c85882198aa9351d8798fe01f8a41a',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

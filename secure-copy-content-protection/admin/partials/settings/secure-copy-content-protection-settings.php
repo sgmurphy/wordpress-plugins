@@ -433,6 +433,15 @@ $sccp_sub_bg_image_position = (isset($subscribe["sub_bg_image_position"]) && $su
                                 </p>
                                 <p class="vmessage">
                                     <strong>
+                                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_author_display_name%%" />
+                                    </strong>
+                                    <span> - </span>
+                                    <span style="font-size:18px;">
+                                        <?php echo esc_attr( __( "The Display name of the author of the post.", $this->plugin_name) ); ?>
+                                    </span>
+                                </p>
+                                <p class="vmessage">
+                                    <strong>
                                         <input type="text" onClick="this.setSelectionRange(0, this.value.length)" readonly value="%%post_id%%" />
                                     </strong>
                                     <span> - </span>

@@ -317,7 +317,7 @@ class THWEPOF {
 		$now = time();
 
 		// $render_time = apply_filters('thwepof_show_discount_popup_render_time' , 3 * MONTH_IN_SECONDS);
-		$render_time  = apply_filters('thwepof_show_discount_popup_render_time', 4 * MONTH_IN_SECONDS);
+		$render_time  = apply_filters('thwepof_show_discount_popup_render_time', 1 * MONTH_IN_SECONDS);
 		$render_time = $thwepof_since + $render_time;
 		
 		if (isset($_GET['thwepof_discount_popup_dismiss'])) {

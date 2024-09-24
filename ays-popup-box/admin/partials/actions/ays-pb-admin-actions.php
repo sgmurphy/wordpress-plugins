@@ -144,6 +144,7 @@ $options = array(
     'notification_logo_image' => '',
     'notification_logo_redirect_url' => '',
     'notification_logo_redirect_to_new_tab' => 'off',
+    'notification_logo_width' => 100,
     'notification_logo_max_width' => 100,
     'notification_main_content' => 'Write the custom notification banner text here.',
     'notification_button_1_text' => 'Click!',
@@ -497,6 +498,9 @@ $notification_logo_redirect_url = (isset($options['notification_logo_redirect_ur
 
 // Notification type | Logo redirect to the new tab
 $notification_logo_redirect_to_new_tab = (isset($options['notification_logo_redirect_to_new_tab']) && $options['notification_logo_redirect_to_new_tab'] == 'on') ? true : false;
+
+// Notification type | Logo width
+$notification_logo_width = (isset($options['notification_logo_width']) && $options['notification_logo_width'] != '') ? absint( esc_attr($options['notification_logo_width']) ) : 100;
 
 // Notification type | Logo max-width
 $notification_logo_max_width = (isset($options['notification_logo_max_width']) && $options['notification_logo_max_width'] != '') ? absint( esc_attr($options['notification_logo_max_width']) ) : 100;
@@ -1863,6 +1867,29 @@ $ays_users_roles = $wp_roles->roles;
                                 <div class="ays-pb-accordion-body">
                                     <div class="form-group row">
                                         <div class="col-sm-3">
+                                            <label for="ays_pb_notification_logo_width">
+                                                <?php  echo __('Width', "ays-popup-box" ) ?>
+                                                <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the width of the logo in percentage.', "ays-popup-box"); ?>" >
+                                                    <img src="<?php echo AYS_PB_ADMIN_URL . "/images/icons/info-circle.svg"?>">
+                                                </a>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <div style="display: flex; gap: 10px">
+                                                <div>
+                                                    <input type="number" id="ays_pb_notification_logo_width" class="ays-text-input" name="ays_pb_notification_logo_width" value="<?php echo $notification_logo_width ?>" />
+                                                </div>
+                                                <div class="ays_dropdown_max_width">
+                                                    <input type="text" value="%" class="ays-form-hint-for-size" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="ays-pb-accordion-body">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3">
                                             <label for="ays_pb_notification_logo_max_width">
                                                 <?php  echo __('Max-width', "ays-popup-box" ) ?>
                                                 <a class="ays_help" data-toggle="tooltip" title="<?php echo __('Specify the max-width of the logo in pixels.', "ays-popup-box"); ?>" >
@@ -2307,7 +2334,7 @@ $ays_users_roles = $wp_roles->roles;
                             $settings = array('editor_height'=> $pb_wp_editor_height,'textarea_name'=> $this->plugin_name . '[popup_description]', 'editor_class'=>'ays-textarea', 'media_buttons' => true);
                             wp_editor($content,$editor_id,$settings);
                         ?>
-                    </div>                                       
+                    </div>
                 </div>
                 <hr>
                 <!-- Enable popup for author only start-->

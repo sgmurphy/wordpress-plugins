@@ -5,7 +5,7 @@
  * @package PopupMaker\Vendor\CodeAtlantic\PrerequisiteChecks;
  *
  * @license GPL-2.0+
- * Modified by popupmaker on 18-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
+ * Modified by popupmaker on 24-September-2024 using {@see https://github.com/BrianHenryIE/strauss}.
  */
 
 namespace PopupMaker\Vendor\CodeAtlantic\PrerequisiteChecks;

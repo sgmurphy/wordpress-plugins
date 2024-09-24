@@ -3,12 +3,19 @@
 namespace Depicter\Database\Repository;
 
 use Depicter\Database\Entity\LeadField;
+use TypeRocket\Utility\Arr as TypeRocketArr;
 
 class LeadFieldRepository
 {
 
 	/**
-	 * @var LeadField
+	 * List of known field names in form element
+	 */
+	const KNOWN_FORM_FIELD_NAMES = ['name', 'email', 'first-name', 'last-name', 'phone', 'address', 'website', 'message'];
+
+
+	/**
+	 * @var LeadField LeadField
 	 */
 	private $leadField;
 
@@ -37,8 +44,7 @@ class LeadFieldRepository
 	 * @return array|false|int|object|void|null
 	 * @throws \Exception
 	 */
-	public function delete( $id )
-	{
+	public function delete( $id ){
 		if( $leadField = $this->leadField()->findById( $id ) ){
 			return $leadField->delete();
 		}
@@ -106,14 +112,32 @@ class LeadFieldRepository
 	/**
 	 * Queries records of leads with specified fields
 	 *
-	 * @param array $fields
+	 * @param $columns
 	 *
 	 * @return LeadField
 	 * @throws \Exception
 	 */
-	public function select( array $fields = [] )
-	{
-		$columnsName = !empty( $fields ) ? $fields : ['id', 'lead_id' ,'name', 'type', 'value', 'created_at', 'updated_at'];
-		return $this->leadField()->reselect( $columnsName );
+	public function select( $columns = [] ) {
+		$entity  = LeadField::new();
+		$columns = !empty( $columns ) ? $columns : $entity->getTableColumns();
+		return $entity->select( $columns );
+	}
+
+
+	/**
+	 * Finds field names for lead id(s)
+	 *
+	 * @param int|array $leadIds
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function getFieldNamesByLeadId( $leadIds ){
+		if( ! $leadIds = (array) $leadIds ){
+			return [];
+		}
+		$leadFieldNames = $this->leadField->select('name')->where('lead_id', 'IN', $leadIds )->findAll()->get();
+		$leadFieldNames = $leadFieldNames ? TypeRocketArr::pluck( $leadFieldNames->toArray(), 'name' ) : [];
+		return array_unique( $leadFieldNames );
 	}
 }

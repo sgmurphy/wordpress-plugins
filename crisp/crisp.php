@@ -4,7 +4,7 @@
  * Plugin URI: http://wordpress.org/plugins/crisp/
  * Description: Crisp Live Chat - Crisp provides a comprehensive live chat widget solution with an AI chatbot, CRM, help center, and more. Seamlessly integrated with WordPress and WooCommerce, it automatically displays the names and emails of logged-in visitors. Create a free account or log in with an existing one to get started.
  * Author: Crisp
- * Version: 0.46
+ * Version: 0.47
  * Author URI: https://crisp.chat
  * Text Domain: crisp
 */

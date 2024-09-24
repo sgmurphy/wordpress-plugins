@@ -16,7 +16,7 @@
  * Plugin Name:       Secure Copy Content Protection
  * Plugin URI:        https://ays-pro.com/wordpress/secure-copy-content-protection/
  * Description:       Copy Protection plugin is activated it disables the right click, copy paste, content selection and copy shortcut keys
- * Version:           4.2.5
+ * Version:           4.2.6
  * Author:            Copy Content Protection Team
  * Author URI:        https://ays-pro.com/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if (!defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('SCCP_NAME_VERSION', '4.2.5');
+define('SCCP_NAME_VERSION', '4.2.6');
 define('SCCP_NAME', 'secure-copy-content-protection');
 if (!defined('SCCP_ADMIN_URL')) {
 	define('SCCP_ADMIN_URL', plugin_dir_url(__FILE__) . 'admin');

@@ -3,9 +3,9 @@ Contributors: crisp.chat
 Donate link: https://crisp.chat
 Tags:  livechat, live chat, crisp, chatbot, free live chat, Chat bot, bot
 Requires at least: 3.0.1
-Tested up to: 6.4
+Tested up to: 6.6
 Requires PHP: 5.3
-Stable tag: 0.46
+Stable tag: 0.47
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 

@@ -1,6 +1,17 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 7671:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+__webpack_require__(833);
+var entryVirtual = __webpack_require__(5703);
+
+module.exports = entryVirtual('Array').find;
+
+
+/***/ }),
+
 /***/ 8700:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -19,6 +30,22 @@ __webpack_require__(186);
 var entryVirtual = __webpack_require__(5703);
 
 module.exports = entryVirtual('Array').slice;
+
+
+/***/ }),
+
+/***/ 2236:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isPrototypeOf = __webpack_require__(7046);
+var method = __webpack_require__(7671);
+
+var ArrayPrototype = Array.prototype;
+
+module.exports = function (it) {
+  var own = it.find;
+  return it === ArrayPrototype || (isPrototypeOf(ArrayPrototype, it) && own === ArrayPrototype.find) ? method : own;
+};
 
 
 /***/ }),
@@ -83,6 +110,14 @@ module.exports = function (argument) {
 
 /***/ }),
 
+/***/ 8479:
+/***/ ((module) => {
+
+module.exports = function () { /* empty */ };
+
+
+/***/ }),
+
 /***/ 6059:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -139,6 +174,86 @@ module.exports = {
 
 /***/ }),
 
+/***/ 3610:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var bind = __webpack_require__(6843);
+var uncurryThis = __webpack_require__(5329);
+var IndexedObject = __webpack_require__(7026);
+var toObject = __webpack_require__(9678);
+var lengthOfArrayLike = __webpack_require__(623);
+var arraySpeciesCreate = __webpack_require__(4692);
+
+var push = uncurryThis([].push);
+
+// `Array.prototype.{ forEach, map, filter, some, every, find, findIndex, filterReject }` methods implementation
+var createMethod = function (TYPE) {
+  var IS_MAP = TYPE == 1;
+  var IS_FILTER = TYPE == 2;
+  var IS_SOME = TYPE == 3;
+  var IS_EVERY = TYPE == 4;
+  var IS_FIND_INDEX = TYPE == 6;
+  var IS_FILTER_REJECT = TYPE == 7;
+  var NO_HOLES = TYPE == 5 || IS_FIND_INDEX;
+  return function ($this, callbackfn, that, specificCreate) {
+    var O = toObject($this);
+    var self = IndexedObject(O);
+    var boundFunction = bind(callbackfn, that);
+    var length = lengthOfArrayLike(self);
+    var index = 0;
+    var create = specificCreate || arraySpeciesCreate;
+    var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined;
+    var value, result;
+    for (;length > index; index++) if (NO_HOLES || index in self) {
+      value = self[index];
+      result = boundFunction(value, index, O);
+      if (TYPE) {
+        if (IS_MAP) target[index] = result; // map
+        else if (result) switch (TYPE) {
+          case 3: return true;              // some
+          case 5: return value;             // find
+          case 6: return index;             // findIndex
+          case 2: push(target, value);      // filter
+        } else switch (TYPE) {
+          case 4: return false;             // every
+          case 7: push(target, value);      // filterReject
+        }
+      }
+    }
+    return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target;
+  };
+};
+
+module.exports = {
+  // `Array.prototype.forEach` method
+  // https://tc39.es/ecma262/#sec-array.prototype.foreach
+  forEach: createMethod(0),
+  // `Array.prototype.map` method
+  // https://tc39.es/ecma262/#sec-array.prototype.map
+  map: createMethod(1),
+  // `Array.prototype.filter` method
+  // https://tc39.es/ecma262/#sec-array.prototype.filter
+  filter: createMethod(2),
+  // `Array.prototype.some` method
+  // https://tc39.es/ecma262/#sec-array.prototype.some
+  some: createMethod(3),
+  // `Array.prototype.every` method
+  // https://tc39.es/ecma262/#sec-array.prototype.every
+  every: createMethod(4),
+  // `Array.prototype.find` method
+  // https://tc39.es/ecma262/#sec-array.prototype.find
+  find: createMethod(5),
+  // `Array.prototype.findIndex` method
+  // https://tc39.es/ecma262/#sec-array.prototype.findIndex
+  findIndex: createMethod(6),
+  // `Array.prototype.filterReject` method
+  // https://github.com/tc39/proposal-array-filtering
+  filterReject: createMethod(7)
+};
+
+
+/***/ }),
+
 /***/ 568:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -189,6 +304,49 @@ module.exports = function (METHOD_NAME, argument) {
 var uncurryThis = __webpack_require__(5329);
 
 module.exports = uncurryThis([].slice);
+
+
+/***/ }),
+
+/***/ 5693:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var isArray = __webpack_require__(1052);
+var isConstructor = __webpack_require__(4284);
+var isObject = __webpack_require__(941);
+var wellKnownSymbol = __webpack_require__(9813);
+
+var SPECIES = wellKnownSymbol('species');
+var $Array = Array;
+
+// a part of `ArraySpeciesCreate` abstract operation
+// https://tc39.es/ecma262/#sec-arrayspeciescreate
+module.exports = function (originalArray) {
+  var C;
+  if (isArray(originalArray)) {
+    C = originalArray.constructor;
+    // cross-realm fallback
+    if (isConstructor(C) && (C === $Array || isArray(C.prototype))) C = undefined;
+    else if (isObject(C)) {
+      C = C[SPECIES];
+      if (C === null) C = undefined;
+    }
+  } return C === undefined ? $Array : C;
+};
+
+
+/***/ }),
+
+/***/ 4692:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var arraySpeciesConstructor = __webpack_require__(5693);
+
+// `ArraySpeciesCreate` abstract operation
+// https://tc39.es/ecma262/#sec-arrayspeciescreate
+module.exports = function (originalArray, length) {
+  return new (arraySpeciesConstructor(originalArray))(length === 0 ? 0 : length);
+};
 
 
 /***/ }),
@@ -1561,6 +1719,36 @@ module.exports = function (name) {
 
 /***/ }),
 
+/***/ 833:
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+var $ = __webpack_require__(6887);
+var $find = (__webpack_require__(3610).find);
+var addToUnscopables = __webpack_require__(8479);
+
+var FIND = 'find';
+var SKIPS_HOLES = true;
+
+// Shouldn't skip holes
+// eslint-disable-next-line es/no-array-prototype-find -- testing
+if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
+
+// `Array.prototype.find` method
+// https://tc39.es/ecma262/#sec-array.prototype.find
+$({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
+  find: function find(callbackfn /* , that = undefined */) {
+    return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+// https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
+addToUnscopables(FIND);
+
+
+/***/ }),
+
 /***/ 9076:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -1716,6 +1904,16 @@ __webpack_require__(7749);
 
 /***/ }),
 
+/***/ 1577:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var parent = __webpack_require__(2236);
+
+module.exports = parent;
+
+
+/***/ }),
+
 /***/ 9373:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -1754,6 +1952,13 @@ var path = __webpack_require__(4058);
 
 module.exports = path.setTimeout;
 
+
+/***/ }),
+
+/***/ 1679:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(1577);
 
 /***/ }),
 
@@ -1866,6 +2071,9 @@ var __webpack_exports__ = {};
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_index_of__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_instance_index_of__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_set_timeout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7198);
 /* harmony import */ var _babel_runtime_corejs3_core_js_stable_set_timeout__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_set_timeout__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1679);
+/* harmony import */ var _babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -2138,8 +2346,10 @@ var __webpack_exports__ = {};
       });
     },
     toggle_visibility: function (e) {
+      var _context;
       e.preventDefault();
       var target = $($(this).data('toggle'));
+      _babel_runtime_corejs3_core_js_stable_instance_find__WEBPACK_IMPORTED_MODULE_4___default()(_context = $(this)).call(_context, 'span').toggleClass('woocommerce-input-toggle--disabled', 'woocommerce-input-toggle--enabled');
       target.toggleClass('hidden');
       if (!$(this).hasClass('wcapa-toggle-scroll')) {
         return;

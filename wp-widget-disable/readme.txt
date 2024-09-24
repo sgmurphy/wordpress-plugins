@@ -1,10 +1,10 @@
 # Widget Disable #
-Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich
+Contributors:      wearerequired, neverything, swissspidy, ocean90, grapplerulrich, hubersen
 Tags:              widgets, admin, dashboard, sidebar widgets, dashboard widgets, disable widgets
 Requires at least: 6.0
-Tested up to:      6.2
+Tested up to:      6.6
 Requires PHP:      7.4
-Stable tag:        3.0.0
+Stable tag:        3.0.1
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,11 @@ Developed by [required](https://required.com/ "Team of experienced web professio
 4. The stripped-down dashboard.
 
 ## Changelog
+
+### 3.0.1 - 2024-09-19
+
+* Enhancement: Code cleanup, ensuring WordPress 6.6 compatibility.
+
 
 ### 3.0.0 - 2023-03-26
 

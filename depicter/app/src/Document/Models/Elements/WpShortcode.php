@@ -30,6 +30,7 @@ class WpShortcode extends Models\Element
 	public function getSelectorAndCssList(){
 		parent::getSelectorAndCssList();
 
+		$this->selectorCssList[ '.' . $this->getSelector() . ' *' ]['default']['box-sizing'] = 'border-box !important';
         if ( ! empty( $this->options->overflowHidden ) ) {
 		    $this->selectorCssList[ '.' . $this->getSelector() ]['default']['overflow'] = 'hidden';
         }

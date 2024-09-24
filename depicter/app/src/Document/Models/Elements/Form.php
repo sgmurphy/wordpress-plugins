@@ -9,7 +9,6 @@ use Depicter\Html\Html;
 
 class Form extends Models\Element
 {
-
 	/**
 	 * @throws \JsonMapper_Exception
 	 */
@@ -30,6 +29,7 @@ class Form extends Models\Element
 					break;
 				case 'form:submit':
 					$output = Html::button( $args, $this->getContent() );
+
 					break;
 				case 'form:message':
 					$output = Html::div( $args, $this->getMessageContent() );
@@ -66,6 +66,16 @@ class Form extends Models\Element
 	protected function getFormContent(): string{
 		$output  = Html::input( 'hidden', 'action', 'depicter-lead-submit') . "\n";
 		$output .= Html::input( 'hidden', '_sourceId', $this->getDocumentID() ) . "\n";
+
+		if ( !empty( $this->options->captcha ) ) {
+			$clientKey = \Depicter::options()->get('google_recaptcha_client_key', false);
+			$secretKey = \Depicter::options()->get('google_recaptcha_secret_key', false);
+
+			if ( $clientKey && $secretKey ) {
+				$output .= Html::input( 'hidden', '_g_recaptcha_key'  , $clientKey ) . "\n";
+				$output .= Html::input( 'hidden', '_g_recaptcha_token', '' ) . "\n";
+			}
+		}
 
 		if ( $this->childrenObjects ) {
 			$output .= Html::input( 'hidden', '_contentId', $this->getID() ) . "\n";
@@ -209,6 +219,6 @@ class Form extends Models\Element
 	 * @return string
 	 */
 	protected function getSubmitPath(){
-		return '/' . trim( str_replace( home_url(), '', admin_url( 'admin-ajax.php' ) ), '/' );
+		return trim( wp_parse_url( self_admin_url( 'admin-ajax.php' ), PHP_URL_PATH ) );
 	}
 }

@@ -5,6 +5,10 @@ use Averta\WordPress\Database\Entity\Model;
 
 class LeadField extends Model
 {
+	protected $idColumn = 'id';
+
+	protected $idLocal = 'lead_id';
+
 	/**
 	 * Resource name.
 	 *
@@ -19,9 +23,9 @@ class LeadField extends Model
 	 */
 	protected $builtin = [
 		'lead_id',
-		'field_id',
-		'field_type',
-		'field_value',
+		'name',
+		'type',
+		'value',
 		'created_at',
 		'updated_at'
 	];
@@ -36,4 +40,8 @@ class LeadField extends Model
 	public function currentDateTime() {
         return gmdate('Y-m-d H:i:s', time());
     }
+
+	public function lead(){
+		return $this->belongsTo(Lead::class, $this->idLocal, $this->idColumn );
+	}
 }
